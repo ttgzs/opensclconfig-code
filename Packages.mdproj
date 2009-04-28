@@ -32,12 +32,12 @@
         <Package name="Tarball">
           <Builder TargetDirectory="/home/esodan/Projects/LibOpenSCL/LibOpenSCL" DefaultConfiguration="Debug" ctype="TarballDeployTarget">
             <ChildEntries>
-              <SolutionItemReference path="LibOpenSCL\LibOpenSCL.csproj" />
-              <SolutionItemReference path="OpenSCLConfigurator_consoleTranslation\OpenSCLConfigurator_consoleTranslation.mdproj" />
-              <SolutionItemReference path="OpenSCLConfigurator_console\OpenSCLConfigurator_console.csproj" />
               <SolutionItemReference path="LibOpenSCLTranslation\LibOpenSCLTranslation.mdproj" />
+              <SolutionItemReference path="OpenSCLConfigurator_console\OpenSCLConfigurator_console.csproj" />
+              <SolutionItemReference path="OpenSCLConfigurator_consoleTranslation\OpenSCLConfigurator_consoleTranslation.mdproj" />
+              <SolutionItemReference path="LibOpenSCL\LibOpenSCL.csproj" />
             </ChildEntries>
-            <RootEntry path="LibOpenSCL.sln" id="{BC9B1CA9-2F74-4056-A6AA-8AF6B78BC5F9}" />
+            <RootEntry path="LibOpenSCL.sln" id="{418E44A3-22C1-4A9D-B745-AC4DE3BEE44C}" />
           </Builder>
         </Package>
       </Packages>

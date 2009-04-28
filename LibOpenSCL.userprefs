@@ -1,0 +1,28 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ctype="Workbench">
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="LibOpenSCL" expanded="True">
+            <Node name="References" expanded="True" selected="True" />
+          </Node>
+          <Node name="LibOpenSCLTranslation" expanded="True" />
+          <Node name="OpenSCLConfigurator_console" expanded="True">
+            <Node name="References" expanded="True" />
+          </Node>
+          <Node name="OpenSCLConfigurator_consoleTranslation" expanded="True" />
+          <Node name="Packages" expanded="True" />
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" selected="True">
+          <Node name="LibOpenSCL" expanded="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" ctype="Workspace" />
+</Properties>

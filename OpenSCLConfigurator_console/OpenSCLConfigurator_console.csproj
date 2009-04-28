@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8A3B60F8-432B-44EF-9CC6-89983559A683}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>OpenSCLConfigurator_console</AssemblyName>
+    <Description>Application to be run on console. 
+It use LibOpenSCL classes library
+to view and modify SCD/CID or ICD
+files based on IEC 61850 part 6.</Description>
+    <newfilesearch>OnLoad</newfilesearch>
+    <RootNamespace>OpenSCL</RootNamespace>
+    <StartupObject>OpenSCL.ConsoleSCL</StartupObject>
+    <CodePage>65001</CodePage>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>3</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="OpenSCLConfigurator_Console.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibOpenSCL\LibOpenSCL.csproj">
+      <Project>{650D7F8F-4B20-4AC4-A707-E2AA42340EE0}</Project>
+      <Name>LibOpenSCL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

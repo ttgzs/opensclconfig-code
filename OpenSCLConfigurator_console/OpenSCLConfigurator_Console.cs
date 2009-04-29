@@ -1711,12 +1711,12 @@ namespace OpenSCL
 		{
 			string FileName;
 			ConsoleSCL aplicacion = new ConsoleSCL();
-			Console.WriteLine("Teclee la ruta y nombre del archivo");
+			Console.WriteLine("Write path to file type SCD, CID or ICD");
 			FileName = Console.ReadLine();
 //			SCL XMLobject = aplicacion.deserialize("C:\\Proyecto\\IEC61850-Station.xml");						
 			SCL XMLobject = aplicacion.deserialize(FileName);									
 //			aplicacion.serializar(XMLobject,"C:\\Proyecto\\SerializacionIEC61850-Station.xml");
-			aplicacion.serializar(XMLobject,FileName+"nuevo");			
+			aplicacion.serializar(XMLobject,FileName+"New");			
 		}
 				
 		/// <summary>

@@ -1,32 +1,20 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCL/AssemblyInfo.cs" ctype="Workbench">
-    <Files>
-      <File FileName="OpenSCLConfigurator_console/AssemblyInfo.cs" Line="10" Column="29" />
-      <File FileName="LibOpenSCL/AssemblyInfo.cs" Line="7" Column="39" />
-    </Files>
+  <MonoDevelop.Ide.Workbench ctype="Workbench">
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="LibOpenSCL" expanded="True">
             <Node name="References" expanded="True" />
           </Node>
-          <Node name="LibOpenSCLTranslation" expanded="True" />
-          <Node name="OpenSCLConfigurator_console" expanded="True">
+          <Node name="LibOpenSCLGUI" expanded="True">
             <Node name="References" expanded="True" />
           </Node>
-          <Node name="OpenSCLConfigurator_consoleTranslation" expanded="True" />
-          <Node name="Packages" expanded="True">
-            <Node name="Archivos Fuente" selected="True" />
-          </Node>
+          <Node name="LibOpenSCLGUITranslation" expanded="True" />
+          <Node name="OpenSCLConfigurator_console" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">
-        <State expanded="True" selected="True">
-          <Node name="LibOpenSCL" expanded="True" />
-          <Node name="OpenSCLConfigurator_console" expanded="True">
-            <Node name="OpenSCL" expanded="True" />
-          </Node>
-        </State>
+        <State expanded="True" />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

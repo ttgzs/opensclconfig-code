@@ -40,6 +40,10 @@ files.</Description>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Attributes.cs" />
     <Compile Include="SCL.cs" />
+    <Compile Include="ConversionObject.cs" />
+    <Compile Include="ErrorsManagement.cs" />
+    <Compile Include="ObjectManagement.cs" />
+    <Compile Include="XMLSCL.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

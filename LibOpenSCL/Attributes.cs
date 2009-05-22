@@ -25,7 +25,7 @@
  
 using System;
 
-namespace LibOpenSCL
+namespace OpenSCL
 {
 
 	///<summary>

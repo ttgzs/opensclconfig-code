@@ -20,8 +20,10 @@
  * It contains all the classes and methods that were generated from XSD file of the 
  * standard IEC 61850-6 Ed.1.0
 */ 
-	
-namespace LibOpenSCL
+
+using System.Xml.Serialization;
+
+namespace IEC61850.SCL
 {
 
 	/// <remarks/>
@@ -103,7 +105,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The following attributes were added to fulfill standard IEC 61850 Ed.1.0:
 	 * unit -> unitField
@@ -121,7 +123,7 @@ namespace LibOpenSCL
 		}
 		/// <remarks/>
 		/// 
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tSIUnitEnum.V)]
 		public tSIUnitEnum unit {
@@ -159,7 +161,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/
 	public partial class tValueWithUnit {
 		
@@ -174,7 +176,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public tSIUnitEnum unit {
 			get {
@@ -486,7 +488,7 @@ namespace LibOpenSCL
 	/// <remarks/>
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
@@ -496,7 +498,7 @@ namespace LibOpenSCL
 
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/
 	public partial class tHeader {
 		
@@ -541,7 +543,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string id {
 			get {
@@ -689,7 +691,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/
 	public partial class tHitem : tAnyContentFromOtherNamespace {
 		
@@ -706,7 +708,7 @@ namespace LibOpenSCL
 		private string whyField;
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string version {
 			get {
@@ -718,7 +720,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string revision {
 			get {
@@ -730,7 +732,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string when {
 			get {
@@ -829,7 +831,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/
 	public partial class tEnumVal {
 		
@@ -838,7 +840,7 @@ namespace LibOpenSCL
 		private string valueField;
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
 		public string ord {
 			get {
@@ -870,7 +872,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The following attributes were added to fulfill standard IEC 61850 Ed.1.0:
 	 * iedName -> iedNameField
@@ -897,7 +899,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public tAssociationKindEnum kind {
 			get {
@@ -954,7 +956,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public string lnClass {
 			get {
@@ -966,7 +968,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string lnInst {
 			get {
@@ -1001,7 +1003,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The following attributes were added to fulfill standard IEC 61850 Ed.1.0:
 	 * iedName -> iedNameField
@@ -1030,7 +1032,7 @@ namespace LibOpenSCL
 		
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string iedName {
 			get {
@@ -1042,7 +1044,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string ldInst {
 			get {
@@ -1065,7 +1067,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string lnClass {
 			get {
@@ -1077,7 +1079,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string lnInst {
 			get {
@@ -1089,7 +1091,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string doName {
 			get {
@@ -1180,7 +1182,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/
 	public partial class tPhysConn {
 		
@@ -1200,7 +1202,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string type {
 			get {
@@ -1236,7 +1238,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The data type "tPTypeEnum was added to fulfill standard IEC 61850 Ed.1.0
 	*/
@@ -1247,7 +1249,7 @@ namespace LibOpenSCL
 		private string valueField;
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public tPTypeEnum type {
 			get {
@@ -1330,7 +1332,7 @@ namespace LibOpenSCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_VLAN-ID", Namespace="http://www.iec.ch/61850/2003/SCL")]
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0:
 	*/	
@@ -1341,7 +1343,7 @@ namespace LibOpenSCL
 			this.typeField = tPTypeEnum.VLAN_ID;
 		}
 		
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.VLAN_ID)]
 		public tPTypeEnum type {
@@ -1363,7 +1365,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/
@@ -1374,7 +1376,7 @@ namespace LibOpenSCL
 			this.typeField = tPTypeEnum.VLAN_PRIORITY;
 		}
 		
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.VLAN_PRIORITY)]
 		public tPTypeEnum type {
@@ -1396,7 +1398,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/
@@ -1407,7 +1409,7 @@ namespace LibOpenSCL
 			this.typeField = tPTypeEnum.APPID;
 		}
 		
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.APPID)]
 		public tPTypeEnum type {
@@ -1429,7 +1431,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/	
@@ -1440,7 +1442,7 @@ namespace LibOpenSCL
 			this.typeField = tPTypeEnum.MAC_Address;
 		}
 		
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.MAC_Address)]
 		public tPTypeEnum type {
@@ -1462,7 +1464,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/
@@ -1473,7 +1475,7 @@ namespace LibOpenSCL
 			this.typeField = tPTypeEnum.OSI_AE_Invoke;
 		}
 		
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AE_Invoke)]
 		public tPTypeEnum type {
@@ -1495,7 +1497,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/
@@ -1506,7 +1508,7 @@ namespace LibOpenSCL
 			this.typeField = tPTypeEnum.OSI_AE_Qualifier;
 		}
 		
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AE_Qualifier)]
 		public tPTypeEnum type {
@@ -1528,7 +1530,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/	
@@ -1539,7 +1541,7 @@ namespace LibOpenSCL
 			this.typeField = tPTypeEnum.OSI_AP_Invoke;
 		}
 		
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AP_Invoke)]
 		public tPTypeEnum type {
@@ -1561,7 +1563,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/	
@@ -1572,7 +1574,7 @@ namespace LibOpenSCL
 			this.typeField = tPTypeEnum.OSI_AP_Title;
 		}
 		
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AP_Title)]
 		public tPTypeEnum type {
@@ -1594,7 +1596,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/	
@@ -1605,7 +1607,7 @@ namespace LibOpenSCL
 			this.typeField = tPTypeEnum.OSI_PSEL;
 		}
 		
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_PSEL)]
 		public tPTypeEnum type {
@@ -1627,7 +1629,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/	
@@ -1638,7 +1640,7 @@ namespace LibOpenSCL
 			this.typeField = tPTypeEnum.OSI_SSEL;
 		}
 		
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_SSEL)]
 		public tPTypeEnum type {
@@ -1660,7 +1662,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/
@@ -1671,7 +1673,7 @@ namespace LibOpenSCL
 			this.typeField = tPTypeEnum.OSI_TSEL;
 		}
 		
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_TSEL)]
 		public tPTypeEnum type {
@@ -1693,7 +1695,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/
@@ -1704,7 +1706,7 @@ namespace LibOpenSCL
 			this.typeField = tPTypeEnum.OSI_NSAP;
 		}
 		
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_NSAP)]
 		public tPTypeEnum type {
@@ -1726,7 +1728,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/	
@@ -1737,7 +1739,7 @@ namespace LibOpenSCL
 			this.typeField = tPTypeEnum.IP_GATEWAY;
 		}
 		
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.IP_GATEWAY)]
 		public tPTypeEnum type {
@@ -1759,7 +1761,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/	
@@ -1770,7 +1772,7 @@ namespace LibOpenSCL
 			this.typeField = tPTypeEnum.IP_SUBNET;
 		}
 		
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.IP_SUBNET)]
 		public tPTypeEnum type {
@@ -1793,7 +1795,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/	
@@ -1804,7 +1806,7 @@ namespace LibOpenSCL
 			this.typeField = tPTypeEnum.IP;
 		}
 		
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.IP)]
 		public tPTypeEnum type {
@@ -1826,7 +1828,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The following attributes were added to fulfill standard IEC 61850 Ed.1.0:
 	 * iedName -> iedNameField
@@ -1849,7 +1851,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string iedName {
 			get {
@@ -1861,7 +1863,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string ldInst {
 			get {
@@ -1885,7 +1887,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public string lnClass {
 			get {
@@ -1897,7 +1899,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string lnInst {
 			get {
@@ -1990,7 +1992,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tFCDA {
 		
@@ -2080,7 +2082,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public tFCEnum fc {
 			get {
@@ -2502,14 +2504,14 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tServiceWithMax {
 		
 		private uint maxField;
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public uint max {
 			get {
@@ -3109,7 +3111,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tIDNaming : tBaseElement {
 		
@@ -3118,7 +3120,7 @@ namespace LibOpenSCL
 		private string descField;
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string id {
 			get {
@@ -3223,7 +3225,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tAbstractDataAttribute : tUnNaming {
 		
@@ -3258,7 +3260,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public string name {
 			get {
@@ -3281,7 +3283,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public string bType {
 			get {
@@ -3401,7 +3403,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tDO : tUnNaming {
 		
@@ -3418,7 +3420,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="Name")]
 		public string name {
 			get {
@@ -3430,7 +3432,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string type {
 			get {
@@ -3483,7 +3485,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tSettingControl : tUnNaming {
 		
@@ -3496,7 +3498,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public uint numOfSGs {
 			get {
@@ -3551,7 +3553,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tDAI : tUnNaming {
 		
@@ -3583,7 +3585,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public string name {
 			get {
@@ -3649,7 +3651,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tSDI : tUnNaming {
 		
@@ -3674,7 +3676,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public string name {
 			get {
@@ -3717,7 +3719,7 @@ namespace LibOpenSCL
 
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tDOI : tUnNaming {
 		
@@ -3744,7 +3746,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="Name")]
 		public string name {
 			get {
@@ -3800,7 +3802,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tControlBlock : tUnNaming {
 		
@@ -3822,7 +3824,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string ldInst {
 			get {
@@ -3834,7 +3836,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string cbName {
 			get {
@@ -3897,7 +3899,7 @@ namespace LibOpenSCL
 		
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The following attributes were added to fulfill standard IEC 61850 Ed.1.0:
 	 * unit -> unitField
@@ -3913,7 +3915,7 @@ namespace LibOpenSCL
 			this.multiplierField = tUnitMultiplierEnum.m;
 		}
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tSIUnitEnum.s)]
 		public tSIUnitEnum unit {
@@ -3946,7 +3948,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tConnectedAP : tUnNaming {
 		
@@ -4007,7 +4009,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string iedName {
 			get {
@@ -4019,7 +4021,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string apName {
 			get {
@@ -4082,7 +4084,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tAnyLN : tUnNaming {
 		
@@ -4153,7 +4155,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string lnType {
 			get {
@@ -4225,7 +4227,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/
 	public partial class tNaming : tBaseElement {
 		
@@ -4234,7 +4236,7 @@ namespace LibOpenSCL
 		private string descField;
 		
 		/// <remarks/>
-		[Required]
+		////[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string name {
 			get {
@@ -4266,14 +4268,14 @@ namespace LibOpenSCL
 
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tSDO : tNaming {
 		
 		private string typeField;
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string type {
 			get {
@@ -4341,7 +4343,7 @@ namespace LibOpenSCL
 
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The following attributes were added to fulfill standard IEC 61850 Ed.1.0:
 	 * unit -> unitField
@@ -4357,7 +4359,7 @@ namespace LibOpenSCL
 			this.multiplierField = tUnitMultiplierEnum.M;
 		}
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tSIUnitEnum.bs)]
 		public tSIUnitEnum unit {
@@ -4469,7 +4471,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tSampledValueControl : tControlWithIEDName {
 		
@@ -4498,7 +4500,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string smvID {
 			get {
@@ -4522,7 +4524,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public uint smpRate {
 			get {
@@ -4534,7 +4536,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public uint nofASDU {
 			get {
@@ -4642,7 +4644,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tGSEControl : tControlWithIEDName {
 		
@@ -4667,7 +4669,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string appID {
 			get {
@@ -4742,7 +4744,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tLogControl : tControlWithTriggerOpt {
 		
@@ -4758,7 +4760,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string logName {
 			get {
@@ -4803,7 +4805,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tReportControl : tControlWithTriggerOpt {
 		
@@ -4845,7 +4847,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string rptID {
 			get {
@@ -4857,7 +4859,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public uint confRev {
 			get {
@@ -5076,7 +5078,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tLN : tAnyLN {
 		
@@ -5091,7 +5093,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public string lnClass {
 			get {
@@ -5103,7 +5105,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public uint inst {
 			get {
@@ -5288,7 +5290,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tLDevice : tUnNaming {
 		
@@ -5334,7 +5336,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>		
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string inst {
 			get {
@@ -5376,7 +5378,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/	
 	public partial class tLN0 : tAnyLN {
 		
@@ -5451,7 +5453,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public string lnClass {
 			get {
@@ -5463,7 +5465,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string inst {
 			get {
@@ -5838,7 +5840,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The value's atttribute "string lnClassField to tPredefinedLNClassEnum lnClassField"
 	 * was added to fulfill standard IEC 61850 Ed.1.0
@@ -5877,7 +5879,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public tPredefinedLNClassEnum lnClass {
 			get {
@@ -5945,14 +5947,14 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/		
 	public partial class tConnectivityNode : tLNodeContainer {
 		
 		private string pathNameField;
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string pathName {
 			get {
@@ -6018,14 +6020,14 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/		
 	public partial class tGeneralEquipment : tEquipment {
 		
 		private string typeField;
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public string type {
 			get {
@@ -6078,7 +6080,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/		
 	public partial class tPowerTransformer : tEquipment {
 		
@@ -6102,7 +6104,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public tPowerTransformerEnum type {
 			get {
@@ -6123,7 +6125,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/		
 	public partial class tTransformerWinding : tAbstractConductingEquipment {
 		
@@ -6146,7 +6148,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public tTransformerWindingEnum type {
 			get {
@@ -6167,7 +6169,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/		
 	public partial class tTapChanger : tPowerSystemResource {
 		
@@ -6181,7 +6183,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="Name")]
 		public string type {
 			get {
@@ -6261,7 +6263,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/		
 	public partial class tTerminal : tUnNaming {
 		
@@ -6294,7 +6296,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string connectivityNode {
 			get {
@@ -6306,7 +6308,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string substationName {
 			get {
@@ -6318,7 +6320,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string voltageLevelName {
 			get {
@@ -6330,7 +6332,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string bayName {
 			get {
@@ -6342,7 +6344,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string cNodeName {
 			get {
@@ -6430,7 +6432,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/		
 	public partial class tConductingEquipment : tAbstractConductingEquipment {
 		
@@ -6438,7 +6440,7 @@ namespace LibOpenSCL
 		
 		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Required]
+		//[Required]
 		public string type {
 			get {
 				return this.typeField;
@@ -6576,7 +6578,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/		
 	public partial class tDA : tAbstractDataAttribute {
 		
@@ -6631,7 +6633,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public tFCEnum fc {
 			get {
@@ -6652,7 +6654,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/		
 	public partial class tDOType : tIDNaming {
 		
@@ -6691,7 +6693,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public string cdc {
 			get {
@@ -6712,7 +6714,7 @@ namespace LibOpenSCL
 	
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	*/		
 	public partial class tLNodeType : tIDNaming {
 		
@@ -6750,7 +6752,7 @@ namespace LibOpenSCL
 		}
 		
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		public string lnClass {
 			get {
@@ -6771,7 +6773,7 @@ namespace LibOpenSCL
 		
 	/* 
 	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * indication of this was developed using a validation's attribute "//[Required]"
 	 * 
 	 * The following attributes were added to fulfill standard IEC 61850 Ed.1.0:
 	 * unit -> unitField
@@ -6787,7 +6789,7 @@ namespace LibOpenSCL
 			this.multiplierField = tUnitMultiplierEnum.Item;
 		}
 		/// <remarks/>
-		[Required]
+		//[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[System.ComponentModel.DefaultValueAttribute(tSIUnitEnum.s)]
 		public tSIUnitEnum unit {

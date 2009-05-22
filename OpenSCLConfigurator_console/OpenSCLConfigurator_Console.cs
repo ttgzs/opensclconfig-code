@@ -20,11 +20,12 @@
 using System;
 using System.IO;
 using System.Xml.Serialization;
-using LibOpenSCL;
+using OpenSCL;
+using IEC61850.SCL;
 
-namespace OpenSCL
+namespace OpenSCL.Console
 {
-	class ConsoleSCL
+	class Application
 	{		
    		/// <summary>
    		/// This method is used to deserialize a XML file.
@@ -56,36 +57,36 @@ namespace OpenSCL
    		/// </param>
    		private void showXmlDeserializado(SCL XMLobject)
    		{
-   			Console.WriteLine("--------------------------------------------------------------------------------");
-   			Console.WriteLine("\t\t\t\tXML File");
+   			System.Console.WriteLine("--------------------------------------------------------------------------------");
+   			System.Console.WriteLine("\t\t\t\tXML File");
    			showBaseElement(XMLobject);
    			if(XMLobject.Header!=null)
    			{
-   				Console.WriteLine("\n<<Header >>");
+   				System.Console.WriteLine("\n<<Header >>");
    				ShowHeader(XMLobject.Header);
    				showMessagePushButton();
    			}  			   			
    			if(XMLobject.Substation!=null&&XMLobject.Substation.Length!=0)
    			{
-   				Console.WriteLine("\n\n<<Substation>>");
+   				System.Console.WriteLine("\n\n<<Substation>>");
    				ShowSubstation(XMLobject.Substation);
    				showMessagePushButton();
    			}   				
    			if(XMLobject.Communication!=null)
    			{
-   				Console.WriteLine("\n\n<<Communication>>");
+   				System.Console.WriteLine("\n\n<<Communication>>");
    				showCommunication(XMLobject.Communication);
    				showMessagePushButton();
    			}   			
    			if(XMLobject.IED!=null&&XMLobject.IED.Length!=0)
    			{
-   				Console.WriteLine("\n\n<<IEDs>>"); 
+   				System.Console.WriteLine("\n\n<<IEDs>>"); 
    				showIED(XMLobject.IED);
    				showMessagePushButton();
    			}
    			if(XMLobject.DataTypeTemplates != null)
    			{
-   				Console.WriteLine("\n\n<<DataTypeTemplates>>"); 
+   				System.Console.WriteLine("\n\n<<DataTypeTemplates>>"); 
    				showDataTypeTemplates(XMLobject.DataTypeTemplates);
    				showMessagePushButton();
    			}
@@ -96,8 +97,8 @@ namespace OpenSCL
    		/// </summary>
    		private void showMessagePushButton()
    		{
-   			Console.Write("\nPress any key to continue. . . ");
-			Console.ReadKey(true);
+   			System.Console.Write("\nPress any key to continue. . . ");
+			System.Console.ReadKey(true);
    		}
    		
    		/// <summary>
@@ -109,7 +110,7 @@ namespace OpenSCL
    		/// </param>
    		private void ShowHeader(tHeader Header)
    		{ 			
-   			Console.WriteLine(" id = {0} \n version = {1} \n revision = {2} \n toolID = {3} \n " +
+   			System.Console.WriteLine(" id = {0} \n version = {1} \n revision = {2} \n toolID = {3} \n " +
                               "nameStructure = {4} ", Header.id, Header.version, Header.revision, 
                               Header.toolID, Header.nameStructure);          			         	
             if(Header.Text!=null)
@@ -130,10 +131,10 @@ namespace OpenSCL
    		/// </param>
    		private void showHistory(tHitem[] History)
    		{            	
-            Console.WriteLine("\n<History (Historial)>");
+            System.Console.WriteLine("\n<History (Historial)>");
             	for(int x=0; x < History.Length; x++)
             	{
-            	  Console.WriteLine("\t<Hitem> \n\t\t # {0} version = {1} revisión = {2} when = {3} " +
+            	  System.Console.WriteLine("\t<Hitem> \n\t\t # {0} version = {1} revisión = {2} when = {3} " +
                         "who = {4} what = {5} why = {6}", x+1, History[x].version, History[x].revision, 
                         History[x].when, History[x].who, History[x].what, History[x].why);            
             		showAnyContentFromOtherNamespace(History[x]);
@@ -150,7 +151,7 @@ namespace OpenSCL
    		/// </param>
    		private void ShowSubstation(tSubstation[] Substations)
    		{   		
-   			Console.WriteLine("<Substation>");
+   			System.Console.WriteLine("<Substation>");
    			for(int x=0; x < Substations.Length; x++)
    			{  	   				   				   				
    				if(Substations[x].VoltageLevel!=null && Substations[x].VoltageLevel.Length!=0)
@@ -169,9 +170,9 @@ namespace OpenSCL
    		/// </param>
    		private void showEquipmentContainer(tEquipmentContainer EquipmentContainer)
    		{   
-   			Console.WriteLine("->EquipmentContainer");   
+   			System.Console.WriteLine("->EquipmentContainer");   
    			if(EquipmentContainer.AnyAttr != null)
-   				Console.WriteLine(" anyAtribute = {0}", EquipmentContainer.AnyAttr);   			
+   				System.Console.WriteLine(" anyAtribute = {0}", EquipmentContainer.AnyAttr);   			
    			if(EquipmentContainer.PowerTransformer!=null && EquipmentContainer.PowerTransformer.Length != 0)
    				showPowerTransformer(EquipmentContainer.PowerTransformer);
    			if(EquipmentContainer.GeneralEquipment!=null && EquipmentContainer.GeneralEquipment.Length != 0)
@@ -187,7 +188,7 @@ namespace OpenSCL
    		/// </param>
    		private void showPowerSystemResource(tPowerSystemResource PowerSystemResource)
    		{   	
-   			Console.WriteLine("->PowerSystemResource ");
+   			System.Console.WriteLine("->PowerSystemResource ");
    			showLNodeContainer(PowerSystemResource);
    		}
    		
@@ -199,10 +200,10 @@ namespace OpenSCL
    		/// </param>
    		private void showPowerTransformer(tPowerTransformer[] PowerTransformers)
    		{
-   			Console.WriteLine("->PowerTransformer (Transformadores)");
+   			System.Console.WriteLine("->PowerTransformer (Transformadores)");
    			for(int x=0; x < PowerTransformers.Length; x++)
    			{   				
-   				Console.WriteLine("\ttype = {0} ", PowerTransformers[x].type);
+   				System.Console.WriteLine("\ttype = {0} ", PowerTransformers[x].type);
    				if(PowerTransformers[x].TransformerWinding!=null&&PowerTransformers[x].TransformerWinding.Length!=0)
    					showTransformerWinding(PowerTransformers[x].TransformerWinding);
    				showEquipment(PowerTransformers[x]);
@@ -217,8 +218,8 @@ namespace OpenSCL
    		/// </param>
    		private void showEquipment(tEquipment Equipment)
    		{
-   			Console.WriteLine("-> Equipment");
-   			Console.WriteLine(" Equipment \n\t virtual = {0}", Equipment.@virtual);
+   			System.Console.WriteLine("-> Equipment");
+   			System.Console.WriteLine(" Equipment \n\t virtual = {0}", Equipment.@virtual);
    			showPowerSystemResource(Equipment);   			
    		}
    		
@@ -230,16 +231,16 @@ namespace OpenSCL
    		/// </param>
    		private void showTransformerWinding(tTransformerWinding[] TransformerWindings)
    		{
-   			Console.WriteLine("<TransformerWinding >");
+   			System.Console.WriteLine("<TransformerWinding >");
    			for(int x = 0; x < TransformerWindings.Length; x++)
    			{   				
-   				Console.WriteLine("#{0} type = {1}",x, TransformerWindings[x].type);
+   				System.Console.WriteLine("#{0} type = {1}",x, TransformerWindings[x].type);
    				if(TransformerWindings[x].AnyAttr != null)
-   					Console.WriteLine("anyAttribute = {0}", TransformerWindings[x].AnyAttr);
+   					System.Console.WriteLine("anyAttribute = {0}", TransformerWindings[x].AnyAttr);
    				if(TransformerWindings[x].TapChanger != null)
    				{
    					showTapChanger(TransformerWindings[x].TapChanger);
-   					Console.WriteLine("\n\tTap Changer type = {0} ",TransformerWindings[x].TapChanger.type);
+   					System.Console.WriteLine("\n\tTap Changer type = {0} ",TransformerWindings[x].TapChanger.type);
    				}   	  				
    				showAbstractConductingEquipment(TransformerWindings[x]);
    			}
@@ -253,7 +254,7 @@ namespace OpenSCL
    		/// </param>
    		private void showTapChanger(tTapChanger TapChanger)
    		{   			
-   			Console.WriteLine("<Tap Changer> \n\ttype = {0}, virtual = {1}",TapChanger.type, TapChanger.@virtual);    			
+   			System.Console.WriteLine("<Tap Changer> \n\ttype = {0}, virtual = {1}",TapChanger.type, TapChanger.@virtual);    			
    			showPowerSystemResource(TapChanger);
    		}
    		
@@ -266,7 +267,7 @@ namespace OpenSCL
    		/// </param>
    		private void showAbstractConductingEquipment(tAbstractConductingEquipment AbstractConductingEquipment)
    		{   
-   			Console.WriteLine("->AbstractConductingEquipment");
+   			System.Console.WriteLine("->AbstractConductingEquipment");
    			if(AbstractConductingEquipment.Terminal!=null && AbstractConductingEquipment.Terminal.Length!=0)
    			{
    				showTerminal(AbstractConductingEquipment.Terminal);
@@ -286,10 +287,10 @@ namespace OpenSCL
    		/// </param>
    		private void showTerminal(tTerminal[] Terminals)
    		{
-   			Console.WriteLine("<Terminal >");
+   			System.Console.WriteLine("<Terminal >");
    			for(int x = 0; x < Terminals.Length; x++)
    			{   				
-   				Console.WriteLine(" #{0} name = {1}  connectivityNode = {2} substationName = {3} voltageLevelName = {4} bayName = {5} cNodeName = {6}",x, Terminals[x].name, Terminals[x].connectivityNode, Terminals[x].substationName, Terminals[x].voltageLevelName, Terminals[x].bayName, Terminals[x].cNodeName);
+   				System.Console.WriteLine(" #{0} name = {1}  connectivityNode = {2} substationName = {3} voltageLevelName = {4} bayName = {5} cNodeName = {6}",x, Terminals[x].name, Terminals[x].connectivityNode, Terminals[x].substationName, Terminals[x].voltageLevelName, Terminals[x].bayName, Terminals[x].cNodeName);
    				showUnNaming(Terminals[x]);
    			}
    		}
@@ -302,10 +303,10 @@ namespace OpenSCL
    		/// </param>
    		private void showSubEquipment(tSubEquipment[] SubEquipments)
    		{
-   			Console.WriteLine("<SubEquipment >");
+   			System.Console.WriteLine("<SubEquipment >");
    			for(int x = 0; x < SubEquipments.Length; x++)
    			{   				
-   				Console.WriteLine("#{0} Phase = {1}",x, SubEquipments[x].phase);
+   				System.Console.WriteLine("#{0} Phase = {1}",x, SubEquipments[x].phase);
    				showPowerSystemResource(SubEquipments[x]);
    			}
    		}
@@ -319,10 +320,10 @@ namespace OpenSCL
    		private void showGeneralEquipment(tGeneralEquipment[] GeneralEquipments)
    		{
    			
-   			Console.WriteLine("<GeneralEquipment> ");
+   			System.Console.WriteLine("<GeneralEquipment> ");
    			for(int x = 0; x < GeneralEquipments.Length; x++)
    			{   				
-   				Console.WriteLine(" #{0} type = {1}",x, GeneralEquipments[x].type);
+   				System.Console.WriteLine(" #{0} type = {1}",x, GeneralEquipments[x].type);
    				showEquipment(GeneralEquipments[x]);
    			}
    		}
@@ -335,7 +336,7 @@ namespace OpenSCL
    		/// </param>
    		private void showVoltageLevel(tVoltageLevel[] VoltageLevels)
    		{
-   			Console.WriteLine("<VoltageLevel >");
+   			System.Console.WriteLine("<VoltageLevel >");
    			for(int x = 0; x < VoltageLevels.Length; x++)
    			{   				
    				if(VoltageLevels[x].Voltage != null)
@@ -354,7 +355,7 @@ namespace OpenSCL
    		/// </param>
    		private void showVoltage(tVoltage Voltage)
    		{
-   			Console.WriteLine("<Voltage>");
+   			System.Console.WriteLine("<Voltage>");
    			showValueWithUnit(Voltage);
    		}
    		
@@ -366,8 +367,8 @@ namespace OpenSCL
    		/// </param>
    		private void showValueWithUnit(tValueWithUnit ValueWithUnit)
    		{
-   			Console.WriteLine("\t->ValueWithUnit");
-   			Console.WriteLine("\tunit = {0}, multiplier = {1}", ValueWithUnit.unit, ValueWithUnit.multiplier);  
+   			System.Console.WriteLine("\t->ValueWithUnit");
+   			System.Console.WriteLine("\tunit = {0}, multiplier = {1}", ValueWithUnit.unit, ValueWithUnit.multiplier);  
    		}
    		
    		/// <summary>
@@ -378,7 +379,7 @@ namespace OpenSCL
    		/// </param>
    		private void showBay(tBay[] Bays)
    		{
-   			Console.WriteLine("Bay ");
+   			System.Console.WriteLine("Bay ");
    			for(int x = 0; x < Bays.Length; x++)
    			{   	  				   				
    				if(Bays[x].ConductingEquipment !=null && Bays[x].ConductingEquipment.Length != 0)
@@ -397,10 +398,10 @@ namespace OpenSCL
    		/// </param>
    		private void showConductingEquipment(tConductingEquipment[] EquiposConductores)
    		{
-   			Console.WriteLine("<ConductingEquipment> ");
+   			System.Console.WriteLine("<ConductingEquipment> ");
    			for(int x = 0; x < EquiposConductores.Length; x++)
    			{   				   				
-   				Console.WriteLine("#{0} type = {1} ", x, EquiposConductores[x].type);   				   				 			
+   				System.Console.WriteLine("#{0} type = {1} ", x, EquiposConductores[x].type);   				   				 			
    				showAbstractConductingEquipment(EquiposConductores[x]);
    			}
    		}
@@ -413,10 +414,10 @@ namespace OpenSCL
    		/// </param>
    		private void showConnectivityNode(tConnectivityNode[] NodosConectividad)
    		{
-   			Console.WriteLine("<ConnectivityNode> ");
+   			System.Console.WriteLine("<ConnectivityNode> ");
    			for(int x = 0; x < NodosConectividad.Length; x++)
    			{   				   				
-   				Console.WriteLine(" #{0} pathName = {1} name = {2} desc = {3}", x, NodosConectividad[x].pathName, NodosConectividad[x].name, NodosConectividad[x].desc);   			
+   				System.Console.WriteLine(" #{0} pathName = {1} name = {2} desc = {3}", x, NodosConectividad[x].pathName, NodosConectividad[x].name, NodosConectividad[x].desc);   			
    				showLNodeContainer(NodosConectividad[x]);
    			}
    		}
@@ -429,7 +430,7 @@ namespace OpenSCL
    		/// </param>
    		private void showLNodeContainer(tLNodeContainer NodesContainer)
    		{
-   			Console.WriteLine("->NodeContainer ");   			
+   			System.Console.WriteLine("->NodeContainer ");   			
    			if(NodesContainer.LNode!=null && NodesContainer.LNode.Length!=0)
    			{
    				showLNode(NodesContainer.LNode);
@@ -445,8 +446,8 @@ namespace OpenSCL
    		/// </param>
    		private void showNaming(tNaming Naming)
    		{     			
-   			Console.WriteLine("->Naming");   			
-   			Console.WriteLine("name = {0} desc = {1}", Naming.name, Naming.desc);   			
+   			System.Console.WriteLine("->Naming");   			
+   			System.Console.WriteLine("name = {0} desc = {1}", Naming.name, Naming.desc);   			
    			showBaseElement(Naming);
    		}
    		
@@ -458,10 +459,10 @@ namespace OpenSCL
    		/// </param>
    		private void showLNode(tLNode[] LNodes)
    		{
-   			Console.WriteLine("<LNode >");
+   			System.Console.WriteLine("<LNode >");
    			for(int x = 0; x < LNodes.Length; x++)
    			{   			   				
-   				Console.WriteLine("  #{0} desc = {1} InInst = {2} InClass = {3} iedName = {4} IdInst = {5} prefix = {6} InType = {7} ", x, LNodes[x].desc, LNodes[x].lnInst, LNodes[x].lnClass, LNodes[x].iedName, LNodes[x].ldInst, LNodes[x].prefix, LNodes[x].lnType);  			 				
+   				System.Console.WriteLine("  #{0} desc = {1} InInst = {2} InClass = {3} iedName = {4} IdInst = {5} prefix = {6} InType = {7} ", x, LNodes[x].desc, LNodes[x].lnInst, LNodes[x].lnClass, LNodes[x].iedName, LNodes[x].ldInst, LNodes[x].prefix, LNodes[x].lnType);  			 				
    				showUnNaming(LNodes[x]);
    			}
    		}
@@ -474,9 +475,9 @@ namespace OpenSCL
    		/// </param>
    		private void showUnNaming(tUnNaming UnNaming)
    		{   			
-   			Console.WriteLine("->UnNaming \n\tdesc= {0} ", UnNaming.desc);
+   			System.Console.WriteLine("->UnNaming \n\tdesc= {0} ", UnNaming.desc);
    			if(UnNaming.AnyAttr != null)
-   				Console.WriteLine("\tanyAttribute = {0}", UnNaming.AnyAttr);
+   				System.Console.WriteLine("\tanyAttribute = {0}", UnNaming.AnyAttr);
    			showBaseElement(UnNaming);  		
    		}
    		
@@ -488,7 +489,7 @@ namespace OpenSCL
    		/// </param>
    		private void showFunction(tFunction[] Function)
    		{
-   		 	Console.WriteLine("<Function>)");
+   		 	System.Console.WriteLine("<Function>)");
    			for(int x = 0; x < Function.Length; x++)
    			{      				
    				if(Function[x].SubFunction != null && Function[x].SubFunction.Length !=0 )
@@ -507,7 +508,7 @@ namespace OpenSCL
    		/// </param>
    		private void showSubFunction(tSubFunction[] SubFunctions)
    		{
-   			Console.WriteLine("<SubFunction>");
+   			System.Console.WriteLine("<SubFunction>");
    			for(int x = 0; x < SubFunctions.Length; x++)
    			{   				
    				if(SubFunctions[x].GeneralEquipment != null && SubFunctions[x].GeneralEquipment.Length !=0 )
@@ -536,7 +537,7 @@ namespace OpenSCL
    		/// </param>
    		private void showSubNetwork(tSubNetwork[] SubNetworks)
    		{
-   			Console.WriteLine("<SubNetwork> ");   			
+   			System.Console.WriteLine("<SubNetwork> ");   			
    			for(int x=0; x < SubNetworks.Length; x++)
    			{  				   				
    				if(SubNetworks[x].BitRate!=null)   				
@@ -555,7 +556,7 @@ namespace OpenSCL
    		/// </param>
    		public void showBitRateInMbPerSec(tBitRateInMbPerSec BitRateInMbPerSec)
    		{
-   			Console.WriteLine("->BitRateInMbPerSec");
+   			System.Console.WriteLine("->BitRateInMbPerSec");
    			showValueWithUnit(BitRateInMbPerSec);
    		}  		
    		   		
@@ -567,10 +568,10 @@ namespace OpenSCL
    		/// </param>
    		private void showConnectedAP(tConnectedAP[] ConexionAP)
    		{
-   			Console.WriteLine("<ConnectedAP> ");
+   			System.Console.WriteLine("<ConnectedAP> ");
    			for(int x = 0;  x < ConexionAP.Length; x++)
    				{   					
-	   				Console.WriteLine("\n iedName = {0} \n apName = {1}", ConexionAP[x].iedName, ConexionAP[x].apName);
+	   				System.Console.WriteLine("\n iedName = {0} \n apName = {1}", ConexionAP[x].iedName, ConexionAP[x].apName);
 	   				if(ConexionAP[x].Address != null && ConexionAP[x].Address.Length !=0 )
 	   					showAddress(ConexionAP[x].Address); 
 	   				if(ConexionAP[x].GSE != null && ConexionAP[x].GSE.Length != 0)
@@ -591,10 +592,10 @@ namespace OpenSCL
    		/// </param>
    		private void showAddress(tP[] Address)
    		{
-   			Console.WriteLine("<Address >");
+   			System.Console.WriteLine("<Address >");
    			for(int x = 0;  x < Address.Length; x++)
    			{
-   				Console.WriteLine(" #{0} type = {1}", x, Address[x].type);
+   				System.Console.WriteLine(" #{0} type = {1}", x, Address[x].type);
    			}
    		}
    		
@@ -606,7 +607,7 @@ namespace OpenSCL
    		/// </param>
    		private void showGSE(tGSE[] GSEs)
    		{
-   			Console.WriteLine("<GSE>");
+   			System.Console.WriteLine("<GSE>");
    			for(int x = 0;  x < GSEs.Length; x++)
    			{   				
    				if(GSEs[x].MinTime != null)
@@ -625,8 +626,8 @@ namespace OpenSCL
    		/// </param>
    		public void showDurationInMilliSec(tDurationInMilliSec DurationInMilliSec)
    		{   
-   			Console.WriteLine("<DurationInMilliSec>");
-   			Console.WriteLine(" MinTime unit = {0} multiplier = {1}", DurationInMilliSec.unit, DurationInMilliSec.multiplier);
+   			System.Console.WriteLine("<DurationInMilliSec>");
+   			System.Console.WriteLine(" MinTime unit = {0} multiplier = {1}", DurationInMilliSec.unit, DurationInMilliSec.multiplier);
    			showValueWithUnit(DurationInMilliSec);
    		}
    		
@@ -638,8 +639,8 @@ namespace OpenSCL
    		/// </param>
    		public void showControlBlock(tControlBlock ControlBlock)
    		{   			
-   			Console.WriteLine("->ControlBlock");
-   			Console.WriteLine(" IdInst = {0} cbName = {1}", ControlBlock.ldInst, ControlBlock.cbName);
+   			System.Console.WriteLine("->ControlBlock");
+   			System.Console.WriteLine(" IdInst = {0} cbName = {1}", ControlBlock.ldInst, ControlBlock.cbName);
    			if(ControlBlock.Address!=null && ControlBlock.Address.Length != 0)
    			{
    				showAddress(ControlBlock.Address);
@@ -655,7 +656,7 @@ namespace OpenSCL
    		/// </param>
    		private void showSMV(tSMV[] SMVs)
    		{
-   			Console.WriteLine("<SMV>");
+   			System.Console.WriteLine("<SMV>");
    			for(int x = 0; x < SMVs.Length; x++)
    			{
    				showControlBlock(SMVs[x]);
@@ -670,7 +671,7 @@ namespace OpenSCL
    		/// </param>
    		private void showPhysConn(tPhysConn[] ConexionesFisicas)
    		{
-   			Console.WriteLine("<PhysConn> ");
+   			System.Console.WriteLine("<PhysConn> ");
    			for(int x = 0; x < ConexionesFisicas.Length; x++)
    			{
    				showP(ConexionesFisicas[x].P);
@@ -685,10 +686,10 @@ namespace OpenSCL
    		/// </param>
    		private void showP(tP[] P)
    		{
-	   		Console.WriteLine("<P>");
+	   		System.Console.WriteLine("<P>");
 	   		for(int x = 0; x < P.Length; x++)
 	   		{	
-	   			Console.WriteLine(" P = {0} ", P[x].type);
+	   			System.Console.WriteLine(" P = {0} ", P[x].type);
 	   		}
    		}
    		   		  
@@ -702,8 +703,8 @@ namespace OpenSCL
    		{   			
    			for(int x = 0; x < IEDs.Length; x++)
    			{   				
-   				Console.WriteLine("\n <IED> {0} \n type = {1} \n manufacturer = {2} \n configVersion = {3}", x, IEDs[x].type, IEDs[x].manufacturer, IEDs[x].configVersion);    				
-   				Console.WriteLine("\n NOTE: Attibutes of type boolean should be created for class tServiceYesNo ");     		  				
+   				System.Console.WriteLine("\n <IED> {0} \n type = {1} \n manufacturer = {2} \n configVersion = {3}", x, IEDs[x].type, IEDs[x].manufacturer, IEDs[x].configVersion);    				
+   				System.Console.WriteLine("\n NOTE: Attibutes of type boolean should be created for class tServiceYesNo ");     		  				
    				showServices(IEDs[x].Services);   				
    				if(IEDs[x].AccessPoint!=null&&IEDs[x].AccessPoint.Length!=0)
    					showAccesPoints(IEDs[x].AccessPoint); 
@@ -719,40 +720,40 @@ namespace OpenSCL
    		/// </param>
    		public void showServices(tServices Services)
    		{
-   			Console.WriteLine("\n <Services> \n DynaAssociation = {0} ",Services.DynAssociation);
+   			System.Console.WriteLine("\n <Services> \n DynaAssociation = {0} ",Services.DynAssociation);
    			if(Services.SettingGroups != null)
-   				Console.WriteLine("\n SettingGroups \n\t SGEdit = {0} \n\t ConfSG = {1}",Services.SettingGroups.SGEdit, Services.SettingGroups.ConfSG);
-   			Console.WriteLine("\n GetDirectory = {0} \n GetDataObjectDefinition = {1} \n DataObjectDirectory = {2} \n SetDataSetValue = {3}",Services.GetDirectory, Services.GetDataObjectDefinition, Services.GetDataSetValue, Services.SetDataSetValue);
-   			Console.WriteLine("\n DataSetDirectory = {0} \n",Services.DataSetDirectory);   				
+   				System.Console.WriteLine("\n SettingGroups \n\t SGEdit = {0} \n\t ConfSG = {1}",Services.SettingGroups.SGEdit, Services.SettingGroups.ConfSG);
+   			System.Console.WriteLine("\n GetDirectory = {0} \n GetDataObjectDefinition = {1} \n DataObjectDirectory = {2} \n SetDataSetValue = {3}",Services.GetDirectory, Services.GetDataObjectDefinition, Services.GetDataSetValue, Services.SetDataSetValue);
+   			System.Console.WriteLine("\n DataSetDirectory = {0} \n",Services.DataSetDirectory);   				
    			if(Services.ConfDataSet != null)
-   				Console.WriteLine(" ConfDataSet \n\t max = {0} maxAttributes = {1} \n\t modify = {2} ", Services.ConfDataSet.max, Services.ConfDataSet.maxAttributes, Services.ConfDataSet.modify);
+   				System.Console.WriteLine(" ConfDataSet \n\t max = {0} maxAttributes = {1} \n\t modify = {2} ", Services.ConfDataSet.max, Services.ConfDataSet.maxAttributes, Services.ConfDataSet.modify);
    			if(Services.DynDataSet != null)
-   				Console.WriteLine("\n DyDataSet \n\t max = {0} \n\t maxAttributes = {1}", Services.DynDataSet.max, Services.DynDataSet.maxAttributes);
-   			Console.WriteLine("\n ReadWrite = {0} \n TimerActivatedControl = {1}", Services.ReadWrite, Services.TimerActivatedControl);
+   				System.Console.WriteLine("\n DyDataSet \n\t max = {0} \n\t maxAttributes = {1}", Services.DynDataSet.max, Services.DynDataSet.maxAttributes);
+   			System.Console.WriteLine("\n ReadWrite = {0} \n TimerActivatedControl = {1}", Services.ReadWrite, Services.TimerActivatedControl);
    			if(Services.ConfReportControl != null)
-   				Console.WriteLine("\n ConfReportControl max = {0} ",Services.ConfReportControl.max);
-   			Console.WriteLine("\n GetCBValues = {0} \n ",Services.GetCBValues);
+   				System.Console.WriteLine("\n ConfReportControl max = {0} ",Services.ConfReportControl.max);
+   			System.Console.WriteLine("\n GetCBValues = {0} \n ",Services.GetCBValues);
    			if(Services.ConfLogControl != null)
-   				Console.WriteLine("\n ConfLogControl max = {0} ",  Services.ConfLogControl.max);
+   				System.Console.WriteLine("\n ConfLogControl max = {0} ",  Services.ConfLogControl.max);
    			if(Services.ReportSettings != null)
    			{
-   				Console.WriteLine("\n ReportSettings\n\t  cbName = {0} \n\t datSet = {1} \n\t  rptID = {2} \n\t optFields = {3} \n\t bufTime = {4} " +
+   				System.Console.WriteLine("\n ReportSettings\n\t  cbName = {0} \n\t datSet = {1} \n\t  rptID = {2} \n\t optFields = {3} \n\t bufTime = {4} " +
    					"\n\t trgOps = {5} \n\t  intgPd = {6}", Services.ReportSettings.cbName, Services.ReportSettings.datSet, Services.ReportSettings.rptID, Services.ReportSettings.optFields, Services.ReportSettings.bufTime, Services.ReportSettings.trgOps, Services.ReportSettings.intgPd);
    			}
    			if(Services.LogSettings != null)
-   				Console.WriteLine("\n LogSettings \n\t cbName = {0} \n\t datSet = {1} \n\t logEna = {2} \n\t  trgOps = {3} \n\t  intgPd = {4} ", Services.LogSettings.cbName, Services.LogSettings.datSet, Services.LogSettings.logEna, Services.LogSettings.trgOps, Services.LogSettings.intgPd);
+   				System.Console.WriteLine("\n LogSettings \n\t cbName = {0} \n\t datSet = {1} \n\t logEna = {2} \n\t  trgOps = {3} \n\t  intgPd = {4} ", Services.LogSettings.cbName, Services.LogSettings.datSet, Services.LogSettings.logEna, Services.LogSettings.trgOps, Services.LogSettings.intgPd);
    					                                    
    			if(Services.GSESettings != null)	
-   				Console.WriteLine("\n GSESettings \n\t cbName = {0} \n\t datSet = {1} \n\tappID = {2} \n\t dataLabel = {3} \n ", Services.GSESettings.cbName, Services.GSESettings.datSet, Services.GSESettings.appID, Services.GSESettings.dataLabel);
+   				System.Console.WriteLine("\n GSESettings \n\t cbName = {0} \n\t datSet = {1} \n\tappID = {2} \n\t dataLabel = {3} \n ", Services.GSESettings.cbName, Services.GSESettings.datSet, Services.GSESettings.appID, Services.GSESettings.dataLabel);
    			if(Services.SMVSettings != null)
-   				Console.WriteLine("SMVSettings \n\t cbName = {0}\n\t datSet = {1} \n\t svID = {2}\n\t optFields = {3}\n\t smpRate = {4} \n ", Services.SMVSettings.cbName, Services.SMVSettings.datSet, Services.SMVSettings.svID, Services.SMVSettings.optFields, Services.SMVSettings.smpRate);
-   			Console.WriteLine("GSEDir = {0} \n ", Services.GSEDir);
+   				System.Console.WriteLine("SMVSettings \n\t cbName = {0}\n\t datSet = {1} \n\t svID = {2}\n\t optFields = {3}\n\t smpRate = {4} \n ", Services.SMVSettings.cbName, Services.SMVSettings.datSet, Services.SMVSettings.svID, Services.SMVSettings.optFields, Services.SMVSettings.smpRate);
+   			System.Console.WriteLine("GSEDir = {0} \n ", Services.GSEDir);
    			if(Services.GOOSE != null)
-   				Console.WriteLine("GOOSE \n\t max = {0}\n\t client = {1}", Services.GOOSE.max, Services.GOOSE.client);
+   				System.Console.WriteLine("GOOSE \n\t max = {0}\n\t client = {1}", Services.GOOSE.max, Services.GOOSE.client);
    			if(Services.GSSE != null)
-   				Console.WriteLine("\n GSSE \n\t max = {0} \n\t client = {1}", Services.GSSE.max, Services.GSSE.client);
+   				System.Console.WriteLine("\n GSSE \n\t max = {0} \n\t client = {1}", Services.GSSE.max, Services.GSSE.client);
    			if(Services.ConfLNs != null)
-   				Console.WriteLine("\n ConfLNs \n\t fixPrefix = {0} fixLnInst =  {1}", Services.ConfLNs.fixPrefix, Services.ConfLNs.fixLnInst);   				
+   				System.Console.WriteLine("\n ConfLNs \n\t fixPrefix = {0} fixLnInst =  {1}", Services.ConfLNs.fixPrefix, Services.ConfLNs.fixLnInst);   				
    				
    		}
    		
@@ -764,10 +765,10 @@ namespace OpenSCL
    		/// </param>
    		private void showAccesPoints(tAccessPoint[] AccessPoint)
    		{
-   			Console.WriteLine("\n <AccessPoint>");
+   			System.Console.WriteLine("\n <AccessPoint>");
    			for(int x = 0; x < AccessPoint.Length; x++)
    			{   				
-   				Console.WriteLine("\t{0}.- router = {1} clock = {2}", x, AccessPoint[x].router, AccessPoint[x].clock);
+   				System.Console.WriteLine("\t{0}.- router = {1} clock = {2}", x, AccessPoint[x].router, AccessPoint[x].clock);
    				if(AccessPoint[x].Items != null && AccessPoint[x].Items.Length != 0)
    					showUnNamigServerLN(AccessPoint[x].Items); 
    				showNaming(AccessPoint[x]);
@@ -784,7 +785,7 @@ namespace OpenSCL
 		{
    			for(int x = 0; x < Items.Length; x++)
    			{   				
-   				Console.WriteLine("\n Server = {0}", x);   			
+   				System.Console.WriteLine("\n Server = {0}", x);   			
    			    //An object "Type" is obtained to determine what kind of element 
    			    //is, tServer or tLN   			   
    				Type vtype = (Items[x]).GetType();   			
@@ -803,7 +804,7 @@ namespace OpenSCL
    					showLN(LN);
    				}
    				else{
-					Console.WriteLine("\tVerify the conditions of the method showUnNamig");
+					System.Console.WriteLine("\tVerify the conditions of the method showUnNamig");
    				}
    			}  			
    		}
@@ -816,7 +817,7 @@ namespace OpenSCL
    		/// </param>
    		private void showServer(tServer Server)
    		{
-   			Console.WriteLine("<Server>");   					
+   			System.Console.WriteLine("<Server>");   					
    			if(Server.Authentication != null)
    				showAuthentication(Server.Authentication);   			
    			if(Server.LDevice != null && Server.LDevice.Length != 0)
@@ -834,11 +835,11 @@ namespace OpenSCL
    		/// </param>
    		public void showAssociation(tAssociation[] Association)
    		{
-   			Console.WriteLine("<Association>");
-   			Console.WriteLine(" Verify if the attributes iedName and ldInst are showed in the class tAssociation");
+   			System.Console.WriteLine("<Association>");
+   			System.Console.WriteLine(" Verify if the attributes iedName and ldInst are showed in the class tAssociation");
    			for(int x=0; x < Association.Length; x++)
    			{
-   				Console.WriteLine("	\t kind = {0}, associationID = {1}, iedName = {2}, ldInst = {3}, prefix = {4}, lnClass = {5}, lnInst = {6}", Association[x].kind,
+   				System.Console.WriteLine("	\t kind = {0}, associationID = {1}, iedName = {2}, ldInst = {3}, prefix = {4}, lnClass = {5}, lnInst = {6}", Association[x].kind,
    				                  Association[x].associationID, Association[x].iedName, Association[x].lnInst,  Association[x].prefix, Association[x].lnClass, Association[x].lnInst);
    			}   			
    		}
@@ -851,8 +852,8 @@ namespace OpenSCL
    		/// </param>
    		public void showAuthentication(tServerAuthentication ServerAuthentication)
    		{
-   			Console.WriteLine("<Authentication>");
-   			Console.WriteLine("\tnone = {0} password {1} weak = {2} strong = {3} certificate = {4}", ServerAuthentication.none, ServerAuthentication.password, ServerAuthentication.weak, ServerAuthentication.strong, ServerAuthentication.certificate);
+   			System.Console.WriteLine("<Authentication>");
+   			System.Console.WriteLine("\tnone = {0} password {1} weak = {2} strong = {3} certificate = {4}", ServerAuthentication.none, ServerAuthentication.password, ServerAuthentication.weak, ServerAuthentication.strong, ServerAuthentication.certificate);
    		}
    		
    		/// <summary>
@@ -863,8 +864,8 @@ namespace OpenSCL
    		/// </param>
    		private void showLN(tLN LN)
    		{
-   			Console.WriteLine("<LN>");
-   			Console.WriteLine(" lnClass = {0}, inst = {1}, prefix = {2}",LN.lnClass, LN.inst, LN.prefix);
+   			System.Console.WriteLine("<LN>");
+   			System.Console.WriteLine(" lnClass = {0}, inst = {1}, prefix = {2}",LN.lnClass, LN.inst, LN.prefix);
    			showAnyLN(LN);
    		}   		
    		
@@ -876,8 +877,8 @@ namespace OpenSCL
    		/// </param>
    		private void showAnyLN(tAnyLN AnyLN)
    		{  	   			
-   			Console.WriteLine("-> AnyLN");
-   			Console.WriteLine("	lnType = {0}", AnyLN.lnType);
+   			System.Console.WriteLine("-> AnyLN");
+   			System.Console.WriteLine("	lnType = {0}", AnyLN.lnType);
    			if(AnyLN.DataSet != null && AnyLN.DataSet.Length != 0)
    				showDateSet(AnyLN.DataSet);
    			if(AnyLN.ReportControl != null && AnyLN.ReportControl.Length != 0)
@@ -899,7 +900,7 @@ namespace OpenSCL
    		/// </param>
    		private void showInputs(tInputs Inputs)
    		{  			   			
-   			Console.WriteLine("<Inputs> ");   			
+   			System.Console.WriteLine("<Inputs> ");   			
    			if(Inputs.ExtRef != null && Inputs.ExtRef.Length != 0)
    				showExtRef(Inputs.ExtRef);
    			showUnNaming(Inputs);
@@ -914,10 +915,10 @@ namespace OpenSCL
    		/// </param>
    		public void showExtRef(tExtRef[] ExtRefs)
    		{
-   			Console.WriteLine("<ExtRefs>");
+   			System.Console.WriteLine("<ExtRefs>");
    			for(int x = 0 ; x < ExtRefs.Length; x++)
    			{   		   				   				
-   				Console.WriteLine(" #{0} iedName = {1} ldInst = {2} prefix = {3} lnClass = {4} lnInst = {5} doName = {6} daName = {7} intAddr = {8}",x, ExtRefs[x].iedName, ExtRefs[x].ldInst, ExtRefs[x].prefix, ExtRefs[x].lnClass, ExtRefs[x].lnInst, ExtRefs[x].doName, ExtRefs[x].daName, ExtRefs[x].intAddr);   				
+   				System.Console.WriteLine(" #{0} iedName = {1} ldInst = {2} prefix = {3} lnClass = {4} lnInst = {5} doName = {6} daName = {7} intAddr = {8}",x, ExtRefs[x].iedName, ExtRefs[x].ldInst, ExtRefs[x].prefix, ExtRefs[x].lnClass, ExtRefs[x].lnInst, ExtRefs[x].doName, ExtRefs[x].daName, ExtRefs[x].intAddr);   				
    			}   			
    		}
    		  		
@@ -929,10 +930,10 @@ namespace OpenSCL
    		/// </param>
    		private void showDOI(tDOI[] DOIs)
    		{  			   			
-   			Console.WriteLine("<DOI> ");
+   			System.Console.WriteLine("<DOI> ");
    			for(int x = 0 ; x < DOIs.Length; x++)
    			{     				
-   				Console.WriteLine(" #{0} name = {1} ix = {2} accessControl = {3}",x, DOIs[x].name, DOIs[x].ix, DOIs[x].accessControl);   				
+   				System.Console.WriteLine(" #{0} name = {1} ix = {2} accessControl = {3}",x, DOIs[x].name, DOIs[x].ix, DOIs[x].accessControl);   				
    				if(DOIs[x].Items != null && DOIs[x].Items.Length != 0)
    					showUnNamigSDI_DAI(DOIs[x].Items);
    				showUnNaming(DOIs[x]);
@@ -950,7 +951,7 @@ namespace OpenSCL
    			for(int x = 0; x < Items.Length; x++)
    			{   				
    				
-   				Console.WriteLine("\n Server = {0}", x);   			
+   				System.Console.WriteLine("\n Server = {0}", x);   			
    			    //An object "Type" is obtained to determine what kind of element is tSDI or tDAI   				
    				Type vtype = (Items[x]).GetType();   			
    				if(vtype.Name.Equals("tSDI"))
@@ -967,7 +968,7 @@ namespace OpenSCL
    					showDAI(DAI); 
    				}
    				else{
-					Console.WriteLine("\t Error!!! Verify the conditions of the method showUnNaming");
+					System.Console.WriteLine("\t Error!!! Verify the conditions of the method showUnNaming");
    				}
    			}  			
    		}
@@ -980,8 +981,8 @@ namespace OpenSCL
    		/// </param>
    		private void showSDI(tSDI SDI)
    		{  			 
-   			Console.WriteLine("<SDI>");
-   			Console.WriteLine(" name = {1}, ix = {2} ixSpecified", SDI.desc, SDI.name, SDI.ix, SDI.ixSpecified);
+   			System.Console.WriteLine("<SDI>");
+   			System.Console.WriteLine(" name = {1}, ix = {2} ixSpecified", SDI.desc, SDI.name, SDI.ix, SDI.ixSpecified);
    			showUnNamigSDI_DAI(SDI.Items);
    			showUnNaming(SDI);
    		}   		
@@ -994,8 +995,8 @@ namespace OpenSCL
    		/// </param>
    		private void showDAI(tDAI DAI)
    		{  			 
-   			Console.WriteLine("<DAI>");
-   			Console.WriteLine(" name = {0}, sAddr = {1}, valKind = {2} ix = {3} ixSpecified = {4}", DAI.name, DAI.sAddr, DAI.valKind, DAI.ix, DAI.ixSpecified);
+   			System.Console.WriteLine("<DAI>");
+   			System.Console.WriteLine(" name = {0}, sAddr = {1}, valKind = {2} ix = {3} ixSpecified = {4}", DAI.name, DAI.sAddr, DAI.valKind, DAI.ix, DAI.ixSpecified);
    			if(DAI.Val != null && DAI.Val.Length != 0)
    				showVal(DAI.Val);
    			showUnNaming(DAI);   					
@@ -1011,8 +1012,8 @@ namespace OpenSCL
    		{  		   			
    			for(int x = 0; x < Val.Length; x++)
    			{
-   				Console.WriteLine("<Val>");
-   				Console.WriteLine(" sGroup = {0}",Val);
+   				System.Console.WriteLine("<Val>");
+   				System.Console.WriteLine(" sGroup = {0}",Val);
    			}
    		}   
    		
@@ -1024,11 +1025,11 @@ namespace OpenSCL
    		/// </param>
    		private void showLogControl(tLogControl[] LogControl)
    		{  			   			
-   			Console.WriteLine("<LogControl>");
+   			System.Console.WriteLine("<LogControl>");
    			for(int x = 0 ; x < LogControl.Length; x++)
    			{
    				showControlWithTriggerOpt(LogControl[x]);
-   				Console.WriteLine("\t#{0} logName = {1} logEna = {2} reasonCode = {3}",x, LogControl[x].logName, LogControl[x].logEna, LogControl[x].reasonCode);
+   				System.Console.WriteLine("\t#{0} logName = {1} logEna = {2} reasonCode = {3}",x, LogControl[x].logName, LogControl[x].logEna, LogControl[x].reasonCode);
    			}   			
    		}   		
    		 		
@@ -1040,8 +1041,8 @@ namespace OpenSCL
    		/// </param>
    		private void showControlWithTriggerOpt(tControlWithTriggerOpt ControlWithTriggerOpt)
    		{  			   			
-   			Console.WriteLine("<ControlWithTriggerOpts>");
-   			Console.WriteLine(" intgPd = {0}",ControlWithTriggerOpt);	   			
+   			System.Console.WriteLine("<ControlWithTriggerOpts>");
+   			System.Console.WriteLine(" intgPd = {0}",ControlWithTriggerOpt);	   			
    			if(ControlWithTriggerOpt.TrgOps != null)
    			{
    				showTrgOps(ControlWithTriggerOpt.TrgOps);
@@ -1057,8 +1058,8 @@ namespace OpenSCL
    		/// </param>
    		private void showcControl(tControl Control)
    		{  			   			
-   			Console.WriteLine("->Control");
-   			Console.WriteLine("Control datSet = {0}", Control.datSet);	
+   			System.Console.WriteLine("->Control");
+   			System.Console.WriteLine("Control datSet = {0}", Control.datSet);	
    			showNaming(Control);
    		}   
    		
@@ -1070,8 +1071,8 @@ namespace OpenSCL
    		/// </param>
    		private void showTrgOps(tTrgOps TrgOps)
    		{  		   	
-   			Console.WriteLine("<TrgOps>");
-   			Console.WriteLine(" dchg = {0} qchg = {1} dupd = {2} period = {3}", TrgOps.dchg, TrgOps.qchg, TrgOps.dchg, TrgOps.period);	   			
+   			System.Console.WriteLine("<TrgOps>");
+   			System.Console.WriteLine(" dchg = {0} qchg = {1} dupd = {2} period = {3}", TrgOps.dchg, TrgOps.qchg, TrgOps.dchg, TrgOps.period);	   			
    		}   		
    		
    		/// <summary>
@@ -1082,7 +1083,7 @@ namespace OpenSCL
    		/// </param>
    		private void showDateSet(tDataSet[] DataSet)
    		{  			   		
-   			Console.WriteLine("<DataSet>");
+   			System.Console.WriteLine("<DataSet>");
    			for(int x = 0; x < DataSet.Length; x++)
    			{     				
    				if(DataSet[x].FCDA != null && DataSet[x].FCDA.Length != 0)
@@ -1099,10 +1100,10 @@ namespace OpenSCL
    		/// </param>
    		private void showReportControl(tReportControl[] ReportControl)
    		{  			   
-   			Console.WriteLine("<ReportControl>");
+   			System.Console.WriteLine("<ReportControl>");
    			for(int x = 0; x < ReportControl.Length; x++)
    			{   				   				
-   				Console.WriteLine(" #{0} rptID = {1}, confRev = {2}, buffered = {3}, bufTime = {4}",x, ReportControl[x].rptID, ReportControl[x].confRev, ReportControl[x].buffered, ReportControl[x].bufTime);
+   				System.Console.WriteLine(" #{0} rptID = {1}, confRev = {2}, buffered = {3}, bufTime = {4}",x, ReportControl[x].rptID, ReportControl[x].confRev, ReportControl[x].buffered, ReportControl[x].bufTime);
    				if(ReportControl[x].OptFields != null)
    					showOptFields(ReportControl[x].OptFields); 
    				if(ReportControl[x].RptEnabled != null)
@@ -1119,7 +1120,7 @@ namespace OpenSCL
    		/// </param>
    		private void showRptEnabled(tRptEnabled RptEnabled)
    		{  	
-   			Console.WriteLine("<RptEnabled> \n max = {0} ",RptEnabled.max);
+   			System.Console.WriteLine("<RptEnabled> \n max = {0} ",RptEnabled.max);
    			if(RptEnabled.ClientLN != null)
    				showClientLN(RptEnabled.ClientLN);
    			showUnNaming(RptEnabled); 
@@ -1133,11 +1134,11 @@ namespace OpenSCL
    		/// </param>
    		private void showClientLN(tClientLN[] ClientLN)
    		{  		
-   			Console.WriteLine("<ClientLN>");
+   			System.Console.WriteLine("<ClientLN>");
    			for(int x = 0; x < ClientLN.Length; x++)
    			{   				
-   				//Console.WriteLine("\tClientLN \n #{0} iedName =  ldInst =  prefix = {1} lnClass = {2} lnInst = {3}",x, ClientLN[x].prefix, ClientLN[x].lnClass, ClientLN[x].lnInst);
-   				Console.WriteLine(" ClientLN \n #{0} iedName ={1}  ldInst = {2}  prefix = {3} lnClass = {4} lnInst = {5}",x, ClientLN[x].iedName, ClientLN[x].ldInst, ClientLN[x].prefix, ClientLN[x].lnClass, ClientLN[x].lnInst);
+   				//System.Console.WriteLine("\tClientLN \n #{0} iedName =  ldInst =  prefix = {1} lnClass = {2} lnInst = {3}",x, ClientLN[x].prefix, ClientLN[x].lnClass, ClientLN[x].lnInst);
+   				System.Console.WriteLine(" ClientLN \n #{0} iedName ={1}  ldInst = {2}  prefix = {3} lnClass = {4} lnInst = {5}",x, ClientLN[x].iedName, ClientLN[x].ldInst, ClientLN[x].prefix, ClientLN[x].lnClass, ClientLN[x].lnInst);
    			}   				
    		}
    		
@@ -1149,7 +1150,7 @@ namespace OpenSCL
    		/// </param>
    		private void showOptFields(tReportControlOptFields OptFields)
    		{  			   			   					
-   			Console.WriteLine("<OptFields> \n seqNum = {0}, timeStamp = {1}, dataSet = {2}, reasonCode = {3} dataRef = {4} entryID = {5} configRef = {6}", OptFields.seqNum, OptFields.timeStamp, OptFields.dataSet, OptFields.reasonCode, OptFields.dataRef, OptFields.entryID, OptFields.configRef);
+   			System.Console.WriteLine("<OptFields> \n seqNum = {0}, timeStamp = {1}, dataSet = {2}, reasonCode = {3} dataRef = {4} entryID = {5} configRef = {6}", OptFields.seqNum, OptFields.timeStamp, OptFields.dataSet, OptFields.reasonCode, OptFields.dataRef, OptFields.entryID, OptFields.configRef);
    		}
    		
    		/// <summary>
@@ -1160,10 +1161,10 @@ namespace OpenSCL
    		/// </param>
    		private void showFCDA(tFCDA[] FCDA)
    		{
-   			Console.WriteLine("<FCDA>");
+   			System.Console.WriteLine("<FCDA>");
    			for(int x = 0; x < FCDA.Length; x++)
    			{
-   				Console.WriteLine(" #{0} ldInst = {1} prefix = {2} lnClass = {3} lnInst = {4} doName = {5} daName = {6} fc = {7}",x, FCDA[x].ldInst, FCDA[x].prefix, FCDA[x].lnClass, FCDA[x].lnInst, FCDA[x].doName, FCDA[x].daName, FCDA[x].fc);
+   				System.Console.WriteLine(" #{0} ldInst = {1} prefix = {2} lnClass = {3} lnInst = {4} doName = {5} daName = {6} fc = {7}",x, FCDA[x].ldInst, FCDA[x].prefix, FCDA[x].lnClass, FCDA[x].lnInst, FCDA[x].doName, FCDA[x].daName, FCDA[x].fc);
    			}
    		}
    		
@@ -1175,10 +1176,10 @@ namespace OpenSCL
    		/// </param>
    		private void showLDevice(tLDevice[] LDevices)
    		{
-   			Console.WriteLine("<LDevice>");
+   			System.Console.WriteLine("<LDevice>");
    			for(int x = 0; x < LDevices.Length; x++)
    			{   				
-   				Console.WriteLine("\t tDevice \n\t\t #{0} desc = {1} inst = {2} IdName = {3}",x, LDevices[x].desc, LDevices[x].inst, LDevices[x].ldName);
+   				System.Console.WriteLine("\t tDevice \n\t\t #{0} desc = {1} inst = {2} IdName = {3}",x, LDevices[x].desc, LDevices[x].inst, LDevices[x].ldName);
    				if(LDevices[x].LN0 != null )
    					showLN0Type(LDevices[x].LN0);
    				if(LDevices[x].LN != null && LDevices[x].LN.Length != 0)
@@ -1197,7 +1198,7 @@ namespace OpenSCL
    		/// </param>
    		public void showAccessControl(tAccessControl AccessControl)
    		{   
-   			Console.WriteLine("<AccessControl>");   			
+   			System.Console.WriteLine("<AccessControl>");   			
    			showAnyContentFromOtherNamespace(AccessControl);
    		}
    		
@@ -1227,9 +1228,9 @@ namespace OpenSCL
    		/// </param>
    		public void showLN0Type(LN0 LN0)
    		{
-   			Console.WriteLine("\tLN0 (LNodeType)");
+   			System.Console.WriteLine("\tLN0 (LNodeType)");
    			if(LN0.AnyAttr != null)
-   				Console.WriteLine("\t anyAttribute = {0}",LN0.AnyAttr);
+   				System.Console.WriteLine("\t anyAttribute = {0}",LN0.AnyAttr);
    			showLN0(LN0);
    		}
    		
@@ -1241,8 +1242,8 @@ namespace OpenSCL
    		/// </param>
    		public void showLN0(tLN0 Ln0)
    		{
-   			Console.WriteLine("-> Ln0");
-   			Console.WriteLine(" InClass = {0} inst = {1}", Ln0.lnClass, Ln0.inst);
+   			System.Console.WriteLine("-> Ln0");
+   			System.Console.WriteLine(" InClass = {0} inst = {1}", Ln0.lnClass, Ln0.inst);
    			if(Ln0.GSEControl != null && Ln0.GSEControl.Length != 0)
    				showGSEControl(Ln0.GSEControl);
    			if(Ln0.SampledValueControl != null && Ln0.SampledValueControl.Length != 0)
@@ -1264,7 +1265,7 @@ namespace OpenSCL
    		/// </param>
    		public void showLog(tLog Log)
    		{
-   			Console.WriteLine("<Log>");    			
+   			System.Console.WriteLine("<Log>");    			
    			showAnyContentFromOtherNamespace(Log);
    		}
    		   		   		
@@ -1276,7 +1277,7 @@ namespace OpenSCL
    		/// </param>
    		public void showSCLControl(tSCLControl SCLControl)
    		{   			
-   			Console.WriteLine("<SCLControl>");
+   			System.Console.WriteLine("<SCLControl>");
    			showUnNaming(SCLControl);
    		}
    		
@@ -1288,8 +1289,8 @@ namespace OpenSCL
    		/// </param>
    		public void showSettingControl(tSettingControl SettingControl)
    		{
-   			Console.WriteLine("<SettingControl>");   			
-   			Console.WriteLine(" numOfSGs = {0}, actSG = {1}", SettingControl.numOfSGs, SettingControl.actSG);
+   			System.Console.WriteLine("<SettingControl>");   			
+   			System.Console.WriteLine(" numOfSGs = {0}, actSG = {1}", SettingControl.numOfSGs, SettingControl.actSG);
    			showUnNaming(SettingControl);
    		}
    		
@@ -1301,10 +1302,10 @@ namespace OpenSCL
    		/// </param>
    		public void showSampledValueControl(tSampledValueControl[] SampledValueControl)
    		{   			
-   			Console.WriteLine("SampledValueControl");
+   			System.Console.WriteLine("SampledValueControl");
    			for(int x = 0; x < SampledValueControl.Length; x++)
    			{   				
-   				Console.WriteLine("smvID = {0} multicast = {1} smpRate = {2} nofASDU = {3}", SampledValueControl[x].smvID, SampledValueControl[x].multicast, SampledValueControl[x].smpRate, SampledValueControl[x].nofASDU);
+   				System.Console.WriteLine("smvID = {0} multicast = {1} smpRate = {2} nofASDU = {3}", SampledValueControl[x].smvID, SampledValueControl[x].multicast, SampledValueControl[x].smpRate, SampledValueControl[x].nofASDU);
    				if(SampledValueControl[x].SmvOpts != null)
    					showSmvOpts(SampledValueControl[x].SmvOpts);
    				showControlWithIEDName(SampledValueControl[x]);
@@ -1319,8 +1320,8 @@ namespace OpenSCL
    		/// </param>
    		public void showSmvOpts(tSampledValueControlSmvOpts SmvOpts)
    		{
-   			Console.WriteLine("<SmvOpts>");
-   			Console.WriteLine(" refreshTime = {0}, sampleSynchronized = {1}, sampleRate = {2}, security = {3}, dataRef = {4}", SmvOpts.refreshTime, SmvOpts.sampleSynchronized, SmvOpts.sampleRate, SmvOpts.security, SmvOpts.dataRef);
+   			System.Console.WriteLine("<SmvOpts>");
+   			System.Console.WriteLine(" refreshTime = {0}, sampleSynchronized = {1}, sampleRate = {2}, security = {3}, dataRef = {4}", SmvOpts.refreshTime, SmvOpts.sampleSynchronized, SmvOpts.sampleRate, SmvOpts.security, SmvOpts.dataRef);
    		}
    		
    		/// <summary>
@@ -1331,10 +1332,10 @@ namespace OpenSCL
    		/// </param>
    		public void showGSEControl(tGSEControl[] GSEControl)
    		{
-   			Console.WriteLine("<GSEControl>");
+   			System.Console.WriteLine("<GSEControl>");
    			for(int x = 0; x < GSEControl.Length; x++)
    			{   				   				
-   				Console.WriteLine("appID = {0}", GSEControl[x].appID);
+   				System.Console.WriteLine("appID = {0}", GSEControl[x].appID);
    				//if(GSEControl[x].type != null)
 				showGSEControlTypeEnum(GSEControl[x].type);
 				showControlWithIEDName(GSEControl[x]);
@@ -1349,7 +1350,7 @@ namespace OpenSCL
    		/// </param>
    		public void showGSEControlTypeEnum(tGSEControlTypeEnum GSEControlTypeEnum)
    		{  			
-   			Console.WriteLine("<GSEControlTypeEnum> \n\t",GSEControlTypeEnum);
+   			System.Console.WriteLine("<GSEControlTypeEnum> \n\t",GSEControlTypeEnum);
    		}
    		
    		/// <summary>
@@ -1360,8 +1361,8 @@ namespace OpenSCL
    		/// </param>
    		public void showControlWithIEDName(tControlWithIEDName ControlWithIEDName)
    		{
-   			Console.WriteLine("->ControlWithIEDName");
-   			Console.WriteLine("confRev = {0}", ControlWithIEDName.confRev);				   				
+   			System.Console.WriteLine("->ControlWithIEDName");
+   			System.Console.WriteLine("confRev = {0}", ControlWithIEDName.confRev);				   				
    			if(ControlWithIEDName.IEDName != null && ControlWithIEDName.IEDName.Length != 0)
    				showIEDName(ControlWithIEDName.IEDName);
    			showControl(ControlWithIEDName);
@@ -1375,10 +1376,10 @@ namespace OpenSCL
    		/// </param>
    		public void showIEDName(String[] IEDNames)
    		{
-   			Console.WriteLine("IEDNames");
+   			System.Console.WriteLine("IEDNames");
    			for(int x = 0; x < IEDNames.Length; x++)
    			{   				
-   				Console.WriteLine("#{0} IEDame = {1}", x, IEDNames[x]);
+   				System.Console.WriteLine("#{0} IEDame = {1}", x, IEDNames[x]);
    			}   			
    		}
    		
@@ -1390,7 +1391,7 @@ namespace OpenSCL
    		/// </param>
    		public void showControl(tControl Control)
    		{   			
-   			Console.WriteLine("-> Control \n\t datSet = {0}", Control.datSet);
+   			System.Console.WriteLine("-> Control \n\t datSet = {0}", Control.datSet);
    			showNaming(Control);
    		}
    		
@@ -1402,7 +1403,7 @@ namespace OpenSCL
    		/// </param>
   		private void showDataTypeTemplates(tDataTypeTemplates DataTypeTemplates)
   		{  		  			
-  			Console.WriteLine("<DataTypeTemplates>");
+  			System.Console.WriteLine("<DataTypeTemplates>");
   			if(DataTypeTemplates.LNodeType != null && DataTypeTemplates.LNodeType.Length != 0)
   				showLNodeType(DataTypeTemplates.LNodeType);
   			if(DataTypeTemplates.DOType != null && DataTypeTemplates.DOType.Length != 0)
@@ -1423,8 +1424,8 @@ namespace OpenSCL
   		{  		
    			for(int x = 0; x < DOType.Length; x++)
    			{   				
-   				Console.WriteLine("DOType (Tipo DO)");	  				
-  				Console.WriteLine("iedType = {0} cdc = {1}", DOType[x].iedType, DOType[x].cdc);
+   				System.Console.WriteLine("DOType (Tipo DO)");	  				
+  				System.Console.WriteLine("iedType = {0} cdc = {1}", DOType[x].iedType, DOType[x].cdc);
   				if(DOType[x].Items != null && DOType[x].Items.Length != 0)
   					showtBaseElementSDODA(DOType[x].Items);
   				showIDNaming(DOType[x]);
@@ -1458,7 +1459,7 @@ namespace OpenSCL
    					showDA(DA);
    				}
    				else{
-					Console.WriteLine("\tVerifiy the conditions of the method showtBaseElementSDODA");
+					System.Console.WriteLine("\tVerifiy the conditions of the method showtBaseElementSDODA");
    				}
    			}  	
   		}
@@ -1471,8 +1472,8 @@ namespace OpenSCL
    		/// </param>
    		private void showSDO(tSDO SDO)
   		{  		
-   			Console.WriteLine("<SDO>");   			
-   			Console.WriteLine("SDO type = {0}", SDO.type);	  				
+   			System.Console.WriteLine("<SDO>");   			
+   			System.Console.WriteLine("SDO type = {0}", SDO.type);	  				
    			showNaming(SDO);
    		}
    		
@@ -1484,8 +1485,8 @@ namespace OpenSCL
    		/// </param>
    		private void showDA(tDA DA)
   		{  		
-   			Console.WriteLine("<DA>");   			
-   			Console.WriteLine(" dchg = {0} qchg = {1} dupd = {2} fc = {3}", DA.dchg, DA.qchg, DA.dupd, DA.fc);	  				
+   			System.Console.WriteLine("<DA>");   			
+   			System.Console.WriteLine(" dchg = {0} qchg = {1} dupd = {2} fc = {3}", DA.dchg, DA.qchg, DA.dupd, DA.fc);	  				
    			showAbstractDataAttribute(DA);
    		}
    		   		
@@ -1497,8 +1498,8 @@ namespace OpenSCL
    		/// </param>
    		private void showAbstractDataAttribute(tAbstractDataAttribute AtributoDatoAbstracto)
   		{  	   			
-   			Console.WriteLine("-> AbstractDataAttribute");
-   			Console.WriteLine(" name = {0} sAddr = {1} bType = {2} valKind = {3} type = {4} count = {5}", AtributoDatoAbstracto.name, AtributoDatoAbstracto.sAddr, AtributoDatoAbstracto.bType, AtributoDatoAbstracto.valKind, AtributoDatoAbstracto.type, AtributoDatoAbstracto.count);	  				
+   			System.Console.WriteLine("-> AbstractDataAttribute");
+   			System.Console.WriteLine(" name = {0} sAddr = {1} bType = {2} valKind = {3} type = {4} count = {5}", AtributoDatoAbstracto.name, AtributoDatoAbstracto.sAddr, AtributoDatoAbstracto.bType, AtributoDatoAbstracto.valKind, AtributoDatoAbstracto.type, AtributoDatoAbstracto.count);	  				
    			if(AtributoDatoAbstracto.Val != null && AtributoDatoAbstracto.Val.Length != 0)
    				showVal(AtributoDatoAbstracto.Val);
    			showUnNaming(AtributoDatoAbstracto);
@@ -1514,8 +1515,8 @@ namespace OpenSCL
   		{  	  			
    			for(int x = 0; x < NodeType.Length; x++)
    			{
-   				Console.WriteLine("<NodeType> ");	   			
-  				Console.WriteLine("iedType = {0} lnClass = {1}", NodeType[x].iedType, NodeType[x].lnClass);
+   				System.Console.WriteLine("<NodeType> ");	   			
+  				System.Console.WriteLine("iedType = {0} lnClass = {1}", NodeType[x].iedType, NodeType[x].lnClass);
   				if(NodeType[x].DO != null && NodeType[x].DO.Length != 0)
   					showDO(NodeType[x].DO);
   				showIDNaming(NodeType[x]); 
@@ -1530,10 +1531,10 @@ namespace OpenSCL
    		/// </param>
    		private void showDO(tDO[] DOs)
   		{  		
-   			Console.WriteLine("<DO>");	   				
+   			System.Console.WriteLine("<DO>");	   				
    			for(int x = 0; x < DOs.Length; x++)
    			{   				
-   				Console.WriteLine(" #{0} name = {1}, type = {2}, accessControl = {3}, transient = {4}", x, DOs[x].name, DOs[x].type, DOs[x].accessControl, DOs[x].transient);
+   				System.Console.WriteLine(" #{0} name = {1}, type = {2}, accessControl = {3}, transient = {4}", x, DOs[x].name, DOs[x].type, DOs[x].accessControl, DOs[x].transient);
    				showUnNaming(DOs[x]);
    			}
   		}  		
@@ -1546,8 +1547,8 @@ namespace OpenSCL
    		/// </param>
    		private void showIDNaming(tIDNaming IDNaming)
   		{ 
-   			Console.WriteLine("->IDNaming");
-   			Console.WriteLine(" tid = {0}, desc = {1}", IDNaming.id, IDNaming.desc);	   			
+   			System.Console.WriteLine("->IDNaming");
+   			System.Console.WriteLine(" tid = {0}, desc = {1}", IDNaming.id, IDNaming.desc);	   			
    			showBaseElement(IDNaming);
   		}  		
    		   		
@@ -1559,10 +1560,10 @@ namespace OpenSCL
    		/// </param>
    		private void showDAType(tDAType[] DATypes)
   		{  	  			
-   			Console.WriteLine("<DATypes>");
+   			System.Console.WriteLine("<DATypes>");
    			for(int x = 0; x < DATypes.Length; x++)
    			{   				
-   				Console.WriteLine("iedType = {0}", DATypes[x].iedType);
+   				System.Console.WriteLine("iedType = {0}", DATypes[x].iedType);
    				showBDA(DATypes[x].BDA);
    				showIDNaming(DATypes[x]);
    			}   				
@@ -1576,7 +1577,7 @@ namespace OpenSCL
    		/// </param>
    		private void showBDA(tBDA[] BDAs)
   		{  	  			
-   			Console.WriteLine("BDA");
+   			System.Console.WriteLine("BDA");
    			for(int x = 0; x < BDAs.Length; x++)
    			{   				
    				showAbstractDataAttribute(BDAs[x]);
@@ -1591,7 +1592,7 @@ namespace OpenSCL
    		/// </param>
    		private void showEnumType(tEnumType[] EnumTypes)
   		{  	  	
-   			Console.WriteLine("<EnumType>");
+   			System.Console.WriteLine("<EnumType>");
    			for(int x = 0; x < EnumTypes.Length; x++)
    			{      				
    				if(EnumTypes[x].EnumVal != null && EnumTypes[x].EnumVal.Length != 0)
@@ -1608,10 +1609,10 @@ namespace OpenSCL
    		/// </param>
    		private void showEnumVal(tEnumVal[] EnumVals)
   		{  	  	
-   			Console.WriteLine("<EnumVal>");
+   			System.Console.WriteLine("<EnumVal>");
    			for(int x = 0; x < EnumVals.Length; x++)
    			{   				
-   				Console.WriteLine("ord = {0}", EnumVals[x].ord);  				
+   				System.Console.WriteLine("ord = {0}", EnumVals[x].ord);  				
    			}   				
   		}
    		   		
@@ -1623,9 +1624,9 @@ namespace OpenSCL
    		/// </param>
    		private void showBaseElement(tBaseElement BaseElement)
   		{  	  	
-   			Console.WriteLine("->BaseElement");
+   			System.Console.WriteLine("->BaseElement");
    			if(BaseElement.Any != null)
-   				Console.WriteLine("Any = {0}",BaseElement.Any);
+   				System.Console.WriteLine("Any = {0}",BaseElement.Any);
    			if(BaseElement.Text != null)
    				showText(BaseElement.Text);
    			if(BaseElement.Private != null && BaseElement.Private.Length != 0)
@@ -1640,8 +1641,8 @@ namespace OpenSCL
    		/// </param>
    		private void showText(tText Text)
   		{  	  	  			   			
-   			Console.WriteLine("\n<Text>");
-   			Console.WriteLine("\tsource = {0} anyAttribute = {1}", Text.source, Text.AnyAttr);
+   			System.Console.WriteLine("\n<Text>");
+   			System.Console.WriteLine("\tsource = {0} anyAttribute = {1}", Text.source, Text.AnyAttr);
    			showAnyContentFromOtherNamespace(Text);
   		}
    		
@@ -1653,15 +1654,15 @@ namespace OpenSCL
    		/// </param>
    		private void showAnyContentFromOtherNamespace(tAnyContentFromOtherNamespace AnyContentFromOtherNamespace)
    		{		
-   			Console.WriteLine("->AnyContentFromOtherNamespace");
+   			System.Console.WriteLine("->AnyContentFromOtherNamespace");
    			for(int x = 0; AnyContentFromOtherNamespace.AnyAttr !=null && x < AnyContentFromOtherNamespace.AnyAttr.Length; x++)
    			{
-   				Console.WriteLine("\tAnyAttribute = {0}", AnyContentFromOtherNamespace.AnyAttr[x].Value);
+   				System.Console.WriteLine("\tAnyAttribute = {0}", AnyContentFromOtherNamespace.AnyAttr[x].Value);
    			}
    			
    			for(int x = 0; AnyContentFromOtherNamespace.Any !=null && x < AnyContentFromOtherNamespace.Any.Length; x++)
    			{
-   				Console.WriteLine("\tAny = {0}", AnyContentFromOtherNamespace.Any[x].Value);
+   				System.Console.WriteLine("\tAny = {0}", AnyContentFromOtherNamespace.Any[x].Value);
    			}
    		}
    		
@@ -1675,8 +1676,8 @@ namespace OpenSCL
   		{  	  	   			
    			for(int x =0; x < Privates.Length; x++)
    			{
-   				Console.WriteLine("<Private>");   				
-   				Console.WriteLine("\ttype = {0} source = {1}", Privates[x].type, Privates[x].source);
+   				System.Console.WriteLine("<Private>");   				
+   				System.Console.WriteLine("\ttype = {0} source = {1}", Privates[x].type, Privates[x].source);
    				showAnyContentFromOtherNamespace(Privates[x]);
    			}
    				
@@ -1710,13 +1711,13 @@ namespace OpenSCL
 		public static void Main(string[] args)			
 		{
 			string FileName;
-			ConsoleSCL aplicacion = new ConsoleSCL();
-			Console.WriteLine("Write path to file type SCD, CID or ICD");
-			FileName = Console.ReadLine();
+			Application app = new Application ();
+			System.Console.WriteLine("Write path to file type SCD, CID or ICD:\n");
+			FileName = System.Console.ReadLine();
 //			SCL XMLobject = aplicacion.deserialize("C:\\Proyecto\\IEC61850-Station.xml");						
-			SCL XMLobject = aplicacion.deserialize(FileName);									
+			SCL XMLobject = app.deserialize(FileName);									
 //			aplicacion.serializar(XMLobject,"C:\\Proyecto\\SerializacionIEC61850-Station.xml");
-			aplicacion.serializar(XMLobject,FileName+"New");			
+			app.serializar(XMLobject,FileName+"New");			
 		}
 				
 		/// <summary>
@@ -1730,7 +1731,7 @@ namespace OpenSCL
 		/// </param>
 		protected void serializer_UnknownNode(object sender, XmlNodeEventArgs e)
     	{
-	        Console.WriteLine("Unknown Node: " +   e.Name + "\t" + e.Text);
+	        System.Console.WriteLine("Unknown Node: " +   e.Name + "\t" + e.Text);
 	    }
 
 		/// <summary>
@@ -1746,7 +1747,7 @@ namespace OpenSCL
    		protected void serializer_UnknownAttribute(object sender, XmlAttributeEventArgs e)
     	{
         	System.Xml.XmlAttribute attr = e.Attr;
-        	Console.WriteLine("Unknown attribute: " + 
+        	System.Console.WriteLine("Unknown attribute: " + 
         	attr.Name + "='" + attr.Value + "'");
     	}
 	}

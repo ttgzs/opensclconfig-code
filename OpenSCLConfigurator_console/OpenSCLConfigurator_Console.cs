@@ -1710,21 +1710,38 @@ namespace OpenSCL.Console
    		/// </param>
 		public static void Main(string[] args)			
 		{
-			string FileName;
+			string command;
+			bool run = true;
+			
 			Application app = new Application ();
-			System.Console.WriteLine("Write path to file type SCD, CID or ICD:\n");
-			FileName = System.Console.ReadLine();
-//			SCL XMLobject = aplicacion.deserialize("C:\\Proyecto\\IEC61850-Station.xml");						
-			SCL XMLobject = app.deserialize(FileName);									
-//			aplicacion.serializar(XMLobject,"C:\\Proyecto\\SerializacionIEC61850-Station.xml");
-			app.serializar(XMLobject,FileName+"New");			
+			while (run) {
+				string [] command_split;
+				char [] separator = { ' ' };
+				
+				System.Console.Write("command: ");
+				command = System.Console.ReadLine();
+				command_split = command.Split (separator, StringSplitOptions.None);
+				switch (command_split [0]) {
+				case "open":
+					string FileName;
+					
+					System.Console.WriteLine("Write path to file type SCD, CID or ICD:\n");
+					FileName = System.Console.ReadLine();
+					SCL XMLobject = app.deserialize(FileName);
+					app.serializar(XMLobject,FileName+"_New");
+					break;
+				case "exit":
+					run = false;
+					break;
+				}
+			}			
 		}
 				
 		/// <summary>
 		/// This method identifies an unknown XML node during a deserialization
 		/// </summary>
 		/// <param name="sender">
-		// Unknown XML node
+		/// Unknown XML node
 		/// </param>
 		/// <param name="e">
 		/// Kind of event happened

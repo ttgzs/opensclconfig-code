@@ -43,7 +43,8 @@ files.</Description>
     <Compile Include="ConversionObject.cs" />
     <Compile Include="ErrorsManagement.cs" />
     <Compile Include="ObjectManagement.cs" />
-    <Compile Include="XMLSCL.cs" />
+    <Compile Include="IED.cs" />
+    <Compile Include="Object.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

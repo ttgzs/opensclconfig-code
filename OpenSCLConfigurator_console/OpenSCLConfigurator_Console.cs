@@ -27,7 +27,22 @@ namespace OpenSCL.Console
 {
 	class Application
 	{		
-   		/// <summary>
+   		
+		public Application ()
+		{
+			System.Console.WriteLine ("***********************************************************************");
+			System.Console.WriteLine ("OpenSCLConfigurator Console Application");
+			System.Console.WriteLine ("\nThis application is distrubited AS IS in order to hope to be usefull");
+			System.Console.WriteLine ("but without any GARRANTY\n");
+			System.Console.WriteLine ("\n(C) Comisión Federal de Electricidad, 2009\n");
+			System.Console.WriteLine ("***********************************************************************\n");
+		}
+		
+		public Application (string[] args)
+		{
+			// FIXME: Allow to pass path to an ICD, CID or SCD file
+		}
+		/// <summary>
    		/// This method is used to deserialize a XML file.
    		/// </summary>
    		/// <param name="XMLFileName">
@@ -1722,13 +1737,36 @@ namespace OpenSCL.Console
 				command = System.Console.ReadLine();
 				command_split = command.Split (separator, StringSplitOptions.None);
 				switch (command_split [0]) {
-				case "open":
+				case "test": 
+				{
 					string FileName;
 					
-					System.Console.WriteLine("Write path to file type SCD, CID or ICD:\n");
+					System.Console.WriteLine("Write path to file type SCD, CID or ICD:");
 					FileName = System.Console.ReadLine();
 					SCL XMLobject = app.deserialize(FileName);
 					app.serializar(XMLobject,FileName+"_New");
+				}
+					break;
+				case "open":
+				{
+					string FileName;
+					
+					System.Console.WriteLine("Write path to file type SCD, CID or ICD:");
+					FileName = System.Console.ReadLine();
+					IED ied = new IED (FileName);
+					ied.Write(FileName+".xml");
+					break;
+				}
+				case "newied": // FIXME: the command must be create [ied|substation] ej: create ied
+				{
+					// FIXME: This command doesn't work becouse object not initialized
+					string FileName;
+					IED ied = new IED();
+					System.Console.WriteLine("Write path to file for New GENERIC IED Configuration");
+					System.Console.WriteLine("At the end of the filename will be added '.cid' extension");
+					FileName = System.Console.ReadLine();
+					ied.Write(FileName+".cid");
+				}
 					break;
 				case "exit":
 					run = false;

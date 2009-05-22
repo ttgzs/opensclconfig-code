@@ -31,10 +31,19 @@ namespace OpenSCL.Console
 		public Application ()
 		{
 			System.Console.WriteLine ("***********************************************************************");
-			System.Console.WriteLine ("OpenSCLConfigurator Console Application");
-			System.Console.WriteLine ("\nThis application is distrubited AS IS in order to hope to be usefull");
-			System.Console.WriteLine ("but without any GARRANTY\n");
-			System.Console.WriteLine ("\n(C) Comisión Federal de Electricidad, 2009\n");
+			System.Console.WriteLine ("\nOpenSCLConfigurator Console Application\n");
+			System.Console.WriteLine ("Copyright (C) 2009 Comisión Federal de Electricidad\n");
+			System.Console.WriteLine ("This program is free software; you can redistribute it and/or");
+			System.Console.WriteLine ("modify it under the terms of the GNU General Public License");
+			System.Console.WriteLine ("as published by the Free Software Foundation; either version 3");
+			System.Console.WriteLine ("of the License, or (at your option) any later version.\n");
+			System.Console.WriteLine ("This program is distributed in the hope that it will be useful,");
+			System.Console.WriteLine ("but WITHOUT ANY WARRANTY; without even the implied warranty of");
+			System.Console.WriteLine ("MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the");
+			System.Console.WriteLine ("GNU General Public License for more details.\n");
+			System.Console.WriteLine ("You should have received a copy of the GNU General Public License");
+			System.Console.WriteLine ("along with this program; if not, write to the Free Software");
+			System.Console.WriteLine ("Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.\n");
 			System.Console.WriteLine ("***********************************************************************\n");
 		}
 		

@@ -28,21 +28,21 @@ namespace OpenSCL
 		
 		public string name {
 			get {
-				return this.IED[0].name;
+				return this.ConfiguredDevices[0].name;
 			}
 			set {
-				this.IED[0].name = value;
+				this.ConfiguredDevices[0].name = value;
 			}
 		}
 		public string manufacturer {
 			get {
-				tIED ied =  this.IED[0];
+				tIED ied =  this.ConfiguredDevices[0];
 				return ied.manufacturer;
 			}
 			
 			set {
 				if (this.genericConfiguration) {
-					this.IED[0].manufacturer = value;
+					this.ConfiguredDevices[0].manufacturer = value;
 				}
 				else {
 					// FIXME: Rise an Exception
@@ -56,10 +56,10 @@ namespace OpenSCL
 		/// </value>
 		public string configVersion {
 			get {
-				return this.IED[0].configVersion;
+				return this.ConfiguredDevices[0].configVersion;
 			}
 			set {
-				this.IED[0].configVersion = value;
+				this.ConfiguredDevices[0].configVersion = value;
 			}
 		}
 		
@@ -97,7 +97,7 @@ namespace OpenSCL
 			ied.name = "XCBR";
 			ied.type = "GENERIC";
 			ied.AccessPoint = new tAccessPoint[] { acc };
-			this.IED = new tIED[] { ied };
+			this.ConfiguredDevices = new tIED[] { ied };
 			this.manufacturer = "GENERIC MANUFACTURER";
 			this.configVersion = "0.1";
 		}

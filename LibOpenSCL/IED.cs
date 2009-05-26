@@ -26,16 +26,23 @@ namespace OpenSCL
 	public class IED : Object
 	{
 		
+		public string name {
+			get {
+				return this.IED[0].name;
+			}
+			set {
+				this.IED[0].name = value;
+			}
+		}
 		public string manufacturer {
 			get {
-				tIED ied =  this.configurationIED[0];
+				tIED ied =  this.IED[0];
 				return ied.manufacturer;
 			}
 			
 			set {
 				if (this.genericConfiguration) {
-					tIED ied = this.configurationIED[0];
-					ied.manufacturer = value;
+					this.IED[0].manufacturer = value;
 				}
 				else {
 					// FIXME: Rise an Exception
@@ -44,18 +51,15 @@ namespace OpenSCL
 		}
 		
 		/// <value>
-		/// An IED's configuration just have one tIED object then allways access
+		/// An IED's configuration (CID) just have one tIED object then allways access
 		/// to the first element of the IEDs array
 		/// </value>
 		public string configVersion {
 			get {
-				tIED ied = this.configurationIED[0];
-				return ied.configVersion;
+				return this.IED[0].configVersion;
 			}
-			
 			set {
-				tIED ied = this.configurationIED[0];
-				ied.manufacturer = value;
+				this.IED[0].configVersion = value;
 			}
 		}
 		
@@ -78,8 +82,12 @@ namespace OpenSCL
 			tLDevice ld = new tLDevice ();
 			ld.ldName = "GENERIC";
 			
-			// Add LN to LD
-			ld.LN = new tLN[] { ln };
+			// Setup LN0 and LPHD
+			ld.LN0 = new LN0();
+			tLN lphd = new tLN();
+			lphd.lnClass = "LPHD";
+			// Add LNs to LD
+			ld.LN = new tLN[] { lphd, ln };
 			
 			// Create Access Points
 			tAccessPoint acc = new tAccessPoint ();
@@ -89,7 +97,7 @@ namespace OpenSCL
 			ied.name = "XCBR";
 			ied.type = "GENERIC";
 			ied.AccessPoint = new tAccessPoint[] { acc };
-			this.configurationIED = new tIED[] { ied };
+			this.IED = new tIED[] { ied };
 			this.manufacturer = "GENERIC MANUFACTURER";
 			this.configVersion = "0.1";
 		}

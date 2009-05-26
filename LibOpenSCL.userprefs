@@ -1,20 +1,33 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ctype="Workbench">
+  <AuthorInfo Name="Comisión Federal de Electricidad" Email="daniel.espinosa@cfe.gob.mx" Copyright="Comisión Federal de Electricidad" ctype="AuthorInformation" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCL/IED.cs" ctype="Workbench">
+    <Files>
+      <File FileName="OpenSCLConfigurator_console/OpenSCLConfigurator_Console.cs" Line="34" Column="74" />
+      <File FileName="LibOpenSCL/IED.cs" Line="68" Column="4" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="LibOpenSCL" expanded="True">
-            <Node name="References" expanded="True" />
+            <Node name="IED.cs" selected="True" />
           </Node>
           <Node name="LibOpenSCLGUI" expanded="True">
             <Node name="References" expanded="True" />
           </Node>
-          <Node name="LibOpenSCLGUITranslation" expanded="True" />
-          <Node name="OpenSCLConfigurator_console" expanded="True" />
+          <Node name="OpenSCLConfigurator_console" expanded="True">
+            <Node name="References" expanded="True" />
+          </Node>
+          <Node name="Packages" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">
-        <State expanded="True" />
+        <State expanded="True">
+          <Node name="LibOpenSCL" expanded="True" selected="True">
+            <Node name="IEC61850" expanded="True" />
+            <Node name="OpenSCL" expanded="True" />
+          </Node>
+          <Node name="LibOpenSCLGUI" expanded="True" />
+        </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

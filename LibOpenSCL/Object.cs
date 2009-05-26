@@ -122,7 +122,7 @@ namespace OpenSCL
         	ListErrors.Add(new ErrorsManagement("Unknown attribute:"+ attr.Name + "='" + attr.Value + "'"));
     	}
 		
-		public tIED[] configurationIED {
+		public tIED[] IED {
 			get {
 				return this.configuration.IED;
 			}

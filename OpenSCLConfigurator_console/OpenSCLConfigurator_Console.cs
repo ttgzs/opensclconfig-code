@@ -1734,54 +1734,74 @@ namespace OpenSCL.Console
    		/// </param>
 		public static void Main(string[] args)			
 		{
-			string command;
 			bool run = true;
 			
 			Application app = new Application ();
 			while (run) {
-				string [] command_split;
 				char [] separator = { ' ' };
-				
+				string first_parameter = null;
 				System.Console.Write("command: ");
-				command = System.Console.ReadLine();
-				command_split = command.Split (separator, StringSplitOptions.None);
-				switch (command_split [0]) {
-				case "test": 
+				string command_all = System.Console.ReadLine();
+				string[] command_split = command_all.Split (separator, StringSplitOptions.None);
+				string command = command_split[0];
+				if(command_split.Length > 1) {
+					first_parameter = command_split[1];
+				}
+				switch (command)
 				{
-					string FileName;
-					
-					System.Console.WriteLine("Write path to file type SCD, CID or ICD:");
-					FileName = System.Console.ReadLine();
-					SCL XMLobject = app.deserialize(FileName);
-					app.serializar(XMLobject,FileName+"_New");
+					case "open":
+					{
+						System.Console.WriteLine("Write path to file type SCD, CID or ICD:");
+						string FileName = System.Console.ReadLine();
+						IED ied = new IED (FileName);
+						ied.Write(FileName+".xml");
+						break;
+					}
+					case "create": 
+					{
+						if (first_parameter.Equals("ied")) {
+							System.Console.WriteLine("Creating a Generic Configured IED Description (CID)...");
+							// FIXME: This command doesn't work becouse object not initialized
+							IED ied = new IED();
+							System.Console.WriteLine("Write path to file for New GENERIC IED Configuration");
+							System.Console.WriteLine("At the end of the filename will be added '.cid' extension");
+							string FileName = System.Console.ReadLine();
+							ied.Write(FileName+".cid");
+							System.Console.WriteLine ("New Generic CID created with config version number: "+ied.configVersion);
+						}
+						
+						if (first_parameter.Equals("substation")) {
+							System.Console.WriteLine("Creating a Generic Substation Configuration Description (SCD)...");
+							System.Console.WriteLine("Not Implemented...");
+						}
+						break;
+					}			
+					case "help": 
+					{
+						System.Console.WriteLine("\nAccepted commands:\n");
+						System.Console.WriteLine("open");
+						System.Console.WriteLine("       Opens an IEC6850 SCL compliant file (ICD, CID or SCD)\n");
+						System.Console.WriteLine("create [ied|substation]");
+						System.Console.WriteLine("       Creates an Generic XML file type CID, if 'ied' is given, or SCD, if 'substation'\n");
+						System.Console.WriteLine("exit");
+						System.Console.WriteLine("       Quit from the application\n");
+						break;
+					}					
+					case "test": 
+					{
+						System.Console.WriteLine("Write path to file type SCD, CID or ICD:");
+						string FileName = System.Console.ReadLine();
+						SCL XMLobject = app.deserialize(FileName);
+						app.serializar(XMLobject,FileName+"_New");
+						break;
+					}				
+					case "exit":
+					{
+						run = false;
+						break;
+					}
 				}
-					break;
-				case "open":
-				{
-					string FileName;
-					
-					System.Console.WriteLine("Write path to file type SCD, CID or ICD:");
-					FileName = System.Console.ReadLine();
-					IED ied = new IED (FileName);
-					ied.Write(FileName+".xml");
-					break;
-				}
-				case "newied": // FIXME: the command must be create [ied|substation] ej: create ied
-				{
-					// FIXME: This command doesn't work becouse object not initialized
-					string FileName;
-					IED ied = new IED();
-					System.Console.WriteLine("Write path to file for New GENERIC IED Configuration");
-					System.Console.WriteLine("At the end of the filename will be added '.cid' extension");
-					FileName = System.Console.ReadLine();
-					ied.Write(FileName+".cid");
-				}
-					break;
-				case "exit":
-					run = false;
-					break;
-				}
-			}			
+			}
 		}
 				
 		/// <summary>

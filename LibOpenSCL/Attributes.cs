@@ -25,7 +25,7 @@
  
 using System;
 
-namespace OpenSCL
+namespace IEC61850.SCL
 {
 
 	///<summary>

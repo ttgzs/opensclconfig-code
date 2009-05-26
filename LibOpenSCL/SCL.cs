@@ -1337,23 +1337,23 @@ namespace IEC61850.SCL
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0:
 	*/	
 	public partial class tP_VLANID : tP {
-		private tPTypeEnum typeField;
+		//private tPTypeEnum typeField;
 		
 		public tP_VLANID() {
-			this.typeField = tPTypeEnum.VLAN_ID;
+			this.type = tPTypeEnum.VLAN_ID;
 		}
 		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.VLAN_ID)]
-		public tPTypeEnum type {
-			get {
-				return this.typeField;
-			}
-			set {
-				this.typeField = value;
-			}
-		}
+//		[Required]
+//		[System.Xml.Serialization.XmlAttributeAttribute()]
+//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.VLAN_ID)]
+//		public tPTypeEnum type {
+//			get {
+//				return this.typeField;
+//			}
+//			set {
+//				this.typeField = value;
+//			}
+//		}
 	}
 
 	/// <remarks/>
@@ -1370,23 +1370,23 @@ namespace IEC61850.SCL
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/
 	public partial class tP_VLANPRIORITY : tP {
-		private tPTypeEnum typeField;
+		//private tPTypeEnum typeField;
 		
 		public tP_VLANPRIORITY() {
-			this.typeField = tPTypeEnum.VLAN_PRIORITY;
+			this.type = tPTypeEnum.VLAN_PRIORITY;
 		}
 		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.VLAN_PRIORITY)]
-		public tPTypeEnum type {
-			get {
-				return this.typeField;
-			}
-			set {
-				this.typeField = value;
-			}
-		}
+//		[Required]
+//		[System.Xml.Serialization.XmlAttributeAttribute()]
+//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.VLAN_PRIORITY)]
+//		public tPTypeEnum type {
+//			get {
+//				return this.typeField;
+//			}
+//			set {
+//				this.typeField = value;
+//			}
+//		}
 	}
 
 	/// <remarks/>
@@ -1403,23 +1403,23 @@ namespace IEC61850.SCL
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/
 	public partial class tP_APPID : tP {
-		private tPTypeEnum typeField;
+		//private tPTypeEnum typeField;
 		
 		public tP_APPID() {
-			this.typeField = tPTypeEnum.APPID;
+			this.type = tPTypeEnum.APPID;
 		}
 		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.APPID)]
-		public tPTypeEnum type {
-			get {
-				return this.typeField;
-			}
-			set {
-				this.typeField = value;
-			}
-		}
+//		[Required]
+//		[System.Xml.Serialization.XmlAttributeAttribute()]
+//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.APPID)]
+//		public tPTypeEnum type {
+//			get {
+//				return this.typeField;
+//			}
+//			set {
+//				this.typeField = value;
+//			}
+//		}
 	}
 
 	/// <remarks/>
@@ -1436,23 +1436,23 @@ namespace IEC61850.SCL
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/	
 	public partial class tP_MACAddress : tP {
-		private tPTypeEnum typeField;
+		//private tPTypeEnum typeField;
 		
 		public tP_MACAddress() {
-			this.typeField = tPTypeEnum.MAC_Address;
+			this.type = tPTypeEnum.MAC_Address;
 		}
 		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.MAC_Address)]
-		public tPTypeEnum type {
-			get {
-				return this.typeField;
-			}
-			set {
-				this.typeField = value;
-			}
-		}
+//		[Required]
+//		[System.Xml.Serialization.XmlAttributeAttribute()]
+//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.MAC_Address)]
+//		public tPTypeEnum type {
+//			get {
+//				return this.typeField;
+//			}
+//			set {
+//				this.typeField = value;
+//			}
+//		}
 	}
 
 	/// <remarks/>
@@ -1469,23 +1469,23 @@ namespace IEC61850.SCL
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/
 	public partial class tP_OSIAEInvoke : tP {
-		private tPTypeEnum typeField;
+		//private tPTypeEnum typeField;
 		
 		public tP_OSIAEInvoke() {
-			this.typeField = tPTypeEnum.OSI_AE_Invoke;
+			this.type = tPTypeEnum.OSI_AE_Invoke;
 		}
-		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AE_Invoke)]
-		public tPTypeEnum type {
-			get {
-				return this.typeField;
-			}
-			set {
-				this.typeField = value;
-			}
-		}
+//		
+//		[Required]
+//		[System.Xml.Serialization.XmlAttributeAttribute()]
+//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AE_Invoke)]
+//		public tPTypeEnum type {
+//			get {
+//				return this.typeField;
+//			}
+//			set {
+//				this.typeField = value;
+//			}
+//		}
 	}
 
 	/// <remarks/>
@@ -1502,23 +1502,23 @@ namespace IEC61850.SCL
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/
 	public partial class tP_OSIAEQualifier : tP {
-		private tPTypeEnum typeField;
+		//private tPTypeEnum typeField;
 		
 		public tP_OSIAEQualifier() {
-			this.typeField = tPTypeEnum.OSI_AE_Qualifier;
+			this.type = tPTypeEnum.OSI_AE_Qualifier;
 		}
 		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AE_Qualifier)]
-		public tPTypeEnum type {
-			get {
-				return this.typeField;
-			}
-			set {
-				this.typeField = value;
-			}
-		}
+//		[Required]
+//		[System.Xml.Serialization.XmlAttributeAttribute()]
+//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AE_Qualifier)]
+//		public tPTypeEnum type {
+//			get {
+//				return this.typeField;
+//			}
+//			set {
+//				this.typeField = value;
+//			}
+//		}
 	}
 
 	/// <remarks/>
@@ -1535,23 +1535,23 @@ namespace IEC61850.SCL
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/	
 	public partial class tP_OSIAPInvoke : tP {
-		private tPTypeEnum typeField;
+		//private tPTypeEnum typeField;
 		
 		public tP_OSIAPInvoke() {
-			this.typeField = tPTypeEnum.OSI_AP_Invoke;
+			this.type = tPTypeEnum.OSI_AP_Invoke;
 		}
 		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AP_Invoke)]
-		public tPTypeEnum type {
-			get {
-				return this.typeField;
-			}
-			set {
-				this.typeField = value;
-			}
-		}
+//		[Required]
+//		[System.Xml.Serialization.XmlAttributeAttribute()]
+//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AP_Invoke)]
+//		public tPTypeEnum type {
+//			get {
+//				return this.typeField;
+//			}
+//			set {
+//				this.typeField = value;
+//			}
+//		}
 	}
 
 	/// <remarks/>
@@ -1568,23 +1568,23 @@ namespace IEC61850.SCL
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/	
 	public partial class tP_OSIAPTitle : tP {
-		private tPTypeEnum typeField;
+		//private tPTypeEnum typeField;
 		
 		public tP_OSIAPTitle() {
-			this.typeField = tPTypeEnum.OSI_AP_Title;
+			this.type = tPTypeEnum.OSI_AP_Title;
 		}
 		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AP_Title)]
-		public tPTypeEnum type {
-			get {
-				return this.typeField;
-			}
-			set {
-				this.typeField = value;
-			}
-		}
+//		[Required]
+//		[System.Xml.Serialization.XmlAttributeAttribute()]
+//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AP_Title)]
+//		public tPTypeEnum type {
+//			get {
+//				return this.typeField;
+//			}
+//			set {
+//				this.typeField = value;
+//			}
+//		}
 	}
 	
 	/// <remarks/>
@@ -1601,23 +1601,23 @@ namespace IEC61850.SCL
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/	
 	public partial class tP_OSIPSEL : tP {
-		private tPTypeEnum typeField;
+		//private tPTypeEnum typeField;
 		
 		public tP_OSIPSEL() {
-			this.typeField = tPTypeEnum.OSI_PSEL;
+			this.type = tPTypeEnum.OSI_PSEL;
 		}
 		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_PSEL)]
-		public tPTypeEnum type {
-			get {
-				return this.typeField;
-			}
-			set {
-				this.typeField = value;
-			}
-		}
+//		[Required]
+//		[System.Xml.Serialization.XmlAttributeAttribute()]
+//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_PSEL)]
+//		public tPTypeEnum type {
+//			get {
+//				return this.typeField;
+//			}
+//			set {
+//				this.typeField = value;
+//			}
+//		}
 	}
 
 	/// <remarks/>
@@ -1634,23 +1634,23 @@ namespace IEC61850.SCL
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/	
 	public partial class tP_OSISSEL : tP {
-		private tPTypeEnum typeField;
+		//private tPTypeEnum typeField;
 		
 		public tP_OSISSEL() {
-			this.typeField = tPTypeEnum.OSI_SSEL;
+			this.type = tPTypeEnum.OSI_SSEL;
 		}
 		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_SSEL)]
-		public tPTypeEnum type {
-			get {
-				return this.typeField;
-			}
-			set {
-				this.typeField = value;
-			}
-		}
+//		[Required]
+//		[System.Xml.Serialization.XmlAttributeAttribute()]
+//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_SSEL)]
+//		public tPTypeEnum type {
+//			get {
+//				return this.typeField;
+//			}
+//			set {
+//				this.typeField = value;
+//			}
+//		}
 	}
 
 	/// <remarks/>
@@ -1667,23 +1667,23 @@ namespace IEC61850.SCL
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/
 	public partial class tP_OSITSEL : tP {
-		private tPTypeEnum typeField;
+		//private tPTypeEnum typeField;
 		
 		public tP_OSITSEL() {
-			this.typeField = tPTypeEnum.OSI_TSEL;
+			this.type = tPTypeEnum.OSI_TSEL;
 		}
 		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_TSEL)]
-		public tPTypeEnum type {
-			get {
-				return this.typeField;
-			}
-			set {
-				this.typeField = value;
-			}
-		}
+//		[Required]
+//		[System.Xml.Serialization.XmlAttributeAttribute()]
+//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_TSEL)]
+//		public tPTypeEnum type {
+//			get {
+//				return this.typeField;
+//			}
+//			set {
+//				this.typeField = value;
+//			}
+//		}
 	}
 
 	/// <remarks/>
@@ -1700,23 +1700,23 @@ namespace IEC61850.SCL
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/
 	public partial class tP_OSINSAP : tP {
-		private tPTypeEnum typeField;
+		//private tPTypeEnum typeField;
 		
 		public tP_OSINSAP() {
-			this.typeField = tPTypeEnum.OSI_NSAP;
+			this.type = tPTypeEnum.OSI_NSAP;
 		}
 		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_NSAP)]
-		public tPTypeEnum type {
-			get {
-				return this.typeField;
-			}
-			set {
-				this.typeField = value;
-			}
-		}
+//		[Required]
+//		[System.Xml.Serialization.XmlAttributeAttribute()]
+//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_NSAP)]
+//		public tPTypeEnum type {
+//			get {
+//				return this.typeField;
+//			}
+//			set {
+//				this.typeField = value;
+//			}
+//		}
 	}
 
 	/// <remarks/>
@@ -1733,23 +1733,23 @@ namespace IEC61850.SCL
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/	
 	public partial class tP_IPGATEWAY : tP {
-		private tPTypeEnum typeField;
+		//private tPTypeEnum typeField;
 		
 		public tP_IPGATEWAY() {
-			this.typeField = tPTypeEnum.IP_GATEWAY;
+			this.type = tPTypeEnum.IP_GATEWAY;
 		}
 		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.IP_GATEWAY)]
-		public tPTypeEnum type {
-			get {
-				return this.typeField;
-			}
-			set {
-				this.typeField = value;
-			}
-		}
+//		[Required]
+//		[System.Xml.Serialization.XmlAttributeAttribute()]
+//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.IP_GATEWAY)]
+//		public tPTypeEnum type {
+//			get {
+//				return this.typeField;
+//			}
+//			set {
+//				this.typeField = value;
+//			}
+//		}
 	}
 
 	/// <remarks/>
@@ -1766,23 +1766,23 @@ namespace IEC61850.SCL
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/	
 	public partial class tP_IPSUBNET : tP {
-		private tPTypeEnum typeField;
+		//private tPTypeEnum typeField;
 		
 		public tP_IPSUBNET() {
-			this.typeField = tPTypeEnum.IP_SUBNET;
+			this.type = tPTypeEnum.IP_SUBNET;
 		}
 		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.IP_SUBNET)]
-		public tPTypeEnum type {
-			get {
-				return this.typeField;
-			}
-			set {
-				this.typeField = value;
-			}
-		}
+//		[Required]
+//		[System.Xml.Serialization.XmlAttributeAttribute()]
+//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.IP_SUBNET)]
+//		public tPTypeEnum type {
+//			get {
+//				return this.typeField;
+//			}
+//			set {
+//				this.typeField = value;
+//			}
+//		}
 	}
 
 	/// <remarks/>
@@ -1800,23 +1800,13 @@ namespace IEC61850.SCL
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
 	*/	
 	public partial class tP_IP : tP {
-		private tPTypeEnum typeField;
+		//private tPTypeEnum typeField;
 		
 		public tP_IP() {
-			this.typeField = tPTypeEnum.IP;
+			this.type = tPTypeEnum.IP;
 		}
 		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.IP)]
-		public tPTypeEnum type {
-			get {
-				return this.typeField;
-			}
-			set {
-				this.typeField = value;
-			}
-		}
+		
 	}
 
 	/// <remarks/>
@@ -4287,7 +4277,9 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
+	/// <summary>
+	/// FIXME: The typeField must be  
+	/// </summary>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]

@@ -1715,7 +1715,7 @@ namespace OpenSCL.Console
 					{
 						System.Console.WriteLine("Write path to file type SCD, CID or ICD:");
 						string FileName = System.Console.ReadLine();
-						app.sclObject = new IED (FileName);
+						app.sclObject = new Device(FileName);
 						break;
 					}
 					case "save":
@@ -1730,7 +1730,7 @@ namespace OpenSCL.Console
 						if (first_parameter.Equals("ied")) {
 							System.Console.WriteLine("Creating a Generic Configured IED Description (CID)...");
 							// FIXME: This command doesn't work becouse object not initialized
-							IED ied = new IED();
+							Device ied = new Device();
 							System.Console.WriteLine("Write path to file for New GENERIC IED Configuration");
 							System.Console.WriteLine("At the end of the filename will be added '.cid' extension");
 							string FileName = System.Console.ReadLine();
@@ -1759,7 +1759,7 @@ namespace OpenSCL.Console
 					{
 						System.Console.WriteLine("Write path to file type CID or ICD:");
 						string FileName = System.Console.ReadLine();
-						IED ied = new IED(FileName);
+						Device ied = new Device(FileName);
 						app.ShowAll(ied);
 						break;
 					}				
@@ -1773,7 +1773,7 @@ namespace OpenSCL.Console
 						if(first_parameter.Equals("header")) {
 							app.ShowHeader(app.sclObject.Configuration.Header);
 						}
-						if(first_parameter.Equals("communication")) {
+						if(first_parameter.Equals("communications")) {
 							app.ShowCommunication(app.sclObject.Configuration.Communication);
 						}
 						if(first_parameter.Equals("devices")) {

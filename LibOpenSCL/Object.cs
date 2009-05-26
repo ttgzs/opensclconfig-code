@@ -139,5 +139,23 @@ namespace OpenSCL
 				this.configuration = value;
 			}
 		}
+		
+		public string ConfigurationVersion {
+			get {
+				return this.configuration.Header.version;
+			}
+			set {
+				this.configuration.Header.version = value;
+			}
+		}
+		
+		public string ConfigurationRevision {
+			get {
+				return this.configuration.Header.revision;
+			}
+			set {
+				this.configuration.Header.revision = value;
+			}
+		}
 	}
 }

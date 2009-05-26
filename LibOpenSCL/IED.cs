@@ -22,9 +22,13 @@ using IEC61850.SCL;
 namespace OpenSCL
 {
 	
-	
-	public class IED : Object
+	/// <summary>
+	/// This object represent a single IED in a SCD or CID files. 
+	/// </summary>
+	public class Device : Object
 	{
+		
+		private tIED deviceConfigField;
 		
 		public string name {
 			get {
@@ -34,6 +38,7 @@ namespace OpenSCL
 				this.ConfiguredDevices[0].name = value;
 			}
 		}
+		
 		public string manufacturer {
 			get {
 				tIED ied =  this.ConfiguredDevices[0];
@@ -51,6 +56,7 @@ namespace OpenSCL
 		}
 		
 		/// <value>
+		/// 
 		/// An IED's configuration (CID) just have one tIED object then allways access
 		/// to the first element of the IEDs array
 		/// </value>
@@ -63,10 +69,32 @@ namespace OpenSCL
 			}
 		}
 		
+		public tP_IP ip {
+			get {
+				//FIXME: Search in SubNetwork this data
+				tP_IP val = new tP_IP();
+				return val;
+			}
+			set {
+				
+			}
+		}
+		
+		public tP_VLANID vlan {
+			get {
+				//FIXME: Search in SubNetwork this data
+				tP_VLANID val = new tP_VLANID();
+				return val;
+			}
+			set {
+				
+			}
+		}
+		
 		/// <summary>
 		/// Creates a new IED with default values to get a generic configuration.
 		/// </summary>
-		public IED()
+		public Device()
 		{
 			// FIXME: Set Values to Generic configuration
 			this.genericConfiguration = true;
@@ -100,6 +128,7 @@ namespace OpenSCL
 			this.ConfiguredDevices = new tIED[] { ied };
 			this.manufacturer = "GENERIC MANUFACTURER";
 			this.configVersion = "0.1";
+			this.ConfigurationVersion = "0.1";
 		}
 		
 		/// <summary>
@@ -108,7 +137,7 @@ namespace OpenSCL
 		/// <param name="filepath">
 		/// A <see cref="System.String"/> with the path to the file to open.
 		/// </param>
-		public IED(string filepath)
+		public Device(string filepath)
 		{
 			this.Deserialize (filepath);
 		}

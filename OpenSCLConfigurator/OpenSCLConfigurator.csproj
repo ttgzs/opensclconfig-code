@@ -5,9 +5,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B960CA0D-DD5A-474F-A307-0698C4EC1D1E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AssemblyName>LibOpenSCLGUI</AssemblyName>
+    <ProjectGuid>{99F4A2A5-8837-4389-B73D-9EDD93AD2405}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>OpenSCLConfigurator</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -17,7 +17,6 @@
     <DefineConstants>DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -25,23 +24,34 @@
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Windows.Forms" />
+    <Content Include="OpenSCLConfigurator.desktop">
+      <DeployService-TargetDirectoryId>Linux.DesktopApplications</DeployService-TargetDirectoryId>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GUIObjectManagement.cs" />
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="openDialog.cs" />
-    <Compile Include="TreeViewSCL.cs" />
+    <Compile Include="OpenSCLConfigurator.cs" />
+    <Compile Include="OpenSCLConfigurator.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibOpenSCL\LibOpenSCL.csproj">
       <Project>{650D7F8F-4B20-4AC4-A707-E2AA42340EE0}</Project>
       <Name>LibOpenSCL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LibOpenSCLGUI\LibOpenSCLGUI.csproj">
+      <Project>{B960CA0D-DD5A-474F-A307-0698C4EC1D1E}</Project>
+      <Name>LibOpenSCLGUI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="imgs\App.ico" />
+    <None Include="imgs\exit.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

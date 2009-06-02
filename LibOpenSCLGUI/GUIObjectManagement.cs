@@ -5,7 +5,7 @@ using OpenSCL;
 using IEC61850.SCL;
 using System.Reflection;
 
-namespace OpenSCL.GUI
+namespace OpenSCL.UI
 {
 	
 	

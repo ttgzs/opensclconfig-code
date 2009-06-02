@@ -97,28 +97,29 @@ namespace OpenSCL
 		public Device()
 		{
 			// FIXME: Set Values to Generic configuration
-			this.genericConfiguration = true;
+			//this.genericConfiguration = true;
 						
 			// FIXME: Add one Generic Logical Device
 			// Setup a generic LN
-			tLN ln = new tLN ();
+			/*tLN ln = new tLN ();
 			ln.lnClass = "XCBR";
 			ln.inst = 1;
 			ln.prefix = "Q0";
-			
+			*/
 			// Setup a generic LD
-			tLDevice ld = new tLDevice ();
-			ld.ldName = "GENERIC";
+			/*tLDevice ld = new tLDevice ();
+			ld.ldName = "GENERIC";*/
 			
 			// Setup LN0 and LPHD
-			ld.LN0 = new LN0();
+			/*ld.LN0 = new LN0();
 			tLN lphd = new tLN();
-			lphd.lnClass = "LPHD";
+			lphd.lnClass = "LPHD";*/
+			
 			// Add LNs to LD
-			ld.LN = new tLN[] { lphd, ln };
+			//ld.LN = new tLN[] { lphd, ln };
 			
 			// Create Access Points
-			tAccessPoint acc = new tAccessPoint ();
+			/*tAccessPoint acc = new tAccessPoint ();
 			acc.Items = new tUnNaming[] { ld };
 			acc.name = "1";
 			tIED ied = new tIED ();
@@ -128,7 +129,7 @@ namespace OpenSCL
 			this.ConfiguredDevices = new tIED[] { ied };
 			this.manufacturer = "GENERIC MANUFACTURER";
 			this.configVersion = "0.1";
-			this.ConfigurationVersion = "0.1";
+			this.ConfigurationVersion = "0.1";*/
 		}
 		
 		/// <summary>

@@ -18,14 +18,11 @@
  
 /*
  * It contains all the classes and methods that were generated from XSD file of the 
- * standard IEC 61850-6 Ed.1.0
+ * standard IEC 61850 Ed. 1.0-6 Edition 1.0
 */ 
-
-using System.Xml.Serialization;
-
+	
 namespace IEC61850.SCL
 {
-
 	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
@@ -104,10 +101,10 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The following attributes were added to fulfill standard IEC 61850 Ed.1.0:
+	 * The following attributes were added to fulfill standard IEC 61850 Ed. 1.0:
 	 * unit -> unitField
 	 * multiplier -> multiplierField
 	*/
@@ -160,7 +157,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/
 	public partial class tValueWithUnit {
@@ -487,7 +484,7 @@ namespace IEC61850.SCL
 
 	/// <remarks/>
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
@@ -497,7 +494,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/
 	public partial class tHeader {
@@ -690,7 +687,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/
 	public partial class tHitem : tAnyContentFromOtherNamespace {
@@ -830,7 +827,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/
 	public partial class tEnumVal {
@@ -871,12 +868,15 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The following attributes were added to fulfill standard IEC 61850 Ed.1.0:
+	 * The following attributes were added to fulfill standard IEC 61850 Ed. 1.0:
 	 * iedName -> iedNameField
 	 * ldInst -> ldInstField
+	 * 
+	 * The data type "lnClassField" was added to fulfill standard IEC 61850 Ed. 1.0	 
+	 * 
 	*/
 	public partial class tAssociation {
 		
@@ -890,7 +890,7 @@ namespace IEC61850.SCL
 		
 		private string prefixField;
 		
-		private string lnClassField;
+		private tLNClassEnum lnClassField;
 		
 		private string lnInstField;
 		
@@ -922,6 +922,7 @@ namespace IEC61850.SCL
 		}
 		
 		/// <remarks/>
+		[Required]		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string iedName {
 			get {
@@ -933,6 +934,7 @@ namespace IEC61850.SCL
 		}
 		
 		/// <remarks/>
+		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string ldInst {
 			get {
@@ -958,7 +960,7 @@ namespace IEC61850.SCL
 		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		public string lnClass {
+		public tLNClassEnum lnClass {
 			get {
 				return this.lnClassField;
 			}
@@ -1002,15 +1004,17 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The following attributes were added to fulfill standard IEC 61850 Ed.1.0:
+	 * The following attributes were added to fulfill standard IEC 61850 Ed. 1.0:
 	 * iedName -> iedNameField
 	 * ldInst -> ldInstField
 	 * prefix -> prefixField
 	 * lnClass -> lnClassField
 	 * lnInst -> lnInstField
+	 * 
+	 * The data type "lnClassField" was added to fulfill standard IEC 61850 Ed. 1.0	 
 	*/	
 	public partial class tExtRef {
 		
@@ -1020,7 +1024,7 @@ namespace IEC61850.SCL
 		
 		private string prefixField;
 		
-		private string lnClassField;
+		private tLNClassEnum lnClassField;
 		
 		private string lnInstField;
 		
@@ -1068,8 +1072,8 @@ namespace IEC61850.SCL
 		
 		/// <remarks/>
 		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		public string lnClass {
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		public tLNClassEnum lnClass {
 			get {
 				return this.lnClassField;
 			}
@@ -1181,7 +1185,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/
 	public partial class tPhysConn {
@@ -1237,10 +1241,10 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The data type "tPTypeEnum was added to fulfill standard IEC 61850 Ed.1.0
+	 * The data type "tPTypeEnum was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public partial class tP {
 		
@@ -1277,7 +1281,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/*
-	 * The enumeration "TPTypeEnum" was added to fullfill standar IEC 61850 Ed.1.0
+	 * The enumeration "TPTypeEnum" was added to fullfill standar IEC 61850 Ed. 1.0
 	*/
 	public enum tPTypeEnum{
 		IP,
@@ -1331,29 +1335,29 @@ namespace IEC61850.SCL
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_VLAN-ID", Namespace="http://www.iec.ch/61850/2003/SCL")]
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0:
+	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0:
 	*/	
 	public partial class tP_VLANID : tP {
-		//private tPTypeEnum typeField;
+		private tPTypeEnum typeField;
 		
 		public tP_VLANID() {
-			this.type = tPTypeEnum.VLAN_ID;
+			this.typeField = tPTypeEnum.VLAN_ID;
 		}
 		
-//		[Required]
-//		[System.Xml.Serialization.XmlAttributeAttribute()]
-//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.VLAN_ID)]
-//		public tPTypeEnum type {
-//			get {
-//				return this.typeField;
-//			}
-//			set {
-//				this.typeField = value;
-//			}
-//		}
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.VLAN_ID)]
+		public tPTypeEnum type {
+			get {
+				return this.typeField;
+			}
+			set {
+				this.typeField = value;
+			}
+		}
 	}
 
 	/// <remarks/>
@@ -1364,29 +1368,29 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_VLAN-PRIORITY", Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public partial class tP_VLANPRIORITY : tP {
-		//private tPTypeEnum typeField;
+		private tPTypeEnum typeField;
 		
 		public tP_VLANPRIORITY() {
-			this.type = tPTypeEnum.VLAN_PRIORITY;
+			this.typeField = tPTypeEnum.VLAN_PRIORITY;
 		}
 		
-//		[Required]
-//		[System.Xml.Serialization.XmlAttributeAttribute()]
-//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.VLAN_PRIORITY)]
-//		public tPTypeEnum type {
-//			get {
-//				return this.typeField;
-//			}
-//			set {
-//				this.typeField = value;
-//			}
-//		}
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.VLAN_PRIORITY)]
+		public tPTypeEnum type {
+			get {
+				return this.typeField;
+			}
+			set {
+				this.typeField = value;
+			}
+		}
 	}
 
 	/// <remarks/>
@@ -1397,29 +1401,29 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public partial class tP_APPID : tP {
-		//private tPTypeEnum typeField;
+		private tPTypeEnum typeField;
 		
 		public tP_APPID() {
-			this.type = tPTypeEnum.APPID;
+			this.typeField = tPTypeEnum.APPID;
 		}
 		
-//		[Required]
-//		[System.Xml.Serialization.XmlAttributeAttribute()]
-//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.APPID)]
-//		public tPTypeEnum type {
-//			get {
-//				return this.typeField;
-//			}
-//			set {
-//				this.typeField = value;
-//			}
-//		}
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.APPID)]
+		public tPTypeEnum type {
+			get {
+				return this.typeField;
+			}
+			set {
+				this.typeField = value;
+			}
+		}
 	}
 
 	/// <remarks/>
@@ -1430,29 +1434,29 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_MAC-Address", Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/	
 	public partial class tP_MACAddress : tP {
-		//private tPTypeEnum typeField;
+		private tPTypeEnum typeField;
 		
 		public tP_MACAddress() {
-			this.type = tPTypeEnum.MAC_Address;
+			this.typeField = tPTypeEnum.MAC_Address;
 		}
 		
-//		[Required]
-//		[System.Xml.Serialization.XmlAttributeAttribute()]
-//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.MAC_Address)]
-//		public tPTypeEnum type {
-//			get {
-//				return this.typeField;
-//			}
-//			set {
-//				this.typeField = value;
-//			}
-//		}
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.MAC_Address)]
+		public tPTypeEnum type {
+			get {
+				return this.typeField;
+			}
+			set {
+				this.typeField = value;
+			}
+		}
 	}
 
 	/// <remarks/>
@@ -1463,29 +1467,29 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-AE-Invoke", Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public partial class tP_OSIAEInvoke : tP {
-		//private tPTypeEnum typeField;
+		private tPTypeEnum typeField;
 		
 		public tP_OSIAEInvoke() {
-			this.type = tPTypeEnum.OSI_AE_Invoke;
+			this.typeField = tPTypeEnum.OSI_AE_Invoke;
 		}
-//		
-//		[Required]
-//		[System.Xml.Serialization.XmlAttributeAttribute()]
-//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AE_Invoke)]
-//		public tPTypeEnum type {
-//			get {
-//				return this.typeField;
-//			}
-//			set {
-//				this.typeField = value;
-//			}
-//		}
+		
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AE_Invoke)]
+		public tPTypeEnum type {
+			get {
+				return this.typeField;
+			}
+			set {
+				this.typeField = value;
+			}
+		}
 	}
 
 	/// <remarks/>
@@ -1496,29 +1500,29 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-AE-Qualifier", Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public partial class tP_OSIAEQualifier : tP {
-		//private tPTypeEnum typeField;
+		private tPTypeEnum typeField;
 		
 		public tP_OSIAEQualifier() {
-			this.type = tPTypeEnum.OSI_AE_Qualifier;
+			this.typeField = tPTypeEnum.OSI_AE_Qualifier;
 		}
 		
-//		[Required]
-//		[System.Xml.Serialization.XmlAttributeAttribute()]
-//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AE_Qualifier)]
-//		public tPTypeEnum type {
-//			get {
-//				return this.typeField;
-//			}
-//			set {
-//				this.typeField = value;
-//			}
-//		}
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AE_Qualifier)]
+		public tPTypeEnum type {
+			get {
+				return this.typeField;
+			}
+			set {
+				this.typeField = value;
+			}
+		}
 	}
 
 	/// <remarks/>
@@ -1529,29 +1533,29 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-AP-Invoke", Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/	
 	public partial class tP_OSIAPInvoke : tP {
-		//private tPTypeEnum typeField;
+		private tPTypeEnum typeField;
 		
 		public tP_OSIAPInvoke() {
-			this.type = tPTypeEnum.OSI_AP_Invoke;
+			this.typeField = tPTypeEnum.OSI_AP_Invoke;
 		}
 		
-//		[Required]
-//		[System.Xml.Serialization.XmlAttributeAttribute()]
-//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AP_Invoke)]
-//		public tPTypeEnum type {
-//			get {
-//				return this.typeField;
-//			}
-//			set {
-//				this.typeField = value;
-//			}
-//		}
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AP_Invoke)]
+		public tPTypeEnum type {
+			get {
+				return this.typeField;
+			}
+			set {
+				this.typeField = value;
+			}
+		}
 	}
 
 	/// <remarks/>
@@ -1562,29 +1566,29 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-AP-Title", Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/	
 	public partial class tP_OSIAPTitle : tP {
-		//private tPTypeEnum typeField;
+		private tPTypeEnum typeField;
 		
 		public tP_OSIAPTitle() {
-			this.type = tPTypeEnum.OSI_AP_Title;
+			this.typeField = tPTypeEnum.OSI_AP_Title;
 		}
 		
-//		[Required]
-//		[System.Xml.Serialization.XmlAttributeAttribute()]
-//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AP_Title)]
-//		public tPTypeEnum type {
-//			get {
-//				return this.typeField;
-//			}
-//			set {
-//				this.typeField = value;
-//			}
-//		}
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AP_Title)]
+		public tPTypeEnum type {
+			get {
+				return this.typeField;
+			}
+			set {
+				this.typeField = value;
+			}
+		}
 	}
 	
 	/// <remarks/>
@@ -1595,29 +1599,29 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-PSEL", Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/	
 	public partial class tP_OSIPSEL : tP {
-		//private tPTypeEnum typeField;
+		private tPTypeEnum typeField;
 		
 		public tP_OSIPSEL() {
-			this.type = tPTypeEnum.OSI_PSEL;
+			this.typeField = tPTypeEnum.OSI_PSEL;
 		}
 		
-//		[Required]
-//		[System.Xml.Serialization.XmlAttributeAttribute()]
-//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_PSEL)]
-//		public tPTypeEnum type {
-//			get {
-//				return this.typeField;
-//			}
-//			set {
-//				this.typeField = value;
-//			}
-//		}
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_PSEL)]
+		public tPTypeEnum type {
+			get {
+				return this.typeField;
+			}
+			set {
+				this.typeField = value;
+			}
+		}
 	}
 
 	/// <remarks/>
@@ -1628,29 +1632,29 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-SSEL", Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/	
 	public partial class tP_OSISSEL : tP {
-		//private tPTypeEnum typeField;
+		private tPTypeEnum typeField;
 		
 		public tP_OSISSEL() {
-			this.type = tPTypeEnum.OSI_SSEL;
+			this.typeField = tPTypeEnum.OSI_SSEL;
 		}
 		
-//		[Required]
-//		[System.Xml.Serialization.XmlAttributeAttribute()]
-//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_SSEL)]
-//		public tPTypeEnum type {
-//			get {
-//				return this.typeField;
-//			}
-//			set {
-//				this.typeField = value;
-//			}
-//		}
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_SSEL)]
+		public tPTypeEnum type {
+			get {
+				return this.typeField;
+			}
+			set {
+				this.typeField = value;
+			}
+		}
 	}
 
 	/// <remarks/>
@@ -1661,29 +1665,29 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-TSEL", Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public partial class tP_OSITSEL : tP {
-		//private tPTypeEnum typeField;
+		private tPTypeEnum typeField;
 		
 		public tP_OSITSEL() {
-			this.type = tPTypeEnum.OSI_TSEL;
+			this.typeField = tPTypeEnum.OSI_TSEL;
 		}
 		
-//		[Required]
-//		[System.Xml.Serialization.XmlAttributeAttribute()]
-//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_TSEL)]
-//		public tPTypeEnum type {
-//			get {
-//				return this.typeField;
-//			}
-//			set {
-//				this.typeField = value;
-//			}
-//		}
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_TSEL)]
+		public tPTypeEnum type {
+			get {
+				return this.typeField;
+			}
+			set {
+				this.typeField = value;
+			}
+		}
 	}
 
 	/// <remarks/>
@@ -1694,29 +1698,29 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-NSAP", Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public partial class tP_OSINSAP : tP {
-		//private tPTypeEnum typeField;
+		private tPTypeEnum typeField;
 		
 		public tP_OSINSAP() {
-			this.type = tPTypeEnum.OSI_NSAP;
+			this.typeField = tPTypeEnum.OSI_NSAP;
 		}
 		
-//		[Required]
-//		[System.Xml.Serialization.XmlAttributeAttribute()]
-//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_NSAP)]
-//		public tPTypeEnum type {
-//			get {
-//				return this.typeField;
-//			}
-//			set {
-//				this.typeField = value;
-//			}
-//		}
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_NSAP)]
+		public tPTypeEnum type {
+			get {
+				return this.typeField;
+			}
+			set {
+				this.typeField = value;
+			}
+		}
 	}
 
 	/// <remarks/>
@@ -1727,29 +1731,29 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_IP-GATEWAY", Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/	
 	public partial class tP_IPGATEWAY : tP {
-		//private tPTypeEnum typeField;
+		private tPTypeEnum typeField;
 		
 		public tP_IPGATEWAY() {
-			this.type = tPTypeEnum.IP_GATEWAY;
+			this.typeField = tPTypeEnum.IP_GATEWAY;
 		}
 		
-//		[Required]
-//		[System.Xml.Serialization.XmlAttributeAttribute()]
-//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.IP_GATEWAY)]
-//		public tPTypeEnum type {
-//			get {
-//				return this.typeField;
-//			}
-//			set {
-//				this.typeField = value;
-//			}
-//		}
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.IP_GATEWAY)]
+		public tPTypeEnum type {
+			get {
+				return this.typeField;
+			}
+			set {
+				this.typeField = value;
+			}
+		}
 	}
 
 	/// <remarks/>
@@ -1760,33 +1764,32 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_IP-SUBNET", Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/	
 	public partial class tP_IPSUBNET : tP {
-		//private tPTypeEnum typeField;
+		private tPTypeEnum typeField;
 		
 		public tP_IPSUBNET() {
-			this.type = tPTypeEnum.IP_SUBNET;
+			this.typeField = tPTypeEnum.IP_SUBNET;
 		}
 		
-//		[Required]
-//		[System.Xml.Serialization.XmlAttributeAttribute()]
-//		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.IP_SUBNET)]
-//		public tPTypeEnum type {
-//			get {
-//				return this.typeField;
-//			}
-//			set {
-//				this.typeField = value;
-//			}
-//		}
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.IP_SUBNET)]
+		public tPTypeEnum type {
+			get {
+				return this.typeField;
+			}
+			set {
+				this.typeField = value;
+			}
+		}
 	}
 
 	/// <remarks/>
-	//$
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1794,19 +1797,29 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The attribute "type" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/	
 	public partial class tP_IP : tP {
-		//private tPTypeEnum typeField;
+		private tPTypeEnum typeField;
 		
 		public tP_IP() {
-			this.type = tPTypeEnum.IP;
+			this.typeField = tPTypeEnum.IP;
 		}
 		
-		
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.IP)]
+		public tPTypeEnum type {
+			get {
+				return this.typeField;
+			}
+			set {
+				this.typeField = value;
+			}
+		}
 	}
 
 	/// <remarks/>
@@ -1817,10 +1830,10 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The following attributes were added to fulfill standard IEC 61850 Ed.1.0:
+	 * The following attributes were added to fulfill standard IEC 61850 Ed. 1.0:
 	 * iedName -> iedNameField
 	 * ldInst -> ldInstField
 	*/	
@@ -1981,8 +1994,10 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
+	 * 
+	 * The data type "lnClassField" was added to fulfill standard IEC 61850 Ed. 1.0	 
 	*/	
 	public partial class tFCDA {
 		
@@ -1990,7 +2005,7 @@ namespace IEC61850.SCL
 		
 		private string prefixField;
 		
-		private string lnClassField;
+		private tLNClassEnum lnClassField;
 		
 		private string lnInstField;
 		
@@ -2029,7 +2044,7 @@ namespace IEC61850.SCL
 		
 		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		public string lnClass {
+		public tLNClassEnum lnClass {
 			get {
 				return this.lnClassField;
 			}
@@ -2493,7 +2508,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/	
 	public partial class tServiceWithMax {
@@ -3100,7 +3115,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/	
 	public partial class tIDNaming : tBaseElement {
@@ -3214,7 +3229,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/	
 	public partial class tAbstractDataAttribute : tUnNaming {
@@ -3392,7 +3407,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/	
 	public partial class tDO : tUnNaming {
@@ -3474,7 +3489,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/	
 	public partial class tSettingControl : tUnNaming {
@@ -3542,7 +3557,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/	
 	public partial class tDAI : tUnNaming {
@@ -3640,12 +3655,18 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
+	 * 
+	 * The following attributes were added to fulfill standard IEC 61850 Ed. 1.0:
+	 * tSDI -> SDIField
+	 * tDAI -> DAIField
+	 * 
+	 * The attribute "itemsField" was deleted to fulfill standar IEC 61850 Ed. 1.0.
 	*/	
 	public partial class tSDI : tUnNaming {
 		
-		private tUnNaming[] itemsField;
+//		private tUnNaming[] itemsField;
 		
 		private string nameField;
 		
@@ -3653,17 +3674,21 @@ namespace IEC61850.SCL
 		
 		private bool ixFieldSpecified;
 		
+		private tSDI SDIField;
+		
+		private tDAI DAIField;	
+		
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("DAI", typeof(tDAI))]
-		[System.Xml.Serialization.XmlElementAttribute("SDI", typeof(tSDI))]
-		public tUnNaming[] Items {
-			get {
-				return this.itemsField;
-			}
-			set {
-				this.itemsField = value;
-			}
-		}
+//		[System.Xml.Serialization.XmlElementAttribute("DAI", typeof(tDAI))]
+//		[System.Xml.Serialization.XmlElementAttribute("SDI", typeof(tSDI))]
+//		public tUnNaming[] Items {
+//			get {
+//				return this.itemsField;
+//			}
+//			set {
+//				this.itemsField = value;
+//			}
+//		}
 		
 		/// <remarks/>
 		[Required]
@@ -3696,6 +3721,32 @@ namespace IEC61850.SCL
 			}
 			set {
 				this.ixFieldSpecified = value;
+			}
+		}
+		
+		[System.Xml.Serialization.XmlElementAttribute("SDI", typeof(tSDI))]
+		public tSDI SDI	
+		{
+			get 
+			{
+			 	return this.SDIField;
+			}
+			set
+			{
+				this.SDIField = value;
+			}		
+		}
+		
+		[System.Xml.Serialization.XmlElementAttribute("DAI", typeof(tDAI))]
+		public tDAI DAI
+		{
+			get
+			{
+				return this.DAIField;
+			}
+			set
+			{
+				this.DAIField = value;
 			}
 		}
 	}
@@ -3708,12 +3759,19 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
+	 * 
+	 * The following attributes were added to fulfill standard IEC 61850 Ed. 1.0:
+	 * tSDI -> SDIField
+	 * tDAI -> DAIField
+	 * 
+	 * The attribute "itemsField" was deleted to fulfill standar IEC 61850 Ed. 1.0.
 	*/	
+	
 	public partial class tDOI : tUnNaming {
 		
-		private tUnNaming[] itemsField;
+//		private tUnNaming[] itemsField;
 		
 		private string nameField;
 		
@@ -3723,21 +3781,25 @@ namespace IEC61850.SCL
 		
 		private string accessControlField;
 		
+		private tSDI SDIField;
+		
+		private tDAI DAIField;		
+				
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("DAI", typeof(tDAI))]
-		[System.Xml.Serialization.XmlElementAttribute("SDI", typeof(tSDI))]
-		public tUnNaming[] Items {
-			get {
-				return this.itemsField;
-			}
-			set {
-				this.itemsField = value;
-			}
-		}
+//		[System.Xml.Serialization.XmlElementAttribute("DAI", typeof(tDAI))]
+//		[System.Xml.Serialization.XmlElementAttribute("SDI", typeof(tSDI))]
+//		public tUnNaming[] Items {
+//			get {
+//				return this.itemsField;
+//			}
+//			set {
+//				this.itemsField = value;
+//			}
+//		}
 		
 		/// <remarks/>
 		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="Name")]
+		[System.Xml.Serialization.XmlAttributeAttribute(DataType="Name")]		
 		public string name {
 			get {
 				return this.nameField;
@@ -3748,7 +3810,7 @@ namespace IEC61850.SCL
 		}
 		
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttributeAttribute()]			
 		public uint ix {
 			get {
 				return this.ixField;
@@ -3770,13 +3832,39 @@ namespace IEC61850.SCL
 		}
 		
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]		
 		public string accessControl {
 			get {
 				return this.accessControlField;
 			}
 			set {
 				this.accessControlField = value;
+			}
+		}
+		
+		[System.Xml.Serialization.XmlElementAttribute("SDI", typeof(tSDI))]
+		public tSDI SDI	
+		{
+			get 
+			{
+			 	return this.SDIField;
+			}
+			set
+			{
+				this.SDIField = value;
+			}		
+		}
+		
+		[System.Xml.Serialization.XmlElementAttribute("DAI", typeof(tDAI))]
+		public tDAI DAI
+		{
+			get
+			{
+				return this.DAIField;
+			}
+			set
+			{
+				this.DAIField = value;
 			}
 		}
 	}
@@ -3791,7 +3879,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/	
 	public partial class tControlBlock : tUnNaming {
@@ -3888,10 +3976,10 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 		
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The following attributes were added to fulfill standard IEC 61850 Ed.1.0:
+	 * The following attributes were added to fulfill standard IEC 61850 Ed. 1.0:
 	 * unit -> unitField
 	 * multiplier -> multiplierField
 	*/		
@@ -3937,7 +4025,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/	
 	public partial class tConnectedAP : tUnNaming {
@@ -4073,7 +4161,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/	
 	public partial class tAnyLN : tUnNaming {
@@ -4216,7 +4304,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/
 	public partial class tNaming : tBaseElement {
@@ -4226,7 +4314,7 @@ namespace IEC61850.SCL
 		private string descField;
 		
 		/// <remarks/>
-		//[Required]
+		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		public string name {
 			get {
@@ -4257,7 +4345,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/	
 	public partial class tSDO : tNaming {
@@ -4277,9 +4365,7 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <summary>
-	/// FIXME: The typeField must be  
-	/// </summary>
+	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4334,10 +4420,10 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The following attributes were added to fulfill standard IEC 61850 Ed.1.0:
+	 * The following attributes were added to fulfill standard IEC 61850 Ed. 1.0:
 	 * unit -> unitField
 	 * multiplier -> multiplierField
 	*/		
@@ -4462,7 +4548,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/	
 	public partial class tSampledValueControl : tControlWithIEDName {
@@ -4635,7 +4721,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/	
 	public partial class tGSEControl : tControlWithIEDName {
@@ -4735,7 +4821,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/	
 	public partial class tLogControl : tControlWithTriggerOpt {
@@ -4796,7 +4882,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/	
 	public partial class tReportControl : tControlWithTriggerOpt {
@@ -5004,7 +5090,13 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
+	/* 
+	 * The following attributes were added to fulfill standard IEC 61850 Ed. 1.0:
+	 * Server -> serverField
+	 * LN -> lNField
+	 * 
+	 * The attribute "itemsField" was deleted to fulfill standar IEC 61850 Ed. 1.0.
+	*/	
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5012,11 +5104,15 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public partial class tAccessPoint : tNaming {
 		
-		private tUnNaming[] itemsField;
+//		private tUnNaming[] itemsField;
 		
 		private bool routerField;
 		
 		private bool clockField;
+		
+		private tServer serverField;
+		
+		private tLN[] lNField;
 		
 		public tAccessPoint() {
 			this.routerField = false;
@@ -5024,16 +5120,16 @@ namespace IEC61850.SCL
 		}
 		
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("LN", typeof(tLN))]
-		[System.Xml.Serialization.XmlElementAttribute("Server", typeof(tServer))]
-		public tUnNaming[] Items {
-			get {
-				return this.itemsField;
-			}
-			set {
-				this.itemsField = value;
-			}
-		}
+//		[System.Xml.Serialization.XmlElementAttribute("LN", typeof(tLN))]
+//		[System.Xml.Serialization.XmlElementAttribute("Server", typeof(tServer))]
+//		public tUnNaming[] Items {
+//			get {
+//				return this.itemsField;
+//			}
+//			set {
+//				this.itemsField = value;
+//			}
+//		}
 		
 		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
@@ -5058,6 +5154,25 @@ namespace IEC61850.SCL
 				this.clockField = value;
 			}
 		}
+		
+		[System.Xml.Serialization.XmlElementAttribute("Server")]
+		public tServer Server{
+			get{
+				return this.serverField;
+			}
+			set{
+				this.serverField = value;
+			}
+		}
+		[System.Xml.Serialization.XmlElementAttribute("LN")]
+		public tLN[] LN{
+			get{
+				return this.lNField;
+			}
+			set{
+				this.lNField = value;
+			}
+		}
 	}
 
 	/// <remarks/>
@@ -5069,12 +5184,14 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlRootAttribute("LN", Namespace="http://www.iec.ch/61850/2003/SCL", IsNullable=false)]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
+	 *
+	 * The data type "lnClassField" was added to fulfill standard IEC 61850 Ed. 1.0	 
 	*/	
 	public partial class tLN : tAnyLN {
 		
-		private string lnClassField;
+		private tLNClassEnum lnClassField;
 		
 		private uint instField;
 		
@@ -5087,7 +5204,7 @@ namespace IEC61850.SCL
 		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		public string lnClass {
+		public tLNClassEnum lnClass {
 			get {
 				return this.lnClassField;
 			}
@@ -5281,8 +5398,9 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"	 	
+	 * 
 	*/	
 	public partial class tLDevice : tUnNaming {
 		
@@ -5369,8 +5487,10 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
+	 * 
+	 * The data type "lnClassField" was added to fulfill standard IEC 61850 Ed. 1.0	
 	*/	
 	public partial class tLN0 : tAnyLN {
 		
@@ -5384,12 +5504,12 @@ namespace IEC61850.SCL
 		
 		private tLog logField;
 		
-		private string lnClassField;
+		private tLNClassEnum lnClassField;
 		
 		private string instField;
 		
 		public tLN0() {
-			this.lnClassField = "LLN0";
+			this.lnClassField = tLNClassEnum.LLN0;
 		}
 		
 		/// <remarks/>
@@ -5447,7 +5567,8 @@ namespace IEC61850.SCL
 		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		public string lnClass {
+		[System.ComponentModel.DefaultValueAttribute(tLNClassEnum.LLN0)]
+		public tLNClassEnum lnClass {
 			get {
 				return this.lnClassField;
 			}
@@ -5512,7 +5633,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/*
-	 * The enumeration "tLPHDEnum" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The enumeration "tLPHDEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public enum tLPHDEnum{
 		LPHD,		
@@ -5523,7 +5644,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/*
-	 * The enumeration "tLLN0Enum" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The enumeration "tLLN0Enum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public enum tLLN0Enum{
 		LLN0,		
@@ -5534,7 +5655,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/*
-	 * The enumeration "tDomainLNGroup AEnum" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The enumeration "tDomainLNGroup AEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public enum tDomainLNGroupAEnum{
 		ANCR,		
@@ -5548,7 +5669,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/*
-	 * The enumeration "tDomainLNGroupCEnum" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The enumeration "tDomainLNGroupCEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public enum tDomainLNGroupCEnum {
 		CILO,
@@ -5563,7 +5684,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/*
-	 * The enumeration "tDomainLNGroupGEnum" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The enumeration "tDomainLNGroupGEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public enum tDomainLNGroupGEnum {
 		GAPC,
@@ -5576,7 +5697,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/*
-	 * The enumeration "tDomainLNGroupIEnum" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The enumeration "tDomainLNGroupIEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public enum tDomainLNGroupIEnum {
 		IHMI,
@@ -5590,7 +5711,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/*
-	 * The enumeration "tDomainLNGroupMEnum" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The enumeration "tDomainLNGroupMEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public enum tDomainLNGroupMEnum {
 		MMXU,
@@ -5609,7 +5730,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/*
-	 * The enumeration "tDomainLNGroupPEnum" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The enumeration "tDomainLNGroupPEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public enum tDomainLNGroupPEnum {
 		PDIF,
@@ -5647,7 +5768,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/*
-	 * The enumeration "tDomainLNGroupREnum" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The enumeration "tDomainLNGroupREnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public enum tDomainLNGroupREnum {
 		RSYN,
@@ -5667,7 +5788,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/*
-	 * The enumeration "tDomainLNGroupSEnum" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The enumeration "tDomainLNGroupSEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	 */
 	public enum tDomainLNGroupSEnum {
 		SARC,
@@ -5682,7 +5803,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/*
-	 * The enumeration "tDomainLNGroupTEnum" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The enumeration "tDomainLNGroupTEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public enum tDomainLNGroupTEnum {
 		TCTR,
@@ -5695,7 +5816,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/*
-	 * The enumeration "tDomainLNGroupXEnum" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The enumeration "tDomainLNGroupXEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public enum tDomainLNGroupXEnum {
 		XCBR,
@@ -5708,7 +5829,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/*
-	 * The enumeration "tDomainLNGroupYEnum" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The enumeration "tDomainLNGroupYEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/	
 	public enum tDomainLNGroupYEnum {
 	YPTR,
@@ -5722,7 +5843,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/*
-	 * The enumeration "tDomainLNGroupZEnum" was added to fulfill standard IEC 61850 Ed.1.0
+	 * The enumeration "tDomainLNGroupZEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
 	public enum tDomainLNGroupZEnum {
 		ZAXN,
@@ -5747,7 +5868,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/*
-	 * The enumeration "tDomainLNEnum" was added to fulfill standard IEC 61850 Ed.1.0.
+	 * The enumeration "tDomainLNEnum" was added to fulfill standard IEC 61850 Ed. 1.0.
 	 * This is composed by following Enums: tDomainLNGroupAEnum, tDomainLNGroupCEnum, 
 	 * tDomainLNGroupGEnum, tDomainLNGroupIEnum, tDomainLNGroupMEnum, tDomainLNGroupPEnum, 
 	 * tDomainLNGroupREnum, tDomainLNGroupSEnum, tDomainLNGroupTEnum, tDomainLNGroupXEnum,
@@ -5785,7 +5906,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/*
-	 * The enumeration "tPredefinedLNClassEnum" was added to fulfill standard IEC 61850 Ed.1.0.
+	 * The enumeration "tPredefinedLNClassEnum" was added to fulfill standard IEC 61850 Ed. 1.0.
 	 * This is composed by following Enums: tLPHDEnum, tLLN0Enum y tDomainLNEnum
 	 * (que incluyen a tDomainLNGroupAEnum, tDomainLNGroupCEnum, tDomainLNGroupGEnum, 
 	 * tDomainLNGroupIEnum, tDomainLNGroupMEnum, tDomainLNGroupPEnum, 
@@ -5823,6 +5944,123 @@ namespace IEC61850.SCL
 		ZAXN,ZBAT,ZBSH,ZCAB,ZCAP,ZCON,ZGEN,ZGIL,ZLIN,ZMOT,ZREA,ZRRC,ZSAR,ZTCF,ZTCR,
 	}
 	
+	/* 
+	 * The enumeration "tLNClassEnum" was added to fulfill standard IEC 61850 Ed. 1.0.
+	 * This is composed by following Enums: tPredefinedLNClassEnum y tExtensionLNClassEnum	 	 
+	*/	
+	public enum tLNClassEnum{
+		//tPredefinedLNClassEnum
+		//tLPHDEnum
+		LPHD,		
+		//tLLN0Enum
+		LLN0,
+		//A
+		ANCR,ARCO,ATCC,AVCO,
+		//C
+		CILO, CSWI,CALH,CCGR,CPOW,
+		//G
+		GAPC,GGIO,GSAL,
+		//I
+		IHMI,IARC,ITCI,ITMI,
+		//M
+		MMXU,MDIF,MHAI,MHAN,MMTR,MMXN,MSQI,MSTA,		
+		//P
+		PDIF,PDIS,PDIR,PDOP,PDUP,PFRC,PHAR,PHIZ,PIOC,PMRI,PMSS,POPF,PPAM,PSCH,PSDE,PTEF,PTOC,PTOF,PTOV,PTRC,PTTR,PTUC,PTUV,PUPF,PTUF,PVOC,PVPH,PZSU,
+		//R
+		RSYN,RDRE,RADR,RBDR,RDRS,RBRF,RDIR,RFLO,RPSB,RREC,
+		//S
+		SARC,SIMG,SIML,SPDC,
+		//T
+		TCTR,TVTR,
+		//X
+		XCBR,XSWI,
+		//Y
+		YPTR,YEFN,YLTC,YPSH,
+		//Z
+		ZAXN,ZBAT,ZBSH,ZCAB,ZCAP,ZCON,ZGEN,ZGIL,ZLIN,ZMOT,ZREA,ZRRC,ZSAR,ZTCF,ZTCR,
+		// Missing:
+		// tExtensionLNClassEnum	
+	}	
+	
+	/*
+	 * The enumeration "tPredefinedGeneralEquipmentEnum" was added to fulfill standard IEC 61850 Ed. 1.0.	 
+	*/		
+	public enum tPredefinedGeneralEquipmentEnum{		
+		AXN,		
+		BAT,		
+		MOT,	
+	}
+	
+	/* 
+	 * The enumeration "tGeneralEquipmentEnum" was added to fulfill standard IEC 61850 Ed. 1.0.
+	 * This is composed by following Enums: tPredefinedGeneralEquipmentEnum tExtensionGeneralEquipmentEnum
+	*/	
+	public enum tGeneralEquipmentEnum{		
+		//tPredefinedGeneralEquipmentEnum
+		AXN,		
+		BAT,		
+		MOT,			
+		// Missing:
+		// tExtensionGeneralEquipmentEnum
+	}
+	
+	/*
+	 * The enumeration "tPredefinedCommonConductingEquipmentEnum" was added to fulfill standard IEC 61850 Ed. 1.0.	 
+	*/		
+	public enum tPredefinedCommonConductingEquipmentEnum{		
+		CBR,		
+		DIS,		
+		VTR,	
+		CTR,
+		GEN,
+		CAP,
+		REA,
+		CON,
+		MOT,
+		EFN,
+		PSH,
+		BAT,
+		BSH,
+		CAB,
+		GIL,
+		LIN,
+		RRC,
+		SAR,
+		TCF,
+		TCR,
+		IFL,
+	}
+	
+	/* 
+	 * The enumeration "tCommonConductingEquipmentEnum" was added to fulfill standard IEC 61850 Ed. 1.0.
+	 * This is composed by following Enums: tPredefinedCommonConductingEquipmentEnum tExtensionEquipmentEnum
+	*/	
+	public enum tCommonConductingEquipmentEnum{
+		//tPredefinedCommonConductingEquipmentEnum
+		CBR,		
+		DIS,		
+		VTR,	
+		CTR,
+		GEN,
+		CAP,
+		REA,
+		CON,
+		MOT,
+		EFN,
+		PSH,
+		BAT,
+		BSH,
+		CAB,
+		GIL,
+		LIN,
+		RRC,
+		SAR,
+		TCF,
+		TCR,
+		IFL,		
+		// Missing: 
+		// tExtensionEquipmentEnum
+	}
 	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
@@ -5831,17 +6069,17 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The value's atttribute "string lnClassField to tPredefinedLNClassEnum lnClassField"
-	 * was added to fulfill standard IEC 61850 Ed.1.0
+	 * The value's atttribute "string lnClassField to tLNClassEnum lnClassField"
+	 * was added to fulfill standard IEC 61850 Ed. 1.0
 	*/	
 	public partial class tLNode : tUnNaming {
 		
 		private string lnInstField;
 		
-		private tPredefinedLNClassEnum lnClassField;
+		private tLNClassEnum lnClassField;
 		
 		private string iedNameField;
 		
@@ -5873,7 +6111,7 @@ namespace IEC61850.SCL
 		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		public tPredefinedLNClassEnum lnClass {
+		public tLNClassEnum lnClass {
 			get {
 				return this.lnClassField;
 			}
@@ -5938,7 +6176,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/		
 	public partial class tConnectivityNode : tLNodeContainer {
@@ -6011,17 +6249,20 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
+	 *  
+	 * The value's atttribute "string typeField" was replaced by 
+	 * "tGeneralEquipmentEnum typeField"
 	*/		
 	public partial class tGeneralEquipment : tEquipment {
 		
-		private string typeField;
+		private tGeneralEquipmentEnum typeField;
 		
 		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		public string type {
+		public tGeneralEquipmentEnum type {
 			get {
 				return this.typeField;
 			}
@@ -6031,7 +6272,10 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
+	/*
+	 * The symbol @ was added to the name of virtual variable to avoid problems 
+	 * with the compiler.
+	*/
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tGeneralEquipment))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tPowerTransformer))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tAbstractConductingEquipment))]
@@ -6071,7 +6315,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/		
 	public partial class tPowerTransformer : tEquipment {
@@ -6116,7 +6360,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/		
 	public partial class tTransformerWinding : tAbstractConductingEquipment {
@@ -6160,9 +6404,13 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
-	*/		
+	 * 
+	 * The symbol @ was added to the name of virtual variable to avoid problems 
+	 * with the compiler.
+	*/
+
 	public partial class tTapChanger : tPowerSystemResource {
 		
 		private string typeField;
@@ -6254,7 +6502,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/		
 	public partial class tTerminal : tUnNaming {
@@ -6348,7 +6596,10 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
+	/*
+	 * The symbol @ was added to the name of virtual variable to avoid problems 
+	 * with the compiler.
+	*/
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6423,7 +6674,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/		
 	public partial class tConductingEquipment : tAbstractConductingEquipment {
@@ -6569,7 +6820,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/		
 	public partial class tDA : tAbstractDataAttribute {
@@ -6645,7 +6896,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/		
 	public partial class tDOType : tIDNaming {
@@ -6705,8 +6956,10 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
+	 * 	 
+	 * The data type "lnClassField" was added to fulfill standard IEC 61850 Ed. 1.0	 
 	*/		
 	public partial class tLNodeType : tIDNaming {
 		
@@ -6714,7 +6967,7 @@ namespace IEC61850.SCL
 		
 		private string iedTypeField;
 		
-		private string lnClassField;
+		private tLNClassEnum lnClassField;
 		
 		public tLNodeType() {
 			this.iedTypeField = "";
@@ -6746,7 +6999,7 @@ namespace IEC61850.SCL
 		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		public string lnClass {
+		public tLNClassEnum lnClass {
 			get {
 				return this.lnClassField;
 			}
@@ -6764,10 +7017,10 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 		
 	/* 
-	 * According to IEC 61850 Ed.1.0 standard, there are some mandatory attributes, the 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The following attributes were added to fulfill standard IEC 61850 Ed.1.0:
+	 * The following attributes were added to fulfill standard IEC 61850 Ed. 1.0:
 	 * unit -> unitField
 	 * multiplier -> multiplierField
 	*/		

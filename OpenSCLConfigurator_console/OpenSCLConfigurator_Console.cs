@@ -773,9 +773,7 @@ namespace OpenSCL.Console
    			System.Console.WriteLine("\n <AccessPoint>");
    			for(int x = 0; x < AccessPoint.Length; x++)
    			{   				
-   				System.Console.WriteLine("\t{0}.- router = {1} clock = {2}", x, AccessPoint[x].router, AccessPoint[x].clock);
-   				if(AccessPoint[x].Items != null && AccessPoint[x].Items.Length != 0)
-   					ShowUnNamigServerLN(AccessPoint[x].Items); 
+   				System.Console.WriteLine("\t{0}.- router = {1} clock = {2}", x, AccessPoint[x].router, AccessPoint[x].clock);   				
    				ShowNaming(AccessPoint[x]);
    			}   			
    		}
@@ -938,9 +936,7 @@ namespace OpenSCL.Console
    			System.Console.WriteLine("<DOI> ");
    			for(int x = 0 ; x < DOIs.Length; x++)
    			{     				
-   				System.Console.WriteLine(" #{0} name = {1} ix = {2} accessControl = {3}",x, DOIs[x].name, DOIs[x].ix, DOIs[x].accessControl);   				
-   				if(DOIs[x].Items != null && DOIs[x].Items.Length != 0)
-   					ShowUnNamigSDI_DAI(DOIs[x].Items);
+   				System.Console.WriteLine(" #{0} name = {1} ix = {2} accessControl = {3}",x, DOIs[x].name, DOIs[x].ix, DOIs[x].accessControl);   				   				
    				ShowUnNaming(DOIs[x]);
    			}   			
    		}
@@ -987,8 +983,7 @@ namespace OpenSCL.Console
    		private void ShowSDI(tSDI SDI)
    		{  			 
    			System.Console.WriteLine("<SDI>");
-   			System.Console.WriteLine(" name = {1}, ix = {2} ixSpecified", SDI.desc, SDI.name, SDI.ix, SDI.ixSpecified);
-   			ShowUnNamigSDI_DAI(SDI.Items);
+   			System.Console.WriteLine(" name = {1}, ix = {2} ixSpecified", SDI.desc, SDI.name, SDI.ix, SDI.ixSpecified);   			
    			ShowUnNaming(SDI);
    		}   		
    			

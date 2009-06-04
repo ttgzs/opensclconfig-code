@@ -7,65 +7,65 @@
     <ProjectGuid>{4C190099-56EA-4906-9F47-5AA779E1B494}</ProjectGuid>
     <Packages>
       <Packages>
-        <Package name="OpenSCL Tools for Linux binaries">
+        <Package name="Linux binarios">
           <Builder targetFile="packages\openscl-tools-linux-0.1.tar.gz" platform="Linux" configuration="Debug" ctype="BinariesZipPackageBuilder">
             <ChildEntries>
-              <SolutionItemReference path="LibOpenSCLTranslation\LibOpenSCLTranslation.mdproj" />
-              <SolutionItemReference path="OpenSCLConfigurator_console\OpenSCLConfigurator_console.csproj" />
-              <SolutionItemReference path="LibOpenSCL\LibOpenSCL.csproj" />
-              <SolutionItemReference path="OpenSCLConfigurator_consoleTranslation\OpenSCLConfigurator_consoleTranslation.mdproj" />
-              <SolutionItemReference path="LibOpenSCLGUITranslation\LibOpenSCLGUITranslation.mdproj" />
-              <SolutionItemReference path="OpenSCLConfigurator\OpenSCLConfigurator.csproj" />
-              <SolutionItemReference path="LibOpenSCLGUI\LibOpenSCLUI.csproj" />
-              <SolutionItemReference path="OpenSCLConfiguratorTranslation\OpenSCLConfiguratorTranslation.mdproj" />
-            </ChildEntries>
-            <RootEntry path="LibOpenSCL.sln" id="{68C7CF62-C0A1-457E-A4DB-ACA9A286F80C}" />
-          </Builder>
-        </Package>
-        <Package name="OpenSCL Tools MSBuild (Visual Studio 2005) sources">
-          <Builder targetFile="packages\openscl-tools-sources-msbuild-0.1.zip" format="MonoDevelop.Projects.FileFormat" ctype="SourcesZipPackageBuilder">
-            <ChildEntries>
               <SolutionItemReference path="OpenSCLConfigurator_console\OpenSCLConfigurator_console.csproj" />
               <SolutionItemReference path="LibOpenSCLTranslation\LibOpenSCLTranslation.mdproj" />
-              <SolutionItemReference path="Packages.mdproj" />
+              <SolutionItemReference path="LibOpenSCLUI\LibOpenSCLUI.csproj" />
               <SolutionItemReference path="OpenSCLConfigurator\OpenSCLConfigurator.csproj" />
-              <SolutionItemReference path="LibOpenSCLGUITranslation\LibOpenSCLGUITranslation.mdproj" />
               <SolutionItemReference path="OpenSCLConfigurator_consoleTranslation\OpenSCLConfigurator_consoleTranslation.mdproj" />
               <SolutionItemReference path="LibOpenSCL\LibOpenSCL.csproj" />
-              <SolutionItemReference path="OpenSCLConfiguratorTranslation\OpenSCLConfiguratorTranslation.mdproj" />
-              <SolutionItemReference path="LibOpenSCLGUI\LibOpenSCLUI.csproj" />
-            </ChildEntries>
-            <RootEntry path="LibOpenSCL.sln" id="{68C7CF62-C0A1-457E-A4DB-ACA9A286F80C}" />
-          </Builder>
-        </Package>
-        <Package name="OpenSCL Tools Tarball sources for Linux">
-          <Builder TargetDirectory="/home/esodan/Projects/opensclconfig/packages" DefaultConfiguration="Debug" ctype="TarballDeployTarget">
-            <ChildEntries>
-              <SolutionItemReference path="LibOpenSCLTranslation\LibOpenSCLTranslation.mdproj" />
-              <SolutionItemReference path="OpenSCLConfigurator_console\OpenSCLConfigurator_console.csproj" />
-              <SolutionItemReference path="LibOpenSCL\LibOpenSCL.csproj" />
-              <SolutionItemReference path="OpenSCLConfigurator\OpenSCLConfigurator.csproj" />
-              <SolutionItemReference path="LibOpenSCLGUITranslation\LibOpenSCLGUITranslation.mdproj" />
-              <SolutionItemReference path="OpenSCLConfigurator_consoleTranslation\OpenSCLConfigurator_consoleTranslation.mdproj" />
-              <SolutionItemReference path="LibOpenSCLGUI\LibOpenSCLUI.csproj" />
+              <SolutionItemReference path="LibOpenSCLUITranslation\LibOpenSCLUITranslation.mdproj" />
               <SolutionItemReference path="OpenSCLConfiguratorTranslation\OpenSCLConfiguratorTranslation.mdproj" />
             </ChildEntries>
-            <RootEntry path="LibOpenSCL.sln" id="{68C7CF62-C0A1-457E-A4DB-ACA9A286F80C}" />
+            <RootEntry path="OpenSCLTools.sln" id="{68C7CF62-C0A1-457E-A4DB-ACA9A286F80C}" />
           </Builder>
         </Package>
-        <Package name="OpenSCL Tools for Microsoft Windows binaries">
+        <Package name="Microsoft Windows binarios">
           <Builder targetFile="packages\openscl-tools-win32-0.1.zip" platform="Windows" configuration="Debug" ctype="BinariesZipPackageBuilder">
             <ChildEntries>
               <SolutionItemReference path="OpenSCLConfigurator_console\OpenSCLConfigurator_console.csproj" />
               <SolutionItemReference path="LibOpenSCLTranslation\LibOpenSCLTranslation.mdproj" />
+              <SolutionItemReference path="LibOpenSCLUI\LibOpenSCLUI.csproj" />
               <SolutionItemReference path="OpenSCLConfigurator\OpenSCLConfigurator.csproj" />
-              <SolutionItemReference path="LibOpenSCLGUITranslation\LibOpenSCLGUITranslation.mdproj" />
               <SolutionItemReference path="OpenSCLConfigurator_consoleTranslation\OpenSCLConfigurator_consoleTranslation.mdproj" />
               <SolutionItemReference path="LibOpenSCL\LibOpenSCL.csproj" />
+              <SolutionItemReference path="LibOpenSCLUITranslation\LibOpenSCLUITranslation.mdproj" />
               <SolutionItemReference path="OpenSCLConfiguratorTranslation\OpenSCLConfiguratorTranslation.mdproj" />
-              <SolutionItemReference path="LibOpenSCLGUI\LibOpenSCLUI.csproj" />
             </ChildEntries>
-            <RootEntry path="LibOpenSCL.sln" id="{68C7CF62-C0A1-457E-A4DB-ACA9A286F80C}" />
+            <RootEntry path="OpenSCLTools.sln" id="{68C7CF62-C0A1-457E-A4DB-ACA9A286F80C}" />
+          </Builder>
+        </Package>
+        <Package name="MSBuild (Visual Studio 2005) fuentes">
+          <Builder targetFile="packages\openscl-tools-msbuild-0.1.zip" format="MonoDevelop.Projects.FileFormat" ctype="SourcesZipPackageBuilder">
+            <ChildEntries>
+              <SolutionItemReference path="OpenSCLConfigurator_console\OpenSCLConfigurator_console.csproj" />
+              <SolutionItemReference path="LibOpenSCLTranslation\LibOpenSCLTranslation.mdproj" />
+              <SolutionItemReference path="Packages.mdproj" />
+              <SolutionItemReference path="LibOpenSCLUI\LibOpenSCLUI.csproj" />
+              <SolutionItemReference path="OpenSCLConfigurator\OpenSCLConfigurator.csproj" />
+              <SolutionItemReference path="OpenSCLConfigurator_consoleTranslation\OpenSCLConfigurator_consoleTranslation.mdproj" />
+              <SolutionItemReference path="LibOpenSCL\LibOpenSCL.csproj" />
+              <SolutionItemReference path="LibOpenSCLUITranslation\LibOpenSCLUITranslation.mdproj" />
+              <SolutionItemReference path="OpenSCLConfiguratorTranslation\OpenSCLConfiguratorTranslation.mdproj" />
+            </ChildEntries>
+            <RootEntry path="OpenSCLTools.sln" id="{68C7CF62-C0A1-457E-A4DB-ACA9A286F80C}" />
+          </Builder>
+        </Package>
+        <Package name="Tarball">
+          <Builder TargetDirectory="/home/esodan/Projects/opensclconfig/packages" DefaultConfiguration="Debug" ctype="TarballDeployTarget">
+            <ChildEntries>
+              <SolutionItemReference path="OpenSCLConfigurator_console\OpenSCLConfigurator_console.csproj" />
+              <SolutionItemReference path="LibOpenSCLTranslation\LibOpenSCLTranslation.mdproj" />
+              <SolutionItemReference path="LibOpenSCLUI\LibOpenSCLUI.csproj" />
+              <SolutionItemReference path="OpenSCLConfigurator\OpenSCLConfigurator.csproj" />
+              <SolutionItemReference path="OpenSCLConfigurator_consoleTranslation\OpenSCLConfigurator_consoleTranslation.mdproj" />
+              <SolutionItemReference path="LibOpenSCL\LibOpenSCL.csproj" />
+              <SolutionItemReference path="LibOpenSCLUITranslation\LibOpenSCLUITranslation.mdproj" />
+              <SolutionItemReference path="OpenSCLConfiguratorTranslation\OpenSCLConfiguratorTranslation.mdproj" />
+            </ChildEntries>
+            <RootEntry path="OpenSCLTools.sln" id="{68C7CF62-C0A1-457E-A4DB-ACA9A286F80C}" />
           </Builder>
         </Package>
       </Packages>

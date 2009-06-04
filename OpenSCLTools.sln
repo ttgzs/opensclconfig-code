@@ -9,15 +9,15 @@ Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "LibOpenSCLTranslation", "Li
 EndProject
 Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "OpenSCLConfigurator_consoleTranslation", "OpenSCLConfigurator_consoleTranslation\OpenSCLConfigurator_consoleTranslation.mdproj", "{C6A838C3-5844-4D0B-A056-BC5AB105ED8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibOpenSCLUI", "LibOpenSCLGUI\LibOpenSCLUI.csproj", "{B960CA0D-DD5A-474F-A307-0698C4EC1D1E}"
-EndProject
-Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "LibOpenSCLGUITranslation", "LibOpenSCLGUITranslation\LibOpenSCLGUITranslation.mdproj", "{7881716F-1AD9-40CE-96E4-B563827ACDDE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSCLConfigurator_console", "OpenSCLConfigurator_console\OpenSCLConfigurator_console.csproj", "{0ED27B84-87DA-49A6-9815-1F02C07230B0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSCLConfigurator", "OpenSCLConfigurator\OpenSCLConfigurator.csproj", "{99F4A2A5-8837-4389-B73D-9EDD93AD2405}"
 EndProject
 Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "OpenSCLConfiguratorTranslation", "OpenSCLConfiguratorTranslation\OpenSCLConfiguratorTranslation.mdproj", "{76D032C5-E041-4E97-8DB7-AE62267A02F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibOpenSCLUI", "LibOpenSCLUI\LibOpenSCLUI.csproj", "{B960CA0D-DD5A-474F-A307-0698C4EC1D1E}"
+EndProject
+Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "LibOpenSCLUITranslation", "LibOpenSCLUITranslation\LibOpenSCLUITranslation.mdproj", "{1B4A09BF-A8C2-46E4-985F-DFE4EBD585D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +29,10 @@ Global
 		{0ED27B84-87DA-49A6-9815-1F02C07230B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0ED27B84-87DA-49A6-9815-1F02C07230B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0ED27B84-87DA-49A6-9815-1F02C07230B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B4A09BF-A8C2-46E4-985F-DFE4EBD585D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B4A09BF-A8C2-46E4-985F-DFE4EBD585D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B4A09BF-A8C2-46E4-985F-DFE4EBD585D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B4A09BF-A8C2-46E4-985F-DFE4EBD585D9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4C190099-56EA-4906-9F47-5AA779E1B494}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4C190099-56EA-4906-9F47-5AA779E1B494}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C190099-56EA-4906-9F47-5AA779E1B494}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -41,10 +45,6 @@ Global
 		{76D032C5-E041-4E97-8DB7-AE62267A02F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76D032C5-E041-4E97-8DB7-AE62267A02F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76D032C5-E041-4E97-8DB7-AE62267A02F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7881716F-1AD9-40CE-96E4-B563827ACDDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7881716F-1AD9-40CE-96E4-B563827ACDDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7881716F-1AD9-40CE-96E4-B563827ACDDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7881716F-1AD9-40CE-96E4-B563827ACDDE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{861F5C0C-6B73-4690-AF85-67322DD2EB42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{861F5C0C-6B73-4690-AF85-67322DD2EB42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{861F5C0C-6B73-4690-AF85-67322DD2EB42}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -65,5 +65,12 @@ Global
 	GlobalSection(MonoDevelopProperties) = preSolution
 		version = 0.1
 		StartupItem = LibOpenSCL\LibOpenSCL.csproj
+		Policies = $0
+		$0.ChangeLogPolicy = $1
+		$1.UpdateMode = Nearest
+		$1.VcsIntegration = None
+		$1.MessageStyle = $2
+		$2.LineAlign = 0
+		$1.inheritsSet = Mono
 	EndGlobalSection
 EndGlobal

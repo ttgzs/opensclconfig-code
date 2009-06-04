@@ -43,7 +43,7 @@
       <Project>{650D7F8F-4B20-4AC4-A707-E2AA42340EE0}</Project>
       <Name>LibOpenSCL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LibOpenSCLGUI\LibOpenSCLUI.csproj">
+    <ProjectReference Include="..\LibOpenSCLUI\LibOpenSCLUI.csproj">
       <Project>{B960CA0D-DD5A-474F-A307-0698C4EC1D1E}</Project>
       <Name>LibOpenSCLUI</Name>
     </ProjectReference>

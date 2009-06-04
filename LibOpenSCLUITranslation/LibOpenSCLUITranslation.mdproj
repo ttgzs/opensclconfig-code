@@ -4,12 +4,14 @@
     <ItemType>TranslationProject</ItemType>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7881716F-1AD9-40CE-96E4-B563827ACDDE}</ProjectGuid>
+    <ProjectGuid>{1B4A09BF-A8C2-46E4-985F-DFE4EBD585D9}</ProjectGuid>
     <translations>
-      <translations>
-        <Translation isoCode="es_MX" />
+      <translations xmlns="">
+        <Translation isoCode="es" />
       </translations>
     </translations>
+    <packageName>i8n1</packageName>
     <outputType>RelativeToOutput</outputType>
+    <relPath>locale</relPath>
   </PropertyGroup>
 </Project>

@@ -1,0 +1,11 @@
+2009-06-03  Daniel Espinosa <daniel.espinosa@cfe.gob.mx>
+	* LibOpenSCL 0.2 Released: Improvements on SCL objects' API 
+	 and properties datatypes according with IEC61850-6 (thanks to OpenSCL Tools Development Team).
+	 Added new OpenSCL.Object and OpenSCL.Device objects for a new abstraction layer to easy access
+	 configuration on Devices and soon for Substations
+	* LibOpenSCLUI 0.1 Released: Added TreeViewSCL based on WinForms object to shows XML based 
+	on IEC61850-6 SCL (thanks to OpenSCL Tools Development Team)
+	* OpenSCLConfigurator_console 0.1 Released (console version):
+	 First commands implementations: help, open, save, (especial 'test' command as a demo)
+	* OpenSCLConfigurator 0.1 Released (WinForms version): Opens XML based on IEC61850-6 SCL
+	 and shows it on a treeview (thanks to OpenSCL Tools Development Team)

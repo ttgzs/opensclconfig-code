@@ -48,9 +48,13 @@
       <Name>LibOpenSCLUI</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="imgs\App.ico" />
-    <None Include="imgs\exit.ico" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <EmbeddedResource Include="imgs\App.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="imgs\exit.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

@@ -7,37 +7,65 @@
     <ProjectGuid>{4C190099-56EA-4906-9F47-5AA779E1B494}</ProjectGuid>
     <Packages>
       <Packages>
-        <Package name="LibOpenSCL Linux Binaries">
-          <Builder targetFile="LibOpenSCL.tar.gz" platform="Linux" configuration="Debug" ctype="BinariesZipPackageBuilder">
+        <Package name="OpenSCL Tools for Linux binaries">
+          <Builder targetFile="packages\openscl-tools-linux-0.1.tar.gz" platform="Linux" configuration="Debug" ctype="BinariesZipPackageBuilder">
             <ChildEntries>
-              <SolutionItemReference path="LibOpenSCL\LibOpenSCL.csproj" />
               <SolutionItemReference path="LibOpenSCLTranslation\LibOpenSCLTranslation.mdproj" />
-              <SolutionItemReference path="OpenSCLConfigurator_consoleTranslation\OpenSCLConfigurator_consoleTranslation.mdproj" />
               <SolutionItemReference path="OpenSCLConfigurator_console\OpenSCLConfigurator_console.csproj" />
+              <SolutionItemReference path="LibOpenSCL\LibOpenSCL.csproj" />
+              <SolutionItemReference path="OpenSCLConfigurator_consoleTranslation\OpenSCLConfigurator_consoleTranslation.mdproj" />
+              <SolutionItemReference path="LibOpenSCLGUITranslation\LibOpenSCLGUITranslation.mdproj" />
+              <SolutionItemReference path="OpenSCLConfigurator\OpenSCLConfigurator.csproj" />
+              <SolutionItemReference path="LibOpenSCLGUI\LibOpenSCLUI.csproj" />
+              <SolutionItemReference path="OpenSCLConfiguratorTranslation\OpenSCLConfiguratorTranslation.mdproj" />
             </ChildEntries>
-            <RootEntry path="LibOpenSCL.sln" id="{F9A6F3AF-3615-4FD6-B4B1-B391A0FA8759}" />
+            <RootEntry path="LibOpenSCL.sln" id="{68C7CF62-C0A1-457E-A4DB-ACA9A286F80C}" />
           </Builder>
         </Package>
-        <Package name="LibOpenSCL Microsoft Windows Binaries">
-          <Builder targetFile="LibOpenSCL.tar.gz" platform="Windows" configuration="Debug" ctype="BinariesZipPackageBuilder">
+        <Package name="OpenSCL Tools MSBuild (Visual Studio 2005) sources">
+          <Builder targetFile="packages\openscl-tools-sources-msbuild-0.1.zip" format="MonoDevelop.Projects.FileFormat" ctype="SourcesZipPackageBuilder">
             <ChildEntries>
-              <SolutionItemReference path="LibOpenSCL\LibOpenSCL.csproj" />
-              <SolutionItemReference path="LibOpenSCLTranslation\LibOpenSCLTranslation.mdproj" />
-              <SolutionItemReference path="OpenSCLConfigurator_consoleTranslation\OpenSCLConfigurator_consoleTranslation.mdproj" />
               <SolutionItemReference path="OpenSCLConfigurator_console\OpenSCLConfigurator_console.csproj" />
+              <SolutionItemReference path="LibOpenSCLTranslation\LibOpenSCLTranslation.mdproj" />
+              <SolutionItemReference path="Packages.mdproj" />
+              <SolutionItemReference path="OpenSCLConfigurator\OpenSCLConfigurator.csproj" />
+              <SolutionItemReference path="LibOpenSCLGUITranslation\LibOpenSCLGUITranslation.mdproj" />
+              <SolutionItemReference path="OpenSCLConfigurator_consoleTranslation\OpenSCLConfigurator_consoleTranslation.mdproj" />
+              <SolutionItemReference path="LibOpenSCL\LibOpenSCL.csproj" />
+              <SolutionItemReference path="OpenSCLConfiguratorTranslation\OpenSCLConfiguratorTranslation.mdproj" />
+              <SolutionItemReference path="LibOpenSCLGUI\LibOpenSCLUI.csproj" />
             </ChildEntries>
-            <RootEntry path="LibOpenSCL.sln" id="{F9A6F3AF-3615-4FD6-B4B1-B391A0FA8759}" />
+            <RootEntry path="LibOpenSCL.sln" id="{68C7CF62-C0A1-457E-A4DB-ACA9A286F80C}" />
           </Builder>
         </Package>
-        <Package name="LibOpenSCL Linux Tarball">
-          <Builder TargetDirectory="/home/esodan/Projects/opensclconfig/OpenSCLConfigurator_console" DefaultConfiguration="Debug" ctype="TarballDeployTarget">
+        <Package name="OpenSCL Tools Tarball sources for Linux">
+          <Builder TargetDirectory="/home/esodan/Projects/opensclconfig/packages" DefaultConfiguration="Debug" ctype="TarballDeployTarget">
             <ChildEntries>
-              <SolutionItemReference path="LibOpenSCL\LibOpenSCL.csproj" />
               <SolutionItemReference path="LibOpenSCLTranslation\LibOpenSCLTranslation.mdproj" />
-              <SolutionItemReference path="OpenSCLConfigurator_consoleTranslation\OpenSCLConfigurator_consoleTranslation.mdproj" />
               <SolutionItemReference path="OpenSCLConfigurator_console\OpenSCLConfigurator_console.csproj" />
+              <SolutionItemReference path="LibOpenSCL\LibOpenSCL.csproj" />
+              <SolutionItemReference path="OpenSCLConfigurator\OpenSCLConfigurator.csproj" />
+              <SolutionItemReference path="LibOpenSCLGUITranslation\LibOpenSCLGUITranslation.mdproj" />
+              <SolutionItemReference path="OpenSCLConfigurator_consoleTranslation\OpenSCLConfigurator_consoleTranslation.mdproj" />
+              <SolutionItemReference path="LibOpenSCLGUI\LibOpenSCLUI.csproj" />
+              <SolutionItemReference path="OpenSCLConfiguratorTranslation\OpenSCLConfiguratorTranslation.mdproj" />
             </ChildEntries>
-            <RootEntry path="LibOpenSCL.sln" id="{F9A6F3AF-3615-4FD6-B4B1-B391A0FA8759}" />
+            <RootEntry path="LibOpenSCL.sln" id="{68C7CF62-C0A1-457E-A4DB-ACA9A286F80C}" />
+          </Builder>
+        </Package>
+        <Package name="OpenSCL Tools for Microsoft Windows binaries">
+          <Builder targetFile="packages\openscl-tools-win32-0.1.zip" platform="Windows" configuration="Debug" ctype="BinariesZipPackageBuilder">
+            <ChildEntries>
+              <SolutionItemReference path="OpenSCLConfigurator_console\OpenSCLConfigurator_console.csproj" />
+              <SolutionItemReference path="LibOpenSCLTranslation\LibOpenSCLTranslation.mdproj" />
+              <SolutionItemReference path="OpenSCLConfigurator\OpenSCLConfigurator.csproj" />
+              <SolutionItemReference path="LibOpenSCLGUITranslation\LibOpenSCLGUITranslation.mdproj" />
+              <SolutionItemReference path="OpenSCLConfigurator_consoleTranslation\OpenSCLConfigurator_consoleTranslation.mdproj" />
+              <SolutionItemReference path="LibOpenSCL\LibOpenSCL.csproj" />
+              <SolutionItemReference path="OpenSCLConfiguratorTranslation\OpenSCLConfiguratorTranslation.mdproj" />
+              <SolutionItemReference path="LibOpenSCLGUI\LibOpenSCLUI.csproj" />
+            </ChildEntries>
+            <RootEntry path="LibOpenSCL.sln" id="{68C7CF62-C0A1-457E-A4DB-ACA9A286F80C}" />
           </Builder>
         </Package>
       </Packages>

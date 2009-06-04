@@ -9,7 +9,7 @@ Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "LibOpenSCLTranslation", "Li
 EndProject
 Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "OpenSCLConfigurator_consoleTranslation", "OpenSCLConfigurator_consoleTranslation\OpenSCLConfigurator_consoleTranslation.mdproj", "{C6A838C3-5844-4D0B-A056-BC5AB105ED8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibOpenSCLGUI", "LibOpenSCLGUI\LibOpenSCLGUI.csproj", "{B960CA0D-DD5A-474F-A307-0698C4EC1D1E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibOpenSCLUI", "LibOpenSCLGUI\LibOpenSCLUI.csproj", "{B960CA0D-DD5A-474F-A307-0698C4EC1D1E}"
 EndProject
 Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "LibOpenSCLGUITranslation", "LibOpenSCLGUITranslation\LibOpenSCLGUITranslation.mdproj", "{7881716F-1AD9-40CE-96E4-B563827ACDDE}"
 EndProject

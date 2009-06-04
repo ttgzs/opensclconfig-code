@@ -1724,13 +1724,14 @@ namespace OpenSCL.Console
 					{
 						if (first_parameter.Equals("ied")) {
 							System.Console.WriteLine("Creating a Generic Configured IED Description (CID)...");
+							System.Console.WriteLine("Not Yet Implemented...");
 							// FIXME: This command doesn't work becouse object not initialized
-							Device ied = new Device();
+							/*Device ied = new Device();
 							System.Console.WriteLine("Write path to file for New GENERIC IED Configuration");
 							System.Console.WriteLine("At the end of the filename will be added '.cid' extension");
 							string FileName = System.Console.ReadLine();
 							ied.Write(FileName+".cid");
-							System.Console.WriteLine ("New Generic CID created with config version number: "+ied.configVersion);
+							System.Console.WriteLine ("New Generic CID created with config version number: "+ied.configVersion);*/
 						}
 						
 						if (first_parameter.Equals("substation")) {
@@ -1776,6 +1777,13 @@ namespace OpenSCL.Console
 						}
 						break;
 					}
+				case "":
+					break;
+				default:
+				{
+					System.Console.WriteLine("Syntax error...");
+					break;
+				}
 				}
 			}
 		}

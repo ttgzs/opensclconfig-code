@@ -16,7 +16,8 @@
     <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>3</WarningLevel>
+    <GenerateDocumentation>true</GenerateDocumentation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -26,9 +27,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="OpenSCLConfigurator.desktop">
-      <DeployService-TargetDirectoryId>Linux.DesktopApplications</DeployService-TargetDirectoryId>
-    </Content>
+    <Content Include="OpenSCLConfigurator.desktop" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OpenSCLConfigurator.cs" />
@@ -44,9 +43,9 @@
       <Project>{650D7F8F-4B20-4AC4-A707-E2AA42340EE0}</Project>
       <Name>LibOpenSCL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LibOpenSCLGUI\LibOpenSCLGUI.csproj">
+    <ProjectReference Include="..\LibOpenSCLGUI\LibOpenSCLUI.csproj">
       <Project>{B960CA0D-DD5A-474F-A307-0698C4EC1D1E}</Project>
-      <Name>LibOpenSCLGUI</Name>
+      <Name>LibOpenSCLUI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,7 @@
-2009-06-03  Daniel Espinosa <daniel.espinosa@cfe.gob.mx>
+2009-06-04 Daniel Espinosa <daniel.espinosa@cfe.gob.mx>
+	* OpenSCLConfigurator 0.1.1 Released: Minor changes to make it find icons resources
+	 
+2009-06-03 Daniel Espinosa <daniel.espinosa@cfe.gob.mx>
 	* LibOpenSCL 0.2 Released: Improvements on SCL objects' API 
 	 and properties datatypes according with IEC61850-6 (thanks to OpenSCL Tools Development Team).
 	 Added new OpenSCL.Object and OpenSCL.Device objects for a new abstraction layer to easy access

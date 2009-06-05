@@ -6,7 +6,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{1B4A09BF-A8C2-46E4-985F-DFE4EBD585D9}</ProjectGuid>
     <translations>
-      <translations xmlns="">
+      <translations>
         <Translation isoCode="es" />
       </translations>
     </translations>

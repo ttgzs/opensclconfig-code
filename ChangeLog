@@ -12,3 +12,7 @@
 	 First commands implementations: help, open, save, (especial 'test' command as a demo)
 	* OpenSCLConfigurator 0.1 Released (WinForms version): Opens XML based on IEC61850-6 SCL
 	 and shows it on a treeview (thanks to OpenSCL Tools Development Team)
+
+2009-06-09 Daniel Espinosa <daniel.espinosa@cfe.gob.mx>
+	* OpenSCLConfigurator 0.1.1 Realeased: minor improvements in order to make the application run
+	out of the box.

@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+# SharpDevelop 3.0.0.3437
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSCLConfigurator", "OpenSCLConfigurator.csproj", "{AF2288C9-4A86-4343-876C-FE54FCD68039}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibOpenSCLUI", "LibOpenSCLUI\LibOpenSCLUI.csproj", "{766E7582-B924-482A-887B-3E754B895B8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibOpenSCL", "LibOpenSCL\LibOpenSCL.csproj", "{5BBE0EEF-4DDA-482F-AA3B-4B7FBE1C02EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF2288C9-4A86-4343-876C-FE54FCD68039}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF2288C9-4A86-4343-876C-FE54FCD68039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF2288C9-4A86-4343-876C-FE54FCD68039}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF2288C9-4A86-4343-876C-FE54FCD68039}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{766E7582-B924-482A-887B-3E754B895B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{766E7582-B924-482A-887B-3E754B895B8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{766E7582-B924-482A-887B-3E754B895B8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{766E7582-B924-482A-887B-3E754B895B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BBE0EEF-4DDA-482F-AA3B-4B7FBE1C02EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BBE0EEF-4DDA-482F-AA3B-4B7FBE1C02EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BBE0EEF-4DDA-482F-AA3B-4B7FBE1C02EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BBE0EEF-4DDA-482F-AA3B-4B7FBE1C02EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,3 +1,8 @@
+2009-08-10 Daniel Espinosa <<daniel.espinosa@cfe.gob.mx>
+	* LibOpenSCL: Added missing classes to improve support of IEC 61850-6 Edition 1.0
+	* OpenSCLConfigurator: Improved tree and attributes visualization. Beginnings for attributes modification.
+	Added About dialog. Some improvements in the open dialog.
+	
 2009-06-04 Daniel Espinosa <daniel.espinosa@cfe.gob.mx>
 	* OpenSCLConfigurator 0.1.1 Released: Minor changes to make it find icons resources
 	 

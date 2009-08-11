@@ -19,8 +19,6 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-
-using OpenSCL;
 using OpenSCL.UI;
 
 namespace OpenSCLConfigurator
@@ -39,12 +37,18 @@ namespace OpenSCLConfigurator
 		private System.ComponentModel.IContainer components;
 		private System.Windows.Forms.ToolBar toolBar1;
 		private System.Windows.Forms.ToolBarButton SEPARATOR1;
-		private System.Windows.Forms.ToolBarButton Exit;
-		private System.Windows.Forms.ToolBarButton SEPARATOR2;		
+		private System.Windows.Forms.ToolBarButton New;
+		private System.Windows.Forms.ToolBarButton Open;
+		private System.Windows.Forms.ToolBarButton Salvar;
+		private System.Windows.Forms.ToolBarButton SEPARATOR2;			
+		private System.Windows.Forms.ToolBarButton Exit;			
 		public System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;		
+		private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;		
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;		
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem validateToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem iEDToolStripMenuItem;					
 		private System.Windows.Forms.MenuStrip menuStrip1;		
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
 		private System.Windows.Forms.StatusStrip statusStrip1;
@@ -75,7 +79,9 @@ namespace OpenSCLConfigurator
 		{
 			this.components = new System.ComponentModel.Container();
 			this.Panel1 = new System.Windows.Forms.Panel();
+			this.treeViewFile = new System.Windows.Forms.TreeView();
 			this.Panel2 = new System.Windows.Forms.Panel();
+			this.PropertyGridAttributes = new OpenSCL.UI.FilteredPropertyGrid();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
@@ -95,8 +101,13 @@ namespace OpenSCLConfigurator
 			this.Exit = new System.Windows.Forms.ToolBarButton();
 			this.SEPARATOR2 = new System.Windows.Forms.ToolBarButton();
 			this.toolBar1 = new System.Windows.Forms.ToolBar();
+			this.New = new System.Windows.Forms.ToolBarButton();
+			this.Open = new System.Windows.Forms.ToolBarButton();
+			this.Salvar = new System.Windows.Forms.ToolBarButton();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+			this.Panel1.SuspendLayout();
+			this.Panel2.SuspendLayout();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
@@ -106,11 +117,23 @@ namespace OpenSCLConfigurator
 			// 
 			// Panel1
 			// 
+			this.Panel1.Controls.Add(this.treeViewFile);
 			this.Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.Panel1.Location = new System.Drawing.Point(0, 0);
 			this.Panel1.Name = "Panel1";
 			this.Panel1.Size = new System.Drawing.Size(300, 383);
 			this.Panel1.TabIndex = 0;
+			// 
+			// treeViewFile
+			// 
+			this.treeViewFile.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left) 
+									| System.Windows.Forms.AnchorStyles.Right)));
+			this.treeViewFile.Location = new System.Drawing.Point(0, 0);
+			this.treeViewFile.Name = "treeViewFile";
+			this.treeViewFile.Size = new System.Drawing.Size(300, 384);
+			this.treeViewFile.TabIndex = 0;
+			this.treeViewFile.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewFileAfterSelect);
 			// 
 			// Panel2
 			// 
@@ -118,10 +141,24 @@ namespace OpenSCLConfigurator
 									| System.Windows.Forms.AnchorStyles.Left) 
 									| System.Windows.Forms.AnchorStyles.Right)));
 			this.Panel2.AutoSize = true;
+			this.Panel2.Controls.Add(this.PropertyGridAttributes);
 			this.Panel2.Location = new System.Drawing.Point(0, 0);
 			this.Panel2.Name = "Panel2";
 			this.Panel2.Size = new System.Drawing.Size(916, 666);
 			this.Panel2.TabIndex = 0;
+			// 
+			// PropertyGridAttributes
+			// 
+			this.PropertyGridAttributes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left) 
+									| System.Windows.Forms.AnchorStyles.Right)));
+			this.PropertyGridAttributes.BrowsableProperties = null;
+			this.PropertyGridAttributes.HiddenAttributes = null;
+			this.PropertyGridAttributes.HiddenProperties = null;
+			this.PropertyGridAttributes.Location = new System.Drawing.Point(0, 0);
+			this.PropertyGridAttributes.Name = "PropertyGridAttributes";
+			this.PropertyGridAttributes.Size = new System.Drawing.Size(503, 384);
+			this.PropertyGridAttributes.TabIndex = 0;
 			// 
 			// splitContainer1
 			// 
@@ -229,7 +266,7 @@ namespace OpenSCLConfigurator
 			// validateToolStripMenuItem
 			// 
 			this.validateToolStripMenuItem.Name = "validateToolStripMenuItem";
-			this.validateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.validateToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
 			this.validateToolStripMenuItem.Text = "File validator";
 			this.validateToolStripMenuItem.Click += new System.EventHandler(this.ValidateFileClick);
 			// 
@@ -246,6 +283,7 @@ namespace OpenSCLConfigurator
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
 			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
 			this.aboutToolStripMenuItem.Text = "About";
+			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutClick);
 			// 
 			// SEPARATOR1
 			// 
@@ -254,7 +292,7 @@ namespace OpenSCLConfigurator
 			// 
 			// Exit
 			// 
-			this.Exit.ImageIndex = 0;
+			this.Exit.ImageIndex = 3;
 			this.Exit.Name = "Exit";
 			this.Exit.ToolTipText = "Exit Application";
 			// 
@@ -268,8 +306,11 @@ namespace OpenSCLConfigurator
 			this.toolBar1.Appearance = System.Windows.Forms.ToolBarAppearance.Flat;
 			this.toolBar1.Buttons.AddRange(new System.Windows.Forms.ToolBarButton[] {
 									this.SEPARATOR1,
-									this.Exit,
-									this.SEPARATOR2});
+									this.New,
+									this.Open,
+									this.Salvar,
+									this.SEPARATOR2,
+									this.Exit});
 			this.toolBar1.ButtonSize = new System.Drawing.Size(16, 16);
 			this.toolBar1.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.toolBar1.DropDownArrows = true;
@@ -279,6 +320,24 @@ namespace OpenSCLConfigurator
 			this.toolBar1.Size = new System.Drawing.Size(814, 28);
 			this.toolBar1.TabIndex = 1;
 			this.toolBar1.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler(this.toolBarEvent);
+			// 
+			// New
+			// 
+			this.New.ImageIndex = 0;
+			this.New.Name = "New";
+			this.New.ToolTipText = "New configuration file";
+			// 
+			// Open
+			// 
+			this.Open.ImageIndex = 1;
+			this.Open.Name = "Open";
+			this.Open.ToolTipText = "Open a configuration file";
+			// 
+			// Salvar
+			// 
+			this.Salvar.ImageIndex = 2;
+			this.Salvar.Name = "Salvar";
+			this.Salvar.ToolTipText = "Save configuration file";
 			// 
 			// statusStrip1
 			// 
@@ -307,6 +366,8 @@ namespace OpenSCLConfigurator
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = ":..OpenSCLConfigurator..:";
 			this.Load += new System.EventHandler(this.Form1_Load);
+			this.Panel1.ResumeLayout(false);
+			this.Panel2.ResumeLayout(false);
 			this.splitContainer1.Panel1.ResumeLayout(false);
 			this.splitContainer1.Panel2.ResumeLayout(false);
 			this.splitContainer1.Panel2.PerformLayout();
@@ -317,15 +378,18 @@ namespace OpenSCLConfigurator
 			this.statusStrip1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
-		}
-		private System.Windows.Forms.ToolStripMenuItem validateToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem iEDToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-	
+		}				
+		private OpenSCL.UI.FilteredPropertyGrid PropertyGridAttributes;
+		private System.Windows.Forms.TreeView treeViewFile;
+		
+		
 		//adding the icons into the app
 		private void Form1_Load(object sender, System.EventArgs e) 
 		{			
-			tb_il.Images.Add(new Icon(Application.StartupPath+"//exit.ico"));															
+			tb_il.Images.Add(new Icon(Application.StartupPath+"/../../imgs//new_file.ico"));															
+			tb_il.Images.Add(new Icon(Application.StartupPath+"/../../imgs//open_file.ico"));																		
+			tb_il.Images.Add(new Icon(Application.StartupPath+"/../../imgs//save_file.ico"));			
+			tb_il.Images.Add(new Icon(Application.StartupPath+"/../../imgs//exit.ico"));
 			toolBar1.ImageList = tb_il;  											
 		}												
 		
@@ -339,22 +403,25 @@ namespace OpenSCLConfigurator
 		/// 
 		/// </param>
 		void OpenFile(object sender, EventArgs e)
-		{			
-			OpenSCL.Object Object = new OpenSCL.Object();
+		{								
+			if (this.treeViewFile.Nodes.Count > 0)
+            {
+                //saveDoc.SaveDocument(this.treeViewFile);                
+                this.treeViewFile.Nodes.Clear();              
+            }
 			openDialog o = new openDialog();			
-			string nameFileXML = o.openDialogs();
-			Object.Deserialize(nameFileXML);	
-			TreeView tv = new TreeView();	
-			TreeViewSCL treeViewSCL = new TreeViewSCL();
-			TreeNode arbol = new TreeNode();	
-			arbol.Text ="IEC61850"; 
-			treeViewSCL.GetNodes(Object.Configuration,arbol);
-			tv.Nodes.Add(arbol);	
-			Panel1.Controls.Add(tv);
-			tv.Dock = System.Windows.Forms.DockStyle.Fill;
-			tv.Scrollable = true;  			
+			Panel1.Controls.Add(o.OpenXMLDocument(this.treeViewFile)); 			
 		}		
 		
+		/// <summary>
+		/// This event calls some methods to validate an XML file
+		/// </summary>
+		/// <param name="sender">
+		/// 
+		/// </param>
+		/// <param name="e">
+		/// 
+		/// </param>
 		void ValidateFileClick(object sender, EventArgs e)
 		{
 			//Code to validate XML files
@@ -363,21 +430,54 @@ namespace OpenSCLConfigurator
 		//Menu : opción exit
 		private void exitApp(object sender, System.EventArgs e)
 		{
-				Application.Exit();			
+			Application.Exit();			
 		}
-				
+		
+		void AboutClick(object sender, EventArgs e)
+		{
+			about a = new about();
+			a.Show();
+		}	
+		
 		//events for toolBar
 		private void toolBarEvent(object sender, System.Windows.Forms.ToolBarButtonClickEventArgs e)		
 		{					
 			switch(toolBar1.Buttons.IndexOf(e.Button))
 			{				
-				case 1: //Exit
+				case 1: //New configuration file
+				{
+
+					break;
+				}
+				case 2: //Open configuration file
+				{
+					break;
+				}
+				case 3: //Save configuration file
+				{
+					break;
+				}			
+				case 5: //Exit application
 				{
 					Application.Exit();
 					break;
 				}
 			}
+		}
 		
-		}												
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="sender">
+		/// 
+		/// </param>
+		/// <param name="e">
+		/// 
+		/// </param>													
+		void treeViewFileAfterSelect(object sender, TreeViewEventArgs e)
+		{
+			this.PropertyGridAttributes.SelectedObject = this.PropertyGridAttributes.UpdatePropertyGrid(e.Node);			
+			this.PropertyGridAttributes.HiddenProperties = this.PropertyGridAttributes.PropertiestoHide();
+		}
 	} 	
 }

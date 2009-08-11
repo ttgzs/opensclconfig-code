@@ -1,20 +1,20 @@
-﻿// OpenSCLConfigurator
+﻿// LibOpenSCL
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or (at your option) any later version.
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 3 of the License, or (at your option) any later version.
 // 
-// This program is distributed in the hope that it will be useful,
+// This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
 // 
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 using System;
 using IEC61850.SCL;
@@ -23,70 +23,101 @@ namespace OpenSCL
 {
 	
 	/// <summary>
-	/// This object represent a single IED in a SCD or CID files. 
+	/// This object represent a single IED in an SCD or CID files. 
 	/// </summary>
 	public class Device : Object
 	{
 		
 		private tIED deviceConfigField;
 		
-		public string name {
-			get {
+		/// <summary>
+		/// This method is used to get the name of the IED using the line command
+		/// </summary>
+		public string name 
+		{
+			get 
+			{
 				return this.ConfiguredDevices[0].name;
 			}
-			set {
+			set 
+			{
 				this.ConfiguredDevices[0].name = value;
 			}
 		}
 		
-		public string manufacturer {
-			get {
+		/// <summary>
+		/// This method is used to get the manufacturer of the IED using the line command
+		/// </summary>
+		public string manufacturer 
+		{
+			get 
+			{
 				tIED ied =  this.ConfiguredDevices[0];
 				return ied.manufacturer;
 			}
 			
-			set {
-				if (this.genericConfiguration) {
+			set 
+			{
+				if (this.genericConfiguration) 
+				{
 					this.ConfiguredDevices[0].manufacturer = value;
 				}
-				else {
+				else 
+				{
 					// FIXME: Rise an Exception
 				}
 			}
 		}
 		
+		/// <summary>
+		/// This method is used to get the version of the configuration of the IED using the line command
+		/// </summary>
 		/// <value>
-		/// 
 		/// An IED's configuration (CID) just have one tIED object then allways access
 		/// to the first element of the IEDs array
 		/// </value>
-		public string configVersion {
-			get {
+		public string configVersion 
+		{
+			get 
+			{
 				return this.ConfiguredDevices[0].configVersion;
 			}
-			set {
+			set 
+			{
 				this.ConfiguredDevices[0].configVersion = value;
 			}
 		}
 		
-		public tP_IP ip {
-			get {
+		/// <summary>
+		/// This method is used to get the IP address of the IED using the line command
+		/// </summary>
+		public tP_IP ip 
+		{
+			get 
+			{
 				//FIXME: Search in SubNetwork this data
 				tP_IP val = new tP_IP();
 				return val;
 			}
-			set {
+			set 
+			{
 				
 			}
 		}
 		
-		public tP_VLANID vlan {
-			get {
+		/// <summary>
+		/// This method is used to get the VLAN id of the IED using the line command
+		/// </summary>
+		public tP_VLANID vlan 
+		{
+			get 
+			{
 				//FIXME: Search in SubNetwork this data
 				tP_VLANID val = new tP_VLANID();
 				return val;
 			}
-			set {
+			set 
+			{
 				
 			}
 		}

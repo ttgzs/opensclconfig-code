@@ -17,23 +17,18 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 using System;
+using System.Collections;
 using System.Reflection;
 
 namespace OpenSCL
-{
-	
-	/// <summary>
-	/// 
-	/// </summary>
+{	
 	public class ObjectManagement
 	{		
-		/// <summary>
-		/// 
-		/// </summary>
 		public ObjectManagement()
 		{
-		}		
-				
+			
+		}	
+		
 		/// <summary>
 		/// This method adds a valid object to an array, both of them has to be of the same type. The array 
 		/// should be a variable of a parent object.		
@@ -167,7 +162,7 @@ namespace OpenSCL
 		/// If the valid object was added correctly, it returns a "True" value, otherwise a "False" value 
 		/// is returned.
 		/// </returns>		
-   		private bool AddItemToArray(object itemObject, string nameArrayObject, object parentObject)
+   		public bool AddItemToArray(object itemObject, string nameArrayObject, object parentObject)
    		{
    			Array array  = parentObject.GetType().InvokeMember(nameArrayObject, BindingFlags.Instance | BindingFlags.Public |
               BindingFlags.GetProperty | BindingFlags.GetField, null, parentObject, null) as Array;//   			
@@ -175,12 +170,14 @@ namespace OpenSCL
    			{ 
    				array = Array.CreateInstance(itemObject.GetType(),1);
    				if (array == null)
+   				{
    					return false;
+   				}
    				array.SetValue(itemObject, 0);  
    				parentObject.GetType().InvokeMember(nameArrayObject,BindingFlags.Instance | 
    			 	  BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.SetField,
               		null, parentObject, new object[1] { array } );
-   			return true;  			
+   				return true;  			
    			}
    			int arraySize = array.GetLength(0);
    			Array tempArray = Array.CreateInstance(itemObject.GetType(), arraySize + 1);
@@ -222,49 +219,6 @@ namespace OpenSCL
    				return this.RemoveItemOfArray(indexObject, attributeArrayName, parentObject);
    			}
    			return false;		
-   		}
-   		
-   		/// <summary>
-   		/// This method deletes an object of object's array.		
-		/// </summary>
-		/// <param name="indexObject">
-		/// Position of the object that will be deleted, in the array.
-		/// </param>				
-		/// <param name="nameArrayObject">
-		/// Variable's name of the parent object, that will contains the object's array updated.
-		/// </param>
-		/// <param name="parentObject">
-		/// Parent object that will contains the object's array. 
-		/// </param>
-		/// <returns>
-		/// If the valid object was deleted correctly from the object's array, it returns a "True" value, otherwise 
-		/// a "False" value is returned.
-		/// </returns>		
-   		private bool RemoveItemOfArray(int indexObject, string nameArrayObject, object parentObject)
-   		{
-   			Array array = parentObject.GetType().InvokeMember(nameArrayObject,
-   			 BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.GetField,
-   			   null, parentObject, null) as Array;
-   			if (array == null)
-   				return false;
-   			int arraySize = array.GetLength(0);
-   			if (arraySize < 1)
-   				return false;
-   			Type arrayType = array.GetValue(0).GetType();
-   			Array newArray = Array.CreateInstance(arrayType, arraySize - 1);
-   			int count = 0;
-   			for (int i = 0; i < arraySize ; i++)
-   			{
-   				if (i != indexObject)
-   				{
-   					newArray.SetValue(array.GetValue(i), count);
-   					count++;
-   				}
-   			}
-   			parentObject.GetType().InvokeMember(nameArrayObject,
-   			  BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.SetField,
-   			     null, parentObject, new object[1] { newArray });
-   			return true;
    		}
    		
    		/// <summary>
@@ -321,40 +275,19 @@ namespace OpenSCL
    			 BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.GetField,
    			   null, parentObject, null) as Array;
    			if (array == null)
+   			{
    				return false;
+   			}
    			int arraySize = array.GetLength(0);
    			if (arraySize < 1)
+   			{
    				return false;   			
+   			}
    			array.SetValue(itemObject,indexObject);  			   			
    			parentObject.GetType().InvokeMember(nameArrayObject,
    			  BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.SetField,
    			     null, parentObject, new object[1] { array });
    			return true;
-   		}
-   		
-   		/// <summary>
-   		/// This method adds an object to a parent object.   		
-   		/// </summary>
-   		/// <param name="objectToAdd">
-   		/// Object that will be added.
-   		/// </param>
-   		/// <param name="parentObject">
-   		/// Parent object that will contain the object as a variable.
-   		/// </param>
-   		/// <returns>
-   		/// If the valid object was added correctly, it returns a "True" value, otherwise 
-		/// a "False" value is returned.
-		/// </returns>		
-   		public bool AddObjectToSCLObject(object objectToAdd, object parentObject)
-   		{
-   			string attributeName = this.GetNameAttribute(objectToAdd, parentObject);
-   			if(!attributeName.Equals(""))
-   			{   				
-   			   	parentObject.GetType().InvokeMember(attributeName, BindingFlags.Instance | BindingFlags.Public | 
-   				                                    BindingFlags.SetProperty | BindingFlags.SetField, null, parentObject, new object [] {objectToAdd});
-   				return true;
-   			}
-   			return false;
    		}
    		
    		/// <summary>
@@ -382,139 +315,7 @@ namespace OpenSCL
    			}
    			return false;
    		}
-   		
-		/// <summary>
-		/// FIXME: Added to have a compiled library.
-		/// </summary>
-		/// <param name="sourceObject">
-		/// A <see cref="System.Object"/>
-		/// </param>
-		/// <param name="assignObject">
-		/// A <see cref="System.Object"/>
-		/// </param>
-		/// <param name="assignObjectBaseType">
-		/// A <see cref="Type"/>
-		/// </param>
-		void CompareForSetVariablesSCLObject (object sourceObject, object assignObject, Type assignObjectBaseType)
-		{
-			
-		}
-		
-		/// <summary>
-		/// FIXME: added to have a compiled library
-		/// </summary>
-		/// <param name="sourceObject">
-		/// A <see cref="System.Object"/>
-		/// </param>
-		/// <param name="assignObject">
-		/// A <see cref="System.Object"/>
-		/// </param>
-		/// <param name="assignObjectBaseType">
-		/// A <see cref="Type"/>
-		/// </param>
-		/// <param name="info">
-		/// A <see cref="PropertyInfo"/>
-		/// </param>
-		void CompareForSetVariablesSCLObject (object sourceObject, object assignObject, Type assignObjectBaseType, PropertyInfo info)
-		{
-			
-		}
-		
-		
-		/// <summary>
-		/// This method sets the values from the GUI to an SCL object of base type.
-		/// </summary>
-		/// <param name="sourceObject">
-		/// Graphical Object that contains the values of the GUI.
-		/// </param>
-		/// <param name="assignObject">
-		/// SCL Object of base type that will get the values of the graphical object. 
-		/// </param>
-		/// <param name="assignObjectBaseType">
-		/// Base type of the SCL class. This parameter verify that the values are part of a SCL class. 		
-		/// </param>
-		/// <remarks>
-		/// The name of the graphical objects, like TextBox, ComboBox, etc. where the user will introduce values
-		/// shall be the same name that has the variables of the SCL Class that are contained in SCL.cs file and
-		/// also this graphical object should be public.
-		/// 
-		/// Example:
-		/// The user want to work with the variable "password" that it's part of the SCL class "tAuthentication", 
-		/// so a graphical object like a Combobox should be created and named "password". 
-		/// 
-		/// public System.Windows.Forms.ComboBox password;
-		/// public bool password 
-		/// { 	
-		///    get 
-		///    {
-		///       return this.passwordField;	
-		///    }	
-		///    set 
-		///    { 
-		///       this.passwordField = value;
-		///    }		
-		/// }
-		/// </remarks>
-		public void SetGUIToSCLObjectBaseType(object sourceObject, object assignObject, Type assignObjectBaseType)
-		{			
-			PropertyInfo[] attributesInformation = assignObject.GetType().GetProperties();        	        	        	        	
-						
-        	foreach (PropertyInfo attributeInformation in attributesInformation) 
-        	{
-				this.CompareForSetVariablesSCLObject(sourceObject, assignObject, assignObjectBaseType, attributeInformation);
-        	}						
-		}	
-
-		/// <summary>
-		/// This method sets the values from the GUI to an SCL object that is not a base type.		
-		/// </summary>
-		/// <param name="sourceObject">
-		/// Graphical Object that contains the values of the GUI.
-		/// </param>
-		/// <param name="assignObject">
-		/// SCL Object that will get the values of the graphical object.
-		/// </param>
-		/// <remarks>
-		/// The name of the graphical objects, like TextBox, ComboBox, etc. where the user will introduce values
-		/// shall be the same name that has the variables of the SCL Class that are contained in SCL.cs file and
-		/// also this graphical object should be public.
-		/// 
-		/// Example:
-		/// The user want to work with the variable "password" that it's part of the SCL class "tAuthentication", 
-		/// so a graphical object like a Combobox should be created and named "password". 
-		/// 
-		/// public System.Windows.Forms.ComboBox password;
-		/// public bool password 
-		/// { 	
-		///    get 
-		///    {
-		///       return this.passwordField;	
-		///    }	
-		///    set 
-		///    { 
-		///       this.passwordField = value;
-		///    }		
-		/// }
-		/// </remarks>
-		public void SetGUIToSCLObject(object sourceObject, object assignObject)
-		{			
-			try
-			{
-				PropertyInfo[] attributesInformation = assignObject.GetType().GetProperties();        	        	        	        	
-							
-        		foreach (PropertyInfo attributeInformation in attributesInformation) 
-        		{
-					this.CompareForSetVariablesSCLObject(sourceObject, assignObject, assignObject.GetType(), attributeInformation);
-        		}						
-			}
-			catch(NullReferenceException e)
-			{
-				System.Diagnostics.Trace.Write("Error: "+ e);
-			}
-			
-		}	
-										
-				
+   																	
 		/// <summary>
 		/// This method gets the variable's name of a parent object.
 		/// </summary>
@@ -543,9 +344,7 @@ namespace OpenSCL
    			}
 			return "";
    		}
-		   		
-   				
-		
+		   									
 		/// <summary>
 		/// This method adds a valid object to an Array of the same type. 
 		/// The array shall be a variable of a parent object.
@@ -574,6 +373,100 @@ namespace OpenSCL
 	   			   	return this.AddItemToArray(itemObject, attributeName, parentObject);   			
    				}
    			}   			
+   			return false;
+   		}
+   		
+   		/// <summary>
+   		/// This method deletes an object of object's array.		
+		/// </summary>
+		/// <param name="indexObject">
+		/// Position of the object that will be deleted, in the array.
+		/// </param>				
+		/// <param name="nameArrayObject">
+		/// Variable's name of the parent object, that will contains the object's array updated.
+		/// </param>
+		/// <param name="parentObject">
+		/// Parent object that will contains the object's array. 
+		/// </param>
+		/// <returns>
+		/// If the valid object was deleted correctly from the object's array, it returns a "True" value, otherwise 
+		/// a "False" value is returned.
+		/// </returns>		
+   		private bool RemoveItemOfArray(int indexObject, string nameArrayObject, object parentObject)
+   		{
+   			Array array = parentObject.GetType().InvokeMember(nameArrayObject,
+   			 BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.GetField,
+   			   null, parentObject, null) as Array;
+   			if (array == null)
+   			{
+   				return false;
+   			}
+   			int arraySize = array.GetLength(0);
+   			if (arraySize < 1)
+   			{
+   				return false;	
+   			}
+   			ArrayList arrayList = new ArrayList(array);
+			arrayList.RemoveAt(indexObject);			
+			if (arraySize < 1)
+			{
+   				return false;   			
+			}
+			Array newArray = Array.CreateInstance(array.GetValue(0).GetType(), arrayList.Count);			
+			arrayList.CopyTo(newArray);			
+			if(newArray.Length==0)
+			{
+				newArray = null;		
+			}
+			parentObject.GetType().InvokeMember(nameArrayObject,
+   			  BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.SetField,
+   			     null, parentObject, new object[1] { newArray });			
+   			return true;
+   		}
+   		
+   		/// <summary>
+   		/// This method adds an object to a parent object.   		
+   		/// </summary>
+   		/// <param name="objectToAdd">
+   		/// Object that will be added.
+   		/// </param>
+   		/// <param name="parentObject">
+   		/// Parent object that will contain the object as a variable.
+   		/// </param>
+   		/// <returns>
+   		/// If the valid object was added correctly, it returns a "True" value, otherwise 
+		/// a "False" value is returned.
+		/// </returns>		
+   		public bool AddObjectToSCLObject(object objectToAdd, object parentObject)
+   		{
+   			string attributeName = this.GetNameAttribute(objectToAdd, parentObject);
+   			return this.AddObjectToSCLObject(objectToAdd, attributeName, parentObject);
+   		}
+		
+		/// <summary>
+   		/// This method adds an object to a parent object.   		
+   		/// </summary>
+   		/// <param name="objectToAdd">
+   		/// Object that will be added.
+   		/// </param>
+   		/// <param name="attributeName">
+		/// Variable's name of the parent object that will contains the object's array.
+		/// </param>
+   		/// <param name="parentObject">
+   		/// Parent object that will contain the object as a variable.
+   		/// </param>
+   		/// <returns>
+   		/// If the valid object was added correctly, it returns a "True" value, otherwise 
+		/// a "False" value is returned.
+		/// </returns>		
+   		public bool AddObjectToSCLObject(object objectToAdd, string attributeName, object parentObject)
+   		{   			
+   			if(!attributeName.Equals(""))
+   			{   				
+   			   	parentObject.GetType().InvokeMember(attributeName, BindingFlags.Instance | BindingFlags.Public | 
+   				                                    BindingFlags.SetProperty | BindingFlags.SetField, null, parentObject, new object [] {objectToAdd});
+   				return true;
+   			}
    			return false;
    		}
 	}	

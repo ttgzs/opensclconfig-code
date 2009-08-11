@@ -1,17 +1,33 @@
+﻿// LibOpenSCLUI
+//
+// Copyright (C) 2009 Comisión Federal de Electricidad
+// 
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+// 
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+// 
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 using System;
-using System.Windows.Forms;
-using OpenSCL;
-using IEC61850.SCL;
 using System.Reflection;
+using System.Windows.Forms;
+using IEC61850.SCL;
 
 namespace OpenSCL.UI
 {
-	
-	
+	/// <summary>
+	/// Description of GUIObjectManagement.
+	/// </summary>
 	public class Utils
 	{
-			
 		/// <summary>
 		/// This method sets the values of the Enum variables from the graphical object to the 
 		/// SCL object.
@@ -28,8 +44,7 @@ namespace OpenSCL.UI
 		private void EmptyAttributeOfGUIToEnumObject(Object assignObject, Object sourceObject, PropertyInfo attributeInformation)
 		{
 			object[] objects = new object[1];        	       				
-			ConversionObject conversionObject = new ConversionObject();
-			
+			ConversionObject conversionObject = new ConversionObject();			
 			object valueObjectAttribute = sourceObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField, null, sourceObject, new object [] {});
 			switch(valueObjectAttribute.GetType().ToString())
 			{			
@@ -99,7 +114,7 @@ namespace OpenSCL.UI
         			assignObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.SetField | BindingFlags.SetProperty, null, assignObject, objects);
 					break;
 			}        			 	
-		}
+		}	
 											
 		/// <summary>
 		/// This method gets a value from a graphical object "TextBox".
@@ -132,9 +147,13 @@ namespace OpenSCL.UI
 			ComboBox valueAttribute = (ComboBox) valueObjectAttribute;
 			object selectedItem = valueAttribute.SelectedItem;			
 			if(selectedItem!=null)
+			{
 				return selectedItem.ToString();
+			}
 			else
+			{
 				return "";
+			}
 		}
 		
 		/// <summary>
@@ -175,9 +194,10 @@ namespace OpenSCL.UI
 		public bool SetSCLObjectToGUI(Object sourceObject, Object assignObject)
 		{			
 			if(sourceObject==null)
+			{
 				return false;
-			PropertyInfo[] attributesInformation = sourceObject.GetType().GetProperties();        	        	        	        	
-						
+			}
+			PropertyInfo[] attributesInformation = sourceObject.GetType().GetProperties();        	        	        	        							
         	foreach (PropertyInfo attributeInformation in attributesInformation) 
         	{
         		this.ComparateForSetVariablesGUI(sourceObject, assignObject, sourceObject.GetType(), attributeInformation);
@@ -222,9 +242,10 @@ namespace OpenSCL.UI
 		public bool SetSCLObjectBaseTypeToGUI(Object sourceObject, Object assignObject, Type sourceObjectBaseType)
 		{			
 			if(sourceObject==null)
+			{
 				return false;
-			PropertyInfo[] attributesInformation = sourceObject.GetType().GetProperties();        	        	        	        	
-						
+			}
+			PropertyInfo[] attributesInformation = sourceObject.GetType().GetProperties();        	        	        	        							
         	foreach (PropertyInfo attributeInformation in attributesInformation) 
         	{
         		this.ComparateForSetVariablesGUI(sourceObject, assignObject, sourceObjectBaseType,attributeInformation);
@@ -317,7 +338,7 @@ namespace OpenSCL.UI
 			TextBox textBoxObject = (TextBox) TextBoxGUI;
 			textBoxObject.Text = valueAttribute;
 			return textBoxObject;
-		}		
+		}				
 		
 		/// <summary>
 		/// This method sets the value of SCL object to a graphical object "ComboBox", only if the values are not 
@@ -339,7 +360,7 @@ namespace OpenSCL.UI
 			return ComboBoxObject;
 		}
 		
-		/// <summary>
+   		/// <summary>
    		/// This method gets the type of some variables that belong to a specific class with the purpose of 
    		/// determining the method to be used to assign the values of GUI to SCL object.
 		/// </summary>
@@ -399,8 +420,7 @@ namespace OpenSCL.UI
 		{
 			object[] objects = new object[1];        	       						
 			object valueObjectAttribute = sourceObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField, null, sourceObject, new object [] {});
-			ConversionObject conversionObject;	
-			
+			ConversionObject conversionObject;				
 			switch(valueObjectAttribute.GetType().ToString())
 			{						
 				case "System.Windows.Forms.TextBox":
@@ -442,6 +462,7 @@ namespace OpenSCL.UI
 		private void ComparateForSetVariablesGUI(Object sourceObject, Object assignObject, Type sourceObjectType, PropertyInfo attributeInformation)
 		{							
 			if(attributeInformation.DeclaringType == sourceObjectType)
+			{
         		switch(attributeInformation.PropertyType.Name)
         		{
 					 case "UInt32":
@@ -460,7 +481,8 @@ namespace OpenSCL.UI
         			    		break;
         			 	}     
         			 	break;
-        		}       	
+        		}     
+			}
 		}
 		
 		/// <summary>
@@ -480,15 +502,13 @@ namespace OpenSCL.UI
 		{
 			ConversionObject conversionObject = new ConversionObject();
 			object[] objects = new object[1];        	       				
-			object valueAttribute = (object)sourceObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.GetField, null, sourceObject, null);
-			
+			object valueAttribute = (object)sourceObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.GetField, null, sourceObject, null);			
 			if(valueAttribute!=null&&!conversionObject.SetEnumObjectToString(valueAttribute).Equals(""))
 			{
 				object attributeObjectGUI = assignObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField, null, assignObject, new object [] {});
 				switch(attributeObjectGUI.GetType().ToString())
 				{			
-					case "System.Windows.Forms.ComboBox":				
-						
+					case "System.Windows.Forms.ComboBox":										
 						ComboBox ComboBoxObject = (ComboBox) attributeObjectGUI;						
 						ComboBoxObject.SelectedItem = conversionObject.SetStringToEnumObject(conversionObject.SetEnumObjectToString(valueAttribute),attributeInformation.PropertyType);
 						objects[0] = ComboBoxObject;
@@ -498,6 +518,182 @@ namespace OpenSCL.UI
 			}							 	
 		}
 		
+		/// <summary>
+		/// This method sets the values of a SCL object to a graphical object of GUI.
+		/// </summary>
+		/// <param name="sourceObject">
+		/// Graphical Object that will contain the values of the SCL object.
+		/// </param>
+		/// <param name="assignObject">
+		/// SCL object.
+		/// </param>		
+   		public void EmptySCLObjectoGUIObject(object sourceObject, object assignObject)			
+		{
+			PropertyInfo[] attributesInformation = sourceObject.GetType().GetProperties();        	        	        	        							
+			object[] valueObjectAttribute = new object[1];
+			MemberInfo[] nameOfVariablesToFind;
+        	foreach (PropertyInfo attributeInformation in attributesInformation) 
+        	{        		
+        		valueObjectAttribute[0] = sourceObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, sourceObject, null );				
+        		if(valueObjectAttribute[0]!=null)
+        		{
+        			nameOfVariablesToFind = assignObject.GetType().FindMembers(
+    					MemberTypes.Property, BindingFlags.Public | 
+    					BindingFlags.Instance, Type.FilterName, attributeInformation.Name);
+        			if(nameOfVariablesToFind.Length>0)
+        			{
+        				assignObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.SetField | BindingFlags.SetProperty, null, assignObject, valueObjectAttribute);        		        			
+        			}
+        		}
+        	}				
+		}		
+		/// <summary>
+		/// This method sets the values of  a graphical object of GUI to an SCL object.
+		/// </summary>
+		/// <param name="sourceObject">
+		/// SCL object.
+		/// </param>
+		/// <param name="assignObject">
+		/// Graphical Object that will contain the values of the SCL object.
+		/// </param>
+   		public void EmptyGUIObjectoSCLObject(object sourceObject, object assignObject)
+		{
+			PropertyInfo[] attributesInformation = assignObject.GetType().GetProperties();        	        	        	        							
+			object[] valueObjectAttribute = new object[1];
+			MemberInfo[] nameOfVariablesToFind;
+        	foreach (PropertyInfo attributeInformation in attributesInformation) 
+        	{        
+        	     nameOfVariablesToFind = sourceObject.GetType().FindMembers(
+    				MemberTypes.Property, BindingFlags.Public | 
+    				BindingFlags.Instance, Type.FilterName, attributeInformation.Name);
+        		if(nameOfVariablesToFind.Length>0)
+        		{
+					valueObjectAttribute[0] = sourceObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, sourceObject, null );				
+					assignObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.SetField | BindingFlags.SetProperty, null, assignObject, valueObjectAttribute);        		        	        		
+        		}        		
+        	}			
+		}
+   		
+		/// <summary>
+		/// This method sets the values from the GUI to an SCL object of base type.
+		/// </summary>
+		/// <param name="sourceObject">
+		/// Graphical Object that contains the values of the GUI.
+		/// </param>
+		/// <param name="assignObject">
+		/// SCL Object of base type that will get the values of the graphical object. 
+		/// </param>
+		/// <param name="assignObjectBaseType">
+		/// Base type of the SCL class. This parameter verify that the values are part of a SCL class. 		
+		/// </param>
+		/// <remarks>
+		/// The name of the graphical objects, like TextBox, ComboBox, etc. where the user will introduce values
+		/// shall be the same name that has the variables of the SCL Class that are contained in SCL.cs file and
+		/// also this graphical object should be public.
+		/// 
+		/// Example:
+		/// The user want to work with the variable "password" that it's part of the SCL class "tAuthentication", 
+		/// so a graphical object like a Combobox should be created and named "password". 
+		/// 
+		/// public System.Windows.Forms.ComboBox password;
+		/// public bool password 
+		/// { 	
+		///    get 
+		///    {
+		///       return this.passwordField;	
+		///    }	
+		///    set 
+		///    { 
+		///       this.passwordField = value;
+		///    }		
+		/// }
+		/// </remarks>
+		public void SetGUIToSCLObjectBaseType(object sourceObject, object assignObject, Type assignObjectBaseType)
+		{			
+			PropertyInfo[] attributesInformation = assignObject.GetType().GetProperties();        	        	        	        							
+        	foreach (PropertyInfo attributeInformation in attributesInformation) 
+        	{
+				//this.CompareForSetVariablesSCLObject(sourceObject, assignObject, assignObjectBaseType, attributeInformation);
+        	}						
+		}	
 		
+		/// <summary>
+		/// This method sets the values from the GUI to an SCL object that is not a base type.		
+		/// </summary>
+		/// <param name="sourceObject">
+		/// Graphical Object that contains the values of the GUI.
+		/// </param>
+		/// <param name="assignObject">
+		/// SCL Object that will get the values of the graphical object.
+		/// </param>
+		/// <remarks>
+		/// The name of the graphical objects, like TextBox, ComboBox, etc. where the user will introduce values
+		/// shall be the same name that has the variables of the SCL Class that are contained in SCL.cs file and
+		/// also this graphical object should be public.
+		/// 
+		/// Example:
+		/// The user want to work with the variable "password" that it's part of the SCL class "tAuthentication", 
+		/// so a graphical object like a Combobox should be created and named "password". 
+		/// 
+		/// public System.Windows.Forms.ComboBox password;
+		/// public bool password 
+		/// { 	
+		///    get 
+		///    {
+		///       return this.passwordField;	
+		///    }	
+		///    set 
+		///    { 
+		///       this.passwordField = value;
+		///    }		
+		/// }
+		/// </remarks>
+		public void SetGUIToSCLObject(object sourceObject, object assignObject)
+		{			
+			try
+			{
+				PropertyInfo[] attributesInformation = assignObject.GetType().GetProperties();        	        	        	        								
+        		foreach (PropertyInfo attributeInformation in attributesInformation) 
+        		{
+					//this.CompareForSetVariablesSCLObject(sourceObject, assignObject, assignObject.GetType(), attributeInformation);
+        		}						
+			}
+			catch(NullReferenceException e)
+			{
+				System.Diagnostics.Trace.Write("Error: "+ e);
+			}			
+		}	
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="treeNodefromMain">
+		/// 
+		/// </param>
+		/// <param name="nodeTagfromMain">
+		/// 
+		/// </param>
+		/// <returns>
+		/// 
+		/// </returns>
+		public object DataTypeConverterProcess(TreeNode treeNodefromMain, object nodeTagfromMain)
+        {					
+            string clase = "LibOpenSCLUI." + nodeTagfromMain.GetType().Name.ToString() + "Hierachy";
+            Type TypeClass = Type.GetType(clase);
+            if (TypeClass != null)
+            {
+            	object HierachyClass = Activator.CreateInstance(TypeClass);
+                if (HierachyClass != null)
+                {
+                    EmptySCLObjectoGUIObject(nodeTagfromMain, HierachyClass);
+                    nodeTagfromMain = HierachyClass;
+                 }
+                 else
+                 {
+                      return nodeTagfromMain;
+                 }
+             }
+            return nodeTagfromMain;
+        }		
 	}
 }

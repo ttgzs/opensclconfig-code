@@ -16,18 +16,17 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 /*
- * This file contains functions to validate the values of some variables of SCL Classes.
- * Functions uses personalized attributes, like "Required" to do that SCL classes fulfill
- * with the established in the standard IEC 61850 Ed.1.0.
+ * This file contains methods to validate the values of some variables of SCL Classes.
+ * Functions use personalized attributes, like "Required" to do that SCL classes fulfill
+ * with the established in the standard IEC 61850 Ed. 1.0.
  */ 
  
 using System;
 
 namespace IEC61850.SCL
 {
-
+	
 	///<summary>
 	/// This class defines a [Required] attribute, which one identify at SCL class if it 
 	/// contains a required variable.
@@ -202,10 +201,39 @@ namespace IEC61850.SCL
             {
                 errorMessage = value;
             }
-        }
-
- 
+        }         
     }
-
-
+    
+    /// <summary>
+    ///  Constructor: This method identify if the attribute is optional
+    /// </summary>
+    [AttributeUsageAttribute(AttributeTargets.Property|AttributeTargets.Field|AttributeTargets.Parameter|AttributeTargets.ReturnValue)]       
+	public class OptionalAttribute : System.Xml.Serialization.XmlIgnoreAttribute
+	{
+		private bool xmlIgnore;
+			
+		[System.Xml.Serialization.XmlIgnore]
+		public bool Optional 
+			{ 
+				get
+				{
+					return this.xmlIgnore;
+				}					
+				set
+				{					
+					this.xmlIgnore = value;
+				}
+			}
+						
+		public OptionalAttribute()
+			{
+				this.Optional = false;
+					
+			}
+			
+		public OptionalAttribute(bool optional)
+			{
+				this.Optional = optional;
+			}
+	}    	
 }

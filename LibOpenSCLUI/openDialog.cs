@@ -17,33 +17,55 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace OpenSCL.UI
 {
 	/// <summary>
-	/// Description of openDialog.
+	/// Description of openDialog component.
 	/// </summary>
 	public partial class openDialog
-	{
-		//opens file dialog, if is ok and the file has errors fills the listbox from listerrors else sends the listbox empty
-		public string openDialogs()
+	{		
+		TreeViewSCL treeViewSCLOpen;
+		OpenSCL.Object Object = new OpenSCL.Object(); 		
+		OpenFileDialog dlg = new OpenFileDialog();
+  		
+		/// <summary>
+		/// This method sets default values to an OpenDialog object
+		/// </summary>
+		public void InicializeOpenDialog()
 		{
-			OpenFileDialog dlg = new OpenFileDialog();
-			string NameFileXML;
 			dlg.Title = "Open XML Document";
-			dlg.Filter = "XML Files (.xml)|*.xml|CID Files (*.icd)|*.icd|SCD Files (.scd)|*.scd|SSD Files (*.ssd)|*.ssd";
+			dlg.Filter = "XML Files (*.xml)|*.xml|" +
+				"IED Capability Description Files (*.ICD)|*.ICD|" +
+				"Configured IED Description Files (*.CID)|*.CID|" +
+				"Substation Configuration Description Files (*.SCD)|*.SCD|" +
+				"System Specification Description Files (*.SSD)|*.SSD|" +
+				"All Files (*.*)|*.*";
 			dlg.FilterIndex =1;
+		}
+		
+		/// <summary>
+		/// This method shows a dialog box to allow select an XML file and show it on a tree.
+		/// </summary>
+		/// <param name="treeViewOpen">
+		/// Graphical component "TreeView" where some nodes of XML file will be added.
+		/// </param>
+		/// <returns>
+		/// Tree that contains all the nodes of XML file.
+		/// </returns>
+		public TreeView OpenXMLDocument(TreeView treeViewOpen)
+		{			
+			InicializeOpenDialog();	
 			if(dlg.ShowDialog() == DialogResult.OK)
-			{				
-				NameFileXML=dlg.FileName;				
+			{						
+				treeViewSCLOpen = new TreeViewSCL();
+				Object.Deserialize(dlg.FileName);				
+				treeViewOpen.Nodes.Add(treeViewSCLOpen.GetTreeNodeSCL(Path.GetFileName(dlg.FileName), Object.Configuration));
 			}
-			else
-			{
-				NameFileXML="";
-			}
-			return NameFileXML;				
-		}				
+			return treeViewOpen;		
+		}			
 	}
 }
 	

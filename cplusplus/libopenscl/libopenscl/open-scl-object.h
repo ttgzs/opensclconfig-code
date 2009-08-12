@@ -25,14 +25,10 @@ namespace OpenSCL
 	class Object
 	{
 	public:
-		::IEC61850::SCL configuration;
-		void IP(string ip);
-		void AddLD(string name);
-		void PublishGOOSE(string MAC, string gcb, string goid);
-		void SuscribeGOOSE(GOOSE goose);
 
 	protected:
-
+			::IEC61850::SCL configuration;
+			
 	private:
 
 	};

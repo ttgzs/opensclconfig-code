@@ -409,8 +409,14 @@ namespace OpenSCLConfigurator
                 //saveDoc.SaveDocument(this.treeViewFile);                
                 this.treeViewFile.Nodes.Clear();              
             }
-			openDialog o = new openDialog();			
-			Panel1.Controls.Add(o.OpenXMLDocument(this.treeViewFile)); 			
+			openDialog o = new openDialog();
+		 	try {
+				Panel1.Controls.Add(o.OpenXMLDocument(this.treeViewFile)); 			
+			}
+		 	catch {
+				
+			}
+				
 		}		
 		
 		/// <summary>

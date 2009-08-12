@@ -1,5 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="OpenSCLConfigurator/OpenSCLConfigurator.cs" ctype="Workbench">
+    <Files>
+      <File FileName="OpenSCLConfigurator/OpenSCLConfigurator.cs" Line="411" Column="14" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">

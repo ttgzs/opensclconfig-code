@@ -9,11 +9,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OpenSCLConfigurator")]
+[assembly: AssemblyTitle("LibOpenSCLUI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("OpenSCLConfigurator")]
+[assembly: AssemblyProduct("LibOpenSCLUI")]
 [assembly: AssemblyCopyright("Copyright 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

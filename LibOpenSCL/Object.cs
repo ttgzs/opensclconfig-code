@@ -5,7 +5,7 @@
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
 // License as published by the Free Software Foundation; either
-// version 2.1 of the License, or (at your option) any later version.
+// version 3 of the License, or (at your option) any later version.
 // 
 // This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -50,7 +50,7 @@ namespace OpenSCL
    		/// The directory shall exist, and the name file shouldn't exist. 		
    		///  </remarks>
 		public bool Serialize(string nameFileXML)
-		 {         	        	
+		{         	        	
         	XmlSerializer serializer = new XmlSerializer(typeof(SCL));
         	TextWriter writer = new StreamWriter(nameFileXML);       	        	       	
         	serializer.Serialize(writer, this.configuration);
@@ -152,7 +152,8 @@ namespace OpenSCL
    		/// It returns the value of the attribute "ConfigurationVersion" 
    		/// that belongs to the Header of an XML file.
    		/// </summary>
-		public string ConfigurationVersion {
+		public string ConfigurationVersion 
+		{
 			get 
 			{
 				return this.configuration.Header.version;

@@ -5,7 +5,7 @@
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
 // License as published by the Free Software Foundation; either
-// version 2.1 of the License, or (at your option) any later version.
+// version 3 of the License, or (at your option) any later version.
 // 
 // This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -17,9 +17,9 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 using System;
-using System.ComponentModel;
 using System.Reflection;
 using System.Windows.Forms;
+using IEC61850.SCL;
 
 namespace OpenSCL.UI
 {	
@@ -29,9 +29,11 @@ namespace OpenSCL.UI
 	public class TreeViewSCL
 	{				
 		TreeNode node;
+		ObjectManagement objectManagement;
+		
 		public TreeViewSCL()
 		{
-			
+			this.objectManagement = new ObjectManagement();			
 		}
 		
 		/// <summary>
@@ -257,40 +259,227 @@ namespace OpenSCL.UI
         			 	break;
 			}
 			return result;		
-		}			        	
-	}
-
-	/// <summary>
-	/// 
-	/// </summary>
-	class NextNodeDisplayName
-    {
-        private string _name;
-        private string _finishNode;
-        [CategoryAttribute("Next Node"), DescriptionAttribute("Next Node to display"), ReadOnly(true)]
-        public string Name
+		}
+		
+		/// <summary>
+		/// This method removes the node from the tree and all his objects according to the conditions provided.		
+		/// </summary>
+		/// <param name="nodePossibleRemove">
+		/// Node that will be eliminated from the tree and his object definition because it has all the conditions provided.  
+		/// </param>
+		public void Remove(TreeNode nodePossibleRemove)
+		{			
+			object objectParent, objectToRemove;
+			if(nodePossibleRemove.Parent!=null&&nodePossibleRemove.Parent.Tag.GetType().IsArray)
+			{
+				objectParent = nodePossibleRemove.Parent.Parent.Tag;
+				objectToRemove = nodePossibleRemove.Tag;
+				int indexOfObject = nodePossibleRemove.Parent.Nodes.IndexOf(nodePossibleRemove);
+				if(objectParent!=null&&this.objectManagement.RemoveObjectOfArrayObjectOfParentObject(objectToRemove, indexOfObject, objectParent))					
+				{						
+					nodePossibleRemove = nodePossibleRemove.Parent;
+					nodePossibleRemove.Nodes.RemoveAt(indexOfObject);											
+					if(nodePossibleRemove.Nodes.Count==0)
+					{
+						TreeNode TNRemove = nodePossibleRemove;
+						nodePossibleRemove = nodePossibleRemove.Parent;
+						nodePossibleRemove.Nodes.Remove(TNRemove);
+					}
+				}
+				else
+				{
+					MessageBox.Show("Not saved !!!");
+				}	
+			}
+			else
+			{
+				objectParent = nodePossibleRemove.Parent.Tag;
+				objectToRemove = nodePossibleRemove.Tag;
+				if(this.objectManagement.DeleteSCLObject(objectToRemove, objectParent))
+				{
+					nodePossibleRemove.Tag = null;
+					nodePossibleRemove.Parent.Nodes.Remove(nodePossibleRemove);											
+				}
+				else
+				{
+					MessageBox.Show("Not saved !!!");
+				}
+			}
+		}	
+		
+		/// <summary>
+		/// This method adds a node to the tree and it creates all the objects required.	
+		/// </summary>
+		/// <param name="nodePossibleInsert">
+		/// Node that will be added to the tree.  
+		/// </param>
+		/// <param name="namePropertyPossibleInsert">
+		/// Properties name related to the inserted node. 
+		/// </param>
+		/// <param name="typePropertyPossibleInsert">
+		/// Type of the property of the node that will be added to the tree.
+		/// </param>
+		public void Insert(TreeNode nodePossibleInsert, string namePropertyPossibleInsert, string typePropertyPossibleInsert)
+		{			
+			object objectParent, objectToInsert;
+			TreeNode node = new TreeNode();
+			if(nodePossibleInsert.Tag.GetType().IsArray)
+			{				
+				objectParent = nodePossibleInsert.Parent.Tag;
+				objectToInsert = this.objectManagement.CreateObject(typePropertyPossibleInsert);
+				string attributeName = nodePossibleInsert.Text;		
+								
+				if(!objectManagement.AddItemToArray(objectToInsert, attributeName, objectParent))
+   				{
+					MessageBox.Show(objectToInsert.GetType().Name+" is not saved");
+   				}
+				else
+				{	
+					node.Name = typePropertyPossibleInsert+nodePossibleInsert.Nodes.Count.ToString();
+					node.Text = namePropertyPossibleInsert;		
+					node.Tag = objectToInsert;			
+					nodePossibleInsert.Nodes.Add(node);
+				}
+			}
+			else
+			{
+				objectParent = nodePossibleInsert.Tag;
+				objectToInsert = this.objectManagement.FindVariable(objectParent, namePropertyPossibleInsert);				
+				MemberInfo[] objectToInsertInfo = objectParent.GetType().FindMembers(
+   							MemberTypes.Property, 
+   							BindingFlags.Public | 
+   							BindingFlags.Instance,
+   							Type.FilterName, namePropertyPossibleInsert);					
+				if(objectToInsertInfo!=null&&objectToInsertInfo.Length>0&&(objectToInsertInfo[0] as PropertyInfo).PropertyType.IsArray)				
+				{
+					string nameObjectToInsert = (objectToInsertInfo[0] as PropertyInfo).PropertyType.Name;						
+					nameObjectToInsert = nameObjectToInsert.Substring(0,typePropertyPossibleInsert.IndexOf('['));
+					objectToInsert = this.objectManagement.CreateObject(nameObjectToInsert);
+					if(!objectManagement.AddItemToArray(objectToInsert, namePropertyPossibleInsert, objectParent))
+					{
+						MessageBox.Show(objectParent.GetType().Name+" is not saved");   						
+   					}
+					else
+					{						
+						Array array  = objectParent.GetType().InvokeMember(namePropertyPossibleInsert, BindingFlags.Instance | BindingFlags.Public |
+              			BindingFlags.GetProperty | BindingFlags.GetField, null, objectParent, null) as Array;						
+						node.Name = typePropertyPossibleInsert;
+						node.Text = namePropertyPossibleInsert;		
+						node.Tag = array;			
+						nodePossibleInsert.Nodes.Add(node);
+						TreeNode sonNode = new TreeNode();
+						sonNode.Name = objectToInsert.GetType().Name+"0";
+						sonNode.Text = objectToInsert.GetType().Name;
+						sonNode.Tag = objectToInsert;								
+						nodePossibleInsert.Nodes[typePropertyPossibleInsert].Nodes.Add(sonNode);						
+					}
+				}
+				else
+				{
+					//Object that will be added and it is not an array type.
+					objectToInsert = this.objectManagement.CreateObject(typePropertyPossibleInsert);
+					if(!objectManagement.AddObjectToSCLObject(objectToInsert, namePropertyPossibleInsert, objectParent))
+					{
+						MessageBox.Show(objectParent.GetType().Name+" is not saved");   						
+					} 
+					else
+					{
+						node.Name = typePropertyPossibleInsert;
+						node.Text = namePropertyPossibleInsert;		
+						node.Tag = objectToInsert;			
+						nodePossibleInsert.TreeView.SelectedNode.Nodes.Add(node);						
+					}
+				}
+			}
+		}
+		
+		/// <summary>
+		/// This method search and returns the TreeNode that contents on his tag the base type of an object 
+		/// specified on the typeSCLToSearch variable. 
+		/// </summary>
+		/// <param name="nodeSCL">
+		/// TreeNode where the search will start.
+		/// </param>
+		/// <param name="typeSCLToSearch">
+		/// Base Type that will be look for on the TreeNode Tags.
+		/// </param>
+		/// <returns>
+		/// A TreeNode that contents on his tag the base type of an object specified on the typeSCLToSearch variable. 
+		/// </returns>
+		public TreeNode SearchUPForBaseTypeAndGetSCLTreeNode(TreeNode nodeSCL, Type typeSCLToSearch)
+		{					
+			if(nodeSCL.Tag != null && nodeSCL.Tag.GetType().BaseType!= null && (nodeSCL.Tag.GetType().BaseType==(typeSCLToSearch) || (nodeSCL.Tag.GetType().BaseType.BaseType == (typeSCLToSearch)) ))
+			{
+				return nodeSCL;
+			}
+			else
+			{
+				if(nodeSCL.Parent != null)
+				{
+					return this.SearchUPForBaseTypeAndGetSCLTreeNode(nodeSCL.Parent, typeSCLToSearch);
+				}
+				else
+				{
+					return null;
+				}
+			}
+		}
+		
+		/// <summary>
+		/// This method search a tag of an specific type.
+		/// </summary>
+		/// <param name="nodeSCL">
+		/// TreeNode where the search will be made.
+		/// </param>
+		/// <param name="typeSCLToSearch">
+		/// Type that will be look at on the TreeNode Tag.
+		/// </param>
+		/// <returns>
+		/// If the type is found then it returns a true value otherwise a false value is returned.
+		/// </returns>
+		public bool SearchUPForType(TreeNode nodeSCL, Type typeSCLToSearch)
+		{					
+			if(nodeSCL.Tag != null && nodeSCL.Tag.GetType() == typeSCLToSearch)
+			{
+				return true;
+			}	
+			else
+			{   if(nodeSCL.Parent != null)
+				{
+					return this.SearchUPForType(nodeSCL.Parent, typeSCLToSearch);
+				}
+				else
+				{
+					return false;
+				}				
+			}
+		}
+		
+		/// <summary>
+		/// This method creates an SCL project using the creation of a new tree with the main nodes
+		/// </summary>
+		/// <returns>
+		/// A new treenode to display in the main window
+		/// </returns>
+		public TreeNode NewTreeNode()
         {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                _name = value;
-            }
+			TreeNode newTreeNodeSCL = new TreeNode();	
+			TreeNode Node = new TreeNode();				
+            newTreeNodeSCL.Text = "New";
+            newTreeNodeSCL.Name = "root";            
+            Node.Text ="SCL";
+            Node.Name = "SCL";
+            OpenSCL.Object sc = new OpenSCL.Object();            
+            sc.Configuration = new SCL();
+            Node.Tag =sc.Configuration;
+            TreeNode subNodeinNodeRoot = new TreeNode();
+            subNodeinNodeRoot.Text = "Header";
+            subNodeinNodeRoot.Name = "tHeader";
+            tHeader th = new tHeader();            
+            subNodeinNodeRoot.Tag = th;
+            Node.Nodes.Add(subNodeinNodeRoot);
+            newTreeNodeSCL.Nodes.Add(Node);
+            return newTreeNodeSCL;
         }
-        
-        [CategoryAttribute("Finish Node"), DescriptionAttribute("Finish Node"), ReadOnly(true)]
-        public string FinishNode
-        {
-            get
-            {
-                return _finishNode;
-            }
-            set
-            {
-                _finishNode = value;
-            }
-        }
-    }
+	}        	
 }

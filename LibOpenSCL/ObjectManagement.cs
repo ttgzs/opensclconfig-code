@@ -22,8 +22,14 @@ using System.Reflection;
 
 namespace OpenSCL
 {	
+	/// <summary>
+	/// 
+	/// </summary>
 	public class ObjectManagement
 	{		
+		/// <summary>
+		/// 
+		/// </summary>
 		public ObjectManagement()
 		{
 			
@@ -89,63 +95,7 @@ namespace OpenSCL
    			}
 			return "";
    		}  		
-   		
-   		/// <summary>
-   		/// This method adds an array to a variable of the parent object. Both of them has to be of the 
-   		/// same type.
-   		/// </summary>
-   		/// <param name="arrayObject">
-   		/// Array that will be added to the variable of the parent object.
-   		/// </param>
-   		/// <param name="parentObject">
-   		/// Parent object.
-   		/// </param>
-   		/// <returns>
-   		/// If the array was added correctly, it returns a "True" value, otherwise a "False" value 
-		/// is returned.
-		/// </returns>
-   		public bool AddArrayObjectToParentObject(object[] arrayObject, object parentObject)
-		{   
-   			if(arrayObject!=null&&arrayObject[0]!=null)
-   			{
-   				string nameArrayObject = this.GetNameAttributeArray(arrayObject[0].GetType(), parentObject.GetType());
-   				if(!nameArrayObject.Equals(""))
-   				{
-	   				parentObject.GetType().InvokeMember(nameArrayObject,BindingFlags.Instance | 
-   					 BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.SetField,
-	              	   	null, parentObject, new object[1] { arrayObject } );
-   			   		return true;   			
-   				}
-   			}  			
-   			return false;
-   		}
-   		
-		/// <summary>
-		/// This method adds a valid object to an array of the same type. This array has to be a variable of
-		/// a parent object.
-		/// </summary>
-		/// <param name="itemObject">
-		/// Valid Object that will be added to the array.
-		/// </param>	
-		/// <param name="nameArrayObject">
-		/// Variable's name that contains the array that will include the valid object.
-		/// </param>	
-		/// <param name="parentObject">
-		/// Parent Object that contains the variable of array where the valid object will be added.
-		/// </param>
-		/// <returns>
-		/// If the valid object was added correctly, it returns a "True" value, otherwise a "False" value 
-		/// is returned.
-		/// </returns>
-		/// <remarks>
-		/// The object should be validated previously to verify if it is according to the IEC 61850 Ed.1.0. 
-		/// This method can be used when the variable's name that contains the array is known. 
-		/// </remarks>
-   		public bool AddObjectToArrayObjectOfParentObject(object itemObject, string nameArrayObject, object parentObject)
-		{ 						
-   			return this.AddItemToArray(itemObject, nameArrayObject, parentObject);		
-   		}   		   		
-   		
+   		   		   		
 		/// <summary>
 		/// This method adds an object to an object's array.
 		/// </summary>
@@ -220,76 +170,7 @@ namespace OpenSCL
    			}
    			return false;		
    		}
-   		
-   		/// <summary>
-   		/// This method modifies an object contained on an array of the same type. The array has to be a parent object.		
-		/// </summary>
-		/// <param name="itemObject">
-		/// Valid object that will be modified.
-		/// </param>	
-		/// <param name="indexObject">
-		/// Position of the object that will be modified, in the array. 
-		/// </param>	
-		/// <param name="parentObject">
-		/// Parent object that contains the variable array where the object will be modified. 
-		/// </param>
-		/// <returns>
-		/// If the valid object was modified correctly, it returns a "True" value, otherwise 
-		/// a "False" value is returned.
-		/// </returns>		
-		/// <remarks>
-		/// The object should be validated previously to verify if it is according to the IEC 61850 Ed.1.0.
-		/// </remarks>
-   		public bool ModifyObjectOfArrayObjectOfParentObject(object itemObject, int indexObject, object parentObject)
-   		{
-   			string attributeArrayName = this.GetNameAttributeArray(itemObject.GetType(), parentObject.GetType());
-   			if(!attributeArrayName.Equals(""))
-   			{
-   				return this.ModifyItemOfArray(itemObject, indexObject, attributeArrayName, parentObject);
-   			}
-   			return false;
-   		}
-   		
-   		/// <summary>
-		/// This method modifies an object included on an object's array.
-		/// </summary>
-		/// <param name="itemObject">
-		/// Object that contains the new values.
-		/// </param>
-		/// <param name="indexObject">
-		/// Position of the object that will be modified, in the array. 
-		/// </param>				
-		/// <param name="nameArrayObject">
-		/// Variable's name of the parent object that will contains the object's array updated.
-		/// </param>
-		/// <param name="parentObject">
-		/// Parent object that will contains an object's array. 
-		/// </param>
-		/// <returns>
-		/// If the valid object was modified correctly, it returns a "True" value, otherwise 
-		/// a "False" value is returned.
-		/// </returns>		
-   		private bool ModifyItemOfArray(object itemObject, int indexObject, string nameArrayObject, object parentObject)
-   		{
-   			Array array = parentObject.GetType().InvokeMember(nameArrayObject,
-   			 BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.GetField,
-   			   null, parentObject, null) as Array;
-   			if (array == null)
-   			{
-   				return false;
-   			}
-   			int arraySize = array.GetLength(0);
-   			if (arraySize < 1)
-   			{
-   				return false;   			
-   			}
-   			array.SetValue(itemObject,indexObject);  			   			
-   			parentObject.GetType().InvokeMember(nameArrayObject,
-   			  BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.SetField,
-   			     null, parentObject, new object[1] { array });
-   			return true;
-   		}
-   		
+   		   		   		
    		/// <summary>
    		/// This method assigns a NULL value to an object to delete it. This object has to be a variable of a 
    		/// parent object.
@@ -344,38 +225,7 @@ namespace OpenSCL
    			}
 			return "";
    		}
-		   									
-		/// <summary>
-		/// This method adds a valid object to an Array of the same type. 
-		/// The array shall be a variable of a parent object.
-		/// </summary>
-		/// <param name="itemObject">
-		/// Valid object.
-		/// </param>
-		/// <param name="parentObject">
-		/// Parent object that contains an array as a variable.
-		/// </param>
-		/// <param name="typeParentObject">
-		/// Type of the parent object. It's used to add an object in classes that 
-		/// are considered base classes. 
-		/// </param>
-		/// <returns>
-		/// If the valid object was added correctly then it returns a True value, otherwise
-		/// a false value is returned.
-		/// </returns>
-		public bool AddObjectToArrayObjectOfParentObject(object itemObject, object parentObject, Type typeParentObject)
-		{   			
-   			if(itemObject!=null)
-   			{
-   				string attributeName = this.GetNameAttributeArray(itemObject.GetType(), typeParentObject);
-   				if(!attributeName.Equals(""))
-   				{
-	   			   	return this.AddItemToArray(itemObject, attributeName, parentObject);   			
-   				}
-   			}   			
-   			return false;
-   		}
-   		
+		   									   		
    		/// <summary>
    		/// This method deletes an object of object's array.		
 		/// </summary>
@@ -397,7 +247,7 @@ namespace OpenSCL
    			Array array = parentObject.GetType().InvokeMember(nameArrayObject,
    			 BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.GetField,
    			   null, parentObject, null) as Array;
-   			if (array == null)
+   			if (array == null && indexObject >= 0)
    			{
    				return false;
    			}
@@ -468,6 +318,236 @@ namespace OpenSCL
    				return true;
    			}
    			return false;
+   		}
+   		   		  		  		  		
+   		/// <summary>
+   		/// This method creates an specified object (where his contructor requires only one parameter) on the 
+   		/// nameClassType variable.
+   		/// </summary>
+   		/// <param name="nameClassType">
+   		/// Name of the class type that will be used to create his object.
+   		/// </param>
+   		/// <param name="parameter">
+   		/// Parameter used in the constructor method.
+   		/// </param>
+   		/// <returns>
+   		/// If the class type is defined on the library then it returns the object, otherwise it a NULL value is returned.
+   		/// </returns>
+   		public object CreateObject(string nameClassType, object parameter)
+   		{     			   			
+   			object[] parameters = new object[1];
+            parameters[0] = parameter;
+            if(!string.IsNullOrEmpty(nameClassType))
+            {
+            	Type TypeClass = Type.GetType("IEC61850.SCL."+nameClassType);
+            	if(TypeClass != null)
+            	{            	
+	            	return this.CreateInstanceObject(TypeClass, parameters);
+    	        }
+        	    else
+            	{
+            		TypeClass = Type.GetType("IEC61850.SCL."+nameClassType);
+            		if(TypeClass != null)
+	            	{            	
+    	        		return this.CreateInstanceObject(TypeClass, parameters);
+        	    	}		
+            		else
+            		{
+            			return null;
+            		}        	
+            	}
+            }            
+   			return null;
+   		} 
+   		
+   		/// <summary>
+   		/// This method creates an specified object (where his contructor requires only one parameter) on the 
+   		/// nameClassType variable.
+   		/// </summary>
+   		/// <param name="nameClassType">
+   		/// Name of the class type that will be used to create his object.
+   		/// </param>
+   		/// <param name="parameters">
+   		/// Parameters used in the constructor method.
+   		/// </param>
+   		/// <returns>
+   		/// If the class type is defined on the library then it returns the object, otherwise it a NULL value is returned.
+   		/// </returns>
+   		public object CreateObject(string nameClassType, params object[] parameters)
+   		{     			   			   			
+            if(!string.IsNullOrEmpty(nameClassType))
+            {
+            	Type TypeClass = Type.GetType("IEC61850.SCL."+nameClassType);
+            	if(TypeClass != null)
+            	{            	
+	            	return this.CreateInstanceObject(TypeClass, parameters);
+    	        }
+        	    else
+            	{
+            		TypeClass = Type.GetType("OpenSCL."+nameClassType);
+            		if(TypeClass != null)
+	            	{            	
+    	        		return this.CreateInstanceObject(TypeClass, parameters);
+        	    	}		
+            		else
+            		{
+            			return null;
+            		}        	
+            	}
+            }            
+   			return null;
+   		} 
+   		
+   		/// <summary>
+   		/// This method creates an specified object (where his contructor requires only one parameter) on the 
+   		/// nameClassType variable.
+   		/// </summary>
+   		/// <param name="nameClassType">
+   		/// Name of the class type that will be used to create his object.
+   		/// </param>
+   		/// <returns>
+   		/// If the class type is defined on the library then it returns the object, otherwise it a NULL value is returned.
+   		/// </returns>
+   		public object CreateObject(string nameClassType)
+   		{     			   			   			
+            if(!string.IsNullOrEmpty(nameClassType))
+            {
+            	Type TypeClass = Type.GetType("IEC61850.SCL."+nameClassType);            	            
+            	if(TypeClass != null)
+            	{            	
+            		return Activator.CreateInstance(TypeClass);
+    	        }
+        	    else
+            	{
+            		TypeClass = Type.GetType("IEC61850.SCL."+nameClassType);            		
+            		if(TypeClass != null)
+	            	{            	
+            			return Activator.CreateInstance(TypeClass);
+        	    	}		
+            		else
+            		{
+            			return null;
+            		}        	
+            	}
+            }            
+   			return null;
+   		} 
+   		
+   		/// <summary>
+   		/// This method creates an instance of the specified object (where his contructor requires only one parameter) on the 
+   		/// nameClassType variable.
+   		/// </summary>
+   		/// <param name="TypeClass">
+   		/// Class type that will be used to create his object.
+   		/// </param>
+   		/// <param name="parameters">
+   		/// Parameters used in the constructor method.
+   		/// </param>
+   		/// <returns>
+   		/// If the class type is defined on the library then it returns the object, otherwise it a NULL value is returned.
+   		/// </returns>
+   		private object CreateInstanceObject(Type TypeClass, object[] parameters)
+   		{        
+            object newClass = Activator.CreateInstance(TypeClass, parameters);
+            if (newClass != null)
+            {
+            	return newClass;
+            }                    
+            else
+            {
+				return null;
+			}
+   		}
+   		
+   		/// <summary>
+   		/// This method finds a property included in the object provided.    		
+   		/// </summary>
+   		/// <param name="objectToEval">
+   		/// Object used to get the property provided and his value. 
+   		/// </param>
+   		/// <param name="nameVariable">
+   		/// Property that will be searching on the object. 
+   		/// </param>
+   		/// <returns>
+   		/// If the property exists on the object provided, then the property's value will be returned, otherwise a NULL value 
+   		/// will be returned. If the property exist but his value is NULL, a value of -1 will be returned.
+   		/// </returns>
+   		public object FindVariable(object objectToEval, string nameVariable)
+   		{
+   			MemberInfo[] nameOfVariablesToFind;			
+			nameOfVariablesToFind = objectToEval.GetType().FindMembers(
+   								MemberTypes.Field |
+    							MemberTypes.Property, 
+    							BindingFlags.Public | 
+    							BindingFlags.Instance,
+    							Type.FilterName, nameVariable);
+   			object valueVariable = null;
+			if(nameOfVariablesToFind.Length>0)
+			{							
+				valueVariable = objectToEval.GetType().InvokeMember(nameVariable, BindingFlags.GetField | BindingFlags.GetProperty , null, objectToEval, null );
+				if(valueVariable==null)
+				{
+					valueVariable = "null";
+				}
+			}
+			return valueVariable;
+   		}
+   		
+   		/// <summary>
+   		/// This method asigns a value to a property included in the object provided.
+   		/// </summary>
+   		/// <param name="objectToEval">
+   		/// Object used to get the property provided and his value.
+   		/// </param>
+   		/// <param name="nameVariable">
+   		/// Property that will be searching on the object. 
+   		/// </param>
+   		/// <param name="valueVariable">
+   		/// Value of the property.
+   		/// </param>
+   		public void FindVariableAndSetValue(object objectToEval, string nameVariable, object valueVariable)
+   		{
+   			MemberInfo[] nameOfVariablesToFind;			
+			nameOfVariablesToFind = objectToEval.GetType().FindMembers(
+   								MemberTypes.Field |
+    							MemberTypes.Property, 
+    							BindingFlags.Public | 
+    							BindingFlags.Instance,
+    							Type.FilterName, nameVariable);   			
+			if(nameOfVariablesToFind.Length>0)
+			{				
+				objectToEval.GetType().InvokeMember(nameVariable, BindingFlags.Instance | BindingFlags.Public | 
+  					BindingFlags.SetProperty | BindingFlags.SetField, null, objectToEval, new object [] {valueVariable});
+			}			
+   		}
+   		
+   		/// <summary>
+   		/// 
+   		/// </summary>
+   		/// <param name="objectToEval">
+   		/// 
+   		/// </param>
+   		/// <param name="nameMethod">
+   		/// 
+   		/// </param>
+   		/// <param name="value">
+   		/// 
+   		/// </param>
+   		public void SetValueMethod(object objectToEval, string nameMethod, object value)
+   		{
+   			MemberInfo[] nameOfVariablesToFind;			
+			nameOfVariablesToFind = objectToEval.GetType().FindMembers(
+   								MemberTypes.Method |     							
+    							MemberTypes.Field |
+    							MemberTypes.Property, 
+    							BindingFlags.Public | 
+    							BindingFlags.Instance,
+    							Type.FilterName, nameMethod);   			
+			if(nameOfVariablesToFind.Length>0)
+			{				
+				objectToEval.GetType().InvokeMember(nameMethod, BindingFlags.InvokeMethod,
+				 null, objectToEval, new object [] {value});
+			}			
    		}
 	}	
 }

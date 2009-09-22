@@ -55,14 +55,25 @@ namespace OpenSCLConfigurator
 		private	System.Windows.Forms.Panel Panel1;		
 		private	System.Windows.Forms.Panel Panel2;
 		private	System.Windows.Forms.SplitContainer splitContainer1;
-		
+		private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+		private System.Windows.Forms.PropertyGrid PropertyGridAttributes;
+		private System.Windows.Forms.TreeView treeViewFile;
+						
 		ImageList tb_il					= new ImageList();		
 
+		/// <summary>
+		/// This method initialize the components of the form. 
+		/// </summary>
 		public FormSCL()
 		{
 			InitializeComponent();
 		}
-					
+		
+		/// <summary>
+		/// This method disposes the components of the form.
+		/// </summary>
+		/// <param name="disposing"></param>
 		protected override void Dispose( bool disposing )
 		{
 			if( disposing )
@@ -75,13 +86,16 @@ namespace OpenSCLConfigurator
 			base.Dispose( disposing );
 		}
 		
+		/// <summary>
+		/// This method initialize the components contained on the form.
+		/// </summary>
 		public void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
 			this.Panel1 = new System.Windows.Forms.Panel();
 			this.treeViewFile = new System.Windows.Forms.TreeView();
 			this.Panel2 = new System.Windows.Forms.Panel();
-			this.PropertyGridAttributes = new OpenSCL.UI.FilteredPropertyGrid();
+			this.PropertyGridAttributes = new System.Windows.Forms.PropertyGrid();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
@@ -91,7 +105,9 @@ namespace OpenSCLConfigurator
 			this.menuItem5 = new System.Windows.Forms.MenuItem();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.iEDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.validateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -121,7 +137,7 @@ namespace OpenSCLConfigurator
 			this.Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.Panel1.Location = new System.Drawing.Point(0, 0);
 			this.Panel1.Name = "Panel1";
-			this.Panel1.Size = new System.Drawing.Size(300, 383);
+			this.Panel1.Size = new System.Drawing.Size(347, 795);
 			this.Panel1.TabIndex = 0;
 			// 
 			// treeViewFile
@@ -131,8 +147,9 @@ namespace OpenSCLConfigurator
 									| System.Windows.Forms.AnchorStyles.Right)));
 			this.treeViewFile.Location = new System.Drawing.Point(0, 0);
 			this.treeViewFile.Name = "treeViewFile";
-			this.treeViewFile.Size = new System.Drawing.Size(300, 384);
+			this.treeViewFile.Size = new System.Drawing.Size(347, 796);
 			this.treeViewFile.TabIndex = 0;
+			this.treeViewFile.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TreeViewFileMouseUp);
 			this.treeViewFile.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewFileAfterSelect);
 			// 
 			// Panel2
@@ -140,42 +157,38 @@ namespace OpenSCLConfigurator
 			this.Panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 									| System.Windows.Forms.AnchorStyles.Left) 
 									| System.Windows.Forms.AnchorStyles.Right)));
-			this.Panel2.AutoSize = true;
 			this.Panel2.Controls.Add(this.PropertyGridAttributes);
 			this.Panel2.Location = new System.Drawing.Point(0, 0);
 			this.Panel2.Name = "Panel2";
-			this.Panel2.Size = new System.Drawing.Size(916, 666);
+			this.Panel2.Size = new System.Drawing.Size(583, 795);
 			this.Panel2.TabIndex = 0;
 			// 
 			// PropertyGridAttributes
 			// 
-			this.PropertyGridAttributes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-									| System.Windows.Forms.AnchorStyles.Left) 
-									| System.Windows.Forms.AnchorStyles.Right)));
-			this.PropertyGridAttributes.BrowsableProperties = null;
-			this.PropertyGridAttributes.HiddenAttributes = null;
-			this.PropertyGridAttributes.HiddenProperties = null;
 			this.PropertyGridAttributes.Location = new System.Drawing.Point(0, 0);
 			this.PropertyGridAttributes.Name = "PropertyGridAttributes";
-			this.PropertyGridAttributes.Size = new System.Drawing.Size(503, 384);
-			this.PropertyGridAttributes.TabIndex = 0;
+			this.PropertyGridAttributes.Size = new System.Drawing.Size(794, 450);
+			this.PropertyGridAttributes.TabIndex = 3;
 			// 
 			// splitContainer1
 			// 
+			this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left) 
+									| System.Windows.Forms.AnchorStyles.Right)));
 			this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.splitContainer1.Location = new System.Drawing.Point(0, 52);
 			this.splitContainer1.Name = "splitContainer1";
 			// 
 			// splitContainer1.Panel1
 			// 
+			this.splitContainer1.Panel1.AutoScroll = true;
 			this.splitContainer1.Panel1.Controls.Add(this.Panel1);
 			// 
 			// splitContainer1.Panel2
 			// 
 			this.splitContainer1.Panel2.Controls.Add(this.Panel2);
-			this.splitContainer1.Size = new System.Drawing.Size(814, 385);
-			this.splitContainer1.SplitterDistance = 302;
+			this.splitContainer1.Size = new System.Drawing.Size(943, 797);
+			this.splitContainer1.SplitterDistance = 349;
 			this.splitContainer1.TabIndex = 5;
 			// 
 			// mainMenu1
@@ -228,18 +241,27 @@ namespace OpenSCLConfigurator
 									this.helpToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(814, 24);
+			this.menuStrip1.Size = new System.Drawing.Size(943, 24);
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
 			// fileToolStripMenuItem
 			// 
 			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+									this.newToolStripMenuItem,
 									this.openToolStripMenuItem,
+									this.saveToolStripMenuItem,
 									this.exitToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
 			this.fileToolStripMenuItem.Text = "Project";
+			// 
+			// newToolStripMenuItem
+			// 
+			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+			this.newToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+			this.newToolStripMenuItem.Text = "New";
+			this.newToolStripMenuItem.Click += new System.EventHandler(this.NewFile);
 			// 
 			// openToolStripMenuItem
 			// 
@@ -247,6 +269,13 @@ namespace OpenSCLConfigurator
 			this.openToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
 			this.openToolStripMenuItem.Text = "Open";
 			this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenFile);
+			// 
+			// saveToolStripMenuItem
+			// 
+			this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+			this.saveToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+			this.saveToolStripMenuItem.Text = "Save";
+			this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveFile);
 			// 
 			// exitToolStripMenuItem
 			// 
@@ -317,7 +346,7 @@ namespace OpenSCLConfigurator
 			this.toolBar1.Location = new System.Drawing.Point(0, 24);
 			this.toolBar1.Name = "toolBar1";
 			this.toolBar1.ShowToolTips = true;
-			this.toolBar1.Size = new System.Drawing.Size(814, 28);
+			this.toolBar1.Size = new System.Drawing.Size(943, 28);
 			this.toolBar1.TabIndex = 1;
 			this.toolBar1.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler(this.toolBarEvent);
 			// 
@@ -343,9 +372,9 @@ namespace OpenSCLConfigurator
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
 									this.toolStripStatusLabel1});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 437);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 849);
 			this.statusStrip1.Name = "statusStrip1";
-			this.statusStrip1.Size = new System.Drawing.Size(814, 22);
+			this.statusStrip1.Size = new System.Drawing.Size(943, 22);
 			this.statusStrip1.TabIndex = 4;
 			this.statusStrip1.Text = "Status Bar";
 			// 
@@ -357,7 +386,7 @@ namespace OpenSCLConfigurator
 			// FormSCL
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(814, 459);
+			this.ClientSize = new System.Drawing.Size(943, 871);
 			this.Controls.Add(this.splitContainer1);
 			this.Controls.Add(this.toolBar1);
 			this.Controls.Add(this.menuStrip1);
@@ -365,12 +394,12 @@ namespace OpenSCLConfigurator
 			this.Name = "FormSCL";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = ":..OpenSCLConfigurator..:";
+			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.Load += new System.EventHandler(this.Form1_Load);
 			this.Panel1.ResumeLayout(false);
 			this.Panel2.ResumeLayout(false);
 			this.splitContainer1.Panel1.ResumeLayout(false);
 			this.splitContainer1.Panel2.ResumeLayout(false);
-			this.splitContainer1.Panel2.PerformLayout();
 			this.splitContainer1.ResumeLayout(false);
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
@@ -379,11 +408,18 @@ namespace OpenSCLConfigurator
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}				
-		private OpenSCL.UI.FilteredPropertyGrid PropertyGridAttributes;
-		private System.Windows.Forms.TreeView treeViewFile;
-		
-		
-		//adding the icons into the app
+				
+		/// <summary>
+		/// Adding icons into the application
+		/// </summary>
+		/// <param name="sender">
+		/// Name of the object.
+		/// </param>
+		/// <param name="e">
+		/// This class contains no event data; it is used by events that do not pass state information to an event 
+		/// handler when an event is raised. If the event handler requires state information, the application must 
+		/// derive a class from this class to hold the data.
+		/// </param>
 		private void Form1_Load(object sender, System.EventArgs e) 
 		{			
 			tb_il.Images.Add(new Icon(Application.StartupPath+"/../../imgs//new_file.ico"));															
@@ -392,92 +428,207 @@ namespace OpenSCLConfigurator
 			tb_il.Images.Add(new Icon(Application.StartupPath+"/../../imgs//exit.ico"));
 			toolBar1.ImageList = tb_il;  											
 		}												
+
+		/// <summary>
+		/// This method comes from the principal menu. It's the option to create a project.
+		/// </summary>
+		/// <param name="sender">
+		/// Name of the object.
+		/// </param>
+		/// <param name="e">
+		/// This class contains no event data; it is used by events that do not pass state information to an event 
+		/// handler when an event is raised. If the event handler requires state information, the application must 
+		/// derive a class from this class to hold the data.
+		/// </param>
+		void NewFile(object sender, EventArgs e)
+		{
+			if (this.treeViewFile.Nodes.Count > 0)
+            {
+				if (MessageBox.Show("Do you want to save the changes on this file", "Save File", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+				{
+					SaveDialog saveDoc = new SaveDialog();
+					saveDoc.SaveSCLFile(this.treeViewFile);                
+				}
+                this.treeViewFile.Nodes.Clear();              
+            }			
+			TreeViewSCL treeViewSCL = new TreeViewSCL();
+			this.treeViewFile.Nodes.Add(treeViewSCL.NewTreeNode());
+		}
 		
 		/// <summary>
 		/// This method comes from the principal menu. It's the option to open a project
 		/// </summary>
 		/// <param name="sender">
-		/// 
+		/// Name of the object.
 		/// </param>
 		/// <param name="e">
-		/// 
+		/// This class contains no event data; it is used by events that do not pass state information to an event 
+		/// handler when an event is raised. If the event handler requires state information, the application must 
+		/// derive a class from this class to hold the data.
 		/// </param>
 		void OpenFile(object sender, EventArgs e)
-		{								
+		{	
 			if (this.treeViewFile.Nodes.Count > 0)
             {
-                //saveDoc.SaveDocument(this.treeViewFile);                
+				if (MessageBox.Show("Do you want to save the changes on this file", "Save File", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+				{
+					SaveDialog saveDoc = new SaveDialog();
+					saveDoc.SaveSCLFile(this.treeViewFile);                
+				}
                 this.treeViewFile.Nodes.Clear();              
             }
 			openDialog o = new openDialog();			
-			Panel1.Controls.Add(o.OpenXMLDocument(this.treeViewFile)); 			
+			Panel1.Controls.Add(o.OpenSCLFile(this.treeViewFile)); 				
 		}		
+		
+		/// <summary>
+		/// This method comes from the principal menu. It's the option to save a project.
+		/// </summary>
+		/// <param name="sender">
+		/// Name of the object.
+		/// </param>
+		/// <param name="e">
+		/// This class contains no event data; it is used by events that do not pass state information to an event 
+		/// handler when an event is raised. If the event handler requires state information, the application must 
+		/// derive a class from this class to hold the data.
+		/// </param>
+		void SaveFile(object sender, EventArgs e)
+		{
+			if (this.treeViewFile.Nodes.Count > 0)
+            {                
+				SaveDialog saveD = new SaveDialog();
+				saveD.SaveSCLFile(this.treeViewFile);
+			}			
+		}
 		
 		/// <summary>
 		/// This event calls some methods to validate an XML file
 		/// </summary>
 		/// <param name="sender">
-		/// 
+		/// Name of the object.
 		/// </param>
 		/// <param name="e">
-		/// 
+		/// This class contains no event data; it is used by events that do not pass state information to an event 
+		/// handler when an event is raised. If the event handler requires state information, the application must 
+		/// derive a class from this class to hold the data.
 		/// </param>
 		void ValidateFileClick(object sender, EventArgs e)
 		{
 			//Code to validate XML files
 		}
 		
-		//Menu : opción exit
+		/// <summary>
+		/// This method comes from the principal menu. It's the option to exit of the application program.
+		/// </summary>
+		/// <param name="sender">
+		/// Name of the object.
+		/// </param>
+		/// <param name="e">
+		/// This class contains no event data; it is used by events that do not pass state information to an event 
+		/// handler when an event is raised. If the event handler requires state information, the application must 
+		/// derive a class from this class to hold the data.
+		/// </param>
 		private void exitApp(object sender, System.EventArgs e)
 		{
 			Application.Exit();			
 		}
 		
+		/// <summary>
+		/// This method comes from the principal menu. It's the option to show a information about this application program.
+		/// </summary>
+		/// <param name="sender">
+		/// Name of the object.
+		/// </param>
+		/// <param name="e">
+		/// This class contains no event data; it is used by events that do not pass state information to an event 
+		/// handler when an event is raised. If the event handler requires state information, the application must 
+		/// derive a class from this class to hold the data.
+		/// </param>
 		void AboutClick(object sender, EventArgs e)
 		{
 			about a = new about();
 			a.Show();
 		}	
 		
-		//events for toolBar
+		/// <summary>
+		/// This method calls the method for new, open, save and exit from the toolbar icons
+		/// </summary>
+		/// <param name="sender">
+		/// Name of the object.
+		/// </param>
+		/// <param name="e">
+		/// This class contains no event data; it is used by events that do not pass state information to an event 
+		/// handler when an event is raised. If the event handler requires state information, the application must 
+		/// derive a class from this class to hold the data.
+		/// </param>	
 		private void toolBarEvent(object sender, System.Windows.Forms.ToolBarButtonClickEventArgs e)		
 		{					
 			switch(toolBar1.Buttons.IndexOf(e.Button))
 			{				
-				case 1: //New configuration file
+				//New configuration file
+				case 1:
 				{
-
+					NewFile(sender, e);
 					break;
 				}
-				case 2: //Open configuration file
+				//Open configuration file
+				case 2:
 				{
+					OpenFile(sender, e);						
 					break;
 				}
-				case 3: //Save configuration file
+				//Save configuration file
+				case 3: 
 				{
+					SaveFile(sender, e);
 					break;
 				}			
-				case 5: //Exit application
+				//Exit application
+				case 5: 
 				{
 					Application.Exit();
 					break;
 				}
 			}
 		}
-		
+
 		/// <summary>
-		/// 
+		/// This method updates the information on the propertygrid when a node of the tree is selected.
 		/// </summary>
 		/// <param name="sender">
-		/// 
+		/// Name of the object.
 		/// </param>
 		/// <param name="e">
-		/// 
-		/// </param>													
+		/// This class contains no event data; it is used by events that do not pass state information to an event 
+		/// handler when an event is raised. If the event handler requires state information, the application must 
+		/// derive a class from this class to hold the data.
+		/// </param>
 		void treeViewFileAfterSelect(object sender, TreeViewEventArgs e)
 		{
-			this.PropertyGridAttributes.SelectedObject = this.PropertyGridAttributes.UpdatePropertyGrid(e.Node);			
-			this.PropertyGridAttributes.HiddenProperties = this.PropertyGridAttributes.PropertiestoHide();
+			Utils guiObjectManagement = new Utils();			
+			this.PropertyGridAttributes.SelectedObject = guiObjectManagement.UpdatePropertyGrid(e.Node.Tag);						
+		}
+
+		/// <summary>
+		/// This method displays a menu when a click on the rigt button of the mouse is given.
+		/// </summary>
+		/// <param name="sender">
+		/// Name of the object.
+		/// </param>
+		/// <param name="e">
+		/// This class contains no event data; it is used by events that do not pass state information to an event 
+		/// handler when an event is raised. If the event handler requires state information, the application must 
+		/// derive a class from this class to hold the data.
+		/// </param>		
+		void TreeViewFileMouseUp(object sender, MouseEventArgs e)
+		{
+            if (e.Button == MouseButtons.Right && (treeViewFile.SelectedNode.IsSelected))
+            {
+                ContextMenuSCL contextMenuSCL = new ContextMenuSCL();
+                Point nodePosition = new Point(e.X, e.Y);
+                ContextMenuStrip menuStrip = contextMenuSCL.GetContextMenuSCL(this.treeViewFile.SelectedNode);
+                menuStrip.Show(treeViewFile, nodePosition);
+            }	
 		}
 	} 	
 }

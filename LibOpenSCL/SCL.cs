@@ -20,23 +20,24 @@
  * It contains all the classes and methods that were generated from XSD file of the 
  * standard IEC 61850 Ed. 1.0-6 Edition 1.0
 */ 
-	
+
+using System.ComponentModel;
+
 namespace IEC61850.SCL
 {
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	[System.Xml.Serialization.XmlRootAttribute("Substation", Namespace="http://www.iec.ch/61850/2003/SCL", IsNullable=false)]
+	[System.Xml.Serialization.XmlRootAttribute("Substation", Namespace="http://www.iec.ch/61850/2003/SCL", IsNullable=false)]	
 	public partial class tSubstation : tEquipmentContainer 
 	{		
 		private tVoltageLevel[] voltageLevelField;		
 		private tFunction[] functionField;
-		
-		/// <remarks/>
+
 		[System.Xml.Serialization.XmlElementAttribute("VoltageLevel")]
+		[Category("Substation"), Browsable(false)]		
 		public tVoltageLevel[] VoltageLevel 
 		{
 			get 
@@ -49,8 +50,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("Function")]
+		[Category("Substation"), Browsable(false)]		
 		public tFunction[] Function 
 		{
 			get 
@@ -75,7 +76,7 @@ namespace IEC61850.SCL
 		private tVoltage voltageField;		
 		private tBay[] bayField;
 		
-		/// <remarks/>
+		[Category("VoltageLevel"), Description("It can be used to state the voltage."), Browsable(false)]
 		public tVoltage Voltage 
 		{
 			get 
@@ -87,8 +88,8 @@ namespace IEC61850.SCL
 				this.voltageField = value;
 			}
 		}
-		
-		/// <remarks/>
+
+		[Category("VoltageLevel"), Browsable(false)]		
 		[System.Xml.Serialization.XmlElementAttribute("Bay")]
 		public tBay[] Bay 
 		{
@@ -103,7 +104,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -122,17 +122,16 @@ namespace IEC61850.SCL
 		
 		private tSIUnitEnum unitField;		
 		private tUnitMultiplierEnum multiplierField;
-		
+				
 		public tVoltage()
 		{
 			this.unitField = tSIUnitEnum.V;
 			this.multiplierField = tUnitMultiplierEnum.Item;
 		}
-		/// <remarks/>
 
 		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tSIUnitEnum.V)]
+		[System.Xml.Serialization.XmlAttributeAttribute()]		
+		[Category("Voltage"), Description("Units derived from ISO 1000 to represent a measurement."), DefaultValue(tSIUnitEnum.V)]
 		public tSIUnitEnum unit 
 		{
 			get 
@@ -145,9 +144,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tUnitMultiplierEnum.Item)]
+		[System.Xml.Serialization.XmlAttributeAttribute()]		
+		[Category("Voltage"), Description("It shall define the multiplier value"), DefaultValue(tUnitMultiplierEnum.Item)]
 		public tUnitMultiplierEnum multiplier 
 		{
 			get 
@@ -161,7 +159,10 @@ namespace IEC61850.SCL
 		}
 	}
 	
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tDurationInMilliSec))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tDurationInSec))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tBitRateInMbPerSec))]
@@ -171,11 +172,6 @@ namespace IEC61850.SCL
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/
 	public partial class tValueWithUnit 
 	{		
 		private tSIUnitEnum unitField;		
@@ -187,9 +183,9 @@ namespace IEC61850.SCL
 			this.multiplierField = tUnitMultiplierEnum.Item;
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("ValueWithUnit"), Description("Units derived from ISO 1000 to represent a measurement.")]
 		public tSIUnitEnum unit 
 		{
 			get 
@@ -202,9 +198,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tUnitMultiplierEnum.Item)]
+		[System.Xml.Serialization.XmlAttributeAttribute()]		
+		[Category("ValueWithUnit"), Description("It shall define the multiplier value"), DefaultValue(tUnitMultiplierEnum.Item)]
 		public tUnitMultiplierEnum multiplier 
 		{
 			get 
@@ -217,8 +212,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlTextAttribute()]
+		[Category("ValueWithUnit"), Description("Value assigned")]
 		public decimal Value 
 		{
 			get 
@@ -232,150 +227,148 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	public enum tSIUnitEnum 
+	//[Description("Units derived from ISO 1000 to represent a measurement.")]
+	public enum tSIUnitEnum : int
 	{		
-		none,		
-		m,
-		kg,
-		s,
-		A,
-		K,
-		mol,
-		cd,
-		deg,
-		rad,
-		sr,
-		Gy,
-		q,	
+		none = 1,
+		m = 2,
+		kg = 3,
+		s = 4,
+		A = 5,
+		K = 6,
+		mol = 7,
+		cd = 8,
+		deg = 9,
+		rad = 10,
+		sr = 11,
+		Gy = 21,
+		q = 22,
 		
 		[System.Xml.Serialization.XmlEnumAttribute("°C")]
-		C,
+		C = 23,
 		
-		Sv,
-		F,
+		Sv = 24,
+		F = 25,
 		
 		[System.Xml.Serialization.XmlEnumAttribute("C")]
-		C1,
+		C1 = 26,
 		
-		S,	
-		H,
-		V,
-		ohm,
-		J,
-		N,
-		Hz,
-		lx,
-		Lm,
-		Wb,
-		T,
-		W,
-		Pa,
+		S = 27,
+		H = 28,
+		V = 29,
+		ohm = 30,
+		J = 31,
+		N = 32,
+		Hz = 33,
+		lx = 34,
+		Lm = 35,
+		Wb = 36,
+		T = 37,
+		W = 38,
+		Pa = 39,
 		
 		[System.Xml.Serialization.XmlEnumAttribute("m^2")]
-		m2,
+		m2 = 41,
 		
 		[System.Xml.Serialization.XmlEnumAttribute("m^3")]
-		m3,
+		m3 = 42,
 		
 		[System.Xml.Serialization.XmlEnumAttribute("m/s")]
-		ms,
+		ms = 43,
 		
 		[System.Xml.Serialization.XmlEnumAttribute("m/s^2")]
-		ms2,
+		ms2 = 44,
 		
 		[System.Xml.Serialization.XmlEnumAttribute("m^3/s")]
-		m3s,
+		m3s = 45,
 		
 		[System.Xml.Serialization.XmlEnumAttribute("m/m^3")]
-		mm3,
+		mm3 = 46,
 		
-		M,
+		M = 47,
 		
 		[System.Xml.Serialization.XmlEnumAttribute("kg/m^3")]
-		kgm3,
+		kgm3 = 48,
 		
 		[System.Xml.Serialization.XmlEnumAttribute("m^2/s")]
-		m2s,
+		m2s = 49,
 
 		[System.Xml.Serialization.XmlEnumAttribute("W/m K")]
-		WmK,
+		WmK = 50,
 
 		[System.Xml.Serialization.XmlEnumAttribute("J/K")]
-		JK,
+		JK = 51,
 
-		ppm,
+		ppm = 52,
 
 		[System.Xml.Serialization.XmlEnumAttribute("s^-1")]
-		s1,
+		s1 = 53,
 
 		[System.Xml.Serialization.XmlEnumAttribute("rad/s")]
-		rads,
+		rads = 54,
 
-		VA,
-		Watts,
-		VAr,
-		phi,
-		cos_phi,
-		Vs,
+		VA = 61,
+		Watts = 62,
+		VAr = 63,
+		phi = 64,
+		cos_phi = 65,
+		Vs = 66,
 		
 		[System.Xml.Serialization.XmlEnumAttribute("V^2")]
-		V2,
+		V2 = 67,
 
-		As,
+		As = 68,
 
 		[System.Xml.Serialization.XmlEnumAttribute("A^2")]
-		A2,
+		A2 = 69,
 
 		[System.Xml.Serialization.XmlEnumAttribute("A^2 s")]
-		A2s,
+		A2s = 70,
 
-		VAh,
-		Wh,
-		VArh,
+		VAh = 71,
+		Wh = 72,
+		VArh = 73,
 
 		[System.Xml.Serialization.XmlEnumAttribute("V/Hz")]
-		VHz,
+		VHz = 74,
 
 		[System.Xml.Serialization.XmlEnumAttribute("b/s")]
-		bs,
+		bs = 75,
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	public enum tUnitMultiplierEnum 
+	//[Description("Units derived from ISO 1000 to represent a measurement.")]
+	public enum tUnitMultiplierEnum : int 
 	{		
 		[System.Xml.Serialization.XmlEnumAttribute("")]
-		Item,
-
-		m,
-		k,
-		M,
-		mu,
-		y,
-		z,
-		a,
-		f,
-		p,
-		n,
-		c,
-		d,
-		da,
-		h,
-		G,
-		T,
-		P,
-		E,
-		Z,
-		Y
+		Item = 0,
+		m = -3,
+		k = 3,
+		M = 6,
+		mu = -6,
+		y = -24,
+		z = -21,
+		a = -18,
+		f = -15,
+		p = -12,
+		n = -9,
+		c = -2,
+		d = -1,
+		da = 1,
+		h = 2,
+		G = 9,
+		T = 12,
+		P = 15,
+		E = 18,
+		Z = 21,
+		Y = 24,
 	}
 
-	/// <remarks/>
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
@@ -384,12 +377,7 @@ namespace IEC61850.SCL
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tHeader 
 	{		
 		private tText textField;		
@@ -400,13 +388,14 @@ namespace IEC61850.SCL
 		private string toolIDField;		
 		private tHeaderNameStructure nameStructureField;
 		
+		//[Category("Header"), Description("The header serves to identify an SCL configuration file and its version, and to specify options for the mapping of names to signals.")]
 		public tHeader() 
 		{
 			this.revisionField = "";
 			this.nameStructureField = tHeaderNameStructure.IEDName;
 		}
 		
-		/// <remarks/>
+		[Category("Header"), Browsable(false)]
 		public tText Text 
 		{
 			get 
@@ -419,8 +408,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlArrayItemAttribute("Hitem", IsNullable=false)]
+		[Category("Header"), Browsable(false)]
 		public tHitem[] History 
 		{
 			get 
@@ -433,9 +422,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Header"), Description("A string identifying this SCL file.")]
 		public string id 
 		{
 			get 
@@ -448,8 +437,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Header"), Description("The version of this SCL configuration file.")]
 		public string version 
 		{
 			get 
@@ -462,9 +451,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[System.ComponentModel.DefaultValueAttribute("")]
+		[Category("Header"), Description("The revision of this SCL configuration file, by default the empty string meaning the original before any revision")]
+		//[DefaultValue("")]
 		public string revision 
 		{
 			get 
@@ -477,8 +466,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Header"), Description("The manufacturer specific identification of the tool that was used to create the SCL file")]
+		//[DefaultValue("OpenSCLConfigurator"), ReadOnly(true)]
 		public string toolID 
 		{
 			get 
@@ -491,9 +481,10 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tHeaderNameStructure.IEDName)]
+		[System.Xml.Serialization.XmlAttributeAttribute()]		
+		[Category("Header"), Description("Element indicating if communication system signal names are built"+
+		    "from the substation function structure or from the IED product structure"),
+		 	DefaultValue(tHeaderNameStructure.IEDName)]
 		public tHeaderNameStructure nameStructure 
 		{
 			get 
@@ -507,7 +498,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -517,8 +507,8 @@ namespace IEC61850.SCL
 	{		
 		private string sourceField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+		[Browsable(false)]
 		public string source 
 		{
 			get 
@@ -532,7 +522,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tLog))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tAccessControl))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tHitem))]
@@ -548,9 +537,9 @@ namespace IEC61850.SCL
 		private System.Xml.XmlNode[] anyField;		
 		private System.Xml.XmlAttribute[] anyAttrField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlTextAttribute()]
 		[System.Xml.Serialization.XmlAnyElementAttribute()]
+		[Browsable(false)]
 		public System.Xml.XmlNode[] Any 
 		{
 			get 
@@ -563,8 +552,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAnyAttributeAttribute()]
+		[Browsable(false)]
 		public System.Xml.XmlAttribute[] AnyAttr 
 		{
 			get 
@@ -578,18 +567,16 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public partial class tLog : tAnyContentFromOtherNamespace 
-	{
+	{	
 		
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -600,17 +587,15 @@ namespace IEC61850.SCL
 		
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/
 	public partial class tHitem : tAnyContentFromOtherNamespace 
 	{		
 		private string versionField;		
@@ -620,9 +605,9 @@ namespace IEC61850.SCL
 		private string whatField;		
 		private string whyField;
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Hitem"), Description("The version of this history entry")]
 		public string version 
 		{
 			get 
@@ -635,9 +620,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Hitem"), Description("The revision of this history entry")]
 		public string revision 
 		{
 			get 
@@ -650,9 +635,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Hitem"), Description("Date when the version/revision was released")]
 		public string when 
 		{
 			get 
@@ -665,8 +650,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Hitem"), Description("Who made/approved this version/revision")]
 		public string who 
 		{
 			get
@@ -679,8 +664,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Hitem"), Description("What has been changed since the last approval")]
 		public string what 
 		{
 			get 
@@ -693,8 +678,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Hitem"), Description("Why the change has happened")]
 		public string why 
 		{
 			get 
@@ -708,19 +693,18 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	public partial class tPrivate : tAnyContentFromOtherNamespace 
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
+	public partial class tPrivate : tAnyContentFromOtherNamespace
 	{		
 		private string typeField;		
 		private string sourceField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Private"), Description("Distinguishes different (private) purposes of the element contents"), ReadOnly(false)]
 		public string type 
 		{
 			get 
@@ -733,9 +717,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-		public string source 
+		[Category("Private"), Description("URL to some file, which contains the private information"), ReadOnly(false)]
+		public string source
 		{
 			get 
 			{
@@ -748,36 +732,33 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public enum tHeaderNameStructure 
 	{		
-		/// <remarks/>
-		IEDName
+		IEDName,
+		FuncName
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/
 	public partial class tEnumVal 
 	{		
 		private string ordField;		
 		private string valueField;
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-		public string ord 
+		[Category("EnumVal"), Description("It contains the order of the values")]
+		public string ord
 		{
 			get 
 			{
@@ -789,8 +770,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlTextAttribute(DataType="normalizedString")]
+		[Category("EnumVal"), Description("The value is the character string")]
 		public string Value 
 		{
 			get 
@@ -804,13 +785,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
@@ -821,7 +795,12 @@ namespace IEC61850.SCL
 	 * 
 	 * The data type "lnClassField" was added to fulfill standard IEC 61850 Ed. 1.0	 
 	 * 
-	*/
+	*/	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public partial class tAssociation 
 	{		
 		private tAssociationKindEnum kindField;		
@@ -832,14 +811,16 @@ namespace IEC61850.SCL
 		private tLNClassEnum lnClassField;		
 		private string lnInstField;
 		
+		//[Category("Association"), Description("Each association definition defines one pre-configured association between this server"+ 
+		//	"and a client logical node.")]
 		public tAssociation() 
 		{
 			this.prefixField = "";
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("Association"), Description("The kind of pre-configured association, pre-established or predefined")]
 		public tAssociationKindEnum kind 
 		{
 			get 
@@ -852,8 +833,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Association"), Description("The identification of a pre-configured association")]
 		public string associationID 
 		{
 			get 
@@ -866,9 +847,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Association"), Description("The reference identifying the IED on which the client resides")]
 		public string iedName 
 		{
 			get 
@@ -881,9 +862,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Association"), Description("The reference to the client logical device")]
 		public string ldInst 
 		{
 			get
@@ -896,9 +877,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[System.ComponentModel.DefaultValueAttribute("")]
+		[Category("Association"), Description("The LN prefix"), DefaultValue("")]
 		public string prefix 
 		{
 			get 
@@ -911,9 +891,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("Association"), Description("The class of the client LN")]
 		public tLNClassEnum lnClass 
 		{
 			get 
@@ -926,9 +906,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Association"), Description("The instance number of the client LN")]
 		public string lnInst 
 		{
 			get 
@@ -942,26 +922,16 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public enum tAssociationKindEnum 
 	{		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlEnumAttribute("pre-established")]
 		preestablished,
 		
-		/// <remarks/>
 		predefined,
 	}
-	
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
@@ -975,7 +945,12 @@ namespace IEC61850.SCL
 	 * lnInst -> lnInstField
 	 * 
 	 * The data type "lnClassField" was added to fulfill standard IEC 61850 Ed. 1.0	 
-	*/	
+	*/		
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tExtRef 
 	{		
 		private string iedNameField;		
@@ -987,9 +962,9 @@ namespace IEC61850.SCL
 		private string daNameField;		
 		private string intAddrField;
 				
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ExtRef"), Description("The name of the IED from where the input comes.")]
 		public string iedName 
 		{
 			get 
@@ -1002,9 +977,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ExtRef"), Description("The LD instance name from where the input comes.")]
 		public string ldInst
 		{
 			get 
@@ -1017,8 +992,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ExtRef"), Description("The LN prefix")]
 		public string prefix 
 		{
 			get
@@ -1031,9 +1006,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("ExtRef"), Description("The LN class")]
 		public tLNClassEnum lnClass
 		{
 			get 
@@ -1046,9 +1021,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ExtRef"), Description("The instance id of this LN instance of below LN class in the IED")]
 		public string lnInst
 		{
 			get 
@@ -1061,9 +1036,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ExtRef"), Description("A name identifying the DO (within the LN)")]
 		public string doName
 		{
 			get 
@@ -1076,8 +1051,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ExtRef"), Description("The attribute designating the input.")]
 		public string daName
 		{
 			get
@@ -1090,8 +1065,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ExtRef"), Description("The internal address to which the input is bound."), ReadOnly(true)]
 		public string intAddr 
 		{
 			get 
@@ -1116,9 +1091,9 @@ namespace IEC61850.SCL
 		private uint sGroupField;		
 		private bool sGroupFieldSpecified;		
 		private string valueField;
-		
-		/// <remarks/>
+				
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("Val"), Description("The number of the setting group to which this value belongs.")]
 		public uint sGroup 
 		{
 			get 
@@ -1131,8 +1106,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		[Category("Val"), Description("It specifies to which setting group the value belongs.")]
 		public bool sGroupSpecified 
 		{
 			get 
@@ -1145,8 +1120,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlTextAttribute(DataType="normalizedString")]
+		[Category("Val"), Description("A value for each defined setting group.")]
 		public string Value 
 		{
 			get
@@ -1160,24 +1135,23 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tPhysConn 
 	{		
 		private tP[] pField;		
 		private string typeField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("P")]
+		
+		[Category("PhysConn"), Browsable(false)]
 		public tP[] P 
 		{
 			get 
@@ -1190,9 +1164,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("PhysConn"), Description("This attribute identifies the meaning of the value")]
 		public string type 
 		{
 			get 
@@ -1206,7 +1180,12 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	 * 
+	 * The data type "tPTypeEnum was added to fulfill standard IEC 61850 Ed. 1.0
+	*/
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tP_VLANID))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tP_VLANPRIORITY))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tP_APPID))]
@@ -1226,22 +1205,15 @@ namespace IEC61850.SCL
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	 * 
-	 * The data type "tPTypeEnum was added to fulfill standard IEC 61850 Ed. 1.0
-	*/
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP 
 	{		
 		private tPTypeEnum typeField;		
 		private string valueField;
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("P"), Description("This attribute identifies the meaning of the value")]
 		public tPTypeEnum type 
 		{
 			get 
@@ -1254,8 +1226,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlTextAttribute(DataType="normalizedString")]
+		[Category("P"), Description("An address value")]
 		public string Value 
 		{
 			get
@@ -1268,61 +1240,45 @@ namespace IEC61850.SCL
 			}
 		}	
 	}
-	
-    /// <remarks/>
-	[System.SerializableAttribute()]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
+	    
 	/*
 	 * The enumeration "TPTypeEnum" was added to fullfill standar IEC 61850 Ed. 1.0
 	*/
+    [System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public enum tPTypeEnum
 	{
 		IP,
 		[System.Xml.Serialization.XmlEnumAttribute("IP-SUBNET")]
-		IP_SUBNET,
-		
+		IP_SUBNET,		
 		[System.Xml.Serialization.XmlEnumAttribute("IP-GATEWAY")]
-		IP_GATEWAY,
-		
+		IP_GATEWAY,	
 		[System.Xml.Serialization.XmlEnumAttribute("OSI-NSAP")]
-		OSI_NSAP,
-		
+		OSI_NSAP,		
 		[System.Xml.Serialization.XmlEnumAttribute("OSI-TSEL")]
-		OSI_TSEL,
-		
+		OSI_TSEL,		
 		[System.Xml.Serialization.XmlEnumAttribute("OSI-SSEL")]
-		OSI_SSEL,
-		
+		OSI_SSEL,		
 		[System.Xml.Serialization.XmlEnumAttribute("OSI-PSEL")]
-		OSI_PSEL,
-		
+		OSI_PSEL,		
 		[System.Xml.Serialization.XmlEnumAttribute("OSI-AP-Title")]
-		OSI_AP_Title,
-		
+		OSI_AP_Title,		
 		[System.Xml.Serialization.XmlEnumAttribute("OSI-AP-Invoke")]
-		OSI_AP_Invoke,
-		
+		OSI_AP_Invoke,		
 		[System.Xml.Serialization.XmlEnumAttribute("OSI-AE-Qualifier")]
-		OSI_AE_Qualifier,
-		
+		OSI_AE_Qualifier,		
 		[System.Xml.Serialization.XmlEnumAttribute("OSI-AE-Invoke")]
-		OSI_AE_Invoke,
-		
+		OSI_AE_Invoke,		
 		[System.Xml.Serialization.XmlEnumAttribute("MAC-Address")]
-		MAC_Address,
-		
+		MAC_Address,		
 		[System.Xml.Serialization.XmlEnumAttribute("APPID")]
-		APPID,
-		
+		APPID,		
 		[System.Xml.Serialization.XmlEnumAttribute("VLAN-PRIORITY")]
-		VLAN_PRIORITY,
-		
+		VLAN_PRIORITY,		
 		[System.Xml.Serialization.XmlEnumAttribute("VLAN-ID")]
-		VLAN_ID,
+		VLAN_ID
 	}
 	
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1345,7 +1301,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.VLAN_ID)]
+		[Category("VLAN ID"), Description("VLAN identifier"), DefaultValue(tPTypeEnum.VLAN_ID)]
 		public tPTypeEnum type 
 		{
 			get 
@@ -1359,19 +1315,17 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_VLAN-PRIORITY", Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
-	*/
+	*/	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_VLAN-PRIORITY", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_VLANPRIORITY : tP 
 	{
 		private tPTypeEnum typeField;
@@ -1383,7 +1337,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.VLAN_PRIORITY)]
+		[Category("VLAN PRIORITY"), Description("Priority of VLAN"), DefaultValue(tPTypeEnum.VLAN_PRIORITY)]
 		public tPTypeEnum type 
 		{
 			get 
@@ -1420,8 +1374,8 @@ namespace IEC61850.SCL
 		}
 		
 		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.APPID)]
+		[System.Xml.Serialization.XmlAttributeAttribute()]		
+		[Category("APP ID"), Description("Application identifier"), DefaultValue(tPTypeEnum.APPID)]
 		public tPTypeEnum type 
 		{
 			get 
@@ -1435,19 +1389,17 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_MAC-Address", Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_MAC-Address", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_MACAddress : tP
 	{
 		private tPTypeEnum typeField;
@@ -1459,7 +1411,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.MAC_Address)]
+		[Category("MACAddress"), Description("Media access address value"), DefaultValue(tPTypeEnum.MAC_Address)]
 		public tPTypeEnum type 
 		{
 			get 
@@ -1473,19 +1425,17 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-AE-Invoke", Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-AE-Invoke", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_OSIAEInvoke : tP
 	{
 		private tPTypeEnum typeField;
@@ -1497,7 +1447,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AE_Invoke)]
+		[Category("OSIAEInvoke"), Description("OSI AE Invoke"), DefaultValue(tPTypeEnum.OSI_AE_Invoke)]			
 		public tPTypeEnum type 
 		{
 			get 
@@ -1511,19 +1461,17 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-AE-Qualifier", Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-AE-Qualifier", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_OSIAEQualifier : tP 
 	{
 		private tPTypeEnum typeField;
@@ -1534,8 +1482,8 @@ namespace IEC61850.SCL
 		}
 		
 		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AE_Qualifier)]
+		[System.Xml.Serialization.XmlAttributeAttribute()]		
+		[Category("OSIAEQualifier"), Description("OSI ACSE AE qualifier"), DefaultValue(tPTypeEnum.OSI_AE_Qualifier)]			
 		public tPTypeEnum type 
 		{
 			get 
@@ -1549,30 +1497,29 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-AP-Invoke", Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-AP-Invoke", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_OSIAPInvoke : tP 
 	{
 		private tPTypeEnum typeField;
 		
-		public tP_OSIAPInvoke() {
+		public tP_OSIAPInvoke() 
+		{
 			this.typeField = tPTypeEnum.OSI_AP_Invoke;
 		}
 		
 		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AP_Invoke)]
+		[System.Xml.Serialization.XmlAttributeAttribute()]		
+		[Category("OSIAPInvoke"), Description("OSI ACSE AP invoke ID"), DefaultValue(tPTypeEnum.OSI_AP_Invoke)]					
 		public tPTypeEnum type 
 		{
 			get 
@@ -1586,19 +1533,17 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-AP-Title", Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
-	*/	
+	*/		
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-AP-Title", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_OSIAPTitle : tP 
 	{
 		private tPTypeEnum typeField;
@@ -1610,7 +1555,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_AP_Title)]
+		[Category("OSIAPTitle"), Description("OSI ACSE AP title value"), DefaultValue(tPTypeEnum.OSI_AP_Title)]					
 		public tPTypeEnum type 
 		{
 			get 
@@ -1624,19 +1569,17 @@ namespace IEC61850.SCL
 		}
 	}
 	
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-PSEL", Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-PSEL", Namespace="http://www.iec.ch/61850/2003/SCL")]			
 	public partial class tP_OSIPSEL : tP 
 	{
 		private tPTypeEnum typeField;
@@ -1648,7 +1591,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_PSEL)]
+		[Category("OSIPSEL"), Description("OSI presentation selector"), DefaultValue(tPTypeEnum.OSI_PSEL)]							
 		public tPTypeEnum type 
 		{
 			get
@@ -1662,19 +1605,17 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-SSEL", Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
-	*/	
+	*/		
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-SSEL", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_OSISSEL : tP
 	{
 		private tPTypeEnum typeField;
@@ -1685,8 +1626,8 @@ namespace IEC61850.SCL
 		}
 		
 		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_SSEL)]
+		[System.Xml.Serialization.XmlAttributeAttribute()]		
+		[Category("OSISSEL"), Description("OSI session selector"), DefaultValue(tPTypeEnum.OSI_SSEL)]							
 		public tPTypeEnum type 
 		{
 			get
@@ -1700,19 +1641,17 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-TSEL", Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
-	*/
+	*/	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-TSEL", Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public partial class tP_OSITSEL : tP 
 	{
 		private tPTypeEnum typeField;
@@ -1724,7 +1663,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_TSEL)]
+		[Category("OSITSEL"), Description("OSI transport selector"), DefaultValue(tPTypeEnum.OSI_TSEL)]									
 		public tPTypeEnum type 
 		{
 			get 
@@ -1738,19 +1677,17 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-NSAP", Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-NSAP", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_OSINSAP : tP
 	{
 		private tPTypeEnum typeField;
@@ -1762,7 +1699,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.OSI_NSAP)]
+		[Category("OSINSAP"), Description("OSI network address"), DefaultValue(tPTypeEnum.OSI_NSAP)]											
 		public tPTypeEnum type 
 		{
 			get 
@@ -1775,20 +1712,18 @@ namespace IEC61850.SCL
 			}
 		}
 	}
-
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_IP-GATEWAY", Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
+ 
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_IP-GATEWAY", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_IPGATEWAY : tP 
 	{
 		private tPTypeEnum typeField;
@@ -1800,7 +1735,8 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.IP_GATEWAY)]
+		[Category("GATEWAY"), Description("First hop IP gateway address for TCP/IP profiles."), 
+		 DefaultValue(tPTypeEnum.IP_GATEWAY)]
 		public tPTypeEnum type 
 		{
 			get 
@@ -1814,19 +1750,17 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_IP-SUBNET", Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_IP-SUBNET", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_IPSUBNET : tP 
 	{
 		private tPTypeEnum typeField;
@@ -1838,7 +1772,8 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.IP_SUBNET)]
+		[Category("SUBNET"), Description("Subnet mask for TCP/IP profiles."), 
+		 DefaultValue(tPTypeEnum.IP_SUBNET)]
 		public tPTypeEnum type
 		{
 			get 
@@ -1852,19 +1787,17 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
 	 * The attribute "type" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_IP : tP
 	{
 		private tPTypeEnum typeField;
@@ -1876,7 +1809,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPTypeEnum.IP)]
+		[Category("TypeEnum"), Description("Address or DNS name to be used"), DefaultValue(tPTypeEnum.IP)]
 		public tPTypeEnum type
 		{
 			get 
@@ -1890,13 +1823,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
@@ -1904,13 +1830,20 @@ namespace IEC61850.SCL
 	 * The following attributes were added to fulfill standard IEC 61850 Ed. 1.0:
 	 * iedName -> iedNameField
 	 * ldInst -> ldInstField
-	*/	
+	 *
+	 * The data type "lnClassField was added to fulfill the standard IEC 61850 Ed. 1.0
+	*/		
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tClientLN 
 	{		
 		private string iedNameField;		
 		private string ldInstField;		
 		private string prefixField;		
-		private string lnClassField;		
+		private tLNClassEnum lnClassField;		
 		private string lnInstField;
 		
 		public tClientLN() 
@@ -1918,9 +1851,9 @@ namespace IEC61850.SCL
 			this.prefixField = "";
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ClientLN"), Description("The name of the IED where the LN resides")]
 		public string iedName 
 		{
 			get 
@@ -1933,9 +1866,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ClientLN"), Description("The instance identification of the LD where the LN resides")]
 		public string ldInst 
 		{
 			get 
@@ -1948,9 +1881,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[System.ComponentModel.DefaultValueAttribute("")]
+		[Category("ClientLN"), Description("The LN prefix"), DefaultValue("")]
 		public string prefix 
 		{
 			get 
@@ -1963,10 +1895,10 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		public string lnClass 
+		[Category("ClientLN"), Description("The LN class")]
+		public tLNClassEnum lnClass 
 		{
 			get 
 			{
@@ -1978,9 +1910,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ClientLN"), Description("The instance id of this LN instance of below LN class in the IED")]
 		public string lnInst 
 		{
 			get 
@@ -1994,7 +1926,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2015,9 +1946,9 @@ namespace IEC61850.SCL
 			this.periodField = false;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("TrgOps"), Description("dchg enabled means that a change in the value of that attribute should cause a report"),
+		 DefaultValue(false)]
 		public bool dchg 
 		{
 			get 
@@ -2030,9 +1961,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("TrgOps"), Description("dchg enabled means that a change in the value of the quality for that attribute should cause a report"),
+		DefaultValue(false)]
 		public bool qchg
 		{
 			get
@@ -2045,9 +1976,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("TrgOps"), Description("dupd enabled A report or a log entry shall be generated due to freezing the value of "+
+			"a freezable attribute or updating the value of any other attribute."), DefaultValue(false)]
 		public bool dupd 
 		{
 			get 
@@ -2060,9 +1991,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("TrgOps"), Description("if it es enabled integrity period is relevant."), DefaultValue(false)]		
 		public bool period 
 		{
 			get 
@@ -2076,19 +2006,17 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
 	 * The data type "lnClassField" was added to fulfill standard IEC 61850 Ed. 1.0	 
-	*/	
+	*/		
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tFCDA
 	{		
 		private string ldInstField;		
@@ -2104,8 +2032,9 @@ namespace IEC61850.SCL
 			this.prefixField = "";
 		}
 		
-		/// <remarks/>
+		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("FCDA"), Description("The LD where the DO resides")]
 		public string ldInst 
 		{
 			get 
@@ -2118,9 +2047,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[System.ComponentModel.DefaultValueAttribute("")]
+		[Category("FCDA"), Description("Prefix identifying together with lnInst and lnClass the LN where the DO resides"), DefaultValue("")]		
 		public string prefix 
 		{
 			get
@@ -2133,8 +2061,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("FCDA"), Description("LN class of the LN where the DO resides")]		
 		public tLNClassEnum lnClass 
 		{
 			get 
@@ -2147,8 +2075,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("FCDA"), Description("Instance number of the LN where the DO resides")]		
 		public string lnInst
 		{
 			get
@@ -2161,8 +2089,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("FCDA"), Description("A name identifying the DO (within the LN).")]		
 		public string doName 
 		{
 			get 
@@ -2175,8 +2103,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("FCDA"), Description("The attribute name.")]		
 		public string daName 
 		{
 			get
@@ -2189,9 +2117,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("FCDA"), Description("All attributes of this functional constraint are selected")]		
 		public tFCEnum fc
 		{
 			get
@@ -2205,7 +2133,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
@@ -2240,9 +2167,8 @@ namespace IEC61850.SCL
 			this.fixLnInstField = false;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("ConfLNs"), Description("if false, prefixes can be set/changed"), DefaultValue(false)]
 		public bool fixPrefix 
 		{
 			get 
@@ -2255,9 +2181,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("ConfLNs"), Description("if false. LN instance numbers can be changed"), DefaultValue(false)]	
 		public bool fixLnInst 
 		{
 			get 
@@ -2271,7 +2196,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tSMVSettings))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tGSESettings))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tLogSettings))]
@@ -2292,9 +2216,8 @@ namespace IEC61850.SCL
 			this.datSetField = tServiceSettingsEnum.Fix;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tServiceSettingsEnum.Fix)]
+		[Category("ServiceSettings"), Description("Control block name"), DefaultValue(tServiceSettingsEnum.Fix)]	
 		public tServiceSettingsEnum cbName 
 		{
 			get 
@@ -2307,9 +2230,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tServiceSettingsEnum.Fix)]
+		[Category("ServiceSettings"), Description("Data set reference"), DefaultValue(tServiceSettingsEnum.Fix)]	
 		public tServiceSettingsEnum datSet 
 		{
 			get 
@@ -2323,7 +2245,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
@@ -2334,7 +2255,6 @@ namespace IEC61850.SCL
 		Fix,
 	}
 
-	/// <remarks/>	
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2354,8 +2274,8 @@ namespace IEC61850.SCL
 			this.smpRateField1 = tServiceSettingsEnum.Fix;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("SmpRate")]
+		[Category("SMVSettings"), Description("Specifies the samples per unit.")]			
 		public decimal[] SmpRate 
 		{
 			get 
@@ -2368,9 +2288,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tServiceSettingsEnum.Fix)]
+		[System.Xml.Serialization.XmlAttributeAttribute()]		
+		[Category("SMVSettings"), Description("Sample value identifier."), DefaultValue(tServiceSettingsEnum.Fix)]					
 		public tServiceSettingsEnum svID 
 		{
 			get 
@@ -2383,9 +2302,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tServiceSettingsEnum.Fix)]
+		[System.Xml.Serialization.XmlAttributeAttribute()]		
+		[Category("SMVSettings"), Description("Optional fields to include in report"), DefaultValue(tServiceSettingsEnum.Fix)]			
 		public tServiceSettingsEnum optFields 
 		{
 			get 
@@ -2398,9 +2316,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tServiceSettingsEnum.Fix)]
+		[Category("SMVSettings"), Description("Specifies the samples per unit."), DefaultValue(tServiceSettingsEnum.Fix)]					
 		public tServiceSettingsEnum smpRate 
 		{
 			get
@@ -2414,7 +2331,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2431,9 +2347,9 @@ namespace IEC61850.SCL
 			this.dataLabelField = tServiceSettingsEnum.Fix;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tServiceSettingsEnum.Fix)]
+		[Category("GSESettings"), Description("A system wide unique identification of the application to which the GOOSE message"+
+			"belongs."), DefaultValue(tServiceSettingsEnum.Fix)]							
 		public tServiceSettingsEnum appID 
 		{
 			get
@@ -2446,9 +2362,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tServiceSettingsEnum.Fix)]
+		[Category("GSESettings"), Description("A value for the object reference if the corresponding element ist being sent"), 
+		 DefaultValue(tServiceSettingsEnum.Fix)]
 		public tServiceSettingsEnum dataLabel 
 		{
 			get 
@@ -2462,7 +2378,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2481,9 +2396,9 @@ namespace IEC61850.SCL
 			this.intgPdField = tServiceSettingsEnum.Fix;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tServiceSettingsEnum.Fix)]
+		[Category("LogSettings"), Description("Log Enable. TRUE enables immediate logging; FALSE prohibits logging until enabled online"), 
+		 DefaultValue(tServiceSettingsEnum.Fix)]		
 		public tServiceSettingsEnum logEna 
 		{
 			get 
@@ -2495,10 +2410,10 @@ namespace IEC61850.SCL
 				this.logEnaField = value;
 			}
 		}
-		
-		/// <remarks/>
+
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tServiceSettingsEnum.Fix)]
+		[Category("LogSettings"), Description("TrgOps contains the reasons which cause the control block to store an entry into the log."), 
+		 DefaultValue(tServiceSettingsEnum.Fix)]		
 		public tServiceSettingsEnum trgOps 
 		{
 			get 
@@ -2511,9 +2426,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tServiceSettingsEnum.Fix)]
+		[System.Xml.Serialization.XmlAttributeAttribute()]		
+		[Category("LogSettings"), Description("Integrity period: logging all values initiated by the server based on a given period"), 
+		 DefaultValue(tServiceSettingsEnum.Fix)]
 		public tServiceSettingsEnum intgPd 
 		{
 			get 
@@ -2527,7 +2442,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2550,9 +2464,9 @@ namespace IEC61850.SCL
 			this.intgPdField = tServiceSettingsEnum.Fix;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tServiceSettingsEnum.Fix)]
+		[Category("ReportSettings"), Description("Identifier for the report control block"), 
+		 DefaultValue(tServiceSettingsEnum.Fix)]
 		public tServiceSettingsEnum rptID 
 		{
 			get 
@@ -2565,9 +2479,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tServiceSettingsEnum.Fix)]
+		[Category("ReportSettings"), Description("Optional fields to include in report"), 
+		 DefaultValue(tServiceSettingsEnum.Fix)]
 		public tServiceSettingsEnum optFields
 		{
 			get
@@ -2580,9 +2494,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tServiceSettingsEnum.Fix)]
+		[Category("ReportSettings"), Description("Buffer Time"), DefaultValue(tServiceSettingsEnum.Fix)]
 		public tServiceSettingsEnum bufTime
 		{
 			get
@@ -2595,9 +2508,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tServiceSettingsEnum.Fix)]
+		[Category("ReportSettings"), Description("TrgOps contains the reasons which causes the control block to report a"+
+			"value into the report."), DefaultValue(tServiceSettingsEnum.Fix)]
 		public tServiceSettingsEnum trgOps 
 		{
 			get 
@@ -2610,9 +2523,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tServiceSettingsEnum.Fix)]
+		[Category("ReportSettings"), Description("Integrity period: reporting all values initiated by the server based on this period"), 
+		 DefaultValue(tServiceSettingsEnum.Fix)]
 		public tServiceSettingsEnum intgPd 
 		{
 			get
@@ -2626,7 +2539,10 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/		
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tServiceWithMaxAndClient))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tServiceWithMaxAndModify))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tServiceWithMaxAndMaxAttributes))]
@@ -2635,19 +2551,14 @@ namespace IEC61850.SCL
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/	
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tServiceWithMax 
 	{		
 		private uint maxField;
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("ServiceWithMax"), Description("The maximum number of data sets")]
 		public uint max 
 		{
 			get 
@@ -2661,7 +2572,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2676,9 +2586,8 @@ namespace IEC61850.SCL
 			this.clientField = true;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(true)]
+		[Category("ServiceWithMaxAndClient"), Description("Client"), DefaultValue(true)]
 		public bool client 
 		{
 			get 
@@ -2707,9 +2616,8 @@ namespace IEC61850.SCL
 			this.modifyField = true;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(true)]
+		[Category("ServiceWithMaxAndModify"), Description("TRUE means that preconfigured data sets may be modified"), DefaultValue(true)]
 		public bool modify 
 		{
 			get 
@@ -2723,7 +2631,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tServiceWithMaxAndMaxAttributesAndModify))]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
@@ -2735,8 +2642,9 @@ namespace IEC61850.SCL
 		private uint maxAttributesField;		
 		private bool maxAttributesFieldSpecified;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("ServiceWithMaxAndMaxAttributes"), Description("The maximum number of attributes allowed in a data set "+
+        	" (an FCDA can contain several attributes)")]
 		public uint maxAttributes 
 		{
 			get
@@ -2749,8 +2657,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		[Category("ServiceWithMaxAndMaxAttributes"), Description("The maximum number of attributes specified in a data set "+
+        	" (an FCDA can contain several attributes)")]		
 		public bool maxAttributesSpecified
 		{
 			get 
@@ -2764,7 +2673,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2779,9 +2687,9 @@ namespace IEC61850.SCL
 			this.modifyField = true;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(true)]
+		[Category("ServiceWithMaxAndMaxAttributesAndModify"), Description("TRUE means that preconfigured data sets may be modified"),
+		 DefaultValue(true)]
 		public bool modify 
 		{
 			get 
@@ -2795,7 +2703,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2806,7 +2713,6 @@ namespace IEC61850.SCL
 		
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2839,7 +2745,7 @@ namespace IEC61850.SCL
 		private tServiceYesNo fileHandlingField;		
 		private tConfLNs confLNsField;		
 		
-		/// <remarks/>
+		[Category("Services"), Description("All services for dynamic building of associations.")]
 		public tServiceYesNo DynAssociation 
 		{
 			get 
@@ -2852,8 +2758,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
-		public tServicesSettingGroups SettingGroups 
+		[Category("Services"), Description("Setting group services belong to the setting group control block.")]
+		public tServicesSettingGroups SettingGroups
 		{
 			get 
 			{
@@ -2865,7 +2771,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("Service for reading the contents of a server, that is the LD and LN directories.")]
 		public tServiceYesNo GetDirectory 
 		{
 			get 
@@ -2878,7 +2784,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("Service to retrieve the complete list of all DA definitions of the referenced data that are"+
+			" visible and thus accessible to the requesting client by the referenced LN.")]
 		public tServiceYesNo GetDataObjectDefinition 
 		{
 			get 
@@ -2891,7 +2798,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("Service to get the DATA defined in a LN.")]
 		public tServiceYesNo DataObjectDirectory 
 		{
 			get 
@@ -2904,7 +2811,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("Service to retrieve all values of data referenced by the members of the data set.")]
 		public tServiceYesNo GetDataSetValue 
 		{
 			get 
@@ -2917,7 +2824,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("Service to write all values of data referenced by the members of the data set.")]
 		public tServiceYesNo SetDataSetValue 
 		{
 			get 
@@ -2930,7 +2837,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("Service to retrieve FCD/FCDA of all members referenced in the data set.")]
 		public tServiceYesNo DataSetDirectory 
 		{
 			get 
@@ -2943,7 +2850,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("service to configure new data sets up to the defined max.")]
 		public tServiceWithMaxAndMaxAttributesAndModify ConfDataSet
 		{
 			get 
@@ -2956,7 +2863,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("Services to dynamically create and delete data sets.")]
 		public tServiceWithMaxAndMaxAttributes DynDataSet 
 		{
 			get 
@@ -2969,7 +2876,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("Basic data read and write facility.")]
 		public tServiceYesNo ReadWrite 
 		{
 			get 
@@ -2982,7 +2889,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("This element specifies that timer activated control services are supported.")]
 		public tServiceYesNo TimerActivatedControl 
 		{
 			get
@@ -2995,7 +2902,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("Capability of static creation of report control blocks.")]
 		public tServiceWithMax ConfReportControl 
 		{
 			get 
@@ -3008,7 +2915,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("Read values of control blocks.")]
 		public tServiceYesNo GetCBValues 
 		{
 			get 
@@ -3021,7 +2928,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("Capability of static creation of log control blocks.")]
 		public tServiceWithMax ConfLogControl 
 		{
 			get 
@@ -3034,7 +2941,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("The report control block attributes for which online setting is possible.")]
 		public tReportSettings ReportSettings
 		{
 			get 
@@ -3047,7 +2954,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("The log control block attributes for which online setting is possible.")]
 		public tLogSettings LogSettings 
 		{
 			get 
@@ -3060,7 +2967,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("The GSE control block attributes for which online setting is possible.")]
 		public tGSESettings GSESettings 
 		{
 			get 
@@ -3073,7 +2980,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("The SMV control block attributes for which online setting is possible.")]
 		public tSMVSettings SMVSettings
 		{
 			get 
@@ -3086,7 +2993,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("GSE directory services.")]
 		public tServiceYesNo GSEDir
 		{
 			get
@@ -3099,7 +3006,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("This element shows that the IED can be a GOOSE server and/or client.")]
 		public tServiceWithMaxAndClient GOOSE 
 		{
 			get 
@@ -3112,7 +3019,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("This element shows that the IED can be a binary data GSSE server and/or client.")]
 		public tServiceWithMaxAndClient GSSE 
 		{
 			get 
@@ -3125,7 +3032,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("All file handling services.")]
 		public tServiceYesNo FileHandling 
 		{
 			get 
@@ -3138,7 +3045,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("Services"), Description("Describes what can be configured for LNs defined in an ICD file.")]
 		public tConfLNs ConfLNs
 		{
 			get
@@ -3151,8 +3058,7 @@ namespace IEC61850.SCL
 			}
 		}
 	}
-
-	/// <remarks/>
+	
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -3163,7 +3069,7 @@ namespace IEC61850.SCL
 		private tServiceYesNo sGEditField;		
 		private tServiceYesNo confSGField;
 		
-		/// <remarks/>
+		[Category("ServicesSettingGroups"), Description("The capability of online editing is decided with the SGEdit element.")]
 		public tServiceYesNo SGEdit 
 		{
 			get
@@ -3176,7 +3082,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("ServicesSettingGroups"), Description("The capability to configure the (number of) setting groups by SCL can be also "+
+ 			"available.")]
 		public tServiceYesNo ConfSG 
 		{
 			get
@@ -3190,7 +3097,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tIDNaming))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tEnumType))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tDAType))]
@@ -3262,8 +3168,8 @@ namespace IEC61850.SCL
 		private tPrivate[] privateField;		
 		private System.Xml.XmlAttribute[] anyAttrField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAnyElementAttribute()]
+		[Category("BaseElement"), Browsable(false)]
 		public System.Xml.XmlElement[] Any 
 		{
 			get 
@@ -3276,7 +3182,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("BaseElement"), Browsable(false)]
 		public tText Text 
 		{
 			get 
@@ -3289,8 +3195,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("Private")]
+		[Category("BaseElement"), Browsable(false)]
 		public tPrivate[] Private 
 		{
 			get
@@ -3303,7 +3209,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("BaseElement"), Browsable(false)]
 		[System.Xml.Serialization.XmlAnyAttributeAttribute()]
 		public System.Xml.XmlAttribute[] AnyAttr
 		{
@@ -3317,8 +3223,11 @@ namespace IEC61850.SCL
 			}
 		}
 	}
-
-	/// <remarks/>
+	
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/		
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tEnumType))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tDAType))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tDOType))]
@@ -3327,20 +3236,15 @@ namespace IEC61850.SCL
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/	
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tIDNaming : tBaseElement 
 	{		
 		private string idField;		
 		private string descField;
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Identifier"), Description("Mandatory identifier attribute."), ReadOnly(true)]
 		public string id 
 		{
 			get 
@@ -3352,9 +3256,9 @@ namespace IEC61850.SCL
 				this.idField = value;
 			}
 		}
-		
-		/// <remarks/>
+				
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Identifier"), Description("Description attribute.")]		
 		public string desc
 		{
 			get 
@@ -3368,7 +3272,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -3378,8 +3281,8 @@ namespace IEC61850.SCL
 	{		
 		private tEnumVal[] enumValField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("EnumVal")]
+		[Category("EnumType"), Browsable(false)]
 		public tEnumVal[] EnumVal 
 		{
 			get 
@@ -3393,7 +3296,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -3409,8 +3311,8 @@ namespace IEC61850.SCL
 			this.iedTypeField = "";
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("BDA")]
+		[Category("DAType"), Browsable(false)]
 		public tBDA[] BDA 
 		{
 			get
@@ -3423,9 +3325,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[System.ComponentModel.DefaultValueAttribute("")]
+		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]	
+		[Category("DAType"), Description("it is used to define the relation of a specific LN type to an IED type."),
+		 DefaultValue("")]
 		public string iedType
 		{
 			get 
@@ -3439,7 +3341,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -3450,25 +3351,25 @@ namespace IEC61850.SCL
 		
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	 *
+	 * The type of the attribute "bTypeField" was changed from string to "tBasciTypeEnum".
+	*/		
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tBDA))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tDA))]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/	
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tAbstractDataAttribute : tUnNaming
 	{		
 		private tVal[] valField;		
 		private string nameField;		
 		private string sAddrField;		
-		private string bTypeField;		
+		private tBasicTypeEnum bTypeField;		
 		private tValKindEnum valKindField;		
 		private string typeField;		
 		private uint countField;
@@ -3479,8 +3380,8 @@ namespace IEC61850.SCL
 			this.countField = ((uint)(0));
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("Val")]
+		[Category("AbstractDataAttribute"), Browsable(false)]
 		public tVal[] Val
 		{
 			get 
@@ -3493,9 +3394,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("AbstractDataAttribute"), Description("The attribute name."), ReadOnly(true)]
 		public string name 
 		{
 			get
@@ -3508,8 +3409,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("AbstractDataAttribute"), Description("A short address of this BDA attribute.")]
 		public string sAddr
 		{
 			get
@@ -3521,11 +3422,11 @@ namespace IEC61850.SCL
 				this.sAddrField = value;
 			}
 		}
-		
-		/// <remarks/>
+
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		public string bType 
+		[Category("AbstractDataAttribute"), Description("The basic type of the attribute."), ReadOnly(true)]
+		public tBasicTypeEnum bType 
 		{
 			get 
 			{
@@ -3537,9 +3438,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tValKindEnum.Set)]
+		[System.Xml.Serialization.XmlAttributeAttribute()]		
+		[Category("AbstractDataAttribute"), Description("Determines how the value shall be interpreted if any is given."), DefaultValue(tValKindEnum.Set), ReadOnly(true)]
 		public tValKindEnum valKind 
 		{
 			get 
@@ -3552,8 +3452,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("AbstractDataAttribute"), Description("It's used to refer to the appropriate enumeration type or DAType definition."), ReadOnly(true)]
 		public string type 
 		{
 			get
@@ -3566,9 +3466,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(typeof(uint), "0")]
+		[Category("AbstractDataAttribute"), Description("Shall state the number of array elements in the case where the attribute is an "+
+			"array."), DefaultValue(typeof(uint), "0"), ReadOnly(true)]
 		public uint count 
 		{
 			get 
@@ -3582,7 +3482,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
@@ -3594,7 +3493,6 @@ namespace IEC61850.SCL
 		Set
 	}
 
-	/// <remarks/>
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tDO))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tAbstractDataAttribute))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tBDA))]
@@ -3627,8 +3525,8 @@ namespace IEC61850.SCL
 	{		
 		private string descField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Description"), Description("Some descriptive text for the attribute.")]
 		public string desc 
 		{
 			get
@@ -3642,17 +3540,15 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/		
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/	
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tDO : tUnNaming
 	{		
 		private string nameField;		
@@ -3665,9 +3561,9 @@ namespace IEC61850.SCL
 			this.transientField = false;
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="Name")]
+		[Category("DO"), Description("The DATA name.")]
 		public string name
 		{
 			get 
@@ -3680,9 +3576,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("DO"), Description("The type references the id of a DOType definition.")]
 		public string type 
 		{
 			get 
@@ -3695,8 +3591,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("DO"), Description("Access control definition for this DO.")]
 		public string accessControl 
 		{
 			get 
@@ -3709,9 +3605,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("DO"), Description("If set to true, it indicates that the Transient definition applies."), DefaultValue(false)]
 		public bool transient 
 		{
 			get
@@ -3725,7 +3620,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>	
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -3736,17 +3630,15 @@ namespace IEC61850.SCL
 		
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/		
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/	
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tSettingControl : tUnNaming
 	{		
 		private uint numOfSGsField;		
@@ -3757,9 +3649,9 @@ namespace IEC61850.SCL
 			this.actSGField = ((uint)(1));
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("SettingControl"), Description("The number of setting groups available.")]
 		public uint numOfSGs 
 		{
 			get 
@@ -3772,9 +3664,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(typeof(uint), "1")]
+		[Category("SettingControl"), Description("TThe number of the setting group to be activated when loading the configuration."),
+		 DefaultValue(typeof(uint), "1")]
 		public uint actSG 
 		{
 			get
@@ -3788,7 +3680,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -3798,8 +3689,9 @@ namespace IEC61850.SCL
 	{		
 		private tExtRef[] extRefField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("ExtRef")]
+		
+		[Category("Inputs"), Browsable(false)]
 		public tExtRef[] ExtRef
 		{
 			get
@@ -3813,17 +3705,15 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/		
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/	
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tDAI : tUnNaming 
 	{		
 		private tVal[] valField;		
@@ -3838,8 +3728,8 @@ namespace IEC61850.SCL
 			this.valKindField = tValKindEnum.Set;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("Val")]
+		[Category("DAI"), Browsable(false)]
 		public tVal[] Val 
 		{
 			get 
@@ -3852,9 +3742,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("DAI"), Description("The name of the Data attribute whose value is given.")]
 		public string name
 		{
 			get
@@ -3867,8 +3757,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("DAI"), Description("Short address of this Data attribute.")]
 		public string sAddr 
 		{
 			get 
@@ -3881,9 +3771,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tValKindEnum.Set)]
+		[Category("DAI"), Description("The meaning of the value from the engineering phases, if any name is given."), DefaultValue(tValKindEnum.Set)]		
 		public tValKindEnum valKind 
 		{
 			get 
@@ -3896,8 +3785,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("DAI"), Description("Index of the DAI element in case of an array type.")]		
 		public uint ix 
 		{
 			get 
@@ -3910,8 +3799,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		[Category("DAI"), Description("Index of the DAI element in case of an array type.")]		
 		public bool ixSpecified
 		{
 			get
@@ -3925,13 +3814,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
@@ -3941,32 +3823,23 @@ namespace IEC61850.SCL
 	 * tDAI -> DAIField
 	 * 
 	 * The attribute "itemsField" was deleted to fulfill standar IEC 61850 Ed. 1.0.
-	*/	
+	*/		
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tSDI : tUnNaming 
 	{		
-//		private tUnNaming[] itemsField;		
 		private string nameField;		
 		private uint ixField;		
 		private bool ixFieldSpecified;		
-		private tSDI SDIField;		
-		private tDAI DAIField;	
+		private tSDI[] SDIField;
+		private tDAI[] DAIField;
 		
-		/// <remarks/>
-//		[System.Xml.Serialization.XmlElementAttribute("DAI", typeof(tDAI))]
-//		[System.Xml.Serialization.XmlElementAttribute("SDI", typeof(tSDI))]
-//		public tUnNaming[] Items 
-//		{
-//			get {
-//				return this.itemsField;
-//			}
-//			set {
-//				this.itemsField = value;
-//			}
-//		}
-		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("SDI"), Description("Name of the SDI (structure part)")]		
 		public string name 
 		{
 			get 
@@ -3979,8 +3852,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("SDI"), Description("Index of the SDI element in case of an array type.")]	
 		public uint ix 
 		{
 			get 
@@ -3993,8 +3866,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		[Category("SDI"), Description("Index of the SDI element in case of an array type.")]	
 		public bool ixSpecified 
 		{
 			get 
@@ -4008,7 +3881,8 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlElementAttribute("SDI", typeof(tSDI))]
-		public tSDI SDI	
+		[Category("SDI"), Browsable(false)]
+		public tSDI[] SDI	
 		{
 			get 
 			{
@@ -4021,7 +3895,8 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlElementAttribute("DAI", typeof(tDAI))]
-		public tDAI DAI
+		[Category("SDI"), Browsable(false)]		
+		public tDAI[] DAI
 		{
 			get
 			{
@@ -4034,13 +3909,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
@@ -4050,36 +3918,35 @@ namespace IEC61850.SCL
 	 * tDAI -> DAIField
 	 * 
 	 * The attribute "itemsField" was deleted to fulfill standar IEC 61850 Ed. 1.0.
-	*/	
-	
+	 *
+	 * Only one array of TSDI or TDAI elements should be choose. 
+	 * When an element is selected, the "ADD" option must be hidden, so elements of another type could not be added. 
+	 * This point is defined on the XSD files contained on the IEC 61850 standard, as follows:
+	 * <xs:choice minOccurs="0" maxOccurs="unbounded">
+	 *	<xs:element name="SDI" type="tSDI"/>
+	 *	<xs:element name="DAI" type="tDAI"/>
+	 * </xs:choice>
+	 * 
+	 * According to the Reference Manual of XML, "The <choiCe> option describes a selection between 
+	 * some elements or an elements group that can show up on the instance of the XML document"
+	*/		
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tDOI : tUnNaming 
 	{		
-//		private tUnNaming[] itemsField;		
 		private string nameField;		
 		private uint ixField;		
 		private bool ixFieldSpecified;		
 		private string accessControlField;		
-		private tSDI SDIField;		
-		private tDAI DAIField;		
-				
-		/// <remarks/>
-//		[System.Xml.Serialization.XmlElementAttribute("DAI", typeof(tDAI))]
-//		[System.Xml.Serialization.XmlElementAttribute("SDI", typeof(tSDI))]
-//		public tUnNaming[] Items 
-//		{
-//			get 
-//			{
-//				return this.itemsField;
-//			}
-//			set
-//			{
-//				this.itemsField = value;
-//			}
-//		}
+		private tSDI[] SDIField;
+		private tDAI[] DAIField;
 		
-		/// <remarks/>
 		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="Name")]		
+		[System.Xml.Serialization.XmlAttributeAttribute(DataType="Name")]	
+		[Category("DOI"), Description("A standardised DO name")]	
 		public string name
 		{
 			get
@@ -4092,8 +3959,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]			
+		[System.Xml.Serialization.XmlAttributeAttribute()]		
+		[Category("DOI"), Description("Index of a data element in case of an array type")]
 		public uint ix
 		{
 			get 
@@ -4106,8 +3973,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		[Category("DOI"), Description("Index of a data element in case of an array type")]
 		public bool ixSpecified 
 		{
 			get
@@ -4120,8 +3987,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]		
+		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]	
+		[Category("DOI"), Description("Access control definition for this data.")]
 		public string accessControl 
 		{
 			get
@@ -4135,7 +4002,8 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlElementAttribute("SDI", typeof(tSDI))]
-		public tSDI SDI	
+		[Category("DOI"), Browsable(false)]
+		public tSDI[] SDI
 		{
 			get 
 			{
@@ -4148,7 +4016,8 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlElementAttribute("DAI", typeof(tDAI))]
-		public tDAI DAI
+		[Category("DOI"), Browsable(false)]
+		public tDAI[] DAI
 		{
 			get
 			{
@@ -4161,27 +4030,27 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	 * 
+	 * The value of the attribute "addressField" of tP[] was changed to tAddress, to fulfill the IEC 61850 Ed.1.0 standard.
+	*/		
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tSMV))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tGSE))]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	 * 
-	 * The value of the attribute "addressField" of tP[] was changed to tAddress, to fulfill the IEC 61850 Ed.1.0 standard.
-	*/	
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tControlBlock : tUnNaming 
 	{		
 		private tAddress addressField;		
 		private string ldInstField;		
 		private string cbNameField;
-				
+		
+		[Category("ControlBlock"), Description("This contains the address parameters of this access point at this bus, at least "+
+			"one parameter"), Browsable(false)]
 		public tAddress Address 
 		{
 			get 
@@ -4194,9 +4063,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ControlBlock"), Description("The instance identification of the LD within this IED, on which the control block is located.")]
 		public string ldInst 
 		{
 			get 
@@ -4208,10 +4077,10 @@ namespace IEC61850.SCL
 				this.ldInstField = value;
 			}
 		}
-		
-		/// <remarks/>
+
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ControlBlock"), Description("The name of the control block within the LLN0 of the LD ldInst.")]
 		public string cbName 
 		{
 			get 
@@ -4225,7 +4094,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4236,7 +4104,6 @@ namespace IEC61850.SCL
 		
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4247,7 +4114,8 @@ namespace IEC61850.SCL
 		private tDurationInMilliSec minTimeField;		
 		private tDurationInMilliSec maxTimeField;
 		
-		/// <remarks/>
+		[Category("GSE"), Description("The maximal allowed sending delay on a data change in ms."), 
+		 Browsable(false)]
 		public tDurationInMilliSec MinTime
 		{
 			get 
@@ -4259,8 +4127,9 @@ namespace IEC61850.SCL
 				this.minTimeField = value;
 			}
 		}
-		
-		/// <remarks/>
+				
+		[Category("GSE"), Description("The source supervision time in ms (supervision heartbeat cycle time)."), 
+		 Browsable(false)]
 		public tDurationInMilliSec MaxTime 
 		{
 			get 
@@ -4274,13 +4143,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-		
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
@@ -4288,7 +4150,12 @@ namespace IEC61850.SCL
 	 * The following attributes were added to fulfill standard IEC 61850 Ed. 1.0:
 	 * unit -> unitField
 	 * multiplier -> multiplierField
-	*/		
+	*/	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]			
 	public partial class tDurationInMilliSec : tValueWithUnit 
 	{
 		private tSIUnitEnum unitField;		
@@ -4299,10 +4166,10 @@ namespace IEC61850.SCL
 			this.unitField = tSIUnitEnum.s;
 			this.multiplierField = tUnitMultiplierEnum.m;
 		}
-		/// <remarks/>
+
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tSIUnitEnum.s)]
+		[Category("DurationInMilliSec"), Description("It shall define the SI unit"), DefaultValue(tSIUnitEnum.s)]
 		public tSIUnitEnum unit 
 		{
 			get 
@@ -4314,9 +4181,9 @@ namespace IEC61850.SCL
 				this.unitField = value;
 			}
 		}
-		/// <remarks/>
+		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tUnitMultiplierEnum.m)]
+		[Category("DurationInMilliSec"), Description("It shall define the multiplier value"), DefaultValue(tUnitMultiplierEnum.m)]
 		public tUnitMultiplierEnum multiplier 
 		{
 			get 
@@ -4338,6 +4205,8 @@ namespace IEC61850.SCL
 		private tP[] pField;
 		
 		[System.Xml.Serialization.XmlElementAttribute("P", IsNullable=false)]
+		[Category("Address"), Description("The different parameters are defined within the contained P elements."),
+		  Browsable(false)]
 		public tP[] P 
 		{
 			get
@@ -4351,19 +4220,17 @@ namespace IEC61850.SCL
 		}		
 	}
 	
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
-	 * The value of attributte "addressField" of tP[] was changed to tAddress, to fulfill the IEC 61850 Ed.1.0 standard.
+	 * The value of the attribute "addressField" of tP[] was changed to tAddress, to fulfill the IEC 61850 Ed.1.0 standard.
 	*/	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tConnectedAP : tUnNaming 
 	{		
 		private tAddress addressField;		
@@ -4372,8 +4239,8 @@ namespace IEC61850.SCL
 		private tPhysConn[] physConnField;		
 		private string iedNameField;		
 		private string apNameField;
-		
-		/// <remarks/>
+
+		[Category("ConnectedAP"), Description("The Address element contains the address parameters of this access point at this bus."), Browsable(false)]
 		public tAddress Address 
 		{
 			get 
@@ -4385,9 +4252,9 @@ namespace IEC61850.SCL
 				this.addressField = value;
 			}
 		}
-		
-		/// <remarks/>
+						
 		[System.Xml.Serialization.XmlElementAttribute("GSE")]
+		[Category("ConnectedAP"), Browsable(false)]
 		public tGSE[] GSE
 		{
 			get
@@ -4400,8 +4267,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("SMV")]
+		[Category("ConnectedAP"), Browsable(false)]
 		public tSMV[] SMV 
 		{
 			get
@@ -4413,9 +4280,9 @@ namespace IEC61850.SCL
 				this.sMVField = value;
 			}
 		}
-		
-		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("PhysConn")]
+				
+		[System.Xml.Serialization.XmlElementAttribute("PhysConn")]		
+		[Category("ConnectedAP"), Browsable(false)]
 		public tPhysConn[] PhysConn 
 		{
 			get 
@@ -4427,10 +4294,10 @@ namespace IEC61850.SCL
 				this.physConnField = value;
 			}
 		}
-		
-		/// <remarks/>
+
 		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ConnectedAP"), Description("A name identifying the IED.")]
+		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]		
 		public string iedName
 		{
 			get
@@ -4443,9 +4310,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ConnectedAP"), Description("A name identifying this access point within the IED")]
+		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]		
 		public string apName 
 		{
 			get 
@@ -4459,7 +4326,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4474,9 +4340,9 @@ namespace IEC61850.SCL
 		{
 			this.maxField = ((uint)(1));
 		}
-		
-		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("ClientLN")]
+
+		[Category("RptEnabled"), Browsable(false)]
+		[System.Xml.Serialization.XmlElementAttribute("ClientLN")]		
 		public tClientLN[] ClientLN 
 		{
 			get 
@@ -4489,9 +4355,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(typeof(uint), "1")]
+		[Category("RptEnabled"), Description("Defines the maximum number of report control blocks of this type."), 
+		 DefaultValue(typeof(uint), "1")]
+		[System.Xml.Serialization.XmlAttributeAttribute()]		
 		public uint max 
 		{
 			get
@@ -4505,19 +4371,17 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/		
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tLN0))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tLN))]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/	
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tAnyLN : tUnNaming 
 	{		
 		private tDataSet[] dataSetField;		
@@ -4527,8 +4391,8 @@ namespace IEC61850.SCL
 		private tInputs inputsField;		
 		private string lnTypeField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("DataSet")]
+		[Category("LN"), Browsable(false)]
 		public tDataSet[] DataSet 
 		{
 			get 
@@ -4541,8 +4405,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("ReportControl")]
+		[Category("LN"), Browsable(false)]
 		public tReportControl[] ReportControl 
 		{
 			get 
@@ -4555,8 +4419,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("LogControl")]
+		[Category("LN"), Browsable(false)]
 		public tLogControl[] LogControl 
 		{
 			get 
@@ -4569,8 +4433,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("DOI")]
+		[Category("LN"), Browsable(false)]
 		public tDOI[] DOI 
 		{
 			get 
@@ -4583,7 +4447,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("LN"), Description("Input"), Browsable(false)]
 		public tInputs Inputs
 		{
 			get
@@ -4596,9 +4460,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("LN"), Description("The instantiable type definition of this logical node.")]
 		public string lnType
 		{
 			get 
@@ -4612,7 +4476,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4622,8 +4485,8 @@ namespace IEC61850.SCL
 	{		
 		private tFCDA[] fCDAField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("FCDA")]
+		[Category("DataSet"), Browsable(false)]
 		public tFCDA[] FCDA 
 		{
 			get 
@@ -4637,7 +4500,10 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/	
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tSDO))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tSubNetwork))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tControl))]
@@ -4671,20 +4537,15 @@ namespace IEC61850.SCL
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tNaming : tBaseElement 
 	{		
 		private string nameField;		
 		private string descField;
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("General Information"), Description("A name used as a technical key to designate the object.")]
 		public string name 
 		{
 			get
@@ -4697,8 +4558,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("General Information"), Description("It is used as an operator- or user-related object identification.")]		
 		public string desc 
 		{
 			get
@@ -4712,24 +4573,22 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/		
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/	
 	public partial class tSDO : tNaming
 	{		
 		private string typeField;
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("SDO"), Description("References the DOType defining the contents of the SDO.")]	
 		public string type 
 		{
 			get 
@@ -4743,7 +4602,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4755,7 +4613,7 @@ namespace IEC61850.SCL
 		private tConnectedAP[] connectedAPField;		
 		private string typeField;
 		
-		/// <remarks/>
+		[Category("SubNetwork"), Description("Defining the bit rate in Mbit/s."), Browsable(false)]	
 		public tBitRateInMbPerSec BitRate 
 		{
 			get
@@ -4768,8 +4626,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("ConnectedAP")]
+		[Category("SubNetwork"), Browsable(false)]
 		public tConnectedAP[] ConnectedAP 
 		{
 			get 
@@ -4782,8 +4640,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("SubNetwork"), Description("The SubNetwork protocol type.")]
 		public string type 
 		{
 			get
@@ -4797,13 +4655,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
@@ -4811,7 +4662,12 @@ namespace IEC61850.SCL
 	 * The following attributes were added to fulfill standard IEC 61850 Ed. 1.0:
 	 * unit -> unitField
 	 * multiplier -> multiplierField
-	*/		
+	*/	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tBitRateInMbPerSec : tValueWithUnit 
 	{
 		private tSIUnitEnum unitField;		
@@ -4822,10 +4678,10 @@ namespace IEC61850.SCL
 			this.unitField = tSIUnitEnum.bs;
 			this.multiplierField = tUnitMultiplierEnum.M;
 		}
-		/// <remarks/>
+
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tSIUnitEnum.bs)]
+		[Category("BitRateInMbPerSec"), Description("It defines the unit of the bit rate"), DefaultValue(tSIUnitEnum.bs)]
 		public tSIUnitEnum unit 
 		{
 			get 
@@ -4838,9 +4694,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tUnitMultiplierEnum.M)]
+		[Category("BitRateInMbPerSec"), Description("It shall define the multiplier value"), DefaultValue(tUnitMultiplierEnum.M)]
 		public tUnitMultiplierEnum multiplier
 		{
 			get
@@ -4854,7 +4709,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tControlWithIEDName))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tSampledValueControl))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tGSEControl))]
@@ -4870,8 +4724,8 @@ namespace IEC61850.SCL
 	{		
 		private string datSetField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Control"), Description("Data set reference")]
 		public string datSet 
 		{
 			get 
@@ -4885,7 +4739,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tSampledValueControl))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tGSEControl))]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
@@ -4899,8 +4752,8 @@ namespace IEC61850.SCL
 		private uint confRevField;		
 		private bool confRevFieldSpecified;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("IEDName", DataType="normalizedString")]
+		[Category("ControlWithIEDName"), Description("The name of the IED.")]
 		public string[] IEDName
 		{
 			get
@@ -4913,8 +4766,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("ControlWithIEDName"), Description("The configuration revision number of a control block")]
 		public uint confRev 
 		{
 			get 
@@ -4927,8 +4780,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		[Category("ControlWithIEDName"), Description("The configuration revision number of a control block")]
 		public bool confRevSpecified 
 		{
 			get 
@@ -4942,17 +4795,15 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/	
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/	
 	public partial class tSampledValueControl : tControlWithIEDName 
 	{		
 		private tSampledValueControlSmvOpts smvOptsField;		
@@ -4965,8 +4816,8 @@ namespace IEC61850.SCL
 		{
 			this.multicastField = true;
 		}
-		
-		/// <remarks/>		
+			
+		[Category("SampledValueControl"), Description("Sampled Values Options")]
 		public tSampledValueControlSmvOpts SmvOpts 
 		{
 			get 
@@ -4979,9 +4830,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("SampledValueControl"), Description("Idenitifier of the SMV, (Multicast CB or Unicast CB)")]
 		public string smvID
 		{
 			get 
@@ -4993,10 +4844,9 @@ namespace IEC61850.SCL
 				this.smvIDField = value;
 			}
 		}
-		
-		/// <remarks/>		
+			
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(true)]
+		[Category("SampledValueControl"), Description("If it's false indicates Unicast SMV services"), DefaultValue(true)]
 		public bool multicast 
 		{
 			get
@@ -5009,9 +4859,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("SampledValueControl"), Description("Sample rate")]
 		public uint smpRate
 		{
 			get
@@ -5024,9 +4874,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("SampledValueControl"), Description("Number of ASDU (Application service data unit)")]
 		public uint nofASDU 
 		{
 			get
@@ -5040,7 +4890,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5063,9 +4912,8 @@ namespace IEC61850.SCL
 			this.dataRefField = false;
 		}
 		
-		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[System.Xml.Serialization.XmlAttributeAttribute()]		
+		[Category("SampledValueControlSmvOpts"), Description("Time of refresh activity"), DefaultValue(false)]
 		public bool refreshTime 
 		{
 			get 
@@ -5078,9 +4926,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("SampledValueControlSmvOpts"), Description("Samples are synchronized by clock signals"), DefaultValue(false)]
 		public bool sampleSynchronized 
 		{
 			get 
@@ -5093,9 +4940,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("SampledValueControlSmvOpts"), Description("Sample rate from the instance"), DefaultValue(false)]
 		public bool sampleRate 
 		{
 			get 
@@ -5108,9 +4954,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("SampledValueControlSmvOpts"), Description(" "), DefaultValue(false)]
 		public bool security
 		{
 			get
@@ -5123,9 +4968,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("SampledValueControlSmvOpts"), Description("If true, then the data set reference is included in the SV message"), DefaultValue(false)]
 		public bool dataRef 
 		{
 			get 
@@ -5139,17 +4983,15 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/	
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tGSEControl : tControlWithIEDName 
 	{		
 		private tGSEControlTypeEnum typeField;		
@@ -5160,9 +5002,8 @@ namespace IEC61850.SCL
 			this.typeField = tGSEControlTypeEnum.GOOSE;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tGSEControlTypeEnum.GOOSE)]
+		[Category("GSEControl"), Description("GSE Type"), DefaultValue(tGSEControlTypeEnum.GOOSE)]
 		public tGSEControlTypeEnum type 
 		{
 			get
@@ -5175,9 +5016,10 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("GSEControl"), Description("A system wide unique identification of the application to which the GOOSE message "+
+			"belongs.")]
 		public string appID
 		{
 			get 
@@ -5191,20 +5033,16 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
+	[Category("GSEControl"), Description("GSE Type")]
 	public enum tGSEControlTypeEnum 
 	{		
-		/// <remarks/>
 		GSSE,
-		
-		/// <remarks/>
 		GOOSE,
 	}
 
-	/// <remarks/>
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tLogControl))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tReportControl))]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
@@ -5222,7 +5060,8 @@ namespace IEC61850.SCL
 			this.intgPdField = ((uint)(0));
 		}
 		
-		/// <remarks/>
+		[Category("ControlWithTriggerOpt"), Description("Reasons which causes the control block to report a "+
+		 "value into the report."), Browsable(false)]
 		public tTrgOps TrgOps 
 		{
 			get 
@@ -5235,9 +5074,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(typeof(uint), "0")]
+		[Category("ControlWithTriggerOpt"), Description("reporting all values initiated by the server based on this period."), DefaultValue(typeof(uint), "0")]
 		public uint intgPd
 		{
 			get 
@@ -5251,17 +5089,15 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/		
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/	
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tLogControl : tControlWithTriggerOpt 
 	{		
 		private string logNameField;		
@@ -5274,9 +5110,9 @@ namespace IEC61850.SCL
 			this.reasonCodeField = true;
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("LogControl"), Description("Reference to the LD, which is the owner of the log.")]
 		public string logName 
 		{
 			get
@@ -5289,9 +5125,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(true)]
+		[Category("LogControl"), Description("TRUE enables immediate logging; FALSE prohibits logging until enabled online."),
+		 DefaultValue(true)]
 		public bool logEna 
 		{
 			get 
@@ -5304,9 +5140,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(true)]
+		[Category("LogControl"), Description("Reason for inclusion in the report"), DefaultValue(true)]
 		public bool reasonCode
 		{
 			get 
@@ -5320,17 +5155,15 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tReportControl : tControlWithTriggerOpt 
 	{		
 		private tReportControlOptFields optFieldsField;		
@@ -5346,7 +5179,8 @@ namespace IEC61850.SCL
 			this.bufTimeField = ((uint)(0));
 		}
 		
-		/// <remarks/>
+		[Category("ReportControl"), Description("optional fields to include in report."),
+		 Browsable(false)]
 		public tReportControlOptFields OptFields
 		{
 			get 
@@ -5359,7 +5193,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>		
+		[Category("ReportControl"), Description("Contains the list of client LNs for which this report shall be enabled."),
+		 Browsable(false)]
 		public tRptEnabled RptEnabled 
 		{
 			get
@@ -5372,9 +5207,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ReportControl"), Description("Identifier for the report control block.")]
 		public string rptID
 		{
 			get 
@@ -5387,9 +5222,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("ReportControl"), Description("The configuration revision number of this report control block.")]
 		public uint confRev 
 		{
 			get
@@ -5402,9 +5237,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("ReportControl"), Description("Specifies if reports are buffered or no."), DefaultValue(false)]
 		public bool buffered 
 		{
 			get
@@ -5417,9 +5251,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(typeof(uint), "0")]
+		[Category("ReportControl"), Description("Buffer time."), DefaultValue(typeof(uint), "0")]
 		public uint bufTime 
 		{
 			get 
@@ -5433,7 +5266,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5460,9 +5292,8 @@ namespace IEC61850.SCL
 			this.configRefField = false;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("ReportControlOptFields"), Description("Current sequence number of the reports."), DefaultValue(false)]
 		public bool seqNum 
 		{
 			get 
@@ -5475,9 +5306,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("ReportControlOptFields"), Description("Represent a UTC time with the epoch of midnight (00:00:00) of "+
+			"1970-01-01."), DefaultValue(false)]
 		public bool timeStamp 
 		{
 			get 
@@ -5490,9 +5321,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("ReportControlOptFields"), Description("Identifies a DATA-SET that is contained in the LN."), DefaultValue(false)]
 		public bool dataSet 
 		{
 			get
@@ -5505,9 +5335,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("ReportControlOptFields"), Description("Reason for inclusion in the report"), DefaultValue(false)]
 		public bool reasonCode
 		{
 			get
@@ -5520,9 +5349,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("ReportControlOptFields"), Description("Data Object Reference"), DefaultValue(false)]
 		public bool dataRef 
 		{
 			get 
@@ -5535,9 +5363,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("ReportControlOptFields"), Description("Used to identify an entry in a sequence of events such as a log or a buffered report."), 
+		 DefaultValue(false)]
 		public bool entryID 
 		{
 			get
@@ -5550,9 +5378,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("ReportControlOptFields"), Description("Configuration reference."), DefaultValue(false)]
 		public bool configRef 
 		{
 			get
@@ -5580,7 +5407,6 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public partial class tAccessPoint : tNaming
 	{		
-//		private tUnNaming[] itemsField;		
 		private bool routerField;		
 		private bool clockField;		
 		private tServer serverField;		
@@ -5592,24 +5418,8 @@ namespace IEC61850.SCL
 			this.clockField = false;
 		}
 		
-		/// <remarks/>
-//		[System.Xml.Serialization.XmlElementAttribute("LN", typeof(tLN))]
-//		[System.Xml.Serialization.XmlElementAttribute("Server", typeof(tServer))]
-//		public tUnNaming[] Items 
-//		{
-//			get 
-//			{
-//				return this.itemsField;
-//			}
-//			set 
-//			{
-//				this.itemsField = value;
-//			}
-//		}
-		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("AccessPoint"), Description("This is a function of the communication network on the IED."), DefaultValue(false)]
 		public bool router
 		{
 			get 
@@ -5622,9 +5432,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("AccessPoint"), Description("The presence and setting to true defines this IED to be a master clock at this bus."), 
+		 DefaultValue(false)]
 		public bool clock 
 		{
 			get
@@ -5638,6 +5448,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlElementAttribute("Server")]
+		[Category("AccessPoint"), Description("A communication entity within an IED."), Browsable(false)]
 		public tServer Server
 		{
 			get
@@ -5651,6 +5462,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlElementAttribute("LN")]
+		[Category("AccessPoint"), Browsable(false)]
 		public tLN[] LN
 		{
 			get
@@ -5664,20 +5476,18 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	[System.Xml.Serialization.XmlRootAttribute("LN", Namespace="http://www.iec.ch/61850/2003/SCL", IsNullable=false)]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 *
 	 * The data type "lnClassField" was added to fulfill standard IEC 61850 Ed. 1.0	 
 	*/	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
+	[System.Xml.Serialization.XmlRootAttribute("LN", Namespace="http://www.iec.ch/61850/2003/SCL", IsNullable=false)]	
 	public partial class tLN : tAnyLN 
 	{		
 		private tLNClassEnum lnClassField;		
@@ -5689,9 +5499,9 @@ namespace IEC61850.SCL
 			this.prefixField = "";
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("LN"), Description("The LN class")]
 		public tLNClassEnum lnClass 
 		{
 			get 
@@ -5704,9 +5514,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("LN"), Description("The LN instance number identifying this LN.")]
 		public uint inst 
 		{
 			get 
@@ -5719,9 +5529,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[System.ComponentModel.DefaultValueAttribute("")]
+		[Category("LN"), Description("The LN prefix part."), DefaultValue("")]
 		public string prefix
 		{
 			get 
@@ -5735,7 +5544,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5753,7 +5561,7 @@ namespace IEC61850.SCL
 			this.timeoutField = ((uint)(30));
 		}
 		
-		/// <remarks/>
+		[Category("Server"), Description("Defines the authentication possibilities or method(s) to be used."), Browsable(false)]
 		public tServerAuthentication Authentication 
 		{
 			get 
@@ -5766,8 +5574,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("LDevice")]
+		[Category("Server"), Browsable(false)]
 		public tLDevice[] LDevice 
 		{
 			get 
@@ -5780,8 +5588,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("Association")]
+		[Category("Server"), Browsable(false)]
 		public tAssociation[] Association
 		{
 			get 
@@ -5794,9 +5602,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(typeof(uint), "30")]
+		[Category("Server"), Description("Time out in seconds."), DefaultValue(typeof(uint), "30")]
 		public uint timeout 
 		{
 			get
@@ -5810,7 +5617,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5833,9 +5639,8 @@ namespace IEC61850.SCL
 			this.certificateField = false;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(true)]
+		[Category("ServerAuthentication"), Description("No authentication."), DefaultValue(true)]
 		public bool none 
 		{
 			get 
@@ -5848,9 +5653,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("ServerAuthentication"), Description("Key for authentication."), DefaultValue(false)]
 		public bool password 
 		{
 			get
@@ -5863,9 +5667,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("ServerAuthentication"), Description("A weak password for authentication."), DefaultValue(false)]
 		public bool weak 
 		{
 			get 
@@ -5878,9 +5681,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("ServerAuthentication"), Description("A strong password for authentication."), DefaultValue(false)]
 		public bool strong 
 		{
 			get
@@ -5893,9 +5695,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("ServerAuthentication"), Description("A certificate for authentication."), DefaultValue(false)]
 		public bool certificate 
 		{
 			get 
@@ -5909,18 +5710,16 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"	 	
 	 * 
-	*/	
+	*/		
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tLDevice : tUnNaming
 	{		
 		private LN0 lN0Field;		
@@ -5929,7 +5728,7 @@ namespace IEC61850.SCL
 		private string instField;		
 		private string ldNameField;
 		
-		/// <remarks/>
+		[Category("LDevice"), Description("The LN class is always LLN0"), Browsable(false)]
 		public LN0 LN0 
 		{
 			get
@@ -5942,8 +5741,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("LN")]
+		[Category("LDevice"), Browsable(false)]
 		public tLN[] LN 
 		{
 			get 
@@ -5956,7 +5755,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("LDevice"), Description("Access control definition for this LD."), Browsable(false)]
 		public tAccessControl AccessControl 
 		{
 			get 
@@ -5968,10 +5767,10 @@ namespace IEC61850.SCL
 				this.accessControlField = value;
 			}
 		}
-		
-		/// <remarks/>		
+			
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("LDevice"), Description("Identification of the LDevice within the IED.")]
 		public string inst 
 		{
 			get
@@ -5984,8 +5783,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="Name")]
+		[Category("LDevice"), Description("The LD name")]
 		public string ldName 
 		{
 			get
@@ -5999,7 +5798,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>	
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6011,19 +5809,17 @@ namespace IEC61850.SCL
 		
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
 	 * The data type "lnClassField" was added to fulfill standard IEC 61850 Ed. 1.0	
-	*/	
+	*/		
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tLN0 : tAnyLN 
 	{
 		private tGSEControl[] gSEControlField;		
@@ -6039,8 +5835,8 @@ namespace IEC61850.SCL
 			this.lnClassField = tLNClassEnum.LLN0;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("GSEControl")]
+		[Category("LN"), Browsable(false)]
 		public tGSEControl[] GSEControl 
 		{
 			get 
@@ -6053,8 +5849,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("SampledValueControl")]
+		[Category("LN"), Browsable(false)]
 		public tSampledValueControl[] SampledValueControl
 		{
 			get 
@@ -6067,7 +5863,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("LN"), Description(" "), Browsable(false)]
 		public tSettingControl SettingControl
 		{
 			get 
@@ -6080,7 +5876,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("LN"), Description(" "), Browsable(false)]
 		public tSCLControl SCLControl 
 		{
 			get 
@@ -6093,7 +5889,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("LN"), Description(" ")]
 		public tLog Log 
 		{
 			get 
@@ -6106,10 +5902,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tLNClassEnum.LLN0)]
+		[Category("LN"), Description("The LN class."), DefaultValue(tLNClassEnum.LLN0)]
 		public tLNClassEnum lnClass 
 		{
 			get
@@ -6122,9 +5917,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("LN"), Description("The LN instance number identifying this LN.")]
 		public string inst 
 		{
 			get 
@@ -6138,7 +5933,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tConnectivityNode))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tPowerSystemResource))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tSubFunction))]
@@ -6164,8 +5958,8 @@ namespace IEC61850.SCL
 	{		
 		private tLNode[] lNodeField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("LNode")]
+		[Category("LNodeContainer"), Browsable(false)]
 		public tLNode[] LNode 
 		{
 			get
@@ -6179,37 +5973,31 @@ namespace IEC61850.SCL
 		}
 	}
 	
-	///<remarks/>	
-	[System.SerializableAttribute()]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/*
 	 * The enumeration "tLPHDEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public enum tLPHDEnum
 	{
 		LPHD		
 	}
 	
-	///<remarks/>	
-	[System.SerializableAttribute()]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/*
 	 * The enumeration "tLLN0Enum" was added to fulfill standard IEC 61850 Ed. 1.0
-	*/
+	*/	
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public enum tLLN0Enum
 	{
 		LLN0		
 	}
 			
-	/// <remarks/>
-	[System.SerializableAttribute()]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/*
 	 * The enumeration "tDomainLNGroup AEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public enum tDomainLNGroupAEnum
 	{
 		ANCR,		
@@ -6218,13 +6006,11 @@ namespace IEC61850.SCL
 		AVCO
 	}
 		
-	/// <remarks/>
-	[System.SerializableAttribute()]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/*
 	 * The enumeration "tDomainLNGroupCEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public enum tDomainLNGroupCEnum 
 	{
 		CILO,
@@ -6234,13 +6020,11 @@ namespace IEC61850.SCL
 		CPOW
 	}
 	
-	/// <remarks/>
-	[System.SerializableAttribute()]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/*
 	 * The enumeration "tDomainLNGroupGEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public enum tDomainLNGroupGEnum 
 	{
 		GAPC,
@@ -6248,13 +6032,11 @@ namespace IEC61850.SCL
 		GSAL
 	}
 	
-	/// <remarks/>
-	[System.SerializableAttribute()]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/*
 	 * The enumeration "tDomainLNGroupIEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public enum tDomainLNGroupIEnum
 	{
 		IHMI,
@@ -6263,13 +6045,11 @@ namespace IEC61850.SCL
 		ITMI
 	}
 	
-	///<remarks/>
-	[System.SerializableAttribute()]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/*
 	 * The enumeration "tDomainLNGroupMEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public enum tDomainLNGroupMEnum 
 	{
 		MMXU,
@@ -6282,14 +6062,11 @@ namespace IEC61850.SCL
 		MSTA
 	}
 	
-	
-	///<remarks/>	
-	[System.SerializableAttribute()]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/*
 	 * The enumeration "tDomainLNGroupPEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public enum tDomainLNGroupPEnum 
 	{
 		PDIF,
@@ -6322,13 +6099,11 @@ namespace IEC61850.SCL
 		PZSU
 	}
 	
-	/// <remarks/>
-	[System.SerializableAttribute()]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/*
 	 * The enumeration "tDomainLNGroupREnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public enum tDomainLNGroupREnum 
 	{
 		RSYN,
@@ -6343,13 +6118,11 @@ namespace IEC61850.SCL
 		RREC
 	}
 	
-		
-	[System.SerializableAttribute()]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/*
 	 * The enumeration "tDomainLNGroupSEnum" was added to fulfill standard IEC 61850 Ed. 1.0
-	 */
+	 */	
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public enum tDomainLNGroupSEnum
 	{
 		SARC,
@@ -6358,14 +6131,11 @@ namespace IEC61850.SCL
 		SPDC
 	}
 	
-		
-	/// <remarks/>
-	[System.SerializableAttribute()]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/*
 	 * The enumeration "tDomainLNGroupTEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public enum tDomainLNGroupTEnum 
 	{
 		TCTR,
@@ -6373,27 +6143,22 @@ namespace IEC61850.SCL
 	}
 	
 		
-	/// <remarks/>
-	[System.SerializableAttribute()]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/*
 	 * The enumeration "tDomainLNGroupXEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public enum tDomainLNGroupXEnum
 	{
 		XCBR,
 		XSWI
 	}
 	
-	
-	/// <remarks/>
-	[System.SerializableAttribute()]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/*
 	 * The enumeration "tDomainLNGroupYEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/	
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public enum tDomainLNGroupYEnum
 	{
 		YPTR,
@@ -6402,13 +6167,11 @@ namespace IEC61850.SCL
 		YPSH	
 	}
 	
-	///<remarks/>	
-	[System.SerializableAttribute()]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/*
 	 * The enumeration "tDomainLNGroupZEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public enum tDomainLNGroupZEnum 
 	{
 		ZAXN,
@@ -6428,10 +6191,6 @@ namespace IEC61850.SCL
 		ZTCR
 	}
 	
-	/// <remarks/>
-	[System.SerializableAttribute()]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/*
 	 * The enumeration "tDomainLNEnum" was added to fulfill standard IEC 61850 Ed. 1.0.
 	 * This is composed by following Enums: tDomainLNGroupAEnum, tDomainLNGroupCEnum, 
@@ -6439,6 +6198,8 @@ namespace IEC61850.SCL
 	 * tDomainLNGroupREnum, tDomainLNGroupSEnum, tDomainLNGroupTEnum, tDomainLNGroupXEnum,
 	 * tDomainLNGroupYEnum, tDomainLNGroupZEnum
 	*/	
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public enum tDomainLNEnum
 	{
 		ANCR,ARCO,ATCC,AVCO,
@@ -6455,10 +6216,6 @@ namespace IEC61850.SCL
 		ZAXN,ZBAT,ZBSH,ZCAB,ZCAP,ZCON,ZGEN,ZGIL,ZLIN,ZMOT,ZREA,ZRRC,ZSAR,ZTCF,ZTCR
 	}
 	
-	
-	[System.SerializableAttribute()]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/*
 	 * The enumeration "tPredefinedLNClassEnum" was added to fulfill standard IEC 61850 Ed. 1.0.
 	 * This is composed by following Enums: tLPHDEnum, tLLN0Enum y tDomainLNEnum
@@ -6466,7 +6223,9 @@ namespace IEC61850.SCL
 	 * tDomainLNGroupIEnum, tDomainLNGroupMEnum, tDomainLNGroupPEnum, 
 	 * tDomainLNGroupREnum, tDomainLNGroupSEnum, tDomainLNGroupTEnum, 
 	 * tDomainLNGroupXEnum, tDomainLNGroupYEnum, tDomainLNGroupZEnum)
-	*/
+	*/	
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public enum tPredefinedLNClassEnum 
 	{
 		LPHD,		
@@ -6542,10 +6301,34 @@ namespace IEC61850.SCL
 		Oper,
 		SBO,
 		SBOw,
-		Cancel			
+		Cancel,			
 		// Missing:
 		// tExtensionAttributeNameEnum		
+		ctlVal,
+		operTm,
+		origin,
+		ctlNum,
+		stVal,
+		q,
+		t,
+		stSeld,
+		subEna,
+		subVal,
+		subQ,
+		subID,
+		ctlModel,
+		sboTimeout,
+		sboClass,
+		minVal,
+		maxVal,
+		stepSize,
+		d,
+		dU,
+		cdcNs,
+		cdcName,
+		dataNs
 	}
+	
 	/*
 	 * The enumeration "tPredefinedGeneralEquipmentEnum" was added to fulfill standard IEC 61850 Ed. 1.0.	 
 	*/		
@@ -6651,9 +6434,11 @@ namespace IEC61850.SCL
 		dchg,		
 		qchg,
 		dupd,
-		none
+		none,
 		
 		//tExtensionCDCEnum is missing
+		INC,
+		INS
 	}
 	
 	/*
@@ -6725,13 +6510,6 @@ namespace IEC61850.SCL
 		//tExtensionBasicTypeEnum is missing	
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
@@ -6739,6 +6517,11 @@ namespace IEC61850.SCL
 	 * The value's atttribute "string lnClassField to tLNClassEnum lnClassField"
 	 * was added to fulfill standard IEC 61850 Ed. 1.0
 	*/	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tLNode : tUnNaming 
 	{		
 		private string lnInstField;		
@@ -6756,9 +6539,8 @@ namespace IEC61850.SCL
 			this.prefixField = "";			
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[System.ComponentModel.DefaultValueAttribute("")]
+		[Category("LNode"), Description("The LN instance identification."), DefaultValue("")]
 		public string lnInst 
 		{
 			get
@@ -6771,9 +6553,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("LNode"), Description("The LN class.")]
 		public tLNClassEnum lnClass 
 		{
 			get 
@@ -6786,9 +6568,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[System.ComponentModel.DefaultValueAttribute("None")]
+		[Category("LNode"), Description("The name of the IED which contains the LN."), DefaultValue("None")]
 		public string iedName 
 		{
 			get 
@@ -6801,9 +6582,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[System.ComponentModel.DefaultValueAttribute("")]
+		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]	
+		[Category("LNode"), Description("The LD instance on the IED which contains the LN."), DefaultValue("")]
 		public string ldInst 
 		{
 			get 
@@ -6816,9 +6596,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[System.ComponentModel.DefaultValueAttribute("")]
+		[Category("LNode"), Description("The LN prefix used in the IED."), DefaultValue("")]
 		public string prefix 
 		{
 			get 
@@ -6831,8 +6610,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("LNode"), Description("The LN type definition containing more detailed functional specification.")]
 		public string lnType 
 		{
 			get 
@@ -6846,24 +6625,22 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/	
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/		
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]		
 	public partial class tConnectivityNode : tLNodeContainer
 	{		
 		private string pathNameField;
-		
-		/// <remarks/>
+
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ConnectivityNode"), Description("This acts as a key")]
 		public string pathName 
 		{
 			get 
@@ -6877,7 +6654,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tSubFunction))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tFunction))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tTapChanger))]
@@ -6902,7 +6678,6 @@ namespace IEC61850.SCL
 		
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6912,8 +6687,8 @@ namespace IEC61850.SCL
 	{		
 		private tGeneralEquipment[] generalEquipmentField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("GeneralEquipment")]
+		[Category("PowerSystemResource"), Browsable(false)]
 		public tGeneralEquipment[] GeneralEquipment
 		{
 			get
@@ -6927,27 +6702,25 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 *  
 	 * The value's atttribute "string typeField" was replaced by 
 	 * "tGeneralEquipmentEnum typeField"
-	*/		
+	*/
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tGeneralEquipment : tEquipment 
 	{		
 		private tGeneralEquipmentEnum typeField;
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("GeneralEquipment"), Description("Type of General Equipment")]
 		public tGeneralEquipmentEnum type
 		{
 			get 
@@ -6984,9 +6757,8 @@ namespace IEC61850.SCL
 			this.virtualField = false;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("Equipment"), Description("Virtual equipment configured"), DefaultValue(false)]
 		public bool @virtual
 		{
 			get 
@@ -7000,17 +6772,15 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
 	*/		
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]		
 	public partial class tPowerTransformer : tEquipment 
 	{		
 		private tTransformerWinding[] transformerWindingField;		
@@ -7021,8 +6791,8 @@ namespace IEC61850.SCL
 			this.typeField = tPowerTransformerEnum.PTR;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("TransformerWinding")]
+		[Category("PowerTransformer"), Browsable(false)]
 		public tTransformerWinding[] TransformerWinding 
 		{
 			get 
@@ -7035,9 +6805,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("PowerTransformer"), Description("Type of Power Transformer")]
 		public tPowerTransformerEnum type 
 		{
 			get
@@ -7051,17 +6821,15 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/	
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/		
 	public partial class tTransformerWinding : tAbstractConductingEquipment 
 	{		
 		private tTapChanger tapChangerField;		
@@ -7072,7 +6840,7 @@ namespace IEC61850.SCL
 			this.typeField = tTransformerWindingEnum.PTW;
 		}
 		
-		/// <remarks/>
+		[Category("TransformerWinding"), Description(" ")]
 		public tTapChanger TapChanger 
 		{
 			get 
@@ -7085,9 +6853,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("TransformerWinding"), Description("Type of Transformer Winding")]
 		public tTransformerWindingEnum type
 		{
 			get 
@@ -7101,13 +6869,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
@@ -7115,7 +6876,11 @@ namespace IEC61850.SCL
 	 * The symbol @ was added to the name of virtual variable to avoid problems 
 	 * with the compiler.
 	*/
-
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tTapChanger : tPowerSystemResource 
 	{		
 		private string typeField;		
@@ -7127,9 +6892,9 @@ namespace IEC61850.SCL
 			this.virtualField = false;
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="Name")]
+		[Category("TapChanger"), Description("Type of Tap Changer")]
 		public string type 
 		{
 			get 
@@ -7142,9 +6907,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("TapChanger"), Description("Virtual equipment"), DefaultValue(false)]
 		public bool @virtual 
 		{
 			get
@@ -7158,17 +6922,14 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public enum tTransformerWindingEnum 
 	{		
-		/// <remarks/>
 		PTW
 	}
 
-	/// <remarks/>
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tTransformerWinding))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tConductingEquipment))]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
@@ -7181,8 +6942,8 @@ namespace IEC61850.SCL
 		private tTerminal[] terminalField;		
 		private tSubEquipment[] subEquipmentField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("Terminal")]
+		[Category("AbstractConductingEquipment"), Browsable(false)]
 		public tTerminal[] Terminal 
 		{
 			get 
@@ -7195,8 +6956,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("SubEquipment")]
+		[Category("AbstractConductingEquipment"), Browsable(false)]
 		public tSubEquipment[] SubEquipment 
 		{
 			get 
@@ -7210,17 +6971,15 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/	
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/		
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]		
 	public partial class tTerminal : tUnNaming 
 	{		
 		private string nameField;		
@@ -7235,9 +6994,9 @@ namespace IEC61850.SCL
 			this.nameField = "";
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[System.ComponentModel.DefaultValueAttribute("")]
+		[Category("Terminal"), Description("The optional relative name of the terminal at this Equipment."), 
+		 DefaultValue("")]
 		public string name 
 		{
 			get
@@ -7250,9 +7009,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Terminal"), Description("The pathname of the connectivity node to which this terminal connects.")]
 		public string connectivityNode
 		{
 			get 
@@ -7265,9 +7024,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Terminal"), Description("The name of the substation containing the connectivityNode.")]
 		public string substationName 
 		{
 			get
@@ -7280,9 +7039,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Terminal"), Description("The name of the voltage level containing the connectivityNode.")]
 		public string voltageLevelName 
 		{
 			get 
@@ -7295,9 +7054,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Terminal"), Description("The name of the bay containing the connectivityNode.")]
 		public string bayName
 		{
 			get
@@ -7310,9 +7069,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("Terminal"), Description("The (relative) name of the connectivityNode within its bay.")]
 		public string cNodeName 
 		{
 			get
@@ -7346,9 +7105,8 @@ namespace IEC61850.SCL
 			this.virtualField = false;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tPhaseEnum.none)]
+		[Category("SubEquipment"), Description("The phase to which the subdevice belongs."), DefaultValue(tPhaseEnum.none)]
 		public tPhaseEnum phase 
 		{
 			get 
@@ -7361,9 +7119,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("SubEquipment"), Description("A virtual equipment"), DefaultValue(false)]
 		public bool @virtual 
 		{
 			get 
@@ -7377,7 +7134,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
@@ -7391,24 +7147,22 @@ namespace IEC61850.SCL
 		none,
 	}
 
-	/// <remarks/>
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/	
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/		
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]		
 	public partial class tConductingEquipment : tAbstractConductingEquipment 
 	{		
 		private string typeField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[Required]
+		[Category("ConductingEquipment"), Description("Type of Conducting Equipment.")]
 		public string type 
 		{
 			get
@@ -7422,7 +7176,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
@@ -7431,7 +7184,6 @@ namespace IEC61850.SCL
 		PTR
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7442,8 +7194,8 @@ namespace IEC61850.SCL
 		private tSubFunction[] subFunctionField;		
 		private tGeneralEquipment[] generalEquipmentField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("SubFunction")]
+		[Category("Function"), Browsable(false)]
 		public tSubFunction[] SubFunction 
 		{
 			get 
@@ -7456,8 +7208,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("GeneralEquipment")]
+		[Category("Function"), Browsable(false)]
 		public tGeneralEquipment[] GeneralEquipment 
 		{
 			get 
@@ -7471,7 +7223,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tBay))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tVoltageLevel))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tSubstation))]
@@ -7485,8 +7236,8 @@ namespace IEC61850.SCL
 		private tPowerTransformer[] powerTransformerField;		
 		private tGeneralEquipment[] generalEquipmentField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("PowerTransformer")]
+		[Category("EquipmentContainer"), Browsable(false)]
 		public tPowerTransformer[] PowerTransformer 
 		{
 			get 
@@ -7498,9 +7249,9 @@ namespace IEC61850.SCL
 				this.powerTransformerField = value;
 			}
 		}
-		
-		/// <remarks/>
+
 		[System.Xml.Serialization.XmlElementAttribute("GeneralEquipment")]
+		[Category("EquipmentContainer"), Browsable(false)]
 		public tGeneralEquipment[] GeneralEquipment 
 		{
 			get 
@@ -7514,7 +7265,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7525,8 +7275,8 @@ namespace IEC61850.SCL
 		private tConductingEquipment[] conductingEquipmentField;		
 		private tConnectivityNode[] connectivityNodeField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("ConductingEquipment")]
+		[Category("Bay"), Browsable(false)]
 		public tConductingEquipment[] ConductingEquipment 
 		{
 			get 
@@ -7539,8 +7289,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("ConnectivityNode")]
+		[Category("Bay"), Browsable(false)]
 		public tConnectivityNode[] ConnectivityNode 
 		{
 			get
@@ -7554,7 +7304,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7579,9 +7328,8 @@ namespace IEC61850.SCL
 			this.dupdField = false;
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("DA"), Description("Data change trigger option"), DefaultValue(false)]
 		public bool dchg 
 		{
 			get
@@ -7594,9 +7342,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[System.Xml.Serialization.XmlAttributeAttribute()]		
+		[Category("DA"), Description("Quality change trigger option"), DefaultValue(false)]		
 		public bool qchg
 		{
 			get
@@ -7609,9 +7356,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(false)]
+		[Category("DA"), Description("Data value update trigger option"), DefaultValue(false)]
 		public bool dupd 
 		{
 			get 
@@ -7624,9 +7370,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("DA"), Description("Functional constraint"), ReadOnly(true)]
 		public tFCEnum fc 
 		{
 			get
@@ -7640,13 +7386,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
@@ -7656,22 +7395,38 @@ namespace IEC61850.SCL
 	 * The following attributes were added to fulfill standard IEC 61850 Ed. 1.0:
 	 * SDO -> sDOField
 	 * DA -> dAField
-	*/		
+	 *
+	 * Only one array of TSDI or TDAI elements should be choose. 
+	 * When an element is selected, the "ADD" option must be hidden, so elements of another type could not be added. 
+	 * This point is defined on the XSD files contained on the IEC 61850 standard, as follows:
+	 * <xs:choice minOccurs="0" maxOccurs="unbounded">
+	 *	<xs:element name="SDO" type="tSDO"/>
+	 *	<xs:element name="DA" type="tDA"/>
+	 * </xs:choice>
+	 * 
+	 * According to the Reference Manual of XML, "The <choice> option describes a selection between 
+	 * some elements or an elements group that can show up on the instance of the XML document"
+	*/	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tDOType : tIDNaming
 	{
 		private string iedTypeField;		
 		private string cdcField;		
-		private tSDO sDOField;		
-		private tDA dAField;
+		private tSDO[] sDOField;		
+		private tDA[] dAField;
 		
 		public tDOType()
 		{
 			this.iedTypeField = "";
 		}
-		
-		/// <remarks/>
+				
 		[System.Xml.Serialization.XmlElementAttribute("SDO")]
-		public tSDO SDO
+		[Category("DOType"), Browsable(false)]
+		public tSDO[] SDO
 		{
 			get
 			{
@@ -7684,7 +7439,8 @@ namespace IEC61850.SCL
 		}
 	    
 		[System.Xml.Serialization.XmlElementAttribute("DA")]
-	    public tDA DA
+		[Category("DOType"), Browsable(false)]
+	    public tDA[] DA
 	    {
 	        get
 	        {
@@ -7696,9 +7452,8 @@ namespace IEC61850.SCL
 	        }
 	    }
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[System.ComponentModel.DefaultValueAttribute("")]
+		[Category("DOType"), Description("The type of the IED to which this DOType belongs."), DefaultValue(""), ReadOnly(true)]
 		public string iedType 
 		{
 			get 
@@ -7711,9 +7466,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("DOType"), Description("The basic Common Data Class."), ReadOnly(true)]
 		public string cdc
 		{
 			get 
@@ -7727,7 +7482,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7751,8 +7505,8 @@ namespace IEC61850.SCL
 			this.iedTypeField = "";
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("DO")]
+		[Category("LNodeType"), Browsable(false)]
 		public tDO[] DO 
 		{
 			get 
@@ -7765,9 +7519,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[System.ComponentModel.DefaultValueAttribute("")]
+		[Category("LNodeType"), Description("The manufacturer IED type of the IED to which this LN type belongs."), DefaultValue("")]
 		public string iedType
 		{
 			get
@@ -7780,9 +7533,9 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("LNodeType"), Description("The LN base class of this type.")]
 		public tLNClassEnum lnClass 
 		{
 			get 
@@ -7796,13 +7549,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-		
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
 	 * indication of this was developed using a validation's attribute "[Required]"
@@ -7810,7 +7556,12 @@ namespace IEC61850.SCL
 	 * The following attributes were added to fulfill standard IEC 61850 Ed. 1.0:
 	 * unit -> unitField
 	 * multiplier -> multiplierField
-	*/		
+	*/	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]			
 	public partial class tDurationInSec : tValueWithUnit 
 	{
 		private tSIUnitEnum unitField;		
@@ -7822,10 +7573,9 @@ namespace IEC61850.SCL
 			this.multiplierField = tUnitMultiplierEnum.Item;
 		}
 		
-		/// <remarks/>
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tSIUnitEnum.s)]
+		[Category("DurationInSec"), Description("Shall define the SI unit."), DefaultValue(tSIUnitEnum.s)]
 		public tSIUnitEnum unit 
 		{
 			get 
@@ -7838,9 +7588,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[System.ComponentModel.DefaultValueAttribute(tUnitMultiplierEnum.Item)]
+		[Category("DurationInSec"), Description("Shall define the multiplier value."), DefaultValue(tUnitMultiplierEnum.Item)]
 		public tUnitMultiplierEnum multiplier 
 		{
 			get 
@@ -7854,7 +7603,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7869,7 +7617,7 @@ namespace IEC61850.SCL
 		private string manufacturerField;		
 		private string configVersionField;
 		
-		/// <remarks/>
+		[Category("IED"), Description("All services for dynamic building of associations."), Browsable(false)]
 		public tServices Services 
 		{
 			get 
@@ -7882,8 +7630,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("AccessPoint")]
+		[Category("IED"), Browsable(false)]
 		public tAccessPoint[] AccessPoint 
 		{
 			get 
@@ -7896,8 +7644,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("IED"), Description("The (manufacturer specific) IED product type.")]
 		public string type
 		{
 			get 
@@ -7910,8 +7658,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("IED"), Description("The manufacturer’s name.")]
 		public string manufacturer 
 		{
 			get 
@@ -7924,8 +7672,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("IED"), Description("The basic configuration version of this IED configuration.")]
 		public string configVersion 
 		{
 			get 
@@ -7939,7 +7687,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7950,8 +7697,8 @@ namespace IEC61850.SCL
 	{		
 		private tSubNetwork[] subNetworkField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("SubNetwork")]
+		[Category("Communication"), Browsable(false)]
 		public tSubNetwork[] SubNetwork 
 		{
 			get 
@@ -7965,7 +7712,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7979,8 +7725,8 @@ namespace IEC61850.SCL
 		private tDAType[] dATypeField;		
 		private tEnumType[] enumTypeField;
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("LNodeType")]
+		[Category("DataTypeTemplates"), Browsable(false)]
 		public tLNodeType[] LNodeType
 		{
 			get
@@ -7993,8 +7739,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("DOType")]
+		[Category("DataTypeTemplates"), Browsable(false)]
 		public tDOType[] DOType 
 		{
 			get 
@@ -8007,8 +7753,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("DAType")]
+		[Category("DataTypeTemplates"), Browsable(false)]
 		public tDAType[] DAType 
 		{
 			get 
@@ -8021,8 +7767,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("EnumType")]
+		[Category("DataTypeTemplates"), Browsable(false)]
 		public tEnumType[] EnumType 
 		{
 			get 
@@ -8036,7 +7782,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -8051,7 +7796,8 @@ namespace IEC61850.SCL
 		private tIED[] iEDField;		
 		private tDataTypeTemplates dataTypeTemplatesField;
 		
-		/// <remarks/>
+		[Category("SCL"), Description("The header serves to identify an SCL configuration file and its version, and to specify options "+
+			"for the mapping of names to signals."), Browsable(false)]
 		public tHeader Header 
 		{
 			get 
@@ -8064,8 +7810,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("Substation")]
+		[Category("SCL"), Browsable(false)]
 		public tSubstation[] Substation 
 		{
 			get 
@@ -8078,7 +7824,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("SCL"), Description("It models the logically possible connections between IEDs at and across subnetworks "+ 
+			"by means of access points"), Browsable(false)]	
 		public tCommunication Communication 
 		{
 			get
@@ -8091,8 +7838,8 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute("IED")]
+		[Category("SCL"), Browsable(false)]		
 		public tIED[] IED
 		{
 			get
@@ -8105,7 +7852,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		/// <remarks/>
+		[Category("SCL"), Description("Defines instantiable logical node types."), Browsable(false)]
 		public tDataTypeTemplates DataTypeTemplates
 		{
 			get 

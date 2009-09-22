@@ -5,7 +5,7 @@
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
 // License as published by the Free Software Foundation; either
-// version 2.1 of the License, or (at your option) any later version.
+// version 3 of the License, or (at your option) any later version.
 // 
 // This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -36,7 +36,7 @@ namespace OpenSCL.UI
 		/// </summary>
 		public void InicializeOpenDialog()
 		{
-			dlg.Title = "Open XML Document";
+			dlg.Title = "Open an SCL File";
 			dlg.Filter = "XML Files (*.xml)|*.xml|" +
 				"IED Capability Description Files (*.ICD)|*.ICD|" +
 				"Configured IED Description Files (*.CID)|*.CID|" +
@@ -44,6 +44,8 @@ namespace OpenSCL.UI
 				"System Specification Description Files (*.SSD)|*.SSD|" +
 				"All Files (*.*)|*.*";
 			dlg.FilterIndex =1;
+			dlg.CheckPathExists = true;
+			dlg.CheckFileExists = true;			
 		}
 		
 		/// <summary>
@@ -55,7 +57,7 @@ namespace OpenSCL.UI
 		/// <returns>
 		/// Tree that contains all the nodes of XML file.
 		/// </returns>
-		public TreeView OpenXMLDocument(TreeView treeViewOpen)
+		public TreeView OpenSCLFile(TreeView treeViewOpen)
 		{			
 			InicializeOpenDialog();	
 			if(dlg.ShowDialog() == DialogResult.OK)

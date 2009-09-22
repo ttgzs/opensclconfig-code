@@ -26,45 +26,7 @@ namespace OpenSCL
 	/// This class contains the methods to make some validations according to standard IEC 61850 Ed.1.0
 	/// </summary>
 	public class ConversionObject
-	{		
-   		/// <summary>
-   		/// This method assigns the value getting from GUI to an object "tText".
-   		/// </summary>
-   		/// <param name="textGUI">
-   		/// Value getting from GUI.
-   		/// </param>
-   		/// <returns>
-   		/// Object "tText" that contains the value getting from GUI.
-   		/// </returns>
-		public tText SetStringTotTextObject(string textGUI)
-		{
-			tText textObject = new tText();
-			XmlNode[] ObjXmlNode = new XmlNode[1];						
-			System.Xml.XmlDocument doc = new System.Xml.XmlDocument();                     			
-            XmlElement newElement = doc.CreateElement("Text");
-            newElement.InnerText = textGUI;                  
-            ObjXmlNode[0] = newElement.FirstChild;            
-            textObject.Any = ObjXmlNode;              
-            return textObject;		
-		}	
-				
-   		/// <summary>
-   		/// This method assigns the value of tText object to string.
-   		/// </summary>
-   		/// <param name="textObject">
-   		/// Object "tText" that will be assigned
-   		/// </param>
-   		/// <returns>
-   		/// A string that contains the value of tText object. If the value of the object tText is Null then this 
-   		/// method will return an empty string.
-   		/// </returns>   		
-		public string SettTextObjectToString(tText textObject)
-		{
-			if(textObject.Any[0].Value==null)
-				return "";
-			return textObject.Any[0].Value.ToString();			
-		}	
-						
+	{												
 		/// <summary>
 		/// This method changes a string's value to primitive type specified.		
 		/// </summary>
@@ -80,8 +42,9 @@ namespace OpenSCL
 		public object SetStringToPrimitiveType(object valueAttribute, string typeAttribute)
 		{			
 			if(valueAttribute == null)
+			{
 				return "";
-			
+			}
 			object valuePrimitiveType="";		
 			switch(typeAttribute)
         	{
@@ -125,5 +88,19 @@ namespace OpenSCL
 		{
 			return Enum.Parse(enumType,enumString);
 		}			
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="enumType">
+		/// 
+		/// </param>
+		/// <returns>
+		/// 
+		/// </returns>
+		public Array GetValuesEnumToArray(Type enumType)
+		{
+			return System.Enum.GetValues(enumType);
+		}	
 	}
 }

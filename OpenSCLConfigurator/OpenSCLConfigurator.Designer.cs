@@ -18,7 +18,6 @@
 
 using System;
 using System.Windows.Forms;
-using OpenSCL.UI;
 
 namespace OpenSCLConfigurator	
 {
@@ -29,9 +28,7 @@ namespace OpenSCLConfigurator
 	{
         [STAThread]
 		private static void Main() 
-		{
-			about a = new about();
-            a.ShowDialog();			
+		{						
 			Application.Run(new FormSCL());
 		}
 		

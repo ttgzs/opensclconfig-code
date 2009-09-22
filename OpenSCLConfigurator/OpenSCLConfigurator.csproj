@@ -59,11 +59,18 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="about.cs" />
+    <Compile Include="about.Designer.cs">
+      <DependentUpon>about.cs</DependentUpon>
+    </Compile>
     <Compile Include="OpenSCLConfigurator.cs" />
     <Compile Include="OpenSCLConfigurator.Designer.cs">
       <DependentUpon>OpenSCLConfigurator.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="about.resx">
+      <DependentUpon>about.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="OpenSCLConfigurator.resx">
       <DependentUpon>OpenSCLConfigurator.cs</DependentUpon>
     </EmbeddedResource>

@@ -25,8 +25,7 @@
 using System;
 
 namespace IEC61850.SCL
-{
-	
+{	
 	///<summary>
 	/// This class defines a [Required] attribute, which one identify at SCL class if it 
 	/// contains a required variable.
@@ -90,35 +89,6 @@ namespace IEC61850.SCL
         {
             this.errorMessage = errorMessage;
         }
-    }
-
-	/// <summary>
-	/// This class defines an attribute to assign a default value to required variable of 
-	/// SCL Class 
-	/// </summary>
-	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class DefaultValueAttribute : Attribute
-    {    	
-    	public object Default {
-			get {
-				return this.Default;
-			}
-			set {
-				this.Default = value;
-			}
-		}
-     
-        /// <summary>
-        /// This method assigns a default value to variable of SCL Class
-        /// </summary>
-        /// <param name="Default">
-        /// Default value assigned to the attribute
-        /// </param>
-        public DefaultValueAttribute(object Default)
-        {
-            this.Default = Default;
-        }
-
     }
 
 	/// <summary>
@@ -190,7 +160,6 @@ namespace IEC61850.SCL
             }
         }
 
-
         public string ErrorMessage
         {
             get
@@ -205,7 +174,7 @@ namespace IEC61850.SCL
     }
     
     /// <summary>
-    ///  Constructor: This method identify if the attribute is optional
+    /// Constructor: This method identify if the attribute is optional
     /// </summary>
     [AttributeUsageAttribute(AttributeTargets.Property|AttributeTargets.Field|AttributeTargets.Parameter|AttributeTargets.ReturnValue)]       
 	public class OptionalAttribute : System.Xml.Serialization.XmlIgnoreAttribute

@@ -60,18 +60,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="about.cs" />
-    <Compile Include="about.Designer.cs">
-      <DependentUpon>about.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FilteredPropertyGrid.cs" />
+    <Compile Include="ContextMenuSCL.cs" />
     <Compile Include="GUIObjectManagement.cs" />
     <Compile Include="openDialog.cs" />
-    <Compile Include="PersonalizedPropertyGridUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegularExpressionTree.cs" />
+    <Compile Include="SaveDialog.cs" />
+    <Compile Include="TreeViewLNType.cs" />
     <Compile Include="TreeViewSCL.cs" />
-    <EmbeddedResource Include="about.resx">
-      <DependentUpon>about.cs</DependentUpon>
+    <Compile Include="WindowTreeViewLNType.cs" />
+    <Compile Include="WindowTreeViewLNType.Designer.cs">
+      <DependentUpon>WindowTreeViewLNType.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="WindowTreeViewLNType.resx">
+      <DependentUpon>WindowTreeViewLNType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

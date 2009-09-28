@@ -37,7 +37,7 @@ namespace OpenSCL.UI
 		public void InicializeOpenDialog()
 		{
 			dlg.Title = "Open an SCL File";
-			dlg.Filter = "XML Files (*.xml)|*.xml|" +
+			dlg.Filter = "SCL Files (*.ICD,*.CID,*.SSD,*.SCD)|*.ICD;*.CID;*.SSD;*.SCD|" +
 				"IED Capability Description Files (*.ICD)|*.ICD|" +
 				"Configured IED Description Files (*.CID)|*.CID|" +
 				"Substation Configuration Description Files (*.SCD)|*.SCD|" +

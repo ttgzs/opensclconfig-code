@@ -123,7 +123,7 @@ namespace OpenSCL.UI
 		/// </param>
 		void ButtonOkClick(object sender, EventArgs e)
 		{		
-			OpenSCL.Object Object = new OpenSCL.Object(); 	
+			//OpenSCL.Object Object = new OpenSCL.Object(); 	
 			if(this.bandModify)
 			{				
 				AutomataForValidateToTreeNode automataForValidateToTreeNode;

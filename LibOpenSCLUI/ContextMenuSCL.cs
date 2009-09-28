@@ -57,7 +57,7 @@ namespace OpenSCL.UI
 			this.treeSCL = treeSCL;
 			object sCLObject = treeSCL.Tag;			
 			ToolStripMenuItem insertOption = new ToolStripMenuItem();
-			ToolStripMenuItem[] toolItems = new ToolStripMenuItem[1];									
+			//ToolStripMenuItem[] toolItems = new ToolStripMenuItem[1];									
 			if(sCLObject !=null)
 			{
 				//An insert option is added to allow create another node of the same type.
@@ -169,7 +169,7 @@ namespace OpenSCL.UI
 		private void clickInsertSCL(object sender, EventArgs e)
 		{			
 			ToolStripMenuItem ts = (ToolStripMenuItem) sender;	
-			TreeNode node = new TreeNode();			
+			//TreeNode node = new TreeNode();			
 			WindowTreeViewLNType windowTreeViewLNType;		
 			OpenSCL.Object sCL = new OpenSCL.Object();
 			sCL.Configuration = (SCL) this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Tag;			

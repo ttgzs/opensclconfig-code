@@ -95,7 +95,6 @@ namespace OpenSCLConfigurator
 			this.Panel1 = new System.Windows.Forms.Panel();
 			this.treeViewFile = new System.Windows.Forms.TreeView();
 			this.Panel2 = new System.Windows.Forms.Panel();
-			this.PropertyGridAttributes = new System.Windows.Forms.PropertyGrid();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
@@ -122,6 +121,7 @@ namespace OpenSCLConfigurator
 			this.Salvar = new System.Windows.Forms.ToolBarButton();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+			this.PropertyGridAttributes = new System.Windows.Forms.PropertyGrid();
 			this.Panel1.SuspendLayout();
 			this.Panel2.SuspendLayout();
 			this.splitContainer1.Panel1.SuspendLayout();
@@ -137,7 +137,7 @@ namespace OpenSCLConfigurator
 			this.Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.Panel1.Location = new System.Drawing.Point(0, 0);
 			this.Panel1.Name = "Panel1";
-			this.Panel1.Size = new System.Drawing.Size(347, 795);
+			this.Panel1.Size = new System.Drawing.Size(347, 670);
 			this.Panel1.TabIndex = 0;
 			// 
 			// treeViewFile
@@ -147,7 +147,7 @@ namespace OpenSCLConfigurator
 									| System.Windows.Forms.AnchorStyles.Right)));
 			this.treeViewFile.Location = new System.Drawing.Point(0, 0);
 			this.treeViewFile.Name = "treeViewFile";
-			this.treeViewFile.Size = new System.Drawing.Size(347, 796);
+			this.treeViewFile.Size = new System.Drawing.Size(347, 671);
 			this.treeViewFile.TabIndex = 0;
 			this.treeViewFile.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TreeViewFileMouseUp);
 			this.treeViewFile.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewFileAfterSelect);
@@ -160,15 +160,8 @@ namespace OpenSCLConfigurator
 			this.Panel2.Controls.Add(this.PropertyGridAttributes);
 			this.Panel2.Location = new System.Drawing.Point(0, 0);
 			this.Panel2.Name = "Panel2";
-			this.Panel2.Size = new System.Drawing.Size(583, 795);
+			this.Panel2.Size = new System.Drawing.Size(583, 670);
 			this.Panel2.TabIndex = 0;
-			// 
-			// PropertyGridAttributes
-			// 
-			this.PropertyGridAttributes.Location = new System.Drawing.Point(0, 0);
-			this.PropertyGridAttributes.Name = "PropertyGridAttributes";
-			this.PropertyGridAttributes.Size = new System.Drawing.Size(794, 450);
-			this.PropertyGridAttributes.TabIndex = 3;
 			// 
 			// splitContainer1
 			// 
@@ -187,7 +180,7 @@ namespace OpenSCLConfigurator
 			// splitContainer1.Panel2
 			// 
 			this.splitContainer1.Panel2.Controls.Add(this.Panel2);
-			this.splitContainer1.Size = new System.Drawing.Size(943, 797);
+			this.splitContainer1.Size = new System.Drawing.Size(943, 672);
 			this.splitContainer1.SplitterDistance = 349;
 			this.splitContainer1.TabIndex = 5;
 			// 
@@ -372,7 +365,7 @@ namespace OpenSCLConfigurator
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
 									this.toolStripStatusLabel1});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 849);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 724);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Size = new System.Drawing.Size(943, 22);
 			this.statusStrip1.TabIndex = 4;
@@ -383,10 +376,18 @@ namespace OpenSCLConfigurator
 			this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
 			this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
 			// 
+			// PropertyGridAttributes
+			// 
+			this.PropertyGridAttributes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom))));
+			this.PropertyGridAttributes.Location = new System.Drawing.Point(1, 1);
+			this.PropertyGridAttributes.Name = "PropertyGridAttributes";
+			this.PropertyGridAttributes.Size = new System.Drawing.Size(580, 580);
+			this.PropertyGridAttributes.TabIndex = 3;
+			// 
 			// FormSCL
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(943, 871);
+			this.ClientSize = new System.Drawing.Size(943, 746);
 			this.Controls.Add(this.splitContainer1);
 			this.Controls.Add(this.toolBar1);
 			this.Controls.Add(this.menuStrip1);
@@ -468,17 +469,24 @@ namespace OpenSCLConfigurator
 		/// </param>
 		void OpenFile(object sender, EventArgs e)
 		{	
-			if (this.treeViewFile.Nodes.Count > 0)
-            {
-				if (MessageBox.Show("Do you want to save the changes on this file", "Save File", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
-				{
-					SaveDialog saveDoc = new SaveDialog();
-					saveDoc.SaveSCLFile(this.treeViewFile);                
-				}
-                this.treeViewFile.Nodes.Clear();              
-            }
-			openDialog o = new openDialog();			
-			Panel1.Controls.Add(o.OpenSCLFile(this.treeViewFile)); 				
+			try
+			{
+				if (this.treeViewFile.Nodes.Count > 0)
+            	{
+					if (MessageBox.Show("Do you want to save the changes on this file \n", "Open File", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+					{
+						SaveDialog saveDoc = new SaveDialog();
+						saveDoc.SaveSCLFile(this.treeViewFile);                
+					}
+            	    this.treeViewFile.Nodes.Clear();              
+            	}
+				openDialog o = new openDialog();			
+				Panel1.Controls.Add(o.OpenSCLFile(this.treeViewFile)); 				
+			}
+			catch
+			{
+				MessageBox.Show("SCL File Not Valid/Corrupted", "Open File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}		
 		
 		/// <summary>

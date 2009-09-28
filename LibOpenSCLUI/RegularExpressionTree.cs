@@ -132,9 +132,7 @@ namespace OpenSCL.UI
 		ArrayList namesPropertiesObject;
 		object valueProperty;
 		ObjectManagement objectManagement;
-		object objectSCL;		
-		object objectTemporal;
-		TreeNode nodeSelect;		
+		object objectSCL;				
 		string number;		
 		int kTemp2;		
 		int indexOfObject;
@@ -157,10 +155,8 @@ namespace OpenSCL.UI
 			this.objectManagement = new ObjectManagement();
 			this.objectSCL = this.node.Tag;			
 			this.namesPropertiesObject = new ArrayList ();			
-			this.nodeSelect = node;
 			this.flag = true;
-			this.flags = new List<bool>();
-//			this.regularExpressionTree = new  RegularExpressionTree();			
+			this.flags = new List<bool>();		
 			this.selectNodeToDelete = node;
 		}
 		
@@ -174,9 +170,6 @@ namespace OpenSCL.UI
 		{															
 		  if(this.index < this.keys.Length)
 		  {		
-		  	string Keysrtemp = this.keys;
-		  	string temp = this.keys.Substring(this.index,1);
-		  	int tem2p  = this.index;
 		  	switch(this.keys.Substring(this.index,1))
 			{		
 		  		case "/" :
@@ -214,7 +207,6 @@ namespace OpenSCL.UI
 					if(this.keys.Substring(this.index+1,1).Equals("%"))
 					{						
 						this.index+=2;
-						this.nodeSelect = this.node;
 						automataForValidateToTreeNode = new AutomataForValidateToTreeNode(this.node,
 						   this.regularExpressionTree.GetRegExpToDelete(this.node));							
 						automataForValidateToTreeNode.InterpretString();						
@@ -225,7 +217,6 @@ namespace OpenSCL.UI
 					{		
 						for(int x = 0; x < this.node.Nodes.Count;)
 						{									
-							this.nodeSelect = this.node.Nodes[x];
 							automataForValidateToTreeNode = new AutomataForValidateToTreeNode(this.node.Nodes[x],
 						  	  this.regularExpressionTree.GetRegExpToDelete(this.node.Nodes[x]));	
 							automataForValidateToTreeNode.InterpretString();														
@@ -465,7 +456,6 @@ namespace OpenSCL.UI
 							k++;							
 							if(this.namesPropertiesObject.Count==k)
 							{								
-								this.objectTemporal = nodeObject;
 								k = this.kTemp2;									
 								if(this.index+2 < this.keys.Length &&this.keys.Substring(this.index+1,1).Equals("%")&&this.keys.Substring(this.index+2,1).Equals("%"))
 								{

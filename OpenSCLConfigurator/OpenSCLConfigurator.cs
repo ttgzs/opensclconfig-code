@@ -100,7 +100,6 @@ namespace OpenSCLConfigurator
 			this.Panel1 = new System.Windows.Forms.Panel();
 			this.treeViewFile = new System.Windows.Forms.TreeView();
 			this.Panel2 = new System.Windows.Forms.Panel();
-			this.PropertyGridAttributes = new System.Windows.Forms.PropertyGrid();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
@@ -127,6 +126,7 @@ namespace OpenSCLConfigurator
 			this.Salvar = new System.Windows.Forms.ToolBarButton();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+			this.PropertyGridAttributes = new System.Windows.Forms.PropertyGrid();
 			this.Panel1.SuspendLayout();
 			this.Panel2.SuspendLayout();
 			this.splitContainer1.Panel1.SuspendLayout();
@@ -388,6 +388,14 @@ namespace OpenSCLConfigurator
 			// 
 			this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
 			this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+			// 
+			// PropertyGridAttributes
+			// 
+			this.PropertyGridAttributes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom))));
+			this.PropertyGridAttributes.Location = new System.Drawing.Point(1, 1);
+			this.PropertyGridAttributes.Name = "PropertyGridAttributes";
+			this.PropertyGridAttributes.Size = new System.Drawing.Size(580, 580);
+			this.PropertyGridAttributes.TabIndex = 3;
 			// 
 			// FormSCL
 			// 

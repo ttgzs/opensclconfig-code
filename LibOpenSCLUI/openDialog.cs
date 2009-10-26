@@ -43,8 +43,7 @@ namespace OpenSCL.UI
 				"IED Capability Description Files (*.icd)|*.icd|" +
 				"Configured IED Description Files (*.cid)|*.cid|" +
 				"Substation Configuration Description Files (*.scd)|*.scd|" +
-				"System Specification Description Files (*.ssd)|*.ssd|" +
-				"All Files (*.*)|*.*";
+				"System Specification Description Files (*.ssd)|*.ssd|" +				"All Files (*.*)|*.*";
 			dlg.FilterIndex =1;
 			dlg.CheckPathExists = true;
 			dlg.CheckFileExists = true;			

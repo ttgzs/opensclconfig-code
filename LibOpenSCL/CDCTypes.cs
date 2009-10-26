@@ -8265,7 +8265,7 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class ctlModel : SDIDADataTypeBDA
 	{
-		private Ctlmodels CtlmodelsField;
+		private ctlModels ctlModelsField;
 		
 		public ctlModel(string iedType, string lnType)
 		{
@@ -8274,18 +8274,18 @@ namespace IEC61850.SCL
 			this.id = this.type = lnType+"ctlModel";
 			this.iedType = iedType;
 			this.bType = tBasicTypeEnum.Struct;
-			this.CtlmodelsField = new Ctlmodels(tBasicTypeEnum.Enum);
+			this.ctlModelsField = new ctlModels(tBasicTypeEnum.Enum);
 		}
 		
-		public Ctlmodels Ctlmodels
+		public ctlModels ctlModels
 		{
 			get
 			{
-				return this.CtlmodelsField;
+				return this.ctlModelsField;
 			}
 			set
 			{
-				this.CtlmodelsField = value;
+				this.ctlModelsField = value;
 			}
 		}
 	}

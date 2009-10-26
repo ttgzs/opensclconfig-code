@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SCL xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iec.ch/61850/2003/SCL">
+  <Header id="SCL File" version="0" revision="1" toolID="OpenSCLConfigurator" nameStructure="IEDName" />
+  <IED name="IED1" configVersion="0">
+    <AccessPoint name="AccessPoint1" router="false" clock="false">
+      <Server timeout="30">
+        <Authentication none="true" password="false" weak="false" strong="false" certificate="false" />
+        <LDevice inst="LDevice1" ldName="LDevice1">
+          <LN0 lnType="LLN01" lnClass="LLN0" inst="1">
+            <DOI name="Mod">
+              <SDI name="ctlModel">
+                <DAI name="ctlModels" valKind="Set" />
+              </SDI>
+              <DAI name="q" valKind="Set" />
+              <DAI name="stVal" valKind="Set">
+                <Val>intermediate_state</Val>
+              </DAI>
+              <DAI name="t" valKind="Set" />
+            </DOI>
+            <DOI name="Beh">
+              <DAI name="q" valKind="Set" />
+              <DAI name="stVal" valKind="Set">
+                <Val>intermediate_state</Val>
+              </DAI>
+              <DAI name="t" valKind="Set" />
+            </DOI>
+            <DOI name="Health">
+              <DAI name="q" valKind="Set" />
+              <DAI name="stVal" valKind="Set">
+                <Val>intermediate_state</Val>
+              </DAI>
+              <DAI name="t" valKind="Set" />
+            </DOI>
+            <DOI name="NamPlt">
+              <DAI name="d" valKind="Set" />
+              <DAI name="swRev" valKind="Set" />
+              <DAI name="vendor" valKind="Set" />
+            </DOI>
+          </LN0>
+          <LN lnType="LPHD1" lnClass="LPHD" inst="1" prefix="">
+            <DOI name="PhyNam">
+              <DAI name="vendor" valKind="Set" />
+            </DOI>
+            <DOI name="PhyHealth">
+              <DAI name="q" valKind="Set" />
+              <DAI name="stVal" valKind="Set">
+                <Val>intermediate_state</Val>
+              </DAI>
+              <DAI name="t" valKind="Set" />
+            </DOI>
+            <DOI name="Proxy">
+              <DAI name="q" valKind="Set" />
+              <DAI name="stVal" valKind="Set">
+                <Val>intermediate_state</Val>
+              </DAI>
+              <DAI name="t" valKind="Set" />
+            </DOI>
+			<DOI name="Mod">
+              <SDI name="ctlModel">
+                <DAI name="ctlModels" valKind="Set" />
+              </SDI>
+              <DAI name="q" valKind="Set" />
+              <DAI name="stVal" valKind="Set">
+                <Val>intermediate_state</Val>
+              </DAI>
+              <DAI name="t" valKind="Set" />
+            </DOI>
+            <DOI name="Beh">
+              <DAI name="q" valKind="Set" />
+              <DAI name="stVal" valKind="Set">
+                <Val>intermediate_state</Val>
+              </DAI>
+              <DAI name="t" valKind="Set" />
+            </DOI>
+            <DOI name="Health">
+              <DAI name="q" valKind="Set" />
+              <DAI name="stVal" valKind="Set">
+                <Val>intermediate_state</Val>
+              </DAI>
+              <DAI name="t" valKind="Set" />
+            </DOI>
+            <DOI name="NamPlt">
+              <DAI name="d" valKind="Set" />
+              <DAI name="swRev" valKind="Set" />
+              <DAI name="vendor" valKind="Set" />
+            </DOI>
+          </LN>
+        </LDevice>
+      </Server>
+    </AccessPoint>
+  </IED>
+  <DataTypeTemplates>
+    <LNodeType id="LPHD1" lnClass="LPHD">
+      <DO name="PhyNam" type="LPHD1PhyNam" transient="false" />
+      <DO name="PhyHealth" type="LPHD1PhyHealth" transient="false" />
+      <DO name="Proxy" type="LPHD1Proxy" transient="false" />
+      <DO name="Mod" type="LPHD1Mod" transient="false" />
+      <DO name="Beh" type="LPHD1Beh" transient="false" />
+      <DO name="Health" type="LPHD1Health" transient="false" />
+      <DO name="NamPlt" type="LPHD1NamPlt" transient="false" />
+    </LNodeType>
+    <LNodeType id="LLN01" lnClass="LLN0">
+      <DO name="Mod" type="LLN01Mod" transient="false" />
+      <DO name="Beh" type="LLN01Beh" transient="false" />
+      <DO name="Health" type="LLN01Health" transient="false" />
+      <DO name="NamPlt" type="LLN01NamPlt" transient="false" />
+    </LNodeType>
+    <DOType id="LPHD1PhyNam" cdc="DPL">
+      <DA name="vendor" bType="VisString255" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+    </DOType>
+    <DOType id="LPHD1PhyHealth" cdc="INS">
+      <DA name="q" bType="Quality" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+      <DA name="stVal" bType="INT32U" valKind="Set" type=" stValEnum" count="0" dchg="false" qchg="false" dupd="false" fc="ST">
+        <Val>intermediate_state</Val>
+      </DA>
+      <DA name="t" bType="Timestamp" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+    </DOType>
+    <DOType id="LPHD1Proxy" cdc="SPS">
+      <DA name="q" bType="Quality" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+      <DA name="stVal" bType="BOOLEAN" valKind="Set" type=" stValEnum" count="0" dchg="false" qchg="false" dupd="false" fc="ST">
+        <Val>intermediate_state</Val>
+      </DA>
+      <DA name="t" bType="Timestamp" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+    </DOType>
+    <DOType id="LPHD1Mod" cdc="INC">
+      <DA name="ctlModel" bType="Struct" valKind="Set" type="LPHD1ModctlModel" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+      <DA name="q" bType="Quality" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+      <DA name="stVal" bType="INT32U" valKind="Set" type=" stValEnum" count="0" dchg="false" qchg="false" dupd="false" fc="ST">
+        <Val>intermediate_state</Val>
+      </DA>
+      <DA name="t" bType="Timestamp" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+    </DOType>
+    <DOType id="LPHD1Beh" cdc="INS">
+      <DA name="q" bType="Quality" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+      <DA name="stVal" bType="INT32U" valKind="Set" type=" stValEnum" count="0" dchg="false" qchg="false" dupd="false" fc="ST">
+        <Val>intermediate_state</Val>
+      </DA>
+      <DA name="t" bType="Timestamp" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+    </DOType>
+    <DOType id="LPHD1Health" cdc="INS">
+      <DA name="q" bType="Quality" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+      <DA name="stVal" bType="INT32U" valKind="Set" type=" stValEnum" count="0" dchg="false" qchg="false" dupd="false" fc="ST">
+        <Val>intermediate_state</Val>
+      </DA>
+      <DA name="t" bType="Timestamp" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+    </DOType>
+    <DOType id="LPHD1NamPlt" cdc="LPL">
+      <DA name="d" bType="VisString255" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+      <DA name="swRev" bType="VisString255" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+      <DA name="vendor" bType="VisString255" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+    </DOType>
+    <DOType id="LLN01Mod" cdc="INC">
+      <DA name="ctlModel" bType="Struct" valKind="Set" type="LLN01ModctlModel" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+      <DA name="q" bType="Quality" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+      <DA name="stVal" bType="INT32U" valKind="Set" type=" stValEnum" count="0" dchg="false" qchg="false" dupd="false" fc="ST">
+        <Val>intermediate_state</Val>
+      </DA>
+      <DA name="t" bType="Timestamp" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+    </DOType>
+    <DOType id="LLN01Beh" cdc="INS">
+      <DA name="q" bType="Quality" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+      <DA name="stVal" bType="INT32U" valKind="Set" type=" stValEnum" count="0" dchg="false" qchg="false" dupd="false" fc="ST">
+        <Val>intermediate_state</Val>
+      </DA>
+      <DA name="t" bType="Timestamp" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+    </DOType>
+    <DOType id="LLN01Health" cdc="INS">
+      <DA name="q" bType="Quality" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+      <DA name="stVal" bType="INT32U" valKind="Set" type=" stValEnum" count="0" dchg="false" qchg="false" dupd="false" fc="ST">
+        <Val>intermediate_state</Val>
+      </DA>
+      <DA name="t" bType="Timestamp" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+    </DOType>
+    <DOType id="LLN01NamPlt" cdc="LPL">
+      <DA name="d" bType="VisString255" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+      <DA name="swRev" bType="VisString255" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+      <DA name="vendor" bType="VisString255" valKind="Set" count="0" dchg="false" qchg="false" dupd="false" fc="ST" />
+    </DOType>
+    <DAType id="LPHD1ModctlModel">
+	  <BDA name="ctlModels" bType="Enum" valKind="Set" type="ctlModelsEnum" count="0" />    
+    </DAType>
+    <DAType id="LLN01ModctlModel">
+      <BDA name="ctlModels" bType="Enum" valKind="Set" type="ctlModelsEnum" count="0" />
+    </DAType>
+    <EnumType id="ctlModelsEnum">
+      <EnumVal ord="0">status-only</EnumVal>
+      <EnumVal ord="1">direct-with-normal-security</EnumVal>
+      <EnumVal ord="2">sbo-with-normal-security</EnumVal>
+      <EnumVal ord="3">directwith-enhanced-security</EnumVal>
+      <EnumVal ord="4">sbo-with-enhanced-security</EnumVal>
+    </EnumType>
+  </DataTypeTemplates>
+</SCL>

@@ -31,6 +31,7 @@ namespace OpenSCL.UI
 		private TreeNode treeSCL;		
 		private ContextMenuStrip contextMenuStrip;					
 		private TreeViewSCL treeViewSCL;
+		private ObjectManagement objectManagement;			
 		
 		/// <summary>
 		/// Description of the ContextMenuSCL component.
@@ -39,6 +40,7 @@ namespace OpenSCL.UI
 		{
 			this.contextMenuStrip = new ContextMenuStrip();
 			this.treeViewSCL = new TreeViewSCL();
+			this.objectManagement = new ObjectManagement();			
 		}
 		
 		/// <summary>
@@ -56,16 +58,21 @@ namespace OpenSCL.UI
 		{		 	
 			this.treeSCL = treeSCL;
 			object sCLObject = treeSCL.Tag;			
-			ToolStripMenuItem insertOption = new ToolStripMenuItem();
-			ToolStripMenuItem[] toolItems = new ToolStripMenuItem[1];									
+			ToolStripMenuItem insertOption = new ToolStripMenuItem();											
 			if(sCLObject !=null)
-			{
+			{			
+				if(sCLObject.GetType().Name == "tServer")
+				{					
+					insertOption.DropDownItems.AddRange(new ToolStripItem[] {
+				          this.GenerateSubMenuItemInsert("Communication", "Communication")});
+				}
 				//An insert option is added to allow create another node of the same type.
 				if(sCLObject.GetType().IsArray)
 				{							
 					string nameSCLToInsert = (sCLObject as Array).GetValue(0).GetType().Name;	
 					//Eliminating some nodes types from the insert menu that will be displayed.					
-					if(!this.treeViewSCL.SearchUPForType(treeSCL, typeof(tDataTypeTemplates)))
+					if(!this.treeViewSCL.SearchUPForType(treeSCL, typeof(tDataTypeTemplates)) &&
+					   !this.treeViewSCL.SearchUPForType(treeSCL, typeof(tCommunication)))
 					{
 						insertOption.DropDownItems.AddRange(new ToolStripItem[] {
 				          this.GenerateSubMenuItemInsert(nameSCLToInsert, nameSCLToInsert)});					
@@ -78,7 +85,9 @@ namespace OpenSCL.UI
 					foreach (PropertyInfo attributeInformation in attributesInformation) 
 	        		{       
 						//Eliminating some nodes types from the insert menu that will be displayed.
-						if(!this.treeViewSCL.ValidateObjectPrimitive(attributeInformation)&&!this.treeViewSCL.SearchUPForType(treeSCL, typeof(tDataTypeTemplates)))
+						if(!this.treeViewSCL.ValidateObjectPrimitive(attributeInformation) && 
+						   !this.treeViewSCL.SearchUPForType(treeSCL, typeof(tDataTypeTemplates)) &&
+						   !this.treeViewSCL.SearchUPForType(treeSCL, typeof(tCommunication)))
         				{    	    				
     	    				TreeNode Node = treeSCL.Nodes[attributeInformation.PropertyType.Name];
 	        				// If the variable is an Array type then an insert option will be added to create more nodes of the same type.	        				
@@ -95,7 +104,8 @@ namespace OpenSCL.UI
         					{        						        				    		    		    					
     		    		    	if(Node==null)
     		    		    	{
-    		    		    		if(attributeInformation.PropertyType.ToString() != typeof(tDataTypeTemplates).ToString())
+    		    		    		if(attributeInformation.PropertyType.ToString() != typeof(tDataTypeTemplates).ToString() &&
+    		    		    		   attributeInformation.PropertyType.ToString() != typeof(tCommunication).ToString())
     		    		    		{
     		    		    			insertOption.DropDownItems.AddRange(new ToolStripItem[] {
 				                    		this.GenerateSubMenuItemInsert(attributeInformation.PropertyType.Name, attributeInformation.Name)});
@@ -109,10 +119,15 @@ namespace OpenSCL.UI
 				{
 					this.GenerateMenuItemInsert(this.contextMenuStrip, insertOption);
 				}					
-				if(!this.treeViewSCL.SearchUPForType(treeSCL, typeof(tDataTypeTemplates)))
+				if(!this.treeViewSCL.SearchUPForType(treeSCL, typeof(tDataTypeTemplates)) &&
+				   !this.treeViewSCL.SearchUPForType(treeSCL, typeof(tCommunication)))
 				{					
 					this.GenerateMenuItemRemove(this.contextMenuStrip);	
-				}			
+				}
+				if(treeSCL.Text == "tPrivate")
+				{
+					this.GenerateMenuItemEdit(this.contextMenuStrip);
+				}		
 			}				
 			return this.contextMenuStrip;
 		}
@@ -168,13 +183,25 @@ namespace OpenSCL.UI
 		/// </param>
 		private void clickInsertSCL(object sender, EventArgs e)
 		{			
-			ToolStripMenuItem ts = (ToolStripMenuItem) sender;	
-			TreeNode node = new TreeNode();			
+			ToolStripMenuItem ts = (ToolStripMenuItem) sender;			
 			WindowTreeViewLNType windowTreeViewLNType;		
 			OpenSCL.Object sCL = new OpenSCL.Object();
-			sCL.Configuration = (SCL) this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Tag;			
+			sCL.Configuration = (SCL) this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Tag;		
+			string apName;
+			string iedName;	
+			TreeNode objectFound = null;				
 			switch(ts.Name)
 			{
+				case "Communication":								
+					apName = this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Tag, "name").ToString();
+					iedName = this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Tag, "name").ToString();					
+					if(sCL.Configuration.Communication != null && sCL.Configuration.Communication.SubNetwork!= null)
+					{					
+						objectFound = this.treeViewSCL.SeekAssociation(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes, apName, iedName);						
+					}				
+					CommunicationDialog comm = new CommunicationDialog(this.treeSCL.TreeView.SelectedNode, sCL.Configuration, iedName, apName, objectFound);					
+					comm.ShowDialog();	
+					break;						
 				case "tDOI[]":
 					windowTreeViewLNType = new WindowTreeViewLNType(this.treeSCL.TreeView.SelectedNode, sCL.Configuration, this.treeSCL.TreeView.SelectedNode.Tag, "New");
 					windowTreeViewLNType.ShowDialog();
@@ -278,5 +305,37 @@ namespace OpenSCL.UI
 				MessageBox.Show("Warning!, The SCL node can not be removed!!!");
 			} 					
 		}				
+		/// <summary>
+		/// This method will create the edit option to modify nodes from the Context menu.
+		/// </summary>
+		/// <param name="contextMenuStrip">
+		/// Context menú created.
+		/// </param>
+		private void GenerateMenuItemEdit(ContextMenuStrip contextMenuStrip)
+		{
+			ToolStripMenuItem editOption = new ToolStripMenuItem();
+			editOption.Name = "editOption";
+			editOption.Text = "Edit";
+			editOption.Click+= new EventHandler(EditOption_Click);
+			contextMenuStrip.Items.Add(editOption);
+		}
+		
+		/// <summary>
+		/// This event allows to modify a selected node.
+		/// </summary>
+		/// <param name="sender">
+		/// Name of the object.
+		/// </param>
+		/// <param name="e">
+		/// This class contains no event data; it is used by events that do not pass state information to an event 
+		/// handler when an event is raised. If the event handler requires state information, the application must 
+		/// derive a class from this class to hold the data.
+		/// </param>
+		private void EditOption_Click(object sender, EventArgs e)
+		{			
+			PrivateDialog windowsPrivate = new PrivateDialog(treeSCL.Tag as tPrivate);
+			windowsPrivate.ShowDialog();
+			windowsPrivate.Dispose();
+		}
 	}
 }

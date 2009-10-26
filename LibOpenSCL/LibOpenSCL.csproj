@@ -67,8 +67,10 @@
     <Compile Include="LNTypes.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="ObjectManagement.cs" />
+    <Compile Include="Private.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegularExpression.cs" />
     <Compile Include="SCL.cs" />
+    <Compile Include="ValidatingSCL.cs" />
   </ItemGroup>
 </Project>

@@ -18,6 +18,9 @@
 
 using System;
 using System.Reflection;
+using System.Windows.Forms;
+using IEC61850.SCL;
+using OpenSCL;
 
 namespace OpenSCL.UI
 {

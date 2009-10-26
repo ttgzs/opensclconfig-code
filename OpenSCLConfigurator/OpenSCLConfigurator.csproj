@@ -85,4 +85,18 @@
       <Name>LibOpenSCLUI</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="imgs\exit.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="imgs\new_file.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="imgs\open_file.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="imgs\save_file.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

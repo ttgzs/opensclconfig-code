@@ -17,6 +17,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	
 using System;
+using System.ComponentModel;
 
 namespace IEC61850.SCL
 {
@@ -35,6 +36,7 @@ namespace IEC61850.SCL
 			this.typeField = type;
 		}
 		
+		[ReadOnly(true)]
 		public string name
 		{
 			get
@@ -47,7 +49,7 @@ namespace IEC61850.SCL
 				this.nameField = value;    
 			}
 		}		
-		
+				
 		public string type
 		{
 			get

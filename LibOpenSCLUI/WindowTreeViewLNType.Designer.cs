@@ -56,20 +56,37 @@ namespace OpenSCL.UI
 			this.buttonOk = new System.Windows.Forms.Button();
 			this.propertyGridLNType = new System.Windows.Forms.PropertyGrid();
 			this.groupBox1.SuspendLayout();
-			this.SuspendLayout();			
+			this.SuspendLayout();
+			// 
+			// label1
+			// 
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.Location = new System.Drawing.Point(127, 9);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(57, 23);
+			this.label1.TabIndex = 6;
+			this.label1.Text = "Blue";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(155, 9);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(100, 23);
+			this.label2.TabIndex = 7;
+			this.label2.Text = "is Required";
 			// 
 			// groupBox1
 			// 
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Controls.Add(this.treeView1);
-			this.groupBox1.Controls.Add(this.buttonCancel);			
+			this.groupBox1.Controls.Add(this.buttonCancel);
 			this.groupBox1.Controls.Add(this.buttonOk);
 			this.groupBox1.Location = new System.Drawing.Point(12, 12);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(300, 461);
 			this.groupBox1.TabIndex = 0;
-			this.groupBox1.TabStop = false;			
+			this.groupBox1.TabStop = false;
 			// 
 			// treeView1
 			// 
@@ -78,26 +95,8 @@ namespace OpenSCL.UI
 			this.treeView1.Name = "treeView1";
 			this.treeView1.Size = new System.Drawing.Size(342, 379);
 			this.treeView1.TabIndex = 5;
-			this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.TreeView1AfterCheck);
+			this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.showChecked);
 			this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeView1AfterSelect);
-			this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.showChecked); //victor
-			//
-            // label1
-            //			
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.Location = new System.Drawing.Point(127, 9);
-			this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 23);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Blue";			
-			//
-            // label2
-            //
-            this.label2.Location = new System.Drawing.Point(155, 9);
-            this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(100, 23);
-			this.label2.TabIndex = 7;
-			this.label2.Text = "is Required";			
 			// 
 			// buttonCancel
 			// 
@@ -121,9 +120,9 @@ namespace OpenSCL.UI
 			// 
 			// propertyGridLNType
 			// 
-			this.propertyGridLNType.Location = new System.Drawing.Point(350, 12);
+			this.propertyGridLNType.Location = new System.Drawing.Point(366, 12);
 			this.propertyGridLNType.Name = "propertyGridLNType";
-			this.propertyGridLNType.Size = new System.Drawing.Size(375, 461);
+			this.propertyGridLNType.Size = new System.Drawing.Size(468, 461);
 			this.propertyGridLNType.TabIndex = 1;
 			// 
 			// WindowTreeViewLNType
@@ -139,7 +138,6 @@ namespace OpenSCL.UI
 			this.MinimizeBox = false;
 			this.MinimumSize = new System.Drawing.Size(900, 600);
 			this.Name = "WindowTreeViewLNType";
-			this.Opacity = 0.9;
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Details";

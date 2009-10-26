@@ -2209,13 +2209,13 @@ namespace IEC61850.SCL
 	/// CtlModels type.
 	/// tBasicTypeEnum.Enum
 	/// </summary>
-	public class Ctlmodels : DADataType
+	public class ctlModels : DADataType
 	{
-		public Ctlmodels(tBasicTypeEnum basicTypeEnum)
+		public ctlModels(tBasicTypeEnum basicTypeEnum)
 		{		
-			this.name = "Ctlmodels";
+			this.name = "ctlModels";
 			this.bType = basicTypeEnum;
-			this.id = this.type = "CtlmodelsEnum";					
+			this.id = this.type = "ctlModelsEnum";					
 			this.EnumVal = new tEnumVal[5];
 			tEnumVal enumVal0 = new tEnumVal();
 			enumVal0.ord = "0";

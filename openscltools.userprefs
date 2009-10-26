@@ -1,20 +1,23 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="OpenSCLConfigurator/OpenSCLConfigurator.cs" ctype="Workbench">
+    <Files>
+      <File FileName="OpenSCLConfigurator/OpenSCLConfigurator.cs" Line="490" Column="5" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" selected="True">
+        <State expanded="True">
           <Node name="LibOpenSCL" expanded="True" />
-          <Node name="LibOpenSCLUI" expanded="True">
-            <Node name="WindowTreeViewLNType.cs" expanded="True" />
-          </Node>
-          <Node name="OpenSCLConfigurator" expanded="True">
-            <Node name="about.cs" expanded="True" />
+          <Node name="LibOpenSCLUI" expanded="True" />
+          <Node name="OpenSCLConfigurator" expanded="True" selected="True">
             <Node name="OpenSCLConfigurator.cs" expanded="True" />
           </Node>
         </State>
       </Pad>
       <Pad Id="ClassPad">
         <State expanded="True" selected="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

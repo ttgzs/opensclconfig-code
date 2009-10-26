@@ -36,14 +36,14 @@ namespace OpenSCL.UI
 		public void InicializeSaveDialog()
 		{
 			saveDlg.Title = "Save an SCL File";
-			saveDlg.Filter = "XML Files (*.xml)|*.xml|" +
-				"IED Capability Description Files (*.ICD)|*.ICD|" +
-				"Configured IED Description Files (*.CID)|*.CID|" +
-				"Substation Configuration Description Files (*.SCD)|*.SCD|" +
-				"System Specification Description Files (*.SSD)|*.SSD|" +
+			saveDlg.Filter = "SCL Files (*.icd,*.cid,*.ssd,*.scd)|*.icd;*.cid;*.ssd;*.scd|" +
+				"IED Capability Description Files (*.icd)|*.icd|" +
+				"Configured IED Description Files (*.cid)|*.cid|" +
+				"Substation Configuration Description Files (*.scd)|*.scd|" +
+				"System Specification Description Files (*.ssd)|*.ssd|" +
 				"All Files (*.*)|*.*";			
 			saveDlg.CheckPathExists = true;
-			saveDlg.DefaultExt = "xml";
+			saveDlg.DefaultExt = "scd";
 			saveDlg.OverwritePrompt = true;
 			saveDlg.ValidateNames = true;
 		}

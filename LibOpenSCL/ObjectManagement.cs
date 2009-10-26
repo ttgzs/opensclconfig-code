@@ -522,16 +522,16 @@ namespace OpenSCL
    		}
    		
    		/// <summary>
-   		/// 
+   		/// This method invoques a method to ejecute it.
    		/// </summary>
    		/// <param name="objectToEval">
-   		/// 
+   		/// Object that contains the method.
    		/// </param>
    		/// <param name="nameMethod">
-   		/// 
+   		/// Method's name that will be used.
    		/// </param>
    		/// <param name="value">
-   		/// 
+   		/// Value used on the parameter step.
    		/// </param>
    		public void SetValueMethod(object objectToEval, string nameMethod, object value)
    		{
@@ -548,6 +548,80 @@ namespace OpenSCL
 				objectToEval.GetType().InvokeMember(nameMethod, BindingFlags.InvokeMethod,
 				 null, objectToEval, new object [] {value});
 			}			
+   		}		 
+		/// <summary>
+		/// This method gets the information of a property.
+		/// </summary>
+		/// <param name="typeAttributeRequired">
+		/// Properties type to get his information.
+		/// </param>
+		/// <param name="typeSCLObject">
+		/// Getting the information of the property using the type of the SCL object .
+		/// </param>
+		/// <returns>
+		/// The information of the property choosen.
+		/// </returns>
+   		public PropertyInfo GetProperty(Type typeAttributeRequired, Type typeSCLObject)
+   		{
+   			string propertyName = this.GetNameAttributeArray(typeAttributeRequired, typeSCLObject);
+   			if(!propertyName.Equals(""))
+   			{
+   			   	return typeSCLObject.GetProperty(propertyName);
+   			}
+   			else
+   			{
+   				return null;
+   			}
+   		}   
+   		/// <summary>
+   		/// This method adds an array to a variable of the parent object. Both of them has to be of the 
+   		/// same type.
+   		/// </summary>
+   		/// <param name="arrayObject">
+   		/// Array that will be added to the variable of the parent object.
+   		/// </param>
+   		/// <param name="parentObject">
+   		/// Parent object.
+   		/// </param>
+   		/// <returns>
+   		/// If the array was added correctly, it returns a "True" value, otherwise a "False" value 
+		/// is returned.
+		/// </returns>
+   		public bool AddArrayObjectToParentObject(object[] arrayObject, object parentObject)
+		{   
+   			if(arrayObject!=null && arrayObject[0]!=null)
+   			{
+   				string nameArrayObject = this.GetNameAttributeArray(arrayObject[0].GetType(), parentObject.GetType());
+   				if(!nameArrayObject.Equals(""))
+   				{
+   					Array array  = parentObject.GetType().InvokeMember(nameArrayObject, BindingFlags.Instance | BindingFlags.Public |   					                                                   
+						BindingFlags.GetProperty | BindingFlags.GetField, null, parentObject, null) as Array;//   			
+   					if (array == null)
+   					{
+   						array = Array.CreateInstance(arrayObject[0].GetType(),1);
+   						if (array == null)
+   						{
+   							return false;
+   						}
+   						parentObject.GetType().InvokeMember(nameArrayObject,BindingFlags.Instance | 
+   					 	  BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.SetField,
+	              	   	    null, parentObject, new object[1] { arrayObject } );
+   						return true;   			
+   					}
+	   				else
+	   				{
+	   					Array tempArray = Array.CreateInstance(arrayObject[0].GetType(), array.GetLength(0) + arrayObject.GetLength(0));
+	   					array.CopyTo(tempArray, 0);
+	   					arrayObject.CopyTo(tempArray, array.GetLength(0));
+	   					array = tempArray;	   					
+	   					parentObject.GetType().InvokeMember(nameArrayObject,BindingFlags.Instance |
+	   					  BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.SetField,
+	   					    null, parentObject, new object[1] { array } );
+	   					return true;
+	   				}   			   		
+   				}
+   			}  			
+   			return false;
    		}
 	}	
 }

@@ -30,6 +30,8 @@ namespace OpenSCL.UI
 	{				
 		TreeNode node;
 		ObjectManagement objectManagement;
+		private TreeNode treeReferenced; 	
+		private Type typeNode;
 		
 		public TreeViewSCL()
 		{
@@ -85,7 +87,7 @@ namespace OpenSCL.UI
 		/// <param name="treeSCL">
 		/// Tree created.
 		/// </param>		
-		private void GetNodes(object sCLObject, TreeNode treeSCL)
+		public void GetNodes(object sCLObject, TreeNode treeSCL)
 		{			
 			node = new TreeNode();
             node.Name = sCLObject.GetType().Name.ToString();
@@ -130,7 +132,7 @@ namespace OpenSCL.UI
         				valueAttributeObject = sCLObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, sCLObject, null );				        			        						
         				if(valueAttributeObject!=null)
         				{        					
-        					this.GetNodes(valueAttributeObject,  treeSCL.Nodes[sCLObject.GetType().Name.ToString()]);
+        					this.GetNodes(valueAttributeObject, treeSCL.Nodes[sCLObject.GetType().Name.ToString()]);
         				}        					
         			}        			
         		}        			
@@ -233,32 +235,31 @@ namespace OpenSCL.UI
 			bool result = false;
 			switch(attributeInformation.PropertyType.Name.ToString())
         	{
-					 case "UInt32":
-					 case "String":
-					 case "Boolean":
-					 case "Int32":
-					 case "Int64":
-					 case "XmlNode[]":
-				     case "tText":
-				     case "tPrivate[]":
-					 case "Decimal":
-					 case "XmlElement[]":
-					 case "XmlAttribute[]":
-					 case "XmlNode":
-					 case "tDurationInMilliSec":
-					 case "tServiceYesNo":
-						result = true;
-        			 	break;      
-        			 default:
-        			 	switch(attributeInformation.PropertyType.BaseType.Name.ToString())
-        			 	{        			 	
-        			 		case "Enum":
-        			 			result = true;	
-        			    		break;
-        			 	}
-        			 	break;
+				case "UInt32":
+				case "String":
+				case "Boolean":
+				case "Int32":
+				case "Int64":
+				case "XmlNode[]":
+				case "tText":
+				case "Decimal":
+				case "XmlElement[]":
+				case "XmlAttribute[]":
+				case "XmlNode":
+				case "tDurationInMilliSec":
+				case "tServiceYesNo":
+					result = true;
+        		 	break;      
+        		default:
+        		 	switch(attributeInformation.PropertyType.BaseType.Name.ToString())
+        		 	{        			 	
+        		 		case "Enum":
+        		 			result = true;	
+        		    		break;
+        		 	}
+        		 	break;
 			}
-			return result;		
+			return result;	
 		}
 		
 		/// <summary>
@@ -275,7 +276,7 @@ namespace OpenSCL.UI
 				objectParent = nodePossibleRemove.Parent.Parent.Tag;
 				objectToRemove = nodePossibleRemove.Tag;
 				int indexOfObject = nodePossibleRemove.Parent.Nodes.IndexOf(nodePossibleRemove);
-				if(objectParent!=null&&this.objectManagement.RemoveObjectOfArrayObjectOfParentObject(objectToRemove, indexOfObject, objectParent))					
+				if(objectParent!=null && this.objectManagement.RemoveObjectOfArrayObjectOfParentObject(objectToRemove, indexOfObject, objectParent))					
 				{						
 					nodePossibleRemove = nodePossibleRemove.Parent;
 					nodePossibleRemove.Nodes.RemoveAt(indexOfObject);											
@@ -475,11 +476,47 @@ namespace OpenSCL.UI
             TreeNode subNodeinNodeRoot = new TreeNode();
             subNodeinNodeRoot.Text = "Header";
             subNodeinNodeRoot.Name = "tHeader";
-            tHeader th = new tHeader();            
-            subNodeinNodeRoot.Tag = th;
+			sc.Configuration.Header = new tHeader();
+			subNodeinNodeRoot.Tag = sc.Configuration.Header;
             Node.Nodes.Add(subNodeinNodeRoot);
             newTreeNodeSCL.Nodes.Add(Node);
             return newTreeNodeSCL;
         }
+
+		/// <summary>
+		/// Seeks a node with two variables into its tag
+		/// </summary>
+		/// <param name="tree2">
+		/// The Collection of nodes to star to seek
+		/// </param>
+		/// <param name="apName">
+		/// First Variable to compare
+		/// </param>
+		/// <param name="iedName">
+		/// Second variable to compare
+		/// </param>		
+		/// <returns>
+		/// if match booth variables treenode founded is returned otherwise returns a null treenode
+		/// </returns>
+		public TreeNode SeekAssociation(TreeNodeCollection tree2, string apName, string iedName)
+		{
+			foreach(TreeNode treeAux in tree2)
+			{
+				if(treeAux.Tag != null)
+				{					
+					 typeNode = treeAux.Tag.GetType();	
+				}				
+				if(treeAux.Tag != null &&  typeNode.Name== "tConnectedAP")
+				{
+					if((this.objectManagement.FindVariable(treeAux.Tag, "apName").ToString() == apName) && 
+					   (this.objectManagement.FindVariable(treeAux.Tag, "iedName").ToString() == iedName))
+					{
+						treeReferenced = treeAux;						
+					}	
+				}				
+				SeekAssociation(treeAux.Nodes, apName, iedName);
+			}			
+			return treeReferenced;	
+		}			
 	}        	
 }

@@ -77,7 +77,7 @@ namespace OpenSCL
 			XmlSerializer XS = new XmlSerializer(typeof(SCL));
     	   	XS.UnknownNode+= new XmlNodeEventHandler(UnknownNode);
            	XS.UnknownAttribute+= new XmlAttributeEventHandler(UnknownAttribute);        
-        	FileStream fs = new FileStream(nameFileXML, FileMode.Open);
+           	FileStream fs = File.OpenRead(nameFileXML);         	
             this.configuration =(SCL) XS.Deserialize(fs);                    
             fs.Close();           
             return ListErrors;

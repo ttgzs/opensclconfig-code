@@ -19,6 +19,8 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using OpenSCL;
 
 namespace OpenSCL.UI
 {
@@ -32,16 +34,16 @@ namespace OpenSCL.UI
 		OpenFileDialog dlg = new OpenFileDialog();
   		
 		/// <summary>
-		/// This method sets default values to an OpenDialog object
+		/// This method sets default values to an OpenDialog object that allows to open an SCL file.
 		/// </summary>
 		public void InicializeOpenDialog()
 		{
 			dlg.Title = "Open an SCL File";
-			dlg.Filter = "XML Files (*.xml)|*.xml|" +
-				"IED Capability Description Files (*.ICD)|*.ICD|" +
-				"Configured IED Description Files (*.CID)|*.CID|" +
-				"Substation Configuration Description Files (*.SCD)|*.SCD|" +
-				"System Specification Description Files (*.SSD)|*.SSD|" +
+			dlg.Filter = "SCL Files (*.icd,*.cid,*.ssd,*.scd)|*.icd;*.cid;*.ssd;*.scd|" +
+				"IED Capability Description Files (*.icd)|*.icd|" +
+				"Configured IED Description Files (*.cid)|*.cid|" +
+				"Substation Configuration Description Files (*.scd)|*.scd|" +
+				"System Specification Description Files (*.ssd)|*.ssd|" +
 				"All Files (*.*)|*.*";
 			dlg.FilterIndex =1;
 			dlg.CheckPathExists = true;
@@ -55,19 +57,26 @@ namespace OpenSCL.UI
 		/// Graphical component "TreeView" where some nodes of XML file will be added.
 		/// </param>
 		/// <returns>
-		/// Tree that contains all the nodes of XML file.
+		/// If the file that will be open has errors of XML sintax or an incorrect data according to the 
+		/// XSD files then a list of errors is returned, otherwise an empty list is returned.
 		/// </returns>
-		public TreeView OpenSCLFile(TreeView treeViewOpen)
-		{			
+		public List<ErrorsManagement> OpenSCLFile(TreeView treeViewOpen, string xSDFile)
+		{	
+			List<ErrorsManagement> list = null;			
 			InicializeOpenDialog();	
 			if(dlg.ShowDialog() == DialogResult.OK)
-			{						
-				treeViewSCLOpen = new TreeViewSCL();
-				Object.Deserialize(dlg.FileName);				
-				treeViewOpen.Nodes.Add(treeViewSCLOpen.GetTreeNodeSCL(Path.GetFileName(dlg.FileName), Object.Configuration));
-			}
-			return treeViewOpen;		
-		}			
+			{			
+				ValidatingSCL validate = new ValidatingSCL();
+				list = validate.ValidateFile(dlg.FileName, xSDFile);
+				if (list.Count == 0)
+				{										
+					treeViewSCLOpen = new TreeViewSCL();
+					Object.Deserialize(dlg.FileName);				
+					treeViewOpen.Nodes.Add(treeViewSCLOpen.GetTreeNodeSCL(Path.GetFileName(dlg.FileName), Object.Configuration));
+				}
+			}		
+			return list;		
+		}							
 	}
 }
 	

@@ -65,7 +65,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -103,12 +102,6 @@ namespace IEC61850.SCL
 			}
 		}
 	}
-
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
@@ -118,6 +111,11 @@ namespace IEC61850.SCL
 	 * unit -> unitField
 	 * multiplier -> multiplierField
 	*/
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tVoltage : tValueWithUnit {
 		
 		private tSIUnitEnum unitField;		
@@ -230,7 +228,6 @@ namespace IEC61850.SCL
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	//[Description("Units derived from ISO 1000 to represent a measurement.")]
 	public enum tSIUnitEnum : int
 	{		
 		none = 1,
@@ -342,7 +339,6 @@ namespace IEC61850.SCL
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	//[Description("Units derived from ISO 1000 to represent a measurement.")]
 	public enum tUnitMultiplierEnum : int 
 	{		
 		[System.Xml.Serialization.XmlEnumAttribute("")]
@@ -387,12 +383,14 @@ namespace IEC61850.SCL
 		private string revisionField;		
 		private string toolIDField;		
 		private tHeaderNameStructure nameStructureField;
-		
-		//[Category("Header"), Description("The header serves to identify an SCL configuration file and its version, and to specify options for the mapping of names to signals.")]
+				
 		public tHeader() 
 		{
-			this.revisionField = "";
-			this.nameStructureField = tHeaderNameStructure.IEDName;
+			this.versionField = "0";
+			this.revisionField = "1";
+			this.idField = "SCL File";
+			this.toolIDField = "OpenSCLConfigurator";
+			this.nameStructureField = tHeaderNameStructure.IEDName;				
 		}
 		
 		[Category("Header"), Browsable(false)]
@@ -453,7 +451,6 @@ namespace IEC61850.SCL
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		[Category("Header"), Description("The revision of this SCL configuration file, by default the empty string meaning the original before any revision")]
-		//[DefaultValue("")]
 		public string revision 
 		{
 			get 
@@ -468,7 +465,7 @@ namespace IEC61850.SCL
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		[Category("Header"), Description("The manufacturer specific identification of the tool that was used to create the SCL file")]
-		//[DefaultValue("OpenSCLConfigurator"), ReadOnly(true)]
+		[ReadOnly(true)]
 		public string toolID 
 		{
 			get 
@@ -483,8 +480,7 @@ namespace IEC61850.SCL
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]		
 		[Category("Header"), Description("Element indicating if communication system signal names are built"+
-		    "from the substation function structure or from the IED product structure"),
-		 	DefaultValue(tHeaderNameStructure.IEDName)]
+		    "from the substation function structure or from the IED product structure")]
 		public tHeaderNameStructure nameStructure 
 		{
 			get 
@@ -604,6 +600,14 @@ namespace IEC61850.SCL
 		private string whoField;		
 		private string whatField;		
 		private string whyField;
+		
+		public tHitem()
+		{
+			this.versionField = "0";
+			this.revisionField = "1";
+			this.whenField = "";	
+			this.what = "New SCL File";
+		}
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
@@ -811,16 +815,15 @@ namespace IEC61850.SCL
 		private tLNClassEnum lnClassField;		
 		private string lnInstField;
 		
-		//[Category("Association"), Description("Each association definition defines one pre-configured association between this server"+ 
-		//	"and a client logical node.")]
 		public tAssociation() 
 		{
 			this.prefixField = "";
+			this.kindField = tAssociationKindEnum.preestablished;
 		}
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("Association"), Description("The kind of pre-configured association, pre-established or predefined")]
+		[Category("Association"), Description("The kind of pre-configured association, pre-established or predefined")]		
 		public tAssociationKindEnum kind 
 		{
 			get 
@@ -878,7 +881,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("Association"), Description("The LN prefix"), DefaultValue("")]
+		[Category("Association"), Description("The LN prefix")]
 		public string prefix 
 		{
 			get 
@@ -1080,7 +1083,6 @@ namespace IEC61850.SCL
 		}
 	}
 	
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1882,7 +1884,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("ClientLN"), Description("The LN prefix"), DefaultValue("")]
+		[Category("ClientLN"), Description("The LN prefix")]
 		public string prefix 
 		{
 			get 
@@ -1947,8 +1949,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("TrgOps"), Description("dchg enabled means that a change in the value of that attribute should cause a report"),
-		 DefaultValue(false)]
+		[Category("TrgOps"), Description("dchg enabled means that a change in the value of that attribute should cause a report")]
 		public bool dchg 
 		{
 			get 
@@ -1962,8 +1963,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("TrgOps"), Description("dchg enabled means that a change in the value of the quality for that attribute should cause a report"),
-		DefaultValue(false)]
+		[Category("TrgOps"), Description("dchg enabled means that a change in the value of the quality for that attribute should cause a report")]
 		public bool qchg
 		{
 			get
@@ -1978,7 +1978,7 @@ namespace IEC61850.SCL
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[Category("TrgOps"), Description("dupd enabled A report or a log entry shall be generated due to freezing the value of "+
-			"a freezable attribute or updating the value of any other attribute."), DefaultValue(false)]
+		                                 "a freezable attribute or updating the value of any other attribute.")]
 		public bool dupd 
 		{
 			get 
@@ -1992,7 +1992,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("TrgOps"), Description("if it es enabled integrity period is relevant."), DefaultValue(false)]		
+		[Category("TrgOps"), Description("if it es enabled integrity period is relevant.")]		
 		public bool period 
 		{
 			get 
@@ -2031,8 +2031,7 @@ namespace IEC61850.SCL
 		{
 			this.prefixField = "";
 		}
-		
-		
+				
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		[Category("FCDA"), Description("The LD where the DO resides")]
 		public string ldInst 
@@ -2048,7 +2047,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("FCDA"), Description("Prefix identifying together with lnInst and lnClass the LN where the DO resides"), DefaultValue("")]		
+		[Category("FCDA"), Description("Prefix identifying together with lnInst and lnClass the LN where the DO resides")]		
 		public string prefix 
 		{
 			get
@@ -2147,10 +2146,9 @@ namespace IEC61850.SCL
 		SV,
 		CF,
 		DC,
-		EX
+		EX									
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2168,7 +2166,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ConfLNs"), Description("if false, prefixes can be set/changed"), DefaultValue(false)]
+		[Category("ConfLNs"), Description("if false, prefixes can be set/changed")]
 		public bool fixPrefix 
 		{
 			get 
@@ -2182,7 +2180,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ConfLNs"), Description("if false. LN instance numbers can be changed"), DefaultValue(false)]	
+		[Category("ConfLNs"), Description("if false. LN instance numbers can be changed")]	
 		public bool fixLnInst 
 		{
 			get 
@@ -2217,7 +2215,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ServiceSettings"), Description("Control block name"), DefaultValue(tServiceSettingsEnum.Fix)]	
+		[Category("ServiceSettings"), Description("Control block name")]	
 		public tServiceSettingsEnum cbName 
 		{
 			get 
@@ -2231,7 +2229,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ServiceSettings"), Description("Data set reference"), DefaultValue(tServiceSettingsEnum.Fix)]	
+		[Category("ServiceSettings"), Description("Data set reference")]	
 		public tServiceSettingsEnum datSet 
 		{
 			get 
@@ -2289,7 +2287,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]		
-		[Category("SMVSettings"), Description("Sample value identifier."), DefaultValue(tServiceSettingsEnum.Fix)]					
+		[Category("SMVSettings"), Description("Sample value identifier.")]					
 		public tServiceSettingsEnum svID 
 		{
 			get 
@@ -2303,7 +2301,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]		
-		[Category("SMVSettings"), Description("Optional fields to include in report"), DefaultValue(tServiceSettingsEnum.Fix)]			
+		[Category("SMVSettings"), Description("Optional fields to include in report")]			
 		public tServiceSettingsEnum optFields 
 		{
 			get 
@@ -2317,7 +2315,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("SMVSettings"), Description("Specifies the samples per unit."), DefaultValue(tServiceSettingsEnum.Fix)]					
+		[Category("SMVSettings"), Description("Specifies the samples per unit.")]					
 		public tServiceSettingsEnum smpRate 
 		{
 			get
@@ -2349,7 +2347,7 @@ namespace IEC61850.SCL
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[Category("GSESettings"), Description("A system wide unique identification of the application to which the GOOSE message"+
-			"belongs."), DefaultValue(tServiceSettingsEnum.Fix)]							
+			"belongs.")]							
 		public tServiceSettingsEnum appID 
 		{
 			get
@@ -2363,8 +2361,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("GSESettings"), Description("A value for the object reference if the corresponding element ist being sent"), 
-		 DefaultValue(tServiceSettingsEnum.Fix)]
+		[Category("GSESettings"), Description("A value for the object reference if the corresponding element ist being sent")]
 		public tServiceSettingsEnum dataLabel 
 		{
 			get 
@@ -2397,8 +2394,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("LogSettings"), Description("Log Enable. TRUE enables immediate logging; FALSE prohibits logging until enabled online"), 
-		 DefaultValue(tServiceSettingsEnum.Fix)]		
+		[Category("LogSettings"), Description("Log Enable. TRUE enables immediate logging; FALSE prohibits logging until enabled online")]		
 		public tServiceSettingsEnum logEna 
 		{
 			get 
@@ -2412,8 +2408,7 @@ namespace IEC61850.SCL
 		}
 
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("LogSettings"), Description("TrgOps contains the reasons which cause the control block to store an entry into the log."), 
-		 DefaultValue(tServiceSettingsEnum.Fix)]		
+		[Category("LogSettings"), Description("TrgOps contains the reasons which cause the control block to store an entry into the log.")]		
 		public tServiceSettingsEnum trgOps 
 		{
 			get 
@@ -2427,8 +2422,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]		
-		[Category("LogSettings"), Description("Integrity period: logging all values initiated by the server based on a given period"), 
-		 DefaultValue(tServiceSettingsEnum.Fix)]
+		[Category("LogSettings"), Description("Integrity period: logging all values initiated by the server based on a given period")]
 		public tServiceSettingsEnum intgPd 
 		{
 			get 
@@ -2465,8 +2459,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ReportSettings"), Description("Identifier for the report control block"), 
-		 DefaultValue(tServiceSettingsEnum.Fix)]
+		[Category("ReportSettings"), Description("Identifier for the report control block")]
 		public tServiceSettingsEnum rptID 
 		{
 			get 
@@ -2480,8 +2473,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ReportSettings"), Description("Optional fields to include in report"), 
-		 DefaultValue(tServiceSettingsEnum.Fix)]
+		[Category("ReportSettings"), Description("Optional fields to include in report")]
 		public tServiceSettingsEnum optFields
 		{
 			get
@@ -2495,7 +2487,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ReportSettings"), Description("Buffer Time"), DefaultValue(tServiceSettingsEnum.Fix)]
+		[Category("ReportSettings"), Description("Buffer Time")]
 		public tServiceSettingsEnum bufTime
 		{
 			get
@@ -2510,7 +2502,7 @@ namespace IEC61850.SCL
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[Category("ReportSettings"), Description("TrgOps contains the reasons which causes the control block to report a"+
-			"value into the report."), DefaultValue(tServiceSettingsEnum.Fix)]
+			"value into the report.")]
 		public tServiceSettingsEnum trgOps 
 		{
 			get 
@@ -2524,8 +2516,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ReportSettings"), Description("Integrity period: reporting all values initiated by the server based on this period"), 
-		 DefaultValue(tServiceSettingsEnum.Fix)]
+		[Category("ReportSettings"), Description("Integrity period: reporting all values initiated by the server based on this period")]
 		public tServiceSettingsEnum intgPd 
 		{
 			get
@@ -2555,6 +2546,11 @@ namespace IEC61850.SCL
 	public partial class tServiceWithMax 
 	{		
 		private uint maxField;
+		
+		public tServiceWithMax()
+		{
+			this.maxField = 0;
+		}
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
@@ -2587,7 +2583,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ServiceWithMaxAndClient"), Description("Client"), DefaultValue(true)]
+		[Category("ServiceWithMaxAndClient"), Description("Client")]
 		public bool client 
 		{
 			get 
@@ -2601,7 +2597,6 @@ namespace IEC61850.SCL
 		}
 	}
 
-	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2617,7 +2612,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ServiceWithMaxAndModify"), Description("TRUE means that preconfigured data sets may be modified"), DefaultValue(true)]
+		[Category("ServiceWithMaxAndModify"), Description("TRUE means that preconfigured data sets may be modified")]
 		public bool modify 
 		{
 			get 
@@ -2688,8 +2683,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ServiceWithMaxAndMaxAttributesAndModify"), Description("TRUE means that preconfigured data sets may be modified"),
-		 DefaultValue(true)]
+		[Category("ServiceWithMaxAndMaxAttributesAndModify"), Description("TRUE means that preconfigured data sets may be modified")]
 		public bool modify 
 		{
 			get 
@@ -3326,8 +3320,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]	
-		[Category("DAType"), Description("it is used to define the relation of a specific LN type to an IED type."),
-		 DefaultValue("")]
+		[Category("DAType"), Description("it is used to define the relation of a specific LN type to an IED type.")]
 		public string iedType
 		{
 			get 
@@ -3439,7 +3432,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]		
-		[Category("AbstractDataAttribute"), Description("Determines how the value shall be interpreted if any is given."), DefaultValue(tValKindEnum.Set), ReadOnly(true)]
+		[Category("AbstractDataAttribute"), Description("Determines how the value shall be interpreted if any is given."), ReadOnly(true)]
 		public tValKindEnum valKind 
 		{
 			get 
@@ -3468,7 +3461,7 @@ namespace IEC61850.SCL
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[Category("AbstractDataAttribute"), Description("Shall state the number of array elements in the case where the attribute is an "+
-			"array."), DefaultValue(typeof(uint), "0"), ReadOnly(true)]
+			"array."), ReadOnly(true)]
 		public uint count 
 		{
 			get 
@@ -3563,7 +3556,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="Name")]
-		[Category("DO"), Description("The DATA name.")]
+		[Category("DO"), Description("The DATA name."), ReadOnly(true)]
 		public string name
 		{
 			get 
@@ -3578,7 +3571,8 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("DO"), Description("The type references the id of a DOType definition.")]
+		[Category("DO"), Description("The type references the id of a DOType definition."), 
+		 ReadOnly(true)]
 		public string type 
 		{
 			get 
@@ -3606,7 +3600,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("DO"), Description("If set to true, it indicates that the Transient definition applies."), DefaultValue(false)]
+		[Category("DO"), Description("If set to true, it indicates that the Transient definition applies.")]
 		public bool transient 
 		{
 			get
@@ -3646,6 +3640,7 @@ namespace IEC61850.SCL
 		
 		public tSettingControl()
 		{
+			this.numOfSGsField = ((uint) (1));
 			this.actSGField = ((uint)(1));
 		}
 		
@@ -3665,8 +3660,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("SettingControl"), Description("TThe number of the setting group to be activated when loading the configuration."),
-		 DefaultValue(typeof(uint), "1")]
+		[Category("SettingControl"), Description("TThe number of the setting group to be activated when loading the configuration.")]
 		public uint actSG 
 		{
 			get
@@ -3744,7 +3738,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("DAI"), Description("The name of the Data attribute whose value is given.")]
+		[Category("DAI"), Description("The name of the Data attribute whose value is given."), ReadOnly(true)]
 		public string name
 		{
 			get
@@ -3772,7 +3766,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("DAI"), Description("The meaning of the value from the engineering phases, if any name is given."), DefaultValue(tValKindEnum.Set)]		
+		[Category("DAI"), Description("The meaning of the value from the engineering phases, if any name is given.")]		
 		public tValKindEnum valKind 
 		{
 			get 
@@ -3839,7 +3833,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("SDI"), Description("Name of the SDI (structure part)")]		
+		[Category("SDI"), Description("Name of the SDI (structure part)"), ReadOnly(true)]
 		public string name 
 		{
 			get 
@@ -3946,7 +3940,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="Name")]	
-		[Category("DOI"), Description("A standardised DO name")]	
+		[Category("DOI"), Description("A standardised DO name"), ReadOnly(true)]
 		public string name
 		{
 			get
@@ -4169,7 +4163,7 @@ namespace IEC61850.SCL
 
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("DurationInMilliSec"), Description("It shall define the SI unit"), DefaultValue(tSIUnitEnum.s)]
+		[Category("DurationInMilliSec"), Description("It shall define the SI unit")]
 		public tSIUnitEnum unit 
 		{
 			get 
@@ -4183,7 +4177,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("DurationInMilliSec"), Description("It shall define the multiplier value"), DefaultValue(tUnitMultiplierEnum.m)]
+		[Category("DurationInMilliSec"), Description("It shall define the multiplier value")]
 		public tUnitMultiplierEnum multiplier 
 		{
 			get 
@@ -4355,8 +4349,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		[Category("RptEnabled"), Description("Defines the maximum number of report control blocks of this type."), 
-		 DefaultValue(typeof(uint), "1")]
+		[Category("RptEnabled"), Description("Defines the maximum number of report control blocks of this type.")]
 		[System.Xml.Serialization.XmlAttributeAttribute()]		
 		public uint max 
 		{
@@ -4681,7 +4674,7 @@ namespace IEC61850.SCL
 
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("BitRateInMbPerSec"), Description("It defines the unit of the bit rate"), DefaultValue(tSIUnitEnum.bs)]
+		[Category("BitRateInMbPerSec"), Description("It defines the unit of the bit rate")]
 		public tSIUnitEnum unit 
 		{
 			get 
@@ -4695,7 +4688,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("BitRateInMbPerSec"), Description("It shall define the multiplier value"), DefaultValue(tUnitMultiplierEnum.M)]
+		[Category("BitRateInMbPerSec"), Description("It shall define the multiplier value")]
 		public tUnitMultiplierEnum multiplier
 		{
 			get
@@ -4753,7 +4746,7 @@ namespace IEC61850.SCL
 		private bool confRevFieldSpecified;
 		
 		[System.Xml.Serialization.XmlElementAttribute("IEDName", DataType="normalizedString")]
-		[Category("ControlWithIEDName"), Description("The name of the IED.")]
+		[Category("ControlWithIEDName"), Description("The name of the IED."), Browsable(false)]
 		public string[] IEDName
 		{
 			get
@@ -4846,7 +4839,7 @@ namespace IEC61850.SCL
 		}
 			
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("SampledValueControl"), Description("If it's false indicates Unicast SMV services"), DefaultValue(true)]
+		[Category("SampledValueControl"), Description("If it's false indicates Unicast SMV services")]
 		public bool multicast 
 		{
 			get
@@ -4913,7 +4906,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]		
-		[Category("SampledValueControlSmvOpts"), Description("Time of refresh activity"), DefaultValue(false)]
+		[Category("SampledValueControlSmvOpts"), Description("Time of refresh activity")]
 		public bool refreshTime 
 		{
 			get 
@@ -4927,7 +4920,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("SampledValueControlSmvOpts"), Description("Samples are synchronized by clock signals"), DefaultValue(false)]
+		[Category("SampledValueControlSmvOpts"), Description("Samples are synchronized by clock signals")]
 		public bool sampleSynchronized 
 		{
 			get 
@@ -4941,7 +4934,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("SampledValueControlSmvOpts"), Description("Sample rate from the instance"), DefaultValue(false)]
+		[Category("SampledValueControlSmvOpts"), Description("Sample rate from the instance")]
 		public bool sampleRate 
 		{
 			get 
@@ -4955,7 +4948,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("SampledValueControlSmvOpts"), Description(" "), DefaultValue(false)]
+		[Category("SampledValueControlSmvOpts"), Description(" ")]
 		public bool security
 		{
 			get
@@ -4969,7 +4962,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("SampledValueControlSmvOpts"), Description("If true, then the data set reference is included in the SV message"), DefaultValue(false)]
+		[Category("SampledValueControlSmvOpts"), Description("If true, then the data set reference is included in the SV message")]
 		public bool dataRef 
 		{
 			get 
@@ -5003,7 +4996,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("GSEControl"), Description("GSE Type"), DefaultValue(tGSEControlTypeEnum.GOOSE)]
+		[Category("GSEControl"), Description("GSE Type")]
 		public tGSEControlTypeEnum type 
 		{
 			get
@@ -5075,7 +5068,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ControlWithTriggerOpt"), Description("reporting all values initiated by the server based on this period."), DefaultValue(typeof(uint), "0")]
+		[Category("ControlWithTriggerOpt"), Description("reporting all values initiated by the server based on this period.")]
 		public uint intgPd
 		{
 			get 
@@ -5126,8 +5119,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("LogControl"), Description("TRUE enables immediate logging; FALSE prohibits logging until enabled online."),
-		 DefaultValue(true)]
+		[Category("LogControl"), Description("TRUE enables immediate logging; FALSE prohibits logging until enabled online.")]
 		public bool logEna 
 		{
 			get 
@@ -5141,7 +5133,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("LogControl"), Description("Reason for inclusion in the report"), DefaultValue(true)]
+		[Category("LogControl"), Description("Reason for inclusion in the report")]
 		public bool reasonCode
 		{
 			get 
@@ -5175,8 +5167,9 @@ namespace IEC61850.SCL
 		
 		public tReportControl() 
 		{
+			this.confRevField = ((uint)(0));
 			this.bufferedField = false;
-			this.bufTimeField = ((uint)(0));
+			this.bufTimeField = ((uint)(0));			
 		}
 		
 		[Category("ReportControl"), Description("optional fields to include in report."),
@@ -5238,7 +5231,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ReportControl"), Description("Specifies if reports are buffered or no."), DefaultValue(false)]
+		[Category("ReportControl"), Description("Specifies if reports are buffered or no.")]
 		public bool buffered 
 		{
 			get
@@ -5252,7 +5245,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ReportControl"), Description("Buffer time."), DefaultValue(typeof(uint), "0")]
+		[Category("ReportControl"), Description("Buffer time.")]
 		public uint bufTime 
 		{
 			get 
@@ -5293,7 +5286,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ReportControlOptFields"), Description("Current sequence number of the reports."), DefaultValue(false)]
+		[Category("ReportControlOptFields"), Description("Current sequence number of the reports.")]
 		public bool seqNum 
 		{
 			get 
@@ -5308,7 +5301,7 @@ namespace IEC61850.SCL
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[Category("ReportControlOptFields"), Description("Represent a UTC time with the epoch of midnight (00:00:00) of "+
-			"1970-01-01."), DefaultValue(false)]
+			"1970-01-01.")]
 		public bool timeStamp 
 		{
 			get 
@@ -5322,7 +5315,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ReportControlOptFields"), Description("Identifies a DATA-SET that is contained in the LN."), DefaultValue(false)]
+		[Category("ReportControlOptFields"), Description("Identifies a DATA-SET that is contained in the LN.")]
 		public bool dataSet 
 		{
 			get
@@ -5336,7 +5329,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ReportControlOptFields"), Description("Reason for inclusion in the report"), DefaultValue(false)]
+		[Category("ReportControlOptFields"), Description("Reason for inclusion in the report")]
 		public bool reasonCode
 		{
 			get
@@ -5350,7 +5343,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ReportControlOptFields"), Description("Data Object Reference"), DefaultValue(false)]
+		[Category("ReportControlOptFields"), Description("Data Object Reference")]
 		public bool dataRef 
 		{
 			get 
@@ -5364,8 +5357,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ReportControlOptFields"), Description("Used to identify an entry in a sequence of events such as a log or a buffered report."), 
-		 DefaultValue(false)]
+		[Category("ReportControlOptFields"), Description("Used to identify an entry in a sequence of events such as a log or a buffered report.")]
 		public bool entryID 
 		{
 			get
@@ -5379,7 +5371,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ReportControlOptFields"), Description("Configuration reference."), DefaultValue(false)]
+		[Category("ReportControlOptFields"), Description("Configuration reference.")]
 		public bool configRef 
 		{
 			get
@@ -5419,7 +5411,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("AccessPoint"), Description("This is a function of the communication network on the IED."), DefaultValue(false)]
+		[Category("AccessPoint"), Description("This is a function of the communication network on the IED.")]
 		public bool router
 		{
 			get 
@@ -5433,8 +5425,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("AccessPoint"), Description("The presence and setting to true defines this IED to be a master clock at this bus."), 
-		 DefaultValue(false)]
+		[Category("AccessPoint"), Description("The presence and setting to true defines this IED to be a master clock at this bus.")]
 		public bool clock 
 		{
 			get
@@ -5530,7 +5521,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("LN"), Description("The LN prefix part."), DefaultValue("")]
+		[Category("LN"), Description("The LN prefix part.")]
 		public string prefix
 		{
 			get 
@@ -5603,7 +5594,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("Server"), Description("Time out in seconds."), DefaultValue(typeof(uint), "30")]
+		[Category("Server"), Description("Time out in seconds.")]
 		public uint timeout 
 		{
 			get
@@ -5640,7 +5631,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ServerAuthentication"), Description("No authentication."), DefaultValue(true)]
+		[Category("ServerAuthentication"), Description("No authentication.")]
 		public bool none 
 		{
 			get 
@@ -5654,7 +5645,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ServerAuthentication"), Description("Key for authentication."), DefaultValue(false)]
+		[Category("ServerAuthentication"), Description("Key for authentication.")]
 		public bool password 
 		{
 			get
@@ -5668,7 +5659,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ServerAuthentication"), Description("A weak password for authentication."), DefaultValue(false)]
+		[Category("ServerAuthentication"), Description("A weak password for authentication.")]
 		public bool weak 
 		{
 			get 
@@ -5682,7 +5673,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ServerAuthentication"), Description("A strong password for authentication."), DefaultValue(false)]
+		[Category("ServerAuthentication"), Description("A strong password for authentication.")]
 		public bool strong 
 		{
 			get
@@ -5696,7 +5687,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ServerAuthentication"), Description("A certificate for authentication."), DefaultValue(false)]
+		[Category("ServerAuthentication"), Description("A certificate for authentication.")]
 		public bool certificate 
 		{
 			get 
@@ -5904,7 +5895,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("LN"), Description("The LN class."), DefaultValue(tLNClassEnum.LLN0)]
+		[Category("LN"), Description("The LN class."), ReadOnly(true)]
 		public tLNClassEnum lnClass 
 		{
 			get
@@ -6409,8 +6400,8 @@ namespace IEC61850.SCL
 		TCF,
 		TCR,
 		IFL		
-		// Missing: 
-		// tExtensionEquipmentEnum
+		 
+		// FIXME : tExtensionEquipmentEnum is missing for the upcomming Editon 2.0
 	}
 	
 	/*
@@ -6418,10 +6409,35 @@ namespace IEC61850.SCL
 	*/		
 	public enum tPredefinedCDCEnum
 	{
-		dchg,		
-		qchg,
-		dupd,
-		none			
+		SPS,
+		DPS,
+		INS,
+		ACT,
+		ACD,
+		SEC,
+		BCR,
+		MV,
+		CMV,
+		SAV,
+		WYE,
+		DEL,
+		SEQ,
+		HMV,
+		HWYE,
+		HDEL,
+		SPC,
+		DPC,
+		INC,
+		BSC,
+		ISC,
+		APC,
+		SPG,
+		ING,
+		ASG,
+		CURVE,
+		DPL,
+		LPL,
+		CSD			
 	}
 	
 	/* 
@@ -6431,14 +6447,37 @@ namespace IEC61850.SCL
 	public enum tCDCEnum
 	{
 		//tPredefinedCDCEnum
-		dchg,		
-		qchg,
-		dupd,
-		none,
-		
-		//tExtensionCDCEnum is missing
+		SPS,
+		DPS,
+		INS,
+		ACT,
+		ACD,
+		SEC,
+		BCR,
+		MV,
+		CMV,
+		SAV,
+		WYE,
+		DEL,
+		SEQ,
+		HMV,
+		HWYE,
+		HDEL,
+		SPC,
+		DPC,
 		INC,
-		INS
+		BSC,
+		ISC,
+		APC,
+		SPG,
+		ING,
+		ASG,
+		CURVE,
+		DPL,
+		LPL,
+		CSD				
+		//FIXME : tExtensionCDCEnum is missing
+
 	}
 	
 	/*
@@ -6506,8 +6545,8 @@ namespace IEC61850.SCL
 		Struct,
 		EntryTime,
 		Unicode255,
-		Check
 		//tExtensionBasicTypeEnum is missing	
+		Check
 	}
 
 	/* 
@@ -6540,7 +6579,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("LNode"), Description("The LN instance identification."), DefaultValue("")]
+		[Category("LNode"), Description("The LN instance identification.")]
 		public string lnInst 
 		{
 			get
@@ -6569,7 +6608,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("LNode"), Description("The name of the IED which contains the LN."), DefaultValue("None")]
+		[Category("LNode"), Description("The name of the IED which contains the LN.")]
 		public string iedName 
 		{
 			get 
@@ -6583,7 +6622,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]	
-		[Category("LNode"), Description("The LD instance on the IED which contains the LN."), DefaultValue("")]
+		[Category("LNode"), Description("The LD instance on the IED which contains the LN.")]
 		public string ldInst 
 		{
 			get 
@@ -6597,7 +6636,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("LNode"), Description("The LN prefix used in the IED."), DefaultValue("")]
+		[Category("LNode"), Description("The LN prefix used in the IED.")]
 		public string prefix 
 		{
 			get 
@@ -6758,7 +6797,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("Equipment"), Description("Virtual equipment configured"), DefaultValue(false)]
+		[Category("Equipment"), Description("Virtual equipment configured")]
 		public bool @virtual
 		{
 			get 
@@ -6908,7 +6947,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("TapChanger"), Description("Virtual equipment"), DefaultValue(false)]
+		[Category("TapChanger"), Description("Virtual equipment")]
 		public bool @virtual 
 		{
 			get
@@ -6995,8 +7034,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("Terminal"), Description("The optional relative name of the terminal at this Equipment."), 
-		 DefaultValue("")]
+		[Category("Terminal"), Description("The optional relative name of the terminal at this Equipment.")]
 		public string name 
 		{
 			get
@@ -7106,7 +7144,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("SubEquipment"), Description("The phase to which the subdevice belongs."), DefaultValue(tPhaseEnum.none)]
+		[Category("SubEquipment"), Description("The phase to which the subdevice belongs.")]
 		public tPhaseEnum phase 
 		{
 			get 
@@ -7120,7 +7158,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("SubEquipment"), Description("A virtual equipment"), DefaultValue(false)]
+		[Category("SubEquipment"), Description("A virtual equipment")]
 		public bool @virtual 
 		{
 			get 
@@ -7303,17 +7341,16 @@ namespace IEC61850.SCL
 			}
 		}
 	}
-
+		
+	/* 
+	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
+	 * indication of this was developed using a validation's attribute "[Required]"
+	*/		
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	
-	/* 
-	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
-	 * indication of this was developed using a validation's attribute "[Required]"
-	*/		
 	public partial class tDA : tAbstractDataAttribute
 	{		
 		private bool dchgField;		
@@ -7329,7 +7366,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("DA"), Description("Data change trigger option"), DefaultValue(false)]
+		[Category("DA"), Description("Data change trigger option")]
 		public bool dchg 
 		{
 			get
@@ -7343,7 +7380,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]		
-		[Category("DA"), Description("Quality change trigger option"), DefaultValue(false)]		
+		[Category("DA"), Description("Quality change trigger option")]		
 		public bool qchg
 		{
 			get
@@ -7357,7 +7394,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("DA"), Description("Data value update trigger option"), DefaultValue(false)]
+		[Category("DA"), Description("Data value update trigger option")]
 		public bool dupd 
 		{
 			get 
@@ -7453,7 +7490,7 @@ namespace IEC61850.SCL
 	    }
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("DOType"), Description("The type of the IED to which this DOType belongs."), DefaultValue(""), ReadOnly(true)]
+		[Category("DOType"), Description("The type of the IED to which this DOType belongs."), ReadOnly(true)]
 		public string iedType 
 		{
 			get 
@@ -7520,7 +7557,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("LNodeType"), Description("The manufacturer IED type of the IED to which this LN type belongs."), DefaultValue("")]
+		[Category("LNodeType"), Description("The manufacturer IED type of the IED to which this LN type belongs.")]
 		public string iedType
 		{
 			get
@@ -7575,7 +7612,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("DurationInSec"), Description("Shall define the SI unit."), DefaultValue(tSIUnitEnum.s)]
+		[Category("DurationInSec"), Description("Shall define the SI unit.")]
 		public tSIUnitEnum unit 
 		{
 			get 
@@ -7589,7 +7626,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("DurationInSec"), Description("Shall define the multiplier value."), DefaultValue(tUnitMultiplierEnum.Item)]
+		[Category("DurationInSec"), Description("Shall define the multiplier value.")]
 		public tUnitMultiplierEnum multiplier 
 		{
 			get 
@@ -7616,6 +7653,11 @@ namespace IEC61850.SCL
 		private string typeField;		
 		private string manufacturerField;		
 		private string configVersionField;
+		
+		public tIED()
+		{
+			this.configVersionField = "0";
+		}
 		
 		[Category("IED"), Description("All services for dynamic building of associations."), Browsable(false)]
 		public tServices Services 

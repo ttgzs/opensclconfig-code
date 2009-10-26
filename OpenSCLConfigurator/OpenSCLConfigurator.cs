@@ -17,8 +17,11 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 using System;
+using System.IO;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using OpenSCL;
 using OpenSCL.UI;
 
 namespace OpenSCLConfigurator
@@ -60,14 +63,16 @@ namespace OpenSCLConfigurator
 		private System.Windows.Forms.PropertyGrid PropertyGridAttributes;
 		private System.Windows.Forms.TreeView treeViewFile;
 						
-		ImageList tb_il					= new ImageList();		
+		ImageList tb_il					= new ImageList();	
+		string xSDFiles = Application.StartupPath+"/../../XSD//SCL.xsd";
+		string newFile = Application.StartupPath+"/../..//NewSCLFile.icd";		
 
 		/// <summary>
 		/// This method initialize the components of the form. 
 		/// </summary>
 		public FormSCL()
 		{
-			InitializeComponent();
+			InitializeComponent();	
 		}
 		
 		/// <summary>
@@ -137,7 +142,7 @@ namespace OpenSCLConfigurator
 			this.Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.Panel1.Location = new System.Drawing.Point(0, 0);
 			this.Panel1.Name = "Panel1";
-			this.Panel1.Size = new System.Drawing.Size(347, 795);
+			this.Panel1.Size = new System.Drawing.Size(347, 670);
 			this.Panel1.TabIndex = 0;
 			// 
 			// treeViewFile
@@ -147,7 +152,7 @@ namespace OpenSCLConfigurator
 									| System.Windows.Forms.AnchorStyles.Right)));
 			this.treeViewFile.Location = new System.Drawing.Point(0, 0);
 			this.treeViewFile.Name = "treeViewFile";
-			this.treeViewFile.Size = new System.Drawing.Size(347, 796);
+			this.treeViewFile.Size = new System.Drawing.Size(347, 671);
 			this.treeViewFile.TabIndex = 0;
 			this.treeViewFile.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TreeViewFileMouseUp);
 			this.treeViewFile.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewFileAfterSelect);
@@ -160,14 +165,15 @@ namespace OpenSCLConfigurator
 			this.Panel2.Controls.Add(this.PropertyGridAttributes);
 			this.Panel2.Location = new System.Drawing.Point(0, 0);
 			this.Panel2.Name = "Panel2";
-			this.Panel2.Size = new System.Drawing.Size(583, 795);
+			this.Panel2.Size = new System.Drawing.Size(583, 670);
 			this.Panel2.TabIndex = 0;
 			// 
 			// PropertyGridAttributes
 			// 
-			this.PropertyGridAttributes.Location = new System.Drawing.Point(0, 0);
+			this.PropertyGridAttributes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+			this.PropertyGridAttributes.Location = new System.Drawing.Point(1, 1);
 			this.PropertyGridAttributes.Name = "PropertyGridAttributes";
-			this.PropertyGridAttributes.Size = new System.Drawing.Size(794, 450);
+			this.PropertyGridAttributes.Size = new System.Drawing.Size(580, 465);
 			this.PropertyGridAttributes.TabIndex = 3;
 			// 
 			// splitContainer1
@@ -187,7 +193,7 @@ namespace OpenSCLConfigurator
 			// splitContainer1.Panel2
 			// 
 			this.splitContainer1.Panel2.Controls.Add(this.Panel2);
-			this.splitContainer1.Size = new System.Drawing.Size(943, 797);
+			this.splitContainer1.Size = new System.Drawing.Size(943, 672);
 			this.splitContainer1.SplitterDistance = 349;
 			this.splitContainer1.TabIndex = 5;
 			// 
@@ -372,7 +378,7 @@ namespace OpenSCLConfigurator
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
 									this.toolStripStatusLabel1});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 849);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 724);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Size = new System.Drawing.Size(943, 22);
 			this.statusStrip1.TabIndex = 4;
@@ -386,7 +392,7 @@ namespace OpenSCLConfigurator
 			// FormSCL
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(943, 871);
+			this.ClientSize = new System.Drawing.Size(943, 746);
 			this.Controls.Add(this.splitContainer1);
 			this.Controls.Add(this.toolBar1);
 			this.Controls.Add(this.menuStrip1);
@@ -396,6 +402,7 @@ namespace OpenSCLConfigurator
 			this.Text = ":..OpenSCLConfigurator..:";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.Load += new System.EventHandler(this.Form1_Load);
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormSCLFormClosed);
 			this.Panel1.ResumeLayout(false);
 			this.Panel2.ResumeLayout(false);
 			this.splitContainer1.Panel1.ResumeLayout(false);
@@ -422,10 +429,10 @@ namespace OpenSCLConfigurator
 		/// </param>
 		private void Form1_Load(object sender, System.EventArgs e) 
 		{			
-			tb_il.Images.Add(new Icon(Application.StartupPath+"/../../imgs//new_file.ico"));															
-			tb_il.Images.Add(new Icon(Application.StartupPath+"/../../imgs//open_file.ico"));																		
-			tb_il.Images.Add(new Icon(Application.StartupPath+"/../../imgs//save_file.ico"));			
-			tb_il.Images.Add(new Icon(Application.StartupPath+"/../../imgs//exit.ico"));
+			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//new_file.ico"));															
+			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//open_file.ico"));																		
+			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//save_file.ico"));			
+			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//exit.ico"));
 			toolBar1.ImageList = tb_il;  											
 		}												
 
@@ -441,18 +448,19 @@ namespace OpenSCLConfigurator
 		/// derive a class from this class to hold the data.
 		/// </param>
 		void NewFile(object sender, EventArgs e)
-		{
-			if (this.treeViewFile.Nodes.Count > 0)
-            {
-				if (MessageBox.Show("Do you want to save the changes on this file", "Save File", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
-				{
-					SaveDialog saveDoc = new SaveDialog();
-					saveDoc.SaveSCLFile(this.treeViewFile);                
-				}
-                this.treeViewFile.Nodes.Clear();              
-            }			
-			TreeViewSCL treeViewSCL = new TreeViewSCL();
-			this.treeViewFile.Nodes.Add(treeViewSCL.NewTreeNode());
+		{	
+			SaveFile(sender, e);
+			List<ErrorsManagement> list = null;					
+			ValidatingSCL validate = new ValidatingSCL();			
+			list = validate.ValidateFile(newFile, xSDFiles);
+			if (list.Count == 0)
+			{														
+				TreeViewSCL treeViewSCLOpen = new TreeViewSCL();
+				OpenSCL.Object Object = new OpenSCL.Object(); 					
+				Object.Deserialize(this.newFile);				
+				this.treeViewFile.Nodes.Add(treeViewSCLOpen.GetTreeNodeSCL(Path.GetFileName(newFile), Object.Configuration));
+			}		
+			EnablePanels(list);			
 		}
 		
 		/// <summary>
@@ -466,19 +474,20 @@ namespace OpenSCLConfigurator
 		/// handler when an event is raised. If the event handler requires state information, the application must 
 		/// derive a class from this class to hold the data.
 		/// </param>
-		void OpenFile(object sender, EventArgs e)
+		private void OpenFile(object sender, EventArgs e)
 		{	
-			if (this.treeViewFile.Nodes.Count > 0)
-            {
-				if (MessageBox.Show("Do you want to save the changes on this file", "Save File", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
-				{
-					SaveDialog saveDoc = new SaveDialog();
-					saveDoc.SaveSCLFile(this.treeViewFile);                
-				}
-                this.treeViewFile.Nodes.Clear();              
-            }
-			openDialog o = new openDialog();			
-			Panel1.Controls.Add(o.OpenSCLFile(this.treeViewFile)); 				
+			List<ErrorsManagement> listError = null;
+			try
+			{
+				SaveFile(sender, e);
+				openDialog o = new openDialog();					
+				listError = o.OpenSCLFile(this.treeViewFile, xSDFiles);												
+				EnablePanels(listError);
+			}
+			catch 
+			{
+				MessageBox.Show("SCL File Not Valid/Corrupted", "Open File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}		
 		
 		/// <summary>
@@ -492,12 +501,16 @@ namespace OpenSCLConfigurator
 		/// handler when an event is raised. If the event handler requires state information, the application must 
 		/// derive a class from this class to hold the data.
 		/// </param>
-		void SaveFile(object sender, EventArgs e)
+		private void SaveFile(object sender, EventArgs e)
 		{
 			if (this.treeViewFile.Nodes.Count > 0)
-            {                
-				SaveDialog saveD = new SaveDialog();
-				saveD.SaveSCLFile(this.treeViewFile);
+            {   
+				if (MessageBox.Show("Do you want to save the changes on this file \n", "Save File", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+				{				
+					SaveDialog saveD = new SaveDialog();
+					saveD.SaveSCLFile(this.treeViewFile);
+				}
+				this.treeViewFile.Nodes.Clear();				
 			}			
 		}
 		
@@ -512,9 +525,9 @@ namespace OpenSCLConfigurator
 		/// handler when an event is raised. If the event handler requires state information, the application must 
 		/// derive a class from this class to hold the data.
 		/// </param>
-		void ValidateFileClick(object sender, EventArgs e)
+		private void ValidateFileClick(object sender, EventArgs e)
 		{
-			//Code to validate XML files
+			OpenFile(sender, e);
 		}
 		
 		/// <summary>
@@ -622,13 +635,49 @@ namespace OpenSCLConfigurator
 		/// </param>		
 		void TreeViewFileMouseUp(object sender, MouseEventArgs e)
 		{
-            if (e.Button == MouseButtons.Right && (treeViewFile.SelectedNode.IsSelected))
-            {
-                ContextMenuSCL contextMenuSCL = new ContextMenuSCL();
-                Point nodePosition = new Point(e.X, e.Y);
-                ContextMenuStrip menuStrip = contextMenuSCL.GetContextMenuSCL(this.treeViewFile.SelectedNode);
-                menuStrip.Show(treeViewFile, nodePosition);
-            }	
+			if (this.treeViewFile.Nodes.Count > 0)
+			{
+            	if (e.Button == MouseButtons.Right && (treeViewFile.SelectedNode.IsSelected))
+            	{
+	                ContextMenuSCL contextMenuSCL = new ContextMenuSCL();
+    	            Point nodePosition = new Point(e.X, e.Y);
+        	        ContextMenuStrip menuStrip = contextMenuSCL.GetContextMenuSCL(this.treeViewFile.SelectedNode);
+            	    menuStrip.Show(treeViewFile, nodePosition);
+            	}	
+			}
 		}
+
+		/// <summary>
+		/// This method allows to enable a listbox with the errors found during the validation process
+		/// or a propertygrid with the attributes for the selected node.
+		/// </summary>
+		/// <param name="listError">
+		/// List of Errors founded during the validationprocess, if it is null, it means that the properties
+		/// has to be displayed
+		/// </param>
+		void EnablePanels(List<ErrorsManagement> listError)
+		{
+			if (listError != null)					
+			{
+				Panel2.Controls.Clear();
+				PropertyGridAttributes.SelectedObject = null;						
+				Panel2.Dock = System.Windows.Forms.DockStyle.Fill;						
+				if (listError.Count == 0 )
+				{					
+					Panel2.Controls.Add(PropertyGridAttributes);	
+				}
+				else
+				{			
+					UIErrorsManagement uiError = new UIErrorsManagement();
+					Panel2.Controls.Add(uiError.ShowError(listError));						
+				}								
+			}
+			Panel1.Controls.Add(this.treeViewFile);
+		}
+
+		void FormSCLFormClosed(object sender, FormClosedEventArgs e)
+		{
+			SaveFile(sender, e);
+		}		
 	} 	
 }

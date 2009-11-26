@@ -1,21 +1,22 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCLUI/ContextMenuSCL.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCLUI/HistoryDialog.Designer.cs" ctype="Workbench">
     <Files>
-      <File FileName="OpenSCLConfigurator/OpenSCLConfigurator.cs" Line="66" Column="67" />
-      <File FileName="LibOpenSCLUI/WindowTreeViewLNType.cs" Line="23" Column="9" />
-      <File FileName="LibOpenSCLUI/ContextMenuSCL.cs" Line="234" Column="69" />
+      <File FileName="LibOpenSCLUI/CommunicationDialog.Designer.cs" Line="241" Column="24" />
+      <File FileName="LibOpenSCLUI/WindowTreeViewLNType.Designer.cs" Line="151" Column="25" />
+      <File FileName="LibOpenSCLUI/HistoryDialog.Designer.cs" Line="87" Column="35" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="LibOpenSCL" expanded="True" />
-          <Node name="LibOpenSCLUI" expanded="True">
-            <Node name="ContextMenuSCL.cs" selected="True" />
+          <Node name="LibOpenSCLUI" expanded="True" selected="True">
+            <Node name="CommunicationDialog.cs" expanded="True" />
+            <Node name="DataSetDialog.cs" expanded="True" />
+            <Node name="HistoryDialog.cs" expanded="True" />
+            <Node name="LNodeDialog.cs" expanded="True" />
             <Node name="WindowTreeViewLNType.cs" expanded="True" />
           </Node>
-          <Node name="OpenSCLConfigurator" expanded="True">
-            <Node name="OpenSCLConfigurator.cs" expanded="True" />
-          </Node>
+          <Node name="OpenSCLConfigurator" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">

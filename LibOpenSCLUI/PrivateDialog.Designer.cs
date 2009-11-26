@@ -60,14 +60,12 @@ namespace OpenSCL.UI
 			this.valueLabel = new System.Windows.Forms.Label();
 			this.localNameLabel = new System.Windows.Forms.Label();
 			this.namespaceLabel = new System.Windows.Forms.Label();
-			this.elementCancelButton = new System.Windows.Forms.Button();
 			this.elementGroupBox1 = new System.Windows.Forms.GroupBox();
 			this.DeleteElementButton = new System.Windows.Forms.Button();
 			this.elementsListBox = new OpenSCL.UI.ListBoxHierachy();
 			this.AddElementButton = new System.Windows.Forms.Button();
 			this.elementOKButton = new System.Windows.Forms.Button();
 			this.AttributeGroupBox = new System.Windows.Forms.GroupBox();
-			this.label3 = new System.Windows.Forms.Label();
 			this.DeleteAttributeButton = new System.Windows.Forms.Button();
 			this.AddAttributeButton = new System.Windows.Forms.Button();
 			this.attributesListBox = new OpenSCL.UI.ListBoxHierachy();
@@ -76,8 +74,7 @@ namespace OpenSCL.UI
 			this.attributeLocalNameTextBox = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
-			this.attributeCancelButton = new System.Windows.Forms.Button();
-			this.CancelButton = new System.Windows.Forms.Button();
+			this.CancelBtn = new System.Windows.Forms.Button();
 			this.buttonOk = new System.Windows.Forms.Button();
 			this.TextSource = new System.Windows.Forms.TextBox();
 			this.labelSoucer = new System.Windows.Forms.Label();
@@ -151,16 +148,6 @@ namespace OpenSCL.UI
 			this.namespaceLabel.TabIndex = 4;
 			this.namespaceLabel.Text = "Namespace";
 			// 
-			// elementCancelButton
-			// 
-			this.elementCancelButton.Location = new System.Drawing.Point(204, 339);
-			this.elementCancelButton.Name = "elementCancelButton";
-			this.elementCancelButton.Size = new System.Drawing.Size(63, 23);
-			this.elementCancelButton.TabIndex = 7;
-			this.elementCancelButton.Text = "Cancel";
-			this.elementCancelButton.UseVisualStyleBackColor = true;
-			this.elementCancelButton.Click += new System.EventHandler(this.ElementButtonCancelClick);
-			// 
 			// elementGroupBox1
 			// 
 			this.elementGroupBox1.Controls.Add(this.DeleteElementButton);
@@ -168,7 +155,6 @@ namespace OpenSCL.UI
 			this.elementGroupBox1.Controls.Add(this.AddElementButton);
 			this.elementGroupBox1.Controls.Add(this.elementOKButton);
 			this.elementGroupBox1.Controls.Add(this.namespaceLabel);
-			this.elementGroupBox1.Controls.Add(this.elementCancelButton);
 			this.elementGroupBox1.Controls.Add(this.localNameLabel);
 			this.elementGroupBox1.Controls.Add(this.prefixTextBox);
 			this.elementGroupBox1.Controls.Add(this.valueLabel);
@@ -215,17 +201,16 @@ namespace OpenSCL.UI
 			// 
 			// elementOKButton
 			// 
-			this.elementOKButton.Location = new System.Drawing.Point(124, 339);
+			this.elementOKButton.Location = new System.Drawing.Point(145, 340);
 			this.elementOKButton.Name = "elementOKButton";
 			this.elementOKButton.Size = new System.Drawing.Size(63, 23);
 			this.elementOKButton.TabIndex = 6;
-			this.elementOKButton.Text = "OK";
+			this.elementOKButton.Text = "Save";
 			this.elementOKButton.UseVisualStyleBackColor = true;
 			this.elementOKButton.Click += new System.EventHandler(this.ElementOKButtonClick);
 			// 
 			// AttributeGroupBox
 			// 
-			this.AttributeGroupBox.Controls.Add(this.label3);
 			this.AttributeGroupBox.Controls.Add(this.DeleteAttributeButton);
 			this.AttributeGroupBox.Controls.Add(this.AddAttributeButton);
 			this.AttributeGroupBox.Controls.Add(this.attributesListBox);
@@ -234,7 +219,6 @@ namespace OpenSCL.UI
 			this.AttributeGroupBox.Controls.Add(this.attributeLocalNameTextBox);
 			this.AttributeGroupBox.Controls.Add(this.label1);
 			this.AttributeGroupBox.Controls.Add(this.label2);
-			this.AttributeGroupBox.Controls.Add(this.attributeCancelButton);
 			this.AttributeGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.AttributeGroupBox.Location = new System.Drawing.Point(470, 98);
 			this.AttributeGroupBox.Name = "AttributeGroupBox";
@@ -242,17 +226,6 @@ namespace OpenSCL.UI
 			this.AttributeGroupBox.TabIndex = 4;
 			this.AttributeGroupBox.TabStop = false;
 			this.AttributeGroupBox.Text = "Attribute";
-			// 
-			// label3
-			// 
-			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label3.ForeColor = System.Drawing.Color.Red;
-			this.label3.Location = new System.Drawing.Point(8, 340);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(346, 40);
-			this.label3.TabIndex = 15;
-			this.label3.Text = "Note: An attribute will be insert only if the value of the attribute\'s name must " +
-			"be diferent at the others attributes of the selected element.";
 			// 
 			// DeleteAttributeButton
 			// 
@@ -286,11 +259,11 @@ namespace OpenSCL.UI
 			// 
 			// attributeOKButton
 			// 
-			this.attributeOKButton.Location = new System.Drawing.Point(117, 294);
+			this.attributeOKButton.Location = new System.Drawing.Point(165, 340);
 			this.attributeOKButton.Name = "attributeOKButton";
 			this.attributeOKButton.Size = new System.Drawing.Size(63, 23);
 			this.attributeOKButton.TabIndex = 4;
-			this.attributeOKButton.Text = "OK";
+			this.attributeOKButton.Text = "Save";
 			this.attributeOKButton.UseVisualStyleBackColor = true;
 			this.attributeOKButton.Click += new System.EventHandler(this.AttributeOKButtonClick);
 			// 
@@ -326,25 +299,15 @@ namespace OpenSCL.UI
 			this.label2.TabIndex = 4;
 			this.label2.Text = "Name";
 			// 
-			// attributeCancelButton
+			// CancelBtn
 			// 
-			this.attributeCancelButton.Location = new System.Drawing.Point(200, 294);
-			this.attributeCancelButton.Name = "attributeCancelButton";
-			this.attributeCancelButton.Size = new System.Drawing.Size(63, 23);
-			this.attributeCancelButton.TabIndex = 5;
-			this.attributeCancelButton.Text = "Cancel";
-			this.attributeCancelButton.UseVisualStyleBackColor = true;
-			this.attributeCancelButton.Click += new System.EventHandler(this.AttributeButtonCancelClick);
-			// 
-			// CancelButton
-			// 
-			this.CancelButton.Location = new System.Drawing.Point(470, 527);
-			this.CancelButton.Name = "CancelButton";
-			this.CancelButton.Size = new System.Drawing.Size(75, 23);
-			this.CancelButton.TabIndex = 6;
-			this.CancelButton.Text = "Cancel";
-			this.CancelButton.UseVisualStyleBackColor = true;
-			this.CancelButton.Click += new System.EventHandler(this.ButtonCancelClick);
+			this.CancelBtn.Location = new System.Drawing.Point(470, 527);
+			this.CancelBtn.Name = "CancelBtn";
+			this.CancelBtn.Size = new System.Drawing.Size(75, 23);
+			this.CancelBtn.TabIndex = 6;
+			this.CancelBtn.Text = "Cancel";
+			this.CancelBtn.UseVisualStyleBackColor = true;
+			this.CancelBtn.Click += new System.EventHandler(this.CancelBtnClick);
 			// 
 			// buttonOk
 			// 
@@ -401,7 +364,7 @@ namespace OpenSCL.UI
 			this.Controls.Add(this.labelSoucer);
 			this.Controls.Add(this.labelType);
 			this.Controls.Add(this.TextType);
-			this.Controls.Add(this.CancelButton);
+			this.Controls.Add(this.CancelBtn);
 			this.Controls.Add(this.buttonOk);
 			this.Controls.Add(this.AttributeGroupBox);
 			this.Controls.Add(this.elementGroupBox1);
@@ -417,16 +380,12 @@ namespace OpenSCL.UI
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}		
-		
+		private System.Windows.Forms.Button CancelBtn;		
 		private System.Windows.Forms.Button DeleteAttributeButton;
 		private System.Windows.Forms.Button DeleteElementButton;
-		private System.Windows.Forms.Label label3;
 		private OpenSCL.UI.ListBoxHierachy attributesListBox;
 		private OpenSCL.UI.ListBoxHierachy elementsListBox;
-		private System.Windows.Forms.Button elementCancelButton;
 		private System.Windows.Forms.Button elementOKButton;
-		private System.Windows.Forms.Button CancelButton;
-		private System.Windows.Forms.Button attributeCancelButton;
 		private System.Windows.Forms.Button attributeOKButton;
 		private System.Windows.Forms.TextBox attributeLocalNameTextBox;
 		private System.Windows.Forms.TextBox AttributeValueTextBox;
@@ -448,6 +407,6 @@ namespace OpenSCL.UI
 		private System.Windows.Forms.Label labelType;
 		private System.Windows.Forms.Label labelSoucer;
 		private System.Windows.Forms.TextBox TextSource;
-		private System.Windows.Forms.Button buttonOk;
+		private System.Windows.Forms.Button buttonOk;	
 	}
 }

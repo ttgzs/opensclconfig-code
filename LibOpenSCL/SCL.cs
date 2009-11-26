@@ -376,6 +376,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tHeader 
 	{		
+		private static int index = 0;
 		private tText textField;		
 		private tHitem[] historyField;		
 		private string idField;		
@@ -387,7 +388,10 @@ namespace IEC61850.SCL
 		public tHeader() 
 		{
 			this.versionField = "0";
-			this.revisionField = "1";
+			if(this.revision == null )
+			{
+				this.revision = ( ++index ).ToString();
+			}
 			this.idField = "SCL File";
 			this.toolIDField = "OpenSCLConfigurator";
 			this.nameStructureField = tHeaderNameStructure.IEDName;				
@@ -594,6 +598,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public partial class tHitem : tAnyContentFromOtherNamespace 
 	{		
+		private static int index = 0;
 		private string versionField;		
 		private string revisionField;		
 		private string whenField;		
@@ -604,7 +609,10 @@ namespace IEC61850.SCL
 		public tHitem()
 		{
 			this.versionField = "0";
-			this.revisionField = "1";
+			if(this.revision == null)
+			{
+				this.revision = (++index).ToString();
+			}
 			this.whenField = "";	
 			this.what = "New SCL File";
 		}
@@ -799,6 +807,7 @@ namespace IEC61850.SCL
 	 * 
 	 * The data type "lnClassField" was added to fulfill standard IEC 61850 Ed. 1.0	 
 	 * 
+	 * To accept any Logical Node without shows an error, the type of lnClass attribute has to be changed from Enum to String.
 	*/	
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
@@ -812,7 +821,7 @@ namespace IEC61850.SCL
 		private string iedNameField;		
 		private string ldInstField;		
 		private string prefixField;		
-		private tLNClassEnum lnClassField;		
+		private string lnClassField;		
 		private string lnInstField;
 		
 		public tAssociation() 
@@ -897,7 +906,7 @@ namespace IEC61850.SCL
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[Category("Association"), Description("The class of the client LN")]
-		public tLNClassEnum lnClass 
+		public string lnClass 
 		{
 			get 
 			{
@@ -948,6 +957,8 @@ namespace IEC61850.SCL
 	 * lnInst -> lnInstField
 	 * 
 	 * The data type "lnClassField" was added to fulfill standard IEC 61850 Ed. 1.0	 
+	 * 
+	 * To accept any Logical Node without shows an error, the type of lnClass attribute has to be changed from Enum to String.
 	*/		
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
@@ -959,7 +970,7 @@ namespace IEC61850.SCL
 		private string iedNameField;		
 		private string ldInstField;		
 		private string prefixField;		
-		private tLNClassEnum lnClassField;		
+		private string lnClassField;		
 		private string lnInstField;		
 		private string doNameField;		
 		private string daNameField;		
@@ -1012,7 +1023,7 @@ namespace IEC61850.SCL
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[Category("ExtRef"), Description("The LN class")]
-		public tLNClassEnum lnClass
+		public string lnClass
 		{
 			get 
 			{
@@ -1215,7 +1226,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("P"), Description("This attribute identifies the meaning of the value")]
+		[Category("P"), Description("This attribute identifies the meaning of the value"), ReadOnlyAttribute(true)]
 		public tPTypeEnum type 
 		{
 			get 
@@ -1834,6 +1845,8 @@ namespace IEC61850.SCL
 	 * ldInst -> ldInstField
 	 *
 	 * The data type "lnClassField was added to fulfill the standard IEC 61850 Ed. 1.0
+	 * 
+	 * To accept any Logical Node without shows an error, the type of lnClass attribute has to be changed from Enum to String.
 	*/		
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
@@ -1845,7 +1858,7 @@ namespace IEC61850.SCL
 		private string iedNameField;		
 		private string ldInstField;		
 		private string prefixField;		
-		private tLNClassEnum lnClassField;		
+		private string lnClassField;		
 		private string lnInstField;
 		
 		public tClientLN() 
@@ -1900,7 +1913,7 @@ namespace IEC61850.SCL
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[Category("ClientLN"), Description("The LN class")]
-		public tLNClassEnum lnClass 
+		public string lnClass 
 		{
 			get 
 			{
@@ -2011,6 +2024,8 @@ namespace IEC61850.SCL
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 
 	 * The data type "lnClassField" was added to fulfill standard IEC 61850 Ed. 1.0	 
+	 * 
+	 * To accept any Logical Node without shows an error, the type of lnClass attribute has to be changed from Enum to String.
 	*/		
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
@@ -2021,11 +2036,12 @@ namespace IEC61850.SCL
 	{		
 		private string ldInstField;		
 		private string prefixField;		
-		private tLNClassEnum lnClassField;		
+		private string lnClassField;		
 		private string lnInstField;		
 		private string doNameField;		
 		private string daNameField;		
 		private tFCEnum fcField;
+		private tLDevice tLDevice;
 		
 		public tFCDA() 
 		{
@@ -2033,16 +2049,23 @@ namespace IEC61850.SCL
 		}
 				
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("FCDA"), Description("The LD where the DO resides")]
+		[Category("FCDA"), Description("The LD where the DO resides"), ReadOnly(true)]
 		public string ldInst 
 		{
 			get 
 			{
-				return this.ldInstField;
+				if(this.tLDevice != null)
+				{
+					return this.tLDevice.inst;
+				}
+				return "";				
 			}
 			set 
 			{
-				this.ldInstField = value;
+				if(this.tLDevice != null)
+				{
+					this.tLDevice.inst = this.ldInstField = value;
+				}
 			}
 		}
 		
@@ -2062,7 +2085,7 @@ namespace IEC61850.SCL
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[Category("FCDA"), Description("LN class of the LN where the DO resides")]		
-		public tLNClassEnum lnClass 
+		public string lnClass 
 		{
 			get 
 			{
@@ -2583,7 +2606,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ServiceWithMaxAndClient"), Description("Client")]
+		[Category("ServiceWithMaxAndClient"), Description("Client"), DefaultValue(true)]
 		public bool client 
 		{
 			get 
@@ -4042,6 +4065,8 @@ namespace IEC61850.SCL
 		private tAddress addressField;		
 		private string ldInstField;		
 		private string cbNameField;
+		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		private tLDevice tLDevice;
 		
 		[Category("ControlBlock"), Description("This contains the address parameters of this access point at this bus, at least "+
 			"one parameter"), Browsable(false)]
@@ -4059,22 +4084,30 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("ControlBlock"), Description("The instance identification of the LD within this IED, on which the control block is located.")]
+		[Category("ControlBlock"), Description("The instance identification of the LD within this IED, on which the control block is located."), ReadOnlyAttribute(true)]
 		public string ldInst 
 		{
 			get 
 			{
+				if(this.tLDevice != null)
+				{
+					return this.tLDevice.inst;
+				}
 				return this.ldInstField;
 			}
 			set 
 			{
+				if(this.tLDevice != null)
+				{
+					this.tLDevice.inst = this.ldInstField = value;
+				}
 				this.ldInstField = value;
 			}
 		}
 
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("ControlBlock"), Description("The name of the control block within the LLN0 of the LD ldInst.")]
+		[Category("ControlBlock"), Description("The name of the control block within the LLN0 of the LD ldInst."), ReadOnlyAttribute(true)]
 		public string cbName 
 		{
 			get 
@@ -4095,7 +4128,60 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public partial class tSMV : tControlBlock 
 	{
+		//se agregan estas propiedades por q no se pueden acceder a ellas debido a la herencia
+		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		private string ldInstField;
+		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		private tLDevice tLDevice;
+		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		private string cbNameField;
+		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		private tSampledValueControl tSampledValueControl;
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ControlBlock"), Description("The name of the control block within the LLN0 of the LD ldInst."), ReadOnlyAttribute(true)]		
+		public string cbName
+		{
+			get 
+			{
+				if(this.tSampledValueControl != null)
+				{
+					return this.tSampledValueControl.name;
+				}
+				return this.cbNameField;
+			}
+			set
+			{
+				if(this.tSampledValueControl != null)
+				{
+					this.tSampledValueControl.name = this.cbNameField = value;
+				}
+					this.cbNameField = value;
+			}
+		}
 		
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ControlBlock"), Description("The instance identification of the LD within this IED, on which the control block is located."), ReadOnlyAttribute(true)]
+		public string ldInst 
+		{
+			get 
+			{
+				if(this.tLDevice != null)
+				{
+					return this.tLDevice.inst;
+				}
+				return this.ldInstField;
+			}
+			set 
+			{
+				if(this.tLDevice != null)
+				{
+					this.tLDevice.inst = this.ldInstField = value;
+				}
+				this.ldInstField=value;
+			}
+		}
 	}
 
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
@@ -4107,6 +4193,61 @@ namespace IEC61850.SCL
 	{		
 		private tDurationInMilliSec minTimeField;		
 		private tDurationInMilliSec maxTimeField;
+		
+		//victor, se agregan por el acceso a las propiedades heredades
+		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		private string ldInstField;
+		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		private tLDevice tLDevice;
+		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		private string cbNameField;
+		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		private tGSEControl tGSEControl;
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ControlBlock"), Description("The name of the control block within the LLN0 of the LD ldInst."), ReadOnlyAttribute(true)]
+		public string cbName 
+		{
+			get 
+			{
+				if(this.tGSEControl != null)
+				{
+					return this.tGSEControl.name;
+				}
+				return this.cbNameField;
+			}
+			set
+			{
+				if(this.tGSEControl != null)
+				{
+					this.tGSEControl.name = this.cbNameField = value;
+				}
+					this.cbNameField = value;
+			}
+		}
+		
+		[Required]
+		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[Category("ControlBlock"), Description("The instance identification of the LD within this IED, on which the control block is located."), ReadOnlyAttribute(true)]
+		public string ldInst 
+		{
+			get 
+			{
+				if(this.tLDevice != null)
+				{
+					return this.tLDevice.inst;
+				}
+				return this.ldInstField;
+			}
+			set 
+			{
+				if(this.tLDevice != null)
+				{
+					this.tLDevice.inst = this.ldInstField = value;
+				}
+				this.ldInstField=value;
+			}
+		}
 		
 		[Category("GSE"), Description("The maximal allowed sending delay on a data change in ms."), 
 		 Browsable(false)]
@@ -4234,6 +4375,10 @@ namespace IEC61850.SCL
 		private string iedNameField;		
 		private string apNameField;
 
+		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		private tAccessPoint tAccessPoint;
+		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		private tIED tIED;		
 		[Category("ConnectedAP"), Description("The Address element contains the address parameters of this access point at this bus."), Browsable(false)]
 		public tAddress Address 
 		{
@@ -4290,31 +4435,47 @@ namespace IEC61850.SCL
 		}
 
 		[Required]
-		[Category("ConnectedAP"), Description("A name identifying the IED.")]
+		[Category("ConnectedAP"), Description("A name identifying the IED."), ReadOnly(true)]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]		
 		public string iedName
 		{
 			get
 			{
+				if(this.tIED != null)
+				{
+					return this.tIED.name;
+				}
 				return this.iedNameField;
 			}
 			set 
 			{
+				if(this.tIED != null)
+				{
+					this.tIED.name = this.iedNameField = value;
+				}
 				this.iedNameField = value;
 			}
 		}
 		
 		[Required]
 		[Category("ConnectedAP"), Description("A name identifying this access point within the IED")]
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]		
+		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString"), ReadOnly(true)]		
 		public string apName 
 		{
 			get 
 			{
+				if(this.tAccessPoint != null)
+				{
+					return this.tAccessPoint.name;
+				}
 				return this.apNameField;
 			}
 			set
 			{
+				if(this.tAccessPoint != null)
+				{
+					this.tAccessPoint.name = this.apNameField = value;
+				}
 				this.apNameField = value;
 			}
 		}
@@ -4476,7 +4637,16 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public partial class tDataSet : tNaming 
 	{		
+		private static int index = 0;
 		private tFCDA[] fCDAField;
+		
+		public tDataSet()
+		{
+			if(this.name == null)
+			{
+				this.name = "DataSet" + ( ++ index ).ToString();
+			}
+		}
 		
 		[System.Xml.Serialization.XmlElementAttribute("FCDA")]
 		[Category("DataSet"), Browsable(false)]
@@ -4547,7 +4717,14 @@ namespace IEC61850.SCL
 			}
 			set
 			{
-				this.nameField = value;
+				if ( value != "")
+				{
+					this.nameField = value;
+				}
+				else
+				{
+					this.name = nameField;
+				}
 			}
 		}
 		
@@ -4602,9 +4779,18 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public partial class tSubNetwork : tNaming 
 	{		
+		private static int index = 0;
 		private tBitRateInMbPerSec bitRateField;		
 		private tConnectedAP[] connectedAPField;		
 		private string typeField;
+		
+		public tSubNetwork()
+		{
+			if( this.name == null)
+			{
+				this.name = "SubNetwork" + ( ++ index ).ToString();
+			}
+		}
 		
 		[Category("SubNetwork"), Description("Defining the bit rate in Mbit/s."), Browsable(false)]	
 		public tBitRateInMbPerSec BitRate 
@@ -4715,10 +4901,19 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public partial class tControl : tNaming
 	{		
+		private static int index = 0;
 		private string datSetField;
 		
+		public tControl()
+		{
+			if(this.name == null)
+			{
+				this.name = "Control" + ( ++ index ).ToString();
+			}
+		}
+		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("Control"), Description("Data set reference")]
+		[Category("Control"), Description("Data set reference"), BrowsableAttribute(false)]
 		public string datSet 
 		{
 			get 
@@ -5231,7 +5426,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("ReportControl"), Description("Specifies if reports are buffered or no.")]
+		[Category("ReportControl"), Description("Specifies if reports are buffered or no."), DefaultValue(false) ]
 		public bool buffered 
 		{
 			get
@@ -5259,6 +5454,11 @@ namespace IEC61850.SCL
 		}
 	}
 
+	 /* 
+	 * The attributes bufOvfl and segmentation were added to fullfill the standard IEC61850-6 Ed.1.0. 
+	 * This attributes were also added on the SCL_IED.xsd file because these attributes doesn't exist 
+	 * on this file although they are indicated on the standard.
+	 */ 
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5273,6 +5473,8 @@ namespace IEC61850.SCL
 		private bool dataRefField;		
 		private bool entryIDField;		
 		private bool configRefField;
+		private bool bufOvflField;
+		private bool segmentationField;
 		
 		public tReportControlOptFields() 
 		{
@@ -5283,6 +5485,8 @@ namespace IEC61850.SCL
 			this.dataRefField = false;
 			this.entryIDField = false;
 			this.configRefField = false;
+			this.bufOvflField = false;
+			this.segmentationField = false;
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
@@ -5383,6 +5587,34 @@ namespace IEC61850.SCL
 				this.configRefField = value;
 			}
 		}
+		
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("ReportControlOptFields"), Description("Configuration reference.")]
+		public bool bufOvfl 
+		{
+			get
+			{
+				return this.bufOvflField;
+			}
+			set 
+			{
+				this.bufOvflField = value;
+			}
+		}
+		
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[Category("ReportControlOptFields"), Description("Configuration reference.")]
+		public bool segmentation 
+		{
+			get
+			{
+				return this.segmentationField;
+			}
+			set 
+			{			
+				this.segmentationField = value;
+			}
+		}
 	}
 
 	/* 
@@ -5399,6 +5631,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public partial class tAccessPoint : tNaming
 	{		
+		private static int index = 0;
 		private bool routerField;		
 		private bool clockField;		
 		private tServer serverField;		
@@ -5408,6 +5641,10 @@ namespace IEC61850.SCL
 		{
 			this.routerField = false;
 			this.clockField = false;
+			if(this.name == null)
+			{
+				this.name = "AccessPoint" + ( ++ index ).ToString();
+			}
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
@@ -5472,6 +5709,8 @@ namespace IEC61850.SCL
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 *
 	 * The data type "lnClassField" was added to fulfill standard IEC 61850 Ed. 1.0	 
+	 *
+	 * To accept any Logical Node without shows an error, the type of lnClass attribute has to be changed from Enum to String.
 	*/	
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
@@ -5481,27 +5720,68 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlRootAttribute("LN", Namespace="http://www.iec.ch/61850/2003/SCL", IsNullable=false)]	
 	public partial class tLN : tAnyLN 
 	{		
+		private static uint index = 0;
 		private tLNClassEnum lnClassField;		
+		[System.Xml.Serialization.XmlIgnore()]
+		public tLNClassEnum lnClassFieldTemp;
 		private uint instField;		
 		private string prefixField;
+		private string lnClassString;
 		
 		public tLN() 
 		{
 			this.prefixField = "";
+			this.inst = ++index;
+			lnClass = tLNClassEnum.LPHD.ToString();
+			if(this.lnType==null)
+			{
+				this.lnType = this.prefix + this.lnClassEnum.ToString() + this.inst.ToString();
+			}	
 		}
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("LN"), Description("The LN class")]
-		public tLNClassEnum lnClass 
+		[Category("LN"), Browsable(false), Description("The LN class")]
+		public string lnClass 
+		{
+			get 
+			{
+				return this.lnClassString;
+			}
+			set
+			{				
+				this.lnClassString = value;
+				if(System.Enum.IsDefined(typeof(tLNClassEnum), value.ToString()))
+				{
+					this.lnClassEnum = (tLNClassEnum) System.Enum.Parse(typeof(tLNClassEnum), value.ToString());
+				}
+				else
+				{
+					this.lnClassEnum = tLNClassEnum.Custom;
+				}			
+			}
+		}	
+		
+		[Required]
+		[System.Xml.Serialization.XmlIgnore()]
+		[Category("LN"), DisplayName("lnClass"), Description("The LN class")]
+		public tLNClassEnum lnClassEnum 
 		{
 			get 
 			{
 				return this.lnClassField;
 			}
 			set
-			{
-				this.lnClassField = value;
+			{	
+				if(lnClassField != value)
+				{
+					this.lnClassFieldTemp = lnClassField;
+				}
+				this.lnClassField = value;				
+				if(this.lnClassField!=tLNClassEnum.Custom)
+				{
+					this.lnClassString = this.lnClassField.ToString();
+				}
 			}
 		}
 		
@@ -5517,6 +5797,7 @@ namespace IEC61850.SCL
 			set 
 			{
 				this.instField = value;
+				this.lnType = this.prefix + this.lnClassEnum.ToString() + this.instField;
 			}
 		}
 		
@@ -5531,6 +5812,7 @@ namespace IEC61850.SCL
 			set 
 			{
 				this.prefixField = value;
+				this.lnType = this.prefixField +  this.lnClassEnum.ToString() + this.inst.ToString();
 			}
 		}
 	}
@@ -5713,11 +5995,20 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tLDevice : tUnNaming
 	{		
+		private static int index = 0;
 		private LN0 lN0Field;		
 		private tLN[] lnField;		
 		private tAccessControl accessControlField;		
 		private string instField;		
 		private string ldNameField;
+		
+		public tLDevice()
+		{
+			if(this.inst == null)
+			{
+				this.inst = this.ldName = "LDevice" + ( ++index ).ToString();
+			}
+		}
 		
 		[Category("LDevice"), Description("The LN class is always LLN0"), Browsable(false)]
 		public LN0 LN0 
@@ -5770,7 +6061,14 @@ namespace IEC61850.SCL
 			}
 			set 
 			{
-				this.instField = value;
+				if( value != "")
+				{
+					this.instField = value;
+				}
+				else
+				{
+					this.inst = this.instField;
+				}
 			}
 		}
 		
@@ -5784,7 +6082,14 @@ namespace IEC61850.SCL
 			}
 			set
 			{
-				this.ldNameField = value;
+				if( value != "")
+				{
+					this.ldNameField = value;
+				}
+				else
+				{
+					ldName = this.ldNameField;
+				}
 			}
 		}
 	}
@@ -5824,6 +6129,11 @@ namespace IEC61850.SCL
 		public tLN0()
 		{
 			this.lnClassField = tLNClassEnum.LLN0;
+			inst = "1";
+			if(lnType==null)
+			{
+				lnType = lnClass + inst;
+			}
 		}
 		
 		[System.Xml.Serialization.XmlElementAttribute("GSEControl")]
@@ -5947,7 +6257,15 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public partial class tLNodeContainer : tNaming 
 	{		
+		private static int index = 0;
 		private tLNode[] lNodeField;
+		public tLNodeContainer()
+		{
+			if(this.name == null )
+			{
+				this.name = "LNodeContainer" + ( ++index ).ToString();
+			}
+		}
 		
 		[System.Xml.Serialization.XmlElementAttribute("LNode")]
 		[Category("LNodeContainer"), Browsable(false)]
@@ -6238,6 +6556,8 @@ namespace IEC61850.SCL
 	/* 
 	 * The enumeration "tLNClassEnum" was added to fulfill standard IEC 61850 Ed. 1.0.
 	 * This is composed by following Enums: tPredefinedLNClassEnum y tExtensionLNClassEnum	 	 
+	 *
+	 * To add a Logical Node personalized and defined by the enum "Custom" was added.
 	*/	
 	public enum tLNClassEnum
 	{
@@ -6254,9 +6574,10 @@ namespace IEC61850.SCL
 		TCTR,TVTR,
 		XCBR,XSWI,
 		YPTR,YEFN,YLTC,YPSH,
-		ZAXN,ZBAT,ZBSH,ZCAB,ZCAP,ZCON,ZGEN,ZGIL,ZLIN,ZMOT,ZREA,ZRRC,ZSAR,ZTCF,ZTCR
+		ZAXN,ZBAT,ZBSH,ZCAB,ZCAP,ZCON,ZGEN,ZGIL,ZLIN,ZMOT,ZREA,ZRRC,ZSAR,ZTCF,ZTCR,
 		// Missing:
 		// tExtensionLNClassEnum	
+		Custom,
 	}	
 	
 	/* 
@@ -6401,7 +6722,7 @@ namespace IEC61850.SCL
 		TCR,
 		IFL		
 		 
-		// FIXME : tExtensionEquipmentEnum is missing for the upcomming Editon 2.0
+		// FIXME : tExtensionEquipmentEnum is missing
 	}
 	
 	/*
@@ -6546,7 +6867,8 @@ namespace IEC61850.SCL
 		EntryTime,
 		Unicode255,
 		//tExtensionBasicTypeEnum is missing	
-		Check
+		Check,
+		VisString65
 	}
 
 	/* 
@@ -6555,6 +6877,8 @@ namespace IEC61850.SCL
 	 * 
 	 * The value's atttribute "string lnClassField to tLNClassEnum lnClassField"
 	 * was added to fulfill standard IEC 61850 Ed. 1.0
+	 *
+	 * To accept any Logical Node without shows an error, the type of lnClass attribute has to be changed from Enum to String.
 	*/	
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
@@ -6564,18 +6888,38 @@ namespace IEC61850.SCL
 	public partial class tLNode : tUnNaming 
 	{		
 		private string lnInstField;		
-		private tLNClassEnum lnClassField;		
+		private string lnClassField;		
 		private string iedNameField;		
 		private string ldInstField;		
 		private string prefixField;		
 		private string lnTypeField;
 		
+		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		private tLN tLN;
+		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		private tLDevice tLDevice;
+		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		private tIED tIED;
 		public tLNode()
 		{
 			this.lnInstField = "";
 			this.iedNameField = "None";
 			this.ldInstField = "";
 			this.prefixField = "";			
+			if(this.tLN != null)
+			{
+				this.lnInstField = (string) System.Convert.ChangeType(this.tLN.inst, typeof(string));
+				this.lnClassField = this.tLN.lnClass;
+				this.lnTypeField = this.tLN.lnType;
+			}
+			if(this.tLDevice != null)
+			{
+				this.ldInstField = this.tLDevice.inst;
+			}
+			if(this.tIED != null)
+			{
+				this.iedNameField = this.tIED.name;
+			}
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
@@ -6584,10 +6928,19 @@ namespace IEC61850.SCL
 		{
 			get
 			{
+				if(this.tLN != null)
+				{
+					this.lnInstField = (string) System.Convert.ChangeType(this.tLN.inst, typeof(string));
+				}
 				return this.lnInstField;
 			}
 			set 
 			{
+				if(this.tLN != null)
+				{
+					this.tLN.inst = (uint) System.Convert.ChangeType(value, typeof(uint));
+					this.lnInstField =  (string) System.Convert.ChangeType(this.tLN.inst, typeof(string));
+				}
 				this.lnInstField = value;
 			}
 		}
@@ -6595,15 +6948,26 @@ namespace IEC61850.SCL
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[Category("LNode"), Description("The LN class.")]
-		public tLNClassEnum lnClass 
+		public string lnClass 
 		{
 			get 
 			{
+				if(this.tLN != null)
+				{
+					this.lnClassField = this.tLN.lnClass;
+				}
 				return this.lnClassField;
 			}
 			set
 			{
-				this.lnClassField = value;
+				if(this.tLN != null)
+				{
+					this.lnClassField = this.tLN.lnClass= value;
+				}
+				else
+				{
+					this.lnClassField = value;
+				}
 			}
 		}
 		
@@ -6613,11 +6977,22 @@ namespace IEC61850.SCL
 		{
 			get 
 			{
+				if(this.tIED != null)
+				{
+					this.iedNameField = this.tIED.name;
+				}
 				return this.iedNameField;
 			}
 			set 
 			{
+				if(this.tIED != null)
+				{
+					this.iedNameField = this.tIED.name = value;
+				}
+				else
+				{
 				this.iedNameField = value;
+				}
 			}
 		}
 		
@@ -6627,11 +7002,22 @@ namespace IEC61850.SCL
 		{
 			get 
 			{
+				if(this.tLDevice != null)
+				{
+					this.ldInstField = this.tLDevice.inst;
+				}
 				return this.ldInstField;
 			}
 			set 
 			{
-				this.ldInstField = value;
+				if(this.tLDevice != null)
+				{
+					this.ldInstField = this.tLDevice.inst = value;
+				}
+				else
+				{
+					this.ldInstField = value;
+				}
 			}
 		}
 		
@@ -6655,11 +7041,22 @@ namespace IEC61850.SCL
 		{
 			get 
 			{
+				if(this.tLN != null)
+				{
+					this.lnTypeField = this.tLN.lnType;
+				}
 				return this.lnTypeField;
 			}
 			set 
 			{
-				this.lnTypeField = value;
+				if(this.tLN != null)
+				{
+					this.lnTypeField = this.tLN.lnType = value;
+				}
+				else
+				{
+					this.lnTypeField = value;
+				}
 			}
 		}
 	}
@@ -7530,12 +7927,14 @@ namespace IEC61850.SCL
 	 * indication of this was developed using a validation's attribute "[Required]"
 	 * 	 
 	 * The data type "lnClassField" was added to fulfill standard IEC 61850 Ed. 1.0	 
+	 *
+	 * To accept any Logical Node without shows an error, the type of lnClass attribute has to be changed from Enum to String.
 	*/		
 	public partial class tLNodeType : tIDNaming
 	{		
 		private tDO[] doField;		
 		private string iedTypeField;		
-		private tLNClassEnum lnClassField;
+		private string lnClassField;
 		
 		public tLNodeType() 
 		{
@@ -7573,7 +7972,7 @@ namespace IEC61850.SCL
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[Category("LNodeType"), Description("The LN base class of this type.")]
-		public tLNClassEnum lnClass 
+		public string lnClass 
 		{
 			get 
 			{
@@ -7648,6 +8047,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlRootAttribute("IED", Namespace="http://www.iec.ch/61850/2003/SCL", IsNullable=false)]
 	public partial class tIED : tNaming 
 	{		
+		private static int index = 0;
 		private tServices servicesField;		
 		private tAccessPoint[] accessPointField;		
 		private string typeField;		
@@ -7656,7 +8056,10 @@ namespace IEC61850.SCL
 		
 		public tIED()
 		{
-			this.configVersionField = "0";
+			if(this.name == null)
+			{
+				this.name = "IED" + ( ++index ).ToString();
+			}
 		}
 		
 		[Category("IED"), Description("All services for dynamic building of associations."), Browsable(false)]

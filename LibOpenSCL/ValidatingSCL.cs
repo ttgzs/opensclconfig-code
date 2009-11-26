@@ -25,7 +25,6 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Schema;
 
@@ -76,17 +75,8 @@ namespace OpenSCL
 				}	
 				
 			}
-            catch(Exception error)
+            catch(Exception)
             {
-				//if (error.ToString() != null)
-					
-				//MessageBox.Show(error.Message);					
-				//if ((error.GetType().ToString() == "System.Xml.Schema.XmlSchemaException") ||
-				  //  (error.GetType().ToString() == "System.NullReferenceException"))				
-            	//if (error.Data == "System.Collections.Hashtable")				
-			//	{		
-					//errorList = null;                	
-			//	}
            	}			
 			return errorList;			
 		}	
@@ -205,7 +195,7 @@ namespace OpenSCL
         }
 
         /// <summary>
-        /// 
+        /// This method allows to handle the errors that occurs during a validation of SCL file.
         /// </summary>
         /// <param name="sender">
         /// Name of the object.

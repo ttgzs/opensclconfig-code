@@ -17,7 +17,6 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 using System.Xml;
 using IEC61850.SCL;
@@ -92,7 +91,7 @@ namespace OpenSCL.UI
 		/// handler when an event is raised. If the event handler requires state information, the application must 
 		/// derive a class from this class to hold the data.
 		/// </param>
-		void ButtonCancelClick(object sender, EventArgs e)
+		void CancelBtnClick(object sender, EventArgs e)
 		{						
 			this.Close();
 		}
@@ -275,7 +274,7 @@ namespace OpenSCL.UI
 			this.bandModifyAttribute = false;
 			this.LoadAtttribute(null);						
 		}			
-				
+		
 		/// <summary>		
 		/// This event allows to modify or delete information about the selected element.		
 		/// </summary>

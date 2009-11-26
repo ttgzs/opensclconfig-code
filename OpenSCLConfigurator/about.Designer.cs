@@ -111,7 +111,7 @@ namespace OpenSCLConfigurator
 			// label3
 			// 
 			this.label3.Font = new System.Drawing.Font("DejaVu Sans", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-			this.label3.Location = new System.Drawing.Point(220, 100);
+			this.label3.Location = new System.Drawing.Point(220, 90);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(528, 41);
 			this.label3.TabIndex = 4;
@@ -122,7 +122,7 @@ namespace OpenSCLConfigurator
 			// label4
 			// 
 			this.label4.Font = new System.Drawing.Font("DejaVu Sans", 8.25F, System.Drawing.FontStyle.Bold);
-			this.label4.Location = new System.Drawing.Point(222, 344);
+			this.label4.Location = new System.Drawing.Point(222, 345);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(528, 23);
 			this.label4.TabIndex = 5;
@@ -134,10 +134,10 @@ namespace OpenSCLConfigurator
 			this.tabControl1.Controls.Add(this.tabAbout);
 			this.tabControl1.Controls.Add(this.tabVersion);
 			this.tabControl1.Controls.Add(this.tabDevelop);
-			this.tabControl1.Location = new System.Drawing.Point(220, 143);
+			this.tabControl1.Location = new System.Drawing.Point(220, 131);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(587, 202);
+			this.tabControl1.Size = new System.Drawing.Size(587, 211);
 			this.tabControl1.TabIndex = 6;
 			// 
 			// tabAbout
@@ -149,7 +149,7 @@ namespace OpenSCLConfigurator
 			this.tabAbout.Location = new System.Drawing.Point(4, 22);
 			this.tabAbout.Name = "tabAbout";
 			this.tabAbout.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAbout.Size = new System.Drawing.Size(579, 176);
+			this.tabAbout.Size = new System.Drawing.Size(579, 194);
 			this.tabAbout.TabIndex = 1;
 			this.tabAbout.Text = "About OpenSCLConfigurator";
 			this.tabAbout.UseVisualStyleBackColor = true;
@@ -173,7 +173,7 @@ namespace OpenSCLConfigurator
 			this.label2.TabIndex = 3;
 			this.label2.Text = "Released under the terms of the GNU General Public License";
 			// 
-			// OpenSCLConfigurator Version Number
+			// textBox1
 			// 
 			this.textBox1.BackColor = System.Drawing.SystemColors.InactiveBorder;
 			this.textBox1.Font = new System.Drawing.Font("DejaVu Sans", 8.25F);
@@ -182,7 +182,7 @@ namespace OpenSCLConfigurator
 			this.textBox1.ReadOnly = true;
 			this.textBox1.Size = new System.Drawing.Size(46, 20);
 			this.textBox1.TabIndex = 2;
-			this.textBox1.Text = "0.2.1";
+			this.textBox1.Text = "0.4";
 			this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			// 
 			// label8
@@ -199,7 +199,7 @@ namespace OpenSCLConfigurator
 			this.tabVersion.Location = new System.Drawing.Point(4, 22);
 			this.tabVersion.Name = "tabVersion";
 			this.tabVersion.Padding = new System.Windows.Forms.Padding(3);
-			this.tabVersion.Size = new System.Drawing.Size(579, 176);
+			this.tabVersion.Size = new System.Drawing.Size(579, 203);
 			this.tabVersion.TabIndex = 2;
 			this.tabVersion.Text = "Version Info";
 			this.tabVersion.UseVisualStyleBackColor = true;
@@ -221,7 +221,7 @@ namespace OpenSCLConfigurator
 			this.tabDevelop.Location = new System.Drawing.Point(4, 22);
 			this.tabDevelop.Name = "tabDevelop";
 			this.tabDevelop.Padding = new System.Windows.Forms.Padding(3);
-			this.tabDevelop.Size = new System.Drawing.Size(579, 176);
+			this.tabDevelop.Size = new System.Drawing.Size(579, 185);
 			this.tabDevelop.TabIndex = 0;
 			this.tabDevelop.Text = "Ported and Developed by";
 			this.tabDevelop.UseVisualStyleBackColor = true;
@@ -233,7 +233,7 @@ namespace OpenSCLConfigurator
 			this.richTextBox3.Location = new System.Drawing.Point(0, 0);
 			this.richTextBox3.Name = "richTextBox3";
 			this.richTextBox3.ReadOnly = true;
-			this.richTextBox3.Size = new System.Drawing.Size(577, 173);
+			this.richTextBox3.Size = new System.Drawing.Size(577, 186);
 			this.richTextBox3.TabIndex = 1;
 			this.richTextBox3.Text = resources.GetString("richTextBox3.Text");
 			// 
@@ -241,9 +241,9 @@ namespace OpenSCLConfigurator
 			// 
 			this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
 			this.pictureBox2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.pictureBox2.Location = new System.Drawing.Point(175, 157);
+			this.pictureBox2.Location = new System.Drawing.Point(181, 153);
 			this.pictureBox2.Name = "pictureBox2";
-			this.pictureBox2.Size = new System.Drawing.Size(43, 185);
+			this.pictureBox2.Size = new System.Drawing.Size(37, 189);
 			this.pictureBox2.TabIndex = 7;
 			this.pictureBox2.TabStop = false;
 			// 

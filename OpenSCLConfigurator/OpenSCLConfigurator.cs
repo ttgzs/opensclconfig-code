@@ -17,12 +17,13 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using OpenSCL;
 using OpenSCL.UI;
+using IEC61850.SCL;
 
 namespace OpenSCLConfigurator
 {
@@ -39,19 +40,15 @@ namespace OpenSCLConfigurator
 		private System.Windows.Forms.MenuItem menuItem5;		
 		private System.ComponentModel.IContainer components;
 		private System.Windows.Forms.ToolBar toolBar1;
-		private System.Windows.Forms.ToolBarButton SEPARATOR1;
 		private System.Windows.Forms.ToolBarButton New;
 		private System.Windows.Forms.ToolBarButton Open;
 		private System.Windows.Forms.ToolBarButton Salvar;
-		private System.Windows.Forms.ToolBarButton SEPARATOR2;			
 		private System.Windows.Forms.ToolBarButton Exit;			
 		public System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;		
 		private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;		
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;		
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem validateToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem iEDToolStripMenuItem;					
 		private System.Windows.Forms.MenuStrip menuStrip1;		
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
 		private System.Windows.Forms.StatusStrip statusStrip1;
@@ -62,23 +59,26 @@ namespace OpenSCLConfigurator
 		private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
 		private System.Windows.Forms.PropertyGrid PropertyGridAttributes;
 		private System.Windows.Forms.TreeView treeViewFile;
-						
+		private System.Windows.Forms.ToolBarButton Separator2;
+		private System.Windows.Forms.ToolBarButton Separator1;
+								
 		ImageList tb_il					= new ImageList();	
 		string xSDFiles = Application.StartupPath+"/../../XSD//SCL.xsd";
-		string newFile = Application.StartupPath+"/../..//NewSCLFile.icd";		
 
 		/// <summary>
 		/// This method initialize the components of the form. 
 		/// </summary>
 		public FormSCL()
 		{
-			InitializeComponent();	
+			InitializeComponent();				
 		}
 		
 		/// <summary>
 		/// This method disposes the components of the form.
 		/// </summary>
-		/// <param name="disposing"></param>
+		/// <param name="disposing">
+		/// 
+		/// </param>
 		protected override void Dispose( bool disposing )
 		{
 			if( disposing )
@@ -100,6 +100,7 @@ namespace OpenSCLConfigurator
 			this.Panel1 = new System.Windows.Forms.Panel();
 			this.treeViewFile = new System.Windows.Forms.TreeView();
 			this.Panel2 = new System.Windows.Forms.Panel();
+			this.PropertyGridAttributes = new System.Windows.Forms.PropertyGrid();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
@@ -113,20 +114,20 @@ namespace OpenSCLConfigurator
 			this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.iEDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.validateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.SEPARATOR1 = new System.Windows.Forms.ToolBarButton();
+			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.validateSCLFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.importIEDConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.Exit = new System.Windows.Forms.ToolBarButton();
-			this.SEPARATOR2 = new System.Windows.Forms.ToolBarButton();
 			this.toolBar1 = new System.Windows.Forms.ToolBar();
+			this.Separator1 = new System.Windows.Forms.ToolBarButton();
 			this.New = new System.Windows.Forms.ToolBarButton();
 			this.Open = new System.Windows.Forms.ToolBarButton();
 			this.Salvar = new System.Windows.Forms.ToolBarButton();
+			this.Separator2 = new System.Windows.Forms.ToolBarButton();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-			this.PropertyGridAttributes = new System.Windows.Forms.PropertyGrid();
 			this.Panel1.SuspendLayout();
 			this.Panel2.SuspendLayout();
 			this.splitContainer1.Panel1.SuspendLayout();
@@ -175,6 +176,7 @@ namespace OpenSCLConfigurator
 			this.PropertyGridAttributes.Name = "PropertyGridAttributes";
 			this.PropertyGridAttributes.Size = new System.Drawing.Size(580, 465);
 			this.PropertyGridAttributes.TabIndex = 3;
+			this.PropertyGridAttributes.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.PropertyGridAttributesPropertyValueChanged);
 			// 
 			// splitContainer1
 			// 
@@ -243,7 +245,7 @@ namespace OpenSCLConfigurator
 			// 
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
 									this.fileToolStripMenuItem,
-									this.iEDToolStripMenuItem,
+									this.toolsToolStripMenuItem,
 									this.helpToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
@@ -265,45 +267,30 @@ namespace OpenSCLConfigurator
 			// newToolStripMenuItem
 			// 
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-			this.newToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+			this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.newToolStripMenuItem.Text = "New";
 			this.newToolStripMenuItem.Click += new System.EventHandler(this.NewFile);
 			// 
 			// openToolStripMenuItem
 			// 
 			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-			this.openToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+			this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.openToolStripMenuItem.Text = "Open";
 			this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenFile);
 			// 
 			// saveToolStripMenuItem
 			// 
 			this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-			this.saveToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+			this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.saveToolStripMenuItem.Text = "Save";
 			this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveFile);
 			// 
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.exitToolStripMenuItem.Text = "Exit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitApp);
-			// 
-			// iEDToolStripMenuItem
-			// 
-			this.iEDToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-									this.validateToolStripMenuItem});
-			this.iEDToolStripMenuItem.Name = "iEDToolStripMenuItem";
-			this.iEDToolStripMenuItem.Size = new System.Drawing.Size(36, 20);
-			this.iEDToolStripMenuItem.Text = "IED";
-			// 
-			// validateToolStripMenuItem
-			// 
-			this.validateToolStripMenuItem.Name = "validateToolStripMenuItem";
-			this.validateToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-			this.validateToolStripMenuItem.Text = "File validator";
-			this.validateToolStripMenuItem.Click += new System.EventHandler(this.ValidateFileClick);
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -316,14 +303,32 @@ namespace OpenSCLConfigurator
 			// aboutToolStripMenuItem
 			// 
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.aboutToolStripMenuItem.Text = "About";
 			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutClick);
 			// 
-			// SEPARATOR1
+			// toolsToolStripMenuItem
 			// 
-			this.SEPARATOR1.Name = "SEPARATOR1";
-			this.SEPARATOR1.Style = System.Windows.Forms.ToolBarButtonStyle.Separator;
+			this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+									this.validateSCLFileToolStripMenuItem,
+									this.importIEDConfigToolStripMenuItem});
+			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+			this.toolsToolStripMenuItem.Text = "Tools";
+			// 
+			// validateSCLFileToolStripMenuItem
+			// 
+			this.validateSCLFileToolStripMenuItem.Name = "validateSCLFileToolStripMenuItem";
+			this.validateSCLFileToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+			this.validateSCLFileToolStripMenuItem.Text = "Validate SCL file";
+			this.validateSCLFileToolStripMenuItem.Click += new System.EventHandler(this.ValidateFileClick);
+			// 
+			// importIEDConfigToolStripMenuItem
+			// 
+			this.importIEDConfigToolStripMenuItem.Name = "importIEDConfigToolStripMenuItem";
+			this.importIEDConfigToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+			this.importIEDConfigToolStripMenuItem.Text = "Import IED file";
+			this.importIEDConfigToolStripMenuItem.Click += new System.EventHandler(this.ImportIEDClick);
 			// 
 			// Exit
 			// 
@@ -331,20 +336,15 @@ namespace OpenSCLConfigurator
 			this.Exit.Name = "Exit";
 			this.Exit.ToolTipText = "Exit Application";
 			// 
-			// SEPARATOR2
-			// 
-			this.SEPARATOR2.Name = "SEPARATOR2";
-			this.SEPARATOR2.Style = System.Windows.Forms.ToolBarButtonStyle.Separator;
-			// 
 			// toolBar1
 			// 
 			this.toolBar1.Appearance = System.Windows.Forms.ToolBarAppearance.Flat;
 			this.toolBar1.Buttons.AddRange(new System.Windows.Forms.ToolBarButton[] {
-									this.SEPARATOR1,
+									this.Separator1,
 									this.New,
 									this.Open,
 									this.Salvar,
-									this.SEPARATOR2,
+									this.Separator2,
 									this.Exit});
 			this.toolBar1.ButtonSize = new System.Drawing.Size(16, 16);
 			this.toolBar1.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -355,6 +355,11 @@ namespace OpenSCLConfigurator
 			this.toolBar1.Size = new System.Drawing.Size(943, 28);
 			this.toolBar1.TabIndex = 1;
 			this.toolBar1.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler(this.toolBarEvent);
+			// 
+			// Separator1
+			// 
+			this.Separator1.Name = "Separator1";
+			this.Separator1.Style = System.Windows.Forms.ToolBarButtonStyle.Separator;
 			// 
 			// New
 			// 
@@ -374,6 +379,11 @@ namespace OpenSCLConfigurator
 			this.Salvar.Name = "Salvar";
 			this.Salvar.ToolTipText = "Save configuration file";
 			// 
+			// Separator2
+			// 
+			this.Separator2.Name = "Separator2";
+			this.Separator2.Style = System.Windows.Forms.ToolBarButtonStyle.Separator;
+			// 
 			// statusStrip1
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -388,14 +398,6 @@ namespace OpenSCLConfigurator
 			// 
 			this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
 			this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
-			// 
-			// PropertyGridAttributes
-			// 
-			this.PropertyGridAttributes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom))));
-			this.PropertyGridAttributes.Location = new System.Drawing.Point(1, 1);
-			this.PropertyGridAttributes.Name = "PropertyGridAttributes";
-			this.PropertyGridAttributes.Size = new System.Drawing.Size(580, 580);
-			this.PropertyGridAttributes.TabIndex = 3;
 			// 
 			// FormSCL
 			// 
@@ -423,6 +425,9 @@ namespace OpenSCLConfigurator
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}				
+		private System.Windows.Forms.ToolStripMenuItem importIEDConfigToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem validateSCLFileToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
 				
 		/// <summary>
 		/// Adding icons into the application
@@ -439,9 +444,9 @@ namespace OpenSCLConfigurator
 		{			
 			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//new_file.ico"));															
 			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//open_file.ico"));																		
-			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//save_file.ico"));			
-			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//exit.ico"));
-			toolBar1.ImageList = tb_il;  											
+			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//save_file.ico"));						
+			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//exit.ico"));												
+			toolBar1.ImageList = tb_il;  				
 		}												
 
 		/// <summary>
@@ -456,19 +461,14 @@ namespace OpenSCLConfigurator
 		/// derive a class from this class to hold the data.
 		/// </param>
 		void NewFile(object sender, EventArgs e)
-		{	
-			SaveFile(sender, e);
-			List<ErrorsManagement> list = null;					
-			ValidatingSCL validate = new ValidatingSCL();			
-			list = validate.ValidateFile(newFile, xSDFiles);
-			if (list.Count == 0)
-			{														
-				TreeViewSCL treeViewSCLOpen = new TreeViewSCL();
-				OpenSCL.Object Object = new OpenSCL.Object(); 					
-				Object.Deserialize(this.newFile);				
-				this.treeViewFile.Nodes.Add(treeViewSCLOpen.GetTreeNodeSCL(Path.GetFileName(newFile), Object.Configuration));
-			}		
-			EnablePanels(list);			
+		{							
+			SaveFile(sender, e);			
+			this.treeViewFile.Nodes.Clear();			
+			Utils utils = new Utils();
+			IEC61850.SCL.SCL sCL = new IEC61850.SCL.SCL();
+			sCL.Header = new IEC61850.SCL.tHeader();
+			this.treeViewFile.Nodes.Add(utils.treeViewSCL.GetTreeNodeSCL("SCL File", sCL));
+			utils.CreateIED(sCL, this.treeViewFile.Nodes[0]);
 		}
 		
 		/// <summary>
@@ -486,10 +486,11 @@ namespace OpenSCLConfigurator
 		{	
 			List<ErrorsManagement> listError = null;
 			try
-			{
+			{				
 				SaveFile(sender, e);
+				this.treeViewFile.Nodes.Clear();
 				openDialog o = new openDialog();					
-				listError = o.OpenSCLFile(this.treeViewFile, xSDFiles);												
+				listError = o.OpenSCLFile(this.treeViewFile, xSDFiles, true);												
 				EnablePanels(listError);
 			}
 			catch 
@@ -512,18 +513,17 @@ namespace OpenSCLConfigurator
 		private void SaveFile(object sender, EventArgs e)
 		{
 			if (this.treeViewFile.Nodes.Count > 0)
-            {   
+            {   				
 				if (MessageBox.Show("Do you want to save the changes on this file \n", "Save File", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
-				{				
+				{
 					SaveDialog saveD = new SaveDialog();
 					saveD.SaveSCLFile(this.treeViewFile);
-				}
-				this.treeViewFile.Nodes.Clear();				
+				}				
 			}			
 		}
 		
 		/// <summary>
-		/// This event calls some methods to validate an XML file
+		/// This event calls some methods to validate an SCL file
 		/// </summary>
 		/// <param name="sender">
 		/// Name of the object.
@@ -535,7 +535,45 @@ namespace OpenSCLConfigurator
 		/// </param>
 		private void ValidateFileClick(object sender, EventArgs e)
 		{
-			OpenFile(sender, e);
+			List<ErrorsManagement> listError = null;
+			try
+			{				
+				SaveFile(sender, e);
+				this.treeViewFile.Nodes.Clear();				
+				openDialog o = new openDialog();					
+				listError = o.OpenSCLFile(this.treeViewFile, xSDFiles, false);												
+				EnablePanels(listError);
+			}
+			catch 
+			{
+				MessageBox.Show("SCL File Not Valid/Corrupted", "Open File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}			
+		}
+
+		/// <summary>
+		/// This event calls some methods to import an IED to an SCL File.
+		/// </summary>
+		/// <param name="sender">
+		/// Name of the object.
+		/// </param>
+		/// <param name="e">
+		/// This class contains no event data; it is used by events that do not pass state information to an event 
+		/// handler when an event is raised. If the event handler requires state information, the application must 
+		/// derive a class from this class to hold the data.
+		/// </param>
+		void ImportIEDClick(object sender, EventArgs e)
+		{
+			if(this.treeViewFile.Nodes!=null && this.treeViewFile.Nodes.Count>0)
+			{			
+				List<ErrorsManagement> listError = null;			
+				openDialog o = new openDialog();
+				listError = o.OpenIEDFile(this.treeViewFile, xSDFiles);												
+				EnablePanels(listError);								
+			}			
+			else
+			{			
+				MessageBox.Show("No se puede importar el archivo porque no se ha generado ningun SCL en el proyecto principal.");								
+			}
 		}
 		
 		/// <summary>
@@ -568,7 +606,7 @@ namespace OpenSCLConfigurator
 		void AboutClick(object sender, EventArgs e)
 		{
 			about a = new about();
-			a.Show();
+			a.ShowDialog();
 		}	
 		
 		/// <summary>
@@ -603,7 +641,7 @@ namespace OpenSCLConfigurator
 				{
 					SaveFile(sender, e);
 					break;
-				}			
+				}				
 				//Exit application
 				case 5: 
 				{
@@ -648,7 +686,7 @@ namespace OpenSCLConfigurator
             	if (e.Button == MouseButtons.Right && (treeViewFile.SelectedNode.IsSelected))
             	{
 	                ContextMenuSCL contextMenuSCL = new ContextMenuSCL();
-    	            Point nodePosition = new Point(e.X, e.Y);
+    	            System.Drawing.Point nodePosition = new System.Drawing.Point(e.X, e.Y);
         	        ContextMenuStrip menuStrip = contextMenuSCL.GetContextMenuSCL(this.treeViewFile.SelectedNode);
             	    menuStrip.Show(treeViewFile, nodePosition);
             	}	
@@ -683,9 +721,50 @@ namespace OpenSCLConfigurator
 			Panel1.Controls.Add(this.treeViewFile);
 		}
 
+		/// <summary>
+		/// This event shows a message to ask for saving the file.
+		/// </summary>
+		/// <param name="sender">
+		/// Name of the object.
+		/// </param>
+		/// <param name="e">
+		/// This class contains no event data; it is used by events that do not pass state information to an event 
+		/// handler when an event is raised. If the event handler requires state information, the application must 
+		/// derive a class from this class to hold the data.
+		/// </param>
 		void FormSCLFormClosed(object sender, FormClosedEventArgs e)
 		{
 			SaveFile(sender, e);
 		}		
+   		
+		/// <summary>
+		/// Realiza la validación del lnclass
+		/// </summary>
+		/// <param name="s">Name of the object.</param>
+		/// <param name="e">El evento se produce cuando el usuario cambia el valor de una propiedad, que se especifica como GridItem, en PropertyGrid.</param>
+		void PropertyGridAttributesPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+		{
+			WindowTreeViewLNType windowTreeViewLNType;
+			OpenSCL.Object sCL = new OpenSCL.Object();
+			ConversionObject conversionObject = new ConversionObject();
+			if(e.ChangedItem.Label.ToString() == "lnClass")
+			{
+				if( e.ChangedItem.Value.ToString() != "LPHD" )
+				{
+					sCL.Configuration = (SCL) treeViewFile.Nodes["root"].Nodes["SCL"].Tag;
+					windowTreeViewLNType = new WindowTreeViewLNType(treeViewFile.SelectedNode, sCL.Configuration, treeViewFile.SelectedNode.Tag, "New");
+					windowTreeViewLNType.ShowDialog();					
+					if(windowTreeViewLNType.DialogResult == DialogResult.Cancel)
+					{
+						(treeViewFile.SelectedNode.Tag as tLN).lnClassEnum = (tLNClassEnum)conversionObject.SetStringToEnumObject((treeViewFile.SelectedNode.Tag as tLN).lnClassFieldTemp.ToString(), typeof( tLNClassEnum));
+					}
+					if(windowTreeViewLNType.DialogResult == DialogResult.OK)
+					{
+						(treeViewFile.SelectedNode.Tag as tAnyLN).lnType = (treeViewFile.SelectedNode.Tag as tLN).prefix.ToString()+conversionObject.SetEnumObjectToString((treeViewFile.SelectedNode.Tag as tLN).lnClass)+(treeViewFile.SelectedNode.Tag as tLN).inst.ToString();
+					}
+					treeViewFile.SelectedNode.Text = conversionObject.SetEnumObjectToString((treeViewFile.SelectedNode.Tag as tLN).lnClass)+(treeViewFile.SelectedNode.Tag as tLN).inst.ToString();									
+				}				
+			}			
+		}
 	} 	
 }

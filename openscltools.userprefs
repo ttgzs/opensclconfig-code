@@ -1,14 +1,19 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="OpenSCLConfigurator/OpenSCLConfigurator.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCLUI/ContextMenuSCL.cs" ctype="Workbench">
     <Files>
-      <File FileName="OpenSCLConfigurator/OpenSCLConfigurator.cs" Line="490" Column="5" />
+      <File FileName="OpenSCLConfigurator/OpenSCLConfigurator.cs" Line="66" Column="67" />
+      <File FileName="LibOpenSCLUI/WindowTreeViewLNType.cs" Line="23" Column="9" />
+      <File FileName="LibOpenSCLUI/ContextMenuSCL.cs" Line="234" Column="69" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="LibOpenSCL" expanded="True" />
-          <Node name="LibOpenSCLUI" expanded="True" />
-          <Node name="OpenSCLConfigurator" expanded="True" selected="True">
+          <Node name="LibOpenSCLUI" expanded="True">
+            <Node name="ContextMenuSCL.cs" selected="True" />
+            <Node name="WindowTreeViewLNType.cs" expanded="True" />
+          </Node>
+          <Node name="OpenSCLConfigurator" expanded="True">
             <Node name="OpenSCLConfigurator.cs" expanded="True" />
           </Node>
         </State>

@@ -16,6 +16,8 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+using System.Windows.Forms;
+
 namespace OpenSCL.UI
 {
 	partial class WindowTreeViewLNType
@@ -51,7 +53,7 @@ namespace OpenSCL.UI
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.treeView1 = new System.Windows.Forms.TreeView();
+			this.treeLN = new System.Windows.Forms.TreeView();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.buttonOk = new System.Windows.Forms.Button();
 			this.propertyGridLNType = new System.Windows.Forms.PropertyGrid();
@@ -79,7 +81,7 @@ namespace OpenSCL.UI
 			// 
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.label1);
-			this.groupBox1.Controls.Add(this.treeView1);
+			this.groupBox1.Controls.Add(this.treeLN);
 			this.groupBox1.Controls.Add(this.buttonCancel);
 			this.groupBox1.Controls.Add(this.buttonOk);
 			this.groupBox1.Location = new System.Drawing.Point(12, 12);
@@ -88,15 +90,16 @@ namespace OpenSCL.UI
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			// 
-			// treeView1
+			// treeLN
 			// 
-			this.treeView1.CheckBoxes = true;
-			this.treeView1.Location = new System.Drawing.Point(6, 35);
-			this.treeView1.Name = "treeView1";
-			this.treeView1.Size = new System.Drawing.Size(342, 379);
-			this.treeView1.TabIndex = 5;
-			this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.showChecked);
-			this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeView1AfterSelect);
+			this.treeLN.CheckBoxes = true;
+			this.treeLN.Location = new System.Drawing.Point(6, 35);
+			this.treeLN.Name = "treeLN";
+			this.treeLN.Size = new System.Drawing.Size(342, 379);
+			this.treeLN.TabIndex = 5;
+			this.treeLN.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.TreeLNAfterCheck);
+			this.treeLN.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeLNAfterSelect);
+			this.treeLN.BeforeCheck += new System.Windows.Forms.TreeViewCancelEventHandler(this.TreeLNBeforeCheck);
 			// 
 			// buttonCancel
 			// 
@@ -106,6 +109,8 @@ namespace OpenSCL.UI
 			this.buttonCancel.TabIndex = 4;
 			this.buttonCancel.Text = "Cancel";
 			this.buttonCancel.UseVisualStyleBackColor = true;
+			this.buttonCancel.DialogResult = DialogResult.Cancel;
+			this.AcceptButton = this.buttonCancel;
 			this.buttonCancel.Click += new System.EventHandler(this.ButtonCancelClick);
 			// 
 			// buttonOk
@@ -116,6 +121,8 @@ namespace OpenSCL.UI
 			this.buttonOk.TabIndex = 3;
 			this.buttonOk.Text = "Ok";
 			this.buttonOk.UseVisualStyleBackColor = true;
+			this.buttonOk.DialogResult = DialogResult.OK;
+			this.AcceptButton = this.buttonOk;
 			this.buttonOk.Click += new System.EventHandler(this.ButtonOkClick);
 			// 
 			// propertyGridLNType
@@ -124,6 +131,7 @@ namespace OpenSCL.UI
 			this.propertyGridLNType.Name = "propertyGridLNType";
 			this.propertyGridLNType.Size = new System.Drawing.Size(468, 461);
 			this.propertyGridLNType.TabIndex = 1;
+			this.propertyGridLNType.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.PropertyLNTypeValueChanged);
 			// 
 			// WindowTreeViewLNType
 			// 
@@ -134,22 +142,21 @@ namespace OpenSCL.UI
 			this.Controls.Add(this.propertyGridLNType);
 			this.Controls.Add(this.groupBox1);
 			this.MaximizeBox = false;
-			this.MaximumSize = new System.Drawing.Size(900, 600);
+			//this.MaximumSize = new System.Drawing.Size(900, 600);
 			this.MinimizeBox = false;
-			this.MinimumSize = new System.Drawing.Size(900, 600);
+			//this.MinimumSize = new System.Drawing.Size(900, 600);
 			this.Name = "WindowTreeViewLNType";
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Details";
+			this.Text = "Editing Logical Node Data Objects";
 			this.TopMost = true;
 			this.groupBox1.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}		
-	
+		private System.Windows.Forms.TreeView treeLN;	
 		private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.PropertyGrid propertyGridLNType;
-		private System.Windows.Forms.TreeView treeView1;
 		private System.Windows.Forms.Button buttonCancel;
 		private System.Windows.Forms.Button buttonOk;
 		private System.Windows.Forms.GroupBox groupBox1;	

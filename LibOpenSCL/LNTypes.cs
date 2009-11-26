@@ -18,17 +18,20 @@
 	
 using System;
 using System.ComponentModel;
-
+using System.Collections;
+		
 namespace IEC61850.SCL
 {
-	/// <summary>
+/// <summary>
 	/// Description of LNTypes.
 	/// </summary>			
 	public class DOData : tDOType
 	{
 		public bool CheckSelection = false;
+		public bool Visible = true;
 		public string nameField;
 		public string typeField;
+		public ArrayList types;		
 		
 		public DOData(string name, string type)
 		{
@@ -50,6 +53,7 @@ namespace IEC61850.SCL
 			}
 		}		
 				
+		[ReadOnly(true)]
 		public string type
 		{
 			get
@@ -62,12 +66,16 @@ namespace IEC61850.SCL
 				this.typeField = value;    
 			}
 		}
-	}	
+	}			
 	
 	/// <summary>
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ANCR" (Neutral current regulator).
 	/// </summary>
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>	
 	public class ANCR : CommonLogicalNode
 	{
 		private BSC TapChgField;
@@ -81,7 +89,7 @@ namespace IEC61850.SCL
 		public ANCR(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.ANCR;
+			this.lnClass = tLNClassEnum.ANCR.ToString();
 			this.iedType = iedType;
 			this.TapChgField = new BSC("TapChg", lnType, iedType);
 			this.OpCntRsField = new INC("OpCntRs", lnType, iedType);
@@ -171,6 +179,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ARCO" (Reactive power control).
 	/// </summary>
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>	
 	public class ARCO : CommonLogicalNode
 	{
 		private BSC TapChgField;
@@ -184,7 +196,7 @@ namespace IEC61850.SCL
 		public ARCO(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.ARCO;
+			this.lnClass = tLNClassEnum.ARCO.ToString();
 			this.iedType = iedType;			
 			this.TapChgField = new BSC("TapChg", lnType, iedType);
 			this.OpCntRsField = new INC("OpCntRs", lnType, iedType);
@@ -286,6 +298,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ATCC" (Automatic tap changer controller).
 	/// </summary>	
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class ATCC : CommonLogicalNode
 	{		
 		private ASG BlkLVField;
@@ -306,7 +322,7 @@ namespace IEC61850.SCL
 		private ING TapBlkRField;
 		private INS HiTapPosField;
 		private INS LoTapPosField;
-		private INC TapPosField;
+		private ISC TapPosField;
 		private MV CircAField;
 		private MV CtlVField;	
 		private MV HiCtlVField;
@@ -326,7 +342,7 @@ namespace IEC61850.SCL
 		public ATCC(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.ATCC;
+			this.lnClass = tLNClassEnum.ATCC.ToString();
 			this.iedType = iedType;
 			this.BlkLVField = new ASG("BlkLV", lnType, iedType);
 			this.BlkRVField = new ASG("BlkRV", lnType, iedType);
@@ -346,13 +362,14 @@ namespace IEC61850.SCL
 			this.TapBlkRField = new ING("TapBlkR", lnType, iedType);
 			this.HiTapPosField = new INS("HiTapPos", lnType, iedType);
 			this.LoTapPosField = new INS("LoTapPos", lnType, iedType);
-			this.TapPosField = new INC("TapPos", lnType, iedType);
+			this.TapPosField = new ISC("TapPos", lnType, iedType);
 			this.CircAField = new MV("CircA", lnType, iedType);
 			this.CtlVField = new MV("CtlV", lnType, iedType);
 			this.HiCtlVField = new MV("HiCtlV", lnType, iedType);
 			this.HiDmdAField = new MV("HiDmdA", lnType, iedType);
 			this.LoCtlVField = new MV("LoCtlV", lnType, iedType);
 			this.PhAngField = new MV("PhAng", lnType, iedType);
+			this.LodAField = new MV("LodA", lnType, iedType);
 			this.LTCBlkField = new SPC("LTCBlk", lnType, iedType);
 			this.LTCDragRsField = new SPC("LTCDragRs", lnType, iedType);
 			this.VRed1Field = new SPC("VRed1", lnType, iedType);
@@ -580,7 +597,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		public INC TapPos
+		public ISC TapPos
 		{			
 			get 
 			{
@@ -650,6 +667,18 @@ namespace IEC61850.SCL
 			set
 			{				
 				this.LoCtlVField= value;
+			}
+		}
+
+		public MV LodA
+		{			
+			get 
+			{
+				return this.LodAField;
+			}			
+			set
+			{				
+				this.LodAField= value;
 			}
 		}
 		
@@ -767,6 +796,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "AVCO" (Voltage control).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class AVCO : CommonLogicalNode
 	{	
 		private ASG LimAOvField;
@@ -782,7 +815,7 @@ namespace IEC61850.SCL
 		public AVCO(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.AVCO;
+			this.lnClass = tLNClassEnum.AVCO.ToString();
 			this.iedType = iedType;			
 			this.LimAOvField = new ASG("LimAOv",lnType, iedType);
 			this.LimVOvField = new ASG("LimVOv",lnType, iedType);
@@ -898,6 +931,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "CALH" (Alarm handling).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class CALH : CommonLogicalNode
 	{	
 		private SPS AlmLstOvField;
@@ -907,7 +944,7 @@ namespace IEC61850.SCL
 		public CALH(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.CALH;
+			this.lnClass = tLNClassEnum.CALH.ToString();
 			this.iedType = iedType;			
 			this.AlmLstOvField = new SPS("AlmLstOv", lnType, iedType); 				 
 			this.GrAlmField = new SPS("GrAlm", lnType, iedType); 				 
@@ -956,6 +993,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "CCGR" (Cooling group control).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class CCGR : CommonLogicalNode
 	{	
 		private ASG OilTmpSetField;
@@ -981,7 +1022,7 @@ namespace IEC61850.SCL
 		public CCGR(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.CCGR;
+			this.lnClass = tLNClassEnum.CCGR.ToString();
 			this.iedType = iedType;			
 			this.OilTmpSetField = new ASG("OilTmpSet", lnType, iedType); 				 
 			this.EENameField = new DPL("EEName",  lnType, iedType);
@@ -1237,6 +1278,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "CILO" (Interlocking).
 	/// </summary>
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class CILO : CommonLogicalNode	
 	{	
 		private SPS EnaClsField;
@@ -1245,7 +1290,7 @@ namespace IEC61850.SCL
 		public CILO(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.CILO;
+			this.lnClass = tLNClassEnum.CILO.ToString();
 			this.iedType = iedType;			
 			this.EnaClsField = new SPS("EnaCls",  lnType, iedType);
 			this.EnaOpnField = new SPS("EnaOpn",  lnType, iedType);
@@ -1285,29 +1330,20 @@ namespace IEC61850.SCL
 	public class CommonLogicalNode : tLNodeType
 	{				
 		public bool CheckSelection = false;
+		public bool Visible = true;
 		public string lnType;
 		private INC ModField;	
-		private INC OpCntRsField;
 		private INS BehField;		
-		private INS EEHealthField;
 		private INS HealthField;
-		private INS OpCntField;
-		private INS OpTmhField;	
 		private LPL NamPltField;
-		private SPS LocField;		
 	
 		public CommonLogicalNode(string lnType, string iedType)
 		{						
 			this.lnType = lnType;
 			this.ModField = new INC("Mod", lnType, iedType);
-			this.OpCntRsField = new INC("OpCntRs",  lnType, iedType);
 		  	this.BehField = new INS("Beh", lnType, iedType);
-		 	this.EEHealthField = new INS("EEHealth",  lnType, iedType);
 			this.HealthField = new INS("Health",  lnType, iedType);
-			this.OpCntField = new INS("OpCnt",  lnType, iedType);
-			this.OpTmhField = new INS("OpTmh",  lnType, iedType);
 			this.NamPltField = new LPL("NamPlt",  lnType, iedType);
-			this.LocField = new SPS("Loc",  lnType, iedType);	  	
 		}
 		
 		[Required]
@@ -1323,18 +1359,6 @@ namespace IEC61850.SCL
 			}
 		}	
 
-		public INC OpCntRs
-		{			
-			get 
-			{
-				return this.OpCntRsField;
-			}			
-			set
-			{				
-				this.OpCntRsField = value;
-			}
-		}
-	
 		[Required]
 		public INS Beh
 		{
@@ -1348,18 +1372,6 @@ namespace IEC61850.SCL
 			}
 		}
 	
-		public INS EEHealth
-		{
-			get
-			{				
-				return this.EEHealthField;
-			}
-			set
-			{
-				this.EEHealthField = value;
-			}
-		}
-
 		[Required]
 		public INS Health
 		{
@@ -1373,30 +1385,6 @@ namespace IEC61850.SCL
 			}
 		}
 
-		public INS OpCnt
-		{
-			get
-			{				
-				return this.OpCntField;
-			}
-			set
-			{
-				this.OpCntField = value;
-			}
-		}
-
-		public INS OpTmh
-		{
-			get
-			{				
-				return this.OpTmhField;
-			}
-			set
-			{
-				this.OpTmhField = value;
-			}
-		}
-	
 		[Required]
 		public LPL NamPlt
 		{
@@ -1409,24 +1397,16 @@ namespace IEC61850.SCL
 				this.NamPltField = value;
 			}
 		}
-
-		public SPS Loc
-		{
-			get
-			{				
-				return this.LocField;
-			}
-			set
-			{
-				this.LocField = value;
-			}
-		}
 	}
 	
 	/// <summary>
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "CPOW" (Point-on-wave switching).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class CPOW : CommonLogicalNode	
 	{	
 		private ACT OpClsField;
@@ -1438,7 +1418,7 @@ namespace IEC61850.SCL
 		public CPOW(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.CPOW;
+			this.lnClass = tLNClassEnum.CPOW.ToString();
 			this.iedType = iedType;
 			this.OpClsField = new ACT("OpCls",  lnType, iedType);
 			this.OpOpnField = new ACT("OpOpn",  lnType, iedType);
@@ -1513,6 +1493,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "CSWI" (Switch controller).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class CSWI : CommonLogicalNode
 	{	
 		private ACT OpClsField;
@@ -1527,7 +1511,7 @@ namespace IEC61850.SCL
 		public CSWI(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.CSWI;
+			this.lnClass = tLNClassEnum.CSWI.ToString();
 			this.iedType = iedType;			
 			this.OpClsField = new ACT("OpCls", lnType, iedType);
 			this.OpOpnField = new ACT("OpOpn", lnType, iedType);
@@ -1641,6 +1625,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "GAPC" (Generic automatic process control).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class GAPC : CommonLogicalNode
 	{
 		private ACD StrField;
@@ -1656,7 +1644,7 @@ namespace IEC61850.SCL
 		public GAPC(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.GAPC;
+			this.lnClass = tLNClassEnum.GAPC.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField =new ACT("Op", lnType, iedType);
@@ -1784,6 +1772,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "GGIO" (Generic process I/O).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class GGIO : CommonLogicalNode
 	{
 		private DPC DPCSOField;
@@ -1801,7 +1793,7 @@ namespace IEC61850.SCL
 		public GGIO(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.GGIO;
+			this.lnClass = tLNClassEnum.GGIO.ToString();
 			this.iedType = iedType;			
 			this.DPCSOField = new DPC("DPCSO", lnType, iedType);
 			this.EENameField = new DPL("EEName",  lnType, iedType);
@@ -1953,6 +1945,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "GSAL" (Generic security application).
 	/// </summary>
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class GSAL : CommonLogicalNode
 	{		
 		private INC NumCntRsField;
@@ -1965,7 +1961,7 @@ namespace IEC61850.SCL
 		public GSAL(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.GSAL;
+			this.lnClass = tLNClassEnum.GSAL.ToString();
 			this.iedType = iedType;			
 			this.NumCntRsField = new INC("NumCntRs", lnType, iedType);
 			this.OpCntRsField = new INC("OpCntRs",  lnType, iedType);
@@ -2058,6 +2054,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "IARC" (Archiving).
 	/// </summary>	
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class IARC : CommonLogicalNode
 	{		
 		private INC NumCntRsField;
@@ -2072,7 +2072,7 @@ namespace IEC61850.SCL
 		public IARC(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.IARC;
+			this.lnClass = tLNClassEnum.IARC.ToString();
 			this.iedType = iedType;			
 			this.NumCntRsField = new INC("NumCntRs", lnType, iedType);
 			this.OpCntRsField = new INC("OpCntRs",  lnType, iedType);
@@ -2188,12 +2188,16 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "IHMI" (Human machine interface).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class IHMI : CommonLogicalNode
 	{
 		public IHMI(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.IHMI;
+			this.lnClass = tLNClassEnum.IHMI.ToString();
 			this.iedType = iedType;
 		}
 	}	
@@ -2202,12 +2206,16 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ITCI" (Telecontrol interface).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class ITCI : CommonLogicalNode
 	{
 		public ITCI(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.ITCI;
+			this.lnClass = tLNClassEnum.ITCI.ToString();
 			this.iedType = iedType;
 		}
 	}
@@ -2216,12 +2224,16 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ITMI" (Telemonitoring interface).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class ITMI : CommonLogicalNode
 	{
 		public ITMI(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.ITMI;
+			this.lnClass = tLNClassEnum.ITMI.ToString();
 			this.iedType = iedType;
 		}
 	}
@@ -2230,6 +2242,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "LLN0" (Logical node zero).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class LLN0 : CommonLogicalNode
 	{
 		private INS OpTmhField;
@@ -2240,7 +2256,7 @@ namespace IEC61850.SCL
 		public LLN0(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.LLN0;
+			this.lnClass = tLNClassEnum.LLN0.ToString();
 			this.iedType = iedType;
 			this.OpTmhField = new INS("OpTmh", lnType, iedType);
 			this.DiagField = new SPC("Diag", lnType, iedType);
@@ -2301,6 +2317,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "LPHD" (Physical device information).
 	/// </summary>
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class LPHD : CommonLogicalNode
 	{
 		private DPL PhyNamField;
@@ -2319,7 +2339,7 @@ namespace IEC61850.SCL
 		public LPHD(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.LPHD;
+			this.lnClass = tLNClassEnum.LPHD.ToString();
 			this.iedType = iedType;			
 			this.PhyNamField = new DPL("PhyNam", lnType, iedType);				 
 			this.PhyHealthField = new INS("PhyHealth", lnType, iedType);
@@ -2487,6 +2507,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "MDIF" (Differential measurements).
 	/// </summary>	
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class MDIF : CommonLogicalNode
 	{
 		private SAV Amp1Field;
@@ -2497,7 +2521,7 @@ namespace IEC61850.SCL
 		public MDIF(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.MDIF;
+			this.lnClass = tLNClassEnum.MDIF.ToString();
 			this.iedType = iedType;			
 			this.Amp1Field = new SAV("Amp1", lnType, iedType);				 
 			this.Amp2Field = new SAV("Amp2", lnType, iedType);				 
@@ -2558,6 +2582,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "MHAI" (Harmonics or interharmonics).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class MHAI : CommonLogicalNode
 	{
 		private ASG HzSetField;
@@ -2605,7 +2633,7 @@ namespace IEC61850.SCL
 		public MHAI(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.MHAI;
+			this.lnClass = tLNClassEnum.MHAI.ToString();
 			this.iedType = iedType;			
 			this.HzSetField = new ASG("HzSet", lnType, iedType);
 			this.EvTmmsField = new ASG("EvTmms", lnType, iedType);
@@ -3123,6 +3151,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "MHAN" (Non phase related harmonics or interharmonics).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class MHAN : CommonLogicalNode
 	{
 		private ASG HzSetField;
@@ -3164,7 +3196,7 @@ namespace IEC61850.SCL
 		public MHAN(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.MHAN;
+			this.lnClass = tLNClassEnum.MHAN.ToString();
 			this.iedType = iedType;			
 			this.HzSetField = new ASG("HzSet", lnType, iedType);
 			this.EvTmmsField = new ASG("EvTmms", lnType, iedType);
@@ -3616,6 +3648,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "MMTR" (Non phase related Measurement).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class MMTR : CommonLogicalNode
 	{
 		private BCR TotVAhField;
@@ -3631,7 +3667,7 @@ namespace IEC61850.SCL
 		public MMTR(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.MMTR;
+			this.lnClass = tLNClassEnum.MMTR.ToString();
 			this.iedType = iedType;			
 			this.TotVAhField = new BCR("TotVAh", lnType, iedType);
 			this.TotWhFiedl = new BCR("TotWh", lnType, iedType);
@@ -3757,6 +3793,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "MMXN" (Metering).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class MMXN : CommonLogicalNode
 	{
 		private CMV ImpField;
@@ -3773,7 +3813,7 @@ namespace IEC61850.SCL
 		public MMXN(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.MMXN;
+			this.lnClass = tLNClassEnum.MMXN.ToString();
 			this.iedType = iedType;			
 			this.ImpField = new CMV("Imp", lnType, iedType);
             this.EENameField = new DPL("EEName", lnType, iedType);
@@ -3912,6 +3952,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "MMXU" (Measurement).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class MMXU : CommonLogicalNode
 	{
 		private DEL PPVField;
@@ -3932,7 +3976,7 @@ namespace IEC61850.SCL
 		public MMXU(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.MMXU;
+			this.lnClass = tLNClassEnum.MMXU.ToString();
 			this.iedType = iedType;		
 			this.PPVField = new DEL("PPV", lnType, iedType);
 			this.EEHealthField = new INS("EEHealth", lnType, iedType);
@@ -4123,6 +4167,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "MSQI" (Sequence and imbalance).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class MSQI : CommonLogicalNode
 	{
 		private DEL ImbPPVField;
@@ -4144,7 +4192,7 @@ namespace IEC61850.SCL
 		public MSQI(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.MSQI;
+			this.lnClass = tLNClassEnum.MSQI.ToString();
 			this.iedType = iedType;			
 			this.ImbPPVField = new DEL("ImbPPV", lnType, iedType);
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -4348,6 +4396,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "MSTA" (Metering Statistics).
 	/// </summary>			
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class MSTA : CommonLogicalNode
 	{
 		private ASG EvTmmsField;
@@ -4373,7 +4425,7 @@ namespace IEC61850.SCL
 		public MSTA(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.MSTA;
+			this.lnClass = tLNClassEnum.MSTA.ToString();
 			this.iedType = iedType;			
 			this.EvTmmsField = new ASG("EvTmms", lnType, iedType);
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -4629,6 +4681,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PDIF" (Differential).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PDIF : CommonLogicalNode
 	{
 		private ACD StrField;
@@ -4649,7 +4705,7 @@ namespace IEC61850.SCL
 		public PDIF(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.PDIF;
+			this.lnClass = tLNClassEnum.PDIF.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField = new ACT("Op", lnType, iedType);
@@ -4841,6 +4897,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PDIR" (Direction comparison).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PDIR : CommonLogicalNode
 	{
 		private ACD StrField;
@@ -4851,7 +4911,7 @@ namespace IEC61850.SCL
 		public PDIR(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.PDIR;
+			this.lnClass = tLNClassEnum.PDIR.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField = new ACT("Op", lnType, iedType);
@@ -4914,6 +4974,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PDIS" (Distance).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PDIS : CommonLogicalNode
 	{
 		private ACD StrField;
@@ -4945,7 +5009,7 @@ namespace IEC61850.SCL
 		public PDIS(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.PDIS;
+			this.lnClass = tLNClassEnum.PDIS.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField = new ACT("Op", lnType, iedType);
@@ -5281,6 +5345,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PDOP" (Directional overpower).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PDOP : CommonLogicalNode
 	{
 		private ACD StrField;
@@ -5294,7 +5362,7 @@ namespace IEC61850.SCL
 		public PDOP(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.PDOP;
+			this.lnClass = tLNClassEnum.PDOP.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField =new ACT("Op", lnType, iedType);
@@ -5396,6 +5464,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PDUP" (Directional underpower).
 	/// </summary>	
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PDUP : CommonLogicalNode
 	{
 		private ACD StrField;
@@ -5409,7 +5481,7 @@ namespace IEC61850.SCL
 		public PDUP(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.PDUP;
+			this.lnClass = tLNClassEnum.PDUP.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField =new ACT("Op", lnType, iedType);
@@ -5511,6 +5583,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PFRC" (Rate of change of frequency).
 	/// </summary>	
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PFRC : CommonLogicalNode
 	{
 		private ACD StrField;
@@ -5525,7 +5601,7 @@ namespace IEC61850.SCL
 		public PFRC(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.PFRC;
+			this.lnClass = tLNClassEnum.PFRC.ToString();
 			this.iedType = iedType;		
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField =new ACT("Op", lnType, iedType);
@@ -5640,6 +5716,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PHAR" (Harmonic restraint).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PHAR : CommonLogicalNode
 	{
 		private ACD StrField;
@@ -5653,7 +5733,7 @@ namespace IEC61850.SCL
 		public PHAR(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.PHAR;
+			this.lnClass = tLNClassEnum.PHAR.ToString();
 			this.iedType = iedType;	
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.PhStrField = new ASG("PhStr", lnType, iedType);
@@ -5754,6 +5834,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PHIZ" (Ground detector).
 	/// </summary>	
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PHIZ : CommonLogicalNode
 	{
 		private ACD StrField;
@@ -5768,7 +5852,7 @@ namespace IEC61850.SCL
 		public PHIZ(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.PHIZ;
+			this.lnClass = tLNClassEnum.PHIZ.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField = new ACT("Op", lnType, iedType);
@@ -5883,6 +5967,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PIOC" (Instantaneous overcurrent).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PIOC : CommonLogicalNode
 	{
 		private ACD StrField;
@@ -5893,7 +5981,7 @@ namespace IEC61850.SCL
 		public PIOC(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.PIOC;
+			this.lnClass = tLNClassEnum.PIOC.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField =new ACT("Op", lnType, iedType);
@@ -5955,6 +6043,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PMRI" (Motor restart inhibition).
 	/// </summary>	
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PMRI : CommonLogicalNode
 	{
 		private ACT OpField;
@@ -5972,7 +6064,7 @@ namespace IEC61850.SCL
 		public PMRI(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.PMRI;
+			this.lnClass = tLNClassEnum.PMRI.ToString();
 			this.iedType = iedType;			
 			this.OpField =new ACT("Op", lnType, iedType);
 			this.SetAField = new ASG("SetA", lnType, iedType);
@@ -6124,6 +6216,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PMSS" (Motor starting time supervision).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PMSS : CommonLogicalNode
 	{
 		private ACD StrField;
@@ -6137,7 +6233,7 @@ namespace IEC61850.SCL
 		public PMSS(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.PMSS;
+			this.lnClass = tLNClassEnum.PMSS.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField =new ACT("Op", lnType, iedType);
@@ -6237,6 +6333,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "POPF" (Over power factor).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class POPF : CommonLogicalNode
 	{
 		private ACD StrField;
@@ -6253,7 +6353,7 @@ namespace IEC61850.SCL
 		public POPF(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.POPF;
+			this.lnClass = tLNClassEnum.POPF.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField =new ACT("Op", lnType, iedType);
@@ -6394,6 +6494,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PPAM" (Phase angle measuring).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PPAM : CommonLogicalNode
 	{
 		private ACD StrField;
@@ -6404,7 +6508,7 @@ namespace IEC61850.SCL
 		public PPAM(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.PPAM;
+			this.lnClass = tLNClassEnum.PPAM.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField =new ACT("Op", lnType, iedType);
@@ -6467,6 +6571,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PSCH" (Protection scheme).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PSCH : CommonLogicalNode
 	{		
 		private INC OpCntRsField;
@@ -6497,7 +6605,7 @@ namespace IEC61850.SCL
 		public PSCH(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.CCGR;
+			this.lnClass = tLNClassEnum.CCGR.ToString();
 			this.iedType = iedType;				
 			this.OpCntRsField = new INC("OpCntRs", lnType, iedType); 
 			this.ProTxField = new SPS("ProTx", lnType, iedType); 
@@ -6825,6 +6933,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PSDE" (Sensitive directional earthfault).
 	/// </summary>			
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PSDE : CommonLogicalNode	
 	{	
 		private ACD StrField;
@@ -6840,7 +6952,7 @@ namespace IEC61850.SCL
 		public PSDE(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.CCGR;
+			this.lnClass = tLNClassEnum.CCGR.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField =new ACT("Op", lnType, iedType); 
@@ -6967,6 +7079,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PTEF" (Transient earth fault).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PTEF : CommonLogicalNode	
 	{	
 		private ACD StrField;
@@ -6979,7 +7095,7 @@ namespace IEC61850.SCL
 		public PTEF(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.CCGR;
+			this.lnClass = tLNClassEnum.CCGR.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField =new ACT("Op", lnType, iedType); 
@@ -7054,6 +7170,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PTOC" (Time overcurrent).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PTOC : CommonLogicalNode	
 	{	
 		private ACD StrField;
@@ -7073,7 +7193,7 @@ namespace IEC61850.SCL
 		public PTOC(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.CCGR;
+			this.lnClass = tLNClassEnum.CCGR.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField =new ACT("Op", lnType, iedType); 
@@ -7253,6 +7373,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PTOF" (Overfrequency).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PTOF : CommonLogicalNode	
 	{	
 		private ACD StrField;
@@ -7267,7 +7391,7 @@ namespace IEC61850.SCL
 		public PTOF(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.CCGR;
+			this.lnClass = tLNClassEnum.CCGR.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField =new ACT("Op", lnType, iedType); 
@@ -7382,6 +7506,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PTOV" (Overvoltage).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PTOV : CommonLogicalNode	
 	{	
 		private ACD StrField;
@@ -7399,7 +7527,7 @@ namespace IEC61850.SCL
 		public PTOV(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.CCGR;
+			this.lnClass = tLNClassEnum.CCGR.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField =new ACT("Op", lnType, iedType); 
@@ -7553,6 +7681,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PTRC" (Protection trip conditioning).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PTRC : CommonLogicalNode	
 	{	
 		private ACD StrField;
@@ -7565,7 +7697,7 @@ namespace IEC61850.SCL
 		public PTRC(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.CCGR;
+			this.lnClass = tLNClassEnum.CCGR.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType); 
 			this.TrField = new ACT("Tr", lnType, iedType); 
@@ -7652,6 +7784,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PTTR" (Thermal overload).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PTTR : CommonLogicalNode	
 	{	
 		private ACD StrField;
@@ -7680,7 +7816,7 @@ namespace IEC61850.SCL
 		public PTTR(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.CCGR;
+			this.lnClass = tLNClassEnum.CCGR.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType); 
 			this.OpField = new ACT("Op", lnType, iedType); 
@@ -7976,6 +8112,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PTUC" (Undercurrent).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PTUC : CommonLogicalNode
 	{
 		private ACD StrField; 
@@ -7995,7 +8135,7 @@ namespace IEC61850.SCL
 		public PTUC(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.PTUC;
+			this.lnClass = tLNClassEnum.PTUC.ToString();
 			this.iedType = iedType;
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField = new ACT("Op", lnType, iedType);
@@ -8175,6 +8315,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PTUF" (Underfrequency).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PTUF : CommonLogicalNode
 	{
 		private ACD StrField; 
@@ -8189,7 +8333,7 @@ namespace IEC61850.SCL
 		public PTUF(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.PTUF;
+			this.lnClass = tLNClassEnum.PTUF.ToString();
 			this.iedType = iedType;
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField = new ACT("Op", lnType, iedType);
@@ -8304,6 +8448,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PTUV" (Undervoltage).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PTUV : CommonLogicalNode
 	{
 		private ACD StrField; 
@@ -8321,7 +8469,7 @@ namespace IEC61850.SCL
 		public PTUV(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.PTUV;
+			this.lnClass = tLNClassEnum.PTUV.ToString();
 			this.iedType = iedType;
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField = new ACT("Op", lnType, iedType);
@@ -8475,6 +8623,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PUPF" (Underpower factor).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PUPF : CommonLogicalNode
 	{
 		private ACD StrField; 
@@ -8491,7 +8643,7 @@ namespace IEC61850.SCL
 		public PUPF(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.PUPF;
+			this.lnClass = tLNClassEnum.PUPF.ToString();
 			this.iedType = iedType;
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField = new ACT("Op", lnType, iedType);
@@ -8632,6 +8784,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PVOC" (Voltage controlled time overcurrent).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PVOC : CommonLogicalNode
 	{
 		private ACD StrField;
@@ -8651,7 +8807,7 @@ namespace IEC61850.SCL
 		public PVOC(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.PVOC;
+			this.lnClass = tLNClassEnum.PVOC.ToString();
 			this.iedType = iedType;
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField = new ACT("Op", lnType, iedType);
@@ -8831,6 +8987,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PVPH" (Volts per Hz).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PVPH : CommonLogicalNode
 	{
 		private ACD StrField; 
@@ -8849,7 +9009,7 @@ namespace IEC61850.SCL
 		public PVPH(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.PVPH;
+			this.lnClass = tLNClassEnum.PVPH.ToString();
 			this.iedType = iedType;
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField = new ACT("Op", lnType, iedType);
@@ -9016,6 +9176,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "PZSU" (Zero speed or underspeed).
 	/// </summary>	
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class PZSU : CommonLogicalNode
 	{
 		private ACD StrField; 
@@ -9028,7 +9192,7 @@ namespace IEC61850.SCL
 		public PZSU(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.PZSU;
+			this.lnClass = tLNClassEnum.PZSU.ToString();
 			this.iedType = iedType;
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField = new ACT("Op", lnType, iedType);
@@ -9117,6 +9281,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "RADR" (Disturbance recorder channel analogue).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class RADR : CommonLogicalNode
 	{
 		private ASG HiTrgLevField;
@@ -9132,7 +9300,7 @@ namespace IEC61850.SCL
 		public RADR(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.RADR;
+			this.lnClass = tLNClassEnum.RADR.ToString();
 			this.iedType = iedType;
 			this.HiTrgLevField = new ASG("HiTrgLev", lnType, iedType);
 			this.LoTrgLevField = new ASG("LoTrgLev", lnType, iedType);
@@ -9259,6 +9427,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "RBDR" (Disturbance recorder channel binary).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class RBDR : CommonLogicalNode
 	{
 		private INC OpCntRsField;
@@ -9272,7 +9444,7 @@ namespace IEC61850.SCL
 		public RBDR(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.RBDR;
+			this.lnClass = tLNClassEnum.RBDR.ToString();
 			this.iedType = iedType;
 			this.OpCntRsField = new INC("OpCntRs", lnType, iedType);
 			this.ChNumField = new ING("ChNum", lnType, iedType);
@@ -9373,6 +9545,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "RBRF" (Breaker failure).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class RBRF : CommonLogicalNode
 	{
 		private ACD StrField;
@@ -9389,7 +9565,7 @@ namespace IEC61850.SCL
 		public RBRF(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.RBRF;
+			this.lnClass = tLNClassEnum.RBRF.ToString();
 			this.iedType = iedType;
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpExField = new ACT("OpEx", lnType, iedType);
@@ -9528,6 +9704,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "RDIR" (Directional element).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class RDIR : CommonLogicalNode
 	{
 		private ACD DirField;
@@ -9544,7 +9724,7 @@ namespace IEC61850.SCL
 		public RDIR(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.RDIR;
+			this.lnClass = tLNClassEnum.RDIR.ToString();
 			this.iedType = iedType;
 			this.DirField = new ACD("Dir", lnType, iedType);
 			this.ChrAngField = new ASG("ChrAng", lnType, iedType);
@@ -9684,6 +9864,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "RDRE" (Disturbance recorder function).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class RDRE : CommonLogicalNode
 	{
 		private INC OpCntRsField;
@@ -9709,7 +9893,7 @@ namespace IEC61850.SCL
 		public RDRE(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.RDRE;
+			this.lnClass = tLNClassEnum.RDRE.ToString();
 			this.iedType = iedType;
 			this.OpCntRsField = new INC("OpCntRs", lnType, iedType);
 			this.TrgModField = new ING("TrgMod", lnType, iedType);
@@ -9967,6 +10151,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "RDRS" (Disturbance record handling).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class RDRS : CommonLogicalNode
 	{
 		private SPC AutoUpLodField;
@@ -9975,7 +10163,7 @@ namespace IEC61850.SCL
 		public RDRS(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.RDRS;
+			this.lnClass = tLNClassEnum.RDRS.ToString();
 			this.iedType = iedType;
 			this.AutoUpLodField = new SPC("AutoUpLod", lnType, iedType);
 			this.DltRcdField = new SPC("DltRcd", lnType, iedType);
@@ -10010,6 +10198,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "RFLO" (Fault locator).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class RFLO : CommonLogicalNode
 	{
 		private ASG LinLenKmField;
@@ -10033,7 +10225,7 @@ namespace IEC61850.SCL
 		public RFLO(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.RFLO;
+			this.lnClass = tLNClassEnum.RFLO.ToString();
 			this.iedType = iedType;
 			this.LinLenKmField = new ASG("LinLenKm", lnType, iedType);
 			this.R1Field = new ASG("R1", lnType, iedType);
@@ -10264,6 +10456,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "RPSB" (Power swing detection/blocking).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class RPSB : CommonLogicalNode
 	{
 		private ACD StrField; 
@@ -10284,7 +10480,7 @@ namespace IEC61850.SCL
 		public RPSB(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.RPSB;
+			this.lnClass = tLNClassEnum.RPSB.ToString();
 			this.iedType = iedType;
 			this.StrField = new ACD("Str", lnType, iedType);
 			this.OpField = new ACT("Op", lnType, iedType);
@@ -10475,6 +10671,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "RREC" (Autoreclosing).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class RREC : CommonLogicalNode
 	{
 		private ACT OpField;
@@ -10492,7 +10692,7 @@ namespace IEC61850.SCL
 		public RREC(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.RREC;
+			this.lnClass = tLNClassEnum.RREC.ToString();
 			this.iedType = iedType;
 			this.OpField =new ACT("Op", lnType, iedType);
 			this.OpCntRsField = new INC("OpCntRs", lnType, iedType);
@@ -10646,6 +10846,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "RSYN" (Synchronism-check or synchronising).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class RSYN : CommonLogicalNode
 	{
 		private ASG DifVField;
@@ -10674,7 +10878,7 @@ namespace IEC61850.SCL
 		public RSYN(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.RSYN;
+			this.lnClass = tLNClassEnum.RSYN.ToString();
 			this.iedType = iedType;
 			this.DifVField = new ASG("DifV", lnType, iedType);
 			this.DifHzField = new ASG("DifHz", lnType, iedType);
@@ -10970,6 +11174,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "SARC" (Monitoring and diagnostics for arcs).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class SARC : CommonLogicalNode
 	{
 		private DPL EENameField;
@@ -10983,7 +11191,7 @@ namespace IEC61850.SCL
 		public SARC(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.SARC;
+			this.lnClass = tLNClassEnum.SARC.ToString();
 			this.iedType = iedType;
 			this.EENameField = new DPL("EEName", lnType, iedType);
 			this.OpCntRsField = new INC("OpCntRs", lnType, iedType);
@@ -11085,6 +11293,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "SIMG" (Insulation medium supervision (gas)).
 	/// </summary>			
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class SIMG : CommonLogicalNode
 	{
 		private DPL EENameField;
@@ -11104,7 +11316,7 @@ namespace IEC61850.SCL
 		public SIMG(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.SIMG;
+			this.lnClass = tLNClassEnum.SIMG.ToString();
 			this.iedType = iedType;
 			this.EENameField = new DPL("EEName", lnType, iedType);
 			this.EEHealthField = new INS("EEHealth", lnType, iedType);
@@ -11283,6 +11495,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "SIML" (Insulation medium supervision (liquid)).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class SIML : CommonLogicalNode
 	{
 		private DPL EENameField;
@@ -11310,7 +11526,7 @@ namespace IEC61850.SCL
 		public SIML(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.SIML;
+			this.lnClass = tLNClassEnum.SIML.ToString();
 			this.iedType = iedType;
 			this.EENameField = new DPL("EEName", lnType, iedType);
 			this.EEHealthField = new INS("EEHealth", lnType, iedType);
@@ -11333,6 +11549,7 @@ namespace IEC61850.SCL
 			this.InsLevMinField = new SPS("InsLevMin", lnType, iedType);
 			this.H2AlmField = new SPS("H2Alm", lnType, iedType);
 			this.MstAlmField = new SPS("MstAlm", lnType, iedType);
+			this.TmpAlmField = new SPS("TmpAlm", lnType, iedType);
 		}
 
 		public DPL EEName
@@ -11593,6 +11810,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "SPDC" (Monitoring and diagnostics for partial discharges).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class SPDC : CommonLogicalNode
 	{
 		private DPL EENameField;
@@ -11604,7 +11825,7 @@ namespace IEC61850.SCL
 		public SPDC(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.SPDC;
+			this.lnClass = tLNClassEnum.SPDC.ToString();
 			this.iedType = iedType;
 			this.EENameField = new DPL("EEName", lnType, iedType);
 			this.EEHealthField = new INS("EEHealth", lnType, iedType);
@@ -11679,6 +11900,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "TCTR" (Current transformer).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class TCTR : CommonLogicalNode
 	{
 		private ASG ARtgField;
@@ -11694,7 +11919,7 @@ namespace IEC61850.SCL
 		public TCTR(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.TCTR;
+			this.lnClass = tLNClassEnum.TCTR.ToString();
 			this.iedType = iedType;
 			this.ARtgField = new ASG("ARtg", lnType, iedType);
 			this.HzRtgField = new ASG("HzRtg", lnType, iedType);
@@ -11821,6 +12046,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "TVTR" (Voltage transformer).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class TVTR : CommonLogicalNode
 	{
 		private ASG VRtgField;
@@ -11837,7 +12066,7 @@ namespace IEC61850.SCL
 		public TVTR(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.TVTR;
+			this.lnClass = tLNClassEnum.TVTR.ToString();
 			this.iedType = iedType;
 			this.VRtgField = new ASG("VRtg", lnType, iedType);
 			this.HzRtgField = new ASG("HzRtg", lnType, iedType);
@@ -11977,6 +12206,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "XCBR" (Circuit breaker).
 	/// </summary>	
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class XCBR : CommonLogicalNode
 	{
 		private BCR SumSwARsField;
@@ -11995,7 +12228,7 @@ namespace IEC61850.SCL
 		public XCBR(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.XCBR;
+			this.lnClass = tLNClassEnum.XCBR.ToString();
 			this.iedType = iedType;
 			this.SumSwARsField = new BCR("SumSwARs", lnType, iedType);
 			this.PosField = new DPC("Pos", lnType, iedType);
@@ -12166,6 +12399,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "XSWI" (Circuit switch).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class XSWI : CommonLogicalNode
 	{
 		private DPC PosField;
@@ -12183,7 +12420,7 @@ namespace IEC61850.SCL
 		public XSWI(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.XSWI;
+			this.lnClass = tLNClassEnum.XSWI.ToString();
 			this.iedType = iedType;
 			this.PosField = new DPC("Pos", lnType, iedType);
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -12342,6 +12579,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "YEFN" (Earth fault neutralizer (Petersen coil)).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class YEFN : CommonLogicalNode
 	{
 		private APC ColPosField;
@@ -12355,7 +12596,7 @@ namespace IEC61850.SCL
 		public YEFN(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.YEFN;
+			this.lnClass = tLNClassEnum.YEFN.ToString();
 			this.iedType = iedType;
 			this.ColPosField = new APC("ColPos", lnType, iedType);
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -12458,6 +12699,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "YLTC" (Tap changer).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class YLTC : CommonLogicalNode
 	{
 		private BSC TapChgField;
@@ -12474,7 +12719,7 @@ namespace IEC61850.SCL
 		public YLTC(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.YLTC;
+			this.lnClass = tLNClassEnum.YLTC.ToString();
 			this.iedType = iedType;
 			this.TapChgField = new BSC("TapChg", lnType, iedType);
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -12615,6 +12860,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "YPSH" (Power shunt).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class YPSH : CommonLogicalNode
 	{
 		private DPC PosField;
@@ -12630,7 +12879,7 @@ namespace IEC61850.SCL
 		public YPSH(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.YPSH;
+			this.lnClass = tLNClassEnum.YPSH.ToString();
 			this.iedType = iedType;
 			this.PosField = new DPC("Pos", lnType, iedType);
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -12760,6 +13009,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "YPTR" (Power transformer).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class YPTR : CommonLogicalNode
 	{
 		private ASG HiVRtgField;
@@ -12780,7 +13033,7 @@ namespace IEC61850.SCL
 		public YPTR(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.YPTR;
+			this.lnClass = tLNClassEnum.YPTR.ToString();
 			this.iedType = iedType;
 			this.HiVRtgField = new ASG("HiVRtg", lnType, iedType);
 			this.LoVRtgField = new ASG("LoVRtg", lnType, iedType); 
@@ -12971,6 +13224,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ZAXN" (Auxiliary network).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class ZAXN : CommonLogicalNode
 	{
 		private DPL EENameField;
@@ -12982,7 +13239,7 @@ namespace IEC61850.SCL
 		public ZAXN(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.ZAXN;
+			this.lnClass = tLNClassEnum.ZAXN.ToString();
 			this.iedType = iedType;
 			this.EENameField = new DPL("EEName", lnType, iedType);
 			this.EEHealthField = new INS("EEHealth", lnType, iedType);
@@ -13056,6 +13313,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ZBAT" (Battery).
 	/// </summary>	
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class ZBAT : CommonLogicalNode
 	{
 		private ASG LoBatValField;
@@ -13074,7 +13335,7 @@ namespace IEC61850.SCL
 		public ZBAT(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;			
-			this.lnClass = tLNClassEnum.ZBAT;
+			this.lnClass = tLNClassEnum.ZBAT.ToString();
 			this.iedType = iedType;			
 			this.LoBatValField = new ASG("LoBatVal", lnType, iedType);
 			this.HiBatValField = new ASG("HiBatVal", lnType, iedType);
@@ -13240,6 +13501,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ZBSH" (Bushing).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class ZBSH : CommonLogicalNode
 	{
 		private ASG RefReactField;
@@ -13255,7 +13520,7 @@ namespace IEC61850.SCL
 		public ZBSH(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.ZBSH;
+			this.lnClass = tLNClassEnum.ZBSH.ToString();
 			this.iedType = iedType;			
 			this.RefReactField = new ASG("RefReact", lnType, iedType);
 			this.RefPFField = new ASG("RefPF", lnType, iedType);
@@ -13382,6 +13647,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ZCAB" (Power cable).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class ZCAB : CommonLogicalNode
 	{
 		private DPL EENameField;
@@ -13391,7 +13660,7 @@ namespace IEC61850.SCL
 		public ZCAB(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.ZCAB;
+			this.lnClass = tLNClassEnum.ZCAB.ToString();
 			this.iedType = iedType;			
 			this.EENameField = new DPL("EEName", lnType, iedType);
 			this.EEHealthField = new INS("EEHealth", lnType, iedType);
@@ -13439,6 +13708,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ZCAP" (Capacitor bank).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class ZCAP : CommonLogicalNode
 	{
 		private DPL EENameField;
@@ -13450,7 +13723,7 @@ namespace IEC61850.SCL
 		public ZCAP(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.ZCAP;
+			this.lnClass = tLNClassEnum.ZCAP.ToString();
 			this.iedType = iedType;			
 			this.EENameField = new DPL("EEName", lnType, iedType);
 			this.EEHealthField = new INS("EEHealth", lnType, iedType);
@@ -13526,6 +13799,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ZCON" (Converter).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class ZCON : CommonLogicalNode
 	{
 		private DPL EENameField;
@@ -13535,7 +13812,7 @@ namespace IEC61850.SCL
 		public ZCON(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.ZCON;
+			this.lnClass = tLNClassEnum.ZCON.ToString();
 			this.iedType = iedType;			
 			this.EENameField = new DPL("EEName", lnType, iedType);
 			this.EEHealthField = new INS("EEHealth", lnType, iedType);
@@ -13583,6 +13860,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ZGEN" (Generator).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class ZGEN : CommonLogicalNode
 	{
 		private ASG DmdPwrField;
@@ -13611,7 +13892,7 @@ namespace IEC61850.SCL
 		public ZGEN(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.ZGEN;
+			this.lnClass = tLNClassEnum.ZGEN.ToString();
 			this.iedType = iedType;			
 			this.DmdPwrField = new ASG("DmdPwr", lnType, iedType);
 			this.PwrRtgField = new ASG("PwrRtg", lnType, iedType);
@@ -13914,6 +14195,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ZGIL" (Gas insulated line).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class ZGIL : CommonLogicalNode
 	{
 		private DPL EENameField;
@@ -13923,7 +14208,7 @@ namespace IEC61850.SCL
 		public ZGIL(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.ZGIL;
+			this.lnClass = tLNClassEnum.ZGIL.ToString();
 			this.iedType = iedType;		
 			this.EENameField = new DPL("EEName", lnType, iedType);
 			this.EEHealthField = new INS("EEHealth", lnType, iedType);
@@ -13971,6 +14256,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ZLIN" (Power overhead line).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class ZLIN : CommonLogicalNode
 	{
 		private DPL EENameField;
@@ -13980,7 +14269,7 @@ namespace IEC61850.SCL
 		public ZLIN(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.ZLIN;
+			this.lnClass = tLNClassEnum.ZLIN.ToString();
 			this.iedType = iedType;			
 			this.EENameField = new DPL("EEName", lnType, iedType);
 			this.EEHealthField = new INS("EEHealth", lnType, iedType);
@@ -14028,6 +14317,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ZMOT" (Motor).
 	/// </summary>	
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class ZMOT : CommonLogicalNode
 	{
 		private DPL EENameField;
@@ -14041,7 +14334,7 @@ namespace IEC61850.SCL
 		public ZMOT(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.ZMOT;
+			this.lnClass = tLNClassEnum.ZMOT.ToString();
 			this.iedType = iedType;			
 			this.EENameField = new DPL("EEName", lnType, iedType);
 			this.EEHealthField = new INS("EEHealth", lnType, iedType);
@@ -14142,6 +14435,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ZREA" (Reactor).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class ZREA : CommonLogicalNode
 	{
 		private DPL EENameField;
@@ -14151,7 +14448,7 @@ namespace IEC61850.SCL
 		public ZREA(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.ZREA;
+			this.lnClass = tLNClassEnum.ZREA.ToString();
 			this.iedType = iedType;			
 			this.EENameField = new DPL("EEName", lnType, iedType);
 			this.EEHealthField = new INS("EEHealth", lnType, iedType);
@@ -14199,6 +14496,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ZRRC" (Rotating reactive component).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class ZRRC : CommonLogicalNode
 	{
 		private DPL EENameField;
@@ -14208,7 +14509,7 @@ namespace IEC61850.SCL
 		public ZRRC(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.ZRRC;
+			this.lnClass = tLNClassEnum.ZRRC.ToString();
 			this.iedType = iedType;			
 			this.EENameField = new DPL("EEName", lnType, iedType);
 			this.EEHealthField = new INS("EEHealth", lnType, iedType);
@@ -14256,6 +14557,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ZSAR" (Surge arrestor).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class ZSAR : CommonLogicalNode
 	{
 		private DPL EENameField;
@@ -14266,7 +14571,7 @@ namespace IEC61850.SCL
 		public ZSAR(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.ZSAR;
+			this.lnClass = tLNClassEnum.ZSAR.ToString();
 			this.iedType = iedType;			
 			this.EENameField = new DPL("EEName", lnType, iedType);
 			this.EEHealthField = new INS("EEHealth", lnType, iedType);
@@ -14328,6 +14633,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ZTCF" (Thyristor controlled frequency converter).
 	/// </summary>		
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class ZTCF : CommonLogicalNode
 	{
 		private ASG PwrFrqField;
@@ -14338,7 +14647,7 @@ namespace IEC61850.SCL
 		public ZTCF(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.ZTCF;
+			this.lnClass = tLNClassEnum.ZTCF.ToString();
 			this.iedType = iedType;			
 			this.PwrFrqField = new ASG("PwrFrq", lnType, iedType);
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -14399,6 +14708,10 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the LN 
 	/// class "ZTCR" (Thyristor controlled reactive component).
 	/// </summary>	
+	/// <remarks>
+	/// To accept any Logical Node without shows an error on the tree, the type of lnClass attribute 
+	/// has to be changed from Enum to String.
+	/// </remarks>
 	public class ZTCR : CommonLogicalNode
 	{
 		private DPL EENameField;
@@ -14408,7 +14721,7 @@ namespace IEC61850.SCL
 		public ZTCR(string lnType, string iedType) : base(lnType, iedType)
 		{
 			this.id = lnType;
-			this.lnClass = tLNClassEnum.ZTCR;
+			this.lnClass = tLNClassEnum.ZTCR.ToString();
 			this.iedType = iedType;
 			this.EENameField = new DPL("EEName", lnType, iedType);
 			this.EEHealthField = new INS("EEHealth", lnType, iedType);

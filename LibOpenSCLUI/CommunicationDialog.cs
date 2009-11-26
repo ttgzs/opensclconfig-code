@@ -32,7 +32,6 @@ namespace OpenSCL.UI
 		private string iedName;
 		private string apName;	
 		private ObjectManagement objectManagement = new ObjectManagement();
-		private Utils utilsOM = new Utils();
 		private	TreeNode nodeComm = new TreeNode();
 		private	TreeNode nodeSubNetwork = new TreeNode();
 		private	TreeNode nodetSubNetwork = new TreeNode();
@@ -42,7 +41,18 @@ namespace OpenSCL.UI
 		private tAddress address = new tAddress();			
 		private TreeNode nodeP = new TreeNode();
 		private TreeViewSCL treeViewSCL = new TreeViewSCL();
+		private TreeNode obj = new TreeNode();
 		
+		private void nameSubNetCBChange(object sender, System.EventArgs e)
+		{	
+			SCL sc = (SCL) this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Tag;
+			if(sc.Communication!= null && sc.Communication.SubNetwork!=null)
+			{
+				this.obj = this.treeViewSCL.SeekAssociation(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[this.nameSubNetCB.SelectedIndex].Nodes,this.apName, this.iedName);
+				loadValues(obj);
+				this.descSubNet.Text = sc.Communication.SubNetwork[this.nameSubNetCB.SelectedIndex].desc;
+			}
+		}
 		/// <summary>
 		/// This is a constructor method that displays a dialog box to provide 
 		/// communication configuration.		
@@ -105,16 +115,6 @@ namespace OpenSCL.UI
 			this.nameSubNetCB.Visible =! (this.newSubNet.Checked);
 			this.newSubNet.Visible =! (this.newSubNet.Checked);
 			this.nameSubNet.Visible = (this.newSubNet.Checked);
-			if (newSubNet.Checked)
-			{
-				this.descSubNet.Text = "";
-				this.ip.Text = "";
-				this.mask.Text = "";
-				this.gateway.Text = "";
-				this.tsel.Text = "";
-				this.psel.Text = "";
-				this.ssel.Text = "";
-			}
 		}
 
 		/// <summary>
@@ -132,13 +132,17 @@ namespace OpenSCL.UI
 		{					
 			if (newSubNet.Checked == false)
 		 	{						
-				ExcludeNodes();						
+				CommunicationHandler(this.treeSCL, this.APnam.Text, this.iedNam.Text);
 				nameSubNet.Text = nameSubNetCB.Text;				
-			}
-			if(checkSubNames())
-			{
-				DrawCommunication();
 				this.Close();
+			}
+			else
+			{
+				if(checkSubNames())
+				{
+					DrawCommunication();
+					this.Close();
+				}
 			}
 		 }		
 		
@@ -171,16 +175,19 @@ namespace OpenSCL.UI
 			this.APnam.Text = this.apName;
 			this.APnam.Enabled = false;		
 			this.newSubNet.Checked = (this.nameSubNetCB.Text=="");		
-			if (objFound != null)
+			if (objFound != null && objFound.FirstNode != null)
 			{								
 				object arrayOf = objFound.FirstNode.Tag;
-				tP[] arr = (tP[]) this.objectManagement.FindVariable(arrayOf, "P");			
-				this.ip.Text = this.objectManagement.FindVariable(arr[0], "Value").ToString();
-				this.mask.Text = this.objectManagement.FindVariable(arr[1], "Value").ToString();
-				this.gateway.Text = this.objectManagement.FindVariable(arr[2], "Value").ToString();
-				this.tsel.Text = this.objectManagement.FindVariable(arr[3], "Value").ToString();
-				this.psel.Text = this.objectManagement.FindVariable(arr[4], "Value").ToString();
-				this.ssel.Text = this.objectManagement.FindVariable(arr[5], "Value").ToString();	
+				tP[] arr = (tP[]) this.objectManagement.FindVariable(arrayOf, "P");					
+				if(arr!=null && arr.Length>0)
+				{
+					this.ip.Text = this.objectManagement.GetTpValue(arr, "IP");
+					this.mask.Text = this.objectManagement.GetTpValue(arr, "IP_SUBNET");//this.objectManagement.FindVariable(arr[1], "Value").ToString();
+					this.gateway.Text = this.objectManagement.GetTpValue(arr, "IP_GATEWAY");//this.objectManagement.FindVariable(arr[2], "Value").ToString();
+					this.tsel.Text = this.objectManagement.GetTpValue(arr, "OSI_TSEL");//this.objectManagement.FindVariable(arr[3], "Value").ToString();
+					this.psel.Text = this.objectManagement.GetTpValue(arr, "OSI_PSEL");//this.objectManagement.FindVariable(arr[4], "Value").ToString();
+					this.ssel.Text = this.objectManagement.GetTpValue(arr, "OSI_SSEL");//this.objectManagement.FindVariable(arr[5], "Value").ToString();
+				}
 			}			
 		}
 		
@@ -190,7 +197,7 @@ namespace OpenSCL.UI
 		/// <returns>
 		/// If there is a match of the name, it returns a true value otherwise a false value is returned.
 		/// </returns>
-		public bool checkSubNames()
+		private bool checkSubNames()
 		{
 			if (this.newSubNet.Checked) 
 			{
@@ -217,7 +224,7 @@ namespace OpenSCL.UI
 		/// <summary>
 		/// This method draws the Communication nodes on the main tree.
 		/// </summary>
-		public void DrawCommunication()
+		private void DrawCommunication()
 		{				
 			tConnected.apName = this.apName;
 			tConnected.iedName = this.iedName;				
@@ -258,14 +265,13 @@ namespace OpenSCL.UI
 				nodetSubNetwork = new TreeNode();			
 				nodetSubNetwork.Name = subnetwork.name; 
 				nodetSubNetwork.Text = "tSubNetwork";
+				nodetSubNetwork.Tag = subnetwork;
 				treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes.Add(nodetSubNetwork);
 			}
 			else
 			{										
 				nodetSubNetwork = this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[this.GetNodeName(nodeSubNetwork.Nodes, nameSubNet.Text, "name")];
 			}	
-			this.nodetSubNetwork.Tag = subnetwork;			
-			this.objectManagement.AddObjectToArrayObjectOfParentObject(tConnected,this.sCL.Communication.SubNetwork[nodetSubNetwork.Index]);
 			if(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[nodetSubNetwork.Name].Nodes["tConnectedAP[]"]==null)
 			{
 				nodeComm = new TreeNode();			
@@ -278,16 +284,27 @@ namespace OpenSCL.UI
 			{
 				nodeComm = this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[nodetSubNetwork.Name].Nodes["tConnectedAP[]"];
 			}									
-			nodetConnected = new TreeNode();			
-			nodetConnected.Name = "tConnectedAP"+this.iedName+this.apName;
-			nodetConnected.Tag = tConnected;
-			nodetConnected.Text = "tConnectedAP";
-			treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[nodetSubNetwork.Name].Nodes["tConnectedAP[]"].Nodes.Add(nodetConnected);				
-			objectManagement.AddObjectToSCLObject(address, tConnected);
+			this.treeViewSCL = new TreeViewSCL();
+			if(this.treeViewSCL.SeekAssociation(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[nodetSubNetwork.Name].Nodes,this.apName, this.iedName)==null)
+			{
+				nodetConnected = new TreeNode();			
+				nodetConnected.Name = "tConnectedAP"+this.iedName+this.apName;
+				nodetConnected.Tag = tConnected;
+				nodetConnected.Text = "tConnectedAP";
+				treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[nodetSubNetwork.Name].Nodes["tConnectedAP[]"].Nodes.Add(nodetConnected);				
+				this.objectManagement.AddObjectToArrayObjectOfParentObject(tConnected,this.sCL.Communication.SubNetwork[nodetSubNetwork.Index]);
 
+			AttributeReferences refe = new AttributeReferences();
+			refe.Insert(tConnected, this.treeSCL.TreeView.SelectedNode);
+			}
+			else
+			{
+				nodetConnected = this.treeViewSCL.SeekAssociation(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[nodetSubNetwork.Name].Nodes["tConnectedAP[]"].Nodes, this.apName, this.iedName, "apName", "iedName");
+			}
 			TreeNode nodeAddress = new TreeNode();
 			nodeAddress.Name = "Adress";
 			nodeAddress.Tag = address;
+			this.objectManagement.AddObjectToSCLObject(address, nodetConnected.Tag);
 			nodeAddress.Text = "Address";
 			treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[nodetSubNetwork.Name].Nodes["tConnectedAP[]"].Nodes[nodetConnected.Name].Nodes.Add(nodeAddress);											
 		
@@ -295,50 +312,44 @@ namespace OpenSCL.UI
 			nodeP.Text = "P";
 			treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[nodetSubNetwork.Name].Nodes["tConnectedAP[]"].Nodes[nodetConnected.Name].Nodes["Adress"].Nodes.Add(nodeP);				
 
+			Utils utilsOM = new Utils();
 			tP t_ip = new tP();
 			tP_IP t_ip_ = new tP_IP();
-			this.utilsOM.EmptyGUIObjectoSCLObject(t_ip_,t_ip);
+			this.objectManagement.EmptySourcetoDestinyObject(t_ip_, t_ip);
 			t_ip.Value = ip.Text;
-			DrawTPNodes(t_ip, "tP_ip", "tP");
+			utilsOM.DrawTPNodes(t_ip, "tP_ip", "tP", address, nodeP);
 			
 			tP t_subnet = new tP();
 			tP_IPSUBNET t_subnet_ = new tP_IPSUBNET();
-			this.utilsOM.EmptyGUIObjectoSCLObject(t_subnet_,t_subnet);
+			this.objectManagement.EmptySourcetoDestinyObject(t_subnet_, t_subnet);
 			t_subnet.Value = mask.Text;
-			DrawTPNodes(t_subnet, "tP_subnet", "tP");
+			utilsOM.DrawTPNodes(t_subnet, "tP_subnet", "tP", address, nodeP);
 			
 			tP t_gate = new tP();
 			tP_IPGATEWAY  t_gate_ = new tP_IPGATEWAY();
-			this.utilsOM.EmptyGUIObjectoSCLObject(t_gate_, t_gate);
+			this.objectManagement.EmptySourcetoDestinyObject(t_gate_, t_gate);
 			t_gate.Value = gateway.Text;
-			DrawTPNodes(t_gate, "tP_gate", "tP");
+			utilsOM.DrawTPNodes(t_gate, "tP_gate", "tP", address, nodeP);
 
 			tP t_tsel = new tP();
 			tP_OSITSEL t_tsel_ = new tP_OSITSEL();
-			this.utilsOM.EmptyGUIObjectoSCLObject(t_tsel_,t_tsel);
+			this.objectManagement.EmptySourcetoDestinyObject(t_tsel_,t_tsel);
 			t_tsel.Value = tsel.Text;
-			DrawTPNodes(t_tsel, "tP_tsel", "tP");
+			utilsOM.DrawTPNodes(t_tsel, "tP_tsel", "tP", address, nodeP);
 				
 			tP t_psel = new tP();
 			tP_OSIPSEL t_psel_ = new tP_OSIPSEL();
-			this.utilsOM.EmptyGUIObjectoSCLObject(t_psel_,t_psel);
+			this.objectManagement.EmptySourcetoDestinyObject(t_psel_,t_psel);
 			t_psel.Value = psel.Text;
-			DrawTPNodes(t_psel, "tP_psel", "tP");
+			utilsOM.DrawTPNodes(t_psel, "tP_psel", "tP", address, nodeP);
 
 			tP t_ssel = new tP();
 			tP_OSISSEL t_ssel_ = new tP_OSISSEL();
-			this.utilsOM.EmptyGUIObjectoSCLObject(t_ssel_,t_ssel);
+			this.objectManagement.EmptySourcetoDestinyObject(t_ssel_,t_ssel);
 			t_ssel.Value = ssel.Text;
-			DrawTPNodes(t_ssel, "tP_ssel", "tP");					
-			
-//			utilsOM.DrawTPNodes(nodeP, this.address, tPTypeEnum.IP, ip.Text);
-//			utilsOM.DrawTPNodes(nodeP, this.address, tPTypeEnum.IP_SUBNET, mask.Text);
-//			utilsOM.DrawTPNodes(nodeP, this.address, tPTypeEnum.IP_GATEWAY, gateway.Text);
-//			utilsOM.DrawTPNodes(nodeP, this.address, tPTypeEnum.OSI_TSEL, tsel.Text);
-//			utilsOM.DrawTPNodes(nodeP, this.address, tPTypeEnum.OSI_PSEL, psel.Text);
-//			utilsOM.DrawTPNodes(nodeP, this.address, tPTypeEnum.OSI_SSEL, ssel.Text);					
-		}		
-
+			utilsOM.DrawTPNodes(t_ssel, "tP_ssel", "tP", address, nodeP);					
+		}						
+		
 		/// <summary>
 		/// This method look for an specific value in the treeNode.
 		/// </summary>
@@ -354,7 +365,7 @@ namespace OpenSCL.UI
 		/// <returns>
 		/// If there is a match then it returns the founded value otherwise it reurns a null value.
 		/// </returns>
-		public string GetNodeName(TreeNodeCollection nodes, string nameOfSub, string var)
+		private string GetNodeName(TreeNodeCollection nodes, string nameOfSub, string var)
 		{
 			string nameOf;
 			foreach (TreeNode n in nodes)
@@ -369,58 +380,92 @@ namespace OpenSCL.UI
 		}
 
 		/// <summary>
-		/// This method excludes the reference of accessPoint into the treeview 
+		/// This method shows the information to edit all values pre-configured for 
+		/// subnetwork, connectedAP and tps
 		/// </summary>
-		public void ExcludeNodes()
-		{			
-			TreeNode treeN = treeViewSCL.SeekAssociation(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes, this.apName, this.iedName);		    
-			if (treeN != null)
+		/// <param name="treeSCL">
+		/// TreeNode reference
+		/// </param>
+		/// <param name="apParentName">
+		/// Name of Access Point where belongs the communication configurations.
+		/// </param>
+		/// <param name="iedParentName">
+		/// Name of IED where belongs the communication configurations.
+		/// </param>
+		private void CommunicationHandler(TreeNode treeSCL, string apParentName, string iedParentName)
+		{	
+			tConnectedAP tconn = new tConnectedAP();
+			tSubNetwork tsub = new tSubNetwork();
+			tsub.desc = this.descSubNet.Text;
+			String[] comm = new String[6];
+			String[] names = new String[6];
+			this.nameSubNet.Text = this.nameSubNetCB.SelectedItem.ToString();
+			tsub.name = this.nameSubNet.Text;
+			comm[0] = this.ip.Text;
+			comm[1] = this.mask.Text;
+			comm[2] = this.gateway.Text;
+			comm[3]= this.tsel.Text;
+			comm[4] = this.psel.Text;
+			comm[5] = this.ssel.Text;
+			names[0] = "IP";
+			names[1] = "IP_SUBNET";
+			names[2] = "IP_GATEWAY";
+			names[3] = "OSI_TSEL";
+			names[4] = "OSI_PSEL";
+			names[5] = "OSI_SSEL";
+			for(int i=0; i<this.sCL.Communication.SubNetwork.Length; i++)
 			{
-				treeViewSCL.Remove(treeN);	
-			}						
-		}							
-
-		/// <summary>
-		/// This method draws the nodes for the tP class
-		/// </summary>
-		/// <param name="nodeParent">
-		/// Tree node where the nodes will be added.
-		/// </param>
-		/// <param name="parent">
-		/// Object that will be added on the treeNode.
-		/// </param>
-		/// <param name="typeEnum">
-		/// Enum type of the tP node to add.
-		/// </param>
-		//public void DrawTPNodes(TreeNode nodeParent, object parent, tPTypeEnum typeEnum, string ValueTp)
-		public void DrawTPNodes(object tagNode, string name, string text)		
-		{
-//			ObjectManagement objectManagement = new ObjectManagement();
-//			tP tp = new tP();
-//			tp.Value = nodeParent.v;
-//			tp.type  = typeEnum;			
-//			TreeNode treenode1 = new TreeNode();	
-//			objectManagement.AddObjectToArrayObjectOfParentObject(tp, parent);			
-//			treenode1 = new TreeNode();				
-//			treenode1.Name = typeEnum.ToString();
-//			treenode1.Tag = tp;
-//			treenode1.Text = tp.type.ToString();
-//			nodeParent.Nodes.Add(treenode1);
-			
-			TreeNode treenode1 = new TreeNode();
-			objectManagement.AddObjectToArrayObjectOfParentObject(tagNode, address);		
-			treenode1 = new TreeNode();				
-			treenode1.Name = name;
-			treenode1.Tag = tagNode;
-			treenode1.Text = text;				
-			this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[nodetSubNetwork.Name].Nodes["tConnectedAP[]"].Nodes[nodetConnected.Name].Nodes["Adress"].Nodes["tP[]"].Nodes.Add(treenode1);				
-		}	
-		
-//		void NameSubNetCBSelectedIndexChanged(object sender, EventArgs e)
-//		{
-//			TreeNode objectFound = null;
-//			objectFound = treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[this.GetNodeName(nodeSubNetwork.Nodes, nameSubNet.Text, "name")];
-//			loadValues(objectFound);
-//		}
+				   if(this.sCL.Communication.SubNetwork[i].name == this.nameSubNetCB.SelectedItem.ToString())
+				{ 
+					this.sCL.Communication.SubNetwork[i].name = this.nameSubNet.Text;
+					this.sCL.Communication.SubNetwork[i].desc = this.descSubNet.Text;	
+					TreeNode connected = this.treeViewSCL.SeekAssociation(treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[i].Nodes, apParentName, iedParentName, "apName", "iedName");
+					if(connected!=null)
+					{
+						tconn = (tConnectedAP) connected.Tag;
+						tconn.iedName = iedParentName;
+						tconn.apName = apParentName;
+						if(this.objectManagement.ModifyObjectOfArrayObjectOfParentObject(tconn, connected.Index, connected.Parent.Parent.Tag))
+						{
+							if(connected.FirstNode!=null)
+							{
+								object arrayOf = connected.FirstNode.Tag;
+								tP[] arr = (tP[]) this.objectManagement.FindVariable(arrayOf, "P");
+								tAddress tad = new tAddress();
+								tconn.Address = tad;
+								tconn.Address.P = arr;
+								connected.Tag = tconn;
+								if(arr!=null)
+								{
+									for(int j=0; j<arr.Length;j++)
+									{
+										for(int k =0; k<names.Length; k++)
+										{
+											if(arr[j].type.ToString() == names[k])
+											{
+												arr[j].Value = comm[k].ToString();	
+											}	
+										}
+									}	
+									this.objectManagement.ModifyObjectOfArrayObjectOfParentObject((tP[]) arr, 0, tconn.Address.P);
+								}
+								else
+								{
+									DrawCommunication();
+								}
+							}
+							else
+							{
+								DrawCommunication();
+							}
+						}
+					}
+					else
+					{
+						DrawCommunication();
+					}
+				}
+			}									
+		}									
 	}
 }

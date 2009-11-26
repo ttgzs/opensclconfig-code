@@ -17,8 +17,8 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 using System;
-using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace OpenSCL.UI
 {
@@ -34,6 +34,16 @@ namespace OpenSCL.UI
 			
 		}
 		
+		/// <summary>
+		/// This method shows a listBox that contains the errors ocurred.
+		/// </summary>
+		/// <param name="listErrors">
+		/// List of error ocurred.
+		/// </param>
+		/// <returns>
+		/// It returns a ListBox that contains a list of errors if there are no errors the this list is 
+		/// null.
+		/// </returns>
 		public ListBox ShowError(List<ErrorsManagement> listErrors)
 		{			
 			if(listErrors!=null)

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectGuid>{766E7582-B924-482A-887B-3E754B895B8F}</ProjectGuid>
@@ -33,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <WarningLevel>4</WarningLevel>
@@ -64,18 +65,39 @@
       <DependentUpon>CommunicationDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="ContextMenuSCL.cs" />
+    <Compile Include="GSEDialog.cs" />
+    <Compile Include="GSEDialog.Designer.cs">
+      <DependentUpon>GSEDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUIObjectManagement.cs" />
+    <Compile Include="HistoryDialog.cs" />
+    <Compile Include="HistoryDialog.Designer.cs">
+      <DependentUpon>HistoryDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="openDialog.cs" />
     <Compile Include="PrivateDialog.cs" />
     <Compile Include="PrivateDialog.Designer.cs">
       <DependentUpon>PrivateDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AttributeReferences.cs" />
     <Compile Include="RegularExpressionTree.cs" />
     <Compile Include="SaveDialog.cs" />
+    <Compile Include="SMVDialog.cs" />
+    <Compile Include="SMVDialog.Designer.cs">
+      <DependentUpon>SMVDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="TreeViewLNType.cs" />
     <Compile Include="TreeViewSCL.cs" />
     <Compile Include="UIErrorsManagement.cs" />
+    <Compile Include="DataSetDialog.cs" />
+    <Compile Include="DataSetDialog.Designer.cs">
+      <DependentUpon>DataSetDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LNodeDialog.cs" />
+    <Compile Include="LNodeDialog.Designer.cs">
+      <DependentUpon>LNodeDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="WindowTreeViewLNType.cs" />
     <Compile Include="WindowTreeViewLNType.Designer.cs">
       <DependentUpon>WindowTreeViewLNType.cs</DependentUpon>
@@ -83,8 +105,23 @@
     <EmbeddedResource Include="CommunicationDialog.resx">
       <DependentUpon>CommunicationDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GSEDialog.resx">
+      <DependentUpon>GSEDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HistoryDialog.resx">
+      <DependentUpon>HistoryDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PrivateDialog.resx">
       <DependentUpon>PrivateDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataSetDialog.resx">
+      <DependentUpon>DataSetDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SMVDialog.resx">
+      <DependentUpon>SMVDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LNodeDialog.resx">
+      <DependentUpon>LNodeDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WindowTreeViewLNType.resx">
       <DependentUpon>WindowTreeViewLNType.cs</DependentUpon>

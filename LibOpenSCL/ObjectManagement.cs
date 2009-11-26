@@ -19,6 +19,7 @@
 using System;
 using System.Collections;
 using System.Reflection;
+using IEC61850.SCL;
 
 namespace OpenSCL
 {	
@@ -505,6 +506,11 @@ namespace OpenSCL
    		/// <param name="valueVariable">
    		/// Value of the property.
    		/// </param>
+   		/// <remarks>
+   		/// The instruccion try.. catch was added to allows the manipulation of the attributes of the
+   		/// Common Data Classes (CDC) that are an int type but on the DataTypeTemplates are an Enum 
+   		/// Type.
+   		/// </remarks>		
    		public void FindVariableAndSetValue(object objectToEval, string nameVariable, object valueVariable)
    		{
    			MemberInfo[] nameOfVariablesToFind;			
@@ -512,14 +518,25 @@ namespace OpenSCL
    								MemberTypes.Field |
     							MemberTypes.Property, 
     							BindingFlags.Public | 
+								BindingFlags.NonPublic |
     							BindingFlags.Instance,
     							Type.FilterName, nameVariable);   			
 			if(nameOfVariablesToFind.Length>0)
 			{				
-				objectToEval.GetType().InvokeMember(nameVariable, BindingFlags.Instance | BindingFlags.Public | 
-  					BindingFlags.SetProperty | BindingFlags.SetField, null, objectToEval, new object [] {valueVariable});
-			}			
-   		}
+				try
+				{
+					objectToEval.GetType().InvokeMember(nameVariable, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic |
+                 	BindingFlags.SetProperty | BindingFlags.SetField, null, objectToEval, new object [] {valueVariable});
+				}
+				catch(Exception)
+				{
+					object newObject = Activator.CreateInstance(Type.GetType("IEC61850.SCL."+nameVariable));
+					this.EmptySourcetoDestinyObject(valueVariable, newObject);							
+					objectToEval.GetType().InvokeMember(nameVariable, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic |
+                 	BindingFlags.SetProperty | BindingFlags.SetField, null, objectToEval, new object [] {newObject});
+				}				
+			}
+		}
    		
    		/// <summary>
    		/// This method invoques a method to ejecute it.
@@ -573,6 +590,7 @@ namespace OpenSCL
    				return null;
    			}
    		}   
+   		
    		/// <summary>
    		/// This method adds an array to a variable of the parent object. Both of them has to be of the 
    		/// same type.
@@ -623,5 +641,193 @@ namespace OpenSCL
    			}  			
    			return false;
    		}
-	}	
+		
+   		/// <summary>
+   		/// 
+   		/// </summary>
+   		/// <param name="A">
+   		/// 
+   		/// </param>
+   		/// <param name="B">
+   		/// 
+   		/// </param>
+   		/// <returns>
+   		/// 
+   		/// </returns>
+   		public bool Compare(object A, object B)
+		{
+			if(A.GetType()==B.GetType())
+			{
+				PropertyInfo[] attributesInformation = A.GetType().GetProperties();
+				foreach (PropertyInfo attributeInformation in attributesInformation)
+				{
+					object[] valueObjectAttributeA = new object[1];
+					object[] valueObjectAttributeB = new object[1];
+					valueObjectAttributeA[0] = A.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, A, null );
+					valueObjectAttributeB[0] = B.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, B, null );
+        			
+					if(valueObjectAttributeA[0]!=null && valueObjectAttributeB[0]!=null &&!valueObjectAttributeA[0].ToString().Equals(valueObjectAttributeB[0].ToString()))
+        			{
+        				return false;
+        			}					
+				}
+				return true;				
+			}
+			else
+			{
+				return false;
+			}
+		}
+   		
+   		//New
+   		/// <summary>
+   		/// This method modifies an object contained on an array of the same type. The array has to be a parent object.		
+		/// </summary>
+		/// <param name="itemObject">
+		/// Valid object that will be modified.
+		/// </param>	
+		/// <param name="indexObject">
+		/// Position of the object that will be modified, in the array. 
+		/// </param>	
+		/// <param name="parentObject">
+		/// Parent object that contains the variable array where the object will be modified. 
+		/// </param>
+		/// <returns>
+		/// If the valid object was modified correctly, it returns a "True" value, otherwise 
+		/// a "False" value is returned.
+		/// </returns>		
+		/// <remarks>
+		/// The object should be validated previously to verify if it is according to the IEC 61850 Ed.1.0.
+		/// </remarks>
+   		public bool ModifyObjectOfArrayObjectOfParentObject(object itemObject, int indexObject, object parentObject)
+   		{
+   			string attributeArrayName = this.GetNameAttributeArray(itemObject.GetType(), parentObject.GetType());
+   			if(!attributeArrayName.Equals(""))
+   			{
+   				return this.ModifyItemOfArray(itemObject, indexObject, attributeArrayName, parentObject);
+   			}
+   			return false;
+   		}   		
+   		
+   		/// <summary>
+		/// This method modifies an object included on an object's array.
+		/// </summary>
+		/// <param name="itemObject">
+		/// Object that contains the new values.
+		/// </param>
+		/// <param name="indexObject">
+		/// Position of the object that will be modified, in the array. 
+		/// </param>				
+		/// <param name="nameArrayObject">
+		/// Variable's name of the parent object that will contains the object's array updated.
+		/// </param>
+		/// <param name="parentObject">
+		/// Parent object that will contains an object's array. 
+		/// </param>
+		/// <returns>
+		/// If the valid object was modified correctly, it returns a "True" value, otherwise 
+		/// a "False" value is returned.
+		/// </returns>		
+   		public bool ModifyItemOfArray(object itemObject, int indexObject, string nameArrayObject, object parentObject)
+   		{
+   			Array array = parentObject.GetType().InvokeMember(nameArrayObject,
+   			 BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.GetField,
+   			   null, parentObject, null) as Array;
+   			if (array == null)
+   			{
+   				return false;
+   			}
+   			int arraySize = array.GetLength(0);
+   			if (arraySize < 1)
+   			{
+   				return false;   			
+   			}
+   			array.SetValue(itemObject,indexObject);  			   			
+   			parentObject.GetType().InvokeMember(nameArrayObject,
+   			  BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.SetField,
+   			     null, parentObject, new object[1] { array });
+   			return true;
+   		}   		   		   		
+   		
+		/// <summary>
+		/// This method sets the values of a SCL object to a graphical object.
+		/// </summary>
+		/// <param name="sourceObject">
+		/// Graphical Object that will contain the values of the SCL object.
+		/// </param>
+		/// <param name="assignObject">
+		/// SCL object.
+		/// </param>
+		public void EmptySourcetoDestinyObject(object sourceObject, object assignObject)			
+		{
+			PropertyInfo[] attributesInformation = sourceObject.GetType().GetProperties();        	        	        	        							
+			object[] valueObjectAttribute = new object[1];
+			MemberInfo[] nameOfVariablesToFind;
+        	foreach (PropertyInfo attributeInformation in attributesInformation) 
+        	{        		
+        		valueObjectAttribute[0] = sourceObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, sourceObject, null );				
+        		if(valueObjectAttribute[0]!=null)
+        		{
+        			nameOfVariablesToFind = assignObject.GetType().FindMembers(
+        						MemberTypes.Field |
+    							MemberTypes.Property, 
+    							BindingFlags.Public |     							
+    							BindingFlags.Instance,
+    							Type.FilterName, attributeInformation.Name);
+        			if(nameOfVariablesToFind.Length>0)
+        			{
+        				assignObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.SetField | BindingFlags.SetProperty, null, assignObject, valueObjectAttribute);        		        			
+        			}
+        		}
+        	}	        	
+		}
+		
+   		/// <summary>
+		/// This method sets the values of a graphical object to an SCL object.
+		/// </summary>
+		/// <param name="sourceObject">
+		/// SCL object.
+		/// </param>
+		/// <param name="assignObject">
+		/// Graphical Object that will contain the values of the SCL object.
+		/// </param>
+   		public void EmptyDestinytoSourceObject(object sourceObject, object assignObject)
+		{
+			PropertyInfo[] attributesInformation = assignObject.GetType().GetProperties();        	        	        	        							
+			object[] valueObjectAttribute = new object[1];
+			MemberInfo[] nameOfVariablesToFind;
+        	foreach (PropertyInfo attributeInformation in attributesInformation) 
+        	{        
+        	     nameOfVariablesToFind = sourceObject.GetType().FindMembers(
+        						MemberTypes.Field |
+    							MemberTypes.Property, 
+    							BindingFlags.Public | 
+    							BindingFlags.Instance,
+    							Type.FilterName, attributeInformation.Name);
+        		if(nameOfVariablesToFind.Length>0)
+        		{
+					valueObjectAttribute[0] = sourceObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, sourceObject, null );				
+					assignObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.SetField | BindingFlags.SetProperty, null, assignObject, valueObjectAttribute);        		        	        		
+        		}        		
+        	}			
+		}		
+		
+		/// <summary>
+		/// gets the value of tP
+		/// </summary>
+		/// <param name="tpArray">tp array</param>
+		/// <param name="type">the type of tP</param>
+		/// <returns>the value of current tP otherwise return ""</returns>
+		public string GetTpValue(tP[] tpArray, string type)
+		{
+			for(int i=0; i<tpArray.Length; i++)
+			{
+				if(FindVariable(tpArray[i], "type").ToString() == type)
+				{
+					return FindVariable(tpArray[i], "Value").ToString();
+				}
+			}
+			return "";
+		}		
+	}
 }

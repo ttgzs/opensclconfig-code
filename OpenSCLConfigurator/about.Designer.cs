@@ -182,7 +182,7 @@ namespace OpenSCLConfigurator
 			this.textBox1.ReadOnly = true;
 			this.textBox1.Size = new System.Drawing.Size(46, 20);
 			this.textBox1.TabIndex = 2;
-			this.textBox1.Text = "0.4";
+			this.textBox1.Text = "0.2.1";
 			this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			// 
 			// label8

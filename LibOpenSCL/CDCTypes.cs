@@ -28,24 +28,23 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  ACD : DOData
 	{
-		private cdcName cdcNameField;
-		private cdcNs cdcNsField;
-		private d dField;
-		private DataName DataNameField;
-		private dataNs dataNsField;
+		private VisString255 cdcNameField;
+		private VisString255 cdcNsField;
+		private VisString255 dField;
+		private VisString255 dataNsField;
 		private dirGeneral dirGeneralField;
 		private dirNeut dirNeutField;
 		private dirPhsA dirPhsAField;
 		private dirPhsB dirPhsBField;
 		private dirPhsC dirPhsCField;
-		private dU dUField;
-		private general generalField;
-		private neut neutField;
-		private phsA phsAField;
-		private phsB phsBField;
-		private phsC phsCField;
-		private q  qField;
-		private t tField;
+		private Unicode255 dUField;
+		private BOOLEAN generalField;
+		private BOOLEAN neutField;
+		private BOOLEAN phsAField;
+		private BOOLEAN phsBField;
+		private BOOLEAN phsCField;
+		private Quality  qField;
+		private Timestamp tField;
 		
 		/// <summary>
 		/// Directional protection activation information (ACD)
@@ -64,28 +63,27 @@ namespace IEC61850.SCL
 			this.cdc = "ACD";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);
-			this.dField = new d(tBasicTypeEnum.VisString255);
-			this.DataNameField = new DataName(iedType, this.id);
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);
-			this.dirGeneralField = new dirGeneral(tBasicTypeEnum.Enum);
-			this.dirNeutField = new dirNeut(tBasicTypeEnum.Enum);
-			this.dirPhsAField = new dirPhsA(tBasicTypeEnum.Enum);
-			this.dirPhsBField = new dirPhsB(tBasicTypeEnum.Enum);
-			this.dirPhsCField = new dirPhsC(tBasicTypeEnum.Enum);
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.generalField = new general(tBasicTypeEnum.BOOLEAN);
-			this.neutField = new neut(tBasicTypeEnum.BOOLEAN);
-			this.phsAField = new phsA(tBasicTypeEnum.BOOLEAN);
-			this.phsBField = new phsB(tBasicTypeEnum.BOOLEAN);
-			this.phsCField = new phsC(tBasicTypeEnum.BOOLEAN);
-			this.qField = new q(tBasicTypeEnum.Quality);
-			this.tField = new t(tBasicTypeEnum.Timestamp);
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);
+			this.dField = new VisString255("d", tFCEnum.DC);
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);
+			this.dirGeneralField = new dirGeneral(tFCEnum.ST);
+			this.dirNeutField = new dirNeut(tFCEnum.ST); 
+			this.dirPhsAField = new dirPhsA(tFCEnum.ST);
+			this.dirPhsBField = new dirPhsB(tFCEnum.ST);
+			this.dirPhsCField = new dirPhsC(tFCEnum.ST);
+			this.dUField = new Unicode255("dU", tFCEnum.DC);			
+			this.generalField = new BOOLEAN("general", tFCEnum.ST);
+			this.neutField = new BOOLEAN("neut", tFCEnum.ST);
+			this.phsAField = new BOOLEAN("phsA", tFCEnum.ST);
+			this.phsBField = new BOOLEAN("phsB", tFCEnum.ST);
+			this.phsCField = new BOOLEAN("phsC", tFCEnum.ST);
+			this.qField = new Quality("q", tFCEnum.ST);
+			this.tField = new Timestamp("t", tFCEnum.ST);
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -98,7 +96,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -111,7 +109,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -124,20 +122,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public DataName DataName 
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -216,7 +201,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU 
+		public Unicode255 dU
 		{
 			get
 			{
@@ -230,7 +215,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public general general
+		public BOOLEAN general
 		{
 			get
 			{
@@ -243,7 +228,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public neut neut
+		public BOOLEAN neut
 		{
 			get
 			{
@@ -256,7 +241,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public phsA phsA
+		public BOOLEAN phsA
 		{
 			get
 			{
@@ -269,7 +254,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public phsB phsB 
+		public BOOLEAN phsB 
 		{
 			get
 			{
@@ -282,7 +267,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public phsC phsC
+		public BOOLEAN phsC
 		{
 			get
 			{
@@ -296,7 +281,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public q q
+		public Quality q
 		{
 			get
 			{
@@ -310,7 +295,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get
 			{
@@ -329,20 +314,19 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  ACT : DOData
 	{		
-		private cdcName cdcNameField;
-		private cdcNs cdcNsField;
-		private d dField;
-		private DataName DataNameField;
-		private dataNs dataNsField;
-		private dU dUField;
-		private general generalField;
-		private neut neutField;
-		private operTm operTmField;
-		private phsA phsAField;
-		private phsB phsBField;
-		private phsC phsCField;
-		private q  qField;
-		private t tField;	
+		private VisString255 cdcNameField;
+		private VisString255 cdcNsField;
+		private VisString255 dField;
+		private VisString255 dataNsField;
+		private Unicode255 dUField;
+		private BOOLEAN generalField;
+		private BOOLEAN neutField;
+		private Timestamp operTmField;
+		private BOOLEAN phsAField;
+		private BOOLEAN phsBField;
+		private BOOLEAN phsCField;
+		private Quality  qField;
+		private Timestamp tField;	
 		
 		/// <summary>
 		/// Protection activation information (ACT)
@@ -361,26 +345,23 @@ namespace IEC61850.SCL
 			this.cdc = "ACT";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);
-			this.dField = new d(tBasicTypeEnum.VisString255);
-			this.DataNameField = new DataName(iedType, this.id);
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.generalField = new general(tBasicTypeEnum.BOOLEAN);
-			this.neutField = new neut(tBasicTypeEnum.BOOLEAN);
-			this.operTmField = new operTm(tBasicTypeEnum.Timestamp);
-			this.phsAField = new phsA(tBasicTypeEnum.BOOLEAN);
-			this.phsBField = new phsB(tBasicTypeEnum.BOOLEAN);
-			this.phsCField = new phsC(tBasicTypeEnum.BOOLEAN);
-			this.qField = new q(tBasicTypeEnum.Quality);
-			this.tField = new t(tBasicTypeEnum.Timestamp);
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);
+			this.dField = new VisString255("d", tFCEnum.DC);
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.generalField = new BOOLEAN("general", tFCEnum.ST);
+			this.neutField = new BOOLEAN("neut", tFCEnum.ST);
+			this.operTmField = new Timestamp("operTm", tFCEnum.CF);
+			this.phsAField = new BOOLEAN("phsA", tFCEnum.ST);
+			this.phsBField = new BOOLEAN("phsB", tFCEnum.ST);
+			this.phsCField = new BOOLEAN("phsC", tFCEnum.ST);
+			this.qField = new Quality("q", tFCEnum.ST);
+			this.tField = new Timestamp("t", tFCEnum.ST);
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -393,7 +374,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -406,7 +387,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -419,20 +400,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public DataName DataName 
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -445,7 +413,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU 
+		public Unicode255 dU
 		{
 			get
 			{
@@ -459,7 +427,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public general general
+		public BOOLEAN general
 		{
 			get
 			{
@@ -472,7 +440,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public neut neut
+		public BOOLEAN neut
 		{
 			get
 			{
@@ -485,7 +453,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public operTm operTm
+		public Timestamp operTm
 		{
 			get
 			{
@@ -498,7 +466,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public phsA phsA
+		public BOOLEAN phsA
 		{
 			get
 			{
@@ -511,7 +479,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public phsB phsB 
+		public BOOLEAN phsB 
 		{
 			get
 			{
@@ -524,7 +492,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public phsC phsC
+		public BOOLEAN phsC
 		{
 			get
 			{
@@ -538,7 +506,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public q q
+		public Quality q
 		{
 			get
 			{
@@ -552,7 +520,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get
 			{
@@ -571,23 +539,26 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  APC : DOData
 	{	
-		private cdcName cdcNameField;
-		private cdcNs cdcNsField;
+		private VisString255 cdcNameField;
+		private VisString255 cdcNsField;
 		private ctlModel ctlModelField;
-		private d dField;
-		private DataName DataNameField;
-		private dataNs dataNsField;			
-		private dU dUField;
+		private VisString255 dField;
+		private VisString255 dataNsField;			
+		private Unicode255 dUField;
 		private maxVal maxValField;
 		private minVal minValField;
-		private operTm operTmField;
+		private Timestamp operTmField;
 		private origin originField;
-		private q qField;
+		private Quality qField;
 		private setMag2 setMag2Field;
 		private stepSize stepSizeField;
 		private sVC sVCField;
-		private t tField;
+		private Timestamp tField;
 		private units unitsField;
+		private VisString65 SBOField;
+		private SBOw SBOwField;
+		private Oper OperField;
+		private Cancel CancelField;
 		
 		/// <summary>
 		/// Controllable analogue set point information (APC)
@@ -606,33 +577,30 @@ namespace IEC61850.SCL
 			this.cdc = "APC";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);
-			this.ctlModelField = new ctlModel(iedType, this.id);
-			this.dField = new d(tBasicTypeEnum.VisString255);
-			this.DataNameField = new DataName(iedType, this.id);
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);			
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);			
-			this.maxValField = new maxVal(iedType, this.id);
-			AnalogueValue AnalogueValueField = new AnalogueValue(iedType, this.maxValField.id);
-			this.maxValField.SetLinkSDIDADataTypeBDA(AnalogueValueField);			
-			this.minValField = new minVal(iedType, this.id);
-			AnalogueValueField = new AnalogueValue(iedType, this.minValField.id);	
-			this.minValField.SetLinkSDIDADataTypeBDA(AnalogueValueField);
-			this.operTmField = new operTm(tBasicTypeEnum.Timestamp);
-			this.originField = new origin(iedType, this.id);		
-			this.qField = new q(tBasicTypeEnum.Quality);	
-			this.setMag2Field = new setMag2(iedType, this.id);
-			this.stepSizeField = new stepSize(iedType, this.id);
-			this.sVCField = new sVC(iedType, this.id);
-			this.tField = new t(tBasicTypeEnum.Timestamp);
-			this.unitsField = new units(iedType, this.id);
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);
+			this.ctlModelField = new ctlModel(iedType, this.id, tFCEnum.CF);
+			this.dField = new VisString255("d", tFCEnum.DC);
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);			
+			this.dUField = new Unicode255("dU",tFCEnum.DC);			
+			this.maxValField = new maxVal(iedType, this.id, tFCEnum.CF);		
+			this.minValField = new minVal(iedType, this.id, tFCEnum.CF);						
+			this.operTmField = new Timestamp("operTm", tFCEnum.SP);
+			this.originField = new origin(iedType, this.id, tFCEnum.SP);		
+			this.qField = new Quality("q", tFCEnum.MX);	
+			this.setMag2Field = new setMag2(iedType, this.id, tFCEnum.SP);
+			this.stepSizeField = new stepSize(iedType, this.id, tFCEnum.CF);
+			this.sVCField = new sVC(iedType, this.id, tFCEnum.CF);
+			this.tField = new Timestamp("t", tFCEnum.MX);
+			this.unitsField = new units(iedType, this.id, tFCEnum.CF);
+			this.SBOField = new VisString65("SBO", tFCEnum.SP);			
+			this.SBOwField = new SBOw(iedType, this.id, tFCEnum.SP);				
+			this.OperField = new Oper(iedType, this.id, tFCEnum.SP);						
+			this.CancelField = new Cancel(iedType, this.id, tFCEnum.SP);						
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -645,7 +613,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -672,7 +640,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{		
 			get
 			{
@@ -685,20 +653,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public DataName DataName 
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -711,7 +666,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU 
+		public Unicode255 dU
 		{
 			get
 			{
@@ -750,7 +705,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public operTm operTm
+		public Timestamp operTm
 		{
 			get
 			{
@@ -777,7 +732,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public q q
+		public Quality q
 		{
 			get 
 			{
@@ -831,7 +786,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get 
 			{
@@ -855,6 +810,58 @@ namespace IEC61850.SCL
 				this.unitsField = value;
 			}
 		}
+		
+		[Browsable(false)]
+		public VisString65 SBO
+		{
+			get
+			{
+				return this.SBOField;
+			}
+			set
+			{
+				this.SBOField = value;
+			}
+		}
+		
+		[Browsable(false)]
+		public SBOw SBOw
+		{
+			get
+			{
+				return this.SBOwField;
+			}
+			set
+			{
+				this.SBOwField = value;
+			}
+		}
+		
+		[Browsable(false)]
+		public Oper Oper
+		{
+			get
+			{
+				return this.OperField;
+			}
+			set
+			{
+				this.OperField = value;
+			}
+		}
+		
+		[Browsable(false)]
+		public Cancel Cancel
+		{
+			get
+			{
+				return this.CancelField;
+			}
+			set
+			{
+				this.CancelField = value;
+			}
+		}
 	}
 	
 	/// <summary>
@@ -863,12 +870,11 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  ASG : DOData
 	{	
-		private cdcName cdcNameField;
-		private cdcNs cdcNsField;
-		private d dField;
-		private DataName DataNameField;
-		private dataNs dataNsField;
-		private dU dUField;
+		private VisString255 cdcNameField;
+		private VisString255 cdcNsField;
+		private VisString255 dField;
+		private VisString255 dataNsField;
+		private Unicode255 dUField;
 		private maxVal maxValField;
 		private minVal minValField;		
 		private setMag setMagField;
@@ -894,27 +900,22 @@ namespace IEC61850.SCL
 			this.cdc = "ASG";
 			this.id = this.type;
 			this.iedType = iedType;					
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);
-			this.dField = new d(tBasicTypeEnum.VisString255);
-			this.DataNameField = new DataName(iedType, this.id);
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);			
-			this.maxValField = new maxVal(iedType, this.id);
-			AnalogueValue AnalogueValueField = new AnalogueValue(iedType, this.maxValField.id);
-			this.maxValField.SetLinkSDIDADataTypeBDA(AnalogueValueField);			
-			this.minValField = new minVal(iedType, this.id);
-			AnalogueValueField = new AnalogueValue(iedType, this.minValField.id);	
-			this.minValField.SetLinkSDIDADataTypeBDA(AnalogueValueField);			
-			this.setMagField = new setMag(iedType, this.id);
-			this.setMag2Field = new setMag2(iedType, this.id);
-			this.stepSizeField = new stepSize(iedType, this.id);
-			this.sVCField = new sVC(iedType, this.id);			
-			this.unitsField = new units(iedType, this.id);
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);
+			this.dField = new VisString255("d", tFCEnum.DC);
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);
+			this.dUField = new Unicode255("dU",tFCEnum.DC);			
+			this.maxValField = new maxVal(iedType, this.id, tFCEnum.CF);						
+			this.minValField = new minVal(iedType, this.id, tFCEnum.CF);			
+			this.setMagField = new setMag(iedType, this.id, tFCEnum.SP);
+			this.setMag2Field = new setMag2(iedType, this.id, tFCEnum.SG);
+			this.stepSizeField = new stepSize(iedType, this.id, tFCEnum.CF);
+			this.sVCField = new sVC(iedType, this.id, tFCEnum.CF);			
+			this.unitsField = new units(iedType, this.id, tFCEnum.CF);
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -927,7 +928,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -940,7 +941,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -950,23 +951,10 @@ namespace IEC61850.SCL
 			{
 				this.dField = value;
 			}
-		}	
+		}			
 		
 		[Browsable(false)]
-		public DataName DataName 
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -979,7 +967,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU 
+		public Unicode255 dU
 		{
 			get
 			{
@@ -1089,22 +1077,21 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  BCR : DOData
 	{
-		private actVal actValField;
-		private cdcName cdcNameField;
-		private cdcNs cdcNsField;
-		private d dField;
-		private DataName DataNameField;
-		private dataNs dataNsField;
-		private dU dUField;
-		private frEna frEnaField;
-		private frPd frPdField;
-		private frRs frRsField;
-		private frTm frTmField;
-		private frVal frValField;
-		private pulsQty pulsQtyField;
-		private q qField;
-		private strTm strTmField;
-		private t tField;
+		private INT128 actValField;
+		private VisString255 cdcNameField;
+		private VisString255 cdcNsField;
+		private VisString255 dField;
+		private VisString255 dataNsField;
+		private Unicode255 dUField;
+		private BOOLEAN frEnaField;
+		private INT32 frPdField;
+		private BOOLEAN frRsField;
+		private Timestamp frTmField;
+		private INT128 frValField;
+		private FLOAT32 pulsQtyField;
+		private Quality qField;
+		private Timestamp strTmField;
+		private Timestamp tField;
 		private units unitsField;
 		
 		/// <summary>
@@ -1124,28 +1111,27 @@ namespace IEC61850.SCL
 			this.cdc = "BCR";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.actValField = new actVal(tBasicTypeEnum.INT128);
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);
-			this.dField = new d(tBasicTypeEnum.VisString255);
-			this.DataNameField = new DataName(iedType, this.id);
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.frEnaField = new frEna(tBasicTypeEnum.BOOLEAN);
-			this.frPdField = new frPd(tBasicTypeEnum.INT32);
-			this.frRsField = new frRs(tBasicTypeEnum.BOOLEAN);
-			this.frTmField = new frTm(tBasicTypeEnum.Timestamp);
-			this.frValField = new frVal(tBasicTypeEnum.INT128);
-			this.pulsQtyField = new pulsQty(tBasicTypeEnum.FLOAT32);
-			this.qField = new q(tBasicTypeEnum.Quality);	
-			this.strTmField = new strTm(tBasicTypeEnum.Timestamp);
-			this.tField = new t(tBasicTypeEnum.Timestamp);
-			this.unitsField = new units(iedType, this.id);
+			this.actValField = new INT128("actVal", tFCEnum.ST);
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);
+			this.dField = new VisString255("d", tFCEnum.DC);
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.frEnaField = new BOOLEAN("frEna", tFCEnum.CF);
+			this.frPdField = new INT32("frPd", tFCEnum.CF);
+			this.frRsField = new BOOLEAN("frRs", tFCEnum.CF);
+			this.frTmField = new Timestamp("frTm", tFCEnum.ST);
+			this.frValField = new INT128("frVal", tFCEnum.ST);
+			this.pulsQtyField = new FLOAT32("pulsQty", tFCEnum.CF);
+			this.qField = new Quality("q", tFCEnum.ST);	
+			this.strTmField = new Timestamp("strTm", tFCEnum.CF);
+			this.tField = new Timestamp("t", tFCEnum.ST);
+			this.unitsField = new units(iedType, this.id, tFCEnum.CF);
 		}
 		
 		[Required]
 		[Browsable(false)]
-		public actVal actVal
+		public INT128 actVal
 		{
 			get 
 			{
@@ -1158,7 +1144,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -1171,7 +1157,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -1184,7 +1170,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -1197,20 +1183,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public DataName DataName 
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -1223,7 +1196,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU 
+		public Unicode255 dU
 		{
 			get
 			{
@@ -1236,7 +1209,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public frEna frEna
+		public BOOLEAN frEna
 		{
 			get
 			{
@@ -1249,7 +1222,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public frPd frPd
+		public INT32 frPd
 		{
 			get
 			{
@@ -1262,7 +1235,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public frRs frRs
+		public BOOLEAN frRs
 		{
 			get
 			{
@@ -1275,7 +1248,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public frTm frTm
+		public Timestamp frTm
 		{
 			get
 			{
@@ -1288,7 +1261,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public frVal frVal
+		public INT128 frVal
 		{
 			get
 			{
@@ -1302,7 +1275,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public pulsQty pulsQty
+		public FLOAT32 pulsQty
 		{
 			get
 			{
@@ -1316,7 +1289,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public q q
+		public Quality q
 		{
 			get 
 			{
@@ -1329,7 +1302,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public strTm strTm
+		public Timestamp strTm
 		{
 			get
 			{
@@ -1343,7 +1316,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get 
 			{
@@ -1375,31 +1348,34 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  BSC : DOData
 	{
-		private cdcName cdcNameField;
-		private cdcNs cdcNsField;
+		private VisString255 cdcNameField;
+		private VisString255 cdcNsField;
 		private ctlModel ctlModelField;
-		private ctlNum ctlNumField;
+		private INT8U ctlNumField;
 		private ctlVal ctlValField;
-		private d dField;
-		private DataName DataNameField;
-		private dataNs dataNsField;			
-		private dU dUField;
-		private maxVal maxValField;
-		private minVal minValField;
-		private operTm operTmField;
+		private VisString255 dField;
+		private VisString255 dataNsField;			
+		private Unicode255 dUField;
+		private INT8 maxValField;
+		private INT8 minValField;
+		private Timestamp operTmField;
 		private origin originField;
-		private persistent persistentField;
-		private q qField;
+		private BOOLEAN persistentField;
+		private Quality qField;
 		private sboClass sboClassField;
-		private sboTimeout sboTimeoutField;
-		private stepSize stepSizeField;
-		private stSeld stSeldField;
-		private subEna subEnaField;
-		private subID subIDField;
-		private subQ subQField;
+		private INT32U sboTimeoutField;
+		private INT8U stepSizeField;
+		private BOOLEAN stSeldField;
+		private BOOLEAN subEnaField;
+		private VisString64 subIDField;
+		private Quality subQField;
 		private subVal subValField;
-		private t tField;
+		private Timestamp tField;
 		private valWTr valWTrField;
+		private VisString65 SBOField;
+		private SBOw SBOwField;
+		private Oper OperField;
+		private Cancel CancelField;
 		
 		/// <summary>
 		/// Binary controlled step position information (BSC).
@@ -1418,37 +1394,41 @@ namespace IEC61850.SCL
 			this.cdc = "BSC";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);
-			this.ctlModelField = new ctlModel(iedType, this.id);
-			this.ctlNumField = new ctlNum(tBasicTypeEnum.INT8U);
-			this.ctlValField = new ctlVal(tBasicTypeEnum.Enum);			
-			this.dField = new d(tBasicTypeEnum.VisString255);
-			this.DataNameField = new DataName(iedType, this.id);
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);			
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);						
-			this.maxValField = new maxVal(tBasicTypeEnum.INT8);									
-			this.minValField = new minVal(tBasicTypeEnum.INT8);			
-			this.operTmField = new operTm(tBasicTypeEnum.Timestamp);
-			this.originField = new origin(iedType, this.id);
-			this.persistentField = new persistent(tBasicTypeEnum.BOOLEAN);
-			this.qField = new q(tBasicTypeEnum.Quality);	
-			this.sboClassField = new sboClass(iedType, this.id);
-			this.sboTimeoutField = new sboTimeout(tBasicTypeEnum.INT32U);
-			this.stepSizeField = new stepSize(tBasicTypeEnum.INT8U);
-			this.stSeldField = new stSeld(tBasicTypeEnum.BOOLEAN);
-			this.subEnaField = new subEna(tBasicTypeEnum.BOOLEAN);
-			this.subIDField = new subID(tBasicTypeEnum.VisString64);
-			this.subQField = new subQ(tBasicTypeEnum.Quality);
-			this.subValField = new subVal(iedType, this.id);
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);
+			this.ctlModelField = new ctlModel(iedType, this.id, tFCEnum.CF);
+			this.ctlNumField = new INT8U("ctlNum", tFCEnum.CO);
+			this.ctlValField = new ctlVal(tFCEnum.CO);			
+			this.dField = new VisString255("d", tFCEnum.DC);
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);			
+			this.dUField = new Unicode255("dU",tFCEnum.DC);						
+			this.maxValField = new INT8("maxVal", tFCEnum.CF);
+			this.minValField = new INT8("minVal", tFCEnum.CF);
+			this.operTmField = new Timestamp("operTm", tFCEnum.CO);
+			this.originField = new origin(iedType, this.id, tFCEnum.CO);
+			this.persistentField = new BOOLEAN("persistent", tFCEnum.CF);
+			this.qField = new Quality("q", tFCEnum.ST);	
+			this.sboClassField = new sboClass(iedType, this.id, tFCEnum.CF);
+			this.sboTimeoutField = new INT32U("sboTimeout", tFCEnum.CF);
+			this.stepSizeField = new INT8U("stepSize", tFCEnum.CF);
+			this.stSeldField = new BOOLEAN("stSeld", tFCEnum.ST);
+			this.subEnaField = new BOOLEAN("subEna", tFCEnum.SV);
+			this.subIDField = new VisString64("subID", tFCEnum.SV);
+			this.subQField = new Quality("subQ", tFCEnum.SV);
+			this.subValField = new subVal(iedType, this.id, tFCEnum.SV);
 			ValWithTrans ValWithTransField = new ValWithTrans(iedType, this.subValField.id);
 			this.subValField.SetLinkSDIDADataTypeBDA(ValWithTransField);
-			this.tField = new t(tBasicTypeEnum.Timestamp);			
-			this.valWTrField = new valWTr(iedType, this.id);
+			this.tField = new Timestamp("t", tFCEnum.ST);			
+			this.valWTrField = new valWTr(iedType, this.id, tFCEnum.ST);
+			this.SBOField = new VisString65("SBO", tFCEnum.CO);
+			this.SBOField.Visible = false;
+			this.SBOwField = new SBOw(iedType, this.id, tFCEnum.CO);			
+			this.OperField = new Oper(iedType, this.id, tFCEnum.CO);			
+			this.CancelField = new Cancel(iedType, this.id, tFCEnum.CO);			
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -1461,7 +1441,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -1488,7 +1468,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public ctlNum ctlNum
+		public INT8U ctlNum
 		{
 			get
 			{
@@ -1514,7 +1494,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{		
 			get
 			{
@@ -1527,20 +1507,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public DataName DataName 
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -1553,7 +1520,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU 
+		public Unicode255 dU
 		{
 			get
 			{
@@ -1566,7 +1533,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public maxVal maxVal
+		public INT8 maxVal
 		{
 			get 
 			{
@@ -1579,7 +1546,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public minVal minVal
+		public INT8 minVal
 		{
 			get 
 			{
@@ -1592,7 +1559,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public operTm operTm
+		public Timestamp operTm
 		{
 			get
 			{
@@ -1619,7 +1586,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public persistent persistent
+		public BOOLEAN persistent
 		{
 			get 
 			{
@@ -1632,7 +1599,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public q q
+		public Quality q
 		{
 			get 
 			{
@@ -1658,7 +1625,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public sboTimeout sboTimeout
+		public INT32U sboTimeout
 		{
 			get 
 			{
@@ -1671,7 +1638,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public stepSize stepSize
+		public INT8U stepSize
 		{
 			get 
 			{
@@ -1684,7 +1651,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public subEna subEna
+		public BOOLEAN subEna
 		{
 			get 
 			{
@@ -1697,7 +1664,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public subID subID
+		public VisString64 subID
 		{
 			get 
 			{
@@ -1710,7 +1677,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public subQ subQ
+		public Quality subQ
 		{
 			get 
 			{
@@ -1736,7 +1703,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get 
 			{
@@ -1760,6 +1727,58 @@ namespace IEC61850.SCL
 				this.valWTrField = value;
 			}
 		}
+		
+		[Browsable(false)]
+		public VisString65 SBO
+		{
+			get
+			{
+				return this.SBOField;
+			}
+			set
+			{
+				this.SBOField = value;
+			}
+		}
+		
+		[Browsable(false)]
+		public SBOw SBOw
+		{
+			get
+			{
+				return this.SBOwField;
+			}
+			set
+			{
+				this.SBOwField = value;
+			}
+		}
+		
+		[Browsable(false)]
+		public Oper Oper
+		{
+			get
+			{
+				return this.OperField;
+			}
+			set
+			{
+				this.OperField = value;
+			}
+		}
+		
+		[Browsable(false)]
+		public Cancel Cancel
+		{
+			get
+			{
+				return this.CancelField;
+			}
+			set
+			{
+				this.CancelField = value;
+			}
+		}
 	}
 	
 	/// <summary>
@@ -1770,27 +1789,26 @@ namespace IEC61850.SCL
 	{
 		private angRef angRefField;
 		private angSVC angSVCField;
-		private cdcName cdcNameField;
-		private cdcNs cdcNsField;
+		private VisString255 cdcNameField;
+		private VisString255 cdcNsField;
 		private cVal cValField;
-		private d dField;
-		private DataName DataNameField;
-		private dataNs dataNsField;
-		private db dbField;
-		private dU dUField;
+		private VisString255 dField;
+		private VisString255 dataNsField;
+		private INT32U dbField;
+		private Unicode255 dUField;
 		private instCVal instCValField;
 		private magSVC magSVCField;
-		private q qField;
+		private Quality qField;
 		private range rangeField;
 		private rangeC rangeCField;
-		private smpRate smpRateField;
+		private INT32U smpRateField;
 		private subCVal subCValField;
-		private subEna subEnaField;
-		private subID subIDField;
-		private subQ subQField;
-		private t tField;
+		private BOOLEAN subEnaField;
+		private VisString64 subIDField;
+		private Quality subQField;
+		private Timestamp tField;
 		private units unitsField;
-		private zeroDb zeroDbField;
+		private INT32U zeroDbField;
 		
 		/// <summary>
 		/// Complex measured value (CMV)
@@ -1809,29 +1827,28 @@ namespace IEC61850.SCL
 			this.cdc = "CMV";
 			this.id = this.type;
 			this.iedType = iedType;			
-			this.angRefField = new angRef(tBasicTypeEnum.Enum);
-			this.angSVCField = new angSVC(iedType, this.id);
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);
-			this.cValField = new cVal(iedType, this.id);
-			this.dField = new d(tBasicTypeEnum.VisString255);
-			this.DataNameField = new DataName(iedType, this.id);
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);
-			this.dbField = new db(tBasicTypeEnum.INT32U);
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.instCValField = new instCVal(iedType, this.id);
-			this.magSVCField = new magSVC(iedType, this.id);
-			this.qField = new q(tBasicTypeEnum.Quality);					
-			this.rangeField = new range(tBasicTypeEnum.Enum);
-			this.rangeCField = new rangeC(iedType, this.id);
-			this.smpRateField = new smpRate(tBasicTypeEnum.INT32U);
-			this.subCValField = new subCVal(iedType, this.id);
-			this.subEnaField = new subEna(tBasicTypeEnum.BOOLEAN);
-			this.subIDField = new subID(tBasicTypeEnum.VisString64);
-			this.subQField = new subQ(tBasicTypeEnum.Quality);
-			this.tField = new t(tBasicTypeEnum.Timestamp);
-			this.unitsField = new units(iedType, this.id);
-			this.zeroDbField = new zeroDb(tBasicTypeEnum.INT32U);
+			this.angRefField = new angRef(tFCEnum.CF);
+			this.angSVCField = new angSVC(iedType, this.id, tFCEnum.CF);
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);
+			this.cValField = new cVal(iedType, this.id, tFCEnum.MX);
+			this.dField = new VisString255("d", tFCEnum.DC);
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);
+			this.dbField = new INT32U("db", tFCEnum.CF);
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.instCValField = new instCVal(iedType, this.id, tFCEnum.MX);
+			this.magSVCField = new magSVC(iedType, this.id, tFCEnum.CF);
+			this.qField = new Quality("q", tFCEnum.MX);
+			this.rangeField = new range(tFCEnum.MX);
+			this.rangeCField = new rangeC(iedType, this.id, tFCEnum.CF);
+			this.smpRateField = new INT32U("smpRate", tFCEnum.CF);
+			this.subCValField = new subCVal(iedType, this.id, tFCEnum.SV);
+			this.subEnaField = new BOOLEAN("subEna", tFCEnum.SV);
+			this.subIDField = new VisString64("subID", tFCEnum.SV);
+			this.subQField = new Quality("subQ", tFCEnum.SV);
+			this.tField = new Timestamp("t", tFCEnum.MX);
+			this.unitsField = new units(iedType, this.id, tFCEnum.CF);
+			this.zeroDbField = new INT32U("zeroDb", tFCEnum.CF);
 		}
 		
 		[Browsable(false)]
@@ -1861,7 +1878,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -1874,7 +1891,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -1901,7 +1918,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -1912,22 +1929,9 @@ namespace IEC61850.SCL
 				this.dField = value;
 			}
 		}	
-		
+				
 		[Browsable(false)]
-		public DataName DataName 
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -1940,7 +1944,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public db db
+		public INT32U db
 		{
 			get
 			{
@@ -1953,7 +1957,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU 
+		public Unicode255 dU
 		{
 			get
 			{
@@ -1993,7 +1997,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public q q
+		public Quality q
 		{
 			get 
 			{
@@ -2032,7 +2036,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public smpRate smpRate
+		public INT32U smpRate
 		{
 			get 
 			{
@@ -2058,7 +2062,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public subEna subEna
+		public BOOLEAN subEna
 		{
 			get 
 			{
@@ -2071,7 +2075,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public subID subID 
+		public VisString64 subID 
 		{
 			get 
 			{
@@ -2084,7 +2088,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public subQ subQ
+		public Quality subQ
 		{
 			get 
 			{
@@ -2098,7 +2102,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get 
 			{
@@ -2124,7 +2128,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public zeroDb zeroDb
+		public INT32U zeroDb
 		{
 			get 
 			{
@@ -2143,17 +2147,16 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  CSD : DOData
 	{
-		private cdcName cdcNameField;
-		private cdcNs cdcNsField;
+		private VisString255 cdcNameField;
+		private VisString255 cdcNsField;
 		private crvPts crvPtsField;
-		private d dField;
-		private DataName DataNameField;
-		private dataNs dataNsField;
-		private dU dUField;
-		private numPts numPtsField;
-		private xD xDField;
+		private VisString255 dField;
+		private VisString255 dataNsField;
+		private Unicode255 dUField;
+		private INT16U numPtsField;
+		private VisString255 xDField;
 		private xUnit xUnitField;
-		private yD yDField;
+		private VisString255 yDField;
 		private yUnit yUnitField;
 		
 		/// <summary>
@@ -2173,22 +2176,21 @@ namespace IEC61850.SCL
 			this.cdc = "CSD";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);
-			this.crvPtsField = new crvPts(iedType, this.id);
-			this.dField = new d(tBasicTypeEnum.VisString255);
-			this.DataNameField = new DataName(iedType, this.id);
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.numPtsField = new numPts(tBasicTypeEnum.INT16U);			
-			this.xDField = new xD(tBasicTypeEnum.VisString255);
-			this.xUnitField = new xUnit(iedType, this.id);
-			this.yDField = new yD(tBasicTypeEnum.VisString255);
-			this.yUnitField = new yUnit(iedType, this.id);
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);
+			this.crvPtsField = new crvPts(iedType, this.id, tFCEnum.DC);
+			this.dField = new VisString255("d", tFCEnum.DC);
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.numPtsField = new INT16U("numPts", tFCEnum.DC);			
+			this.xDField = new VisString255("xD", tFCEnum.DC);
+			this.xUnitField = new xUnit(iedType, this.id, tFCEnum.DC);
+			this.yDField = new VisString255("yD", tFCEnum.DC);
+			this.yUnitField = new yUnit(iedType, this.id, tFCEnum.DC);
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -2201,7 +2203,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -2229,7 +2231,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -2242,20 +2244,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public DataName DataName 
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -2268,7 +2257,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public dU dU 
+		public Unicode255 dU
 		{
 			get
 			{
@@ -2282,7 +2271,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public numPts numPts
+		public INT16U numPts
 		{
 			get
 			{
@@ -2296,7 +2285,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public xD xD
+		public VisString255 xD
 		{
 			get
 			{
@@ -2324,7 +2313,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public yD yD 
+		public VisString255 yD 
 		{
 			get
 			{
@@ -2357,26 +2346,25 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  CURVE : DOData
 	{
-		private cdcName cdcNameField;
-		private cdcNs cdcNsField;
-		private d dField;
-		private DataName DataNameField;
-		private dataNs dataNsField;
-		private dU dUField;
-		private setCharact setCharactField;
-		private setCharact2 setCharact2Field;
-		private setParA setParAField;
-		private setParA2 setParA2Field;
-		private setParB setParBField;
-		private setParB2 setParB2Field;
-		private setParC setParCField;
-		private setParC2 setParC2Field;
-		private setParD setParDField;
-		private setParD2 setParD2Field;
-		private setParE setParEField;
-		private setParE2 setParE2Field;
-		private setParF setParFField;
-		private setParF2 setParF2Field;
+		private VisString255 cdcNameField;
+		private VisString255 cdcNsField;
+		private VisString255 dField;
+		private VisString255 dataNsField;
+		private Unicode255 dUField;
+		private VisString255 setCharactField;
+		private VisString255 setCharact2Field;
+		private FLOAT32 setParAField;
+		private FLOAT32 setParA2Field;
+		private FLOAT32 setParBField;
+		private FLOAT32 setParB2Field;
+		private FLOAT32 setParCField;
+		private FLOAT32 setParC2Field;
+		private FLOAT32 setParDField;
+		private FLOAT32 setParD2Field;
+		private FLOAT32 setParEField;
+		private FLOAT32 setParE2Field;
+		private FLOAT32 setParFField;
+		private FLOAT32 setParF2Field;
 		
 		/// <summary>
 		/// Setting curve (CURVE)
@@ -2395,30 +2383,29 @@ namespace IEC61850.SCL
 			this.cdc = "CURVE";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);
-			this.dField = new d(tBasicTypeEnum.VisString255);
-			this.DataNameField = new DataName(iedType, this.id);
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.setCharactField = new setCharact(tBasicTypeEnum.VisString255);
-			this.setCharact2Field = new setCharact2(tBasicTypeEnum.VisString255);
-			this.setParAField = new setParA(tBasicTypeEnum.FLOAT32);
-			this.setParA2Field = new setParA2(tBasicTypeEnum.FLOAT32);
-			this.setParBField = new setParB(tBasicTypeEnum.FLOAT32);
-			this.setParB2Field = new setParB2(tBasicTypeEnum.FLOAT32);
-			this.setParCField = new setParC(tBasicTypeEnum.FLOAT32);
-			this.setParC2Field = new setParC2(tBasicTypeEnum.FLOAT32);
-			this.setParDField = new setParD(tBasicTypeEnum.FLOAT32);
-			this.setParD2Field = new setParD2(tBasicTypeEnum.FLOAT32);
-			this.setParEField = new setParE(tBasicTypeEnum.FLOAT32);
-			this.setParE2Field = new setParE2(tBasicTypeEnum.FLOAT32);
-			this.setParFField = new setParF(tBasicTypeEnum.FLOAT32);
-			this.setParF2Field = new setParF2(tBasicTypeEnum.FLOAT32);
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);
+			this.dField = new VisString255("d", tFCEnum.DC);
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.setCharactField = new VisString255("setCharact", tFCEnum.SP);
+			this.setCharact2Field = new VisString255("setCharact2", tFCEnum.SG);
+			this.setParAField = new FLOAT32("setParA", tFCEnum.SP);
+			this.setParA2Field = new FLOAT32("setParA2", tFCEnum.SG);
+			this.setParBField = new FLOAT32("setParB", tFCEnum.SP);
+			this.setParB2Field = new FLOAT32("setParB2", tFCEnum.SG);
+			this.setParCField = new FLOAT32("setParC", tFCEnum.SP);
+			this.setParC2Field = new FLOAT32("setParC2", tFCEnum.SG);
+			this.setParDField = new FLOAT32("setParD", tFCEnum.SP);
+			this.setParD2Field = new FLOAT32("setParD2", tFCEnum.SG);
+			this.setParEField = new FLOAT32("setParE", tFCEnum.SP);
+			this.setParE2Field = new FLOAT32("setParE2", tFCEnum.SG);
+			this.setParFField = new FLOAT32("setParF", tFCEnum.SP);
+			this.setParF2Field = new FLOAT32("setParF2", tFCEnum.SG);
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -2431,7 +2418,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -2444,7 +2431,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -2457,20 +2444,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public DataName DataName 
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -2483,7 +2457,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU 
+		public Unicode255 dU
 		{
 			get
 			{
@@ -2496,7 +2470,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public setCharact setCharact
+		public VisString255 setCharact
 		{
 			get
 			{
@@ -2509,7 +2483,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public setCharact2 setCharact2
+		public VisString255 setCharact2
 		{
 			get
 			{
@@ -2522,7 +2496,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public setParA setParA
+		public FLOAT32 setParA
 		{
 			get
 			{
@@ -2535,7 +2509,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public setParA2 setParA2
+		public FLOAT32 setParA2
 		{
 			get
 			{
@@ -2548,7 +2522,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public setParB setParB
+		public FLOAT32 setParB
 		{
 			get
 			{
@@ -2561,7 +2535,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public setParB2 setParB2
+		public FLOAT32 setParB2
 		{
 			get
 			{
@@ -2574,7 +2548,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public setParC setParC
+		public FLOAT32 setParC
 		{
 			get
 			{
@@ -2587,7 +2561,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public setParC2 setParC2
+		public FLOAT32 setParC2
 		{
 			get
 			{
@@ -2600,7 +2574,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public setParD setParD
+		public FLOAT32 setParD
 		{
 			get
 			{
@@ -2613,7 +2587,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public setParD2 setParD2
+		public FLOAT32 setParD2
 		{
 			get
 			{
@@ -2626,7 +2600,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public setParE setParE
+		public FLOAT32 setParE
 		{
 			get
 			{
@@ -2639,7 +2613,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public setParE2 setParE2
+		public FLOAT32 setParE2
 		{
 			get
 			{
@@ -2652,7 +2626,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public setParF setParF
+		public FLOAT32 setParF
 		{
 			get
 			{
@@ -2665,7 +2639,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public setParF2 setParF2
+		public FLOAT32 setParF2
 		{
 			get
 			{
@@ -2685,15 +2659,14 @@ namespace IEC61850.SCL
 	public class  DEL : DOData
 	{
 		private angRef angRefField;		
-		private cdcName cdcNameField;
-		private cdcNs cdcNsField;		
-		private d dField;
-		private DataName DataNameField;
-		private dataNs dataNsField;		
-		private dU dUField;
-		private phsAB phsABField;
-		private phsBC phsBCField;
-		private phsCA phsCAField;
+		private VisString255 cdcNameField;
+		private VisString255 cdcNsField;		
+		private VisString255 dField;
+		private VisString255 dataNsField;		
+		private Unicode255 dUField;
+		private CMV phsABField;
+		private CMV phsBCField;
+		private CMV phsCAField;
 		
 		/// <summary>
 		/// Phase to phase related measured values of a three phase system (DEL)
@@ -2712,22 +2685,15 @@ namespace IEC61850.SCL
 			this.cdc = "DEL";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.angRefField = new angRef(tBasicTypeEnum.Enum);			
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);			
-			this.dField = new d(tBasicTypeEnum.VisString255);
-			this.DataNameField = new DataName(iedType, this.id);
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);			
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);			
-			this.phsABField = new phsAB(iedType, this.id);
-			CMV CMVField = new CMV("", this.phsABField.id, iedType);
-			this.phsABField.SetLinkDOData(CMVField);			
-			this.phsBCField = new phsBC(iedType, this.id);
-			CMVField = new CMV("", this.phsBCField.id, iedType);
-			this.phsBCField.SetLinkDOData(CMVField);			
-			this.phsCAField = new phsCA(iedType, this.id);
-			CMVField = new CMV("", this.phsCAField.id, iedType);
-			this.phsCAField.SetLinkDOData(CMVField);
+			this.angRefField = new angRef(tFCEnum.CF);			
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);			
+			this.dField = new VisString255("d", tFCEnum.DC);
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);			
+			this.dUField = new Unicode255("dU",tFCEnum.DC);			
+			this.phsABField = new CMV("phsAB",this.id, iedType);			
+			this.phsBCField = new CMV("phsBC",this.id, iedType);			
+			this.phsCAField = new CMV("phsCA",this.id, iedType);			
 		}
 		
 		[Browsable(false)]
@@ -2744,7 +2710,7 @@ namespace IEC61850.SCL
 		}		
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -2757,7 +2723,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -2770,7 +2736,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -2783,20 +2749,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public DataName DataName 
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -2809,7 +2762,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU 
+		public Unicode255 dU
 		{
 			get
 			{
@@ -2822,7 +2775,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public phsAB phsAB 
+		public CMV phsAB 
 		{
 			get 
 			{
@@ -2835,7 +2788,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public phsBC phsBC 
+		public CMV phsBC 
 		{
 			get 
 			{
@@ -2848,7 +2801,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public phsCA phsCA
+		public CMV phsCA
 		{
 			get 
 			{
@@ -2867,28 +2820,31 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  DPC : DOData
 	{
-		private cdcName cdcNameField;
-		private cdcNs cdcNsField;
+		private VisString255 cdcNameField;
+		private VisString255 cdcNsField;
 		private ctlModel ctlModelField;
-		private ctlNum ctlNumField;
-		private ctlVal ctlValField;
-		private d dField;
-		private DataName DataNameField;
-		private dataNs dataNsField;			
-		private dU dUField;		
-		private operTm operTmField;
+		private INT8U ctlNumField;
+		private BOOLEAN ctlValField;
+		private VisString255 dField;
+		private VisString255 dataNsField;			
+		private Unicode255 dUField;		
+		private Timestamp operTmField;
 		private origin originField;
 		private PulseConfig PulseConfigField;
-		private q qField;
+		private Quality qField;
 		private sboClass sboClassField;
-		private sboTimeout sboTimeoutField;		
-		private stSeld stSeldField;
+		private INT32U sboTimeoutField;		
+		private BOOLEAN stSeldField;
 		private stVal stValField;
-		private subEna subEnaField;
-		private subID subIDField;
-		private subQ subQField;
+		private BOOLEAN subEnaField;
+		private VisString64 subIDField;
+		private Quality subQField;
 		private subVal subValField;		
-		private t tField;	
+		private Timestamp tField;	
+		private VisString65 SBOField;
+		private SBOw SBOwField;
+		private Oper OperField;
+		private Cancel CancelField;
 		
 		/// <summary>
 		/// Controllable double point (DPC)
@@ -2907,32 +2863,37 @@ namespace IEC61850.SCL
 			this.cdc = "DPC";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);
-			this.ctlModelField = new ctlModel(iedType, this.id);
-			this.ctlNumField = new ctlNum(tBasicTypeEnum.INT8U);
-			this.ctlValField = new ctlVal(tBasicTypeEnum.BOOLEAN);
-			this.dField = new d(tBasicTypeEnum.VisString255);
-			this.DataNameField = new DataName(iedType, this.id);
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);			
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);			
-			this.operTmField = new operTm(tBasicTypeEnum.Timestamp);
-			this.originField = new origin(iedType, this.id);		
-			this.PulseConfigField = new PulseConfig(iedType, this.id);
-			this.qField = new q(tBasicTypeEnum.Quality);
-			this.sboClassField = new sboClass(iedType, this.id);
-			this.sboTimeoutField = new sboTimeout(tBasicTypeEnum.INT32U);			
-			this.stSeldField = new stSeld(tBasicTypeEnum.BOOLEAN);
-			this.stValField = new stVal(tBasicTypeEnum.Enum);
-			this.subEnaField = new subEna(tBasicTypeEnum.BOOLEAN);
-			this.subIDField = new subID(tBasicTypeEnum.VisString64);
-			this.subQField = new subQ(tBasicTypeEnum.Quality);
-			this.subValField = new subVal(tBasicTypeEnum.Enum);
-			this.tField = new t(tBasicTypeEnum.Timestamp);
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);
+			this.ctlModelField = new ctlModel(iedType, this.id, tFCEnum.CF);
+			this.ctlNumField = new INT8U("ctlNum", tFCEnum.CO);
+			this.ctlValField = new BOOLEAN("ctlVal", tFCEnum.CO);
+			this.dField = new VisString255("d", tFCEnum.DC);
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);			
+			this.dUField = new Unicode255("dU",tFCEnum.DC);			
+			this.operTmField = new Timestamp("operTm", tFCEnum.CO);
+			this.originField = new origin(iedType, this.id, tFCEnum.CO);		
+			this.PulseConfigField = new PulseConfig(iedType, this.id, tFCEnum.CF);
+			this.qField = new Quality("q", tFCEnum.ST);
+			this.sboClassField = new sboClass(iedType, this.id, tFCEnum.CF);
+			this.sboTimeoutField = new INT32U("sboTimeout", tFCEnum.CF);			
+			this.stSeldField = new BOOLEAN("stSeld", tFCEnum.ST);
+			this.stValField = new stVal(tFCEnum.ST);
+			this.subEnaField = new BOOLEAN("subEna", tFCEnum.SV);
+			this.subIDField = new VisString64("subID", tFCEnum.SV);
+			this.subQField = new Quality("subQ", tFCEnum.SV);
+			this.subValField = new subVal(tFCEnum.SV);
+			this.tField = new Timestamp("t", tFCEnum.ST);
+			this.SBOField = new VisString65("SBO", tFCEnum.CO);
+			this.SBOField.Visible = false;
+			ObjectManagement objectManagement = new ObjectManagement();
+			this.SBOwField = new SBOw(iedType, this.id, tFCEnum.CO);
+			this.OperField = new Oper(iedType, this.id, tFCEnum.CO);
+			this.CancelField = new Cancel(iedType, this.id, tFCEnum.CO);		
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -2945,7 +2906,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -2972,7 +2933,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public ctlNum ctlNum
+		public INT8U ctlNum
 		{
 			get
 			{
@@ -2985,7 +2946,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public ctlVal ctlVal
+		public BOOLEAN ctlVal
 		{
 			get
 			{
@@ -2998,7 +2959,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{		
 			get
 			{
@@ -3011,20 +2972,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public DataName DataName 
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -3037,7 +2985,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU 
+		public Unicode255 dU
 		{
 			get
 			{
@@ -3050,7 +2998,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public operTm operTm
+		public Timestamp operTm
 		{
 			get
 			{
@@ -3090,7 +3038,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public q q
+		public Quality q
 		{
 			get 
 			{
@@ -3116,7 +3064,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public sboTimeout sboTimeout
+		public INT32U sboTimeout
 		{
 			get 
 			{
@@ -3129,7 +3077,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public stSeld stSeld
+		public BOOLEAN stSeld
 		{
 			get 
 			{
@@ -3156,7 +3104,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public subEna subEna
+		public BOOLEAN subEna
 		{
 			get 
 			{
@@ -3169,7 +3117,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public subID subID
+		public VisString64 subID
 		{
 			get 
 			{
@@ -3182,7 +3130,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public subQ subQ
+		public Quality subQ
 		{
 			get 
 			{
@@ -3209,7 +3157,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get 
 			{
@@ -3220,6 +3168,58 @@ namespace IEC61850.SCL
 				this.tField = value;
 			}
 		}
+		
+		[Browsable(false)]
+		public VisString65 SBO
+		{
+			get
+			{
+				return this.SBOField;
+			}
+			set
+			{
+				this.SBOField = value;
+			}
+		}
+		
+		[Browsable(false)]
+		public SBOw SBOw
+		{
+			get
+			{
+				return this.SBOwField;
+			}
+			set
+			{
+				this.SBOwField = value;
+			}
+		}
+		
+		[Browsable(false)]
+		public Oper Oper
+		{
+			get
+			{
+				return this.OperField;
+			}
+			set
+			{
+				this.OperField = value;
+			}
+		}
+		
+		[Browsable(false)]
+		public Cancel Cancel
+		{
+			get
+			{
+				return this.CancelField;
+			}
+			set
+			{
+				this.CancelField = value;
+			}
+		}
 	}
 	
 	/// <summary>
@@ -3228,16 +3228,15 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  DPL : DOData
 	{
-		private cdcName cdcNameField;
-		private cdcNs cdcNsField;		
-		private DataName DataNameField;
-		private dataNs dataNsField;
-		private hwRev hwRevField;
-		private location locationField;
-		private model modelField;
-		private serNum serNumField;
-		private swRev swRevField;
-		private vendor vendorField;
+		private VisString255 cdcNameField;
+		private VisString255 cdcNsField;		
+		private VisString255 dataNsField;
+		private VisString255 hwRevField;
+		private VisString255 locationField;
+		private VisString255 modelField;
+		private VisString255 serNumField;
+		private VisString255 swRevField;
+		private VisString255 vendorField;
 		
 		/// <summary>
 		/// Device name plate (DPL)
@@ -3256,20 +3255,19 @@ namespace IEC61850.SCL
 			this.cdc = "DPL";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);			
-			this.DataNameField = new DataName(iedType, this.id);
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);
-			this.hwRevField = new hwRev(tBasicTypeEnum.VisString255);
-			this.locationField = new location(tBasicTypeEnum.VisString255);
-			this.modelField = new model(tBasicTypeEnum.VisString255);
-			this.serNumField = new serNum(tBasicTypeEnum.VisString255);
-			this.swRevField = new swRev(tBasicTypeEnum.VisString255);
-			this.vendorField = new vendor(tBasicTypeEnum.VisString255);
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);			
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);
+			this.hwRevField = new VisString255("hwRev", tFCEnum.DC);
+			this.locationField = new VisString255("location", tFCEnum.DC);
+			this.modelField = new VisString255("model", tFCEnum.DC);
+			this.serNumField = new VisString255("serNum", tFCEnum.DC);
+			this.swRevField = new VisString255("swRev", tFCEnum.DC);
+			this.vendorField = new VisString255("vendor", tFCEnum.DC);
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -3282,7 +3280,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -3295,20 +3293,7 @@ namespace IEC61850.SCL
 		}		
 		
 		[Browsable(false)]
-		public DataName DataName 
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -3321,7 +3306,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public hwRev hwRev
+		public VisString255 hwRev
 		{
 			get
 			{
@@ -3334,7 +3319,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public location location
+		public VisString255 location
 		{
 			get
 			{
@@ -3347,7 +3332,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public model model
+		public VisString255 model
 		{
 			get
 			{
@@ -3360,7 +3345,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public serNum serNum
+		public VisString255 serNum
 		{
 			get
 			{
@@ -3373,7 +3358,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public swRev swRev
+		public VisString255 swRev
 		{
 			get
 			{
@@ -3387,7 +3372,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public vendor vendor 
+		public VisString255 vendor 
 		{
 			get
 			{
@@ -3406,19 +3391,18 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  DPS : DOData
 	{
-		private cdcName cdcNameField;
-		private cdcNs cdcNsField;		
-		private d dField;
-		private DataName DataNameField;
-		private dataNs dataNsField;			
-		private dU dUField;		
-		private q qField;
+		private VisString255 cdcNameField;
+		private VisString255 cdcNsField;		
+		private VisString255 dField;
+		private VisString255 dataNsField;			
+		private Unicode255 dUField;		
+		private Quality qField;
 		private stVal stValField;
-		private subEna subEnaField;
-		private subID subIDField;
-		private subQ subQField;
+		private BOOLEAN subEnaField;
+		private VisString64 subIDField;
+		private Quality subQField;
 		private subVal subValField;
-		private t tField;
+		private Timestamp tField;
 		
 		/// <summary>
 		/// Double point status (DPS)
@@ -3437,23 +3421,22 @@ namespace IEC61850.SCL
 			this.cdc = "DPS";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);			
-			this.dField = new d(tBasicTypeEnum.VisString255);
-			this.DataNameField = new DataName(iedType, this.id);
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);			
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);									
-			this.qField = new q(tBasicTypeEnum.Quality);	
-			this.stValField = new stVal(tBasicTypeEnum.Enum);
-			this.subEnaField = new subEna(tBasicTypeEnum.BOOLEAN);
-			this.subIDField = new subID(tBasicTypeEnum.VisString64);
-			this.subQField = new subQ(tBasicTypeEnum.Quality);
-			this.subValField = new subVal(tBasicTypeEnum.Enum);
-			this.tField = new t(tBasicTypeEnum.Timestamp);
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);			
+			this.dField = new VisString255("d", tFCEnum.DC);
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);			
+			this.dUField = new Unicode255("dU",tFCEnum.DC);									
+			this.qField = new Quality("q", tFCEnum.ST);	
+			this.stValField = new stVal(tFCEnum.ST);
+			this.subEnaField = new BOOLEAN("subEna", tFCEnum.SV);
+			this.subIDField = new VisString64("subID", tFCEnum.SV);
+			this.subQField = new Quality("subQ", tFCEnum.SV);
+			this.subValField = new subVal(tFCEnum.SV);
+			this.tField = new Timestamp("t", tFCEnum.ST);
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -3466,7 +3449,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -3479,7 +3462,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{		
 			get
 			{
@@ -3492,20 +3475,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public DataName DataName 
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -3518,7 +3488,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU 
+		public Unicode255 dU
 		{
 			get
 			{
@@ -3532,7 +3502,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public q q
+		public Quality q
 		{
 			get 
 			{
@@ -3559,7 +3529,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public subEna subEna
+		public BOOLEAN subEna
 		{
 			get 
 			{
@@ -3572,7 +3542,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public subID subID
+		public VisString64 subID
 		{
 			get 
 			{
@@ -3585,7 +3555,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public subQ subQ
+		public Quality subQ
 		{
 			get 
 			{
@@ -3612,7 +3582,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get 
 			{
@@ -3632,26 +3602,25 @@ namespace IEC61850.SCL
 	public class  HDEL : DOData
 	{
 		private angRef angRefField;		
-		private cdcName cdcNameField;
-		private cdcNs cdcNsField;		
-		private d dField;
-		private DataName DataNameField;
-		private dataNs dataNsField;		
-		private dU dUField;
-		private evalTm evalTmField;
-		private frequency frequencyField;
+		private VisString255 cdcNameField;
+		private VisString255 cdcNsField;		
+		private VisString255 dField;
+		private VisString255 dataNsField;		
+		private Unicode255 dUField;
+		private INT16U evalTmField;
+		private FLOAT32 frequencyField;
 		private hvRef hvRefField;
-		private numCyc numCycField;
-		private numHar numHarField;
+		private INT16U numCycField;
+		private INT16U numHarField;
 //		FIXME : These attributes have a data type ARRAY[0..numHar] OF Vector and we have to verify how it works
 //		      according to the IEC 61850 standard.
 //		private phsABHar phsABHarField;
 //		private phsBCHar phsBCHarField;
 //		private phsCAHar phsCAHarField;
-		private q qField;
-		private rmsCyc rmsCycField;
-		private smpRate smpRateField;
-		private t tField;
+		private Quality qField;
+		private INT16U rmsCycField;
+		private INT32U smpRateField;
+		private Timestamp tField;
 		private units unitsField;
 		
 		/// <summary>
@@ -3671,26 +3640,25 @@ namespace IEC61850.SCL
 			this.cdc = "HDEL";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.angRefField = new angRef(tBasicTypeEnum.Enum);			
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);			
-			this.dField = new d(tBasicTypeEnum.VisString255);
-			this.DataNameField = new DataName(iedType, this.id);
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);			
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.evalTmField = new evalTm(tBasicTypeEnum.INT16U);
-			this.frequencyField = new frequency(tBasicTypeEnum.FLOAT32);
-			this.hvRefField = new hvRef(tBasicTypeEnum.Enum);
-			this.numCycField = new numCyc(tBasicTypeEnum.INT16U);
-			this.numHarField = new numHar(tBasicTypeEnum.INT16U);
-//			this.phsABHarField = new phsABHar(iedType, this.id);
-//			this.phsBCHarField = new phsBCHar(iedType, this.id);
-//			this.phsCAHarField = new phsCAHar(iedType, this.id);
-			this.qField = new q(tBasicTypeEnum.Quality);
-			this.rmsCycField = new rmsCyc(tBasicTypeEnum.INT16U);
-			this.smpRateField = new smpRate(tBasicTypeEnum.INT32U);
-			this.tField = new t(tBasicTypeEnum.Timestamp);
-			this.unitsField = new units(iedType, this.id);
+			this.angRefField = new angRef(tFCEnum.CF);
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);			
+			this.dField = new VisString255("d", tFCEnum.DC);
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);			
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.evalTmField = new INT16U("evalTm", tFCEnum.CF);
+			this.frequencyField = new FLOAT32("frequency", tFCEnum.CF);
+			this.hvRefField = new hvRef(tFCEnum.CF);
+			this.numCycField = new INT16U("numCyc", tFCEnum.CF);
+			this.numHarField = new INT16U("numHar", tFCEnum.CF);
+//			this.phsABHarField = new phsABHar(iedType, this.id, tFCEnum.MX);
+//			this.phsBCHarField = new phsBCHar(iedType, this.id, tFCEnum.MX);
+//			this.phsCAHarField = new phsCAHar(iedType, this.id, tFCEnum.MX);
+			this.qField = new Quality("q", tFCEnum.MX);
+			this.rmsCycField = new INT16U("rmsCyc", tFCEnum.CF);
+			this.smpRateField = new INT32U("smpRate", tFCEnum.CF);
+			this.tField = new Timestamp("t", tFCEnum.MX);
+			this.unitsField = new units(iedType, this.id, tFCEnum.CF);
 		}
 		
 		[Browsable(false)]
@@ -3707,7 +3675,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -3720,7 +3688,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -3733,7 +3701,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -3746,20 +3714,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public DataName DataName 
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -3772,7 +3727,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public dU dU 
+		public Unicode255 dU
 		{
 			get
 			{
@@ -3786,7 +3741,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public evalTm evalTm
+		public INT16U evalTm
 		{
 			get
 			{
@@ -3800,7 +3755,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public frequency frequency
+		public FLOAT32 frequency
 		{
 			get
 			{
@@ -3827,7 +3782,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public numCyc numCyc
+		public INT16U numCyc
 		{
 			get
 			{
@@ -3841,7 +3796,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public numHar numHar
+		public INT16U numHar
 		{
 			get
 			{
@@ -3895,7 +3850,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public q q
+		public Quality q
 		{
 			get
 			{
@@ -3908,7 +3863,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public rmsCyc rmsCyc
+		public INT16U rmsCyc
 		{
 			get
 			{
@@ -3921,7 +3876,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public smpRate smpRate
+		public INT32U smpRate
 		{
 			get
 			{
@@ -3934,7 +3889,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get 
 			{
@@ -3966,24 +3921,23 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  HMV : DOData
 	{
-		private cdcName cdcNameField;
-		private cdcNs cdcNsField;
-		private d dField;
-		private DataName DataNameField;
-		private dataNs dataNsField;
-		private dU dUField;
-		private evalTm evalTmField;
-		private frequency frequencyField;
+		private VisString255 cdcNameField;
+		private VisString255 cdcNsField;
+		private VisString255 dField;
+		private VisString255 dataNsField;
+		private Unicode255 dUField;
+		private INT16U evalTmField;
+		private FLOAT32 frequencyField;
 //		FIXME : This attribute has a data type ARRAY[0..numHar] OF Vector and we have to verify how it works
 //		      according to the IEC 61850 standard.		
 //		private har harField;
 		private hvRef hvRefField;
-		private numCyc numCycField;
-		private numHar numHarField;
-		private q qField;
-		private rmsCyc rmsCycField;
-		private smpRate smpRateField;
-		private t tField;
+		private INT16U numCycField;
+		private INT16U numHarField;
+		private Quality qField;
+		private INT16U rmsCycField;
+		private INT32U smpRateField;
+		private Timestamp tField;
 		private units unitsField;
 		
 		/// <summary>
@@ -4003,27 +3957,26 @@ namespace IEC61850.SCL
 			this.cdc = "HMV";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);
-			this.dField = new d(tBasicTypeEnum.VisString255);
-			this.DataNameField = new DataName(iedType, this.id);
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.evalTmField = new evalTm(tBasicTypeEnum.INT16U);
-			this.frequencyField = new frequency(tBasicTypeEnum.FLOAT32);
-//			this.harField = new har(iedType, this.id);
-			this.hvRefField = new hvRef(tBasicTypeEnum.Enum);
-			this.numCycField = new numCyc(tBasicTypeEnum.INT16U);
-			this.numHarField = new numHar(tBasicTypeEnum.INT16U);
-			this.qField = new q(tBasicTypeEnum.Quality);
-			this.rmsCycField = new rmsCyc(tBasicTypeEnum.INT16U);
-			this.smpRateField = new smpRate(tBasicTypeEnum.INT32U);
-			this.tField = new t(tBasicTypeEnum.Timestamp);
-			this.unitsField = new units(iedType, this.id);
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);
+			this.dField = new VisString255("d", tFCEnum.DC);
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.evalTmField = new INT16U("evalTm", tFCEnum.CF);
+			this.frequencyField = new FLOAT32("frequency", tFCEnum.CF);
+//			this.harField = new har(iedType, this.id, tFCEnum.MX);
+			this.hvRefField = new hvRef(tFCEnum.CF);
+			this.numCycField = new INT16U("numCyc", tFCEnum.CF);
+			this.numHarField = new INT16U("numHar", tFCEnum.CF);
+			this.qField = new Quality("q", tFCEnum.MX);
+			this.rmsCycField = new INT16U("rmsCyc", tFCEnum.CF);
+			this.smpRateField = new INT32U("smpRate", tFCEnum.CF);
+			this.tField = new Timestamp("t", tFCEnum.MX);
+			this.unitsField = new units(iedType, this.id, tFCEnum.CF);
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -4036,7 +3989,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -4049,7 +4002,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -4062,20 +4015,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public DataName DataName 
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -4088,7 +4028,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU 
+		public Unicode255 dU
 		{
 			get
 			{
@@ -4102,7 +4042,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public evalTm evalTm
+		public INT16U evalTm
 		{
 			get
 			{
@@ -4116,7 +4056,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public frequency frequency
+		public FLOAT32 frequency
 		{
 			get
 			{
@@ -4157,7 +4097,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public numCyc numCyc
+		public INT16U numCyc
 		{
 			get
 			{
@@ -4171,7 +4111,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public numHar numHar
+		public INT16U numHar
 		{
 			get
 			{
@@ -4185,7 +4125,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public q q
+		public Quality q
 		{
 			get
 			{
@@ -4198,7 +4138,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public rmsCyc rmsCyc
+		public INT16U rmsCyc
 		{
 			get
 			{
@@ -4211,7 +4151,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public smpRate smpRate
+		public INT32U smpRate
 		{
 			get
 			{
@@ -4225,7 +4165,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get 
 			{
@@ -4258,29 +4198,28 @@ namespace IEC61850.SCL
 	public class  HWYE : DOData
 	{
 		private angRef angRefField;		
-		private cdcName cdcNameField;
-		private cdcNs cdcNsField;		
-		private d dField;
-		private DataName DataNameField;
-		private dataNs dataNsField;		
-		private dU dUField;
-		private evalTm evalTmField;
-		private frequency frequencyField;
+		private VisString255 cdcNameField;
+		private VisString255 cdcNsField;		
+		private VisString255 dField;
+		private VisString255 dataNsField;		
+		private Unicode255 dUField;
+		private INT16U evalTmField;
+		private FLOAT32 frequencyField;
 		private hvRef hvRefField;
 //		FIXME : The attributes commented have a data type ARRAY[0..numHar] OF Vector and we have to verify how it works
 //		      according to the IEC 61850 standard.		
 //		private netHar netHarField;
 //		private neutHar neutHarField;
-		private numCyc numCycField;
-		private numHar numHarField;
+		private INT16U numCycField;
+		private INT16U numHarField;
 //		private phsAHar phsAHarField;
 //		private phsBHar phsBHarField;
 //		private phsCHar phsCHarField;
-		private q qField;
+		private Quality qField;
 //		private resHar resHarField;
-		private rmsCyc rmsCycField;
-		private smpRate smpRateField;
-		private t tField;
+		private INT16U rmsCycField;
+		private INT32U smpRateField;
+		private Timestamp tField;
 		private units unitsField;
 		
 		/// <summary>
@@ -4300,29 +4239,28 @@ namespace IEC61850.SCL
 			this.cdc = "HWYE";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.angRefField = new angRef(tBasicTypeEnum.Enum);			
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);			
-			this.dField = new d(tBasicTypeEnum.VisString255);
-			this.DataNameField = new DataName(iedType, this.id);
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);			
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.evalTmField = new evalTm(tBasicTypeEnum.INT16U);
-			this.frequencyField = new frequency(tBasicTypeEnum.FLOAT32);
-			this.hvRefField = new hvRef(tBasicTypeEnum.Enum);
-//			this.netHarField = new netHar(iedType, this.id);
-//			this.neutHarField = new neutHar(iedType, this.id);
-			this.numCycField = new numCyc(tBasicTypeEnum.INT16U);
-			this.numHarField = new numHar(tBasicTypeEnum.INT16U);
-//			this.phsAHarField = new phsAHar(iedType, this.id);
-//			this.phsBHarField = new phsBHar(iedType, this.id);
-//			this.phsCHarField = new phsCHar(iedType, this.id);
-			this.qField = new q(tBasicTypeEnum.Quality);	
-//			this.resHarField = new resHar(iedType, this.id);
-			this.rmsCycField = new rmsCyc(tBasicTypeEnum.INT16U);
-			this.smpRateField = new smpRate(tBasicTypeEnum.INT32U);
-			this.tField = new t(tBasicTypeEnum.Timestamp);
-			this.unitsField = new units(iedType, this.id);
+			this.angRefField = new angRef(tFCEnum.CF);			
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);			
+			this.dField = new VisString255("d", tFCEnum.DC);
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);			
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.evalTmField = new INT16U("evalTm", tFCEnum.CF);
+			this.frequencyField = new FLOAT32("frequency", tFCEnum.CF);
+			this.hvRefField = new hvRef(tFCEnum.CF);
+//			this.netHarField = new netHar(iedType, this.id, tFCEnum.MX);
+//			this.neutHarField = new neutHar(iedType, this.id, tFCEnum.MX);
+			this.numCycField = new INT16U("numCyc", tFCEnum.CF);
+			this.numHarField = new INT16U("numHar", tFCEnum.CF);
+//			this.phsAHarField = new phsAHar(iedType, this.id, tFCEnum.MX);
+//			this.phsBHarField = new phsBHar(iedType, this.id, tFCEnum.MX);
+//			this.phsCHarField = new phsCHar(iedType, this.id, tFCEnum.MX);
+			this.qField = new Quality("q", tFCEnum.MX);	
+//			this.resHarField = new resHar(iedType, this.id, tFCEnum.MX);
+			this.rmsCycField = new INT16U("rmsCyc", tFCEnum.CF);
+			this.smpRateField = new INT32U("smpRate", tFCEnum.CF);
+			this.tField = new Timestamp("t", tFCEnum.MX);
+			this.unitsField = new units(iedType, this.id, tFCEnum.CF);
 		}
 		
 		[Browsable(false)]
@@ -4339,7 +4277,7 @@ namespace IEC61850.SCL
 		}		
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -4352,7 +4290,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -4365,7 +4303,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -4378,20 +4316,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public DataName DataName 
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -4404,7 +4329,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public dU dU 
+		public Unicode255 dU
 		{
 			get
 			{
@@ -4418,7 +4343,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public evalTm evalTm
+		public INT16U evalTm
 		{
 			get
 			{
@@ -4432,7 +4357,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public frequency frequency
+		public FLOAT32 frequency
 		{
 			get
 			{
@@ -4485,7 +4410,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public numCyc numCyc
+		public INT16U numCyc
 		{
 			get
 			{
@@ -4499,7 +4424,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public numHar numHar
+		public INT16U numHar
 		{
 			get
 			{
@@ -4553,7 +4478,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public q q
+		public Quality q
 		{
 			get 
 			{
@@ -4579,7 +4504,7 @@ namespace IEC61850.SCL
 //		}
 		
 		[Browsable(false)]
-		public rmsCyc rmsCyc
+		public INT16U rmsCyc
 		{
 			get
 			{
@@ -4592,7 +4517,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public smpRate smpRate
+		public INT32U smpRate
 		{
 			get
 			{
@@ -4606,7 +4531,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get 
 			{
@@ -4636,32 +4561,38 @@ namespace IEC61850.SCL
 	/// This class defines the common data attribute types that are defined for his use in the INC
 	/// common data class.
 	/// </summary>
+	/// <remarks>
+	/// The original type of the fields "ctlVal" and "stVal" was INT32U, it was changed because they are used as an EnumType on the DataTypeTemplates.
+	/// </remarks>	
 	public class  INC : DOData
 	{		
-		private DataName DataNameField;
 		private ctlVal ctlValField;
-		private operTm operTmField;
+		private Timestamp operTmField;
 		private origin originField;
-		private ctlNum ctlNumField;
+		private INT8U ctlNumField;
 		private stVal stValField;
-		private q  qField;
-		private t tField;
-		private stSeld stSeldField;	
-		private subEna subEnaField;	
-		private subVal subValField;
-		private subQ subQField;	
-		private subID subIDField; 	
+		private Quality  qField;
+		private Timestamp tField;
+		private BOOLEAN stSeldField;	
+		private BOOLEAN subEnaField;	
+		private INT32 subValField;
+		private Quality subQField;	
+		private VisString64 subIDField; 	
 		private ctlModel ctlModelField;
-		private sboTimeout sboTimeoutField;
+		private INT32U sboTimeoutField;
 		private sboClass sboClassField; 
-		private minVal minValField;
-		private maxVal maxValField; 
-		private stepSize stepSizeField; 
-		private d dField;
-		private dU dUField;
-		private cdcNs cdcNsField;
-		private cdcName cdcNameField;
-		private dataNs dataNsField;
+		private INT32 minValField;
+		private INT32 maxValField; 
+		private INT32U stepSizeField; 
+		private VisString255 dField;
+		private Unicode255 dUField;
+		private VisString255 cdcNsField;
+		private VisString255 cdcNameField;
+		private VisString255 dataNsField;
+		private VisString65 SBOField;
+		private SBOw SBOwField;
+		private Oper OperField;
+		private Cancel CancelField;
 		
 		/// <summary>
 		/// Controllable integer status (INC)
@@ -4675,39 +4606,46 @@ namespace IEC61850.SCL
 		/// <param name="iedType">
 		/// The manufacturer IED type of the IED to which this LN type belongs.
 		/// </param>
+		/// <remarks>
+		/// The original type of the fields "ctlVal" and "stVal" was INT32U, it was changed because they are used as an EnumType on the DataTypeTemplates.
+		/// </remarks>			
 		public INC(string name, string lnType, string iedType) : base (name, lnType+name)
 		{
 			this.cdc = "INC";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.DataNameField = new DataName(iedType, this.id); 
-			this.ctlValField = new ctlVal(tBasicTypeEnum.INT32U);
-			this.operTmField = new operTm(tBasicTypeEnum.Timestamp);
-			this.originField = new origin(iedType, this.id);
-			this.ctlNumField = new ctlNum(tBasicTypeEnum.INT8U);
-			this.stValField = new stVal(tBasicTypeEnum.INT32U);
-			this.qField = new q(tBasicTypeEnum.Quality);
-			this.tField = new t(tBasicTypeEnum.Timestamp);
-			this.stSeldField = new stSeld(tBasicTypeEnum.BOOLEAN);
-			this.subEnaField = new subEna(tBasicTypeEnum.BOOLEAN);	
-			this.subValField = new subVal(tBasicTypeEnum.INT32);
-			this.subQField = new subQ(tBasicTypeEnum.Quality);
-			this.subIDField = new subID(tBasicTypeEnum.VisString64);
-			this.ctlModelField = new ctlModel(iedType, this.id);
-			this.sboTimeoutField = new sboTimeout(tBasicTypeEnum.INT32U);
-			this.sboClassField = new sboClass(iedType, this.id);
-			this.minValField = new minVal(tBasicTypeEnum.INT32);
-			this.maxValField = new maxVal(tBasicTypeEnum.INT32);
-			this.stepSizeField = new stepSize(tBasicTypeEnum.INT32U); 	
-			this.dField = new d(tBasicTypeEnum.VisString255); 	
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);  	
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255); 
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);	
+			this.ctlValField = new ctlVal(tFCEnum.CO);
+			this.operTmField = new Timestamp("operTm", tFCEnum.CO);
+			this.originField = new origin(iedType, this.id, tFCEnum.CO);
+			this.ctlNumField = new INT8U("ctlNum", tFCEnum.CO);
+			this.stValField = new stVal(tFCEnum.ST);
+			this.qField = new Quality("q", tFCEnum.ST);
+			this.tField = new Timestamp("t", tFCEnum.ST);
+			this.stSeldField = new BOOLEAN("stSeld", tFCEnum.ST);
+			this.subEnaField = new BOOLEAN("subEna", tFCEnum.SV);	
+			this.subValField = new INT32("subVal", tFCEnum.SV);
+			this.subQField = new Quality("subQ", tFCEnum.SV);
+			this.subIDField = new VisString64("subID", tFCEnum.SV);
+			this.ctlModelField = new ctlModel(iedType, this.id, tFCEnum.CF);
+			this.sboTimeoutField = new INT32U("sboTimeout", tFCEnum.CF);
+			this.sboClassField = new sboClass(iedType, this.id, tFCEnum.CF);
+			this.minValField = new INT32("minVal", tFCEnum.CF);
+			this.maxValField = new INT32("maxVal", tFCEnum.CF);
+			this.stepSizeField = new INT32U("stepSize", tFCEnum.CF); 	
+			this.dField = new VisString255("d", tFCEnum.DC); 	
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);  	
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX); 
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);	
+			this.SBOField = new VisString65("SBO", tFCEnum.CO);
+			this.SBOField.Visible = false;
+			this.SBOwField = new SBOw(iedType, this.id, tFCEnum.CO);			
+			this.OperField = new Oper(iedType, this.id, tFCEnum.CO);			
+			this.CancelField = new Cancel(iedType, this.id, tFCEnum.CO);			
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -4720,7 +4658,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -4747,7 +4685,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public ctlNum ctlNum
+		public INT8U ctlNum
 		{
 			get
 			{
@@ -4773,7 +4711,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -4786,20 +4724,7 @@ namespace IEC61850.SCL
 		} 	
 		
 		[Browsable(false)]
-		public DataName DataName
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -4812,7 +4737,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU
+		public Unicode255 dU
 		{
 			get
 			{
@@ -4825,7 +4750,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public maxVal maxVal
+		public INT32 maxVal
 		{
 			get
 			{
@@ -4838,7 +4763,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public minVal minVal
+		public INT32 minVal
 		{
 			get
 			{
@@ -4851,7 +4776,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public operTm operTm
+		public Timestamp operTm
 		{
 			get
 			{
@@ -4878,7 +4803,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public q q
+		public Quality q
 		{
 			get
 			{
@@ -4904,7 +4829,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public sboTimeout sboTimeout
+		public INT32U sboTimeout
 		{
 			get
 			{
@@ -4917,7 +4842,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public stepSize stepSize
+		public INT32U stepSize
 		{
 			get
 			{
@@ -4930,7 +4855,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public stSeld stSeld
+		public BOOLEAN stSeld
 		{
 			get
 			{
@@ -4957,7 +4882,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public subEna subEna
+		public BOOLEAN subEna
 		{
 			get
 			{
@@ -4970,7 +4895,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public subID subID
+		public VisString64 subID
 		{
 			get
 			{
@@ -4983,7 +4908,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public subQ subQ
+		public Quality subQ
 		{
 			get
 			{
@@ -4996,7 +4921,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public subVal subVal
+		public INT32 subVal
 		{
 			get
 			{
@@ -5010,7 +4935,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get
 			{
@@ -5021,6 +4946,58 @@ namespace IEC61850.SCL
 				this.tField = value;
 			}
 		} 
+		
+		[Browsable(false)]		
+		public VisString65 SBO
+		{
+			get
+			{
+				return this.SBOField;
+			}
+			set
+			{
+				this.SBOField = value;
+			}
+		}
+		
+		[Browsable(false)]
+		public SBOw SBOw
+		{
+			get
+			{
+				return this.SBOwField;
+			}
+			set
+			{
+				this.SBOwField = value;
+			}
+		}
+		
+		[Browsable(false)]
+		public Oper Oper
+		{
+			get
+			{
+				return this.OperField;
+			}
+			set
+			{
+				this.OperField = value;
+			}
+		}
+		
+		[Browsable(false)]
+		public Cancel Cancel
+		{
+			get
+			{
+				return this.CancelField;
+			}
+			set
+			{
+				this.CancelField = value;
+			}
+		}
 	}
 	
 	/// <summary>
@@ -5029,17 +5006,16 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  ING : DOData
 	{		
-		private DataName DataNameField;
-		private setVal setValField;
-		private setVal2 setVal2Field;
-		private minVal minValField;
-		private maxVal maxValField;
-		private stepSize stepSizeField; 
-		private d dField; 
-		private dU dUField;
-		private cdcNs cdcNsField;
-		private cdcName cdcNameField;
-		private dataNs dataNsField;
+		private INT32 setValField;
+		private INT32 setVal2Field;
+		private INT32 minValField;
+		private INT32 maxValField;
+		private INT32U stepSizeField; 
+		private VisString255 dField; 
+		private Unicode255 dUField;
+		private VisString255 cdcNsField;
+		private VisString255 cdcNameField;
+		private VisString255 dataNsField;
 		
 		/// <summary>
 		/// Integer status setting (ING)
@@ -5058,21 +5034,20 @@ namespace IEC61850.SCL
 			this.cdc = "ING";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.DataNameField = new DataName(iedType, this.id); 
-			this.setValField = new setVal(tBasicTypeEnum.INT32); 
-			this.setVal2Field = new setVal2(tBasicTypeEnum.INT32); 
-			this.minValField = new minVal(tBasicTypeEnum.INT32);
-			this.maxValField = new maxVal(tBasicTypeEnum.INT32); 	
-			this.stepSizeField = new stepSize(tBasicTypeEnum.INT32U);	
-			this.dField = new d(tBasicTypeEnum.VisString255);
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);	
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);		
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255); 		
+			this.setValField = new INT32("setVal", tFCEnum.SP); 
+			this.setVal2Field = new INT32("setVal2", tFCEnum.SG); 
+			this.minValField = new INT32("minVal", tFCEnum.CF);
+			this.maxValField = new INT32("maxVal", tFCEnum.CF); 	
+			this.stepSizeField = new INT32U("stepSize", tFCEnum.CF);	
+			this.dField = new VisString255("d", tFCEnum.DC);
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);	
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);		
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX); 		
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -5085,7 +5060,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -5098,7 +5073,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -5111,20 +5086,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public DataName DataName
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		} 
-		
-		[Browsable(false)]
-		public dataNs dataNs	
+		public VisString255 dataNs	
 		{
 			get
 			{
@@ -5137,7 +5099,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU
+		public Unicode255 dU
 		{
 			get
 			{
@@ -5150,7 +5112,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public maxVal maxVal
+		public INT32 maxVal
 		{
 			get
 			{
@@ -5163,7 +5125,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public minVal minVal
+		public INT32 minVal
 		{
 			get
 			{
@@ -5176,7 +5138,7 @@ namespace IEC61850.SCL
 		} 	
 		
 		[Browsable(false)]
-		public setVal setVal
+		public INT32 setVal
 		{
 			get
 			{
@@ -5189,7 +5151,7 @@ namespace IEC61850.SCL
 		} 	
 		
 		[Browsable(false)]
-		public setVal2 setVal2
+		public INT32 setVal2
 		{
 			get
 			{
@@ -5202,7 +5164,7 @@ namespace IEC61850.SCL
 		} 	
 		
 		[Browsable(false)]
-		public stepSize stepSize
+		public INT32U stepSize
 		{
 			get
 			{
@@ -5219,21 +5181,23 @@ namespace IEC61850.SCL
 	/// This class defines the common data attribute types that are defined for his use in the INS
 	/// common data class.
 	/// </summary>
+	/// <remarks>
+	/// The original type of the fields "stVal" was INT32U, it was changed because they are used as an EnumType on the DataTypeTemplates.
+	/// </remarks>		
 	public class  INS : DOData
 	{		
-		private DataName DataNameField;
 		private stVal stValField;
-		private q  qField;
-		private t tField;
-		private subEna subEnaField;
+		private Quality  qField;
+		private Timestamp tField;
+		private BOOLEAN subEnaField;
 		private subVal subValField;
-		private subQ subQField;
-		private subID subIDField;
-		private d dField;
-		private dU dUField;
-		private cdcNs cdcNsField;
-		private cdcName cdcNameField;
-		private dataNs dataNsField;
+		private Quality subQField;
+		private VisString64 subIDField;
+		private VisString255 dField;
+		private Unicode255 dUField;
+		private VisString255 cdcNsField;
+		private VisString255 cdcNameField;
+		private VisString255 dataNsField;
 				
 		/// <summary>
 		/// Integer status (INS)
@@ -5252,23 +5216,22 @@ namespace IEC61850.SCL
 			this.cdc = "INS";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.DataNameField = new DataName(iedType, this.id); 
-			this.stValField = new stVal(tBasicTypeEnum.INT32U);
-			this.qField = new q(tBasicTypeEnum.Quality);
-			this.tField = new t(tBasicTypeEnum.Timestamp);
-			this.subEnaField = new subEna(tBasicTypeEnum.BOOLEAN);
-			this.subValField = new subVal(tBasicTypeEnum.Enum);
-			this.subQField = new subQ(tBasicTypeEnum.Quality);
-			this.subIDField = new subID(tBasicTypeEnum.VisString64);
-			this.dField = new d(tBasicTypeEnum.VisString255); 	
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255); 
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);	
+			this.stValField = new stVal(tFCEnum.ST);
+			this.qField = new Quality("q", tFCEnum.ST);
+			this.tField = new Timestamp("t", tFCEnum.ST);
+			this.subEnaField = new BOOLEAN("subEna", tFCEnum.SV);
+			this.subValField = new subVal(tFCEnum.SV);
+			this.subQField = new Quality("subQ", tFCEnum.SV);
+			this.subIDField = new VisString64("subID", tFCEnum.SV);
+			this.dField = new VisString255("d", tFCEnum.DC); 	
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX); 
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);	
 		}	
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -5281,7 +5244,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -5294,7 +5257,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -5307,20 +5270,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public DataName DataName
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -5333,7 +5283,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public dU dU
+		public Unicode255 dU
 		{
 			get
 			{
@@ -5347,7 +5297,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public q q
+		public Quality q
 		{
 			get
 			{
@@ -5374,7 +5324,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public subEna subEna
+		public BOOLEAN subEna
 		{
 			get
 			{
@@ -5387,7 +5337,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public subID subID
+		public VisString64 subID
 		{
 			get
 			{
@@ -5400,7 +5350,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public subQ subQ
+		public Quality subQ
 		{
 			get
 			{
@@ -5410,7 +5360,7 @@ namespace IEC61850.SCL
 			{
 				this.subQField = value;
 			}
-		}
+		} 
 		
 		[Browsable(false)]
 		public subVal subVal
@@ -5423,11 +5373,11 @@ namespace IEC61850.SCL
 			{
 				this.subValField = value;
 			}
-		}
+		}	
 		
 		[Required]
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get
 			{
@@ -5446,30 +5396,33 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  ISC : DOData
 	{		
-		private DataName DataNameField;
-		private ctlVal ctlValField;
-		private operTm operTmField;
+		private INT8 ctlValField;
+		private Timestamp operTmField;
 		private origin originField;
-		private ctlNum ctlNumField;
+		private INT8U ctlNumField;
 		private valWTr valWTrField;
-		private q  qField;
-		private t tField;
-		private stSeld stSeldField;
-		private subEna subEnaField;	
+		private Quality  qField;
+		private Timestamp tField;
+		private BOOLEAN stSeldField;
+		private BOOLEAN subEnaField;	
 		private subVal subValField;
-		private subQ subQField;	
-		private subID subIDField; 	
+		private Quality subQField;	
+		private VisString64 subIDField; 	
 		private ctlModel ctlModelField;
-		private sboTimeout sboTimeoutField;
+		private INT32U sboTimeoutField;
 		private sboClass sboClassField;
-		private minVal minValField;
-		private maxVal maxValField; 
-		private stepSize stepSizeField;
-		private d dField;
-		private dU dUField;		
-		private cdcNs cdcNsField;
-		private cdcName cdcNameField;
-		private dataNs dataNsField;
+		private INT8 minValField;
+		private INT8 maxValField; 
+		private INT8U stepSizeField;
+		private VisString255 dField;
+		private Unicode255 dUField;		
+		private VisString255 cdcNsField;
+		private VisString255 cdcNameField;
+		private VisString255 dataNsField;
+		private VisString65 SBOField;
+		private SBOw SBOwField;
+		private Oper OperField;
+		private Cancel CancelField;
 		
 		/// <summary>
 		/// Integer controlled step position information (ISC)
@@ -5488,36 +5441,40 @@ namespace IEC61850.SCL
 			this.cdc = "ISC";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.DataNameField = new DataName(iedType, this.id); 
-			this.ctlValField = new ctlVal(tBasicTypeEnum.INT8);
-			this.operTmField = new operTm(tBasicTypeEnum.Timestamp);
-			this.originField = new origin(iedType, this.id);
-			this.ctlNumField = new ctlNum(tBasicTypeEnum.INT8U); 
-			this.valWTrField = new valWTr(iedType, this.id);
-			this.qField = new q(tBasicTypeEnum.Quality);
-			this.tField = new t(tBasicTypeEnum.Timestamp);
-			this.stSeldField = new stSeld(tBasicTypeEnum.BOOLEAN);
-			this.subEnaField = new subEna(tBasicTypeEnum.BOOLEAN);			
-			this.subValField = new subVal(iedType, this.id);
+			this.ctlValField = new INT8("ctlVal", tFCEnum.CO);
+			this.operTmField = new Timestamp("operTm", tFCEnum.CO);
+			this.originField = new origin(iedType, this.id, tFCEnum.CO);
+			this.ctlNumField = new INT8U("ctlNum", tFCEnum.CO); 
+			this.valWTrField = new valWTr(iedType, this.id, tFCEnum.ST);
+			this.qField = new Quality("q", tFCEnum.ST);
+			this.tField = new Timestamp("t", tFCEnum.ST);
+			this.stSeldField = new BOOLEAN("stSeld", tFCEnum.ST);
+			this.subEnaField = new BOOLEAN("subEna", tFCEnum.SV);			
+			this.subValField = new subVal(iedType, this.id, tFCEnum.SV);
 			ValWithTrans ValWithTransField = new ValWithTrans(iedType, this.subValField.id);
 			this.subValField.SetLinkSDIDADataTypeBDA(ValWithTransField);			
-			this.subQField = new subQ(tBasicTypeEnum.Quality);
-			this.subIDField = new subID(tBasicTypeEnum.VisString64);
-			this.ctlModelField = new ctlModel(iedType, this.id);
-			this.sboTimeoutField = new sboTimeout(tBasicTypeEnum.INT32U);
-			this.sboClassField = new sboClass(iedType, this.id);
-			this.minValField = new minVal(tBasicTypeEnum.INT8);
-			this.maxValField = new maxVal(tBasicTypeEnum.INT8);
-			this.stepSizeField = new stepSize(tBasicTypeEnum.INT8U);
-			this.dField = new d(tBasicTypeEnum.VisString255); 	
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255); 
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);	
+			this.subQField = new Quality("subQ", tFCEnum.SV);
+			this.subIDField = new VisString64("subID", tFCEnum.SV);
+			this.ctlModelField = new ctlModel(iedType, this.id, tFCEnum.CF);
+			this.sboTimeoutField = new INT32U("sboTimeout", tFCEnum.CF);
+			this.sboClassField = new sboClass(iedType, this.id, tFCEnum.CF);
+			this.minValField = new INT8("minVal", tFCEnum.CF);
+			this.maxValField = new INT8("maxVal", tFCEnum.CF);
+			this.stepSizeField = new INT8U("stepSize", tFCEnum.CF);
+			this.dField = new VisString255("d", tFCEnum.DC); 	
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX); 
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);	
+			this.SBOField = new VisString65("SBO", tFCEnum.CO);
+			this.SBOField.Visible = false;
+			this.SBOwField = new SBOw(iedType, this.id, tFCEnum.CO);			
+			this.OperField = new Oper(iedType, this.id, tFCEnum.CO);			
+			this.CancelField = new Cancel(iedType, this.id, tFCEnum.CO);			
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -5530,7 +5487,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -5557,7 +5514,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public ctlNum ctlNum
+		public INT8U ctlNum
 		{
 			get
 			{
@@ -5570,7 +5527,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public ctlVal ctlVal
+		public INT8 ctlVal
 		{
 			get
 			{
@@ -5583,7 +5540,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -5596,20 +5553,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public DataName DataName
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -5622,7 +5566,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public dU dU
+		public Unicode255 dU
 		{
 			get
 			{
@@ -5635,7 +5579,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public maxVal maxVal
+		public INT8 maxVal
 		{
 			get
 			{
@@ -5648,7 +5592,7 @@ namespace IEC61850.SCL
 		} 	
 		
 		[Browsable(false)]
-		public minVal minVal
+		public INT8 minVal
 		{
 			get
 			{
@@ -5661,7 +5605,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public operTm operTm
+		public Timestamp operTm
 		{
 			get
 			{
@@ -5687,7 +5631,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public q q
+		public Quality q
 		{
 			get
 			{
@@ -5713,7 +5657,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public sboTimeout sboTimeout
+		public INT32U sboTimeout
 		{
 			get
 			{
@@ -5726,7 +5670,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public stepSize stepSize
+		public INT8U stepSize
 		{
 			get
 			{
@@ -5739,7 +5683,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public stSeld stSeld
+		public BOOLEAN stSeld
 		{
 			get
 			{
@@ -5752,7 +5696,7 @@ namespace IEC61850.SCL
 		} 	
 		
 		[Browsable(false)]
-		public subEna subEna
+		public BOOLEAN subEna
 		{
 			get
 			{
@@ -5765,7 +5709,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public subID subID
+		public VisString64 subID
 		{
 			get
 			{
@@ -5778,7 +5722,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public subQ subQ
+		public Quality subQ
 		{
 			get
 			{
@@ -5804,7 +5748,7 @@ namespace IEC61850.SCL
 		} 	
 		
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get
 			{
@@ -5828,6 +5772,58 @@ namespace IEC61850.SCL
 				this.valWTrField = value;
 			}
 		}	
+		
+		[Browsable(false)]
+		public VisString65 SBO
+		{
+			get
+			{
+				return this.SBOField;
+			}
+			set
+			{
+				this.SBOField = value;
+			}
+		}
+		
+		[Browsable(false)]
+		public SBOw SBOw
+		{
+			get
+			{
+				return this.SBOwField;
+			}
+			set
+			{
+				this.SBOwField = value;
+			}
+		}
+		
+		[Browsable(false)]
+		public Oper Oper
+		{
+			get
+			{
+				return this.OperField;
+			}
+			set
+			{
+				this.OperField = value;
+			}
+		}
+		
+		[Browsable(false)]
+		public Cancel Cancel
+		{
+			get
+			{
+				return this.CancelField;
+			}
+			set
+			{
+				this.CancelField = value;
+			}
+		}
 	}
 	
 	/// <summary>
@@ -5836,17 +5832,16 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  LPL : DOData
 	{		
-		private DataName DataNameField;
-		private vendor vendorField; 
-		private swRev swRevField;
-		private d dField;
-		private dU dUField; 
-		private configRev configRevField; 
-		private ldNs ldNsField; 
-		private lnNs lnNsField;
-		private cdcNs cdcNsField;
-		private cdcName cdcNameField;
-		private dataNs dataNsField;
+		private VisString255 vendorField; 
+		private VisString255 swRevField;
+		private VisString255 dField;
+		private Unicode255 dUField; 
+		private VisString255 configRevField; 
+		private VisString255 ldNsField; 
+		private VisString255 lnNsField;
+		private VisString255 cdcNsField;
+		private VisString255 cdcNameField;
+		private VisString255 dataNsField;
 		
 		/// <summary>
 		/// Logical node name plate (LPL)
@@ -5864,22 +5859,21 @@ namespace IEC61850.SCL
 		{
 			this.cdc = "LPL";
 			this.id = this.type;
-			this.iedType = iedType;				
-			this.DataNameField = new DataName(iedType, this.id); 
-			this.vendorField = new vendor(tBasicTypeEnum.VisString255);
-			this.swRevField = new swRev(tBasicTypeEnum.VisString255); 
-			this.dField = new d(tBasicTypeEnum.VisString255); 	
-			this.dUField = new dU(tBasicTypeEnum.Unicode255); 
-			this.configRevField = new configRev(tBasicTypeEnum.VisString255); 
-			this.ldNsField = new ldNs(tBasicTypeEnum.VisString255); 
-			this.lnNsField = new lnNs(tBasicTypeEnum.VisString255); 
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255); 
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);	
+			this.iedType = iedType;				 
+			this.vendorField = new VisString255("vendor", tFCEnum.DC);
+			this.swRevField = new VisString255("swRev", tFCEnum.DC); 
+			this.dField = new VisString255("d", tFCEnum.DC); 	
+			this.dUField = new Unicode255("dU",tFCEnum.DC); 
+			this.configRevField = new VisString255("configRev", tFCEnum.DC); 
+			this.ldNsField = new VisString255("ldNs", tFCEnum.EX); 
+			this.lnNsField = new VisString255("lnNs", tFCEnum.EX); 
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX); 
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);	
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -5892,7 +5886,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -5905,7 +5899,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public configRev configRev
+		public VisString255 configRev
 		{
 			get
 			{
@@ -5919,7 +5913,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -5932,20 +5926,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public DataName DataName
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -5958,7 +5939,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU
+		public Unicode255 dU
 		{
 			get
 			{
@@ -5971,7 +5952,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public ldNs ldNs
+		public VisString255 ldNs
 		{
 			get
 			{
@@ -5984,7 +5965,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public lnNs lnNs
+		public VisString255 lnNs
 		{
 			get
 			{
@@ -5998,7 +5979,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public swRev swRev
+		public VisString255 swRev
 		{
 			get
 			{
@@ -6012,7 +5993,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public vendor vendor
+		public VisString255 vendor
 		{
 			get
 			{
@@ -6031,27 +6012,26 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  MV : DOData
 	{		
-		private DataName DataNameField; 
 		private instMag instMagField; 
 		private mag magField; 
 		private range rangeField;
-		private q qField;
-		private t tField;
-		private subEna subEnaField;
+		private Quality qField;
+		private Timestamp tField;
+		private BOOLEAN subEnaField;
 		private subVal subValField;
-		private subQ subQField;
-		private subID subIDField; 
+		private Quality subQField;
+		private VisString64 subIDField; 
 		private units unitsField; 
-		private db dbField; 
-		private zeroDb zeroDbField; 
+		private INT32U dbField; 
+		private INT32U zeroDbField; 
 		private sVC sVCField; 
 		private rangeC rangeCField; 
-		private smpRate smpRateField;
-		private d dField;
-		private dU dUField;
-		private cdcNs cdcNsField;
-		private cdcName cdcNameField;
-		private dataNs dataNsField;
+		private INT32U smpRateField;
+		private VisString255 dField;
+		private Unicode255 dUField;
+		private VisString255 cdcNsField;
+		private VisString255 cdcNameField;
+		private VisString255 dataNsField;
 		
 		/// <summary>
 		/// Measured value (MV)
@@ -6070,35 +6050,32 @@ namespace IEC61850.SCL
 			this.cdc = "MV";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.DataNameField = new DataName(iedType, this.id); 
-			this.instMagField = new instMag(iedType, this.id);
-			this.magField = new mag(iedType, this.id);			
-			this.rangeField = new range(iedType, this.id);
-			AnalogueValue AnalogueValueField = new AnalogueValue(iedType, this.rangeField.id);
-			this.rangeField.SetLinkSDIDADataTypeBDA(AnalogueValueField);			
-			this.qField = new q(tBasicTypeEnum.Quality);
-			this.tField = new t(tBasicTypeEnum.Timestamp);
-			this.subEnaField = new subEna(tBasicTypeEnum.BOOLEAN);			
-			this.subValField = new subVal(tBasicTypeEnum.INT32);
-			AnalogueValueField = new AnalogueValue(iedType, this.subValField.id);
+			this.instMagField = new instMag(iedType, this.id, tFCEnum.MX);
+			this.magField = new mag(iedType, this.id, tFCEnum.MX);			
+			this.rangeField = new range(iedType, this.id, tFCEnum.MX);		
+			this.qField = new Quality("q", tFCEnum.MX);
+			this.tField = new Timestamp("t", tFCEnum.MX);
+			this.subEnaField = new BOOLEAN("subEna", tFCEnum.SV);			
+			this.subValField = new subVal(iedType, this.id, tFCEnum.SV);		
+			AnalogueValue AnalogueValueField = new AnalogueValue(iedType, this.subValField.id);
 			this.subValField.SetLinkSDIDADataTypeBDA(AnalogueValueField);			
-			this.subQField = new subQ(tBasicTypeEnum.Quality);
-			this.subIDField = new subID(tBasicTypeEnum.VisString64); 
-			this.unitsField = new units(iedType, this.id); 	
-			this.dbField = new db(tBasicTypeEnum.INT32U);
-			this.zeroDbField = new zeroDb(tBasicTypeEnum.INT32U); 
-			this.sVCField = new sVC(iedType, this.id);
-			this.rangeCField = new rangeC(iedType, this.id);
-			this.smpRateField = new smpRate(tBasicTypeEnum.INT32U);
-			this.dField = new d(tBasicTypeEnum.VisString255); 	
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255); 
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255);
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);	
+			this.subQField = new Quality("subQ", tFCEnum.SV);
+			this.subIDField = new VisString64("subID", tFCEnum.SV); 
+			this.unitsField = new units(iedType, this.id, tFCEnum.CF); 	
+			this.dbField = new INT32U("db", tFCEnum.CF);
+			this.zeroDbField = new INT32U("zeroDb", tFCEnum.CF); 
+			this.sVCField = new sVC(iedType, this.id, tFCEnum.CF);
+			this.rangeCField = new rangeC(iedType, this.id, tFCEnum.CF);
+			this.smpRateField = new INT32U("smpRate", tFCEnum.CF);
+			this.dField = new VisString255("d", tFCEnum.DC); 	
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX); 
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX);
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);	
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -6111,7 +6088,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -6124,7 +6101,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -6137,20 +6114,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public DataName DataName
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		} 
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -6163,7 +6127,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public db db
+		public INT32U db
 		{
 			get
 			{
@@ -6176,7 +6140,7 @@ namespace IEC61850.SCL
 		} 	
 		
 		[Browsable(false)]
-		public dU dU
+		public Unicode255 dU
 		{
 			get
 			{
@@ -6217,7 +6181,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public q q
+		public Quality q
 		{
 			get
 			{
@@ -6256,7 +6220,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public smpRate smpRate
+		public INT32U smpRate
 		{
 			get
 			{
@@ -6269,7 +6233,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public subEna subEna
+		public BOOLEAN subEna
 		{
 			get
 			{
@@ -6282,7 +6246,7 @@ namespace IEC61850.SCL
 		}  	
 		
 		[Browsable(false)]
-		public subID subID
+		public VisString64 subID
 		{
 			get
 			{
@@ -6295,7 +6259,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public subQ subQ
+		public Quality subQ
 		{
 			get
 			{
@@ -6335,7 +6299,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get
 			{
@@ -6361,7 +6325,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public zeroDb zeroDb
+		public INT32U zeroDb
 		{
 			get
 			{
@@ -6380,19 +6344,18 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  SAV : DOData
 	{		
-		private DataName DataNameField; 
 		private instMag instMagField; 
-		private q  qField;
-		private t tField; 
+		private Quality  qField;
+		private Timestamp tField; 
 		private units unitsField;
 		private sVC sVCField; 
 		private max maxField;
 		private min minField;		
-		private d dField;
-		private dU dUField;
-		private cdcNs cdcNsField;
-		private cdcName cdcNameField;
-		private dataNs dataNsField;
+		private VisString255 dField;
+		private Unicode255 dUField;
+		private VisString255 cdcNsField;
+		private VisString255 cdcNameField;
+		private VisString255 dataNsField;
 		
 		/// <summary>
 		/// Sampled value (SAV)
@@ -6411,23 +6374,22 @@ namespace IEC61850.SCL
 			this.cdc = "SAV";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.DataNameField = new DataName(iedType, this.id); 
-			this.instMagField = new instMag(iedType, this.id); 
-			this.qField = new q(tBasicTypeEnum.Quality);
-			this.tField = new t(tBasicTypeEnum.Timestamp);
-			this.unitsField = new units(iedType, this.id); 
-			this.sVCField = new sVC(iedType, this.id);		 	
-			this.maxField = new max(iedType, this.id);
-			this.minField = new min(iedType, this.id);			
-			this.dField = new d(tBasicTypeEnum.VisString255); 	
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);  	
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255); 
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);	
+			this.instMagField = new instMag(iedType, this.id, tFCEnum.MX); 
+			this.qField = new Quality("q", tFCEnum.MX);
+			this.tField = new Timestamp("t", tFCEnum.MX);
+			this.unitsField = new units(iedType, this.id, tFCEnum.CF); 
+			this.sVCField = new sVC(iedType, this.id, tFCEnum.CF);		 	
+			this.maxField = new max(iedType, this.id, tFCEnum.CF);
+			this.minField = new min(iedType, this.id, tFCEnum.CF);			
+			this.dField = new VisString255("d", tFCEnum.DC); 	
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);  	
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX); 
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);	
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -6440,7 +6402,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -6453,7 +6415,7 @@ namespace IEC61850.SCL
 		}		
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -6466,20 +6428,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public DataName DataName
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -6492,7 +6441,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU
+		public Unicode255 dU
 		{
 			get
 			{
@@ -6546,7 +6495,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public q q
+		public Quality q
 		{
 			get
 			{
@@ -6572,7 +6521,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get
 			{
@@ -6604,17 +6553,16 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  SEC : DOData
 	{		
-		private DataName DataNameField; 
-		private cnt  cntField;
+		private INT32U  cntField;
 		private sev sevField;
-		private t tField;
-		private addr addrField; 	
-		private addInfo addInfoField;	
-		private d dField;
-		private dU dUField;
-		private cdcNs cdcNsField;
-		private cdcName cdcNameField;
-		private dataNs dataNsField;
+		private Timestamp tField;
+		private Octet64 addrField; 	
+		private VisString64 addInfoField;	
+		private VisString255 dField;
+		private Unicode255 dUField;
+		private VisString255 cdcNsField;
+		private VisString255 cdcNameField;
+		private VisString255 dataNsField;
 		
 		/// <summary>
 		/// Security violation counting (SEC)
@@ -6633,21 +6581,20 @@ namespace IEC61850.SCL
 			this.cdc = "SEC";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.DataNameField = new DataName(iedType, this.id); 
-			this.cntField = new cnt(tBasicTypeEnum.INT32U); 
-			this.sevField = new sev(tBasicTypeEnum.Enum);
-			this.tField = new t(tBasicTypeEnum.Timestamp); 
-			this.addrField = new addr(tBasicTypeEnum.Octet64);
-			this.addInfoField = new addInfo(tBasicTypeEnum.VisString64);
-			this.dField = new d(tBasicTypeEnum.VisString255); 	
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);  	
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255); 
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);							
+			this.cntField = new INT32U("cnt", tFCEnum.ST); 
+			this.sevField = new sev(tFCEnum.ST);
+			this.tField = new Timestamp("t", tFCEnum.ST); 
+			this.addrField = new Octet64("addr", tFCEnum.ST);
+			this.addInfoField = new VisString64("addInfo", tFCEnum.ST);
+			this.dField = new VisString255("d", tFCEnum.DC); 	
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);  	
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX); 
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);							
 		}
 		
 		[Browsable(false)]
-		public addInfo addInfo
+		public VisString64 addInfo
 		{
 			get
 			{
@@ -6660,7 +6607,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public addr addr
+		public Octet64 addr
 		{
 			get
 			{
@@ -6673,7 +6620,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -6686,7 +6633,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -6700,7 +6647,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public cnt cnt
+		public INT32U cnt
 		{
 			get
 			{
@@ -6713,7 +6660,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -6726,20 +6673,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public DataName DataName
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		} 
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -6752,7 +6686,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU
+		public Unicode255 dU
 		{
 			get
 			{
@@ -6780,7 +6714,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get
 			{
@@ -6799,17 +6733,16 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  SEQ : DOData
 	{		
-		private DataName DataNameField;
-		private c1 c1Field;
-		private c2 c2Field;
-		private c3 c3Field; 
+		private CMV c1Field;
+		private CMV c2Field;
+		private CMV c3Field; 
 		private seqT seqTField;	
 		private phsRef phsRefField;
-		private d dField;
-		private dU dUField;
-		private cdcNs cdcNsField;
-		private cdcName cdcNameField;
-		private dataNs dataNsField;
+		private VisString255 dField;
+		private Unicode255 dUField;
+		private VisString255 cdcNsField;
+		private VisString255 cdcNameField;
+		private VisString255 dataNsField;
 		
 		/// <summary>
 		/// Sequence (SEQ)
@@ -6827,29 +6760,22 @@ namespace IEC61850.SCL
 		{
 			this.cdc = "SEQ";
 			this.id = this.type;
-			this.iedType = iedType;				
-			this.DataNameField = new DataName(iedType, this.id); 			
-			this.c1Field = new c1(iedType, this.id);
-			CMV CMVField = new CMV("", this.c1Field.id, iedType);
-			this.c1Field.SetLinkDOData(CMVField);								
-			this.c2Field = new c2(iedType, this.id);
-			CMVField = new CMV("", this.c2Field.id, iedType);
-			this.c2Field.SetLinkDOData(CMVField);					
-			this.c3Field = new c3(iedType, this.id); 
-			CMVField = new CMV("", this.c3Field.id, iedType);
-			this.c3Field.SetLinkDOData(CMVField);					
-			this.seqTField = new seqT(tBasicTypeEnum.Enum);
-			this.phsRefField = new phsRef(tBasicTypeEnum.Enum);
-			this.dField = new d(tBasicTypeEnum.VisString255); 	
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);  	
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255); 
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);	
+			this.iedType = iedType;						
+			this.c1Field = new CMV("c1", this.id, iedType);			
+			this.c2Field = new CMV("c2", this.id, iedType);			
+			this.c3Field = new CMV("c3", this.id, iedType);			
+			this.seqTField = new seqT(tFCEnum.MX);
+			this.phsRefField = new phsRef(tFCEnum.CF);
+			this.dField = new VisString255("d", tFCEnum.DC); 	
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);  	
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX); 
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);	
 		}
 		
 		[Required]
 		[Browsable(false)]
-		public c1 c1
+		public CMV c1
 		{
 			get
 			{
@@ -6863,7 +6789,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public c2 c2
+		public CMV c2
 		{
 			get
 			{
@@ -6877,7 +6803,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public c3 c3
+		public CMV c3
 		{
 			get
 			{
@@ -6890,7 +6816,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -6903,7 +6829,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -6916,7 +6842,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -6929,20 +6855,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public DataName DataName
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -6955,7 +6868,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU
+		public Unicode255 dU
 		{
 			get
 			{
@@ -7001,28 +6914,31 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  SPC : DOData
 	{		
-		private DataName DataNameField;
-		private ctlVal ctlValField;
-		private operTm operTmField;
+		private BOOLEAN ctlValField;
+		private Timestamp operTmField;
 		private origin originField;
-		private ctlNum ctlNumField;
-		private stVal stValField;
-		private q  qField;
-		private t tField;
-		private stSeld stSeldField;	
-		private subEna subEnaField;	
-		private subVal subValField;
-		private subQ subQField;	
-		private subID subIDField; 
+		private INT8U ctlNumField;
+		private BOOLEAN stValField;
+		private Quality  qField;
+		private Timestamp tField;
+		private BOOLEAN stSeldField;	
+		private BOOLEAN subEnaField;	
+		private BOOLEAN subValField;
+		private Quality subQField;	
+		private VisString64 subIDField; 
 		private PulseConfig PulseConfigField; 
 		private ctlModel ctlModelField;
-		private sboTimeout sboTimeoutField;
+		private INT32U sboTimeoutField;
 		private sboClass sboClassField;
-		private d dField;
-		private dU dUField;
-		private cdcNs cdcNsField;
-		private cdcName cdcNameField;
-		private dataNs dataNsField;
+		private VisString255 dField;
+		private Unicode255 dUField;
+		private VisString255 cdcNsField;
+		private VisString255 cdcNameField;
+		private VisString255 dataNsField;
+		private VisString65 SBOField;
+		private SBOw SBOwField;
+		private Oper OperField;
+		private Cancel CancelField;
 		
 		/// <summary>
 		/// Controllable single point (SPC)
@@ -7041,32 +6957,37 @@ namespace IEC61850.SCL
 			this.cdc = "SPC";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.DataNameField = new DataName(iedType, this.id); 
-			this.ctlValField = new ctlVal(tBasicTypeEnum.BOOLEAN);
-			this.operTmField = new operTm(tBasicTypeEnum.Timestamp);
-			this.originField = new origin(iedType, this.id);
-			this.ctlNumField = new ctlNum(tBasicTypeEnum.INT8U);
-			this.stValField = new stVal(tBasicTypeEnum.BOOLEAN);
-			this.qField = new q(tBasicTypeEnum.Quality);
-			this.tField = new t(tBasicTypeEnum.Timestamp);
-			this.stSeldField = new stSeld(tBasicTypeEnum.BOOLEAN);
-			this.subEnaField = new subEna(tBasicTypeEnum.BOOLEAN);	
-			this.subValField = new subVal(tBasicTypeEnum.BOOLEAN);
-			this.subQField = new subQ(tBasicTypeEnum.Quality);
-			this.subIDField = new subID(tBasicTypeEnum.VisString64); 
-			this.PulseConfigField = new PulseConfig(iedType, this.id);
-			this.ctlModelField = new ctlModel(iedType, this.id);
-			this.sboTimeoutField = new sboTimeout(tBasicTypeEnum.INT32U);
-			this.sboClassField = new sboClass(iedType, this.id);
-			this.dField = new d(tBasicTypeEnum.VisString255); 	
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);  	
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255); 
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);	
+			this.ctlValField = new BOOLEAN("ctlVal", tFCEnum.CO);
+			this.operTmField = new Timestamp("operTm", tFCEnum.CO);			
+			this.ctlNumField = new INT8U("ctlNum", tFCEnum.CO);
+			this.stValField = new BOOLEAN("stVal", tFCEnum.ST);
+			this.qField = new Quality("q", tFCEnum.ST);
+			this.tField = new Timestamp("t", tFCEnum.ST);
+			this.stSeldField = new BOOLEAN("stSeld", tFCEnum.ST);
+			this.subEnaField = new BOOLEAN("subEna", tFCEnum.SV);	
+			this.subValField = new BOOLEAN("subVal", tFCEnum.SV);
+			this.subQField = new Quality("subQ", tFCEnum.SV);
+			this.subIDField = new VisString64("subID", tFCEnum.SV); 				
+			this.sboTimeoutField = new INT32U("sboTimeout", tFCEnum.CF);			
+			this.dField = new VisString255("d", tFCEnum.DC); 	
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);  	
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX); 
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);	
+			this.originField = new origin(iedType, this.id, tFCEnum.CO);
+			this.PulseConfigField = new PulseConfig(iedType, this.id, tFCEnum.CF);
+			this.ctlModelField = new ctlModel(iedType, this.id, tFCEnum.CF);
+			this.sboClassField = new sboClass(iedType, this.id, tFCEnum.CF);
+			this.SBOField = new VisString65("SBO", tFCEnum.CO);
+			this.SBOField.Visible = false;
+			//Nota hay propiedades que se repiten hay q buscarlos y crear sus temporales para no generar basura
+			this.SBOwField = new SBOw(iedType, this.id, tFCEnum.CO);		
+			this.OperField = new Oper(iedType, this.id, tFCEnum.CO);			
+			this.CancelField = new Cancel(iedType, this.id, tFCEnum.CO);
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -7079,7 +7000,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -7106,7 +7027,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public ctlNum ctlNum
+		public INT8U ctlNum
 		{
 			get
 			{
@@ -7119,7 +7040,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public ctlVal ctlVal
+		public BOOLEAN ctlVal
 		{
 			get
 			{
@@ -7132,7 +7053,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -7145,20 +7066,7 @@ namespace IEC61850.SCL
 		} 	
 		
 		[Browsable(false)]
-		public DataName DataName
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		}
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -7171,7 +7079,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU
+		public Unicode255 dU
 		{
 			get
 			{
@@ -7184,7 +7092,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public operTm operTm
+		public Timestamp operTm
 		{
 			get
 			{
@@ -7223,7 +7131,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public q q
+		public Quality q
 		{
 			get
 			{
@@ -7249,7 +7157,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public sboTimeout sboTimeout
+		public INT32U sboTimeout
 		{
 			get
 			{
@@ -7262,7 +7170,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public stSeld stSeld
+		public BOOLEAN stSeld
 		{
 			get
 			{
@@ -7275,7 +7183,7 @@ namespace IEC61850.SCL
 		}  
 		
 		[Browsable(false)]
-		public stVal stVal
+		public BOOLEAN stVal
 		{
 			get
 			{
@@ -7288,7 +7196,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public subEna subEna
+		public BOOLEAN subEna
 		{
 			get
 			{
@@ -7301,7 +7209,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public subID subID
+		public VisString64 subID
 		{
 			get
 			{
@@ -7314,7 +7222,7 @@ namespace IEC61850.SCL
 		} 	
 		
 		[Browsable(false)]
-		public subQ subQ
+		public Quality subQ
 		{
 			get
 			{
@@ -7327,7 +7235,7 @@ namespace IEC61850.SCL
 		} 	
 		
 		[Browsable(false)]
-		public subVal subVal
+		public BOOLEAN subVal
 		{
 			get
 			{
@@ -7340,7 +7248,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get
 			{
@@ -7351,6 +7259,58 @@ namespace IEC61850.SCL
 				this.tField = value;
 			}
 		} 
+		
+		[Browsable(false)]
+		public VisString65 SBO
+		{
+			get
+			{
+				return this.SBOField;
+			}
+			set
+			{
+				this.SBOField = value;
+			}
+		}
+		
+		[Browsable(false)]
+		public SBOw SBOw
+		{
+			get
+			{
+				return this.SBOwField;
+			}
+			set
+			{
+				this.SBOwField = value;
+			}
+		}
+		
+		[Browsable(false)]
+		public Oper Oper
+		{
+			get
+			{
+				return this.OperField;
+			}
+			set
+			{
+				this.OperField = value;
+			}
+		}
+		
+		[Browsable(false)]
+		public Cancel Cancel
+		{
+			get
+			{
+				return this.CancelField;
+			}
+			set
+			{
+				this.CancelField = value;
+			}
+		}
 	}
 	
 	/// <summary>
@@ -7359,14 +7319,13 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  SPG : DOData
 	{		
-		private DataName DataNameField;
-		private setVal setValField;
-		private setVal2 setVal2Field;
-		private d dField;
-		private dU dUField;
-		private cdcNs cdcNsField;
-		private cdcName cdcNameField;
-		private dataNs dataNsField;
+		private BOOLEAN setValField;
+		private BOOLEAN setVal2Field;
+		private VisString255 dField;
+		private Unicode255 dUField;
+		private VisString255 cdcNsField;
+		private VisString255 cdcNameField;
+		private VisString255 dataNsField;
 		
 		/// <summary>
 		/// Single point setting (SPG)
@@ -7385,18 +7344,17 @@ namespace IEC61850.SCL
 			this.cdc = "SPG";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.DataNameField = new DataName(iedType, this.id); 
-			this.setValField = new setVal(tBasicTypeEnum.BOOLEAN);
-			this.setVal2Field = new setVal2(tBasicTypeEnum.BOOLEAN);
-			this.dField = new d(tBasicTypeEnum.VisString255); 	
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);  	
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255); 
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);	
+			this.setValField = new BOOLEAN("setVal", tFCEnum.SP);
+			this.setVal2Field = new BOOLEAN("setVal2", tFCEnum.SG);
+			this.dField = new VisString255("d", tFCEnum.DC); 	
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);  	
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX); 
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);	
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -7409,7 +7367,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -7422,7 +7380,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -7435,20 +7393,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public DataName DataName
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		} 
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -7461,7 +7406,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU
+		public Unicode255 dU
 		{
 			get
 			{
@@ -7474,7 +7419,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public setVal setVal
+		public BOOLEAN setVal
 		{
 			get
 			{
@@ -7487,7 +7432,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public setVal2 setVal2
+		public BOOLEAN setVal2
 		{
 			get
 			{
@@ -7506,19 +7451,18 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  SPS : DOData
 	{		
-		private DataName DataNameField;
-		private stVal stValField;
-		private q  qField;
-		private t tField;
-		private subEna subEnaField;	
-		private subVal subValField;
-		private subQ subQField;	
-		private subID subIDField; 
-		private d dField;
-		private dU dUField;
-		private cdcNs cdcNsField;
-		private cdcName cdcNameField;
-		private dataNs dataNsField;
+		private BOOLEAN stValField;
+		private Quality  qField;
+		private Timestamp tField;
+		private BOOLEAN subEnaField;	
+		private BOOLEAN subValField;
+		private Quality subQField;	
+		private VisString64 subIDField; 
+		private VisString255 dField;
+		private Unicode255 dUField;
+		private VisString255 cdcNsField;
+		private VisString255 cdcNameField;
+		private VisString255 dataNsField;
 		
 		/// <summary>
 		/// Single point status (SPS)
@@ -7537,23 +7481,22 @@ namespace IEC61850.SCL
 			this.cdc = "SPS";
 			this.id = this.type;
 			this.iedType = iedType;				
-			this.DataNameField = new DataName(iedType, this.id); 
-			this.stValField = new stVal(tBasicTypeEnum.BOOLEAN);
-			this.qField = new q(tBasicTypeEnum.Quality);
-			this.tField = new t(tBasicTypeEnum.Timestamp);
-			this.subEnaField = new subEna(tBasicTypeEnum.BOOLEAN);	
-			this.subValField = new subVal(tBasicTypeEnum.BOOLEAN);
-			this.subQField = new subQ(tBasicTypeEnum.Quality);
-			this.subIDField = new subID(tBasicTypeEnum.VisString64); 
-			this.dField = new d(tBasicTypeEnum.VisString255); 	
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);  	
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255); 
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);				
+			this.stValField = new BOOLEAN("stVal", tFCEnum.ST);
+			this.qField = new Quality("q", tFCEnum.ST);
+			this.tField = new Timestamp("t", tFCEnum.ST);
+			this.subEnaField = new BOOLEAN("subEna", tFCEnum.SV);	
+			this.subValField = new BOOLEAN("subVal", tFCEnum.SV);
+			this.subQField = new Quality("subQ", tFCEnum.SV);
+			this.subIDField = new VisString64("subID", tFCEnum.SV); 
+			this.dField = new VisString255("d", tFCEnum.DC); 	
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);  	
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX); 
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);				
 		}
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -7566,7 +7509,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -7579,7 +7522,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -7592,20 +7535,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public DataName DataName
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
-		} 
-		
-		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -7618,7 +7548,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU
+		public Unicode255 dU
 		{
 			get
 			{
@@ -7632,7 +7562,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public q q
+		public Quality q
 		{
 			get
 			{
@@ -7646,7 +7576,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public stVal stVal
+		public BOOLEAN stVal
 		{
 			get
 			{
@@ -7659,7 +7589,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public subEna subEna
+		public BOOLEAN subEna
 		{
 			get
 			{
@@ -7672,7 +7602,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public subID subID
+		public VisString64 subID
 		{
 			get
 			{
@@ -7685,7 +7615,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public subQ subQ
+		public Quality subQ
 		{
 			get
 			{
@@ -7698,7 +7628,7 @@ namespace IEC61850.SCL
 		} 	
 		
 		[Browsable(false)]
-		public subVal subVal
+		public BOOLEAN subVal
 		{
 			get
 			{
@@ -7712,7 +7642,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[Browsable(false)]
-		public t t
+		public Timestamp t
 		{
 			get
 			{
@@ -7731,19 +7661,18 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class  WYE : DOData
 	{		
-		private DataName DataNameField; 
-		private phsA phsAField;
-		private phsB phsBField;
-		private phsC phsCField; 
-		private neut neutField;
-		private net netField; 
-		private res resField;	
+		private CMV phsAField;
+		private CMV phsBField;
+		private CMV phsCField; 
+		private CMV neutField;
+		private CMV netField; 
+		private CMV resField;	
 		private angRef angRefField;
-		private d dField;
-		private dU dUField;
-		private cdcNs cdcNsField;
-		private cdcName cdcNameField;
-		private dataNs dataNsField;
+		private VisString255 dField;
+		private Unicode255 dUField;
+		private VisString255 cdcNsField;
+		private VisString255 cdcNameField;
+		private VisString255 dataNsField;
 	
 		/// <summary>
 		/// Phase to ground related measured values of a three phase system (WYE)
@@ -7761,32 +7690,19 @@ namespace IEC61850.SCL
 		{
 			this.cdc = "WYE";
 			this.id = this.type;
-			this.iedType = iedType;				
-			this.DataNameField = new DataName(iedType, this.id); 			
-			this.phsAField = new phsA(iedType, this.id);
-			CMV CMVField = new CMV("", this.phsAField.id, iedType);
-			this.phsAField.SetLinkDOData(CMVField);			
-			this.phsBField = new phsB(iedType, this.id);
-			CMVField = new CMV("", this.phsBField.id, iedType);
-			this.phsBField.SetLinkDOData(CMVField);			
-			this.phsCField = new phsC(iedType, this.id); 
-			CMVField = new CMV("", this.phsCField.id, iedType);
-			this.phsCField.SetLinkDOData(CMVField);			
-			this.neutField = new neut(iedType, this.id); 
-			CMVField = new CMV("", this.neutField.id, iedType);
-			this.neutField.SetLinkDOData(CMVField);			
-			this.netField = new net(iedType, this.id); 
-			CMVField = new CMV("", this.netField.id, iedType);
-			this.netField.SetLinkDOData(CMVField);			
-			this.resField = new res(iedType, this.id);
-			CMVField = new CMV("", this.resField.id, iedType);
-			this.resField.SetLinkDOData(CMVField);			
-			this.angRefField = new angRef(tBasicTypeEnum.Enum);
-			this.dField = new d(tBasicTypeEnum.VisString255); 	
-			this.dUField = new dU(tBasicTypeEnum.Unicode255);
-			this.cdcNsField = new cdcNs(tBasicTypeEnum.VisString255);  	
-			this.cdcNameField = new cdcName(tBasicTypeEnum.VisString255); 
-			this.dataNsField = new dataNs(tBasicTypeEnum.VisString255);				
+			this.iedType = iedType;							
+			this.phsAField = new CMV("phsA", this.id, iedType);							
+			this.phsBField = new CMV("phsB", this.id, iedType);									
+			this.phsCField = new CMV("phsC", this.id, iedType);	
+			this.neutField = new CMV("neut", this.id, iedType);
+			this.netField = new CMV("net", this.id, iedType); 						
+			this.resField = new CMV("res", this.id, iedType);			
+			this.angRefField = new angRef(tFCEnum.CF);
+			this.dField = new VisString255("d", tFCEnum.DC); 	
+			this.dUField = new Unicode255("dU",tFCEnum.DC);
+			this.cdcNsField = new VisString255("cdcNs", tFCEnum.EX);  	
+			this.cdcNameField = new VisString255("cdcName", tFCEnum.EX); 
+			this.dataNsField = new VisString255("dataNs", tFCEnum.EX);				
 		}
 		
 		[Browsable(false)]
@@ -7803,7 +7719,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public cdcName cdcName
+		public VisString255 cdcName
 		{
 			get
 			{
@@ -7816,7 +7732,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public cdcNs cdcNs
+		public VisString255 cdcNs
 		{
 			get
 			{
@@ -7829,7 +7745,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public d d
+		public VisString255 d
 		{
 			get
 			{
@@ -7839,23 +7755,10 @@ namespace IEC61850.SCL
 			{
 				this.dField = value;
 			}
-		} 	
-		
-		[Browsable(false)]
-		public DataName DataName
-		{
-			get
-			{
-				return this.DataNameField;
-			}
-			set
-			{
-				this.DataNameField = value;
-			}
 		} 		
 		
 		[Browsable(false)]
-		public dataNs dataNs
+		public VisString255 dataNs
 		{
 			get
 			{
@@ -7868,7 +7771,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public dU dU
+		public Unicode255 dU
 		{
 			get
 			{
@@ -7881,7 +7784,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public net net
+		public CMV net
 		{
 			get
 			{
@@ -7894,7 +7797,7 @@ namespace IEC61850.SCL
 		}	
 		
 		[Browsable(false)]
-		public neut neut
+		public CMV neut
 		{
 			get
 			{
@@ -7907,7 +7810,7 @@ namespace IEC61850.SCL
 		} 
 		
 		[Browsable(false)]
-		public phsA phsA
+		public CMV phsA
 		{
 			get
 			{
@@ -7920,7 +7823,7 @@ namespace IEC61850.SCL
 		} 		
 		
 		[Browsable(false)]
-		public phsB phsB
+		public CMV phsB
 		{
 			get
 			{
@@ -7933,7 +7836,7 @@ namespace IEC61850.SCL
 		}		
 		
 		[Browsable(false)]
-		public phsC phsC
+		public CMV phsC
 		{
 			get
 			{
@@ -7946,7 +7849,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Browsable(false)]
-		public res res
+		public CMV res
 		{
 			get
 			{
@@ -7959,59 +7862,18 @@ namespace IEC61850.SCL
 		} 
 	}	
 		
-	/**********************************************************************************************/
-	
 	/// <summary>
-	/// Binary counter status represented as an integer value.
-	/// tBasicTypeEnum.INT128
-	/// </summary>	
-	public class actVal :DADataType
-	{
-		public actVal(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "actVal";
-			this.bType = basicTypeEnum;
-			this.iedType = iedType;
-		}
-	}
-	
-	/// <summary>
-	/// Additional information that may give further clarification as to the last detected violation.
-	/// tBasicTypeEnum.VisString64
-	/// </summary>
-	public class addInfo :DADataType
-	{
-		public addInfo(tBasicTypeEnum basicTypeEnum)
-		{									
-			this.name = "addInfo";
-			this.bType = basicTypeEnum;
-		}
-	}
-		
-	/// <summary>
-	/// Address of the remote source that last caused the count to be incremented.
-	/// tBasicTypeEnum.Octet64
-	/// </summary>
-	public class addr :DADataType
-	{
-		public addr(tBasicTypeEnum basicTypeEnum)
-		{											
-			this.name = "addr";
-			this.bType = basicTypeEnum;
-		}
-	}
-	
-/// <summary>
 	/// Angle reference.
 	/// tBasicTypeEnum.Enum
 	/// </summary>
-	public class angRef  :DADataType
+	public class angRef : DADataType
 	{
 		ConversionObject conversionObject;
-		public angRef(tBasicTypeEnum basicTypeEnum)
+		public angRef(tFCEnum fCEnum)
 		{					
 			this.name = "angRef";
-			this.bType = basicTypeEnum;
+			this.bType = tBasicTypeEnum.Enum;
+			this.fc = fCEnum;
 			this.iedType = iedType;			
 			conversionObject = new ConversionObject();			
 			if(this.Value==null)
@@ -8051,13 +7913,15 @@ namespace IEC61850.SCL
 	{
 		private ScaledValueConfig scaledValueConfigField;
 		
-		public angSVC(string iedType, string lnType)
+		public angSVC(string iedType, string lnType, tFCEnum fCEnum)
 		{				
 			this.name = "angSVC";
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"angSVC";
 			this.iedType = iedType;
 			this.scaledValueConfigField = new ScaledValueConfig(iedType, this.id);
+			this.scaledValueConfigField.CheckSelection = true;			
 		}
 		
 		public ScaledValueConfig ScaledValueConfig
@@ -8074,177 +7938,22 @@ namespace IEC61850.SCL
 	}
 	
 	/// <summary>
-	/// Sequence component 1.
-	/// </summary>
-	public class c1 : SDOSDIDOTypeDA
-	{
-		private DOData c1DOData;
-		
-		public c1(string iedType, string lnType)
-		{
-			this.name = "c1";						
-			this.id = this.type = lnType+"c1";
-			this.iedType = iedType;		
-			this.bType = tBasicTypeEnum.Struct;
-		}	
-		
-		public void SetLinkDOData(DOData c1DOData)
-		{
-			this.c1DOData = c1DOData;
-			this.cdc = c1DOData.cdc;
-			this.c1DOData.id = this.type;
-		}
-		
-		public DOData DOData
-		{
-			get
-			{
-				return this.c1DOData;
-			}
-			set
-			{
-				this.c1DOData = value;
-			}
-		}
-	}
-	
-	/// <summary>
-	/// Sequence component 2.
-	/// </summary>
-	public class c2 : SDOSDIDOTypeDA
-	{
-		private DOData c2DOData;
-		
-		public c2(string iedType, string lnType)
-		{
-			this.name = "c2";						
-			this.id = this.type = lnType+"c2";
-			this.iedType = iedType;	
-			this.bType = tBasicTypeEnum.Struct;
-		}		
-		
-		public void SetLinkDOData(DOData c2DOData)
-		{
-			this.c2DOData = c2DOData;
-			this.cdc = c2DOData.cdc;
-			this.c2DOData.id = this.type;
-		}
-		
-		public DOData DOData
-		{
-			get
-			{
-				return this.c2DOData;
-			}
-			set
-			{
-				this.c2DOData = value;
-			}
-		}
-	}
-	
-	/// <summary>
-	/// Sequence component 3.
-	/// </summary>
-	public class c3 : SDOSDIDOTypeDA
-	{
-		private DOData c3DOData;
-		
-		public c3(string iedType, string lnType)
-		{
-			this.name = "c3";						
-			this.id = this.type = lnType+"c3";
-			this.iedType = iedType;			
-			this.bType = tBasicTypeEnum.Struct;
-		}			
-		
-		public void SetLinkDOData(DOData c3DOData)
-		{
-			this.c3DOData = c3DOData;
-			this.cdc = c3DOData.cdc;
-			this.c3DOData.id = this.type;
-		}
-		
-		public DOData DOData
-		{
-			get
-			{
-				return this.c3DOData;
-			}
-			set
-			{
-				this.c3DOData = value;
-			}
-		}
-	}
-	
-	/// <summary>
-	/// Name of the common data class.
-	/// tBasicTypeEnum.VisString255
-	/// </summary>
-	public class cdcName : DADataType
-	{
-		public cdcName(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "cdcName";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// Common data class name space.
-	/// tBasicTypeEnum.VisString255
-	/// </summary>
-	public class cdcNs : DADataType
-	{
-		public cdcNs(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "cdcNs";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// Counter value of security violations.
-	/// tBasicTypeEnum.INT32U
-	/// </summary>
-	public class cnt : DADataType
-	{		
-		public cnt(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "cnt";
-			this.bType = basicTypeEnum;				
-		}
-	}
-	
-	/// <summary>
-	/// Uniquely identifies the configuration of a logical device instance.
-	/// tBasicTypeEnum.VisString255
-	/// </summary>
-	public class configRev :DADataType
-	{		
-		public configRev (tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "configRev ";
-			this.bType = basicTypeEnum;
-		}
-	}
-	
-	/// <summary>
 	/// The array with the points specifying a curve shape.
 	/// </summary>	
 	public class crvPts :SDIDADataTypeBDA
 	{		
 		private Point PointField;
 		
-		public crvPts(string iedType, string lnType)
+		public crvPts(string iedType, string lnType, tFCEnum fCEnum)
 		{		
 			this.iedType = iedType;
 			this.name = "crvPts";
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"crvPts";
 			this.bType = tBasicTypeEnum.Struct;
 			this.PointField = new Point(iedType, this.id);				
+			this.PointField.CheckSelection = true;
 		}
 		
 		public Point Point
@@ -8265,62 +7974,30 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class ctlModel : SDIDADataTypeBDA
 	{
-		private Ctlmodels CtlmodelsField;
+		private ctlModels ctlModelsField;
+		ConversionObject conversionObject;
 		
-		public ctlModel(string iedType, string lnType)
+		public ctlModel(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "ctlModel";
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"ctlModel";
 			this.iedType = iedType;
-			this.bType = tBasicTypeEnum.Struct;
-			this.CtlmodelsField = new Ctlmodels(tBasicTypeEnum.Enum);
-		}
-		
-		public Ctlmodels Ctlmodels
-		{
-			get
-			{
-				return this.CtlmodelsField;
-			}
-			set
-			{
-				this.CtlmodelsField = value;
-			}
-		}
-	}
-	
-	/// <summary>
-	/// It shows the control sequence number of the control service.
-	/// tBasicTypeEnum.INT8U
-	/// </summary>
-	public class ctlNum :DADataType
-	{
-		public ctlNum(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "ctlNum";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary> 
-	///  Determines the control activity.
-	/// </summary>
-	public class ctlVal : DADataType
-	{
-		ConversionObject conversionObject;	
-		public ctlVal(tBasicTypeEnum basicTypeEnum)
-		{			
+			this.ctlModelsField = new ctlModels();
+			this.ctlModelsField.CheckSelection = true;
+		}	
+		public ctlModel (tFCEnum fCEnum)
+		{		
 			conversionObject = new ConversionObject();
 			if(this.Value==null)
 			{
-				this.Value = this.conversionObject.SetEnumObjectToString(ctlValEnum.stop);
+				this.Value = this.conversionObject.SetEnumObjectToString(ctlModelsEnum.status_only);
 			}	
-			this.name = "ctlVal";
-			this.bType = basicTypeEnum;
-			this.iedType = iedType;					
-			this.id = this.type = "ctlValEnum";			
-			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(ctlValEnum));			
+			this.name = "ctlModel";
+			this.bType = tBasicTypeEnum.Enum;
+			this.id = this.type = "ctlModelsEnum";	
+			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(ctlModelsEnum));			
 			this.EnumVal = new tEnumVal[valuesEnumArray.Length];
 			for(int x = 0; x < valuesEnumArray.Length; x++)
 			{
@@ -8332,11 +8009,93 @@ namespace IEC61850.SCL
 		}
 			
 		[Category("DA"), DisplayName("Value"), Description("Value of attribute.")]
-		public ctlValEnum tValue
+		public ctlModelsEnum tValue
 		{			
 			get
 			{
-				return (ctlValEnum) this.conversionObject.SetStringToEnumObject(this.Value, typeof(ctlValEnum));			
+				return (ctlModelsEnum) this.conversionObject.SetStringToEnumObject(this.Value, typeof(ctlModelsEnum));			
+			}
+			set
+			{
+				this.Value = this.conversionObject.SetEnumObjectToString(value);				
+			}
+		}
+		
+		public ctlModels ctlModels
+		{
+			get
+			{
+				return this.ctlModelsField;
+			}
+			set
+			{
+				this.ctlModelsField = value;
+			}
+		}
+	}
+	
+	/// <summary> 
+	///  Determines the control activity.
+	/// </summary>
+	/// <remarks>	
+	/// The set of values for ctlValEnum and valModEnum was modified and a constructor method was created 
+	/// to fullfill the standard IEC61850 Ed.1.0.
+	/// </remarks>
+	public class ctlVal : DADataType
+	{
+		ConversionObject conversionObject;	
+	
+		public ctlVal()
+		{			
+			conversionObject = new ConversionObject();
+			if(this.Value==null)
+			{
+				this.Value = this.conversionObject.SetEnumObjectToString(valModEnum.on);
+			}	
+			this.name = "ctlVal";
+			this.bType = tBasicTypeEnum.Enum;			
+			this.iedType = iedType;					
+			this.id = this.type = "ctlValEnum";			
+			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(valModEnum));			
+			this.EnumVal = new tEnumVal[valuesEnumArray.Length];
+			for(int x = 0; x < valuesEnumArray.Length; x++)
+			{
+				tEnumVal enumVal = new tEnumVal();
+				enumVal.ord = ((int) valuesEnumArray.GetValue(x)).ToString();
+				enumVal.Value = valuesEnumArray.GetValue(x).ToString();
+				this.EnumVal[x] = enumVal;
+			}								
+		}
+	
+		public ctlVal(tFCEnum fCEnum)
+		{			
+			conversionObject = new ConversionObject();
+			if(this.Value==null)
+			{
+				this.Value = this.conversionObject.SetEnumObjectToString(valModEnum.on);
+			}	
+			this.name = "ctlVal";
+			this.bType = tBasicTypeEnum.Enum;
+			this.fc = fCEnum;
+			this.iedType = iedType;					
+			this.id = this.type = "ctlValEnum";			
+			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(valModEnum));			
+			this.EnumVal = new tEnumVal[valuesEnumArray.Length];
+			for(int x = 0; x < valuesEnumArray.Length; x++)
+			{
+				tEnumVal enumVal = new tEnumVal();
+				enumVal.ord = ((int) valuesEnumArray.GetValue(x)).ToString();
+				enumVal.Value = valuesEnumArray.GetValue(x).ToString();
+				this.EnumVal[x] = enumVal;
+			}								
+		}
+			
+		[Category("DA"), DisplayName("Value"), Description("Value of attribute.")]
+		public valModEnum tValue
+		{			
+			get
+			{
+				return (valModEnum) this.conversionObject.SetStringToEnumObject(this.Value, typeof(valModEnum));			
 			}
 			set
 			{
@@ -8353,12 +8112,14 @@ namespace IEC61850.SCL
 	{		
 		private Vector VectorField;
 		
-		public cVal(string iedType, string lnType)
+		public cVal(string iedType, string lnType, tFCEnum fCEnum)
 		{	this.name = "cVal";
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"cVal";
 			this.iedType = iedType;			
 			this.VectorField = new Vector(iedType, this.id);			
+			this.VectorField.CheckSelection = true;
 		}	
 		
 		public Vector Vector	
@@ -8375,52 +8136,13 @@ namespace IEC61850.SCL
 	}
 	
 	/// <summary>
-	/// Textual description of the data.
-	/// tBasicTypeEnum.VisString255
-	/// </summary>
-	public class d : DADataType
-	{
-		public d(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "d";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// Data name space. 
-	/// tBasicTypeEnum.VisString255
-	/// </summary>
-	public class dataNs : DADataType
-	{
-		public dataNs(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "dataNs";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// Deadband.
-	/// tBasicTypeEnum.INT32U
-	/// </summary>
-	public class db :DADataType
-	{		
-		public db(tBasicTypeEnum basicTypeEnum)
-		{					
-			this.name = "db";
-			this.bType = basicTypeEnum;			
-		}
-	}	
-	
-	/// <summary>
 	/// General direction of the fault.
 	/// tBasicTypeEnum.Enum
 	/// </summary>
 	public class dirGeneral :DADataType
 	{		
 		ConversionObject conversionObject;	
-		public dirGeneral(tBasicTypeEnum basicTypeEnum)
+		public dirGeneral(tFCEnum fCEnum)
 		{			
 			conversionObject = new ConversionObject();
 			if(this.Value==null)
@@ -8428,7 +8150,8 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(dirGeneralEnum.unknown);
 			}	
 			this.name = "dirGeneral";
-			this.bType = basicTypeEnum;
+			this.bType = tBasicTypeEnum.Enum;
+			this.fc = fCEnum;
 			this.iedType = iedType;					
 			this.id = this.type = "dirGeneralEnum";			
 			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(dirGeneralEnum));			
@@ -8463,7 +8186,8 @@ namespace IEC61850.SCL
 	public class dirNeut :DADataType
 	{		
 		ConversionObject conversionObject;		
-		public dirNeut(tBasicTypeEnum basicTypeEnum)
+		
+		public dirNeut(tFCEnum fCEnum)
 		{		
 			conversionObject = new ConversionObject();			
 			if(this.Value==null)
@@ -8471,7 +8195,8 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(dirEnum.unknown);
 			}	
 			this.name = "dirNeut";
-			this.bType = basicTypeEnum;
+			this.bType = tBasicTypeEnum.Enum;
+			this.fc = fCEnum;
 			this.iedType = iedType;					
 			this.id = this.type = "dirNeutEnum";			
 			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(dirEnum));			
@@ -8505,7 +8230,8 @@ namespace IEC61850.SCL
 	public class dirPhsA :DADataType
 	{		
 		ConversionObject conversionObject;		
-		public dirPhsA(tBasicTypeEnum basicTypeEnum)
+		
+		public dirPhsA(tFCEnum fCEnum)
 		{		
 			conversionObject = new ConversionObject();			
 			if(this.Value==null)
@@ -8513,7 +8239,8 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(dirEnum.unknown);
 			}	
 			this.name = "dirPhsA";
-			this.bType = basicTypeEnum;
+			this.bType = tBasicTypeEnum.Enum;
+			this.fc = fCEnum;
 			this.iedType = iedType;					
 			this.id = this.type = "dirPhsAEnum";			
 			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(dirEnum));			
@@ -8547,7 +8274,8 @@ namespace IEC61850.SCL
 	public class dirPhsB :DADataType
 	{		
 		ConversionObject conversionObject;		
-		public dirPhsB(tBasicTypeEnum basicTypeEnum)
+		
+		public dirPhsB(tFCEnum fCEnum)
 		{				
 			conversionObject = new ConversionObject();			
 			if(this.Value==null)
@@ -8555,7 +8283,8 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(dirEnum.unknown);
 			}
 			this.name = "dirPhsB";
-			this.bType = basicTypeEnum;
+			this.bType = tBasicTypeEnum.Enum;
+			this.fc = fCEnum;
 			this.iedType = iedType;					
 			this.id = this.type = "dirPhsBEnum";			
 			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(dirEnum));			
@@ -8589,7 +8318,8 @@ namespace IEC61850.SCL
 	public class dirPhsC :DADataType
 	{		
 		ConversionObject conversionObject;		
-		public dirPhsC(tBasicTypeEnum basicTypeEnum)
+		
+		public dirPhsC(tFCEnum fCEnum)
 		{		
 			conversionObject = new ConversionObject();			
 			if(this.Value==null)
@@ -8597,7 +8327,8 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(dirEnum.unknown);
 			}	
 			this.name = "dirPhsC";
-			this.bType = basicTypeEnum;
+			this.bType = tBasicTypeEnum.Enum;
+			this.fc = fCEnum;
 			this.iedType = iedType;					
 			this.id = this.type = "dirPhsCEnum";			
 			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(dirEnum));			
@@ -8626,156 +8357,14 @@ namespace IEC61850.SCL
 	}
 
 	/// <summary>
-	/// Textual description of the data using unicode characters.
-	/// tBasicTypeEnum.Unicode255
-	/// </summary>
-	public class dU : DADataType
-	{
-		public dU(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "dU";
-			this.bType = basicTypeEnum;			
-		}
-	}
-
-	/// <summary>
-	/// Number of points used to define a curve.
-	/// tBasicTypeEnum.INT16U
-	/// </summary>
-	public class numPts : DADataType
-	{
-		public numPts(tBasicTypeEnum basicTypeEnum)
-		{				
-			this.name = "numPts";
-			this.bType = basicTypeEnum;			
-		}
-	}
-
-	/// <summary>
-	/// Time window applied to interharmonic calculations.
-	/// tBasicTypeEnum.INT16U
-	/// </summary>
-	public class evalTm :DADataType
-	{		
-		public evalTm(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "evalTm";
-			this.bType = basicTypeEnum;			
-		}
-	}
-		
-	/// <summary>
-	/// Controls the freeze, process.
-	/// tBasicTypeEnum.BOOLEAN
-	/// </summary>
-	public class frEna :DADataType
-	{		
-		public frEna(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "frEna";
-			this.bType = basicTypeEnum;
-		}
-	}
-	
-	/// <summary>
-	/// Nominal frequency of the power system or some other fundamental frequency in Hz.
-	/// tBasicTypeEnum.FLOAT32
-	/// </summary>
-	public class frequency :DADataType
-	{		
-		public frequency(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "frequency";
-			this.bType = basicTypeEnum;					
-		}
-	}
-	
-	/// <summary>
-	/// Time interval in ms between freeze operations.
-	/// tBasicTypeEnum.INT32
-	/// </summary>
-	public class frPd :DADataType
-	{		
-		public frPd(tBasicTypeEnum basicTypeEnum)
-		{				
-			this.name = "frPd";
-			this.bType = basicTypeEnum;			
-		}
-	}	
-	
-	/// <summary>
-	/// Indicates that counter is to be automatically reset to zero after each freezing process.
-	/// tBasicTypeEnum.BOOLEAN
-	/// </summary>
-	public class frRs :DADataType
-	{		
-		public frRs(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "frRs";
-			this.bType = basicTypeEnum;
-		}
-	}
-	
-	/// <summary>
-	/// Time of the last counter freeze.
-	/// tBasicTypeEnum.Timestamp
-	/// </summary>
-	public class frTm :DADataType
-	{		
-		public frTm(tBasicTypeEnum basicTypeEnum)
-		{					
-			this.name = "frTm";
-			this.bType = basicTypeEnum;
-		}
-	}
-	
-	/// <summary>
-	/// Frozen binary counter status represented as an integer value.
-	/// tBasicTypeEnum.INT128
-	/// </summary>
-	public class frVal : DADataType
-	{		
-		public frVal(tBasicTypeEnum basicTypeEnum)
-		{				
-			this.name = "frVal";
-			this.bType = basicTypeEnum;
-		}
-	}
-		
-	/// <summary>
-	/// Logical "or" of the phase values.
-	/// tBasicTypeEnum.BOOLEAN
-	/// </summary>
-	public class general :DADataType
-	{		
-		public general(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "general";
-			this.bType = basicTypeEnum;
-		}
-	}
-	
-	/// <summary>
-	/// This array shall contain the harmonic and subharmonic or the interharmonic values.
-	/// tBasicTypeEnum 
-	/// </summary>
-	public class har :DADataType
-	{		
-		public har(tBasicTypeEnum basicTypeEnum)
-		{					
-			this.name = "har";
-			this.bType = basicTypeEnum;
-		}
-	}	
-	
-	/// <summary>
 	/// Specifies the reference type which the data attribute mag of the data attribute type Vector 
 	/// contain.
 	/// </summary>
 	public class hvRef :DADataType
 	{		
 		ConversionObject conversionObject;		
-		public hvRef(tBasicTypeEnum basicTypeEnum)
+		
+		public hvRef(tFCEnum fCEnum)
 		{		
 			conversionObject = new ConversionObject();			
 			if(this.Value==null)
@@ -8783,7 +8372,8 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(hvRefEnum.fundamental);
 			}	
 			this.name = "hvRef";
-			this.bType = basicTypeEnum;
+			this.bType = tBasicTypeEnum.Enum;
+			this.fc = fCEnum;
 			this.iedType = iedType;			
 			this.id = this.type = "hvRefEnum";			
 			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(hvRefEnum));			
@@ -8812,31 +8402,21 @@ namespace IEC61850.SCL
 	}	
 	
 	/// <summary>
-	/// HW-revision.
-	/// tBasicTypeEnum.VisString255
-	/// </summary>
-	public class hwRev :DADataType
-	{
-		public hwRev(tBasicTypeEnum basicTypeEnum)
-		{				
-			this.name = "hwRev";
-			this.bType = basicTypeEnum;
-		}
-	}
-		
-	/// <summary>
 	/// Instant value of a vector type value.
 	/// </summary>
 	public class instCVal : SDIDADataTypeBDA
 	{
 		private Vector VectorField;		
-		public instCVal(string iedType, string lnType)
+		
+		public instCVal(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "instCVal";
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"instCVal";
 			this.iedType = iedType;		
 			this.VectorField = new Vector(iedType, this.id);			
+			this.VectorField.CheckSelection = true;
 		}
 				
 		public Vector Vector	
@@ -8859,13 +8439,15 @@ namespace IEC61850.SCL
 	{
 		private AnalogueValue AnalogueValueField;
 		
-		public instMag(string iedType, string lnType)
+		public instMag(string iedType, string lnType, tFCEnum fCEnum)
 		{	
 			this.name = "instMag";
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"instMag";
 			this.iedType = iedType;			
 			this.AnalogueValueField = new AnalogueValue(iedType, this.id);
+			this.AnalogueValueField.CheckSelection = true;
 		}
 		
 		public AnalogueValue AnalogueValue
@@ -8882,50 +8464,22 @@ namespace IEC61850.SCL
 	}
 
 	/// <summary>
-	/// Logical device name space.
-	/// tBasicTypeEnum.VisString255
-	/// </summary>
-	public class ldNs :DADataType
-	{
-		public ldNs(tBasicTypeEnum basicTypeEnum)
-		{						
-			this.name = "ldNs";
-			this.bType = basicTypeEnum;
-		}
-	}
-	
-	/// <summary>
-	/// Logical node name space. 
-	/// tBasicTypeEnum.VisString255
-	/// </summary>
-	public class lnNs :DADataType
-	{
-		public lnNs(tBasicTypeEnum basicTypeEnum)
-		{	
-			this.name = "lnNs";
-			this.bType = basicTypeEnum;
-		}
-	}
-	
-	//tBasicTypeEnum.VisString255
-	/// <summary>
-	/// Location, where the equipment is installed.
-	/// </summary>
-	public class location :DADataType
-	{
-		public location(tBasicTypeEnum basicTypeEnum)
-		{				
-			this.name = "location";
-			this.bType = basicTypeEnum;
-		}
-	}
-	
-	/// <summary>
 	/// Deadbanded value.
 	/// </summary>
 	public class mag : SDIDADataTypeBDA
 	{
 		private AnalogueValue AnalogueValueField;		
+		
+		public mag(string iedType, string lnType, tFCEnum fCEnum)
+		{
+			this.name = "mag";
+			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
+			this.id = this.type = lnType+"mag";
+			this.iedType = iedType;			
+			this.AnalogueValueField = new AnalogueValue(iedType, this.id);
+			this.AnalogueValueField.CheckSelection = true;
+		}
 		
 		public mag(string iedType, string lnType)
 		{
@@ -8934,6 +8488,7 @@ namespace IEC61850.SCL
 			this.id = this.type = lnType+"mag";
 			this.iedType = iedType;			
 			this.AnalogueValueField = new AnalogueValue(iedType, this.id);
+			this.AnalogueValueField.CheckSelection = true;
 		}
 		
 		public AnalogueValue AnalogueValue
@@ -8956,13 +8511,15 @@ namespace IEC61850.SCL
 	{
 		private ScaledValueConfig scaledValueConfigField;
 		
-		public magSVC(string iedType, string lnType)
+		public magSVC(string iedType, string lnType, tFCEnum fCEnum)
 		{				
 			this.name = "magSVC";
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"magSVC";
 			this.iedType = iedType;
 			this.scaledValueConfigField = new ScaledValueConfig(iedType, this.id);
+			this.scaledValueConfigField.CheckSelection = true;
 		}
 		
 		public ScaledValueConfig ScaledValueConfig
@@ -8985,6 +8542,17 @@ namespace IEC61850.SCL
 	{
 		private AnalogueValue AnalogueValueField;
 		
+		public max(string iedType, string lnType, tFCEnum fCEnum)
+		{
+			this.name = "max";
+			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
+			this.id = this.type = lnType+"max";
+			this.iedType = iedType;
+			this.AnalogueValueField = new AnalogueValue(iedType, this.id);
+			this.AnalogueValueField.CheckSelection = true;
+		}
+		
 		public max(string iedType, string lnType)
 		{
 			this.name = "max";
@@ -8992,6 +8560,7 @@ namespace IEC61850.SCL
 			this.id = this.type = lnType+"max";
 			this.iedType = iedType;
 			this.AnalogueValueField = new AnalogueValue(iedType, this.id);
+			this.AnalogueValueField.CheckSelection = true;
 		}
 		
 		public AnalogueValue AnalogueValue
@@ -9015,36 +8584,27 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class maxVal : SDIDADataTypeBDA
 	{
-		private SDIDADataTypeBDA maxValStructure;
+		private AnalogueValue AnalogueValueField;				
 		
-		public maxVal(tBasicTypeEnum basicTypeEnum)
-		{				
-			this.name = "maxVal";
-			this.bType = basicTypeEnum;
-		}
-		
-		public maxVal(string iedType, string lnType)
+		public maxVal(string iedType, string lnType, tFCEnum fCEnum)
 		{				
 			this.name = "maxVal";
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"maxVal";
 			this.iedType = iedType;			
+			this.AnalogueValueField = new AnalogueValue(iedType, this.id);
+			this.AnalogueValueField.CheckSelection = true;
 		}
-		
-		public void SetLinkSDIDADataTypeBDA(SDIDADataTypeBDA maxValStructure)
-		{
-			this.maxValStructure = maxValStructure;
-		}
-		
-		public SDIDADataTypeBDA SDIDADataTypeBDA
+		public AnalogueValue AnalogueValue
 		{
 			get
 			{
-				return this.maxValStructure;
+				return this.AnalogueValueField;
 			}
 			set
 			{
-				this.maxValStructure = value;
+				this.AnalogueValueField = value;
 			}
 		}
 	}
@@ -9056,6 +8616,17 @@ namespace IEC61850.SCL
 	{
 		private AnalogueValue AnalogueValueField;
 		
+		public min(string iedType, string lnType, tFCEnum fCEnum)
+		{
+			this.name = "min";
+			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;			
+			this.id = this.type = lnType+"min";
+			this.iedType = iedType;
+			this.AnalogueValueField = new AnalogueValue(iedType, this.id);
+			this.AnalogueValueField.CheckSelection = true;
+		}
+		
 		public min(string iedType, string lnType)
 		{
 			this.name = "min";
@@ -9063,6 +8634,7 @@ namespace IEC61850.SCL
 			this.id = this.type = lnType+"min";
 			this.iedType = iedType;
 			this.AnalogueValueField = new AnalogueValue(iedType, this.id);
+			this.AnalogueValueField.CheckSelection = true;
 		}
 		
 		public AnalogueValue AnalogueValue
@@ -9086,167 +8658,28 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class minVal : SDIDADataTypeBDA
 	{
-		private SDIDADataTypeBDA minValStructure;
+		private AnalogueValue AnalogueValueField;
 		
-		public minVal(tBasicTypeEnum basicTypeEnum)
-		{				
-			this.name = "minVal";
-			this.bType = basicTypeEnum;
-		}
-		
-		public minVal(string iedType, string lnType)
+		public minVal(string iedType, string lnType, tFCEnum fCEnum)
 		{				
 			this.name = "minVal";
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"minVal";
 			this.iedType = iedType;			
+			this.AnalogueValueField = new AnalogueValue(iedType, this.id);
+			this.AnalogueValueField.CheckSelection = true;
 		}
-		
-		public void SetLinkSDIDADataTypeBDA(SDIDADataTypeBDA minValStructure)
-		{
-			this.minValStructure = minValStructure;
-		}
-		
-		public SDIDADataTypeBDA SDIDADataTypeBDA
+		public AnalogueValue AnalogueValue
 		{
 			get
 			{
-				return this.minValStructure;
+				return this.AnalogueValueField;
 			}
 			set
 			{
-				this.minValStructure = value;
+				this.AnalogueValueField = value;
 			}
-		}
-	}	
-	
-	/// <summary>
-	/// Vendor specific product name.
-	/// tBasicTypeEnum.VisString255 
-	/// </summary>
-	public class model: DADataType
-	{
-		public model(tBasicTypeEnum basicTypeEnum)
-		{				
-			this.name = "model";
-			this.bType = basicTypeEnum;
-		}
-	}	
-	
-	/// <summary>
-	/// Net current.
-	/// </summary>
-	public class net : SDOSDIDOTypeDA
-	{
-		private DOData netDOData;
-		
-		public net(string iedType, string lnType)
-		{						
-			this.name = "net";
-			this.id = this.type = lnType+"net";
-			this.iedType = iedType;
-			this.bType = tBasicTypeEnum.Struct;
-		}
-		
-		public void SetLinkDOData(DOData netDOData)
-		{
-			this.netDOData = netDOData;
-			this.cdc = netDOData.cdc;
-			this.netDOData.id = this.type;
-		}
-		
-		public DOData DOData
-		{
-			get
-			{
-				return this.netDOData;
-			}
-			set
-			{
-				this.netDOData = value;
-			}
-		}
-	}
-	
-	/// <summary>
-	/// Start event with earth current.
-	/// tBasicTypeEnum.BOOLEAN
-	/// </summary>
-	public class neut :SDOSDIDOTypeDA
-	{
-		private DOData neutDOData;
-		
-		public neut(tBasicTypeEnum basicTypeEnum)
-		{				
-			this.name = "neut";
-			this.bType = basicTypeEnum;			
-		}
-		
-		public neut(string iedType, string lnType)
-		{
-			this.name = "neut";						
-			this.id = this.type = lnType+"neut";
-			this.iedType = iedType;			
-		}			
-		
-		public void SetLinkDOData(DOData neutDOData)
-		{
-			this.neutDOData = neutDOData;
-			this.cdc = neutDOData.cdc;
-			this.neutDOData.id = this.type;
-		}
-		
-		public DOData DOData
-		{
-			get
-			{
-				return this.neutDOData;
-			}
-			set
-			{
-				this.neutDOData = value;
-			}
-		}
-	}
-			
-	/// <summary>
-	/// Number of cycles of power frequency, which are used for harmonic, subharmonic and 
-	/// interharmonic calculation. 
-	/// tBasicTypeEnum.INT16U
-	/// </summary>
-	public class numCyc :DADataType
-	{
-		public numCyc(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "numCyc";
-			this.bType = basicTypeEnum;
-		}
-	}
-	
-	/// <summary>
-	/// Number of harmonic and subharmonics or interharmonic values that are to be returned as 
-	/// the value attribute. 
-	/// tBasicTypeEnum.INT16U
-	/// </summary>
-	public class numHar :DADataType
-	{
-		public numHar(tBasicTypeEnum basicTypeEnum)
-		{	
-			this.name = "numHar";
-			this.bType = basicTypeEnum;
-		}
-	}
-	
-	/// <summary>
-	/// Operation Time.
-	/// tBasicTypeEnum.Timestamp
-	/// </summary>
-	public class operTm :DADataType
-	{		
-		public operTm(tBasicTypeEnum basicTypeEnum)
-		{
-			this.name = "operTm";
-			this.bType = basicTypeEnum;
 		}
 	}	
 	
@@ -9257,7 +8690,18 @@ namespace IEC61850.SCL
 	public class origin : SDIDADataTypeBDA
 	{
 		private orCat orCatField;
-		private orIdent orIdentField;
+		private Octet64 orIdentField;
+		
+		public origin(string iedType, string lnType, tFCEnum fCEnum)
+		{
+			this.name = "origin";
+			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
+			this.id = this.type = lnType+"Originator";
+			this.iedType = iedType;			
+			this.orCatField = new orCat();
+			this.orIdentField = new Octet64("orIdent");			
+		}
 		
 		public origin(string iedType, string lnType)
 		{
@@ -9265,8 +8709,8 @@ namespace IEC61850.SCL
 			this.bType = tBasicTypeEnum.Struct;
 			this.id = this.type = lnType+"Originator";
 			this.iedType = iedType;			
-			this.orCatField = new orCat(tBasicTypeEnum.Enum);
-			this.orIdentField = new orIdent(tBasicTypeEnum.Octet64);			
+			this.orCatField = new orCat();
+			this.orIdentField = new Octet64("orIdent");			
 		}
 		
 		[Required]
@@ -9283,7 +8727,7 @@ namespace IEC61850.SCL
 		}
 		
 		[Required]
-		public orIdent orIdent
+		public Octet64 orIdent
 		{
 			get
 			{
@@ -9297,251 +8741,6 @@ namespace IEC61850.SCL
 	}
 
 	/// <summary>
-	/// Configures the control output.
-	/// tBasicTypeEnum.BOOLEAN
-	/// </summary>
-	public class persistent :DADataType
-	{
-		public persistent(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "persistent";
-			this.bType = basicTypeEnum;
-			this.iedType = iedType;
-		}
-	}
-		
-	/// <summary>
-	/// Trip or start event of phase A.
-	/// tBasicTypeEnum.BOOLEAN
-	/// </summary>
-	public class phsA :SDOSDIDOTypeDA
-	{
-		private DOData phsADOData;
-		
-		public phsA(tBasicTypeEnum basicTypeEnum)
-		{				
-			this.name = "phsA";
-			this.bType = basicTypeEnum;			
-		}	
-		
-		public phsA(string iedType, string lnType)
-		{
-			this.name = "phsA";						
-			this.id = this.type = lnType+"phsA";
-			this.iedType = iedType;			
-			this.bType = tBasicTypeEnum.Struct;
-		}	
-		
-		public void SetLinkDOData(DOData phsADOData)
-		{
-			this.phsADOData = phsADOData;
-			this.cdc = phsADOData.cdc;
-			this.phsADOData.id = this.type;
-		}
-		
-		public DOData DOData
-		{
-			get
-			{
-				return this.phsADOData;
-			}
-			set
-			{
-				this.phsADOData = value;
-			}
-		}
-	}
-		
-	/// <summary>
-	/// Value of phase A to phase B measurement. 
-	/// </summary>
-	public class phsAB : SDOSDIDOTypeDA
-	{
-		private DOData phsABDOData;
-		
-		public phsAB(string iedType, string lnType)
-		{
-			this.name = "phsAB";						
-			this.id = this.type = lnType+"phsAB";
-			this.iedType = iedType;			
-			this.bType = tBasicTypeEnum.Struct;
-		}	
-		
-		public void SetLinkDOData(DOData phsABDOData)
-		{
-			this.phsABDOData = phsABDOData;
-			this.cdc = phsABDOData.cdc;
-			this.phsABDOData.id = this.type;
-		}
-		
-		public DOData DOData
-		{
-			get
-			{
-				return this.phsABDOData;
-			}
-			set
-			{
-				this.phsABDOData = value;
-			}
-		}
-	}
-	
-	/// <summary>
-	/// Trip or start event of phase B.
-	/// tBasicTypeEnum.BOOLEAN
-	/// </summary>
-	public class phsB : SDOSDIDOTypeDA
-	{
-		private DOData phsBDOData;
-		
-		public phsB(tBasicTypeEnum basicTypeEnum)
-		{				
-			this.name = "phsB";
-			this.bType = basicTypeEnum;			
-		}	
-		
-		public phsB(string iedType, string lnType)
-		{
-			this.name = "phsB";						
-			this.id = this.type = lnType+"phsB";
-			this.iedType = iedType;			
-			this.bType = tBasicTypeEnum.Struct;
-		}	
-		
-		public void SetLinkDOData(DOData phsBDOData)
-		{
-			this.phsBDOData = phsBDOData;
-			this.cdc = phsBDOData.cdc;
-			this.phsBDOData.id = this.type;
-		}
-		
-		public DOData DOData
-		{
-			get
-			{
-				return this.phsBDOData;
-			}
-			set
-			{
-				this.phsBDOData = value;
-			}
-		}
-	}
-
-	/// <summary>
-	/// Value of phase B to phase C measurement.
-	/// </summary>
-	public class phsBC : SDOSDIDOTypeDA
-	{
-		private DOData phsBCDOData;
-		
-		public phsBC(string iedType, string lnType)
-		{
-			this.name = "phsBC";
-			this.id = this.type = lnType+"phsBC";
-			this.iedType = iedType;
-			this.bType = tBasicTypeEnum.Struct;
-		}
-		
-		public void SetLinkDOData(DOData phsBCDOData)
-		{
-			this.phsBCDOData = phsBCDOData;
-			this.cdc = phsBCDOData.cdc;
-			this.phsBCDOData.id = this.type;
-		}
-	
-		public DOData DOData
-		{
-			get
-			{
-				return this.phsBCDOData;
-			}
-			set
-			{
-				this.phsBCDOData = value;
-			}
-		}
-	}
-
-	/// <summary>
-	/// Value of phase C to phase A measurement.
-	/// </summary>
-	public class phsCA : SDOSDIDOTypeDA
-	{
-		private DOData phsCADOData;
-		
-		public phsCA(string iedType, string lnType)
-		{
-			this.name = "phsCA";
-			this.id = this.type = lnType+"phsCA";
-			this.iedType = iedType;
-			this.bType = tBasicTypeEnum.Struct;
-		}
-		
-		public void SetLinkDOData(DOData phsCADOData)
-		{
-			this.phsCADOData = phsCADOData;
-			this.cdc = phsCADOData.cdc;
-			this.phsCADOData.id = this.type;
-		}
-		
-		public DOData DOData
-		{
-			get
-			{
-				return this.phsCADOData;
-			}
-			set
-			{
-				this.phsCADOData = value;
-			}
-		}
-	}
-
-	/// <summary>
-	/// Trip or start event of phase A.
-	/// tBasicTypeEnum.BOOLEAN
-	/// </summary>
-	public class phsC :SDOSDIDOTypeDA
-	{
-		private DOData phsCDOData;
-		
-		public phsC(tBasicTypeEnum basicTypeEnum)
-		{				
-			this.name = "phsC";
-			this.bType = basicTypeEnum;			
-		}	
-		
-		public phsC(string iedType, string lnType)
-		{
-			this.name = "phsC";						
-			this.id = this.type = lnType+"phsC";
-			this.iedType = iedType;			
-			this.bType = tBasicTypeEnum.Struct;
-		}	
-		
-		public void SetLinkDOData(DOData phsCDOData)
-		{
-			this.phsCDOData = phsCDOData;
-			this.cdc = phsCDOData.cdc;
-			this.phsCDOData.id = this.type;
-		}
-		
-		public DOData DOData
-		{
-			get
-			{
-				return this.phsCDOData;
-			}
-			set
-			{
-				this.phsCDOData = value;
-			}
-		}
-	}	
-
-	/// <summary>
 	/// Indicates which phase has been used as reference for the transformation of phase values to 
 	/// sequence values.
 	/// tBasicTypeEnum.Enum
@@ -9550,7 +8749,7 @@ namespace IEC61850.SCL
 	{
 		ConversionObject conversionObject;	
 		
-		public phsRef(tBasicTypeEnum basicTypeEnum)
+		public phsRef(tFCEnum fCEnum)
 		{	
 			conversionObject = new ConversionObject();			
 			if(this.Value==null)
@@ -9558,7 +8757,8 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(phsRefEnum.A);
 			}	
 			this.name = "phsRef";
-			this.bType = basicTypeEnum;
+			this.bType = tBasicTypeEnum.Enum;
+			this.fc = fCEnum;
 			this.id = this.type = "phsRefEnum";
 			
 			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(phsRefEnum));			
@@ -9594,19 +8794,15 @@ namespace IEC61850.SCL
 	{
 		private PulseConfig PulseConfigField;
 		
-		public pulsQty(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "pulsQty";
-			this.bType = basicTypeEnum;			
-		}
-		
-		public pulsQty(string iedType, string lnType)
+		public pulsQty(string iedType, string lnType, tFCEnum fCEnum)
 		{			
 			this.name = "pulsQty";
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"pulsQty";
 			this.iedType = iedType;
 			this.PulseConfigField = new PulseConfig(iedType, this.id);
+			this.PulseConfigField.CheckSelection = true;
 		}
 		
 		public PulseConfig PulseConfig
@@ -9623,44 +8819,24 @@ namespace IEC61850.SCL
 	}
 	
 	/// <summary>
-	/// Quality of the attribute(s) representing the value of the data.
-	/// tBasicTypeEnum.Quality
-	/// </summary>
-	public class q :DADataType
-	{
-		public q(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "q";
-			this.bType = basicTypeEnum;			
-		}
-	}	
-	
-	/// <summary>
 	/// Range in which the current value of instMag or instCVal.mag is.
 	/// </summary>
 	public class range : SDIDADataTypeBDA
 	{
-		private SDIDADataTypeBDA rangeStructure;
+		private AnalogueValue AnalogueValueField;
 		ConversionObject conversionObject;
 		
-		public range(tBasicTypeEnum basicTypeEnum)
+		public range(tFCEnum fCEnum)
 		{
 			this.name = "range";
-			this.bType = basicTypeEnum;			
+			this.bType = tBasicTypeEnum.Enum;			
+			this.fc = fCEnum;
 			this.id = this.type = "rangeEnum";
-		}
-		
-		public range(string iedType, string lnType)
-		{
 			conversionObject = new ConversionObject();			
 			if(this.Value==null)
 			{
 				this.Value = this.conversionObject.SetEnumObjectToString(rangeEnum.normal);
 			}				
-			this.name = "range";			
-			this.bType = tBasicTypeEnum.Struct;
-			this.id = this.type = lnType+"range";
-			this.iedType = iedType;
 			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(rangeEnum));
 			this.EnumVal = new tEnumVal[valuesEnumArray.Length];
 			for(int x = 0; x < valuesEnumArray.Length; x++)
@@ -9670,6 +8846,17 @@ namespace IEC61850.SCL
 				enumVal.Value = valuesEnumArray.GetValue(x).ToString();
 				this.EnumVal[x] = enumVal;
 			}
+		}
+		
+		public range(string iedType, string lnType, tFCEnum fCEnum)
+		{					
+			this.name = "range";			
+			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
+			this.id = this.type = lnType+"range";
+			this.iedType = iedType;
+			this.AnalogueValueField = new AnalogueValue(iedType, this.id);
+			this.AnalogueValueField.CheckSelection = true;
 		}
 		
 		[Category("DA"), DisplayName("Value"), Description("It´s the value of attribute.")]
@@ -9685,20 +8872,15 @@ namespace IEC61850.SCL
 			}
 		}
 			
-		public void SetLinkSDIDADataTypeBDA(SDIDADataTypeBDA rangeStructure)
-		{
-			this.rangeStructure = rangeStructure;
-		}
-		
-		public SDIDADataTypeBDA SDIDADataTypeBDA
+		public AnalogueValue AnalogueValue
 		{
 			get
 			{
-				return this.rangeStructure;
+				return this.AnalogueValueField;
 			}
 			set
 			{
-				this.rangeStructure = value;
+				this.AnalogueValueField = value;
 			}
 		}
 	}
@@ -9710,14 +8892,16 @@ namespace IEC61850.SCL
 	{
 		private RangeConfig RangeConfigField;
 		
-		public rangeC(string iedType, string lnType)
+		public rangeC(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "rangeC";
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"rangeC";
 			this.iedType = iedType;
 			
 			this.RangeConfigField = new RangeConfig(iedType, this.id);
+			this.RangeConfigField.CheckSelection = true;
 		}
 		
 		public RangeConfig RangeConfig
@@ -9734,54 +8918,6 @@ namespace IEC61850.SCL
 	}
 
 	/// <summary>
-	/// Residual current.
-	/// </summary>
-	public class res : SDOSDIDOTypeDA
-	{
-		private DOData resDOData;
-		
-		public res(string iedType, string lnType)
-		{
-			this.name = "res";						
-			this.id = this.type = lnType+"res";
-			this.iedType = iedType;			
-			this.bType = tBasicTypeEnum.Struct;
-		}				
-		
-		public void SetLinkDOData(DOData resDOData)
-		{
-			this.resDOData = resDOData;
-			this.cdc = resDOData.cdc;
-			this.resDOData.id = this.type;
-		}
-		
-		public DOData DOData
-		{
-			get
-			{
-				return this.resDOData;
-			}
-			set
-			{
-				this.resDOData = value;
-			}
-		}
-	}
-	
-	//tBasicTypeEnum.INT16U
-	/// <summary>
-	/// Number of cycles of power frequency, which are used for the calculation of rms values.
-	/// </summary>
-	public class rmsCyc :DADataType
-	{
-		public rmsCyc(tBasicTypeEnum basicTypeEnum)
-		{				
-			this.name = "rmsCyc";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
 	/// Specifies the SBO-class according to the control model that corresponds to the behaviour 
 	/// of the data. 
 	/// </summary>
@@ -9789,13 +8925,15 @@ namespace IEC61850.SCL
 	{
 		private SboClasses SboClassesField;
 		
-		public sboClass(string iedType, string lnType)
+		public sboClass(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "sboClass";
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"sboClass";
 			this.iedType = iedType;			
-			this.SboClassesField = new SboClasses(tBasicTypeEnum.Enum);
+			this.SboClassesField = new SboClasses();
+			this.SboClassesField.CheckSelection = true;
 		}
 		
 		public SboClasses SboClasses
@@ -9812,28 +8950,14 @@ namespace IEC61850.SCL
 	}
 	
 	/// <summary>
-	/// Specifies the timeout according to the control model that corresponds to the behaviour 
-	/// of the data. 
-	/// tBasicTypeEnum.INT32U
-	/// </summary>
-	public class sboTimeout : DADataType
-	{
-		public sboTimeout(tBasicTypeEnum basicTypeEnum)
-		{		
-			this.name = "sboTimeout";
-			this.bType = basicTypeEnum;
-			this.iedType = iedType;
-		}
-	}	
-	
-	/// <summary>
 	/// This attribute shall specify the type of the sequence.
 	/// tBasicTypeEnum.Enum
 	/// </summary>
 	public class seqT  :DADataType
 	{
 		ConversionObject conversionObject;		
-		public seqT(tBasicTypeEnum basicTypeEnum)
+		
+		public seqT(tFCEnum fCEnum)
 		{				
 			conversionObject = new ConversionObject();			
 			if(this.Value==null)
@@ -9841,7 +8965,8 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(seqTEnum.pos_neg_zero);
 			}	
 			this.name = "seqT";
-			this.bType = basicTypeEnum;
+			this.bType = tBasicTypeEnum.Enum;
+			this.fc = fCEnum;
 			this.id = this.type = "seqTEnum";			
 			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(seqTEnum));			
 			this.EnumVal = new tEnumVal[valuesEnumArray.Length];
@@ -9869,50 +8994,6 @@ namespace IEC61850.SCL
 	}
 	
 	/// <summary>
-	/// Serial number.
-	/// </summary>
-	public class serNum : DADataType
-	{
-		public serNum(tBasicTypeEnum basicTypeEnum)
-		{	
-			this.name = "serNum";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// This attribute shall describe the curve characteristic. 
-	/// tBasicTypeEnum.VisString255
-	/// </summary>
-	/// <remarks>
-	/// FC = SP
- 	/// </remarks>
-	public class setCharact : DADataType
-	{
-		public setCharact(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "setCharact";
-			this.bType = basicTypeEnum;			
-		}
-	}
-
-	/// <summary>
-	/// This attribute shall describe the curve characteristic. 
-	/// tBasicTypeEnum.VisString255
-	/// </summary>
-	/// <remarks>
-	/// FC = SG, SE
- 	/// </remarks>
-	public class setCharact2 : DADataType
-	{
-		public setCharact2(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "setCharact2";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
 	/// The value of an analogue setting or set point.
 	/// </summary>
 	/// <remarks>
@@ -9922,13 +9003,15 @@ namespace IEC61850.SCL
 	{
 		private AnalogueValue AnalogueValueField;
 		
-		public setMag(string iedType, string lnType)
+		public setMag(string iedType, string lnType, tFCEnum fCEnum)
 		{				
 			this.name = "setMag";		
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"setMag";
 			this.iedType = iedType;
 			this.AnalogueValueField = new AnalogueValue(iedType, this.id);
+			this.AnalogueValueField.CheckSelection = true;
 		}
 		
 		public AnalogueValue AnalogueValue
@@ -9954,13 +9037,15 @@ namespace IEC61850.SCL
 	{
 		private AnalogueValue AnalogueValueField;
 		
-		public setMag2(string iedType, string lnType)
+		public setMag2(string iedType, string lnType, tFCEnum fCEnum)
 		{				
 			this.name = "setMag2";	
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"setMag2";
 			this.iedType = iedType;
 			this.AnalogueValueField = new AnalogueValue(iedType, this.id);
+			this.AnalogueValueField.CheckSelection = true;
 		}
 	
 		public AnalogueValue AnalogueValue
@@ -9975,234 +9060,6 @@ namespace IEC61850.SCL
 			}
 		}	
 	}
-	
-	/// <summary>
-	/// Attribute used to set the parameter A of the setting curve.
-	/// tBasicTypeEnum.FLOAT32 
-	/// </summary>
-	/// <remarks>
-	/// FC = SP
- 	/// </remarks>	
-	public class setParA :DADataType
-	{
-		public setParA(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "setParA";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	 
-	/// <summary>
-	/// Attribute used to set the parameter A of the setting curve.
-	/// tBasicTypeEnum.FLOAT32 
-	/// </summary>
-	/// <remarks>
-	/// FC = SG, SE 
- 	/// </remarks>	
-	public class setParA2 :DADataType
-	{
-		public setParA2(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "setParA2";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	//tBasicTypeEnum.FLOAT32  y su FCs son: SP 
-	/// <summary>
-	/// Attribute used to set the parameter B of the setting curve.
-	/// tBasicTypeEnum.FLOAT32 
-	/// </summary>
-	/// <remarks>
-	/// FC = SP
- 	/// </remarks>		
-	public class setParB : DADataType
-	{
-		public setParB(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "setParB";
-			this.bType = basicTypeEnum;		
-		}
-	}
-	
-	/// <summary>
-	/// Attribute used to set the parameter B of the setting curve.
-	/// tBasicTypeEnum.FLOAT32 
-	/// </summary>
-	/// <remarks>
-	/// FC = SG, SE 
- 	/// </remarks>	
-	public class setParB2 : DADataType
-	{
-		public setParB2(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "setParB2";
-			this.bType = basicTypeEnum;		
-		}
-	}
-	
-	/// <summary>
-	/// Attribute used to set the parameter C of the setting curve.
-	/// tBasicTypeEnum.FLOAT32 
-	/// </summary>
-	/// <remarks>
-	/// FC = SP
- 	/// </remarks>	
-	public class setParC :DADataType
-	{
-		public setParC(tBasicTypeEnum basicTypeEnum)
-		{					
-			this.name = "setParC";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// Attribute used to set the parameter C of the setting curve.
-	/// tBasicTypeEnum.FLOAT32 
-	/// </summary>
-	/// <remarks>
-	/// FC = SG, SE 
- 	/// </remarks>	
-	public class setParC2 :DADataType
-	{
-		public setParC2(tBasicTypeEnum basicTypeEnum)
-		{					
-			this.name = "setParC2";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// Attribute used to set the parameter D of the setting curve.
-	/// tBasicTypeEnum.FLOAT32 
-	/// </summary>
-	/// <remarks>
-	/// FC = SP
- 	/// </remarks>	
-	public class setParD :DADataType
-	{
-		public setParD(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "setParD";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// Attribute used to set the parameter D of the setting curve.
-	/// tBasicTypeEnum.FLOAT32 
-	/// </summary>
-	/// <remarks>
-	/// FC = SG, SE 
- 	/// </remarks>	
-	public class setParD2 :DADataType
-	{
-		public setParD2(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "setParD2";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// Attribute used to set the parameter E of the setting curve.
-	/// tBasicTypeEnum.FLOAT32 
-	/// </summary>
-	/// <remarks>
-	/// FC = SP
- 	/// </remarks>	
-	public class setParE :DADataType
-	{
-		public setParE(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "setParE";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// Attribute used to set the parameter E of the setting curve.
-	/// tBasicTypeEnum.FLOAT32 
-	/// </summary>
-	/// <remarks>
-	/// FC = SG, SE 
- 	/// </remarks>	
-	public class setParE2 :DADataType
-	{
-		public setParE2(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "setParE2";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// Attribute used to set the parameter F of the setting curve.
-	/// tBasicTypeEnum.FLOAT32 
-	/// </summary>
-	/// <remarks>
-	/// FC = SP
- 	/// </remarks>	
-	public class setParF :DADataType
-	{
-		public setParF(tBasicTypeEnum basicTypeEnum)
-		{					
-			this.name = "setParF";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// Attribute used to set the parameter F of the setting curve.
-	/// tBasicTypeEnum.FLOAT32 
-	/// </summary>
-	/// <remarks>
-	/// FC = SG, SE 
- 	/// </remarks>	
-	public class setParF2 :DADataType
-	{
-		public setParF2(tBasicTypeEnum basicTypeEnum)
-		{					
-			this.name = "setParF2";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// The value of a status setting.
-	/// SPG -> tBasicTypeEnum.BOOLEAN
-	/// ING -> tBasicTypeEnum.INT32
-	/// </summary>
-	/// <remarks>
-	/// FC = SP
-	/// </remarks>
-	public class setVal : DADataType
-	{
-		public setVal(tBasicTypeEnum basicTypeEnum)
-		{		
-			this.name = "setVal";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// The value of a status setting.
-	/// SPG -> tBasicTypeEnum.BOOLEAN
-	/// ING -> tBasicTypeEnum.INT32
-	/// </summary>
-	/// <remarks>
-	/// FC = SG, SE 
-	/// </remarks>
-	public class setVal2 : DADataType
-	{
-		public setVal2(tBasicTypeEnum basicTypeEnum)
-		{		
-			this.name = "setVal2";
-			this.bType = basicTypeEnum;			
-		}
-	}	
-	
 	/// <summary>
 	/// Severity of the last violation detected. 
 	/// tBasicTypeEnum.Enum
@@ -10211,7 +9068,7 @@ namespace IEC61850.SCL
 	{
 		ConversionObject conversionObject;			
 		
-		public sev(tBasicTypeEnum basicTypeEnum)
+		public sev(tFCEnum fCEnum)
 		{		
 			conversionObject = new ConversionObject();	
 			if(this.Value==null)
@@ -10219,7 +9076,8 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(sevEnum.unknown);
 			}	
 			this.name = "sev";
-			this.bType = basicTypeEnum;
+			this.bType = tBasicTypeEnum.Enum;
+			this.fc = fCEnum;
 			this.id = this.type = "sevEnum";			
 			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(sevEnum));			
 			this.EnumVal = new tEnumVal[valuesEnumArray.Length];
@@ -10246,19 +9104,6 @@ namespace IEC61850.SCL
 		}			
 	}
 	
-	//tBasicTypeEnum.INT32U
-	/// <summary>
-	/// Sample Rate
-	/// </summary>
-	public class smpRate :DADataType
-	{
-		public smpRate(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "smpRate";
-			this.bType = basicTypeEnum;
-		}
-	}
-		
 	/// <summary>
 	/// Defines the step between individual values that ctlVal, setVal or setMag will accept.
 	/// INC -> ING -> tBasicTypeEnum.INT32U
@@ -10269,19 +9114,15 @@ namespace IEC61850.SCL
 	{
 		private AnalogueValue AnalogueValueField;
 		
-		public stepSize(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "stepSize";
-			this.bType = basicTypeEnum;			
-		}
-		
-		public stepSize(string iedType, string lnType)
+		public stepSize(string iedType, string lnType, tFCEnum fCEnum)
 		{				
 			this.name = "stepSize";			
 			this.iedType = iedType;
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"stepSize";
 			this.AnalogueValueField = new AnalogueValue(iedType, this.id);
+			this.AnalogueValueField.CheckSelection = true;
 		}
 		
 		public AnalogueValue AnalogueValue
@@ -10298,32 +9139,6 @@ namespace IEC61850.SCL
 	}
 	
 	/// <summary>
-	/// Starting time of the freeze process.
-	/// tBasicTypeEnum.Timestamp
-	/// </summary>
-	public class strTm :DADataType
-	{
-		public strTm(tBasicTypeEnum basicTypeEnum)
-		{
-			this.name = "strTm";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// The controllable data is in the status "selected".
-	/// tBasicTypeEnum.BOOLEAN
-	/// </summary>
-	public class stSeld : DADataType
-	{
-		public stSeld(tBasicTypeEnum basicTypeEnum)
-		{				
-			this.name = "stSeld";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
 	/// Status value of the data.
 	/// INS -> INC -> tBasicTypeEnum.INT32 
 	/// SPS -> SPC -> tBasicTypeEnum.BOOLEAN
@@ -10332,20 +9147,29 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class stVal :DADataType
 	{
-		ConversionObject conversionObject;
+		ConversionObject conversionObject;		
+		/// <summary>
+		/// This constructor was created empty and the data will be set the values when 
+		/// the type changes from enum to int32
+		/// </summary>
+		public stVal()
+		{	
+			this.Value="";
+		}
 		
-		public stVal(tBasicTypeEnum basicTypeEnum)
+		public stVal(tFCEnum fCEnum)
 		{				
 			conversionObject = new ConversionObject();			
 			if(this.Value==null)
 			{
-				this.Value = this.conversionObject.SetEnumObjectToString(valEnum.intermediate_state);
+				this.Value = this.conversionObject.SetEnumObjectToString(valModEnum.on);
 			}	
 			this.name = "stVal";
-			this.bType = basicTypeEnum;
+			this.bType = tBasicTypeEnum.Enum;
+			this.fc = fCEnum;
 			this.iedType = iedType;							
 			this.id = this.type = " stValEnum";			
-			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(valEnum));
+			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(valModEnum));
 			this.EnumVal = new tEnumVal[valuesEnumArray.Length];
 			for(int x = 0; x < valuesEnumArray.Length; x++)
 			{
@@ -10357,11 +9181,11 @@ namespace IEC61850.SCL
 		}
 	
 		[Category("DA"), DisplayName("Value"), Description("Value of attribute.")]
-		public valEnum tValue
+		public valModEnum tValue
 		{			
 			get
 			{
-				return (valEnum) this.conversionObject.SetStringToEnumObject(this.Value, typeof(valEnum));			
+				return (valModEnum) this.conversionObject.SetStringToEnumObject(this.Value, typeof(valModEnum));											
 			}
 			set
 			{
@@ -10378,7 +9202,7 @@ namespace IEC61850.SCL
 		private Vector VectorField;
 		ConversionObject conversionObject;
 		
-		public subCVal(string iedType, string lnType)
+		public subCVal(string iedType, string lnType, tFCEnum fCEnum)
 		{			
 			conversionObject = new ConversionObject();			
 			if(this.Value==null)
@@ -10387,6 +9211,7 @@ namespace IEC61850.SCL
 			}	
 			this.name = "subCVal";
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"subCVal";
 			this.iedType = iedType;			
 			this.VectorField = new Vector(iedType, this.id);			
@@ -10428,45 +9253,6 @@ namespace IEC61850.SCL
 	}
 	
 	/// <summary>
-	/// Used to enable substitution.
-	/// tBasicTypeEnum.BOOLEAN
-	/// </summary>
-	public class subEna :DADataType
-	{
-		public subEna(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "subEna";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// Shows the address of the device that made the substitution.
-	/// tBasicTypeEnum.VisString64
-	/// </summary>
-	public class subID :DADataType
-	{
-		public subID(tBasicTypeEnum basicTypeEnum)
-		{					
-			this.name = "subID";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// Value used to substitute the data attribute q.
-	/// tBasicTypeEnum.Quality
-	/// </summary>
-	public class subQ :DADataType
-	{
-		public subQ(tBasicTypeEnum basicTypeEnum)
-		{						
-			this.name = "subQ";
-			this.bType = basicTypeEnum;			
-		}
-	}	
-			
-	/// <summary>
 	/// Value used to substitute the attribute representing the value of the data instance.
 	/// INS -> DPS -> DPC -> tBasicTypeEnum.Enum
 	/// MV -> tBasicTypeEnum.Struct -> AnalogueValue
@@ -10478,10 +9264,11 @@ namespace IEC61850.SCL
 	{
 		private SDIDADataTypeBDA subValStructure;
 		
-		public subVal(tBasicTypeEnum basicTypeEnum)
+		public subVal(tFCEnum fCEnum)
 		{				
 			this.name = "subVal";
-			this.bType = basicTypeEnum;					
+			this.bType = tBasicTypeEnum.Enum;					
+			this.fc = fCEnum;
 			this.id = this.type = " subValEnum";			
 			this.EnumVal = new tEnumVal[4];
 			tEnumVal enumVal0 = new tEnumVal();
@@ -10502,10 +9289,11 @@ namespace IEC61850.SCL
 			this.EnumVal[3] = enumVal3;						
 		}
 			
-		public subVal(string iedType, string lnType)
+		public subVal(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "subVal";			
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"subVal";
 			this.iedType = iedType;
 		}
@@ -10535,13 +9323,15 @@ namespace IEC61850.SCL
 	{
 		private ScaledValueConfig scaledValueConfigField;
 		
-		public sVC(string iedType, string lnType)
+		public sVC(string iedType, string lnType, tFCEnum fCEnum)
 		{				
 			this.name = "sVC";
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"sVC";
 			this.iedType = iedType;
 			this.scaledValueConfigField = new ScaledValueConfig(iedType, this.id);
+			this.scaledValueConfigField.CheckSelection = true;
 		}
 		
 		public ScaledValueConfig ScaledValueConfig
@@ -10558,46 +9348,21 @@ namespace IEC61850.SCL
 	}
 
 	/// <summary>
-	/// SW-revision.
-	/// tBasicTypeEnum.VisString255
-	/// </summary>
-	public class swRev :DADataType
-	{
-		public swRev(tBasicTypeEnum basicTypeEnum)
-		{				
-			this.name = "swRev";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// Timestamp of the last change in one of the attribute(s) representing the value of the data 
-	/// or in the q attribute.
-	/// tBasicTypeEnum.Timestamp
-	/// </summary>
-	public class t :DADataType
-	{
-		public t(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "t";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
 	/// Units of the attribute(s) representing the value of the data.
 	/// </summary>
 	public class units : SDIDADataTypeBDA
 	{
 		private Unit UnitField;
 		
-		public units(string iedType, string lnType)
+		public units(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "units";
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"units";
 			this.iedType = iedType;			
 			this.UnitField = new Unit(iedType, this.id);
+			this.UnitField.CheckSelection = true;
 		}
 		
 		public Unit Unit
@@ -10620,13 +9385,15 @@ namespace IEC61850.SCL
 	{
 		private ValWithTrans ValWithTransField;		
 		
-		public valWTr(string iedType, string lnType)
+		public valWTr(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "valWTr";
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"valWTr";
 			this.iedType = iedType;			
 			this.ValWithTransField = new ValWithTrans(iedType, this.id);
+			this.ValWithTransField.CheckSelection = true;
 		}
 		
 		public ValWithTrans ValWithTrans
@@ -10643,45 +9410,21 @@ namespace IEC61850.SCL
 	}
 	
 	/// <summary>
-	/// Name of the vendor.
-	/// tBasicTypeEnum.VisString255
-	/// </summary>
-	public class vendor : DADataType
-	{
-		public vendor(tBasicTypeEnum basicTypeEnum)
-		{						
-			this.name = "vendor";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
-	/// Description of the value of the x-axis of a curve.
-	/// tBasicTypeEnum.VisString255
-	/// </summary>
-	public class xD : DADataType
-	{
-		public xD(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "xD";
-			this.bType = basicTypeEnum;			
-		}
-	}
-	
-	/// <summary>
 	/// Unit of the x-axis of a curve.
 	/// </summary>
 	public class xUnit : SDIDADataTypeBDA
 	{
 		private Unit UnitField;		
 		
-		public xUnit(string iedType, string lnType)
+		public xUnit(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "xUnit";
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"xUnit";
 			this.iedType = iedType;			
 			this.UnitField = new Unit(iedType, this.id);
+			this.UnitField.CheckSelection = true;
 		}
 		
 		public Unit Unit
@@ -10695,19 +9438,6 @@ namespace IEC61850.SCL
 				this.UnitField = value;
 			}
 		}	
-	}
-	
-	/// <summary>
-	/// Description of the value of the y-axis of a curve.
-	/// tBasicTypeEnum.VisString255
-	/// </summary>
-	public class yD : DADataType
-	{
-		public yD(tBasicTypeEnum basicTypeEnum)
-		{						
-			this.name = "yD";
-			this.bType = basicTypeEnum;			
-		}
 	}
 	
 	/// <summary>
@@ -10717,13 +9447,15 @@ namespace IEC61850.SCL
 	{
 		private Unit UnitField;		
 		
-		public yUnit(string iedType, string lnType)
+		public yUnit(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "yUnit";
 			this.bType = tBasicTypeEnum.Struct;
+			this.fc = fCEnum;
 			this.id = this.type = lnType+"yUnit";
 			this.iedType = iedType;			
 			this.UnitField = new Unit(iedType, this.id);
+			this.UnitField.CheckSelection = true;
 		}
 		
 		public Unit Unit
@@ -10739,23 +9471,44 @@ namespace IEC61850.SCL
 		}	
 	}
 	
-	/// <summary>
-	/// Configuration parameter used to calculate the range around zero, where the analogue value 
-	/// will be forced to zero.
-	/// tBasicTypeEnum.INT32U
-	/// </summary>
-	public class zeroDb :DADataType
+	public class valMod :DADataType
 	{
-		public zeroDb(tBasicTypeEnum basicTypeEnum)
-		{			
-			this.name = "zeroDb";
-			this.bType = basicTypeEnum;			
+		ConversionObject conversionObject;
+		
+		public valMod(tFCEnum fCEnum)
+		{				
+			conversionObject = new ConversionObject();			
+			if(this.Value==null)
+			{
+				this.Value = this.conversionObject.SetEnumObjectToString(valModEnum.on);
+			}	
+			this.name = "stVal";
+			this.bType = tBasicTypeEnum.Enum;
+			this.fc = fCEnum;
+			this.iedType = iedType;							
+			this.id = this.type = " stValEnum";			
+			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(valModEnum));
+			this.EnumVal = new tEnumVal[valuesEnumArray.Length];
+			for(int x = 0; x < valuesEnumArray.Length; x++)
+			{
+				tEnumVal enumVal = new tEnumVal();
+				enumVal.ord = ((int) valuesEnumArray.GetValue(x)).ToString();
+				enumVal.Value = valuesEnumArray.GetValue(x).ToString();
+				this.EnumVal[x] = enumVal;
+			}
 		}
-	}	
 	
-	
-	
-	
-	
-	
+		[Category("DA"), DisplayName("Value"), Description("Value of attribute.")]
+		public valModEnum tValue
+		{			
+			get
+			{
+				return (valModEnum) this.conversionObject.SetStringToEnumObject(this.Value, typeof(valModEnum));			
+			}
+			set
+			{
+				this.Value = this.conversionObject.SetEnumObjectToString(value);				
+			}
+		}
+	}
 }

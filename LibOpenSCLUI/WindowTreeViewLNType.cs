@@ -34,6 +34,8 @@ namespace OpenSCL.UI
 		private object lN;	
 		private bool bandModify;		
 		private OpenSCL.Object sCL = new OpenSCL.Object();
+		private TreeNode nodeSelected;
+		private ObjectManagement objectManagement;
 		
 		/// <summary>
 		/// This method inicializes the values.
@@ -60,39 +62,11 @@ namespace OpenSCL.UI
 			this.Text = title;
 			this.label1.ForeColor = Color.Blue;					
 			this.treeViewLNType = new TreeViewLNType(this.treeNodeLN, this.sCL.Configuration);			
-			this.treeView1.Nodes.Add(treeViewLNType.GetTreeNodeTypesLNs(this.lN));
-			this.treeView1.Nodes[0].Expand();
+			this.treeLN.Nodes.Add(treeViewLNType.GetTreeNodeTypesLNs(this.lN));
+			this.treeLN.Nodes[0].Expand();
 			this.bandModify = false;
-		}
-		
-		/// <summary>
-		/// This event is activated when an attribute box is checked or not. If the box is checked then the attributes 
-		/// of that data could be modified by the user, otherwise the attributes only could be visualized.
-		/// </summary>
-		/// <param name="sender">
-		/// Name of the object.
-		/// </param>
-		/// <param name="e">
-		/// This class contains no event data; it is used by events that do not pass state information to an event 
-		/// handler when an event is raised. If the event handler requires state information, the application must 
-		/// derive a class from this class to hold the data.
-		/// </param>
-		void showChecked(object sender, TreeViewEventArgs e)
-		{			
-			this.propertyGridLNType.SelectedObject = e.Node.Tag;				
-			if(e.Node.Checked == true)
-			{
-				if(e.Node.Parent.Checked == false)
-				{
-					e.Node.Parent.Checked = true;
-				}
-				this.propertyGridLNType.Enabled = true;
-			}
-			else
-			{
-				this.propertyGridLNType.Enabled = false;
-			}
-        }
+			this.objectManagement =new ObjectManagement();
+		}		
 		
 		/// <summary>
 		/// This event close the window of the LN type selected.
@@ -122,28 +96,24 @@ namespace OpenSCL.UI
 		/// derive a class from this class to hold the data.
 		/// </param>
 		void ButtonOkClick(object sender, EventArgs e)
-		{		
-			//OpenSCL.Object Object = new OpenSCL.Object(); 	
+		{					
+			AutomataForValidateToTreeNode automataForValidateToTreeNode;
+			if(treeNodeLN.Nodes.Count != 0)
+			{
+				RegularExpressionTree regularExpressionTree = new RegularExpressionTree();
+				automataForValidateToTreeNode = new AutomataForValidateToTreeNode(treeNodeLN.Nodes[0], regularExpressionTree.GetRegExpToDelete(treeNodeLN.Nodes[0]));
+				automataForValidateToTreeNode.InterpretString();
+			}
 			if(this.bandModify)
 			{				
-				AutomataForValidateToTreeNode automataForValidateToTreeNode;
-				if(this.treeNodeLN.Parent.Parent.Tag is tAccessPoint)
-				{
-					automataForValidateToTreeNode = new AutomataForValidateToTreeNode(this.treeNodeLN, "-DOI/%&lnType->&....type->^-id=&iedType=;%%*0");				
-					automataForValidateToTreeNode.InterpretString();				
-				}
-				else if(this.treeNodeLN.Tag is LN0)
-				{
-					automataForValidateToTreeNode = new AutomataForValidateToTreeNode(this.treeNodeLN, "-DOI/%&lnType->&......type->^-id=&iedType=;%%*0");																													
-					automataForValidateToTreeNode.InterpretString();
-				}	
-				else if(this.treeNodeLN.Parent.Parent.Tag is tLDevice)
-				{							
-					automataForValidateToTreeNode = new AutomataForValidateToTreeNode(this.treeNodeLN, "-DOI/%&lnType->&.......type->^-id=&iedType=;%%*0");				
-					automataForValidateToTreeNode.InterpretString();
-				}		
+				automataForValidateToTreeNode = new AutomataForValidateToTreeNode(this.treeNodeLN, "-DOI/%&*0");
+				automataForValidateToTreeNode.InterpretString();				
+				this.treeViewLNType.EmptyTreeNodeLNType(true);
 			}
-			this.treeViewLNType.EmptyTreeNodeLNType();		
+			else
+			{
+				this.treeViewLNType.EmptyTreeNodeLNType(false);
+			}			
 			this.Close();
 		}
 		
@@ -158,9 +128,9 @@ namespace OpenSCL.UI
 		/// handler when an event is raised. If the event handler requires state information, the application must 
 		/// derive a class from this class to hold the data.
 		/// </param>
-		void TreeView1AfterSelect(object sender, TreeViewEventArgs e)
+		void TreeLNAfterSelect(object sender, TreeViewEventArgs e)
 		{			
-			if(e.Node.Tag is tDA||e.Node.Tag is tBDA)
+			if(e.Node.Tag is tDA||e.Node.Tag is tBDA || e.Node.Tag is DOData)
 			{
 				this.propertyGridLNType.SelectedObject = e.Node.Tag;
 				if(e.Node.Checked == true)
@@ -171,6 +141,10 @@ namespace OpenSCL.UI
 				{
 					this.propertyGridLNType.Enabled = false;
 				}				
+			}
+			if(e.Node.Tag is ctlModels)
+			{
+				this.nodeSelected = e.Node;
 			}           
 		}		
 		
@@ -180,10 +154,10 @@ namespace OpenSCL.UI
 		public void ReloadLNType()
 		{
 			this.bandModify = true;
-			this.treeView1.Nodes.Clear();
+			this.treeLN.Nodes.Clear();
 			this.treeViewLNType = new TreeViewLNType(this.treeNodeLN, this.sCL.Configuration);			
-			this.treeView1.Nodes.Add(treeViewLNType.ReloadLNType(this.lN));
-			this.treeView1.Nodes[0].Expand();
+			this.treeLN.Nodes.Add(treeViewLNType.ReloadLNType(this.lN));
+			this.treeLN.Nodes[0].Expand();
 		}
 		
 		/// <summary>
@@ -197,7 +171,7 @@ namespace OpenSCL.UI
 		/// handler when an event is raised. If the event handler requires state information, the application must 
 		/// derive a class from this class to hold the data.
 		/// </param>
-		void TreeView1AfterCheck(object sender, TreeViewEventArgs e)
+		void TreeLNAfterCheck(object sender, TreeViewEventArgs e)
 		{	
 			if( e.Node.Name == "root")
 			{
@@ -229,5 +203,124 @@ namespace OpenSCL.UI
 				}
 			}	
 		}
+		
+		/// <summary>
+		/// This event enable/disable data according to the value of the ctlModel attribute selected.
+		/// </summary>
+		/// <param name="s">
+		/// Name of the object.
+		/// </param>
+		/// <param name="e">
+		/// This class contains no event data; it is used by events that do not pass state information to an event 
+		/// handler when an event is raised. If the event handler requires state information, the application must 
+		/// derive a class from this class to hold the data.
+		/// </param>
+		void PropertyLNTypeValueChanged(object s, PropertyValueChangedEventArgs e)
+		{
+			if(e.ChangedItem.PropertyDescriptor.PropertyType.Name.Equals("ctlModelsEnum"))
+			{
+				if(this.nodeSelected != null)
+				{
+					switch(e.ChangedItem.Value.ToString())
+					{
+						case "status_only":
+							if(this.nodeSelected.Parent.Parent.Nodes["SBO"]!=null)
+							{
+								this.nodeSelected.Parent.Parent.Nodes.RemoveByKey("SBO");
+							}
+							if(this.nodeSelected.Parent.Parent.Nodes["SBOw"]!=null)
+							{
+								this.nodeSelected.Parent.Parent.Nodes.RemoveByKey("SBOw");
+							}
+							if(this.nodeSelected.Parent.Parent.Nodes["Oper"]!=null)
+							{
+								this.nodeSelected.Parent.Parent.Nodes.RemoveByKey("Oper");
+							}
+							if(this.nodeSelected.Parent.Parent.Nodes["Cancel"]!=null)
+							{
+								this.nodeSelected.Parent.Parent.Nodes.RemoveByKey("Cancel");
+							}
+							break;
+						case "direct_with_normal_security":
+							if(this.nodeSelected.Parent.Parent.Nodes["SBO"]!=null)
+							{
+								this.nodeSelected.Parent.Parent.Nodes.RemoveByKey("SBO");
+							}
+							if(this.nodeSelected.Parent.Parent.Nodes["SBOw"]!=null)
+							{
+								this.nodeSelected.Parent.Parent.Nodes.RemoveByKey("SBOw");
+							}
+							if(this.nodeSelected.Parent.Parent.Nodes["Cancel"]!=null)
+							{
+								this.nodeSelected.Parent.Parent.Nodes.RemoveByKey("Cancel");
+							}
+							this.CreateNode("Oper");
+							break;
+						case "sbo_with_normal_security":
+							if(this.nodeSelected.Parent.Parent.Nodes["SBOw"]!=null)
+							{
+								this.nodeSelected.Parent.Parent.Nodes.RemoveByKey("SBOw");
+							}
+							this.CreateNode("SBO");
+							this.CreateNode("Oper");
+							this.CreateNode("Cancel");
+							break;
+						case "sbo_with_enhanced_security" :
+							if(this.nodeSelected.Parent.Parent.Nodes["SBO"]!=null)
+							{
+								this.nodeSelected.Parent.Parent.Nodes.RemoveByKey("SBO");
+							}
+							this.CreateNode("SBOw");
+							this.CreateNode("Oper");
+							this.CreateNode("Cancel");
+							break;
+						case "direct_with_enhanced_security" :
+							{
+								this.nodeSelected.Parent.Parent.Nodes.RemoveByKey("SBO");
+							}
+							if(this.nodeSelected.Parent.Parent.Nodes["SBOw"]!=null)
+							{
+								this.nodeSelected.Parent.Parent.Nodes.RemoveByKey("SBOw");
+							}
+							this.CreateNode("Oper");
+							this.CreateNode("Cancel");
+							break;
+					}
+				}
+			}
+		}
+		
+		/// <summary>
+		/// This event select the information for the selected node.
+		/// </summary>
+		/// <param name="sender">
+		/// Name of the object.
+		/// </param>
+		/// <param name="e">
+		/// This class contains no event data; it is used by events that do not pass state information to an event 
+		/// handler when an event is raised. If the event handler requires state information, the application must 
+		/// derive a class from this class to hold the data.
+		/// </param>
+		void TreeLNBeforeCheck(object sender, TreeViewCancelEventArgs e)
+		{
+			this.nodeSelected = e.Node;				
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="nameDAToAdd">
+		/// 
+		/// </param>
+		private void CreateNode(string nameDAToAdd)
+		{
+			if(this.nodeSelected.Parent.Parent.Nodes[nameDAToAdd]==null)
+			{
+				object objectDA = this.objectManagement.FindVariable(this.nodeSelected.Parent.Parent.Tag, nameDAToAdd);
+				this.objectManagement.FindVariableAndSetValue(objectDA,"Visible", true);
+				PropertyInfo property = this.nodeSelected.Parent.Parent.Tag.GetType().GetProperty(nameDAToAdd);
+				this.treeViewLNType.AddNodesOfArray(property, objectDA, this.nodeSelected.Parent.Parent);
+			}
+		}	
 	}
 }

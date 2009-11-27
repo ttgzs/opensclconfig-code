@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectGuid>{5BBE0EEF-4DDA-482F-AA3B-4B7FBE1C02EE}</ProjectGuid>
@@ -33,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <WarningLevel>4</WarningLevel>
@@ -60,14 +61,17 @@
     <Compile Include="Attributes.cs" />
     <Compile Include="CDCTypes.cs" />
     <Compile Include="ConversionObject.cs" />
+    <Compile Include="DataSet.cs" />
     <Compile Include="DataTypes.cs" />
     <Compile Include="ErrorsManagement.cs" />
     <Compile Include="IED.cs" />
     <Compile Include="LNTypes.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="ObjectManagement.cs" />
+    <Compile Include="Private.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegularExpression.cs" />
     <Compile Include="SCL.cs" />
+    <Compile Include="ValidatingSCL.cs" />
   </ItemGroup>
 </Project>

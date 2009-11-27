@@ -56,49 +56,35 @@ namespace OpenSCL.UI
 					case "tLN":		
 						if(sCLTreeNode.Parent.Parent.Tag is tAccessPoint)
 						{												
-							return "-DOI/%&lnType->[4]&lnType->[2]&lnClass->[0]&inst->[1]&....type->[5]&name->[3]^^-lnClass=&lnInst=&lnType=&iedName=;-id=&iedType=;%%*1";
+							return "-DOI/%&lnType->[2]&lnClass->[0]&inst->[1]&....&name->[3]^-lnClass=&lnInst=&lnType=&iedName=;%%*1";
 						}
 						else if(sCLTreeNode.Parent.Parent.Tag is tLDevice)
 						{							
-							return "-DOI/%&lnType->[5]&lnType->[2]&lnClass->[0]&inst->[1]&..inst->[3]&.....type->[6]&name->[4]^^-lnClass=&lnInst=&lnType=&ldInst=&iedName=;-id=&iedType=;%%*1";
+							return "-DOI/%&lnType->[2]&lnClass->[0]&inst->[1]&..inst->[3]&.....&name->[4]^-lnClass=&lnInst=&lnType=&ldInst=&iedName=;%%*1";
 						}							
 						else
 						{
 							return "-*1";
 						}					
 					case "LN0":
-						return"-DataSet/%&-ReportControl/%&-DOI/%&-GSEControl/%&-LogControl/%&-Inputs/%&-SettingControl/%&-SCLControl/%&-Log/%&lnType->&......type->^-id=&iedType=;%%*1";
+						return"-DataSet/%&-ReportControl/%&-DOI/%&-GSEControl/%&-LogControl/%&-Inputs/%&-SettingControl/%&-SCLControl/%&-Log/%&lnType->^-id=;%%*1";
 					case"tIED":
 						return"-AccessPoint/%&name->^-iedName=;%%*1";
 					case"tAccessPoint":
 						return"-Server/%&name->&..name->^-apName=&iedName=;%%*1";
 					case"tServer":
-						return"-LDevice/%&...name->^-iedName=;%%*1";
-					case "tLNodeType":
-						return "-DO/%*1";
+						return"-LDevice/%*1";
 					case "tLDevice":
-						return"-LN/%&inst->^-ldInst=;%%*1";
-					//It should taken in count the tree kind of object that has it: tLDevice, tAccessPoint and LN0		
+						return"-LN/%&inst->^-ldInst=;%%*1";					
 					case "tDOI":
 						//Finding : tFCDA                          tDO     Deleting : tFCDA                 tDO
-						return "-SDI/%&name->..lnType->&lnClass->&inst->^[1]&[0]^-doName=&ldInst=&lnClass=&lnInst=;-id=&name=;%%*1";												
-					case "tDO":			
-						//Finding : tDOType        Deleting : tDOType
-						return "type->..iedType->^-id=&iedType=;%%*1";						
+						return "-SDI/%&*1";
 					case"tSDI":
 						return "-SDI/%&-DAI/%*1";						
-					case "tDOType":
-						//Finding all the tDA that contents this object and use his regular expression to delete it.
-						return "-DA/%&-SDO/%*1";
-					case "tDA":
-						//Finding: tDOType        Deleting: tDaType if the bType is equal to bType
-						return "type->&bType->==Struct1#&..iedType->^-id=&iedType=;%%*1"; 
 					case"tRptEnabled":
 						return"-ClientLN/%*1";
 					case "tSDO":
 						return "type->^-id=;%%*1";
-					case "tDAType":
-						return "-BDA/%*1"; 
 					// This node is used on Substation
 					case "tDataSet" :
 						return "-FCDA/%*1";
@@ -106,8 +92,6 @@ namespace OpenSCL.UI
 						return"-ExtRef/%*1";
 					case"tLogControl":
 						return"-TrgOps/%*1";
-					case "tBDA" :
-						return "type->==$0&bType->==Struct1#^-id=;%%*1"; 							
 					default:
 						return "-*1";
 				}			
@@ -157,6 +141,7 @@ namespace OpenSCL.UI
 			this.namesPropertiesObject = new ArrayList ();			
 			this.flag = true;
 			this.flags = new List<bool>();		
+			this.regularExpressionTree = new  RegularExpressionTree();			
 			this.selectNodeToDelete = node;
 		}
 		

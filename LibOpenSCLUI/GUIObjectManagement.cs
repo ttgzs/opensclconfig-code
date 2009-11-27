@@ -18,6 +18,8 @@
 
 using System;
 using System.Reflection;
+using System.Windows.Forms;
+using IEC61850.SCL;
 
 namespace OpenSCL.UI
 {
@@ -26,69 +28,14 @@ namespace OpenSCL.UI
 	/// </summary>
 	public class Utils
 	{
-		public object ObjectReturnedinAfterSelect;
-																																																		
-		/// <summary>
-		/// This method sets the values of a SCL object to a graphical object of GUI.
-		/// </summary>
-		/// <param name="sourceObject">
-		/// Graphical Object that will contain the values of the SCL object.
-		/// </param>
-		/// <param name="assignObject">
-		/// SCL object.
-		/// </param>		
-   		public void EmptySCLObjectoGUIObject(object sourceObject, object assignObject)			
+		public object ObjectReturnedinAfterSelect;																																																		
+		public TreeViewSCL treeViewSCL;
+		private ObjectManagement objectManagement;
+   		
+		public Utils()
 		{
-			PropertyInfo[] attributesInformation = sourceObject.GetType().GetProperties();        	        	        	        							
-			object[] valueObjectAttribute = new object[1];
-			MemberInfo[] nameOfVariablesToFind;
-        	foreach (PropertyInfo attributeInformation in attributesInformation) 
-        	{        		
-        		valueObjectAttribute[0] = sourceObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, sourceObject, null );				
-        		if(valueObjectAttribute[0]!=null)
-        		{
-        			nameOfVariablesToFind = assignObject.GetType().FindMembers(
-        						MemberTypes.Field |
-    							MemberTypes.Property, 
-    							BindingFlags.Public | 
-    							BindingFlags.Instance,
-    							Type.FilterName, attributeInformation.Name);
-        			if(nameOfVariablesToFind.Length>0)
-        			{
-        				assignObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.SetField | BindingFlags.SetProperty, null, assignObject, valueObjectAttribute);        		        			
-        			}
-        		}
-        	}				
-		}		
-		
-   		/// <summary>
-		/// This method sets the values of  a graphical object of GUI to an SCL object.
-		/// </summary>
-		/// <param name="sourceObject">
-		/// SCL object.
-		/// </param>
-		/// <param name="assignObject">
-		/// Graphical Object that will contain the values of the SCL object.
-		/// </param>
-   		public void EmptyGUIObjectoSCLObject(object sourceObject, object assignObject)
-		{
-			PropertyInfo[] attributesInformation = assignObject.GetType().GetProperties();        	        	        	        							
-			object[] valueObjectAttribute = new object[1];
-			MemberInfo[] nameOfVariablesToFind;
-        	foreach (PropertyInfo attributeInformation in attributesInformation) 
-        	{        
-        	     nameOfVariablesToFind = sourceObject.GetType().FindMembers(
-        						MemberTypes.Field |
-    							MemberTypes.Property, 
-    							BindingFlags.Public | 
-    							BindingFlags.Instance,
-    							Type.FilterName, attributeInformation.Name);
-        		if(nameOfVariablesToFind.Length>0)
-        		{
-					valueObjectAttribute[0] = sourceObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, sourceObject, null );				
-					assignObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.SetField | BindingFlags.SetProperty, null, assignObject, valueObjectAttribute);        		        	        		
-        		}        		
-        	}			
+			this.objectManagement = new ObjectManagement();
+			this.treeViewSCL = new TreeViewSCL();
 		}
    		
 		/// <summary>
@@ -98,7 +45,7 @@ namespace OpenSCL.UI
 		/// The object that contains the information of the node selected.
 		/// </returns>
 		public object UpdatePropertyGrid(object NodetreeViewFile)
-		{        
+		{        			
             if (NodetreeViewFile != null && ! NodetreeViewFile.GetType().IsArray)
             {
                 string clase = "IEC61850.SCL." + NodetreeViewFile.GetType().Name.ToString() + "Hierachy";
@@ -108,8 +55,7 @@ namespace OpenSCL.UI
                     object HierachyClass = Activator.CreateInstance(TypeClass);
                     if (HierachyClass != null)
                     {
-                        Utils GUIOM = new Utils();
-                        GUIOM.EmptySCLObjectoGUIObject(NodetreeViewFile, HierachyClass);
+                        this.objectManagement.EmptySourcetoDestinyObject(NodetreeViewFile, HierachyClass);
                         ObjectReturnedinAfterSelect = HierachyClass;                       
                     }                    
                     else
@@ -119,6 +65,207 @@ namespace OpenSCL.UI
                         ObjectReturnedinAfterSelect = NodetreeViewFile;                        
             }
             return ObjectReturnedinAfterSelect;	        
-		}			
+		}	
+		
+		/// <summary>
+		/// This method updates the SCL tree using the SCL object that contains the clases of the 
+		/// IED imported.
+		/// </summary>
+		/// <param name="treeViewProject">
+		/// TreeView of the main SCL where the new nodes of the IED file will be insert.
+		/// </param>
+		/// <param name="objectSCLToImport">
+		/// SCL object created using the deserializer method on the ICD or CID file of the IED to import.
+		/// </param>
+		public void ImportIEDUI(TreeView treeViewProject, SCL objectSCLToImport)
+		{
+			TreeView treeViewSCLProject;
+			TreeViewSCL treeViewSCL = new TreeViewSCL();
+			TreeNode sCLObject;
+			treeViewSCLProject = treeViewProject;
+			TreeNode treeViewToImport = new TreeNode();					
+			objectSCLToImport.Header = null;
+			objectSCLToImport.Substation = null;			
+			treeViewToImport = treeViewSCL.GetTreeNodeSCL("TreeNodeToImport",objectSCLToImport);			
+			if(objectSCLToImport.IED!=null)
+			{
+				sCLObject = treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tIED[]"];					
+				if(sCLObject !=null)
+				{
+					treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes.RemoveByKey("tIED[]");					
+					treeViewSCL.GetNodesItemOfArray((treeViewSCLProject.Nodes["root"].Nodes["SCL"].Tag as SCL).IED, treeViewSCLProject.Nodes["root"].Nodes["SCL"].Tag.GetType(), treeViewSCLProject.Nodes["root"].Nodes["SCL"]);
+				}	
+				else
+				{						
+					TreeNode nodeIED = new TreeNode();
+					nodeIED.Name = "tIED[]";
+					nodeIED.Text = "IED";
+					nodeIED.Tag =  objectSCLToImport.IED;						
+					treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes.Add(nodeIED);
+					
+					this.CopyNodes(treeViewToImport.Nodes["SCL"].Nodes["tIED[]"], treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tIED[]"], sCLObject);
+				}
+			}					
+			if(objectSCLToImport.Communication!=null)
+			{
+				sCLObject = treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"];					
+				if(sCLObject !=null)
+				{
+					treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes.RemoveByKey("tCommunication");					
+					treeViewSCL.GetNodes((treeViewSCLProject.Nodes["root"].Nodes["SCL"].Tag as SCL).Communication, treeViewSCLProject.Nodes["root"].Nodes["SCL"]);
+				}	
+				else
+				{						
+					TreeNode nodeCommunication = new TreeNode();
+					nodeCommunication.Name = "tCommunication";
+					nodeCommunication.Text = "Communication";
+					nodeCommunication.Tag =  objectSCLToImport.Communication;						
+					treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes.Add(nodeCommunication);					
+					this.CopyNodes(treeViewToImport.Nodes["SCL"].Nodes["tCommunication"], treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"], sCLObject);
+				}
+			}				
+			if(objectSCLToImport.DataTypeTemplates!=null)
+			{
+				sCLObject = treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tDataTypeTemplates"];
+				if(sCLObject !=null)
+				{						
+					this.CopyNodes(treeViewToImport.Nodes["SCL"].Nodes["tDataTypeTemplates"].Nodes["tLNodeType[]"], treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tDataTypeTemplates"].Nodes["tLNodeType[]"], sCLObject);
+					this.CopyNodes(treeViewToImport.Nodes["SCL"].Nodes["tDataTypeTemplates"].Nodes["tDOType[]"], treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tDataTypeTemplates"].Nodes["tDOType[]"], sCLObject);
+					this.CopyNodes(treeViewToImport.Nodes["SCL"].Nodes["tDataTypeTemplates"].Nodes["tDAType[]"], treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tDataTypeTemplates"].Nodes["tDAType[]"], sCLObject);
+					this.CopyNodes(treeViewToImport.Nodes["SCL"].Nodes["tDataTypeTemplates"].Nodes["tEnumType[]"], treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tDataTypeTemplates"].Nodes["tEnumType[]"], sCLObject);
+				}		
+				else
+				{
+					TreeNode nodeDataTypeTemplates = new TreeNode();
+					nodeDataTypeTemplates.Name = "tDataTypeTemplates";
+					nodeDataTypeTemplates.Text = "DataTypeTemplates";
+					nodeDataTypeTemplates.Tag =  objectSCLToImport.DataTypeTemplates;						
+					treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes.Add(nodeDataTypeTemplates);					
+					this.CopyNodes(treeViewToImport.Nodes["SCL"].Nodes["tDataTypeTemplates"], treeViewProject.Nodes["root"].Nodes["SCL"].Nodes["tDataTypeTemplates"], sCLObject);
+				}
+			}			
+		}	
+		
+		/// <summary>
+		/// This method allows to create a new item of the history to identify when the file of an IED was imported.		
+		/// </summary>
+		/// <param name="treeViewProject">
+		/// TreeView of the main SCL where the new nodes of the History will be insert.
+		/// </param>
+		/// <param name="objectSCLProject">
+		/// SCL object of the project file.
+		/// </param>		
+		public void CreateHistory(TreeView treeViewProject, SCL objectSCLProject)
+		{
+			TreeViewSCL treeViewSCL = new TreeViewSCL();
+			TreeNode sCLObject;
+			
+			if(objectSCLProject.Header == null)
+			{
+				objectSCLProject.Header = new tHeader();
+			}			
+			HistoryDialog historyDlg = new HistoryDialog(objectSCLProject.Header);
+			historyDlg.ShowDialog();
+			if (historyDlg.DialogResult == DialogResult.OK)
+			{
+				sCLObject = treeViewProject.Nodes["root"].Nodes["SCL"].Nodes["tHeader"];
+				if(sCLObject==null)
+				{
+					treeViewSCL.GetNodes(objectSCLProject.Header, treeViewProject.Nodes["root"].Nodes["SCL"]);
+				}
+				else
+				{
+					treeViewSCL.GetNodesItemOfArray(objectSCLProject.Header.History, objectSCLProject.Header.GetType(), sCLObject);
+				}				
+			}	
+			historyDlg.Dispose();			
+		}	
+		
+		/// <summary>
+		/// This method copies the nodes from a source treenode to another TreeNode destiny.		
+		/// </summary>
+		/// <param name="nodeSource">
+		/// TreeNode that contains the origin nodes.		
+		/// </param>
+		/// <param name="nodeDestiny">
+		/// TreeNode that contains the final nodes.
+		/// </param>
+		private void CopyNodes(TreeNode nodeSource, TreeNode nodeDestiny, TreeNode sCLObject)
+		{
+			if(nodeSource != null)
+			{				
+				if(nodeDestiny != null)
+				{													
+					TreeNode[] myTreeNodeArray = new TreeNode[nodeSource.Nodes.Count];
+					nodeSource.Nodes.CopyTo(myTreeNodeArray, 0);
+					nodeDestiny.Nodes.AddRange(myTreeNodeArray);
+				}
+				else
+				{
+					sCLObject.Nodes.Add(nodeSource);					
+				}				
+			}				
+		}	
+		
+		public void DrawTPNodes(object tagNode, string name, string text, object address, TreeNode p)		
+		{
+			TreeNode treenode1 = new TreeNode();
+			this.objectManagement.AddObjectToArrayObjectOfParentObject(tagNode, address);		
+			treenode1 = new TreeNode();				
+			treenode1.Name = name;
+			treenode1.Tag = tagNode;
+			treenode1.Text = text;
+			p.Nodes.Add(treenode1);
+		}
+   		
+		public void CreateIED(SCL sCL, TreeNode nodeSCL)
+		{		
+			tIED iED = new tIED();	
+			iED.configVersion = "0";
+			this.objectManagement.AddObjectToArrayObjectOfParentObject(iED, sCL);
+			tAccessPoint accessPoint = new tAccessPoint();
+			this.objectManagement.AddObjectToArrayObjectOfParentObject(accessPoint, iED);
+			accessPoint.Server = new tServer();
+			accessPoint.Server.Authentication = new tServerAuthentication();
+			tLDevice lDevice = new tLDevice();
+			this.objectManagement.AddObjectToArrayObjectOfParentObject(lDevice, accessPoint.Server);
+			lDevice.LN0 = new LN0();
+			tLN lN = new tLN();
+			lN.lnType = "LPHD1";
+			lN.inst = 1;			
+			lN.lnClass = tLNClassEnum.LPHD.ToString();
+			this.objectManagement.AddObjectToArrayObjectOfParentObject(lN, lDevice);			
+			this.treeViewSCL.GetNodesItemOfArray(sCL.IED, sCL.GetType(), nodeSCL.TreeView.Nodes["root"].Nodes["SCL"]);
+			this.CreatingDependenciesLN(sCL, sCL.IED[sCL.IED.Length-1].AccessPoint[0].Server.LDevice[0].LN0, nodeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tIED[]"].Nodes[sCL.IED.Length-1].Nodes["tAccessPoint[]"].Nodes[0].Nodes["tServer"].Nodes["tLDevice[]"].Nodes[0].Nodes["LN0"]);
+			this.CreatingDependenciesLN(sCL, sCL.IED[sCL.IED.Length-1].AccessPoint[0].Server.LDevice[0].LN[0], nodeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tIED[]"].Nodes[sCL.IED.Length-1].Nodes["tAccessPoint[]"].Nodes[0].Nodes["tServer"].Nodes["tLDevice[]"].Nodes[0].Nodes["tLN[]"].Nodes[0]);
+		}
+		
+		private void CreatingDependenciesLN(SCL sCL, tAnyLN anyLN, TreeNode nodeAnyLN)
+		{
+			bool band = false;
+			int i = 0;
+			for(; sCL.DataTypeTemplates != null && sCL.DataTypeTemplates.LNodeType !=null && i < sCL.DataTypeTemplates.LNodeType.Length; i++)
+			{
+				if(sCL.DataTypeTemplates.LNodeType[i].id.Equals(anyLN.lnType))
+				{
+					band = true;
+					break;
+				}
+			}			
+			//Español: Se hace un cargado de los valore que conforman al LNodeType 20/11/2009
+			if(band)
+			{
+				TreeViewLNType treeViewLNType = new TreeViewLNType(nodeAnyLN, sCL);				
+				treeViewLNType.ReloadLNType(anyLN);
+				treeViewLNType.EmptyTreeNodeLNType(false);				
+			}
+			//Español: Se hace una creación de los valore que conforman al LNodeType 20/11/2009
+			else
+			{
+				TreeViewLNType treeViewLNType = new TreeViewLNType(nodeAnyLN, sCL);
+				treeViewLNType.GetTreeNodeTypesLNs(anyLN);
+				treeViewLNType.EmptyTreeNodeLNType(false);
+			}		
+		}
 	}	   			
 }

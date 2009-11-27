@@ -1,5 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCLUI/HistoryDialog.Designer.cs" ctype="Workbench">
+    <Files>
+      <File FileName="LibOpenSCLUI/CommunicationDialog.Designer.cs" Line="241" Column="24" />
+      <File FileName="LibOpenSCLUI/WindowTreeViewLNType.Designer.cs" Line="151" Column="25" />
+      <File FileName="LibOpenSCLUI/HistoryDialog.Designer.cs" Line="87" Column="35" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
@@ -11,6 +16,9 @@
       </Pad>
       <Pad Id="ClassPad">
         <State expanded="True" selected="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

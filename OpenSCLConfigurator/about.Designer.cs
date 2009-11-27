@@ -70,8 +70,8 @@ namespace OpenSCLConfigurator
 			this.tabVersion = new System.Windows.Forms.TabPage();
 			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
 			this.tabDevelop = new System.Windows.Forms.TabPage();
-			this.pictureBox2 = new System.Windows.Forms.PictureBox();
 			this.richTextBox3 = new System.Windows.Forms.RichTextBox();
+			this.pictureBox2 = new System.Windows.Forms.PictureBox();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabAbout.SuspendLayout();
@@ -82,40 +82,63 @@ namespace OpenSCLConfigurator
 			// 
 			// button1
 			// 
-			resources.ApplyResources(this.button1, "button1");
+			this.button1.Location = new System.Drawing.Point(428, 378);
 			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(87, 23);
+			this.button1.TabIndex = 0;
+			this.button1.Text = "Ok";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.OKAboutClick);
 			// 
 			// label1
 			// 
-			resources.ApplyResources(this.label1, "label1");
+			this.label1.Location = new System.Drawing.Point(288, 49);
 			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(138, 27);
+			this.label1.TabIndex = 1;
+			this.label1.Text = "Open SCL Configurator";
 			// 
 			// pictureBox1
 			// 
-			resources.ApplyResources(this.pictureBox1, "pictureBox1");
+			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+			this.pictureBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.pictureBox1.Location = new System.Drawing.Point(1, 0);
 			this.pictureBox1.Name = "pictureBox1";
+			this.pictureBox1.Size = new System.Drawing.Size(1111, 76);
+			this.pictureBox1.TabIndex = 2;
 			this.pictureBox1.TabStop = false;
 			// 
 			// label3
 			// 
-			resources.ApplyResources(this.label3, "label3");
+			this.label3.Font = new System.Drawing.Font("DejaVu Sans", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+			this.label3.Location = new System.Drawing.Point(220, 90);
 			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(528, 41);
+			this.label3.TabIndex = 4;
+			this.label3.Text = "“Creating configurations files for Intelligent Electronic Devices (IED\'s) accordi" +
+			"ng to the IEC 61850 Ed.1.0 standard”";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label4
 			// 
-			resources.ApplyResources(this.label4, "label4");
+			this.label4.Font = new System.Drawing.Font("DejaVu Sans", 8.25F, System.Drawing.FontStyle.Bold);
+			this.label4.Location = new System.Drawing.Point(222, 345);
 			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(528, 23);
+			this.label4.TabIndex = 5;
+			this.label4.Text = "Copyright © 2009 Comisión Federal de Electricidad";
+			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// tabControl1
 			// 
 			this.tabControl1.Controls.Add(this.tabAbout);
 			this.tabControl1.Controls.Add(this.tabVersion);
 			this.tabControl1.Controls.Add(this.tabDevelop);
-			resources.ApplyResources(this.tabControl1, "tabControl1");
+			this.tabControl1.Location = new System.Drawing.Point(220, 131);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
+			this.tabControl1.Size = new System.Drawing.Size(587, 211);
+			this.tabControl1.TabIndex = 6;
 			// 
 			// tabAbout
 			// 
@@ -123,73 +146,113 @@ namespace OpenSCLConfigurator
 			this.tabAbout.Controls.Add(this.label2);
 			this.tabAbout.Controls.Add(this.textBox1);
 			this.tabAbout.Controls.Add(this.label8);
-			resources.ApplyResources(this.tabAbout, "tabAbout");
+			this.tabAbout.Location = new System.Drawing.Point(4, 22);
 			this.tabAbout.Name = "tabAbout";
+			this.tabAbout.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAbout.Size = new System.Drawing.Size(579, 194);
+			this.tabAbout.TabIndex = 1;
+			this.tabAbout.Text = "About OpenSCLConfigurator";
 			this.tabAbout.UseVisualStyleBackColor = true;
 			// 
 			// richTextBox2
 			// 
 			this.richTextBox2.BackColor = System.Drawing.SystemColors.InactiveBorder;
-			resources.ApplyResources(this.richTextBox2, "richTextBox2");
+			this.richTextBox2.Location = new System.Drawing.Point(34, 75);
 			this.richTextBox2.Name = "richTextBox2";
 			this.richTextBox2.ReadOnly = true;
+			this.richTextBox2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+			this.richTextBox2.Size = new System.Drawing.Size(522, 84);
+			this.richTextBox2.TabIndex = 4;
+			this.richTextBox2.Text = resources.GetString("richTextBox2.Text");
 			// 
 			// label2
 			// 
-			resources.ApplyResources(this.label2, "label2");
+			this.label2.Location = new System.Drawing.Point(34, 50);
 			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(369, 21);
+			this.label2.TabIndex = 3;
+			this.label2.Text = "Released under the terms of the GNU General Public License";
 			// 
 			// textBox1
 			// 
 			this.textBox1.BackColor = System.Drawing.SystemColors.InactiveBorder;
-			resources.ApplyResources(this.textBox1, "textBox1");
+			this.textBox1.Font = new System.Drawing.Font("DejaVu Sans", 8.25F);
+			this.textBox1.Location = new System.Drawing.Point(99, 19);
 			this.textBox1.Name = "textBox1";
 			this.textBox1.ReadOnly = true;
+			this.textBox1.Size = new System.Drawing.Size(46, 20);
+			this.textBox1.TabIndex = 2;
+			this.textBox1.Text = "0.2.1";
+			this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			// 
 			// label8
 			// 
-			resources.ApplyResources(this.label8, "label8");
+			this.label8.Location = new System.Drawing.Point(34, 21);
 			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(61, 16);
+			this.label8.TabIndex = 1;
+			this.label8.Text = "Versión:";
 			// 
 			// tabVersion
 			// 
 			this.tabVersion.Controls.Add(this.richTextBox1);
-			resources.ApplyResources(this.tabVersion, "tabVersion");
+			this.tabVersion.Location = new System.Drawing.Point(4, 22);
 			this.tabVersion.Name = "tabVersion";
+			this.tabVersion.Padding = new System.Windows.Forms.Padding(3);
+			this.tabVersion.Size = new System.Drawing.Size(579, 203);
+			this.tabVersion.TabIndex = 2;
+			this.tabVersion.Text = "Version Info";
 			this.tabVersion.UseVisualStyleBackColor = true;
 			// 
 			// richTextBox1
 			// 
 			this.richTextBox1.BackColor = System.Drawing.SystemColors.InactiveBorder;
-			resources.ApplyResources(this.richTextBox1, "richTextBox1");
+			this.richTextBox1.Font = new System.Drawing.Font("DejaVu Sans", 8.25F);
+			this.richTextBox1.Location = new System.Drawing.Point(61, 48);
 			this.richTextBox1.Name = "richTextBox1";
 			this.richTextBox1.ReadOnly = true;
+			this.richTextBox1.Size = new System.Drawing.Size(462, 79);
+			this.richTextBox1.TabIndex = 0;
+			this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
 			// 
 			// tabDevelop
 			// 
 			this.tabDevelop.Controls.Add(this.richTextBox3);
-			resources.ApplyResources(this.tabDevelop, "tabDevelop");
+			this.tabDevelop.Location = new System.Drawing.Point(4, 22);
 			this.tabDevelop.Name = "tabDevelop";
+			this.tabDevelop.Padding = new System.Windows.Forms.Padding(3);
+			this.tabDevelop.Size = new System.Drawing.Size(579, 185);
+			this.tabDevelop.TabIndex = 0;
+			this.tabDevelop.Text = "Ported and Developed by";
 			this.tabDevelop.UseVisualStyleBackColor = true;
-			// 
-			// pictureBox2
-			// 
-			resources.ApplyResources(this.pictureBox2, "pictureBox2");
-			this.pictureBox2.Name = "pictureBox2";
-			this.pictureBox2.TabStop = false;
 			// 
 			// richTextBox3
 			// 
 			this.richTextBox3.BackColor = System.Drawing.SystemColors.InactiveBorder;
-			resources.ApplyResources(this.richTextBox3, "richTextBox3");
+			this.richTextBox3.Font = new System.Drawing.Font("DejaVu Sans", 9F, System.Drawing.FontStyle.Bold);
+			this.richTextBox3.Location = new System.Drawing.Point(0, 0);
 			this.richTextBox3.Name = "richTextBox3";
 			this.richTextBox3.ReadOnly = true;
+			this.richTextBox3.Size = new System.Drawing.Size(577, 186);
+			this.richTextBox3.TabIndex = 1;
+			this.richTextBox3.Text = resources.GetString("richTextBox3.Text");
+			// 
+			// pictureBox2
+			// 
+			this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+			this.pictureBox2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.pictureBox2.Location = new System.Drawing.Point(181, 153);
+			this.pictureBox2.Name = "pictureBox2";
+			this.pictureBox2.Size = new System.Drawing.Size(37, 189);
+			this.pictureBox2.TabIndex = 7;
+			this.pictureBox2.TabStop = false;
 			// 
 			// about
 			// 
 			this.AcceptButton = this.button1;
-			resources.ApplyResources(this, "$this");
+			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.ClientSize = new System.Drawing.Size(927, 409);
 			this.ControlBox = false;
 			this.Controls.Add(this.pictureBox2);
 			this.Controls.Add(this.tabControl1);
@@ -198,12 +261,15 @@ namespace OpenSCLConfigurator
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.button1);
+			this.Font = new System.Drawing.Font("DejaVu Sans", 8.25F);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "about";
 			this.Opacity = 0.9;
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "- OpenSCLConfigurator -";
 			this.TopMost = true;
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.tabControl1.ResumeLayout(false);

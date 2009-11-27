@@ -19,6 +19,7 @@
 using System;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Collections;
 using IEC61850.SCL;
 
 namespace OpenSCL.UI
@@ -30,6 +31,9 @@ namespace OpenSCL.UI
 	{				
 		TreeNode node;
 		ObjectManagement objectManagement;
+		private TreeNode treeReferenced; 	
+		private Type typeNode;
+		private Type dataType;	 		
 		
 		public TreeViewSCL()
 		{
@@ -85,11 +89,11 @@ namespace OpenSCL.UI
 		/// <param name="treeSCL">
 		/// Tree created.
 		/// </param>		
-		private void GetNodes(object sCLObject, TreeNode treeSCL)
+		public void GetNodes(object sCLObject, TreeNode treeSCL)
 		{			
 			node = new TreeNode();
             node.Name = sCLObject.GetType().Name.ToString();
-            node.Text = sCLObject.GetType().Name.ToString();            
+            node.Text = GetName(sCLObject, sCLObject.GetType().Name.ToString());
             node.Tag = sCLObject;
             treeSCL.Nodes.Add(node);       
 			AddNodesToTreeSCL(sCLObject, treeSCL);       	
@@ -118,7 +122,7 @@ namespace OpenSCL.UI
         			if(attributeInformation.PropertyType.BaseType.Name.Equals("Array"))
         			{
 		       			valuesAttributeObject = sCLObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, sCLObject, null ) as  Array;        				
-        				if(valuesAttributeObject!=null)
+		       			if(valuesAttributeObject!=null && (valuesAttributeObject as Array).GetValue(0) != null)
         				{
         					this.GetNodesItemOfArray(attributeInformation, valuesAttributeObject,  treeSCL.Nodes[sCLObject.GetType().Name.ToString()]);
         				}     				
@@ -130,7 +134,7 @@ namespace OpenSCL.UI
         				valueAttributeObject = sCLObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, sCLObject, null );				        			        						
         				if(valueAttributeObject!=null)
         				{        					
-        					this.GetNodes(valueAttributeObject,  treeSCL.Nodes[sCLObject.GetType().Name.ToString()]);
+        					this.GetNodes(valueAttributeObject, treeSCL.Nodes[sCLObject.GetType().Name.ToString()]);
         				}        					
         			}        			
         		}        			
@@ -156,7 +160,7 @@ namespace OpenSCL.UI
 		{			
 			node = new TreeNode();
 			node.Name = attributeInformation.PropertyType.Name;
-            node.Text = attributeInformation.Name;            
+            node.Text = GetName(valuesAttributeObject, attributeInformation.Name );//attributeInformation.Name;            
             node.Tag = valuesAttributeObject;
 			treeSCL.Nodes.Add(node);
 			for(int x = 0;  valuesAttributeObject!=null && x <valuesAttributeObject.GetLength(0); x++)
@@ -184,9 +188,11 @@ namespace OpenSCL.UI
 			Array valuesAttributeObject;
 			PropertyInfo[] attributesInformation = itemSCLObject.GetType().GetProperties();        	        	        	        													
 			node.Name = itemSCLObject.GetType().Name.ToString()+index;
-            node.Text = itemSCLObject.GetType().Name.ToString();           
+			node.Text = GetName(itemSCLObject, itemSCLObject.GetType().Name.ToString());//itemSCLObject.GetType().Name.ToString();
             node.Tag = itemSCLObject;
             treeSCL.Nodes.Add(node);			
+			AttributeReferences references = new AttributeReferences();
+			references.Insert(itemSCLObject,node);
         	foreach (PropertyInfo attributeInformation in attributesInformation) 
         	{        		
         		if(!this.ValidateObjectPrimitive(attributeInformation))
@@ -196,7 +202,7 @@ namespace OpenSCL.UI
         			if(attributeInformation.PropertyType.BaseType.Name.Equals("Array"))
         			{
         				valuesAttributeObject = itemSCLObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, itemSCLObject, null ) as  Array;        				
-        				if(valuesAttributeObject!=null)
+        				if(valuesAttributeObject!=null && (valuesAttributeObject as Array).GetValue(0) != null)
         				{
         					this.GetNodesItemOfArray(attributeInformation, valuesAttributeObject,  treeSCL.Nodes[itemSCLObject.GetType().Name.ToString()+index]);
         				}  				
@@ -233,32 +239,31 @@ namespace OpenSCL.UI
 			bool result = false;
 			switch(attributeInformation.PropertyType.Name.ToString())
         	{
-					 case "UInt32":
-					 case "String":
-					 case "Boolean":
-					 case "Int32":
-					 case "Int64":
-					 case "XmlNode[]":
-				     case "tText":
-				     case "tPrivate[]":
-					 case "Decimal":
-					 case "XmlElement[]":
-					 case "XmlAttribute[]":
-					 case "XmlNode":
-					 case "tDurationInMilliSec":
-					 case "tServiceYesNo":
-						result = true;
-        			 	break;      
-        			 default:
-        			 	switch(attributeInformation.PropertyType.BaseType.Name.ToString())
-        			 	{        			 	
-        			 		case "Enum":
-        			 			result = true;	
-        			    		break;
-        			 	}
-        			 	break;
+				case "UInt32":
+				case "String":
+				case "Boolean":
+				case "Int32":
+				case "Int64":
+				case "XmlNode[]":
+				case "tText":
+				case "Decimal":
+				case "XmlElement[]":
+				case "XmlAttribute[]":
+				case "XmlNode":
+				case "tDurationInMilliSec":
+				case "tServiceYesNo":
+					result = true;
+        		 	break;      
+        		default:
+        		 	switch(attributeInformation.PropertyType.BaseType.Name.ToString())
+        		 	{        			 	
+        		 		case "Enum":
+        		 			result = true;	
+        		    		break;
+        		 	}
+        		 	break;
 			}
-			return result;		
+			return result;	
 		}
 		
 		/// <summary>
@@ -275,7 +280,7 @@ namespace OpenSCL.UI
 				objectParent = nodePossibleRemove.Parent.Parent.Tag;
 				objectToRemove = nodePossibleRemove.Tag;
 				int indexOfObject = nodePossibleRemove.Parent.Nodes.IndexOf(nodePossibleRemove);
-				if(objectParent!=null&&this.objectManagement.RemoveObjectOfArrayObjectOfParentObject(objectToRemove, indexOfObject, objectParent))					
+				if(objectParent!=null && this.objectManagement.RemoveObjectOfArrayObjectOfParentObject(objectToRemove, indexOfObject, objectParent))					
 				{						
 					nodePossibleRemove = nodePossibleRemove.Parent;
 					nodePossibleRemove.Nodes.RemoveAt(indexOfObject);											
@@ -336,7 +341,7 @@ namespace OpenSCL.UI
 				else
 				{	
 					node.Name = typePropertyPossibleInsert+nodePossibleInsert.Nodes.Count.ToString();
-					node.Text = namePropertyPossibleInsert;		
+					node.Text = GetName(objectToInsert, namePropertyPossibleInsert);
 					node.Tag = objectToInsert;			
 					nodePossibleInsert.Nodes.Add(node);
 				}
@@ -364,12 +369,12 @@ namespace OpenSCL.UI
 						Array array  = objectParent.GetType().InvokeMember(namePropertyPossibleInsert, BindingFlags.Instance | BindingFlags.Public |
               			BindingFlags.GetProperty | BindingFlags.GetField, null, objectParent, null) as Array;						
 						node.Name = typePropertyPossibleInsert;
-						node.Text = namePropertyPossibleInsert;		
+						node.Text =  GetName(array, namePropertyPossibleInsert);
 						node.Tag = array;			
 						nodePossibleInsert.Nodes.Add(node);
 						TreeNode sonNode = new TreeNode();
 						sonNode.Name = objectToInsert.GetType().Name+"0";
-						sonNode.Text = objectToInsert.GetType().Name;
+						sonNode.Text = GetName(objectToInsert, objectToInsert.GetType().Name);
 						sonNode.Tag = objectToInsert;								
 						nodePossibleInsert.Nodes[typePropertyPossibleInsert].Nodes.Add(sonNode);						
 					}
@@ -385,7 +390,7 @@ namespace OpenSCL.UI
 					else
 					{
 						node.Name = typePropertyPossibleInsert;
-						node.Text = namePropertyPossibleInsert;		
+						node.Text =  GetName(objectToInsert, namePropertyPossibleInsert);
 						node.Tag = objectToInsert;			
 						nodePossibleInsert.TreeView.SelectedNode.Nodes.Add(node);						
 					}
@@ -475,11 +480,399 @@ namespace OpenSCL.UI
             TreeNode subNodeinNodeRoot = new TreeNode();
             subNodeinNodeRoot.Text = "Header";
             subNodeinNodeRoot.Name = "tHeader";
-            tHeader th = new tHeader();            
-            subNodeinNodeRoot.Tag = th;
+			sc.Configuration.Header = new tHeader();
+			subNodeinNodeRoot.Tag = sc.Configuration.Header;
             Node.Nodes.Add(subNodeinNodeRoot);
             newTreeNodeSCL.Nodes.Add(Node);
             return newTreeNodeSCL;
         }
-	}        	
+		
+		/// <summary>
+		/// Seeks a node with two variables into its tag
+		/// </summary>
+		/// <param name="tree2">
+		/// The Collection of nodes to star to seek
+		/// </param>
+		/// <param name="apName">
+		/// First Variable to compare
+		/// </param>
+		/// <param name="iedName">
+		/// Second variable to compare
+		/// </param>		
+		/// <returns>
+		/// if match booth variables treenode founded is returned otherwise returns a null treenode
+		/// </returns>
+		public TreeNode SeekAssociation(TreeNodeCollection tree2, string apName, string iedName)
+		{
+			foreach(TreeNode treeAux in tree2)
+			{
+				if(treeAux.Tag != null)
+				{					
+					 typeNode = treeAux.Tag.GetType();	
+				}				
+				if(treeAux.Tag != null &&  typeNode.Name== "tConnectedAP")
+				{
+					if((this.objectManagement.FindVariable(treeAux.Tag, "apName").ToString() == apName) && 
+					   (this.objectManagement.FindVariable(treeAux.Tag, "iedName").ToString() == iedName))
+					{
+						treeReferenced = treeAux;						
+					}	
+				}				
+				SeekAssociation(treeAux.Nodes, apName, iedName);
+			}			
+			return treeReferenced;	
+		}			
+		
+		/// <summary>
+		/// This method creates a node referenced to the last element that was inserted to the array
+		/// and adds an specified node to it.
+		/// </summary>
+		/// <param name="valuesArray">
+		/// Array used to creates his nodes.
+		/// </param>
+		/// <param name="parentType">
+		/// SCL object that contains the array.
+		/// </param>
+		/// <param name="treeSCL">
+		/// Tree where the nodes will be insert.
+		/// </param>	
+		public void GetNodesItemOfArray(Array valuesArray, Type parentType, TreeNode treeSCL)
+		{
+			PropertyInfo attributeInformation = this.objectManagement.GetProperty((valuesArray as Array).GetValue(0).GetType(), parentType);
+			bool band1 = true, band2 = true;
+			if(treeSCL.Nodes!=null)
+			{
+				band1 = treeSCL.Nodes[attributeInformation.PropertyType.Name] == null;
+			}
+			if(treeSCL.Parent.Nodes!=null)
+			{
+				band2 = treeSCL.Parent.Nodes[attributeInformation.PropertyType.Name] == null;
+			}
+			if(treeSCL.Nodes!=null && band1 && band2)
+			{
+				this.GetNodesItemOfArray(attributeInformation , valuesArray, treeSCL);
+			}
+			else
+			{
+				if(!band1)
+				{
+					this.GetNodesArray(valuesArray.GetValue((valuesArray as Array).Length-1),  treeSCL.Nodes[attributeInformation.PropertyType.Name],(valuesArray as Array).Length-1);
+				}
+				else if(!band2)
+				{
+					this.GetNodesArray(valuesArray.GetValue((valuesArray as Array).Length-1),  treeSCL.Parent.Nodes[attributeInformation.PropertyType.Name],(valuesArray as Array).Length-1);
+				}
+			}
+		}		
+
+		/// <summary>
+		/// This method gets the value of the node to set a name to it.
+		/// </summary>
+		/// <param name="sCLObject">
+		/// SCL object where will be look the attribute.
+		/// </param>
+		/// <param name="textPossible">
+		/// Possible name to set to an specific node
+		/// </param>
+		/// <returns>
+		/// A string that contains the name that will be set to the node
+		/// </returns>
+		public string GetName(object sCLObject, string textPossible)
+		{
+			if((sCLObject is tNaming) || (sCLObject is tUnNaming))
+			{
+				if(this.objectManagement.FindVariable(sCLObject, "name")!=null && this.objectManagement.FindVariable(sCLObject, "name").ToString()!="null")
+				{
+					textPossible = this.objectManagement.FindVariable(sCLObject, "name").ToString();
+				}
+				if(this.objectManagement.FindVariable(sCLObject, "cbName")!=null && this.objectManagement.FindVariable(sCLObject, "cbName").ToString()!="null")
+				{
+					textPossible = this.objectManagement.FindVariable(sCLObject, "cbName").ToString();
+				}
+			}				
+			if(sCLObject is tLN && this.objectManagement.FindVariable(sCLObject, "lnClass")!= null && this.objectManagement.FindVariable(sCLObject, "inst").ToString()!= "null")
+			{
+				textPossible = this.objectManagement.FindVariable(sCLObject, "prefix").ToString()+this.objectManagement.FindVariable(sCLObject, "lnClass").ToString()+this.objectManagement.FindVariable(sCLObject, "inst").ToString();
+			}
+			if(sCLObject is tLDevice && this.objectManagement.FindVariable(sCLObject, "inst")!= null  && this.objectManagement.FindVariable(sCLObject, "inst").ToString()!="null")
+			{
+				textPossible = this.objectManagement.FindVariable(sCLObject, "inst").ToString();
+			}
+			if(sCLObject is tIDNaming)
+			{	
+				textPossible = this.objectManagement.FindVariable(sCLObject, "id").ToString();				
+			}
+			return textPossible;
+		}
+		
+		/// <summary>
+		/// This method searchs a type of an SCL object on the tree.		
+		/// </summary>
+		/// <param name="nodeSCL">
+		/// Node of the tree where the search will start.
+		/// </param>
+		/// <param name="typeSCLToSearch">
+		/// Type of the SCL object.
+		/// </param>
+		/// <returns>
+		/// If the object is found then a node is returned, otherwise a null value will be returned.
+		/// </returns>
+		public TreeNode SearchUPForTypeAndGetSCLTreeNode(TreeNode nodeSCL, Type typeSCLToSearch)
+		{
+			if(nodeSCL.Tag != null && (nodeSCL.Tag.GetType()==typeSCLToSearch ))
+			{
+				return nodeSCL;
+			}
+			else
+			{
+				if(nodeSCL.Parent != null)
+				{
+					return this.SearchUPForTypeAndGetSCLTreeNode(nodeSCL.Parent, typeSCLToSearch);
+				}
+				else
+				{
+					return null;
+				}
+			}
+		}		
+		
+		//New
+		/// <summary>
+		/// Seeks a node with two variables into its tag
+		/// </summary>
+		/// <param name="tree2">
+		/// The Collection of nodes to star to seek
+		/// </param>
+		/// <param name="apName">
+		/// First Variable to compare
+		/// </param>
+		/// <param name="iedName">
+		/// Second variable to compare
+		/// </param>
+		/// <param name="var1">
+		/// name of the property to check
+		/// </param>
+		/// <param name="var2">
+		/// name of second property to check
+		/// </param>
+		/// <returns>
+		/// if match booth variables treenode founded is returned otherwise returns a null treenode
+		/// </returns>
+		public TreeNode SeekAssociation(TreeNodeCollection tree2, string apName, string iedName, string var1, string var2)
+		{		
+			foreach(TreeNode t2 in tree2)
+			{
+				if(t2.Tag != null)
+				{					
+					 dataType = t2.Tag.GetType();	
+				}				
+				if(t2.Tag != null &&  dataType.Name== "tConnectedAP")
+				{	
+					if((this.objectManagement.FindVariable(t2.Tag, var1).ToString() == apName) && 
+					   (this.objectManagement.FindVariable(t2.Tag, var2).ToString() == iedName))
+					{
+						this.treeReferenced = t2;
+						return this.treeReferenced;							
+					}					
+				}				
+				SeekAssociation(t2.Nodes, apName, iedName, "apName", "iedName");
+			}			
+			return this.treeReferenced;	
+		}		
+
+		/// <summary>
+		/// Método para buscar un nodo con una sola variable
+		/// </summary>
+		/// <param name="tree2">
+		/// Nodes a buscar
+		/// </param>
+		/// <param name="value_">
+		/// valor que compararemos
+		/// </param>
+		/// <param name="varName_">
+		/// nombre de la variable a buscar
+		/// </param>
+		/// <param name="condition">
+		/// el nombre del nodo que tendra que ser para comparar
+		/// </param>
+		/// <returns>
+		/// 
+		/// </returns>
+		public TreeNode SeekAssociation(TreeNodeCollection tree2, string value_, string varName_, string condition)
+		{		
+			foreach(TreeNode t2 in tree2)
+			{
+				if(t2.Tag != null)
+				{					
+					 dataType = t2.Tag.GetType();	
+				}				
+				if(t2.Tag != null &&  dataType.Name == condition)
+				{
+					if(this.objectManagement.FindVariable(t2.Tag, varName_).ToString() == value_)
+					{
+						this.treeReferenced = t2;					
+					}										
+				}				
+				SeekAssociation(t2.Nodes, value_, varName_, condition);
+			}			
+			return this.treeReferenced;	
+		}			
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="sCL">
+		/// 
+		/// </param>
+		/// <param name="treeSCL">
+		/// 
+		/// </param>
+		public void CreateCommNode(SCL sCL, TreeNode treeSCL)
+		{				
+			if(sCL.Communication == null)
+			{				
+				tCommunication communication = new tCommunication();
+				this.objectManagement.AddObjectToSCLObject(communication , sCL);
+				TreeNode nodeComm = new TreeNode();				
+				nodeComm.Name = "tCommunication";
+				nodeComm.Tag = sCL.Communication;
+				nodeComm.Text = "tCommunication";				
+				treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes.Add(nodeComm);
+				
+			}
+			if(treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"]==null)	
+			{					
+					TreeNode nodeSubNetwork = new TreeNode();
+					nodeSubNetwork.Name = "tSubNetwork[]";
+					nodeSubNetwork.Tag = sCL.Communication.SubNetwork;
+					nodeSubNetwork.Text = "SubNetwork";
+					treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes.Add(nodeSubNetwork);
+
+			tSubNetwork subnetwork = new tSubNetwork();					
+			this.objectManagement.AddObjectToArrayObjectOfParentObject(subnetwork, sCL.Communication);
+			this.objectManagement.AddObjectToSCLObject(sCL.Communication.SubNetwork, sCL);					
+			TreeNode nodetSubNetwork = new TreeNode();			
+			nodetSubNetwork.Name = subnetwork.name; 
+			nodetSubNetwork.Text = "tSubNetwork";
+			treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes.Add(nodetSubNetwork);
+					
+			}							
+		}				
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="sCL">
+		/// 
+		/// </param>
+		/// <param name="treeSCL">
+		/// 
+		/// </param>
+		/// <param name="apName">
+		/// 
+		/// </param>
+		/// <param name="iedName">
+		/// 
+		/// </param>
+		/// <param name="posSubnet">
+		/// 
+		/// </param>
+		public void CreateConnectedNode(SCL sCL, TreeNode treeSCL, string apName, string iedName, int posSubnet)
+		{
+			tConnectedAP tConnected = new tConnectedAP();
+			tConnected.apName = apName;
+			tConnected.iedName = iedName;	
+			this.objectManagement.AddObjectToArrayObjectOfParentObject(tConnected,sCL.Communication.SubNetwork[posSubnet]);
+			TreeNode nodeComm = new TreeNode();			
+			nodeComm.Name = "tConnectedAP[]";
+			nodeComm.Tag = sCL.Communication.SubNetwork[posSubnet].ConnectedAP;
+			nodeComm.Text = "ConnectedAP";
+			treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[posSubnet].Nodes.Add(nodeComm);													
+			TreeNode nodetConnected = new TreeNode();			
+			nodetConnected.Name = "tConnectedAP"+iedName+apName;
+			nodetConnected.Tag = tConnected;
+			nodetConnected.Text = "tConnectedAP";
+			treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[posSubnet].Nodes["tConnectedAP[]"].Nodes.Add(nodetConnected);			
+			AttributeReferences refe = new AttributeReferences();
+			refe.Insert(tConnected, treeSCL.TreeView.SelectedNode);
+		}				
+		
+		/// <summary>
+		/// Removes The Goose or SMV Node from LN0 and Communication, needs the name of the selectedGOOSE or selectedSMV
+		/// </summary>
+		/// <param name="treeSCL">
+		/// the node as reference
+		/// </param>
+		/// <param name="gseName">
+		/// the name of GSE to be deleted
+		/// </param>
+		public void RemoveGSEandSMV(TreeNode treeSCL, string nameOfObject, string condition)
+		{
+			TreeViewSCL tr =  new TreeViewSCL();
+			TreeNode nodeToRemove;		
+			SCL sCL = (SCL) treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Tag;
+			for(int i=0; i<sCL.Communication.SubNetwork.Length; i++)
+			{
+				nodeToRemove = tr.SeekAssociation(treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[i].Nodes, nameOfObject ,"cbName", condition);				
+				if(nodeToRemove!=null && nodeToRemove.Parent!= null)
+				{ 
+					if(nameOfObject == objectManagement.FindVariable(nodeToRemove.Tag, "cbName").ToString())
+					{
+						tr.Remove(nodeToRemove);
+					}	
+				}				
+			}
+			tr.Remove(treeSCL.TreeView.SelectedNode);
+		}				
+		/// <summary>
+		/// Gets the selected dataset from object
+		/// </summary>
+		/// <param name="treeSCL">current node</param>
+		/// <param name="objDat">object that contains dataset</param>
+		/// <returns>the index wich should be selected into combobox</returns>
+		public int getDataSetSelected(TreeNode treeSCL, object objDat)
+		{
+			ArrayList aL = new ArrayList();
+			//tGSEControl gseC = (tGSEControl) objDat;
+			aL = getDataset(treeSCL);
+			for(int i=0; i<aL.Count ; i++)
+			{
+				if(this.objectManagement.FindVariable(objDat, "datSet").ToString() == aL[i].ToString())
+				{
+					return i;
+				}
+			}
+			return 0;
+		}
+		
+		/// <summary>
+		/// Gets the name of dataset from current lDevice
+		/// </summary>
+		/// <param name="treeSCL">Current Node</param>
+		/// <returns>an array of the dataset, 0 if ther is not any dataset</returns>
+		public ArrayList getDataset(TreeNode treeSCL)
+		{
+			TreeNode nodeLDevice = SearchUPForTypeAndGetSCLTreeNode(treeSCL.TreeView.SelectedNode, typeof(tLDevice));
+			tLDevice ld = (tLDevice) nodeLDevice.Tag;
+			ArrayList a = new ArrayList();
+			for(int k=0; ld.LN0.DataSet!=null && k<ld.LN0.DataSet.Length; k++)
+			{
+				a.Add(ld.LN0.DataSet[k].name);
+			}
+			if(ld.LN!=null)
+			{
+				for(int i = 0; i<ld.LN.Length; i++)
+				{
+					if(ld.LN[i].DataSet!=null)
+					{
+						for(int j=0; j<ld.LN[i].DataSet.Length;j++)
+						{
+							a.Add(ld.LN[i].DataSet[j].name);
+						}
+					}
+				}
+			}
+			return a;
+		}
+	}
 }

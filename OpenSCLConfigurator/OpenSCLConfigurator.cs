@@ -33,11 +33,13 @@ namespace OpenSCLConfigurator
 	public class FormSCL : Form
 	{		
 		public System.Windows.Forms.MainMenu mainMenu1;
-		private System.Windows.Forms.MenuItem menuItem1;
+		private System.Windows.Forms.MenuItem fileMenu;
 		public System.Windows.Forms.MenuItem menuItem2;
-		private System.Windows.Forms.MenuItem menuItem3;	
-		private System.Windows.Forms.MenuItem menuItem4;
-		private System.Windows.Forms.MenuItem menuItem5;		
+		private System.Windows.Forms.MenuItem openItem;	
+		private System.Windows.Forms.MenuItem helpMenu;
+		private System.Windows.Forms.MenuItem menuItem5;
+		private System.Windows.Forms.MenuItem editMenu;
+		private System.Windows.Forms.MenuItem preferencesItem;
 		private System.ComponentModel.IContainer components;
 		private System.Windows.Forms.ToolBar toolBar1;
 		private System.Windows.Forms.ToolBarButton New;
@@ -61,15 +63,19 @@ namespace OpenSCLConfigurator
 		private System.Windows.Forms.TreeView treeViewFile;
 		private System.Windows.Forms.ToolBarButton Separator2;
 		private System.Windows.Forms.ToolBarButton Separator1;
-								
+		
 		ImageList tb_il					= new ImageList();	
-		string xSDFiles = Application.StartupPath+"/../../XSD//SCL.xsd";
-
+		string xSDFiles = Application.StartupPath+"/XSD//SCL.xsd";
+		
+		
 		/// <summary>
 		/// This method initialize the components of the form. 
 		/// </summary>
 		public FormSCL()
 		{
+			
+			
+			//System.Windows.Forms.MessageBox.Show ( os.Platform.ToString() );
 			InitializeComponent();				
 		}
 		
@@ -103,10 +109,12 @@ namespace OpenSCLConfigurator
 			this.PropertyGridAttributes = new System.Windows.Forms.PropertyGrid();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
-			this.menuItem1 = new System.Windows.Forms.MenuItem();
-			this.menuItem3 = new System.Windows.Forms.MenuItem();
+			this.fileMenu = new System.Windows.Forms.MenuItem();
+			this.openItem = new System.Windows.Forms.MenuItem();
 			this.menuItem2 = new System.Windows.Forms.MenuItem();
-			this.menuItem4 = new System.Windows.Forms.MenuItem();
+			this.editMenu = new System.Windows.Forms.MenuItem();
+			this.preferencesItem = new System.Windows.Forms.MenuItem();
+			this.helpMenu = new System.Windows.Forms.MenuItem();
 			this.menuItem5 = new System.Windows.Forms.MenuItem();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -202,40 +210,50 @@ namespace OpenSCLConfigurator
 			// mainMenu1
 			// 
 			this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-									this.menuItem1,
-									this.menuItem4});
+									this.fileMenu,
+									this.helpMenu});
 			// 
-			// menuItem1
+			// File Menu
 			// 
-			this.menuItem1.Index = 0;
-			this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-									this.menuItem3,
+			this.fileMenu.Index = 0;
+			this.fileMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+									this.openItem,
 									this.menuItem2});
-			this.menuItem1.OwnerDraw = true;
-			this.menuItem1.Text = "File";
+			this.fileMenu.OwnerDraw = true;
+			this.fileMenu.Text = "File";
 			// 
-			// menuItem3
+			// Open SCL File
 			// 
-			this.menuItem3.Index = 0;
-			this.menuItem3.OwnerDraw = true;
-			this.menuItem3.Text = "Open";
+			this.openItem.Index = 0;
+			this.openItem.OwnerDraw = true;
+			this.openItem.Text = "Open";
 			// 
-			// menuItem2
+			// Exit Application
 			// 
 			this.menuItem2.Index = 1;
 			this.menuItem2.OwnerDraw = true;
 			this.menuItem2.Text = "Exit";
 			this.menuItem2.Click += new System.EventHandler(this.exitApp);
+			
 			// 
-			// menuItem4
+			// Preferences
 			// 
-			this.menuItem4.Index = 1;
-			this.menuItem4.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			this.helpMenu.Index = 1;
+			this.helpMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
 									this.menuItem5});
-			this.menuItem4.OwnerDraw = true;
-			this.menuItem4.Text = "Help";
+			this.helpMenu.OwnerDraw = true;
+			this.helpMenu.Text = "Help";
+			
 			// 
-			// menuItem5
+			// Help
+			// 
+			this.helpMenu.Index = 1;
+			this.helpMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+									this.menuItem5});
+			this.helpMenu.OwnerDraw = true;
+			this.helpMenu.Text = "Help";
+			// 
+			// About
 			// 
 			this.menuItem5.Index = 0;
 			this.menuItem5.OwnerDraw = true;
@@ -485,18 +503,11 @@ namespace OpenSCLConfigurator
 		private void OpenFile(object sender, EventArgs e)
 		{	
 			List<ErrorsManagement> listError = null;
-			try
-			{				
-				SaveFile(sender, e);
-				this.treeViewFile.Nodes.Clear();
-				openDialog o = new openDialog();					
-				listError = o.OpenSCLFile(this.treeViewFile, xSDFiles, true);												
-				EnablePanels(listError);
-			}
-			catch 
-			{
-				MessageBox.Show("SCL File Not Valid/Corrupted", "Open File", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
+			SaveFile(sender, e);
+			this.treeViewFile.Nodes.Clear();
+			openDialog o = new openDialog();					
+			listError = o.OpenSCLFile(this.treeViewFile, xSDFiles, true);												
+			EnablePanels(listError);
 		}		
 		
 		/// <summary>
@@ -536,18 +547,12 @@ namespace OpenSCLConfigurator
 		private void ValidateFileClick(object sender, EventArgs e)
 		{
 			List<ErrorsManagement> listError = null;
-			try
-			{				
-				SaveFile(sender, e);
-				this.treeViewFile.Nodes.Clear();				
-				openDialog o = new openDialog();					
-				listError = o.OpenSCLFile(this.treeViewFile, xSDFiles, false);												
-				EnablePanels(listError);
-			}
-			catch 
-			{
-				MessageBox.Show("SCL File Not Valid/Corrupted", "Open File", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}			
+					
+			SaveFile(sender, e);
+			this.treeViewFile.Nodes.Clear();				
+			openDialog o = new openDialog();					
+			listError = o.OpenSCLFile(this.treeViewFile, xSDFiles, false);												
+			EnablePanels(listError);		
 		}
 
 		/// <summary>
@@ -572,7 +577,7 @@ namespace OpenSCLConfigurator
 			}			
 			else
 			{			
-				MessageBox.Show("No se puede importar el archivo porque no se ha generado ningun SCL en el proyecto principal.");								
+				MessageBox.Show("Can't import file due to missing SCL file");								
 			}
 		}
 		
@@ -752,17 +757,22 @@ namespace OpenSCLConfigurator
 				if( e.ChangedItem.Value.ToString() != "LPHD" )
 				{
 					sCL.Configuration = (SCL) treeViewFile.Nodes["root"].Nodes["SCL"].Tag;
+					string lnType = (treeViewFile.SelectedNode.Tag as tAnyLN).lnType;
+					(treeViewFile.SelectedNode.Tag as tAnyLN).lnType = (treeViewFile.SelectedNode.Tag as tLN).prefix.ToString()+conversionObject.SetEnumObjectToString((treeViewFile.SelectedNode.Tag as tLN).lnClass)+(treeViewFile.SelectedNode.Tag as tLN).inst.ToString();
 					windowTreeViewLNType = new WindowTreeViewLNType(treeViewFile.SelectedNode, sCL.Configuration, treeViewFile.SelectedNode.Tag, "New");
 					windowTreeViewLNType.ShowDialog();					
 					if(windowTreeViewLNType.DialogResult == DialogResult.Cancel)
 					{
 						(treeViewFile.SelectedNode.Tag as tLN).lnClassEnum = (tLNClassEnum)conversionObject.SetStringToEnumObject((treeViewFile.SelectedNode.Tag as tLN).lnClassFieldTemp.ToString(), typeof( tLNClassEnum));
+						(treeViewFile.SelectedNode.Tag as tAnyLN).lnType = lnType;						
 					}
 					if(windowTreeViewLNType.DialogResult == DialogResult.OK)
 					{
 						(treeViewFile.SelectedNode.Tag as tAnyLN).lnType = (treeViewFile.SelectedNode.Tag as tLN).prefix.ToString()+conversionObject.SetEnumObjectToString((treeViewFile.SelectedNode.Tag as tLN).lnClass)+(treeViewFile.SelectedNode.Tag as tLN).inst.ToString();
+						(treeViewFile.SelectedNode.Tag as tAnyLN).DataSet = null;
+						treeViewFile.SelectedNode.Nodes.RemoveByKey("tDataSet[]");
 					}
-					treeViewFile.SelectedNode.Text = conversionObject.SetEnumObjectToString((treeViewFile.SelectedNode.Tag as tLN).lnClass)+(treeViewFile.SelectedNode.Tag as tLN).inst.ToString();									
+					treeViewFile.SelectedNode.Text = conversionObject.SetEnumObjectToString((treeViewFile.SelectedNode.Tag as tLN).lnClass)+(treeViewFile.SelectedNode.Tag as tLN).inst.ToString();																		
 				}				
 			}			
 		}

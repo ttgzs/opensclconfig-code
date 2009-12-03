@@ -57,27 +57,19 @@ namespace OpenSCL
 		/// otherwise this list is empty.
 		/// </returns>
 		public List<ErrorsManagement> ValidateFile(string sCLFile, string xSDFile)
-		{		
-			List<ErrorsManagement> errorList = null;			
-			try
-			{		
-				errorList = ValidateSCLFile(sCLFile);
-				//If the SCL file has some error, then the process ends without validate the XSD files.
-				if (errorList.Count  == 0)
+		{				
+			List<ErrorsManagement> errorList = ValidateSCLFile(sCLFile);
+			//If the SCL file has some error, then the process ends without validate the XSD files.
+			if (errorList.Count  == 0)
+			{
+				//If some of the XSD files has some error, then the process ends without validate the XSD against SCL files.				
+				errorList = ValidateXSDFile(xSDFile);				
+				if(errorList.Count == 0)
 				{
-					//If some of the XSD files has some error, then the process ends without validate the XSD against SCL files.				
-					errorList = ValidateXSDFile(xSDFile);				
-					if(errorList.Count == 0)
-					{
-						//If the SCL and XSD files are valid, then the validation of SCL against XSD files is made.					
-						errorList = ValidateSCLagainstXSD(sCLFile, xSDFile);
-					}
-				}	
-				
+					//If the SCL and XSD files are valid, then the validation of SCL against XSD files is made.					
+					errorList = ValidateSCLagainstXSD(sCLFile, xSDFile);
+				}
 			}
-            catch(Exception)
-            {
-           	}			
 			return errorList;			
 		}	
  

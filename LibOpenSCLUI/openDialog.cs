@@ -62,12 +62,22 @@ namespace OpenSCL.UI
 		/// </returns>
 		public List<ErrorsManagement> OpenSCLFile(TreeView treeViewOpen, string xSDFile, bool showFile)
 		{	
-			List<ErrorsManagement> list = null;			
+			List<ErrorsManagement> list = new List<ErrorsManagement> ();			
 			InicializeOpenSCLDialog();	
 			if(dlg.ShowDialog() == DialogResult.OK)
 			{			
-				ValidatingSCL validate = new ValidatingSCL();
-				list = validate.ValidateFile(dlg.FileName, xSDFile);
+				System.OperatingSystem os;
+				os = System.Environment.OSVersion;
+				System.String ostext = os.Platform.ToString();
+				System.String unix = "Unix";
+				//System.Windows.Forms.MessageBox.Show ("OpenDialog: Before verify OS");
+				//System.Windows.Forms.MessageBox.Show (os.Platform.ToString());
+				if (!(ostext.Equals(unix))) {
+					//System.Windows.Forms.MessageBox.Show ("OpenDialog: Validating");
+					ValidatingSCL validate = new ValidatingSCL();
+					list = validate.ValidateFile(dlg.FileName, xSDFile);
+				}
+				
 				if (list.Count == 0 && showFile)
 				{										
 					treeViewSCLOpen = new TreeViewSCL();
@@ -110,8 +120,17 @@ namespace OpenSCL.UI
 			InicializeOpenIEDDialog();	
 			if(dlg.ShowDialog() == DialogResult.OK)
 			{			
-				ValidatingSCL validate = new ValidatingSCL();
-				list = validate.ValidateFile(dlg.FileName, xSDFile);
+				System.OperatingSystem os;
+				os = System.Environment.OSVersion;
+				System.String ostext = os.Platform.ToString();
+				System.String unix = "Unix";
+				//System.Windows.Forms.MessageBox.Show ("Before verify OS");
+				if (!(ostext.Equals(unix))) {
+					//System.Windows.Forms.MessageBox.Show ("Validating");
+					ValidatingSCL validate = new ValidatingSCL();
+					list = validate.ValidateFile(dlg.FileName, xSDFile);
+				}
+				
 				if (list.Count == 0)
 				{										
 					treeViewSCLOpen = new TreeViewSCL();

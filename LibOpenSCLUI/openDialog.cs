@@ -29,14 +29,25 @@ namespace OpenSCL.UI
 	/// </summary>
 	public partial class openDialog
 	{		
+		private System.Boolean validate;
+		
 		TreeViewSCL treeViewSCLOpen;
 		OpenSCL.Object Object = new OpenSCL.Object(); 		
 		OpenFileDialog dlg = new OpenFileDialog();
-  		
+		
+		public openDialog ()
+		{
+			openDialogInit(false);
+		}
+		
 		/// <summary>
 		/// This method sets default values to an OpenDialog object that allows to open an SCL file.
 		/// </summary>
-		private void InicializeOpenSCLDialog()
+		public openDialog(System.Boolean validate)
+		{
+			openDialogInit(validate);
+		}
+		private void  openDialogInit(System.Boolean validate)
 		{
 			dlg.Title = "Open an SCL File";
 			dlg.Filter = "SCL Files (*.icd,*.cid,*.ssd,*.scd)|*.icd;*.cid;*.ssd;*.scd|" +
@@ -48,6 +59,8 @@ namespace OpenSCL.UI
 			dlg.FilterIndex =1;
 			dlg.CheckPathExists = true;
 			dlg.CheckFileExists = true;			
+			
+			this.validate = validate;
 		}
 		
 		/// <summary>
@@ -60,19 +73,14 @@ namespace OpenSCL.UI
 		/// If the file that will be open has errors of XML sintax or an incorrect data according to the 
 		/// XSD files then a list of errors is returned, otherwise an empty list is returned.
 		/// </returns>
-		public List<ErrorsManagement> OpenSCLFile(TreeView treeViewOpen, string xSDFile, bool showFile)
+		public List<ErrorsManagement> 
+			OpenSCLFile(TreeView treeViewOpen, string xSDFile, bool showFile)
 		{	
 			List<ErrorsManagement> list = new List<ErrorsManagement> ();			
-			InicializeOpenSCLDialog();	
+			
 			if(dlg.ShowDialog() == DialogResult.OK)
 			{			
-				System.OperatingSystem os;
-				os = System.Environment.OSVersion;
-				System.String ostext = os.Platform.ToString();
-				System.String unix = "Unix";
-				//System.Windows.Forms.MessageBox.Show ("OpenDialog: Before verify OS");
-				//System.Windows.Forms.MessageBox.Show (os.Platform.ToString());
-				if (!(ostext.Equals(unix))) {
+				if (this.validate) {
 					//System.Windows.Forms.MessageBox.Show ("OpenDialog: Validating");
 					ValidatingSCL validate = new ValidatingSCL();
 					list = validate.ValidateFile(dlg.FileName, xSDFile);

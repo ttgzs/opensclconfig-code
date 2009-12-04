@@ -27,14 +27,29 @@ namespace OpenSCL.UI
 	/// </summary>
 	public class SaveDialog
 	{
-		OpenSCL.Object sclObject = new OpenSCL.Object(); 		
-		SaveFileDialog saveDlg = new SaveFileDialog();
-
+		private OpenSCL.Object sclObject;
+		private SaveFileDialog saveDlg;
+		private System.Boolean modified;
+		
+		public SaveDialog()
+		{
+			this.SaveDialogInit(true);
+		}
+		
 		/// <summary>
 		/// This method sets default values to a Save Dialog object
 		/// </summary>
-		public void InicializeSaveDialog()
+		public SaveDialog (System.Boolean modified)
 		{
+			this.SaveDialogInit (modified);
+		}
+		
+		private void SaveDialogInit (System.Boolean modified)
+		{
+			this.sclObject = new OpenSCL.Object(); 		
+			this.saveDlg = new SaveFileDialog();
+			this.modified = modified;
+			
 			saveDlg.Title = "Save an SCL File";
 			saveDlg.Filter = "SCL Files (*.icd,*.cid,*.ssd,*.scd)|*.icd;*.cid;*.ssd;*.scd|" +
 				"IED Capability Description Files (*.icd)|*.icd|" +
@@ -55,9 +70,8 @@ namespace OpenSCL.UI
 		/// Graphical component "TreeView" where some nodes of XML file will be added.
 		/// </param>
 		public void SaveSCLFile(TreeView treeViewOpen)
-		{			
-			InicializeSaveDialog();	
-            if (treeViewOpen.Nodes.Count != 0)
+		{
+            if (this.modified)
             {            		                
                 sclObject.Configuration = (SCL) treeViewOpen.Nodes["root"].Nodes["SCL"].Tag;;
 				if(saveDlg.ShowDialog() == DialogResult.OK)

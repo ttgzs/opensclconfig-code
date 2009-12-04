@@ -29,7 +29,7 @@ namespace OpenSCLConfigurator
         [STAThread]
 		private static void Main() 
 		{						
-			Application.Run(new FormSCL());
+			Application.Run(new App());
 		}
 		
 	}

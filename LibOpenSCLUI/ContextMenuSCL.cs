@@ -253,14 +253,17 @@ namespace OpenSCL.UI
 					smvDlg.ShowDialog();
 					break;	
 				case "tDOI[]":
-					windowTreeViewLNType = new WindowTreeViewLNType(this.treeSCL.TreeView.SelectedNode, sCL.Configuration, this.treeSCL.TreeView.SelectedNode.Tag, "New");
+					windowTreeViewLNType = new WindowTreeViewLNType(this.treeSCL.TreeView.SelectedNode, 
+				                                                sCL.Configuration, 
+				                                                this.treeSCL.TreeView.SelectedNode.Tag, 
+				                                                "New");
 					windowTreeViewLNType.ShowDialog();
 					break;
 				case "tDataSet[]":
 				case "tDataSet":
 					DataSetDialog dataSetDlg = new DataSetDialog();
 					dataSetDlg.CreateDataSet(this.treeSCL.TreeView.SelectedNode, sCL.Configuration);
-					dataSetDlg.Show();
+					dataSetDlg.ShowDialog();
 					break;				
 				case "tIED":
 					Utils utils = new Utils();
@@ -270,7 +273,7 @@ namespace OpenSCL.UI
 				case"tLNode":
 					LNodeDialog LNodeDlg = new LNodeDialog();
 					LNodeDlg.CreatetLNode(this.treeSCL.TreeView.SelectedNode, sCL.Configuration);
-					LNodeDlg.Show();
+					LNodeDlg.ShowDialog();
 					break;
 				default:
 					this.treeViewSCL.Insert(this.treeSCL.TreeView.SelectedNode, ts.Text, ts.Name);

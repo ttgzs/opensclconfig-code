@@ -74,6 +74,7 @@
     <EmbeddedResource Include="OpenSCLConfigurator.resx">
       <DependentUpon>OpenSCLConfigurator.cs</DependentUpon>
     </EmbeddedResource>
+    <Compile Include="Preferences.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibOpenSCL\LibOpenSCL.csproj">
@@ -129,6 +130,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="XSD\SCLvariants.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="GenericIEDExample.cid">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

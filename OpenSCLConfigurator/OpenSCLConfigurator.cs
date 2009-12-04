@@ -30,8 +30,15 @@ namespace OpenSCLConfigurator
 	/// <summary>
 	/// Summary description for Form1.
 	/// </summary>
-	public class FormSCL : Form
+	public class App : Form
 	{		
+		private System.Boolean modified;
+		private System.Boolean validate;
+		
+		private System.Windows.Forms.ToolStripMenuItem importIEDConfigToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem validateSCLFileToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+				
 		public System.Windows.Forms.MainMenu mainMenu1;
 		private System.Windows.Forms.MenuItem fileMenu;
 		public System.Windows.Forms.MenuItem menuItem2;
@@ -71,9 +78,11 @@ namespace OpenSCLConfigurator
 		/// <summary>
 		/// This method initialize the components of the form. 
 		/// </summary>
-		public FormSCL()
+		public App()
 		{
-			
+			modified = false;
+			// On open files validation is desable by default
+			validate = false;
 			
 			//System.Windows.Forms.MessageBox.Show ( os.Platform.ToString() );
 			InitializeComponent();				
@@ -105,9 +114,12 @@ namespace OpenSCLConfigurator
 			this.components = new System.ComponentModel.Container();
 			this.Panel1 = new System.Windows.Forms.Panel();
 			this.treeViewFile = new System.Windows.Forms.TreeView();
+			
 			this.Panel2 = new System.Windows.Forms.Panel();
 			this.PropertyGridAttributes = new System.Windows.Forms.PropertyGrid();
+			
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			
 			this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
 			this.fileMenu = new System.Windows.Forms.MenuItem();
 			this.openItem = new System.Windows.Forms.MenuItem();
@@ -117,6 +129,7 @@ namespace OpenSCLConfigurator
 			this.helpMenu = new System.Windows.Forms.MenuItem();
 			this.menuItem5 = new System.Windows.Forms.MenuItem();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+			
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -125,24 +138,34 @@ namespace OpenSCLConfigurator
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			
 			this.validateSCLFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			
 			this.importIEDConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			
 			this.Exit = new System.Windows.Forms.ToolBarButton();
 			this.toolBar1 = new System.Windows.Forms.ToolBar();
 			this.Separator1 = new System.Windows.Forms.ToolBarButton();
+			
 			this.New = new System.Windows.Forms.ToolBarButton();
 			this.Open = new System.Windows.Forms.ToolBarButton();
 			this.Salvar = new System.Windows.Forms.ToolBarButton();
+			
 			this.Separator2 = new System.Windows.Forms.ToolBarButton();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+			
 			this.Panel1.SuspendLayout();
+			
 			this.Panel2.SuspendLayout();
+						
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
+			
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
+			
 			this.SuspendLayout();
 			// 
 			// Panel1
@@ -151,38 +174,55 @@ namespace OpenSCLConfigurator
 			this.Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.Panel1.Location = new System.Drawing.Point(0, 0);
 			this.Panel1.Name = "Panel1";
-			this.Panel1.Size = new System.Drawing.Size(347, 670);
+			//this.Panel1.Size = new System.Drawing.Size(347, 670);
 			this.Panel1.TabIndex = 0;
+			this.Panel1.AutoSize = true;
 			// 
 			// treeViewFile
 			// 
-			this.treeViewFile.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.treeViewFile.Anchor = ((System.Windows.Forms.AnchorStyles)
+			                            ((((System.Windows.Forms.AnchorStyles.Top 
+			                                | System.Windows.Forms.AnchorStyles.Bottom) 
 									| System.Windows.Forms.AnchorStyles.Left) 
 									| System.Windows.Forms.AnchorStyles.Right)));
 			this.treeViewFile.Location = new System.Drawing.Point(0, 0);
 			this.treeViewFile.Name = "treeViewFile";
-			this.treeViewFile.Size = new System.Drawing.Size(347, 671);
+			this.treeViewFile.Dock = DockStyle.Fill;
+			//this.treeViewFile.AutoSize = true;
+			//this.treeViewFile.Size = new System.Drawing.Size(347, 671);
+			//this.treeViewFile.MinimumSize = new System.Drawing.Size(200, 300);
 			this.treeViewFile.TabIndex = 0;
 			this.treeViewFile.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TreeViewFileMouseUp);
 			this.treeViewFile.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewFileAfterSelect);
+			
 			// 
 			// Panel2
 			// 
-			this.Panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.Panel2.Anchor = ((System.Windows.Forms.AnchorStyles)
+			                      ((((System.Windows.Forms.AnchorStyles.Top | 
+			                          System.Windows.Forms.AnchorStyles.Bottom) 
 									| System.Windows.Forms.AnchorStyles.Left) 
 									| System.Windows.Forms.AnchorStyles.Right)));
+			this.Panel2.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.Panel2.Controls.Add(this.PropertyGridAttributes);
+						
 			this.Panel2.Location = new System.Drawing.Point(0, 0);
 			this.Panel2.Name = "Panel2";
-			this.Panel2.Size = new System.Drawing.Size(583, 670);
-			this.Panel2.TabIndex = 0;
+			//this.Panel2.Size = new System.Drawing.Size(583, 670);
+			this.Panel2.TabIndex = 2;
+			//this.Panel2.AutoScroll = true;
+			//this.Panel2.AutoSize = true;
+			
 			// 
 			// PropertyGridAttributes
 			// 
 			this.PropertyGridAttributes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
 			this.PropertyGridAttributes.Location = new System.Drawing.Point(1, 1);
 			this.PropertyGridAttributes.Name = "PropertyGridAttributes";
-			this.PropertyGridAttributes.Size = new System.Drawing.Size(580, 465);
+			this.PropertyGridAttributes.Dock = DockStyle.Fill;
+			//this.PropertyGridAttributes.Size = new System.Drawing.Size(580, 465);
+			//this.PropertyGridAttributes.AutoScroll = true;
+			//this.PropertyGridAttributes.AutoSize = true;
 			this.PropertyGridAttributes.TabIndex = 3;
 			this.PropertyGridAttributes.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.PropertyGridAttributesPropertyValueChanged);
 			// 
@@ -194,18 +234,28 @@ namespace OpenSCLConfigurator
 			this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.splitContainer1.Location = new System.Drawing.Point(0, 52);
 			this.splitContainer1.Name = "splitContainer1";
+			this.splitContainer1.Dock = DockStyle.Fill;
+			//this.splitContainer1.Size = new System.Drawing.Size(943, 672);
+			//this.splitContainer1.MinimumSize = new System.Drawing.Size(300, 200);
+			//this.splitContainer1.AutoSize = true;
+			//this.splitContainer1.AutoScroll = true;
+			//this.splitContainer1.SplitterDistance = 349;
+			
 			// 
 			// splitContainer1.Panel1
 			// 
 			this.splitContainer1.Panel1.AutoScroll = true;
+			
 			this.splitContainer1.Panel1.Controls.Add(this.Panel1);
+			//this.splitContainer1.AutoScrollMinSize = new System.Drawing.Size(943, 672);
+			
 			// 
 			// splitContainer1.Panel2
 			// 
 			this.splitContainer1.Panel2.Controls.Add(this.Panel2);
-			this.splitContainer1.Size = new System.Drawing.Size(943, 672);
-			this.splitContainer1.SplitterDistance = 349;
+			this.splitContainer1.Panel2.AutoScroll = true;
 			this.splitContainer1.TabIndex = 5;
+			
 			// 
 			// mainMenu1
 			// 
@@ -238,8 +288,16 @@ namespace OpenSCLConfigurator
 			// 
 			// Preferences
 			// 
-			this.helpMenu.Index = 1;
-			this.helpMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			this.preferencesItem.Index = 1;
+			this.preferencesItem.OwnerDraw = true;
+			this.preferencesItem.Text = "Preferences";
+			this.preferencesItem.Click += new System.EventHandler(this.OpenPreferencesDialog);
+			
+			// 
+			// Edit
+			// 
+			this.editMenu.Index = 1;
+			this.editMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
 									this.menuItem5});
 			this.helpMenu.OwnerDraw = true;
 			this.helpMenu.Text = "Help";
@@ -267,7 +325,8 @@ namespace OpenSCLConfigurator
 									this.helpToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(943, 24);
+			//this.menuStrip1.Size = new System.Drawing.Size(943, 24);
+			//this.menuStrip1.AutoSize = true;
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
@@ -279,34 +338,39 @@ namespace OpenSCLConfigurator
 									this.saveToolStripMenuItem,
 									this.exitToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-			this.fileToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+			//this.fileToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+			//this.fileToolStripMenuItem.AutoSize = true;
 			this.fileToolStripMenuItem.Text = "Project";
 			// 
 			// newToolStripMenuItem
 			// 
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-			this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			//this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			//this.newToolStripMenuItem.AutoSize = true;
 			this.newToolStripMenuItem.Text = "New";
 			this.newToolStripMenuItem.Click += new System.EventHandler(this.NewFile);
 			// 
 			// openToolStripMenuItem
 			// 
 			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-			this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			//this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			//this.openToolStripMenuItem.AutoSize = true;
 			this.openToolStripMenuItem.Text = "Open";
 			this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenFile);
 			// 
 			// saveToolStripMenuItem
 			// 
 			this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-			this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			//this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			//this.saveToolStripMenuItem.AutoSize = true;
 			this.saveToolStripMenuItem.Text = "Save";
 			this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveFile);
 			// 
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			//this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			//this.exitToolStripMenuItem.AutoSize = true;
 			this.exitToolStripMenuItem.Text = "Exit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitApp);
 			// 
@@ -315,13 +379,15 @@ namespace OpenSCLConfigurator
 			this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
 									this.aboutToolStripMenuItem});
 			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-			this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+			//this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+			//this.helpToolStripMenuItem.AutoSize = true;
 			this.helpToolStripMenuItem.Text = "Help";
 			// 
 			// aboutToolStripMenuItem
 			// 
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			//this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			//this.aboutToolStripMenuItem.AutoSize = true;
 			this.aboutToolStripMenuItem.Text = "About";
 			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutClick);
 			// 
@@ -331,20 +397,23 @@ namespace OpenSCLConfigurator
 									this.validateSCLFileToolStripMenuItem,
 									this.importIEDConfigToolStripMenuItem});
 			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+			//this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+			//this.toolsToolStripMenuItem.AutoSize = true;
 			this.toolsToolStripMenuItem.Text = "Tools";
 			// 
 			// validateSCLFileToolStripMenuItem
 			// 
 			this.validateSCLFileToolStripMenuItem.Name = "validateSCLFileToolStripMenuItem";
-			this.validateSCLFileToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+			//this.validateSCLFileToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+			//this.validateSCLFileToolStripMenuItem.AutoSize = true;
 			this.validateSCLFileToolStripMenuItem.Text = "Validate SCL file";
 			this.validateSCLFileToolStripMenuItem.Click += new System.EventHandler(this.ValidateFileClick);
 			// 
 			// importIEDConfigToolStripMenuItem
 			// 
 			this.importIEDConfigToolStripMenuItem.Name = "importIEDConfigToolStripMenuItem";
-			this.importIEDConfigToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+			//this.importIEDConfigToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+			//this.importIEDConfigToolStripMenuItem.AutoSize = true;
 			this.importIEDConfigToolStripMenuItem.Text = "Import IED file";
 			this.importIEDConfigToolStripMenuItem.Click += new System.EventHandler(this.ImportIEDClick);
 			// 
@@ -365,12 +434,13 @@ namespace OpenSCLConfigurator
 									this.Separator2,
 									this.Exit});
 			this.toolBar1.ButtonSize = new System.Drawing.Size(16, 16);
+			
 			this.toolBar1.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.toolBar1.DropDownArrows = true;
 			this.toolBar1.Location = new System.Drawing.Point(0, 24);
 			this.toolBar1.Name = "toolBar1";
 			this.toolBar1.ShowToolTips = true;
-			this.toolBar1.Size = new System.Drawing.Size(943, 28);
+			//this.toolBar1.Size = new System.Drawing.Size(943, 28);
 			this.toolBar1.TabIndex = 1;
 			this.toolBar1.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler(this.toolBarEvent);
 			// 
@@ -419,8 +489,8 @@ namespace OpenSCLConfigurator
 			// 
 			// FormSCL
 			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(943, 746);
+			//this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			//this.ClientSize = new System.Drawing.Size(943, 746);
 			this.Controls.Add(this.splitContainer1);
 			this.Controls.Add(this.toolBar1);
 			this.Controls.Add(this.menuStrip1);
@@ -429,6 +499,9 @@ namespace OpenSCLConfigurator
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = ":..OpenSCLConfigurator..:";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+			//this.AutoScroll = true;
+			this.AutoSize = true;
+			
 			this.Load += new System.EventHandler(this.Form1_Load);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormSCLFormClosed);
 			this.Panel1.ResumeLayout(false);
@@ -443,9 +516,6 @@ namespace OpenSCLConfigurator
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}				
-		private System.Windows.Forms.ToolStripMenuItem importIEDConfigToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem validateSCLFileToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
 				
 		/// <summary>
 		/// Adding icons into the application
@@ -490,6 +560,19 @@ namespace OpenSCLConfigurator
 		}
 		
 		/// <summary>
+		/// Open Prefences Dialog
+		/// </summary>
+		/// <param name="sender">
+		/// Name of the object.
+		/// </param>
+		/// <param name="e">
+		/// </param>
+		void OpenPreferencesDialog(object sender, EventArgs e)
+		{							
+			
+		}
+		
+		/// <summary>
 		/// This method comes from the principal menu. It's the option to open a project
 		/// </summary>
 		/// <param name="sender">
@@ -505,7 +588,7 @@ namespace OpenSCLConfigurator
 			List<ErrorsManagement> listError = null;
 			SaveFile(sender, e);
 			this.treeViewFile.Nodes.Clear();
-			openDialog o = new openDialog();					
+			openDialog o = new openDialog(false);					
 			listError = o.OpenSCLFile(this.treeViewFile, xSDFiles, true);												
 			EnablePanels(listError);
 		}		
@@ -550,7 +633,7 @@ namespace OpenSCLConfigurator
 					
 			SaveFile(sender, e);
 			this.treeViewFile.Nodes.Clear();				
-			openDialog o = new openDialog();					
+			openDialog o = new openDialog(true);					
 			listError = o.OpenSCLFile(this.treeViewFile, xSDFiles, false);												
 			EnablePanels(listError);		
 		}

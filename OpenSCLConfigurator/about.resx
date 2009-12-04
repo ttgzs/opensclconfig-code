@@ -696,7 +696,7 @@ Country                                   México</value>
     <value>    Library                                Version                License
 
 LibOpenSCL                            0.4                     LGPL
-LibOpenSCLUI                         0.3                     LGPL</value>
+LibOpenSCLUI                         0.3.1                    LGPL</value>
   </data>
   <data name="&gt;&gt;richTextBox1.Name" xml:space="preserve">
     <value>richTextBox1</value>

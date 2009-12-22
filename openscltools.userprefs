@@ -1,30 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCL/SCL.cs" ctype="Workbench">
-    <Files>
-      <File FileName="LibOpenSCL/ValidatingSCL.cs" Line="65" Column="6" />
-      <File FileName="OpenSCLConfigurator/OpenSCLConfigurator.cs" Line="543" Column="8" />
-      <File FileName="LibOpenSCLUI/openDialog.cs" Line="70" Column="5" />
-      <File FileName="OpenSCLConfigurator/bin/Debug/XSD/SCL_Communication.xsd" Line="100" Column="30" />
-      <File FileName="OpenSCLConfigurator/bin/Debug/XSD/SCL_BaseTypes.xsd" Line="17" Column="39" />
-      <File FileName="LibOpenSCL/SCL.cs" Line="1703" Column="2" />
-    </Files>
+  <MonoDevelop.Ide.Workbench ctype="Workbench">
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="LibOpenSCL" expanded="True">
-            <Node name="SCL.cs" selected="True" />
-          </Node>
-          <Node name="OpenSCLConfigurator" expanded="True">
-            <Node name="imgs" expanded="True" />
-            <Node name="XSD" expanded="True" />
-          </Node>
+          <Node name="LibOpenSCL" expanded="True" />
+          <Node name="LibOpenSCLUI" expanded="True" />
+          <Node name="OpenSCLConfigurator" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">
         <State expanded="True" selected="True" />
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

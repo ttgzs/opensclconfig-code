@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -695,7 +695,7 @@ Country                                   México</value>
   <data name="richTextBox1.Text" xml:space="preserve">
     <value>    Library                                Version                License
 
-LibOpenSCL                            0.4                     LGPL
+LibOpenSCL                           0.4.1                    LGPL
 LibOpenSCLUI                         0.3.1                    LGPL</value>
   </data>
   <data name="&gt;&gt;richTextBox1.Name" xml:space="preserve">

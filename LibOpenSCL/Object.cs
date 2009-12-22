@@ -1,4 +1,4 @@
-﻿// LibOpenSCL
+// LibOpenSCL
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -40,10 +40,91 @@ namespace OpenSCL
 		// if it's loaded from CID or ICD this must be set to FALSE.
 		protected bool genericConfiguration;
 		
+		
+
+		/// <summary>
+   		/// FIXME: It returns a configuration of an IED according to an XML file.
+   		/// </summary>
+		public tIED[] ConfiguredDevices 
+		{
+			get 
+			{
+				return this.configuration.IED;
+			}
+			set 
+			{
+				this.configuration.IED = value;
+			}
+		}
+		
+   		/// <summary>
+   		/// It returns an SCL object.
+   		/// </summary>
+		public SCL Configuration 
+		{
+			get 
+			{
+				return this.configuration;
+			}
+			set 
+			{
+				this.configuration = value;
+			}
+		}
+		
+   		/// <summary>
+   		/// It returns the value of the attribute "ConfigurationVersion" 
+   		/// that belongs to the SCL file's Header.
+   		/// </summary>
+		public string ConfigurationVersion 
+		{
+			get 
+			{
+				return this.configuration.Header.version;
+			}
+			set 
+			{
+				this.configuration.Header.version = value;
+			}
+		}
+		
+   		/// <summary>
+   		/// It returns the value of the attribute "ConfigurationRevision" 
+   		/// that belongs to the Header of an XML file.
+   		/// </summary>
+		public string ConfigurationRevision 
+		{
+			get 
+			{
+				return this.configuration.Header.revision;
+			}
+			set 
+			{
+				this.configuration.Header.revision = value;
+			}
+		}
+		
+		
+		
 		public Object()
 		{
 			this.ListErrors = new List<ErrorsManagement>();
 			this.objectManagement = new ObjectManagement();
+		}
+		
+		public Object(string filepath)
+		{
+			this.ListErrors = new List<ErrorsManagement>();
+			this.objectManagement = new ObjectManagement();
+			this.Deserialize (filepath);
+		}
+		
+		public bool IsSCD ()
+		{
+			if (this.ConfiguredDevices.GetLength(0) > 1)
+				return true;
+			else
+				return false;
 		}
    		/// <summary>
    		/// This method creates an XML file using a serialize function.
@@ -87,103 +168,11 @@ namespace OpenSCL
             fs.Dispose();           
 		}   		 		   		
    		
-		/// <summary>
-		/// This method is executed when XmlSerializer finds an unknown XML node during the 
-		/// deserialize method.
-		/// </summary>
-		/// <param name="sender">
-		/// Event's source.</param>
-		/// <param name="e">
-		/// An XmlNodeEventArgs that contains the event's data.
-		/// </param>
-		/// <remarks>
-		/// This method occurs only when the Deserialize method is used.
-		/// </remarks>
-		private void UnknownNode(object sender, XmlNodeEventArgs e)
-    	{	        
-			ListErrors.Add(new ErrorsManagement("Unknown node:"+ e.Name + "\t" + e.Text));
-	    }
-
-		/// <summary>
-		/// This method is executed when XmlSerializer finds an unknown XML attribute 
-		/// during the deserialize method.
-		/// </summary>
-		/// <param name="sender">
-		/// Event's source.</param>
-		/// <param name="e">
-		/// An XmlAttributeEventArgs that contains the event data.
-		/// </param>
-		/// <remarks>
-		/// This method occurs only when the Deserialize method is used.
-		/// </remarks>
-   		private void UnknownAttribute(object sender, XmlAttributeEventArgs e)
-    	{
-        	System.Xml.XmlAttribute attr = e.Attr;        	
-        	ListErrors.Add(new ErrorsManagement("Unknown attribute:"+ attr.Name + "='" + attr.Value + "'"));
-    	}	  		
 		
-   		/// <summary>
-   		/// FIXME: It returns a configuration of an IED according to an XML file.
-   		/// </summary>
-		public tIED[] ConfiguredDevices 
-		{
-			get 
-			{
-				return this.configuration.IED;
-			}
-			set 
-			{
-				this.configuration.IED = value;
-			}
-		}
 		
-   		/// <summary>
-   		/// It returns an SCL object.
-   		/// </summary>
-		public SCL Configuration 
-		{
-			get 
-			{
-				return this.configuration;
-			}
-			set 
-			{
-				this.configuration = value;
-			}
-		}
 		
-   		/// <summary>
-   		/// It returns the value of the attribute "ConfigurationVersion" 
-   		/// that belongs to the Header of an XML file.
-   		/// </summary>
-		public string ConfigurationVersion 
-		{
-			get 
-			{
-				return this.configuration.Header.version;
-			}
-			set 
-			{
-				this.configuration.Header.version = value;
-			}
-		}
+		// IED Related functions
 		
-   		/// <summary>
-   		/// It returns the value of the attribute "ConfigurationRevision" 
-   		/// that belongs to the Header of an XML file.
-   		/// </summary>
-		public string ConfigurationRevision 
-		{
-			get 
-			{
-				return this.configuration.Header.revision;
-			}
-			set 
-			{
-				this.configuration.Header.revision = value;
-			}
-		}
-
 		/// <summary>
 		/// This method imports an ICD or CID file to the project file.
 		/// </summary>
@@ -255,8 +244,153 @@ namespace OpenSCL
 				}
 			}		
 			return objectIEDToImport;
-		}		
+		}
 		
+		public IEC61850.SCL.tIED GetIED (string iedName)
+		{
+			int ied = GetIEDIndex(iedName);
+			return ConfiguredDevices[ied];
+		}
+		
+		public IEC61850.SCL.tIED GetIED (int iedIndex)
+		{
+			return ConfiguredDevices[iedIndex];
+		}
+		
+		public IEC61850.SCL.tAccessPoint[] GetAccessPoints (string iedName)
+		{
+			int ied = GetIEDIndex(iedName);
+			return ConfiguredDevices[ied].AccessPoint;
+		}
+		
+		public IEC61850.SCL.tAccessPoint[] GetAccessPoints (int iedIndex)
+		{
+			return ConfiguredDevices[iedIndex].AccessPoint;
+		}
+		
+		public IEC61850.SCL.tAccessPoint GetAccessPoint (string iedName, string apName)
+		{
+			int ied = GetIEDIndex(iedName);
+			int ap = GetAPIndex(ied, apName);
+			return ConfiguredDevices[ied].AccessPoint[ap];
+		}
+		
+		public IEC61850.SCL.tAccessPoint GetAccessPoint (int iedIndex, int apIndex)
+		{
+			return ConfiguredDevices[iedIndex].AccessPoint[apIndex];
+		}
+		
+		// LogicalDevices Related methods
+		
+		public IEC61850.SCL.tLDevice[] GetLogicalDevices (string iedName, string apName)
+		{
+			int ied = this.GetIEDIndex(iedName);
+			int ap = this.GetAPIndex(ied, apName);
+			
+			if (ied < 0 || ied > ConfiguredDevices.GetLength(0) 
+			    || ap < 0 || ap > ConfiguredDevices.GetLength(0))
+				return null;
+			
+			return ConfiguredDevices[ied].AccessPoint[ap].Server.LDevice;
+		}
+		
+		public IEC61850.SCL.tLDevice[] GetLogicalDevices (int iedIndex, int apIndex)
+		{
+			if (iedIndex < 0 || iedIndex > ConfiguredDevices.GetLength(0) 
+			    || apIndex < 0 || apIndex > ConfiguredDevices.GetLength(0))
+				return null;
+			
+			return ConfiguredDevices[iedIndex].AccessPoint[apIndex].Server.LDevice;
+		}
+		
+		public IEC61850.SCL.tLDevice[] GetLogicalDevices (int iedIndex)
+		{
+			if (iedIndex < 0 || iedIndex > ConfiguredDevices.GetLength(0))
+				return null;
+			
+			if (ConfiguredDevices[iedIndex].AccessPoint.GetLength(0) == 1)
+				return ConfiguredDevices[iedIndex].AccessPoint[0].Server.LDevice;
+			else
+				return null;
+		}
+		
+		public IEC61850.SCL.tLDevice[] GetLogicalDevices (string iedName)
+		{
+			int ied = GetIEDIndex(iedName);
+			
+			if (ied < 0)
+				return null;
+			
+			if (ConfiguredDevices[ied].AccessPoint.GetLength(0) == 1)
+				return ConfiguredDevices[ied].AccessPoint[0].Server.LDevice;
+			else
+				return null;
+		}
+		
+		private int GetAPIndex (int iedIndex, string name)
+		{
+			int pos = -1;
+			for (int i = 0; i < ConfiguredDevices[iedIndex].AccessPoint.GetLength(0); i++) {
+				if (ConfiguredDevices[iedIndex].AccessPoint[i].name.Equals(name))
+				{
+					pos = i;
+					break;
+				}
+			}			
+			return pos;
+		}
+		
+		// Privates Methods
+		
+		
+		
+		public int GetIEDIndex (string name)
+		{
+			int pos = -1;
+			for (int i = 0; i < this.ConfiguredDevices.GetLength(0); i++) {
+				if (this.ConfiguredDevices[i].name.Equals(name)) {
+					pos = i;
+					break;
+				}
+			}			
+			return pos;
+		}
+	
+		/// <summary>
+		/// This method is executed when XmlSerializer finds an unknown XML node during the 
+		/// deserialize method.
+		/// </summary>
+		/// <param name="sender">
+		/// Event's source.</param>
+		/// <param name="e">
+		/// An XmlNodeEventArgs that contains the event's data.
+		/// </param>
+		/// <remarks>
+		/// This method occurs only when the Deserialize method is used.
+		/// </remarks>
+		private void UnknownNode(object sender, XmlNodeEventArgs e)
+    	{	        
+			ListErrors.Add(new ErrorsManagement("Unknown node:"+ e.Name + "\t" + e.Text));
+	    }
+		
+		/// <summary>
+		/// This method is executed when XmlSerializer finds an unknown XML attribute 
+		/// during the deserialize method.
+		/// </summary>
+		/// <param name="sender">
+		/// Event's source.</param>
+		/// <param name="e">
+		/// An XmlAttributeEventArgs that contains the event data.
+		/// </param>
+		/// <remarks>
+		/// This method occurs only when the Deserialize method is used.
+		/// </remarks>
+   		private void UnknownAttribute(object sender, XmlAttributeEventArgs e)
+    	{
+        	System.Xml.XmlAttribute attr = e.Attr;        	
+        	ListErrors.Add(new ErrorsManagement("Unknown attribute:"+ attr.Name + "='" + attr.Value + "'"));
+    	}	  		
+	
 		/// <summary>
 		/// 
 		/// </summary>
@@ -293,7 +427,7 @@ namespace OpenSCL
 				}
 				bandAddObject=true;
 			}
-		}		
+		}
 	}
 }
 

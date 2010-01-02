@@ -1,11 +1,24 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCLUIGtk/open-scl-treeview.cs" ctype="Workbench">
+    <Files>
+      <File FileName="OpenSCLConfiguratorGTK/MainWindow.cs" Line="33" Column="4" />
+      <File FileName="OpenSCLConfiguratorGTK/Main.cs" Line="7" Column="45" />
+      <File FileName="LibOpenSCLUIGtk/open-scl-treeview.cs" Line="2" Column="1" />
+      <File FileName="LibOpenSCL/Object.cs" Line="214" Column="4" />
+      <File FileName="LibOpenSCL/SCL.cs" Line="506" Column="1" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="LibOpenSCL" expanded="True" />
           <Node name="LibOpenSCLUI" expanded="True" />
-          <Node name="OpenSCLConfigurator" expanded="True" />
+          <Node name="LibOpenSCLUIGtk" expanded="True" selected="True">
+            <Node name="References" expanded="True" />
+          </Node>
+          <Node name="OpenSCLConfiguratorGTK" expanded="True">
+            <Node name="References" expanded="True" />
+            <Node name="UserInterface" expanded="True" />
+          </Node>
         </State>
       </Pad>
       <Pad Id="ClassPad">

@@ -35,17 +35,106 @@ namespace OpenSCL
 		List<ErrorsManagement> ListErrors;
 		private ObjectManagement objectManagement;
 		private SCL configuration;
+		private string filename;
 		
 		// FIXME: It returns a TRUE value if the configuration is generic, 
 		// if it's loaded from CID or ICD this must be set to FALSE.
 		protected bool genericConfiguration;
 		
+		public string id 
+		{
+			get 
+			{
+				return this.configuration.Header.id;
+			}
+			set 
+			{
+				this.configuration.Header.id = value;
+			}
+		}
 		
+		public bool HaveRevisionInformation()
+		{
+			if (this.configuration.Header != null)
+				return true;
+			else
+				return false;
+		}
+		
+		public IEC61850.SCL.tHitem[] RevisionHistory 
+		{
+			get 
+			{
+				if (this.configuration.Header.History != null)
+					return this.configuration.Header.History;
+				else
+					return null;
+			}
+			set 
+			{
+				this.configuration.Header.History = value;
+			}
+		}
+		
+		public bool AppendHistoryItem (string version, string revision, 
+		                           string when, string who, 
+		                           string what, string why)
+		{
+			if (this.RevisionHistory != null)
+			{
+				System.Collections.ArrayList history = 
+						(System.Collections.ArrayList) this.RevisionHistory.GetEnumerator();
+				tHitem item = new tHitem();
+				
+				item.version = version;
+				item.revision = revision;
+				item.when = when;
+				item.what = what;
+				item.who = who;
+				item.why = why;
+				
+				history.Add(item);
+				
+				return true;
+			}
+			
+			return false;
+		}
+		
+			
+		public string FileName 
+		{
+			get 
+			{
+				return this.filename;
+			}
+			set 
+			{
+				this.Deserialize (value);
+				this.filename = value;
+			}
+		}
+		
+		public string Description 
+		{
+			get 
+			{
+				if(this.configuration.Header.Text != null)
+					return this.configuration.Header.Text.source;
+				else
+					return null;
+			}
+			set 
+			{
+				if(this.configuration.Header.Text != null)
+					this.configuration.Header.Text.source = value;
+			}
+		}
 
 		/// <summary>
    		/// FIXME: It returns a configuration of an IED according to an XML file.
    		/// </summary>
-		public tIED[] ConfiguredDevices 
+		public tIED[] Devices 
 		{
 			get 
 			{
@@ -76,15 +165,24 @@ namespace OpenSCL
    		/// It returns the value of the attribute "ConfigurationVersion" 
    		/// that belongs to the SCL file's Header.
    		/// </summary>
-		public string ConfigurationVersion 
+		public string Version 
 		{
 			get 
 			{
-				return this.configuration.Header.version;
+				if (this.configuration.Header != null)
+					return this.configuration.Header.version;
+				else 
+					return null;
 			}
 			set 
 			{
-				this.configuration.Header.version = value;
+				if (this.configuration.Header != null)
+					this.configuration.Header.version = value;
+				else
+				{
+					this.configuration.Header = new tHeader();
+					this.configuration.Header.version = value;
+				}
 			}
 		}
 		
@@ -92,19 +190,26 @@ namespace OpenSCL
    		/// It returns the value of the attribute "ConfigurationRevision" 
    		/// that belongs to the Header of an XML file.
    		/// </summary>
-		public string ConfigurationRevision 
+		public string Revision 
 		{
 			get 
 			{
-				return this.configuration.Header.revision;
+				if(this.configuration.Header != null)
+					return this.configuration.Header.revision;
+				else
+					return null;
 			}
 			set 
 			{
-				this.configuration.Header.revision = value;
+				if (this.configuration.Header != null)
+					this.configuration.Header.revision = value;
+				else
+				{
+					this.configuration.Header = new tHeader();
+					this.configuration.Header.revision = value;
+				}
 			}
 		}
-		
-		
 		
 		public Object()
 		{
@@ -116,16 +221,23 @@ namespace OpenSCL
 		{
 			this.ListErrors = new List<ErrorsManagement>();
 			this.objectManagement = new ObjectManagement();
+			this.filename = filepath;
 			this.Deserialize (filepath);
 		}
 		
 		public bool IsSCD ()
 		{
-			if (this.ConfiguredDevices.GetLength(0) > 1)
+			if (this.Devices.GetLength(0) > 1)
 				return true;
 			else
 				return false;
 		}
+		
+		public bool Serialize()
+		{
+			return this.Serialize(this.filename);
+		}
+		
    		/// <summary>
    		/// This method creates an XML file using a serialize function.
    		/// </summary>
@@ -140,7 +252,8 @@ namespace OpenSCL
         	XmlSerializer serializer = new XmlSerializer(typeof(SCL));
         	TextWriter writer = new StreamWriter(nameFileXML);       	        	       	
         	serializer.Serialize(writer, this.configuration);
-        	writer.Dispose();        	
+        	writer.Dispose();
+			this.filename = nameFileXML;
 			return true;
    		}
 		
@@ -158,13 +271,20 @@ namespace OpenSCL
    		/// The directory and the XML File shall exist.
    		/// </remarks>
    		//public List<ErrorsManagement> Deserialize(string nameFileXML)
-   		public void Deserialize(string nameFileXML)
-		{			 
+   		public bool Deserialize()
+		{
+			this.Deserialize(this.filename);
+			return true; // API Change required
+		}
+			
+		public void Deserialize(string nameFileXML)
+		{
 			XmlSerializer XS = new XmlSerializer(typeof(SCL));
     	   	XS.UnknownNode+= new XmlNodeEventHandler(UnknownNode);
            	XS.UnknownAttribute+= new XmlAttributeEventHandler(UnknownAttribute);        
            	FileStream fs = File.OpenRead(nameFileXML);         	
-            this.configuration =(SCL) XS.Deserialize(fs);                    
+            this.configuration =(SCL) XS.Deserialize(fs);
+			this.filename = nameFileXML;
             fs.Dispose();           
 		}   		 		   		
    		
@@ -249,35 +369,35 @@ namespace OpenSCL
 		public IEC61850.SCL.tIED GetIED (string iedName)
 		{
 			int ied = GetIEDIndex(iedName);
-			return ConfiguredDevices[ied];
+			return Devices[ied];
 		}
 		
 		public IEC61850.SCL.tIED GetIED (int iedIndex)
 		{
-			return ConfiguredDevices[iedIndex];
+			return Devices[iedIndex];
 		}
 		
 		public IEC61850.SCL.tAccessPoint[] GetAccessPoints (string iedName)
 		{
 			int ied = GetIEDIndex(iedName);
-			return ConfiguredDevices[ied].AccessPoint;
+			return Devices[ied].AccessPoint;
 		}
 		
 		public IEC61850.SCL.tAccessPoint[] GetAccessPoints (int iedIndex)
 		{
-			return ConfiguredDevices[iedIndex].AccessPoint;
+			return Devices[iedIndex].AccessPoint;
 		}
 		
 		public IEC61850.SCL.tAccessPoint GetAccessPoint (string iedName, string apName)
 		{
 			int ied = GetIEDIndex(iedName);
 			int ap = GetAPIndex(ied, apName);
-			return ConfiguredDevices[ied].AccessPoint[ap];
+			return Devices[ied].AccessPoint[ap];
 		}
 		
 		public IEC61850.SCL.tAccessPoint GetAccessPoint (int iedIndex, int apIndex)
 		{
-			return ConfiguredDevices[iedIndex].AccessPoint[apIndex];
+			return Devices[iedIndex].AccessPoint[apIndex];
 		}
 		
 		// LogicalDevices Related methods
@@ -287,29 +407,29 @@ namespace OpenSCL
 			int ied = this.GetIEDIndex(iedName);
 			int ap = this.GetAPIndex(ied, apName);
 			
-			if (ied < 0 || ied > ConfiguredDevices.GetLength(0) 
-			    || ap < 0 || ap > ConfiguredDevices.GetLength(0))
+			if (ied < 0 || ied > Devices.GetLength(0) 
+			    || ap < 0 || ap > Devices.GetLength(0))
 				return null;
 			
-			return ConfiguredDevices[ied].AccessPoint[ap].Server.LDevice;
+			return Devices[ied].AccessPoint[ap].Server.LDevice;
 		}
 		
 		public IEC61850.SCL.tLDevice[] GetLogicalDevices (int iedIndex, int apIndex)
 		{
-			if (iedIndex < 0 || iedIndex > ConfiguredDevices.GetLength(0) 
-			    || apIndex < 0 || apIndex > ConfiguredDevices.GetLength(0))
+			if (iedIndex < 0 || iedIndex > Devices.GetLength(0) 
+			    || apIndex < 0 || apIndex > Devices.GetLength(0))
 				return null;
 			
-			return ConfiguredDevices[iedIndex].AccessPoint[apIndex].Server.LDevice;
+			return Devices[iedIndex].AccessPoint[apIndex].Server.LDevice;
 		}
 		
 		public IEC61850.SCL.tLDevice[] GetLogicalDevices (int iedIndex)
 		{
-			if (iedIndex < 0 || iedIndex > ConfiguredDevices.GetLength(0))
+			if (iedIndex < 0 || iedIndex > Devices.GetLength(0))
 				return null;
 			
-			if (ConfiguredDevices[iedIndex].AccessPoint.GetLength(0) == 1)
-				return ConfiguredDevices[iedIndex].AccessPoint[0].Server.LDevice;
+			if (Devices[iedIndex].AccessPoint.GetLength(0) == 1)
+				return Devices[iedIndex].AccessPoint[0].Server.LDevice;
 			else
 				return null;
 		}
@@ -321,8 +441,8 @@ namespace OpenSCL
 			if (ied < 0)
 				return null;
 			
-			if (ConfiguredDevices[ied].AccessPoint.GetLength(0) == 1)
-				return ConfiguredDevices[ied].AccessPoint[0].Server.LDevice;
+			if (Devices[ied].AccessPoint.GetLength(0) == 1)
+				return Devices[ied].AccessPoint[0].Server.LDevice;
 			else
 				return null;
 		}
@@ -330,8 +450,8 @@ namespace OpenSCL
 		private int GetAPIndex (int iedIndex, string name)
 		{
 			int pos = -1;
-			for (int i = 0; i < ConfiguredDevices[iedIndex].AccessPoint.GetLength(0); i++) {
-				if (ConfiguredDevices[iedIndex].AccessPoint[i].name.Equals(name))
+			for (int i = 0; i < Devices[iedIndex].AccessPoint.GetLength(0); i++) {
+				if (Devices[iedIndex].AccessPoint[i].name.Equals(name))
 				{
 					pos = i;
 					break;
@@ -340,15 +460,11 @@ namespace OpenSCL
 			return pos;
 		}
 		
-		// Privates Methods
-		
-		
-		
 		public int GetIEDIndex (string name)
 		{
 			int pos = -1;
-			for (int i = 0; i < this.ConfiguredDevices.GetLength(0); i++) {
-				if (this.ConfiguredDevices[i].name.Equals(name)) {
+			for (int i = 0; i < this.Devices.GetLength(0); i++) {
+				if (this.Devices[i].name.Equals(name)) {
 					pos = i;
 					break;
 				}
@@ -356,6 +472,32 @@ namespace OpenSCL
 			return pos;
 		}
 	
+		// Communications
+		
+		public tSubNetwork[] Subnetworks
+		{
+			get {
+				return this.configuration.Communication.SubNetwork;
+			}
+			
+			set {
+				this.configuration.Communication.SubNetwork = value;
+			}
+		}
+		
+		// Substation
+		
+		public tSubstation[] Substation
+		{
+			get {
+				return this.configuration.Substation;
+			}
+			
+			set {
+				this.configuration.Substation = value;
+			}
+		}
+		
 		/// <summary>
 		/// This method is executed when XmlSerializer finds an unknown XML node during the 
 		/// deserialize method.

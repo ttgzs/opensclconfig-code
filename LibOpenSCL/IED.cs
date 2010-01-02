@@ -1,4 +1,4 @@
-﻿// LibOpenSCL
+// LibOpenSCL
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -25,10 +25,11 @@ namespace OpenSCL
 	/// <summary>
 	/// This object represent a single IED in an SCD or CID files. 
 	/// </summary>
-	public class Device : Object
+	public class Device : OpenSCL.Object
 	{
 		
 		private tIED deviceConfigField;
+		private int numied;
 		
 		/// <summary>
 		/// This method is used to get the name of the IED using the line command
@@ -37,11 +38,11 @@ namespace OpenSCL
 		{
 			get 
 			{
-				return this.ConfiguredDevices[0].name;
+				return this.Devices[0].name;
 			}
 			set 
 			{
-				this.ConfiguredDevices[0].name = value;
+				this.Devices[0].name = value;
 			}
 		}
 		
@@ -52,7 +53,7 @@ namespace OpenSCL
 		{
 			get 
 			{
-				tIED ied =  this.ConfiguredDevices[0];
+				tIED ied =  this.Devices[0];
 				return ied.manufacturer;
 			}
 			
@@ -60,7 +61,7 @@ namespace OpenSCL
 			{
 				if (this.genericConfiguration) 
 				{
-					this.ConfiguredDevices[0].manufacturer = value;
+					this.Devices[0].manufacturer = value;
 				}
 				else 
 				{
@@ -80,11 +81,11 @@ namespace OpenSCL
 		{
 			get 
 			{
-				return this.ConfiguredDevices[0].configVersion;
+				return this.Devices[0].configVersion;
 			}
 			set 
 			{
-				this.ConfiguredDevices[0].configVersion = value;
+				this.Devices[0].configVersion = value;
 			}
 		}
 		
@@ -157,7 +158,7 @@ namespace OpenSCL
 			ied.name = "XCBR";
 			ied.type = "GENERIC";
 			ied.AccessPoint = new tAccessPoint[] { acc };
-			this.ConfiguredDevices = new tIED[] { ied };
+			this.Devices = new tIED[] { ied };
 			this.manufacturer = "GENERIC MANUFACTURER";
 			this.configVersion = "0.1";
 			this.ConfigurationVersion = "0.1";*/
@@ -171,7 +172,7 @@ namespace OpenSCL
 		/// </param>
 		public Device(string filepath)
 		{
-			this.Deserialize (filepath);
+			//this.Deserialize (filepath);
 		}
 		
 		/// <summary>

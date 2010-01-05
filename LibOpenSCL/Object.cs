@@ -447,6 +447,75 @@ namespace OpenSCL
 				return null;
 		}
 		
+		public IEC61850.SCL.tLDevice GetLogicalDevice (int iedIndex, int apIndex, int ldIndex)
+		{
+			if (Devices == null)
+				return null;
+			if (iedIndex < 0 || iedIndex > Devices.GetLength(0))
+				return null;
+			
+			if (Devices[iedIndex].AccessPoint == null)
+				return null;
+			if (apIndex < 0 || apIndex > Devices[iedIndex].AccessPoint.GetLength(0))
+				return null;
+			
+			if (Devices[iedIndex].AccessPoint[apIndex].Server == null)
+				return null;
+			if (Devices[iedIndex].AccessPoint[apIndex].Server.LDevice == null)
+				return null;
+			if (ldIndex < 0 
+			    || ldIndex > Devices[iedIndex].AccessPoint[apIndex].Server.LDevice.GetLength(0))
+				return null;
+			
+			return Devices[iedIndex].AccessPoint[apIndex].Server.LDevice[ldIndex];
+		}
+		
+		/// <summary>
+		/// Gets the Index of Logical Device named "name". LD's name must be "InstanceLDName", first
+		/// the LD instance and then  LD name.
+		/// </summary>
+		/// <param name="iedIndex">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <param name="apIndex">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <param name="name">
+		/// A <see cref="System.String"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.Int32"/>
+		/// </returns>
+		private int GetLDIndex (int iedIndex, int apIndex, string name)
+		{
+			if (Devices == null)
+				return -1;
+			if (iedIndex < 0 || iedIndex > Devices.GetLength(0))
+				return -1;
+			
+			if (Devices[iedIndex].AccessPoint == null)
+				return -1;
+			if (apIndex < 0 || apIndex > Devices[iedIndex].AccessPoint.GetLength(0))
+				return -1;
+			
+			if (Devices[iedIndex].AccessPoint[apIndex].Server == null)
+				return -1;
+			if (Devices[iedIndex].AccessPoint[apIndex].Server.LDevice == null)
+				return -1;
+			
+			int pos = -1;
+			for (int i = 0; i < Devices[iedIndex].AccessPoint[apIndex].Server.LDevice.GetLength(0); i++) {
+				string ldname = Devices[iedIndex].AccessPoint[apIndex].Server.LDevice[i].inst;
+				ldname += Devices[iedIndex].AccessPoint[apIndex].Server.LDevice[i].ldName;
+				if (ldname.Equals(name))
+				{
+					pos = i;
+					break;
+				}
+			}			
+			return pos;
+		}
+		
 		private int GetAPIndex (int iedIndex, string name)
 		{
 			int pos = -1;

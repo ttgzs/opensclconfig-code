@@ -29,8 +29,6 @@ using OpenSCL;
 
 public partial class MainWindow : Gtk.Window
 {
-	private OpenSCLUIGtk.SclTree scltree;
-	
 	public MainWindow () : base(Gtk.WindowType.Toplevel)
 	{
 		Build ();

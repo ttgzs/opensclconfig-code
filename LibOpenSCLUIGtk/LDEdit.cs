@@ -62,6 +62,43 @@ namespace LibOpenSCLUIGtk
 			
 			this.dotreeview.AppendColumn ("Data Object", new Gtk.CellRendererText (), "text", 0);
 			this.dotreeview.AppendColumn ("Description", new Gtk.CellRendererText (), "text", 2);
+			this.dotreeview.Selection.Changed += HandleDotreeviewSelectionChanged;
+		}
+
+		void HandleDotreeviewSelectionChanged (object sender, EventArgs e)
+		{
+			Gtk.TreeIter lniter;
+			
+			if (this.lntreeview.Selection.GetSelected(out lniter))
+			{
+				Gtk.TreeIter doiter;
+				Gtk.TreeSelection sel;
+								
+				int lnnum = (int) this.lntreeview.Model.GetValue(lniter, 1);
+				
+				sel = (Gtk.TreeSelection) sender;
+				if (sel.GetSelected(out doiter))
+				{
+					Gtk.TreeStore model = (Gtk.TreeStore) this.dotreeview.Model;
+					
+					if (model.GetPath(doiter).Indices.GetLength(0) == 1)
+					{
+						int donum = (int) model.GetValue(doiter, 1);
+						if (this.LogicalDevice.LN[lnnum].DOI[donum].DAI != null)
+						{
+							if (!model.IterHasChild (doiter))
+							{
+								for (int i = 0; i < this.LogicalDevice.LN[lnnum].DOI[donum].DAI.GetLength(0); i++) {
+									model.AppendValues(doiter,
+									                   this.LogicalDevice.LN[lnnum].DOI[donum].DAI[i].name,
+									                   i,
+									                   this.LogicalDevice.LN[lnnum].DOI[donum].DAI[i].desc);
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 
 		void HandleLntreeviewSelectionhandleChanged (object sender, EventArgs e)
@@ -72,9 +109,6 @@ namespace LibOpenSCLUIGtk
 			{
 				Gtk.TreeStore model = (Gtk.TreeStore) this.lntreeview.Model;
 				Gtk.TreeStore domodel = (Gtk.TreeStore) this.dotreeview.Model;
-				
-				Gtk.TreePath path = model.GetPath(seliter);
-				
 				int i = (int) model.GetValue (seliter, 1);
 				// Remove Nodes on DOI view
 				

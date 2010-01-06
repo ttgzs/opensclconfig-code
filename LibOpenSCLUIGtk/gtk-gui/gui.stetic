@@ -82,10 +82,10 @@ Configuration Revision.</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Notebook" id="notebook3">
+          <widget class="Gtk.Notebook" id="notebook">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="CurrentPage">2</property>
+            <property name="CurrentPage">1</property>
             <child>
               <widget class="Gtk.HPaned" id="hpaned">
                 <property name="MemberName" />
@@ -618,6 +618,7 @@ SIEMENS
                     <child>
                       <widget class="Gtk.TreeView" id="lntreeview">
                         <property name="MemberName" />
+                        <property name="Tooltip" translatable="yes">Select a Logical Node to see its associated Data Objects</property>
                         <property name="CanFocus">True</property>
                         <property name="ShowScrollbars">True</property>
                       </widget>
@@ -716,6 +717,7 @@ SIEMENS
                     <child>
                       <widget class="Gtk.TreeView" id="dotreeview">
                         <property name="MemberName" />
+                        <property name="Tooltip" translatable="yes">Select a Data Object to see its attributes</property>
                         <property name="CanFocus">True</property>
                         <property name="ShowScrollbars">True</property>
                       </widget>

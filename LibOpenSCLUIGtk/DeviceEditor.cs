@@ -51,11 +51,18 @@ namespace LibOpenSCLUIGtk
 			this.treeview.AppendColumn ("Description", new Gtk.CellRendererText (), "text", 2);
 			
 			this.treeview.Selection.Changed += HandleTreeviewSelectionhandleChanged;
+			this.treeview.RowActivated += HandleTreeviewRowActivated;
+			
 			Gtk.ListStore ldmodel = new Gtk.ListStore(GLib.GType.String, GLib.GType.Int, GLib.GType.Int);
 			this.ldlist.Model = ldmodel;
 			this.ldlist.Changed += HandleLdlistChanged;
 			
-			this.notebook3.Page = 0; // Select IED tab
+			this.notebook.Page = 0; // Select IED tab
+		}
+
+		void HandleTreeviewRowActivated (object o, Gtk.RowActivatedArgs args)
+		{
+			this.notebook.Page = 2;
 		}
 
 		void HandleLdlistChanged (object sender, EventArgs e)
@@ -174,6 +181,7 @@ namespace LibOpenSCLUIGtk
 				}
 			}
 			this.treeview.ExpandAll();
+			this.notebook.Page = 0; // Select General IED viewer
 		}
 	}
 }

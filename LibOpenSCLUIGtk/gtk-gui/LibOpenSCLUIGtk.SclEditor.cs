@@ -21,6 +21,8 @@ namespace LibOpenSCLUIGtk {
         
         private Gtk.Notebook notebook;
         
+        private Gtk.VBox NothingContainer;
+        
         private Gtk.Label label6;
         
         private LibOpenSCLUIGtk.DeviceEditor deviceeditor;
@@ -54,15 +56,17 @@ namespace LibOpenSCLUIGtk {
             this.notebook = new Gtk.Notebook();
             this.notebook.CanFocus = true;
             this.notebook.Name = "notebook";
-            this.notebook.CurrentPage = 1;
+            this.notebook.CurrentPage = 0;
+            // Container child notebook.Gtk.Notebook+NotebookChild
+            this.NothingContainer = new Gtk.VBox();
+            this.NothingContainer.Name = "NothingContainer";
+            this.NothingContainer.Spacing = 6;
+            this.notebook.Add(this.NothingContainer);
             // Notebook tab
-            Gtk.Label w3 = new Gtk.Label();
-            w3.Visible = true;
-            this.notebook.Add(w3);
             this.label6 = new Gtk.Label();
             this.label6.Name = "label6";
             this.label6.LabelProp = Mono.Unix.Catalog.GetString("Nothing");
-            this.notebook.SetTabLabel(w3, this.label6);
+            this.notebook.SetTabLabel(this.NothingContainer, this.label6);
             this.label6.ShowAll();
             // Container child notebook.Gtk.Notebook+NotebookChild
             this.deviceeditor = new LibOpenSCLUIGtk.DeviceEditor();

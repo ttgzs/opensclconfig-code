@@ -43,7 +43,7 @@
     <EmbeddedResource Include="gtk-gui\gui.stetic">
       <LogicalName>gui.stetic</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="gtk-gui\LogoIEDConfigurator.png" />
+    <EmbeddedResource Include="LogoIEDConfigurator.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />

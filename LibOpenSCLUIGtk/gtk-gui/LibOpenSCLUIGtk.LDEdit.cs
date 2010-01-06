@@ -169,6 +169,7 @@ namespace LibOpenSCLUIGtk {
             this.GtkScrolledWindow1.ShadowType = ((Gtk.ShadowType)(1));
             // Container child GtkScrolledWindow1.Gtk.Container+ContainerChild
             this.lntreeview = new Gtk.TreeView();
+            this.lntreeview.TooltipMarkup = "Select a Logical Node to see its associated Data Objects";
             this.lntreeview.CanFocus = true;
             this.lntreeview.Name = "lntreeview";
             this.GtkScrolledWindow1.Add(this.lntreeview);
@@ -242,6 +243,7 @@ namespace LibOpenSCLUIGtk {
             this.GtkScrolledWindow2.ShadowType = ((Gtk.ShadowType)(1));
             // Container child GtkScrolledWindow2.Gtk.Container+ContainerChild
             this.dotreeview = new Gtk.TreeView();
+            this.dotreeview.TooltipMarkup = "Select a Data Object to see its attributes";
             this.dotreeview.CanFocus = true;
             this.dotreeview.Name = "dotreeview";
             this.GtkScrolledWindow2.Add(this.dotreeview);

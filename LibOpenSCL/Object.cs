@@ -25,6 +25,36 @@ using IEC61850.SCL;
 
 namespace OpenSCL
 {	
+	public struct IEDConnectedAP {
+		int i;
+		int a;
+		int s;
+		int c;
+		public IEDConnectedAP (int i, int a, int s, int c)
+		{
+			this.i = i;
+			this.a = a;
+			this.s = s;
+			this.c = c;
+		}
+		public int ied {
+			set { i = value; }
+			get { return i;}
+		}
+		public int ap {
+			set { a = value; }
+			get { return a; }
+		}
+		public int subnetwork {
+			set { s = value; }
+			get { return s; }
+		}
+		public int connectedap {
+			set { c = value;}
+			get { return c; }
+		}
+	}
+	
 	/// <summary>
 	/// This class uses functions that involve an XML File.
 	/// </summary>
@@ -366,46 +396,64 @@ namespace OpenSCL
 			return objectIEDToImport;
 		}
 		
-		public IEC61850.SCL.tIED GetIED (string iedName)
-		{
-			int ied = GetIEDIndex(iedName);
-			return Devices[ied];
-		}
-		
 		public IEC61850.SCL.tIED GetIED (int iedIndex)
 		{
+			if (this.Devices == null)
+				return null;
+			if (iedIndex < 0 || iedIndex > this.Devices.GetLength(0))
+				return null;
+			
 			return Devices[iedIndex];
 		}
 		
-		public IEC61850.SCL.tAccessPoint[] GetAccessPoints (string iedName)
+		public IEC61850.SCL.tAccessPoint[] GetAP (string iedName)
 		{
-			int ied = GetIEDIndex(iedName);
-			return Devices[ied].AccessPoint;
+			if (this.Devices == null)
+				return null;
+			int ied = GetIED(iedName);
+			if (ied < 0)
+				return null;
+			else
+				return Devices[ied].AccessPoint;
 		}
 		
-		public IEC61850.SCL.tAccessPoint[] GetAccessPoints (int iedIndex)
+		public IEC61850.SCL.tAccessPoint[] GetAP (int iedIndex)
 		{
+			if (this.GetIED(iedIndex) == null)
+				return null;
 			return Devices[iedIndex].AccessPoint;
 		}
 		
-		public IEC61850.SCL.tAccessPoint GetAccessPoint (string iedName, string apName)
+		public IEC61850.SCL.tAccessPoint GetAP (string iedName, string apName)
 		{
-			int ied = GetIEDIndex(iedName);
-			int ap = GetAPIndex(ied, apName);
+			int ied = GetIED(iedName);
+			int ap = GetAP(ied, apName);
 			return Devices[ied].AccessPoint[ap];
 		}
 		
-		public IEC61850.SCL.tAccessPoint GetAccessPoint (int iedIndex, int apIndex)
+		public IEC61850.SCL.tAccessPoint GetAP (int iedIndex, int apIndex)
 		{
-			return Devices[iedIndex].AccessPoint[apIndex];
+			if (iedIndex < 0)
+				return null;
+			if (apIndex < 0)
+				return null;
+			
+			if (this.Devices == null)
+				return null;
+			if (iedIndex > this.Devices.GetLength(0))
+				return null;
+			if (apIndex > this.Devices[iedIndex].AccessPoint.GetLength(0))
+				return null;
+			
+			return this.Devices[iedIndex].AccessPoint[apIndex];
 		}
 		
 		// LogicalDevices Related methods
 		
-		public IEC61850.SCL.tLDevice[] GetLogicalDevices (string iedName, string apName)
+		public IEC61850.SCL.tLDevice[] GetLD (string iedName, string apName)
 		{
-			int ied = this.GetIEDIndex(iedName);
-			int ap = this.GetAPIndex(ied, apName);
+			int ied = this.GetIED(iedName);
+			int ap = this.GetAP(ied, apName);
 			
 			if (ied < 0 || ied > Devices.GetLength(0) 
 			    || ap < 0 || ap > Devices.GetLength(0))
@@ -414,7 +462,7 @@ namespace OpenSCL
 			return Devices[ied].AccessPoint[ap].Server.LDevice;
 		}
 		
-		public IEC61850.SCL.tLDevice[] GetLogicalDevices (int iedIndex, int apIndex)
+		public IEC61850.SCL.tLDevice[] GetLD (int iedIndex, int apIndex)
 		{
 			if (iedIndex < 0 || iedIndex > Devices.GetLength(0) 
 			    || apIndex < 0 || apIndex > Devices.GetLength(0))
@@ -423,7 +471,7 @@ namespace OpenSCL
 			return Devices[iedIndex].AccessPoint[apIndex].Server.LDevice;
 		}
 		
-		public IEC61850.SCL.tLDevice[] GetLogicalDevices (int iedIndex)
+		public IEC61850.SCL.tLDevice[] GetLD (int iedIndex)
 		{
 			if (iedIndex < 0 || iedIndex > Devices.GetLength(0))
 				return null;
@@ -434,9 +482,9 @@ namespace OpenSCL
 				return null;
 		}
 		
-		public IEC61850.SCL.tLDevice[] GetLogicalDevices (string iedName)
+		public IEC61850.SCL.tLDevice[] GetLD (string iedName)
 		{
-			int ied = GetIEDIndex(iedName);
+			int ied = GetIED(iedName);
 			
 			if (ied < 0)
 				return null;
@@ -447,7 +495,7 @@ namespace OpenSCL
 				return null;
 		}
 		
-		public IEC61850.SCL.tLDevice GetLogicalDevice (int iedIndex, int apIndex, int ldIndex)
+		public IEC61850.SCL.tLDevice GetLD (int iedIndex, int apIndex, int ldIndex)
 		{
 			if (Devices == null)
 				return null;
@@ -486,7 +534,7 @@ namespace OpenSCL
 		/// <returns>
 		/// A <see cref="System.Int32"/>
 		/// </returns>
-		private int GetLDIndex (int iedIndex, int apIndex, string name)
+		private int GetLD (int iedIndex, int apIndex, string name)
 		{
 			if (Devices == null)
 				return -1;
@@ -516,7 +564,7 @@ namespace OpenSCL
 			return pos;
 		}
 		
-		private int GetAPIndex (int iedIndex, string name)
+		private int GetAP (int iedIndex, string name)
 		{
 			int pos = -1;
 			for (int i = 0; i < Devices[iedIndex].AccessPoint.GetLength(0); i++) {
@@ -529,8 +577,13 @@ namespace OpenSCL
 			return pos;
 		}
 		
-		public int GetIEDIndex (string name)
+		public int GetIED (string name)
 		{
+			if (this.Devices == null)
+				return -1;
+			if (name.Equals(null))
+				return -1;
+			
 			int pos = -1;
 			for (int i = 0; i < this.Devices.GetLength(0); i++) {
 				if (this.Devices[i].name.Equals(name)) {
@@ -552,6 +605,102 @@ namespace OpenSCL
 			set {
 				this.configuration.Communication.SubNetwork = value;
 			}
+		}
+		
+		public int GetSubnetwork (string name)
+		{
+			if (this.configuration.Communication == null)
+				return -1;
+			if (this.configuration.Communication.SubNetwork == null)
+				return -1;
+			int pos = -1;
+			for (int i = 0; i < this.configuration.Communication.SubNetwork.GetLength(0); i++)
+			{
+				if ( this.configuration.Communication.SubNetwork[i].name.Equals(name))
+				{
+					pos = i;
+					break;
+				}
+			}
+			
+			return pos;
+		}
+		
+		public tConnectedAP GetIEDConnectedAP (int subnetIndex, int connectedapIndex)
+		{
+			if(subnetIndex < 0)
+				return null;
+			if (connectedapIndex < 0)
+				return null;		
+			if(this.Subnetworks == null)
+				return null;
+			if(subnetIndex > this.Subnetworks.GetLength(0))
+				return null;
+			if(this.Subnetworks[subnetIndex].ConnectedAP == null)
+				return null;
+			if(connectedapIndex > this.Subnetworks[subnetIndex].ConnectedAP.GetLength(0))
+				return null;
+			
+			return this.Subnetworks[subnetIndex].ConnectedAP[connectedapIndex];
+			
+		}
+			
+		public  System.Collections.ArrayList
+			GetIEDConnectedAP (string iedName)
+		{
+			if (iedName.Equals(null))
+				return null;
+			
+			return this.GetIEDConnectedAP (iedName);
+		}
+		
+		public System.Collections.ArrayList 
+			GetIEDConnectedAP (int iedIndex)
+		{
+			if (this.configuration.Communication == null)
+			    return null;
+			if (this.configuration.Communication.SubNetwork == null)
+				return null;
+			
+			tIED ied = this.GetIED (iedIndex);
+			if (ied == null)
+				return null;
+			
+			if (ied.AccessPoint == null)
+				return null;
+			
+			System.Collections.ArrayList
+					res = new System.Collections.ArrayList ();
+			
+			for (int nap = 0; nap < ied.AccessPoint.GetLength(0); nap++) {
+				tAccessPoint ap = this.GetAP(iedIndex, nap);			                                      
+				
+				
+				for (int i = 0; i < this.configuration.Communication.SubNetwork.GetLength(0); i++)
+				{
+					for (int j=0; 
+					     j < this.configuration.Communication.SubNetwork[i].ConnectedAP.GetLength(0); 
+					     j++)
+					{
+						
+						if (this.configuration.Communication
+						    .SubNetwork[i].ConnectedAP[i].iedName.Equals(ied.name) 
+						    &&
+						    this.configuration.Communication
+						    .SubNetwork[i].ConnectedAP[i].apName.Equals(ap.name))
+						{
+							IEDConnectedAP c = new IEDConnectedAP();
+							c.subnetwork = i;
+							c.connectedap = j;
+							c.ied = iedIndex;
+							c.ap = nap;
+							res.Add (c);
+						}
+					}
+				}	
+			}
+			
+			return res;
 		}
 		
 		// Substation
@@ -639,7 +788,120 @@ namespace OpenSCL
 				bandAddObject=true;
 			}
 		}
+		
+		public string GetPDescription (int type)
+		{
+			string text = "";
+			switch (type)
+			{
+			case (int) tPTypeEnum.IP:
+				text = "TCP/IP Address";
+				break;
+			case (int) tPTypeEnum.IP_SUBNET:
+				text = "Subnetwork Mask for TCP/IP profiles";
+				break;
+			case (int) tPTypeEnum.IP_GATEWAY:
+				text = "First Hop IP gateway address for TCP/IP profiles";
+				break;
+			case (int) tPTypeEnum.OSI_NSAP:
+				text = "OSI Network Address";
+				break;
+			case (int) tPTypeEnum.OSI_TSEL:
+				text = "OSI Transport Selector";
+				break;
+			case (int) tPTypeEnum.OSI_SSEL:
+				text = "OSI Session Selector";
+				break;
+			case (int) tPTypeEnum.OSI_PSEL:
+				text = "OSI Presentation Selector";
+				break;
+			case (int) tPTypeEnum.OSI_AP_Title:
+				text = "OSI ACSE AP Title value";
+				break;
+			case (int) tPTypeEnum.OSI_AP_Invoke:
+				text = "OSI ACSE AP Invoke ID";
+				break;
+			case (int) tPTypeEnum.OSI_AE_Qualifier:
+				text = "OSI ACSE AE Qualifier";
+				break;
+			case (int) tPTypeEnum.OSI_AE_Invoke:
+				text = "OSI ACSE AE Invoke ID";
+				break;
+			case (int) tPTypeEnum.MAC_Address:
+				text = "Media Access Address value";
+				break;
+			case (int) tPTypeEnum.APPID:
+				text = "Application Identifier";
+				break;
+			case (int) tPTypeEnum.VLAN_PRIORITY:
+				text = "VLAN User Priority";
+				break;
+			case (int) tPTypeEnum.VLAN_ID:
+				text = "VLAN ID";
+				break;
+			default:
+				text = "No description or type not sopported";
+				break;
+			}
+			return text;
+		}
+		
+		public string GetPName (int type)
+		{
+			string text = "";
+			switch (type)
+			{
+			case (int) tPTypeEnum.IP:
+				text = "IP";
+				break;
+			case (int) tPTypeEnum.IP_SUBNET:
+				text = "IP-SUBNET";
+				break;
+			case (int) tPTypeEnum.IP_GATEWAY:
+				text = "IP-GATEWAY";
+				break;
+			case (int) tPTypeEnum.OSI_NSAP:
+				text = "OSI-NSAP";
+				break;
+			case (int) tPTypeEnum.OSI_TSEL:
+				text = "OSI-TSEL";
+				break;
+			case (int) tPTypeEnum.OSI_SSEL:
+				text = "OSI-SSEL";
+				break;
+			case (int) tPTypeEnum.OSI_PSEL:
+				text = "OSI-PSEL";
+				break;
+			case (int) tPTypeEnum.OSI_AP_Title:
+				text = "OSI-AP-Title";
+				break;
+			case (int) tPTypeEnum.OSI_AP_Invoke:
+				text = "OSI-AP-Invoke";
+				break;
+			case (int) tPTypeEnum.OSI_AE_Qualifier:
+				text = "OSI-AE-Qualifier";
+				break;
+			case (int) tPTypeEnum.OSI_AE_Invoke:
+				text = "OSI-SE-Invoke";
+				break;
+			case (int) tPTypeEnum.MAC_Address:
+				text = "MAC-Addressx";
+				break;
+			case (int) tPTypeEnum.APPID:
+				text = "APPID";
+				break;
+			case (int) tPTypeEnum.VLAN_PRIORITY:
+				text = "VLAN-PRIORITY";
+				break;
+			case (int) tPTypeEnum.VLAN_ID:
+				text = "VLAN ID";
+				break;
+			default:
+				text = "No name or type not sopported";
+				break;
+			}
+			return text;
+		}
+
 	}
 }
-
-

@@ -57,6 +57,20 @@ namespace LibOpenSCLUIGtk {
         
         private Gtk.Label label7;
         
+        private Gtk.VBox vbox1;
+        
+        private Gtk.HBox hbox2;
+        
+        private Gtk.Label label1;
+        
+        private Gtk.ComboBox accesspointlist;
+        
+        private Gtk.Button button1;
+        
+        private Gtk.Button button5;
+        
+        private LibOpenSCLUIGtk.AccessPointEditor accesspointeditor;
+        
         private Gtk.Label label19;
         
         private Gtk.VBox vbox4;
@@ -237,14 +251,75 @@ namespace LibOpenSCLUIGtk {
             this.label7.LabelProp = Mono.Unix.Catalog.GetString("IED");
             this.notebook.SetTabLabel(this.hpaned, this.label7);
             this.label7.ShowAll();
+            // Container child notebook.Gtk.Notebook+NotebookChild
+            this.vbox1 = new Gtk.VBox();
+            this.vbox1.Name = "vbox1";
+            this.vbox1.Spacing = 6;
+            // Container child vbox1.Gtk.Box+BoxChild
+            this.hbox2 = new Gtk.HBox();
+            this.hbox2.Name = "hbox2";
+            this.hbox2.Spacing = 6;
+            // Container child hbox2.Gtk.Box+BoxChild
+            this.label1 = new Gtk.Label();
+            this.label1.Name = "label1";
+            this.label1.LabelProp = Mono.Unix.Catalog.GetString("Access Point:");
+            this.hbox2.Add(this.label1);
+            Gtk.Box.BoxChild w16 = ((Gtk.Box.BoxChild)(this.hbox2[this.label1]));
+            w16.Position = 0;
+            w16.Expand = false;
+            w16.Fill = false;
+            // Container child hbox2.Gtk.Box+BoxChild
+            this.accesspointlist = Gtk.ComboBox.NewText();
+            this.accesspointlist.Name = "accesspointlist";
+            this.hbox2.Add(this.accesspointlist);
+            Gtk.Box.BoxChild w17 = ((Gtk.Box.BoxChild)(this.hbox2[this.accesspointlist]));
+            w17.Position = 1;
+            w17.Expand = false;
+            w17.Fill = false;
+            // Container child hbox2.Gtk.Box+BoxChild
+            this.button1 = new Gtk.Button();
+            this.button1.CanFocus = true;
+            this.button1.Name = "button1";
+            this.button1.UseStock = true;
+            this.button1.UseUnderline = true;
+            this.button1.Label = "gtk-add";
+            this.hbox2.Add(this.button1);
+            Gtk.Box.BoxChild w18 = ((Gtk.Box.BoxChild)(this.hbox2[this.button1]));
+            w18.Position = 2;
+            w18.Expand = false;
+            w18.Fill = false;
+            // Container child hbox2.Gtk.Box+BoxChild
+            this.button5 = new Gtk.Button();
+            this.button5.CanFocus = true;
+            this.button5.Name = "button5";
+            this.button5.UseStock = true;
+            this.button5.UseUnderline = true;
+            this.button5.Label = "gtk-remove";
+            this.hbox2.Add(this.button5);
+            Gtk.Box.BoxChild w19 = ((Gtk.Box.BoxChild)(this.hbox2[this.button5]));
+            w19.Position = 3;
+            w19.Expand = false;
+            w19.Fill = false;
+            this.vbox1.Add(this.hbox2);
+            Gtk.Box.BoxChild w20 = ((Gtk.Box.BoxChild)(this.vbox1[this.hbox2]));
+            w20.Position = 0;
+            w20.Expand = false;
+            w20.Fill = false;
+            // Container child vbox1.Gtk.Box+BoxChild
+            this.accesspointeditor = new LibOpenSCLUIGtk.AccessPointEditor();
+            this.accesspointeditor.Events = ((Gdk.EventMask)(256));
+            this.accesspointeditor.Name = "accesspointeditor";
+            this.vbox1.Add(this.accesspointeditor);
+            Gtk.Box.BoxChild w21 = ((Gtk.Box.BoxChild)(this.vbox1[this.accesspointeditor]));
+            w21.Position = 1;
+            this.notebook.Add(this.vbox1);
+            Gtk.Notebook.NotebookChild w22 = ((Gtk.Notebook.NotebookChild)(this.notebook[this.vbox1]));
+            w22.Position = 1;
             // Notebook tab
-            Gtk.Label w16 = new Gtk.Label();
-            w16.Visible = true;
-            this.notebook.Add(w16);
             this.label19 = new Gtk.Label();
             this.label19.Name = "label19";
             this.label19.LabelProp = Mono.Unix.Catalog.GetString("Communications");
-            this.notebook.SetTabLabel(w16, this.label19);
+            this.notebook.SetTabLabel(this.vbox1, this.label19);
             this.label19.ShowAll();
             // Container child notebook.Gtk.Notebook+NotebookChild
             this.vbox4 = new Gtk.VBox();
@@ -260,34 +335,34 @@ namespace LibOpenSCLUIGtk {
             this.label13.Name = "label13";
             this.label13.LabelProp = Mono.Unix.Catalog.GetString("Logical Device");
             this.hbox3.Add(this.label13);
-            Gtk.Box.BoxChild w17 = ((Gtk.Box.BoxChild)(this.hbox3[this.label13]));
-            w17.Position = 0;
-            w17.Expand = false;
-            w17.Fill = false;
+            Gtk.Box.BoxChild w23 = ((Gtk.Box.BoxChild)(this.hbox3[this.label13]));
+            w23.Position = 0;
+            w23.Expand = false;
+            w23.Fill = false;
             // Container child hbox3.Gtk.Box+BoxChild
             this.ldlist = Gtk.ComboBox.NewText();
             this.ldlist.TooltipMarkup = "Select an existing LD In the IED";
             this.ldlist.Name = "ldlist";
             this.hbox3.Add(this.ldlist);
-            Gtk.Box.BoxChild w18 = ((Gtk.Box.BoxChild)(this.hbox3[this.ldlist]));
-            w18.Position = 1;
-            w18.Expand = false;
-            w18.Fill = false;
+            Gtk.Box.BoxChild w24 = ((Gtk.Box.BoxChild)(this.hbox3[this.ldlist]));
+            w24.Position = 1;
+            w24.Expand = false;
+            w24.Fill = false;
             this.vbox4.Add(this.hbox3);
-            Gtk.Box.BoxChild w19 = ((Gtk.Box.BoxChild)(this.vbox4[this.hbox3]));
-            w19.Position = 0;
-            w19.Expand = false;
-            w19.Fill = false;
+            Gtk.Box.BoxChild w25 = ((Gtk.Box.BoxChild)(this.vbox4[this.hbox3]));
+            w25.Position = 0;
+            w25.Expand = false;
+            w25.Fill = false;
             // Container child vbox4.Gtk.Box+BoxChild
             this.ldedit = new LibOpenSCLUIGtk.LDEdit();
             this.ldedit.Events = ((Gdk.EventMask)(256));
             this.ldedit.Name = "ldedit";
             this.vbox4.Add(this.ldedit);
-            Gtk.Box.BoxChild w20 = ((Gtk.Box.BoxChild)(this.vbox4[this.ldedit]));
-            w20.Position = 1;
+            Gtk.Box.BoxChild w26 = ((Gtk.Box.BoxChild)(this.vbox4[this.ldedit]));
+            w26.Position = 1;
             this.notebook.Add(this.vbox4);
-            Gtk.Notebook.NotebookChild w21 = ((Gtk.Notebook.NotebookChild)(this.notebook[this.vbox4]));
-            w21.Position = 2;
+            Gtk.Notebook.NotebookChild w27 = ((Gtk.Notebook.NotebookChild)(this.notebook[this.vbox4]));
+            w27.Position = 2;
             // Notebook tab
             this.label12 = new Gtk.Label();
             this.label12.Name = "label12";
@@ -295,27 +370,27 @@ namespace LibOpenSCLUIGtk {
             this.notebook.SetTabLabel(this.vbox4, this.label12);
             this.label12.ShowAll();
             // Notebook tab
-            Gtk.Label w22 = new Gtk.Label();
-            w22.Visible = true;
-            this.notebook.Add(w22);
+            Gtk.Label w28 = new Gtk.Label();
+            w28.Visible = true;
+            this.notebook.Add(w28);
             this.label14 = new Gtk.Label();
             this.label14.Name = "label14";
             this.label14.LabelProp = Mono.Unix.Catalog.GetString("Data Type Templates");
-            this.notebook.SetTabLabel(w22, this.label14);
+            this.notebook.SetTabLabel(w28, this.label14);
             this.label14.ShowAll();
             // Notebook tab
-            Gtk.Label w23 = new Gtk.Label();
-            w23.Visible = true;
-            this.notebook.Add(w23);
+            Gtk.Label w29 = new Gtk.Label();
+            w29.Visible = true;
+            this.notebook.Add(w29);
             this.label17 = new Gtk.Label();
             this.label17.TooltipMarkup = "View and Edit Private nodes on current IED";
             this.label17.Name = "label17";
             this.label17.LabelProp = Mono.Unix.Catalog.GetString("Private");
-            this.notebook.SetTabLabel(w23, this.label17);
+            this.notebook.SetTabLabel(w29, this.label17);
             this.label17.ShowAll();
             this.vbox3.Add(this.notebook);
-            Gtk.Box.BoxChild w24 = ((Gtk.Box.BoxChild)(this.vbox3[this.notebook]));
-            w24.Position = 1;
+            Gtk.Box.BoxChild w30 = ((Gtk.Box.BoxChild)(this.vbox3[this.notebook]));
+            w30.Position = 1;
             // Container child vbox3.Gtk.Box+BoxChild
             this.DeviceDescription = new Gtk.Label();
             this.DeviceDescription.Name = "DeviceDescription";
@@ -324,11 +399,11 @@ namespace LibOpenSCLUIGtk {
             this.DeviceDescription.UseMarkup = true;
             this.DeviceDescription.Selectable = true;
             this.vbox3.Add(this.DeviceDescription);
-            Gtk.Box.BoxChild w25 = ((Gtk.Box.BoxChild)(this.vbox3[this.DeviceDescription]));
-            w25.PackType = ((Gtk.PackType)(1));
-            w25.Position = 2;
-            w25.Expand = false;
-            w25.Fill = false;
+            Gtk.Box.BoxChild w31 = ((Gtk.Box.BoxChild)(this.vbox3[this.DeviceDescription]));
+            w31.PackType = ((Gtk.PackType)(1));
+            w31.Position = 2;
+            w31.Expand = false;
+            w31.Fill = false;
             this.Add(this.vbox3);
             if ((this.Child != null)) {
                 this.Child.ShowAll();

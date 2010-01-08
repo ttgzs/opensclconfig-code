@@ -104,7 +104,7 @@ namespace OpenSCL.Console
 		
 		private void ShowLogicalDevices (string ied)
 		{
-			IEC61850.SCL.tLDevice[] lds = sclObject.GetLogicalDevices (ied);
+			IEC61850.SCL.tLDevice[] lds = sclObject.GetLD (ied);
 			if (lds == null)
 				System.Console.WriteLine("Error on getting AP LD on device\n");
 			else
@@ -113,14 +113,14 @@ namespace OpenSCL.Console
 		
 		private void ShowAPs (string ied)
 		{
-			int iedindex = sclObject.GetIEDIndex(ied);
+			int iedindex = sclObject.GetIED(ied);
 			if (iedindex < 0)
 			{
 				System.Console.WriteLine("Error: IED doesn't exist\n");
 			}
 			else
 			{
-				IEC61850.SCL.tAccessPoint[] aps = sclObject.GetAccessPoints(iedindex);
+				IEC61850.SCL.tAccessPoint[] aps = sclObject.GetAP(iedindex);
 				this.PrintAPs(aps, ied);
 			}
 		}
@@ -128,7 +128,7 @@ namespace OpenSCL.Console
 		private void ShowApLD (string ied, string ap)
 		{
 			System.Console.WriteLine("Showing LDs on Access Point:\n");
-			IEC61850.SCL.tLDevice[] lds = sclObject.GetLogicalDevices (ied, ap);
+			IEC61850.SCL.tLDevice[] lds = sclObject.GetLD (ied, ap);
 			this.PrintAPLDs(lds, ied, ap);
 		}
 		
@@ -262,7 +262,7 @@ namespace OpenSCL.Console
 								else
 								{
 									if (command.GetLength(0) > 2) {
-										int numied = app.sclObject.GetIEDIndex (command[2]);
+										int numied = app.sclObject.GetIED (command[2]);
 										if (numied >= 0) {
 											string ied = "IED Number: ";
 											ied += numied;

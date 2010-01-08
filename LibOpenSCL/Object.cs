@@ -703,6 +703,76 @@ namespace OpenSCL
 			return res;
 		}
 		
+		public tAddress GetIEDAddress (int subnetIndex, int connapIndex)
+		{
+			if (subnetIndex < 0)
+				return null;
+			if (connapIndex < 0)
+				return null;
+			if (this.Subnetworks == null)
+				return null;
+			if (subnetIndex > this.Subnetworks.GetLength(0))
+				return null;
+			if (this.Subnetworks[subnetIndex].ConnectedAP == null)
+				return null;
+			if (connapIndex > this.Subnetworks[subnetIndex].ConnectedAP.GetLength(0))
+				return null;
+			return this.Subnetworks[subnetIndex]
+						.ConnectedAP[connapIndex].Address;
+		}
+		
+		/// <summary>
+		/// Find all tAddress on the specified subnetwork. Takes the list
+		/// of IED's connected Access Point from connap. connap must include 
+		/// a list of objects type OpenSCL.IEDConnectedAP.
+		/// </summary>
+		/// <param name="connap">
+		/// A <see cref="System.Collections.ArrayList"/>
+		/// </param>
+		/// <param name="subnetIndex">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.Collections.ArrayList"/>
+		/// </returns>
+		public System.Collections.ArrayList 
+			GetIEDAddress (System.Collections.ArrayList connap, 
+		                               int subnetIndex)
+		{
+			if (connap == null)
+				return null;
+			if (subnetIndex < 0)
+				return null;
+			if (this.Subnetworks == null)
+				return null;
+			if (subnetIndex > this.Subnetworks.GetLength(0))
+				return null;
+			if (this.Subnetworks[subnetIndex].ConnectedAP == null)
+				return null;
+			if ((connap.Count > 0))
+				return null;
+				
+			OpenSCL.IEDConnectedAP cap = new OpenSCL.IEDConnectedAP(-1, -1, -1, -1);
+			if (!connap[0].GetType().Equals(cap.GetType()))
+				return null;
+			
+			System.Collections.ArrayList address = new System.Collections.ArrayList();
+			for (int s = 0; s < this.Subnetworks.GetLength(0); s++) {
+				for (int i = 0; i < connap.Count; i++) {
+					cap = (OpenSCL.IEDConnectedAP) connap[i];
+					if (cap.subnetwork == subnetIndex) {
+					    address.Add(this.Subnetworks[subnetIndex]
+									.ConnectedAP[cap.connectedap].Address);
+						}
+				}
+			}
+			
+			if(address.Count > 0)
+				return address;	
+			else
+				return null;
+		}
+		
 		// Substation
 		
 		public tSubstation[] Substation
@@ -789,54 +859,54 @@ namespace OpenSCL
 			}
 		}
 		
-		public string GetPDescription (int type)
+		public string GetPDescription (tPTypeEnum type)
 		{
 			string text = "";
 			switch (type)
 			{
-			case (int) tPTypeEnum.IP:
+			case tPTypeEnum.IP:
 				text = "TCP/IP Address";
 				break;
-			case (int) tPTypeEnum.IP_SUBNET:
+			case tPTypeEnum.IP_SUBNET:
 				text = "Subnetwork Mask for TCP/IP profiles";
 				break;
-			case (int) tPTypeEnum.IP_GATEWAY:
+			case tPTypeEnum.IP_GATEWAY:
 				text = "First Hop IP gateway address for TCP/IP profiles";
 				break;
-			case (int) tPTypeEnum.OSI_NSAP:
+			case tPTypeEnum.OSI_NSAP:
 				text = "OSI Network Address";
 				break;
-			case (int) tPTypeEnum.OSI_TSEL:
+			case tPTypeEnum.OSI_TSEL:
 				text = "OSI Transport Selector";
 				break;
-			case (int) tPTypeEnum.OSI_SSEL:
+			case tPTypeEnum.OSI_SSEL:
 				text = "OSI Session Selector";
 				break;
-			case (int) tPTypeEnum.OSI_PSEL:
+			case tPTypeEnum.OSI_PSEL:
 				text = "OSI Presentation Selector";
 				break;
-			case (int) tPTypeEnum.OSI_AP_Title:
+			case tPTypeEnum.OSI_AP_Title:
 				text = "OSI ACSE AP Title value";
 				break;
-			case (int) tPTypeEnum.OSI_AP_Invoke:
+			case tPTypeEnum.OSI_AP_Invoke:
 				text = "OSI ACSE AP Invoke ID";
 				break;
-			case (int) tPTypeEnum.OSI_AE_Qualifier:
+			case tPTypeEnum.OSI_AE_Qualifier:
 				text = "OSI ACSE AE Qualifier";
 				break;
-			case (int) tPTypeEnum.OSI_AE_Invoke:
+			case tPTypeEnum.OSI_AE_Invoke:
 				text = "OSI ACSE AE Invoke ID";
 				break;
-			case (int) tPTypeEnum.MAC_Address:
+			case tPTypeEnum.MAC_Address:
 				text = "Media Access Address value";
 				break;
-			case (int) tPTypeEnum.APPID:
+			case tPTypeEnum.APPID:
 				text = "Application Identifier";
 				break;
-			case (int) tPTypeEnum.VLAN_PRIORITY:
+			case tPTypeEnum.VLAN_PRIORITY:
 				text = "VLAN User Priority";
 				break;
-			case (int) tPTypeEnum.VLAN_ID:
+			case tPTypeEnum.VLAN_ID:
 				text = "VLAN ID";
 				break;
 			default:
@@ -846,54 +916,54 @@ namespace OpenSCL
 			return text;
 		}
 		
-		public string GetPName (int type)
+		public string GetPName (tPTypeEnum type)
 		{
 			string text = "";
 			switch (type)
 			{
-			case (int) tPTypeEnum.IP:
+			case tPTypeEnum.IP:
 				text = "IP";
 				break;
-			case (int) tPTypeEnum.IP_SUBNET:
+			case tPTypeEnum.IP_SUBNET:
 				text = "IP-SUBNET";
 				break;
-			case (int) tPTypeEnum.IP_GATEWAY:
+			case tPTypeEnum.IP_GATEWAY:
 				text = "IP-GATEWAY";
 				break;
-			case (int) tPTypeEnum.OSI_NSAP:
+			case tPTypeEnum.OSI_NSAP:
 				text = "OSI-NSAP";
 				break;
-			case (int) tPTypeEnum.OSI_TSEL:
+			case tPTypeEnum.OSI_TSEL:
 				text = "OSI-TSEL";
 				break;
-			case (int) tPTypeEnum.OSI_SSEL:
+			case tPTypeEnum.OSI_SSEL:
 				text = "OSI-SSEL";
 				break;
-			case (int) tPTypeEnum.OSI_PSEL:
+			case tPTypeEnum.OSI_PSEL:
 				text = "OSI-PSEL";
 				break;
-			case (int) tPTypeEnum.OSI_AP_Title:
+			case tPTypeEnum.OSI_AP_Title:
 				text = "OSI-AP-Title";
 				break;
-			case (int) tPTypeEnum.OSI_AP_Invoke:
+			case tPTypeEnum.OSI_AP_Invoke:
 				text = "OSI-AP-Invoke";
 				break;
-			case (int) tPTypeEnum.OSI_AE_Qualifier:
+			case tPTypeEnum.OSI_AE_Qualifier:
 				text = "OSI-AE-Qualifier";
 				break;
-			case (int) tPTypeEnum.OSI_AE_Invoke:
+			case tPTypeEnum.OSI_AE_Invoke:
 				text = "OSI-SE-Invoke";
 				break;
-			case (int) tPTypeEnum.MAC_Address:
-				text = "MAC-Addressx";
+			case tPTypeEnum.MAC_Address:
+				text = "MAC-Address";
 				break;
-			case (int) tPTypeEnum.APPID:
+			case tPTypeEnum.APPID:
 				text = "APPID";
 				break;
-			case (int) tPTypeEnum.VLAN_PRIORITY:
+			case tPTypeEnum.VLAN_PRIORITY:
 				text = "VLAN-PRIORITY";
 				break;
-			case (int) tPTypeEnum.VLAN_ID:
+			case tPTypeEnum.VLAN_ID:
 				text = "VLAN ID";
 				break;
 			default:

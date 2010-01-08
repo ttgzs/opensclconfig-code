@@ -69,9 +69,10 @@ namespace LibOpenSCLUIGtk
 		{
 			Gtk.ListStore apmodel = (Gtk.ListStore) this.accesspointlist.Model;
 			Gtk.TreeIter sel;
-			this.accesspointlist.GetActiveIter(out sel);
-			int ap = (int) apmodel.GetValue(sel, 1);
-			this.accesspointeditor.SetAP(this.sclfile, this.numied, ap);
+			if (this.accesspointlist.GetActiveIter(out sel)) {
+				int ap = (int) apmodel.GetValue(sel, 1);
+				this.accesspointeditor.SetAP(this.sclfile, this.numied, ap);
+			}
 		}
 
 		void HandleTreeviewRowActivated (object o, Gtk.RowActivatedArgs args)
@@ -139,8 +140,6 @@ namespace LibOpenSCLUIGtk
 				Gtk.TreePath apph = new Gtk.TreePath(aps);
 				apmodel.GetIter(out apiter, apph);
 				this.accesspointlist.SetActiveIter(apiter);
-				
-				// Set AP to APEditor
 				this.accesspointeditor.SetAP(this.sclfile, this.numied, apindex);
 			}
 		}

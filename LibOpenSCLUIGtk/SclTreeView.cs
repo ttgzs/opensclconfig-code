@@ -141,7 +141,7 @@ namespace OpenSCLUIGtk
 								                   i,
 								                   desc);
 							}
-							substation_updated = true;
+							this.substation_updated = true;
 						}
 					}
 						break;
@@ -172,10 +172,10 @@ namespace OpenSCLUIGtk
 						{
 							Gtk.TreeStore model = (Gtk.TreeStore) this.Model;
 							for (int i = 0; i < this.sclfile.Devices.GetLength(0); i++) {
-								string desc = "Manufacturer: ";
-								desc += this.sclfile.Devices[i].manufacturer;
-								desc += " / Config. Version: ";
+								string desc = " / Config. Version: ";
 								desc += this.sclfile.Devices[i].configVersion;
+								desc += "Manufacturer: ";
+								desc += this.sclfile.Devices[i].manufacturer;
 								desc += " / Description: ";
 								desc += this.sclfile.Devices[i].desc;
 								
@@ -254,6 +254,11 @@ namespace OpenSCLUIGtk
                                     "Devices (IED)",
                                     4,
                                     "IEDs configured in this file");
+				
+				this.ieds_updated = false;
+				this.header_updated = false;
+				this.substation_updated = false;
+				this.communication_updated = false;
 				this.ExpandAll();
 			}
 		}

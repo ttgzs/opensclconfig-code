@@ -1,4 +1,4 @@
-﻿// LibOpenSCLUI
+// LibOpenSCLUI
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -124,7 +124,7 @@ namespace OpenSCL.UI
 		/// </returns>
 		public List<ErrorsManagement> OpenIEDFile(TreeView treeViewOpen, string xSDFile)
 		{	
-			List<ErrorsManagement> list = null;			
+			List<ErrorsManagement> list = new List<ErrorsManagement>();			
 			InicializeOpenIEDDialog();	
 			if(dlg.ShowDialog() == DialogResult.OK)
 			{			

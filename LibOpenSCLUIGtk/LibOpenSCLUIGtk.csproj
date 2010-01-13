@@ -46,7 +46,6 @@
     <Compile Include="gtk-gui\LibOpenSCLUIGtk.DeviceEditor.cs" />
     <Compile Include="SclEditor.cs" />
     <Compile Include="gtk-gui\LibOpenSCLUIGtk.SclEditor.cs" />
-    <Compile Include="SclObject.cs" />
     <Compile Include="gtk-gui\LibOpenSCLUIGtk.LDEdit.cs" />
     <Compile Include="LDEditor.cs" />
     <Compile Include="AccessPointEditor.cs" />

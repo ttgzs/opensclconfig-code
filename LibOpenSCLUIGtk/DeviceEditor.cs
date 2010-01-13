@@ -97,7 +97,7 @@ namespace LibOpenSCLUIGtk
 				Gtk.ListStore ldmodel = (Gtk.ListStore) this.ldlist.Model;
 				int apnum = (int) ldmodel.GetValue(seliter, 1);
 				int ldnum = (int) ldmodel.GetValue(seliter, 2);
-				this.ldedit.ChangeLD(apnum, ldnum);
+				this.ldedit.SetLD(this.sclfile, this.numied, apnum, ldnum);
 			}
 		}
 
@@ -157,6 +157,7 @@ namespace LibOpenSCLUIGtk
 		
 		public bool SelectIED (OpenSCL.Object sclfile, int iednum)
 		{
+			Gtk.TreeIter iter;
 			
 			tIED ied = sclfile.GetIED(iednum);
 			
@@ -177,7 +178,13 @@ namespace LibOpenSCLUIGtk
 			
 			this.DeviceInformationLabel.Text = info;
 			this.iedname.Text = ied.name;
-			this.iedmanufacturer.Entry.Text = ied.manufacturer;
+			if (ied.manufacturer != null)
+				this.iedmanufacturer.Entry.Text = ied.manufacturer;
+			else {
+				this.iedmanufacturer.Model.GetIterFirst(out iter);
+				this.iedmanufacturer.SetActiveIter(iter);
+			}
+			
 			this.iedconfigrevision.Text = ied.configVersion;
 			string desc = "";
 			
@@ -192,7 +199,8 @@ namespace LibOpenSCLUIGtk
 			Gtk.TreeIter root;
 			while (model.GetIterFirst(out root))
 				model.Remove(ref root);
-			
+			while (ldmodel.GetIterFirst(out root))
+				ldmodel.Remove(ref root);
 			// Append AP and LD to treeview
 			Gtk.TreeIter rootap = model.AppendValues("Access Points", 0, "");
 			for (int i = 0; i < ied.AccessPoint.GetLength(0); i++) {
@@ -222,8 +230,8 @@ namespace LibOpenSCLUIGtk
 					}
 				}
 			}
+			
 			// Remove rows form AP list
-			Gtk.TreeIter iter;
 			Gtk.ListStore apmodel = (Gtk.ListStore) this.accesspointlist.Model;
 			while (apmodel.GetIterFirst(out iter))
 			       apmodel.Remove(ref iter);
@@ -233,24 +241,43 @@ namespace LibOpenSCLUIGtk
 				                     ied.AccessPoint[j].desc);
 			}
 			
+			apmodel.GetIterFirst(out iter);
+			this.accesspointlist.SetActiveIter(iter);
+			int apindex = (int) apmodel.GetValue (iter, 1);
+			this.accesspointeditor.SetAP(this.sclfile, this.numied, apindex);
+			
+			ldmodel.GetIterFirst(out iter);
+			this.ldlist.SetActiveIter(iter);
+			int fldnum = (int) ldmodel.GetValue(iter, 1);
+			this.ldedit.SetLD(this.sclfile, this.numied, apindex, fldnum);
+			
 			// Private
 			
 			// finishing
 			this.treeview.ExpandAll();
-			this.notebook.Page = 0; // Select General IED viewer
+			//this.notebook.Page = 0; // Select General IED viewer
 			
 			return true;
 		}
 		
 		public bool SetIED (OpenSCL.Object sclfile, int iedIndex)
 		{
+			this.numied = iedIndex;
+			this.sclfile = sclfile;
+				
 			if (this.SelectIED(sclfile, iedIndex)) {
-				this.numied = iedIndex;
-				this.sclfile = sclfile;
 				return true;
 			}
-			else
+			else {
+				Gtk.MessageDialog msg = new Gtk.MessageDialog(null, Gtk.DialogFlags.DestroyWithParent,
+				                                              Gtk.MessageType.Error, Gtk.ButtonsType.Close,
+				                                              false, "Error on Set IED %i", iedIndex);
+				msg.Run();
+				this.numied = -1;
+				this.sclfile = null;
+				
 				return false;
+			}
 		}
 		
 		public bool ChangeIED (int iedIndex)

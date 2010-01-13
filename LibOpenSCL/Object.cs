@@ -473,7 +473,11 @@ namespace OpenSCL
 		
 		public IEC61850.SCL.tLDevice[] GetLD (int iedIndex)
 		{
+			if (this.Devices == null)
+				return null;
 			if (iedIndex < 0 || iedIndex > Devices.GetLength(0))
+				return null;
+			if (Devices[iedIndex].AccessPoint == null)
 				return null;
 			
 			if (Devices[iedIndex].AccessPoint.GetLength(0) == 1)
@@ -486,13 +490,7 @@ namespace OpenSCL
 		{
 			int ied = GetIED(iedName);
 			
-			if (ied < 0)
-				return null;
-			
-			if (Devices[ied].AccessPoint.GetLength(0) == 1)
-				return Devices[ied].AccessPoint[0].Server.LDevice;
-			else
-				return null;
+			return this.GetLD(ied);
 		}
 		
 		public IEC61850.SCL.tLDevice GetLD (int iedIndex, int apIndex, int ldIndex)
@@ -519,8 +517,8 @@ namespace OpenSCL
 		}
 		
 		/// <summary>
-		/// Gets the Index of Logical Device named "name". LD's name must be "InstanceLDName", first
-		/// the LD instance and then  LD name.
+		/// Gets the Index of Logical Device named "name". LD's name must have an "InstanceLDName",
+		/// structure first the LD instance and then  LD name.
 		/// </summary>
 		/// <param name="iedIndex">
 		/// A <see cref="System.Int32"/>
@@ -684,10 +682,10 @@ namespace OpenSCL
 					{
 						
 						if (this.configuration.Communication
-						    .SubNetwork[i].ConnectedAP[i].iedName.Equals(ied.name) 
+						    .SubNetwork[i].ConnectedAP[j].iedName.Equals(ied.name) 
 						    &&
 						    this.configuration.Communication
-						    .SubNetwork[i].ConnectedAP[i].apName.Equals(ap.name))
+						    .SubNetwork[i].ConnectedAP[j].apName.Equals(ap.name))
 						{
 							IEDConnectedAP c = new IEDConnectedAP();
 							c.subnetwork = i;

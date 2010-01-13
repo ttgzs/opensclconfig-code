@@ -146,7 +146,7 @@ namespace LibOpenSCLUIGtk {
             this.notebook = new Gtk.Notebook();
             this.notebook.CanFocus = true;
             this.notebook.Name = "notebook";
-            this.notebook.CurrentPage = 1;
+            this.notebook.CurrentPage = 0;
             // Container child notebook.Gtk.Notebook+NotebookChild
             this.hpaned = new Gtk.HPaned();
             this.hpaned.CanFocus = true;
@@ -185,13 +185,13 @@ namespace LibOpenSCLUIGtk {
             w8.YOptions = ((Gtk.AttachOptions)(4));
             // Container child table1.Gtk.Table+TableChild
             this.iedmanufacturer = Gtk.ComboBoxEntry.NewText();
+            this.iedmanufacturer.AppendText("");
             this.iedmanufacturer.AppendText(Mono.Unix.Catalog.GetString("ABB"));
             this.iedmanufacturer.AppendText(Mono.Unix.Catalog.GetString("AREVA"));
             this.iedmanufacturer.AppendText(Mono.Unix.Catalog.GetString("GENERAL ELECTRIC"));
             this.iedmanufacturer.AppendText(Mono.Unix.Catalog.GetString("INGETEAM"));
             this.iedmanufacturer.AppendText(Mono.Unix.Catalog.GetString("SEL"));
             this.iedmanufacturer.AppendText(Mono.Unix.Catalog.GetString("SIEMENS"));
-            this.iedmanufacturer.AppendText("");
             this.iedmanufacturer.TooltipMarkup = "Select the manufacturer";
             this.iedmanufacturer.Name = "iedmanufacturer";
             this.table1.Add(this.iedmanufacturer);
@@ -366,7 +366,7 @@ namespace LibOpenSCLUIGtk {
             // Notebook tab
             this.label12 = new Gtk.Label();
             this.label12.Name = "label12";
-            this.label12.LabelProp = Mono.Unix.Catalog.GetString("Logical Device");
+            this.label12.LabelProp = Mono.Unix.Catalog.GetString("Logical Devices");
             this.notebook.SetTabLabel(this.vbox4, this.label12);
             this.label12.ShowAll();
             // Notebook tab

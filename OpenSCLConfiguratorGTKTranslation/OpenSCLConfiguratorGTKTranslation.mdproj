@@ -1,1 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  <PropertyGroup>    <ItemType>TranslationProject</ItemType>    <ProductVersion>9.0.21022</ProductVersion>    <SchemaVersion>2.0</SchemaVersion>    <ProjectGuid>{7060C4C0-3D61-4461-85E3-972A6C847DA3}</ProjectGuid>    <outputType>RelativeToOutput</outputType>  </PropertyGroup></Project>
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ItemType>TranslationProject</ItemType>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7060C4C0-3D61-4461-85E3-972A6C847DA3}</ProjectGuid>
+    <outputType>RelativeToOutput</outputType>
+  </PropertyGroup>
+</Project>

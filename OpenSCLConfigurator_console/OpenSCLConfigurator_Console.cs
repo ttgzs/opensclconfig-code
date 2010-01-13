@@ -55,7 +55,7 @@ namespace OpenSCL.Console
    		
 		public void ShowIEDs ()
 		{
-			foreach (IEC61850.SCL.tIED i in sclObject.ConfiguredDevices) {
+			foreach (IEC61850.SCL.tIED i in sclObject.Devices) {
 				string text = "\nIED: ";
 				text += i.name;
 				text += " Vendor: ";
@@ -159,7 +159,7 @@ namespace OpenSCL.Console
 						if (app.sclObject.IsSCD())
 						{
 							string numied = "This is a SCD file. Configured IEDs: ";
-							numied += app.sclObject.ConfiguredDevices.GetLength(0);
+							numied += app.sclObject.Devices.GetLength(0);
 							numied += "\n";
 							System.Console.WriteLine(numied);
 						}
@@ -168,10 +168,10 @@ namespace OpenSCL.Console
 							System.Console.WriteLine("This is may be an ICD or CID file: Just ONE IED is configured");
 						}
 						string text = "Configuration Version: ";
-						text += app.sclObject.ConfigurationVersion;
+						text += app.sclObject.Version;
 						text += "\n";
 						text += "Configuration Revision: ";
-						text += app.sclObject.ConfigurationRevision;
+						text += app.sclObject.Revision;
 						text += "\n";
 						System.Console.WriteLine(text);
 						break;

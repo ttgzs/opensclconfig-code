@@ -7,7 +7,7 @@
   <import>
     <widget-library name="../bin/Debug/LibOpenSCLUIGtk.dll" internal="true" />
   </import>
-  <widget class="Gtk.Bin" id="LibOpenSCLUIGtk.DeviceEditor" design-size="556 642">
+  <widget class="Gtk.Bin" id="LibOpenSCLUIGtk.DeviceEditor" design-size="565 642">
     <action-group name="Default">
       <action id="addAction">
         <property name="Type">Action</property>
@@ -85,7 +85,7 @@ Configuration Revision.</property>
           <widget class="Gtk.Notebook" id="notebook">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="CurrentPage">1</property>
+            <property name="CurrentPage">0</property>
             <child>
               <widget class="Gtk.HPaned" id="hpaned">
                 <property name="MemberName" />
@@ -142,13 +142,13 @@ Configuration Revision.</property>
                         <property name="MemberName" />
                         <property name="Tooltip">Select the manufacturer</property>
                         <property name="IsTextCombo">True</property>
-                        <property name="Items">ABB
+                        <property name="Items">
+ABB
 AREVA
 GENERAL ELECTRIC
 INGETEAM
 SEL
-SIEMENS
-</property>
+SIEMENS</property>
                       </widget>
                       <packing>
                         <property name="TopAttach">1</property>
@@ -414,7 +414,7 @@ SIEMENS
             <child>
               <widget class="Gtk.Label" id="label12">
                 <property name="MemberName" />
-                <property name="LabelProp" translatable="yes">Logical Device</property>
+                <property name="LabelProp" translatable="yes">Logical Devices</property>
               </widget>
               <packing>
                 <property name="type">tab</property>

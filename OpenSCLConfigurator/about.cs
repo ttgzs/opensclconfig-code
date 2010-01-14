@@ -1,4 +1,4 @@
-﻿// OpenSCLConfigurator 
+// OpenSCLConfigurator 
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -18,6 +18,7 @@
 
 using System;
 using System.Windows.Forms;
+using System.Reflection;
 
 namespace OpenSCLConfigurator
 {
@@ -31,7 +32,26 @@ namespace OpenSCLConfigurator
         /// </summary>
         public about()
         {
-            InitializeComponent();                                                
+            InitializeComponent();
+			
+			System.Reflection.Assembly asm = Assembly.GetExecutingAssembly();
+			string appname = (asm.GetCustomAttributes (
+			typeof (AssemblyTitleAttribute), false) [0]
+			as AssemblyTitleAttribute).Title;
+			
+			this.appversion.Text = asm.GetName().Version.ToString();
+			
+			string libver = "";
+			System.Reflection.AssemblyName[] refasm = asm.GetReferencedAssemblies();
+			for (int i = 0; i < refasm.GetLength(0); i++) {
+				libver += refasm[i].Name;
+				libver += "\t\t\t";
+				libver += refasm[i].Version.ToString();
+				libver += "\n";
+			}
+			// Library Versions
+			this.libraryversion.Text = libver;
+			
         }		        	
 		
         /// <summary>
@@ -46,6 +66,8 @@ namespace OpenSCLConfigurator
 		void OKAboutClick(object sender, EventArgs e)
 		{
 			this.Hide();			
-		}						
+		}
+		
+		
 	}
  }

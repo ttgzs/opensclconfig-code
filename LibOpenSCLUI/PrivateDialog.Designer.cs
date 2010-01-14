@@ -1,4 +1,4 @@
-﻿// LibOpenSCLUI
+// LibOpenSCLUI
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -73,7 +73,7 @@ namespace OpenSCL.UI
 			this.AttributeValueTextBox = new System.Windows.Forms.TextBox();
 			this.attributeLocalNameTextBox = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.label2 = new System.Windows.Forms.Label();
+			this.license = new System.Windows.Forms.Label();
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.buttonOk = new System.Windows.Forms.Button();
 			this.TextSource = new System.Windows.Forms.TextBox();
@@ -218,7 +218,7 @@ namespace OpenSCL.UI
 			this.AttributeGroupBox.Controls.Add(this.AttributeValueTextBox);
 			this.AttributeGroupBox.Controls.Add(this.attributeLocalNameTextBox);
 			this.AttributeGroupBox.Controls.Add(this.label1);
-			this.AttributeGroupBox.Controls.Add(this.label2);
+			this.AttributeGroupBox.Controls.Add(this.license);
 			this.AttributeGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.AttributeGroupBox.Location = new System.Drawing.Point(470, 98);
 			this.AttributeGroupBox.Name = "AttributeGroupBox";
@@ -292,12 +292,12 @@ namespace OpenSCL.UI
 			// 
 			// label2
 			// 
-			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label2.Location = new System.Drawing.Point(83, 191);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(86, 22);
-			this.label2.TabIndex = 4;
-			this.label2.Text = "Name";
+			this.license.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.license.Location = new System.Drawing.Point(83, 191);
+			this.license.Name = "label2";
+			this.license.Size = new System.Drawing.Size(86, 22);
+			this.license.TabIndex = 4;
+			this.license.Text = "Name";
 			// 
 			// CancelBtn
 			// 
@@ -389,7 +389,7 @@ namespace OpenSCL.UI
 		private System.Windows.Forms.Button attributeOKButton;
 		private System.Windows.Forms.TextBox attributeLocalNameTextBox;
 		private System.Windows.Forms.TextBox AttributeValueTextBox;
-		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label license;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.GroupBox AttributeGroupBox;
 		private System.Windows.Forms.Button AddAttributeButton;

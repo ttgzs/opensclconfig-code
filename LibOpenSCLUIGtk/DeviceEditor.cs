@@ -49,6 +49,7 @@ namespace LibOpenSCLUIGtk
 			
 			this.treeview.AppendColumn ("Logical Devices", new Gtk.CellRendererText (), "text", 0);
 			this.treeview.AppendColumn ("Description", new Gtk.CellRendererText (), "text", 2);
+			this.treeview.GetColumn(0).Sizing = Gtk.TreeViewColumnSizing.Autosize;
 			
 			this.treeview.Selection.Changed += HandleTreeviewSelectionhandleChanged;
 			this.treeview.RowActivated += HandleTreeviewRowActivated;

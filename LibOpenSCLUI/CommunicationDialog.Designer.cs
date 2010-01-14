@@ -1,4 +1,4 @@
-﻿// LibOpenSCLUI
+// LibOpenSCLUI
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -52,8 +52,8 @@ namespace OpenSCL.UI
 			this.descSubNet = new System.Windows.Forms.TextBox();
 			this.APnam = new System.Windows.Forms.TextBox();
 			this.iedNam = new System.Windows.Forms.TextBox();
-			this.label3 = new System.Windows.Forms.Label();
-			this.label2 = new System.Windows.Forms.Label();
+			this.appdesc = new System.Windows.Forms.Label();
+			this.license = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.descLabel = new System.Windows.Forms.Label();
 			this.newSubNet = new System.Windows.Forms.CheckBox();
@@ -69,7 +69,7 @@ namespace OpenSCL.UI
 			this.label7 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
-			this.label4 = new System.Windows.Forms.Label();
+			this.appcopyright = new System.Windows.Forms.Label();
 			this.btnOK = new System.Windows.Forms.Button();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
@@ -83,8 +83,8 @@ namespace OpenSCL.UI
 			this.groupBox1.Controls.Add(this.descSubNet);
 			this.groupBox1.Controls.Add(this.APnam);
 			this.groupBox1.Controls.Add(this.iedNam);
-			this.groupBox1.Controls.Add(this.label3);
-			this.groupBox1.Controls.Add(this.label2);
+			this.groupBox1.Controls.Add(this.appdesc);
+			this.groupBox1.Controls.Add(this.license);
 			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Controls.Add(this.descLabel);
 			this.groupBox1.Controls.Add(this.newSubNet);
@@ -137,19 +137,19 @@ namespace OpenSCL.UI
 			// 
 			// label3
 			// 
-			this.label3.Location = new System.Drawing.Point(10, 121);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(132, 23);
-			this.label3.TabIndex = 2;
-			this.label3.Text = "Access Point Name:";
+			this.appdesc.Location = new System.Drawing.Point(10, 121);
+			this.appdesc.Name = "label3";
+			this.appdesc.Size = new System.Drawing.Size(132, 23);
+			this.appdesc.TabIndex = 2;
+			this.appdesc.Text = "Access Point Name:";
 			// 
 			// label2
 			// 
-			this.label2.Location = new System.Drawing.Point(10, 93);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(132, 23);
-			this.label2.TabIndex = 1;
-			this.label2.Text = "IED Name:";
+			this.license.Location = new System.Drawing.Point(10, 93);
+			this.license.Name = "label2";
+			this.license.Size = new System.Drawing.Size(132, 23);
+			this.license.TabIndex = 1;
+			this.license.Text = "IED Name:";
 			// 
 			// label1
 			// 
@@ -191,7 +191,7 @@ namespace OpenSCL.UI
 			this.groupBox2.Controls.Add(this.label7);
 			this.groupBox2.Controls.Add(this.label6);
 			this.groupBox2.Controls.Add(this.label5);
-			this.groupBox2.Controls.Add(this.label4);
+			this.groupBox2.Controls.Add(this.appcopyright);
 			this.groupBox2.Location = new System.Drawing.Point(13, 174);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(335, 196);
@@ -286,11 +286,11 @@ namespace OpenSCL.UI
 			// 
 			// label4
 			// 
-			this.label4.Location = new System.Drawing.Point(9, 27);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(132, 23);
-			this.label4.TabIndex = 0;
-			this.label4.Text = "IP Address:";
+			this.appcopyright.Location = new System.Drawing.Point(9, 27);
+			this.appcopyright.Name = "label4";
+			this.appcopyright.Size = new System.Drawing.Size(132, 23);
+			this.appcopyright.TabIndex = 0;
+			this.appcopyright.Text = "IP Address:";
 			// 
 			// btnOK
 			// 
@@ -347,7 +347,7 @@ namespace OpenSCL.UI
 		private System.Windows.Forms.MaskedTextBox ssel;
 	
 		private System.Windows.Forms.Label descLabel;
-		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Label appcopyright;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label label7;
@@ -355,8 +355,8 @@ namespace OpenSCL.UI
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label3;				
+		private System.Windows.Forms.Label license;
+		private System.Windows.Forms.Label appdesc;				
 		private System.Windows.Forms.GroupBox groupBox1;
 	}
 		

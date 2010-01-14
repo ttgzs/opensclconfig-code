@@ -1,25 +1,27 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCLUIGtk/IedCommunicationEditor.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCLUIGtk/SclEditor.cs" ctype="Workbench">
     <Files>
       <File FileName="OpenSCLConfiguratorGTK/Main.cs" Line="1" Column="1" />
-      <File FileName="LibOpenSCL/Object.cs" Line="671" Column="4" />
-      <File FileName="LibOpenSCL/SCL.cs" Line="5632" Column="1" />
-      <File FileName="LibOpenSCLUIGtk/DeviceEditor.cs" Line="164" Column="4" />
-      <File FileName="LibOpenSCLUIGtk/IedCommunicationEditor.cs" Line="76" Column="1" />
-      <File FileName="LibOpenSCLUIGtk/LDEditor.cs" Line="178" Column="29" />
+      <File FileName="LibOpenSCL/Object.cs" Line="600" Column="1" />
+      <File FileName="LibOpenSCL/SCL.cs" Line="4471" Column="1" />
+      <File FileName="LibOpenSCLUIGtk/SclEditor.cs" Line="63" Column="6" />
+      <File FileName="LibOpenSCLUIGtk/SclCommManager.cs" Line="160" Column="50" />
+      <File FileName="LibOpenSCLUIGtk/SclTreeView.cs" Line="54" Column="33" />
+      <File FileName="LibOpenSCLUIGtk/DeviceEditor.cs" Line="52" Column="44" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="LibOpenSCL" expanded="True" />
-          <Node name="LibOpenSCLUIGtk" expanded="True">
-            <Node name="IedCommunicationEditor.cs" selected="True" />
+          <Node name="LibOpenSCL" expanded="True">
+            <Node name="Properties" expanded="True" />
           </Node>
-          <Node name="OpenSCLConfiguratorGTK" expanded="True">
-            <Node name="UserInterface" expanded="True">
-              <Node name="MainWindow" expanded="True" />
-            </Node>
+          <Node name="LibOpenSCLUIGtk" expanded="True" />
+          <Node name="OpenSCLConfigurator" expanded="True" selected="True">
+            <Node name="Properties" expanded="True" />
+            <Node name="about.cs" expanded="True" />
           </Node>
+          <Node name="OpenSCLConfiguratorGTK" expanded="True" />
+          <Node name="Paquetes" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">
@@ -28,7 +30,9 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint enabled="false" file="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/SclCommManager.cs" line="150" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" ctype="Workspace" />
 </Properties>

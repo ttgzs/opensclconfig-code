@@ -1,4 +1,4 @@
-﻿// LibOpenSCLUI
+// LibOpenSCLUI
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -51,7 +51,7 @@ namespace OpenSCL.UI
 		private void InitializeComponent()
 		{
 			this.label1 = new System.Windows.Forms.Label();
-			this.label2 = new System.Windows.Forms.Label();
+			this.license = new System.Windows.Forms.Label();
 			//this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.splitContainer1 = new SplitContainer();
 			this.panel1 = new Panel();
@@ -203,7 +203,7 @@ namespace OpenSCL.UI
 		}		
 		private System.Windows.Forms.TreeView treeLN;	
 		private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label license;
 		private System.Windows.Forms.PropertyGrid propertyGridLNType;
 		private System.Windows.Forms.Button buttonCancel;
 		private System.Windows.Forms.Button buttonOk;

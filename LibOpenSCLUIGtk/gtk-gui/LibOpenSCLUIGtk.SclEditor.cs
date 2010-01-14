@@ -27,7 +27,11 @@ namespace LibOpenSCLUIGtk {
         
         private LibOpenSCLUIGtk.DeviceEditor deviceeditor;
         
-        private Gtk.Label label5;
+        private Gtk.Label label27;
+        
+        private LibOpenSCLUIGtk.SclCommManager sclcommmanager;
+        
+        private Gtk.Label label28;
         
         protected virtual void Build() {
             Stetic.Gui.Initialize(this);
@@ -56,7 +60,7 @@ namespace LibOpenSCLUIGtk {
             this.notebook = new Gtk.Notebook();
             this.notebook.CanFocus = true;
             this.notebook.Name = "notebook";
-            this.notebook.CurrentPage = 0;
+            this.notebook.CurrentPage = 2;
             // Container child notebook.Gtk.Notebook+NotebookChild
             this.NothingContainer = new Gtk.VBox();
             this.NothingContainer.Name = "NothingContainer";
@@ -76,11 +80,24 @@ namespace LibOpenSCLUIGtk {
             Gtk.Notebook.NotebookChild w4 = ((Gtk.Notebook.NotebookChild)(this.notebook[this.deviceeditor]));
             w4.Position = 1;
             // Notebook tab
-            this.label5 = new Gtk.Label();
-            this.label5.Name = "label5";
-            this.label5.LabelProp = Mono.Unix.Catalog.GetString("IED Editor");
-            this.notebook.SetTabLabel(this.deviceeditor, this.label5);
-            this.label5.ShowAll();
+            this.label27 = new Gtk.Label();
+            this.label27.Name = "label27";
+            this.label27.LabelProp = Mono.Unix.Catalog.GetString("IED Editor");
+            this.notebook.SetTabLabel(this.deviceeditor, this.label27);
+            this.label27.ShowAll();
+            // Container child notebook.Gtk.Notebook+NotebookChild
+            this.sclcommmanager = new LibOpenSCLUIGtk.SclCommManager();
+            this.sclcommmanager.Events = ((Gdk.EventMask)(256));
+            this.sclcommmanager.Name = "sclcommmanager";
+            this.notebook.Add(this.sclcommmanager);
+            Gtk.Notebook.NotebookChild w5 = ((Gtk.Notebook.NotebookChild)(this.notebook[this.sclcommmanager]));
+            w5.Position = 2;
+            // Notebook tab
+            this.label28 = new Gtk.Label();
+            this.label28.Name = "label28";
+            this.label28.LabelProp = Mono.Unix.Catalog.GetString("Communications Manager");
+            this.notebook.SetTabLabel(this.sclcommmanager, this.label28);
+            this.label28.ShowAll();
             this.hpaned4.Add(this.notebook);
             this.Add(this.hpaned4);
             if ((this.Child != null)) {

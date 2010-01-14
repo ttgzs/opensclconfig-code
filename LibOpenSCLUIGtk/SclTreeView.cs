@@ -49,6 +49,7 @@ namespace OpenSCLUIGtk
 			
 			this.AppendColumn ("Element", new Gtk.CellRendererText (), "text", 0);
 			this.AppendColumn ("Description", new Gtk.CellRendererText (), "text", 2);
+			this.GetColumn(0).Sizing = TreeViewColumnSizing.Autosize;
 			
 			this.Selection.Changed += HandleSelectionhandleChanged;
 			

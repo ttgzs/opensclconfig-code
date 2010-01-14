@@ -52,5 +52,7 @@ Global
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = LibOpenSCL\LibOpenSCL.csproj
+		description = Tools to Create and Edit IEC 61850-6 SCL files
+		version = 0.3.2
 	EndGlobalSection
 EndGlobal

@@ -45,15 +45,23 @@ namespace LibOpenSCLUIGtk
 			
 			Gtk.TreePath path = this.scltree.Model.GetPath(seliter);
 			
-			// Edit/Show Current Selected IED 
+			
 			if (path.Indices.GetLength(0) > 2)
 			{
+				// Edit/Show Current Selected IED 
 				if (path.Indices[1] == 3)
 				{
 					int iednum = (int) this.scltree.Model.GetValue(seliter, 1);
-					this.notebook.Page = 1;
 					this.deviceeditor.SetIED(this.scltree.SclFile, iednum);
+					this.notebook.Page = 1;
 				}
+				// Show Communications Subnetwork
+				if (path.Indices[1] == 2) {
+					int subnet = (int) this.scltree.Model.GetValue(seliter, 1);
+					this.sclcommmanager.SetSubnetwork (this.scltree.SclFile, subnet);
+					this.notebook.Page = 2;
+				}
+					
 			}
 			//this.notebook.Page = 0;
 		}

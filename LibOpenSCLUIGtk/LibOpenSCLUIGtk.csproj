@@ -50,6 +50,8 @@
     <Compile Include="LDEditor.cs" />
     <Compile Include="AccessPointEditor.cs" />
     <Compile Include="gtk-gui\LibOpenSCLUIGtk.AccessPointEditor.cs" />
+    <Compile Include="SclCommManager.cs" />
+    <Compile Include="gtk-gui\LibOpenSCLUIGtk.SclCommManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibOpenSCL\LibOpenSCL.csproj">

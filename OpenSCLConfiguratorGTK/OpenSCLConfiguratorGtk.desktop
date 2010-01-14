@@ -4,3 +4,5 @@ Type=Application
 Name=OpenSCLConfiguratorGTK
 Exec=opensclconfiguratorgtk
 Terminal=false
+Comment=IEC 61850-6 SCL Viewer and Editor
+Categories=Engineering;

@@ -1,4 +1,4 @@
-﻿// OpenSCLConfigurator 
+// OpenSCLConfigurator 
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -59,16 +59,16 @@ namespace OpenSCLConfigurator
 			this.button1 = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
-			this.label3 = new System.Windows.Forms.Label();
-			this.label4 = new System.Windows.Forms.Label();
+			this.appdesc = new System.Windows.Forms.Label();
+			this.appcopyright = new System.Windows.Forms.Label();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabAbout = new System.Windows.Forms.TabPage();
 			this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-			this.label2 = new System.Windows.Forms.Label();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.license = new System.Windows.Forms.Label();
+			this.appversion = new System.Windows.Forms.TextBox();
 			this.label8 = new System.Windows.Forms.Label();
 			this.tabVersion = new System.Windows.Forms.TabPage();
-			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+			this.libraryversion = new System.Windows.Forms.RichTextBox();
 			this.tabDevelop = new System.Windows.Forms.TabPage();
 			this.richTextBox3 = new System.Windows.Forms.RichTextBox();
 			this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -110,24 +110,24 @@ namespace OpenSCLConfigurator
 			// 
 			// label3
 			// 
-			this.label3.Font = new System.Drawing.Font("DejaVu Sans", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-			this.label3.Location = new System.Drawing.Point(220, 90);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(528, 41);
-			this.label3.TabIndex = 4;
-			this.label3.Text = "“Creating configurations files for Intelligent Electronic Devices (IED\'s) accordi" +
+			this.appdesc.Font = new System.Drawing.Font("DejaVu Sans", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+			this.appdesc.Location = new System.Drawing.Point(220, 90);
+			this.appdesc.Name = "label3";
+			this.appdesc.Size = new System.Drawing.Size(528, 41);
+			this.appdesc.TabIndex = 4;
+			this.appdesc.Text = "“Creating configurations files for Intelligent Electronic Devices (IED\'s) accordi" +
 			"ng to the IEC 61850 Ed.1.0 standard”";
-			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.appdesc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label4
 			// 
-			this.label4.Font = new System.Drawing.Font("DejaVu Sans", 8.25F, System.Drawing.FontStyle.Bold);
-			this.label4.Location = new System.Drawing.Point(222, 345);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(528, 23);
-			this.label4.TabIndex = 5;
-			this.label4.Text = "Copyright © 2009 Comisión Federal de Electricidad";
-			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.appcopyright.Font = new System.Drawing.Font("DejaVu Sans", 8.25F, System.Drawing.FontStyle.Bold);
+			this.appcopyright.Location = new System.Drawing.Point(222, 345);
+			this.appcopyright.Name = "label4";
+			this.appcopyright.Size = new System.Drawing.Size(528, 23);
+			this.appcopyright.TabIndex = 5;
+			this.appcopyright.Text = "Copyright © 2009 Comisión Federal de Electricidad";
+			this.appcopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// tabControl1
 			// 
@@ -143,8 +143,8 @@ namespace OpenSCLConfigurator
 			// tabAbout
 			// 
 			this.tabAbout.Controls.Add(this.richTextBox2);
-			this.tabAbout.Controls.Add(this.label2);
-			this.tabAbout.Controls.Add(this.textBox1);
+			this.tabAbout.Controls.Add(this.license);
+			this.tabAbout.Controls.Add(this.appversion);
 			this.tabAbout.Controls.Add(this.label8);
 			this.tabAbout.Location = new System.Drawing.Point(4, 22);
 			this.tabAbout.Name = "tabAbout";
@@ -167,23 +167,24 @@ namespace OpenSCLConfigurator
 			// 
 			// label2
 			// 
-			this.label2.Location = new System.Drawing.Point(34, 50);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(369, 21);
-			this.label2.TabIndex = 3;
-			this.label2.Text = "Released under the terms of the GNU General Public License";
+			this.license.Location = new System.Drawing.Point(34, 50);
+			this.license.Name = "label2";
+			this.license.Size = new System.Drawing.Size(369, 21);
+			this.license.TabIndex = 3;
+			this.license.Text = "Released under the terms of the GNU General Public License";
 			// 
 			// textBox1
 			// 
-			this.textBox1.BackColor = System.Drawing.SystemColors.InactiveBorder;
-			this.textBox1.Font = new System.Drawing.Font("DejaVu Sans", 8.25F);
-			this.textBox1.Location = new System.Drawing.Point(99, 19);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.ReadOnly = true;
-			this.textBox1.Size = new System.Drawing.Size(46, 20);
-			this.textBox1.TabIndex = 2;
-			this.textBox1.Text = "0.2.2";
-			this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.appversion.BackColor = System.Drawing.SystemColors.InactiveBorder;
+			this.appversion.Font = new System.Drawing.Font("DejaVu Sans", 8.25F);
+			this.appversion.Location = new System.Drawing.Point(99, 19);
+			this.appversion.Name = "textBox1";
+			this.appversion.ReadOnly = true;
+			//this.appversion.Size = new System.Drawing.Size(46, 20);
+			this.appversion.AutoSize = true;
+			this.appversion.TabIndex = 2;
+			//this.appversion.Text = "0.2.2"; (To be set on init)
+			this.appversion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			// 
 			// label8
 			// 
@@ -195,7 +196,7 @@ namespace OpenSCLConfigurator
 			// 
 			// tabVersion
 			// 
-			this.tabVersion.Controls.Add(this.richTextBox1);
+			this.tabVersion.Controls.Add(this.libraryversion);
 			this.tabVersion.Location = new System.Drawing.Point(4, 22);
 			this.tabVersion.Name = "tabVersion";
 			this.tabVersion.Padding = new System.Windows.Forms.Padding(3);
@@ -206,14 +207,14 @@ namespace OpenSCLConfigurator
 			// 
 			// richTextBox1
 			// 
-			this.richTextBox1.BackColor = System.Drawing.SystemColors.InactiveBorder;
-			this.richTextBox1.Font = new System.Drawing.Font("DejaVu Sans", 8.25F);
-			this.richTextBox1.Location = new System.Drawing.Point(61, 48);
-			this.richTextBox1.Name = "richTextBox1";
-			this.richTextBox1.ReadOnly = true;
-			this.richTextBox1.Size = new System.Drawing.Size(462, 79);
-			this.richTextBox1.TabIndex = 0;
-			this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
+			this.libraryversion.BackColor = System.Drawing.SystemColors.InactiveBorder;
+			this.libraryversion.Font = new System.Drawing.Font("DejaVu Sans", 8.25F);
+			this.libraryversion.Location = new System.Drawing.Point(61, 48);
+			this.libraryversion.Name = "richTextBox1";
+			this.libraryversion.ReadOnly = true;
+			this.libraryversion.Size = new System.Drawing.Size(462, 79);
+			this.libraryversion.TabIndex = 0;
+			this.libraryversion.Text = resources.GetString("richTextBox1.Text");
 			// 
 			// tabDevelop
 			// 
@@ -256,8 +257,8 @@ namespace OpenSCLConfigurator
 			this.ControlBox = false;
 			this.Controls.Add(this.pictureBox2);
 			this.Controls.Add(this.tabControl1);
-			this.Controls.Add(this.label4);
-			this.Controls.Add(this.label3);
+			this.Controls.Add(this.appcopyright);
+			this.Controls.Add(this.appdesc);
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.button1);
@@ -285,15 +286,15 @@ namespace OpenSCLConfigurator
 		private System.Windows.Forms.TabPage tabDevelop;
 		private System.Windows.Forms.TabPage tabAbout;
 		private System.Windows.Forms.TabPage tabVersion;
-		private System.Windows.Forms.RichTextBox richTextBox1;
-		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.RichTextBox libraryversion;
+		private System.Windows.Forms.Label license;
 		private System.Windows.Forms.RichTextBox richTextBox2;
 		private System.Windows.Forms.PictureBox pictureBox2;		
 		private System.Windows.Forms.Label label8;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox appversion;
 		private System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label appcopyright;
+		private System.Windows.Forms.Label appdesc;
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Label label1;						
 		private System.Windows.Forms.Button button1;

@@ -26,17 +26,16 @@ using Gtk;
 using GLib;
 using OpenSCL;
 
-namespace OpenSCLUIGtk
+namespace OpenSASUI
 {
 	[System.ComponentModel.ToolboxItem(true)]
-	public class SclTree : Gtk.TreeView
+	public class SclTreeView : Gtk.TreeView
 	{
 		private OpenSCL.Object sclfile;
 		private bool header_updated;
 		private bool substation_updated;
 		private bool ieds_updated;
 		private bool communication_updated;
-		
 		
 		private void Init ()
 		{
@@ -52,19 +51,19 @@ namespace OpenSCLUIGtk
 			this.AppendColumn ("Description", new Gtk.CellRendererText (), "text", 2);
 			this.GetColumn(0).Sizing = TreeViewColumnSizing.Autosize;
 			
-			this.Selection.Changed += HandleSelectionChanged;
+			this.Selection.Changed += HandleSelectionhandleChanged;
 			
 			header_updated = false;
 			substation_updated = false;
 			ieds_updated = false;
 			communication_updated = false;
 		}
-		public SclTree ()
+		public SclTreeView ()
 		{
 			this.Init();
 		}
 
-		void HandleSelectionChanged (object sender, EventArgs e)
+		void HandleSelectionhandleChanged (object sender, EventArgs e)
 		{
 			Gtk.TreeIter seliter;
 			Gtk.TreeSelection sel = (Gtk.TreeSelection) sender;
@@ -197,13 +196,13 @@ namespace OpenSCLUIGtk
 			}
 		}
 		
-		public SclTree (OpenSCL.Object scl)
+		public SclTreeView (OpenSCL.Object scl)
 		{
 			this.Init();
 			this.SclFile = scl;
 		}
 		
-		public SclTree (string path)
+		public SclTreeView (string path)
 		{
 			this.SclFile = new OpenSCL.Object(path);
 		}

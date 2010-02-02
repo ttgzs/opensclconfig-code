@@ -49,9 +49,7 @@ namespace LibOpenSCLUIGtk {
             this.treeview_scrolledwindow.Name = "treeview_scrolledwindow";
             this.treeview_scrolledwindow.ShadowType = ((Gtk.ShadowType)(1));
             // Container child treeview_scrolledwindow.Gtk.Container+ContainerChild
-            this.scltree = new OpenSCLUIGtk.SclTree();
-            this.scltree.CanFocus = true;
-            this.scltree.Name = "scltree";
+            this.scltree = null;
             this.treeview_scrolledwindow.Add(this.scltree);
             this.hpaned4.Add(this.treeview_scrolledwindow);
             Gtk.Paned.PanedChild w2 = ((Gtk.Paned.PanedChild)(this.hpaned4[this.treeview_scrolledwindow]));
@@ -60,7 +58,7 @@ namespace LibOpenSCLUIGtk {
             this.notebook = new Gtk.Notebook();
             this.notebook.CanFocus = true;
             this.notebook.Name = "notebook";
-            this.notebook.CurrentPage = 2;
+            this.notebook.CurrentPage = 0;
             // Container child notebook.Gtk.Notebook+NotebookChild
             this.NothingContainer = new Gtk.VBox();
             this.NothingContainer.Name = "NothingContainer";
@@ -73,9 +71,7 @@ namespace LibOpenSCLUIGtk {
             this.notebook.SetTabLabel(this.NothingContainer, this.label6);
             this.label6.ShowAll();
             // Container child notebook.Gtk.Notebook+NotebookChild
-            this.deviceeditor = new LibOpenSCLUIGtk.DeviceEditor();
-            this.deviceeditor.Events = ((Gdk.EventMask)(256));
-            this.deviceeditor.Name = "deviceeditor";
+            this.deviceeditor = null;
             this.notebook.Add(this.deviceeditor);
             Gtk.Notebook.NotebookChild w4 = ((Gtk.Notebook.NotebookChild)(this.notebook[this.deviceeditor]));
             w4.Position = 1;
@@ -86,9 +82,7 @@ namespace LibOpenSCLUIGtk {
             this.notebook.SetTabLabel(this.deviceeditor, this.label27);
             this.label27.ShowAll();
             // Container child notebook.Gtk.Notebook+NotebookChild
-            this.sclcommmanager = new LibOpenSCLUIGtk.SclCommManager();
-            this.sclcommmanager.Events = ((Gdk.EventMask)(256));
-            this.sclcommmanager.Name = "sclcommmanager";
+            this.sclcommmanager = null;
             this.notebook.Add(this.sclcommmanager);
             Gtk.Notebook.NotebookChild w5 = ((Gtk.Notebook.NotebookChild)(this.notebook[this.sclcommmanager]));
             w5.Position = 2;

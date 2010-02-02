@@ -86,6 +86,7 @@ namespace LibOpenSCLUIGtk {
             this.expander2.TooltipMarkup = "Expand it, in order to edit current selected Logical Device";
             this.expander2.CanFocus = true;
             this.expander2.Name = "expander2";
+            this.expander2.Expanded = true;
             // Container child expander2.Gtk.Container+ContainerChild
             this.table2 = new Gtk.Table(((uint)(2)), ((uint)(2)), false);
             this.table2.Name = "table2";
@@ -148,7 +149,7 @@ namespace LibOpenSCLUIGtk {
             this.hpaned6 = new Gtk.HPaned();
             this.hpaned6.CanFocus = true;
             this.hpaned6.Name = "hpaned6";
-            this.hpaned6.Position = 237;
+            this.hpaned6.Position = 247;
             // Container child hpaned6.Gtk.Paned+PanedChild
             this.vbox6 = new Gtk.VBox();
             this.vbox6.Name = "vbox6";

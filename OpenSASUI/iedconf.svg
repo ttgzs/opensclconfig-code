@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1036.4271"
+   height="576.9906"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.47pre4 r22446"
+   sodipodi:docname="iedconf.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.0"
+   inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/iedconf.png"
+   inkscape:export-xdpi="5.5599999"
+   inkscape:export-ydpi="5.5599999">
+  <title
+     id="title3698">IED Configuration</title>
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="205.71429 : 500.4668 : 1"
+       inkscape:vp_y="6.1230318e-14 : 1000 : 0"
+       inkscape:vp_z="-235.90552 : 644.75251 : 1"
+       inkscape:persp3d-origin="463.47581 : 125.0731 : 1"
+       id="perspective10" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="-142.39444"
+     inkscape:cy="461.99209"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1680"
+     inkscape:window-height="967"
+     inkscape:window-x="0"
+     inkscape:window-y="26"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>IED Configuration</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Daniel Espinosa</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Daniel Espinosa</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:date>Janury 19, 2010</dc:date>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Daniel Espinosa</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-9.947726,-88.18054)">
+    <rect
+       style="fill:#92960f;fill-opacity:0.352459;fill-rule:evenodd;stroke:#000000;stroke-width:7.00688601px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2425"
+       width="1029.4203"
+       height="569.9837"
+       x="13.451169"
+       y="91.683983"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <rect
+       style="fill:#92960f;fill-opacity:0.352459"
+       id="rect3197"
+       width="390.13599"
+       height="213.03476"
+       x="98.241653"
+       y="183.1479"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ff0000;fill-opacity:0.55737706"
+       id="path3199"
+       sodipodi:cx="257.85715"
+       sodipodi:cy="314.50504"
+       sodipodi:rx="10.151907"
+       sodipodi:ry="10.151907"
+       d="m 268.00905,314.50504 c 0,5.60674 -4.54516,10.1519 -10.1519,10.1519 -5.60675,0 -10.15191,-4.54516 -10.15191,-10.1519 0,-5.60675 4.54516,-10.15191 10.15191,-10.15191 5.60674,0 10.1519,4.54516 10.1519,10.15191 z"
+       transform="matrix(2.003746,0,0,2.003746,7.6310164,-426.60268)"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <text
+       xml:space="preserve"
+       style="font-size:253.16091919px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="324.09494"
+       y="907.45972"
+       id="text3201"
+       transform="scale(1.3921849,0.7182954)"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999"><tspan
+         sodipodi:role="line"
+         id="tspan3203"
+         x="324.09494"
+         y="907.45972">IED</tspan></text>
+    <path
+       transform="matrix(2.003746,0,0,2.003746,7.6310164,-368.70232)"
+       d="m 268.00905,314.50504 c 0,5.60674 -4.54516,10.1519 -10.1519,10.1519 -5.60675,0 -10.15191,-4.54516 -10.15191,-10.1519 0,-5.60675 4.54516,-10.15191 10.15191,-10.15191 5.60674,0 10.1519,4.54516 10.1519,10.15191 z"
+       sodipodi:ry="10.151907"
+       sodipodi:rx="10.151907"
+       sodipodi:cy="314.50504"
+       sodipodi:cx="257.85715"
+       id="path3205"
+       style="fill:#ff0000;fill-opacity:0.55737706"
+       sodipodi:type="arc"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ff0000;fill-opacity:0.55737706"
+       id="path3207"
+       sodipodi:cx="257.85715"
+       sodipodi:cy="314.50504"
+       sodipodi:rx="10.151907"
+       sodipodi:ry="10.151907"
+       d="m 268.00905,314.50504 c 0,5.60674 -4.54516,10.1519 -10.1519,10.1519 -5.60675,0 -10.15191,-4.54516 -10.15191,-10.1519 0,-5.60675 4.54516,-10.15191 10.15191,-10.15191 5.60674,0 10.1519,4.54516 10.1519,10.15191 z"
+       transform="matrix(2.003746,0,0,2.003746,7.6310164,-309.6794)"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <rect
+       style="fill:#00b400;fill-opacity:0.55737706"
+       id="rect3209"
+       width="25.66684"
+       height="30.800209"
+       x="760.44611"
+       y="188.1855"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <rect
+       style="fill:#dbb400;fill-opacity:0.55737704"
+       id="rect3231"
+       width="25.66684"
+       height="30.800209"
+       x="761.47278"
+       y="246.08585"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <rect
+       y="305.1087"
+       x="761.47278"
+       height="30.800209"
+       width="25.66684"
+       id="rect3233"
+       style="fill:#00b400;fill-opacity:0.55737706"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:28.01600838;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 553.99442,320.50887 C 717.9295,320.50887 717.9295,320.50887 717.9295,320.50887"
+       id="path3235"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       id="path3237"
+       d="M 553.99442,261.48586 C 717.9295,261.48586 717.9295,261.48586 717.9295,261.48586"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:28.01600838;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:28.01600838;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 553.99442,203.58557 C 717.9295,203.58557 717.9295,203.58557 717.9295,203.58557"
+       id="path3239"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       id="path3241"
+       d="M 811.30449,320.50887 C 975.23956,320.50887 975.23956,320.50887 975.23956,320.50887"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:28.01600838;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:28.01600838;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 811.30449,261.48586 C 975.23956,261.48586 975.23956,261.48586 975.23956,261.48586"
+       id="path3243"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       id="path3245"
+       d="M 811.30449,203.58557 C 975.23956,203.58557 975.23956,203.58557 975.23956,203.58557"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:28.01600838;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#00b400;fill-opacity:0.55737706;stroke-width:4.78800011;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path3247"
+       sodipodi:cx="138.75"
+       sodipodi:cy="340.39789"
+       sodipodi:rx="6.25"
+       sodipodi:ry="6.25"
+       d="m 145,340.39789 c 0,3.45178 -2.79822,6.25 -6.25,6.25 -3.45178,0 -6.25,-2.79822 -6.25,-6.25 0,-3.45178 2.79822,-6.25 6.25,-6.25 3.45178,0 6.25,2.79822 6.25,6.25 z"
+       transform="matrix(7.1867153,0,0,7.1867153,-784.3313,-1984.8827)"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       d="m 145,340.39789 c 0,3.45178 -2.79822,6.25 -6.25,6.25 -3.45178,0 -6.25,-2.79822 -6.25,-6.25 0,-3.45178 2.79822,-6.25 6.25,-6.25 3.45178,0 6.25,2.79822 6.25,6.25 z"
+       sodipodi:ry="6.25"
+       sodipodi:rx="6.25"
+       sodipodi:cy="340.39789"
+       sodipodi:cx="138.75"
+       id="path3249"
+       style="fill:#f20000;fill-opacity:0.69026549;stroke-width:4.78800011;stroke-miterlimit:4;stroke-dasharray:none"
+       sodipodi:type="arc"
+       transform="matrix(7.1867153,0,0,7.1867153,-640.597,-1984.8827)"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <text
+       xml:space="preserve"
+       style="font-size:77.07011414px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="188.61272"
+       y="488.82263"
+       id="text3251"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999"><tspan
+         sodipodi:role="line"
+         id="tspan3253"
+         x="188.61272"
+         y="488.82263">0</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:77.07011414px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="333.40952"
+       y="488.1344"
+       id="text3255"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999"><tspan
+         sodipodi:role="line"
+         id="tspan3257"
+         x="333.40952"
+         y="488.1344">1</tspan></text>
+    <path
+       transform="matrix(7.1867153,0,0,7.1867153,-784.3313,-1984.8827)"
+       d="m 145,340.39789 c 0,3.45178 -2.79822,6.25 -6.25,6.25 -3.45178,0 -6.25,-2.79822 -6.25,-6.25 0,-3.45178 2.79822,-6.25 6.25,-6.25 3.45178,0 6.25,2.79822 6.25,6.25 z"
+       sodipodi:ry="6.25"
+       sodipodi:rx="6.25"
+       sodipodi:cy="340.39789"
+       sodipodi:cx="138.75"
+       id="path3259"
+       style="fill:#00b400;fill-opacity:0.00884956000000000;stroke-width:0.62754677;stroke-miterlimit:4;stroke-dasharray:none;stroke:#000000;stroke-opacity:1"
+       sodipodi:type="arc"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#00b400;fill-opacity:0.00884956;stroke:#000000;stroke-width:0.62754679;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3261"
+       sodipodi:cx="138.75"
+       sodipodi:cy="340.39789"
+       sodipodi:rx="6.25"
+       sodipodi:ry="6.25"
+       d="m 145,340.39789 c 0,3.45178 -2.79822,6.25 -6.25,6.25 -3.45178,0 -6.25,-2.79822 -6.25,-6.25 0,-3.45178 2.79822,-6.25 6.25,-6.25 3.45178,0 6.25,2.79822 6.25,6.25 z"
+       transform="matrix(7.1867153,0,0,7.1867153,-641.89979,-1984.8827)"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       style="fill:none;fill-opacity:0.55737706;fill-rule:evenodd;stroke:#dbb700;stroke-width:2.5999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 760.3648,244.94768 C 754.30388,236.86646 754.30388,236.86646 754.30388,236.86646"
+       id="path3263"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       id="path3265"
+       d="M 793.8261,286.4902 C 787.76518,278.40898 787.76518,278.40898 787.76518,278.40898"
+       style="fill:none;fill-opacity:0.55737706;fill-rule:evenodd;stroke:#dbb700;stroke-width:2.5999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       id="path3267"
+       d="M 788.64906,245.32649 C 794.70998,237.24527 794.70998,237.24527 794.70998,237.24527"
+       style="fill:none;fill-opacity:0.55737706;fill-rule:evenodd;stroke:#dbb700;stroke-width:2.5999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       style="fill:none;fill-opacity:0.55737706;fill-rule:evenodd;stroke:#dbb700;stroke-width:2.5999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 753.67253,286.36393 C 759.73345,278.28271 759.73345,278.28271 759.73345,278.28271"
+       id="path3269"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       style="fill:none;fill-opacity:0.55737706;fill-rule:evenodd;stroke:#dbb700;stroke-width:2.5999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 789.04161,260.65791 C 799.14304,260.70288 799.14304,260.70288 799.14304,260.70288"
+       id="path3271"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       id="path3273"
+       d="M 749.64566,261.03672 C 759.74709,261.08169 759.74709,261.08169 759.74709,261.08169"
+       style="fill:none;fill-opacity:0.55737706;fill-rule:evenodd;stroke:#dbb700;stroke-width:2.5999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       id="path3275"
+       d="M 505.53677,187.65387 C 497.80707,178.03373 497.80707,178.03373 497.80707,178.03373"
+       style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0400;stroke-width:3.20359611999999983;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.50884956"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0400;stroke-width:3.20359611999999983;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.50884956"
+       d="M 545.79173,233.5342 C 538.06203,223.91406 538.06203,223.91406 538.06203,223.91406"
+       id="path3277"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0400;stroke-width:3.20359611999999983;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.50884956"
+       d="M 543.1128,187.65387 C 550.8425,178.03373 550.8425,178.03373 550.8425,178.03373"
+       id="path3279"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       id="path3281"
+       d="M 499.57483,231.26136 C 507.30453,221.64122 507.30453,221.64122 507.30453,221.64122"
+       style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0400;stroke-width:3.20359611999999983;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.50884956"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       id="path3283"
+       d="M 548.57269,204.2077 C 561.45539,204.26124 561.45539,204.26124 561.45539,204.26124"
+       style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0400;stroke-width:3.20359611999999983;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.50884956"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0400;stroke-width:3.20359611999999983;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.50884956"
+       d="M 486.67646,204.46024 C 499.55916,204.51378 499.55916,204.51378 499.55916,204.51378"
+       id="path3285"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0400;stroke-width:3.20359611999999983;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.50884956"
+       d="M 524.97657,227.62511 C 524.92303,240.50781 524.92303,240.50781 524.92303,240.50781"
+       id="path3289"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       id="path3291"
+       d="M 524.72403,165.72888 C 524.67049,178.61158 524.67049,178.61158 524.67049,178.61158"
+       style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0400;stroke-width:3.20359611999999983;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.50884956"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       id="path3319"
+       d="M 773.55112,243.69712 C 773.59609,233.59569 773.59609,233.59569 773.59609,233.59569"
+       style="fill:none;fill-opacity:0.55737706;fill-rule:evenodd;stroke:#dbb700;stroke-width:2.5999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <path
+       style="fill:none;fill-opacity:0.55737706;fill-rule:evenodd;stroke:#dbb700;stroke-width:2.5999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 773.55112,288.88114 C 773.59609,278.77971 773.59609,278.77971 773.59609,278.77971"
+       id="path3321"
+       inkscape:export-filename="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/text3329.png"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="112.98329"
+       y="226.76492"
+       id="text3329"
+       inkscape:export-xdpi="5.5599999"
+       inkscape:export-ydpi="5.5599999"><tspan
+         sodipodi:role="line"
+         x="112.98329"
+         y="226.76492"
+         id="tspan3333">CB OPEN</tspan><tspan
+         sodipodi:role="line"
+         x="112.98329"
+         y="276.76492"
+         id="tspan3337">TRIP Z1</tspan></text>
+    <g
+       id="g3703"
+       transform="matrix(1.9319055,0,0,1.9319055,673.72586,480.3475)">
+      <path
+         sodipodi:nodetypes="ccccccc"
+         transform="translate(9.947726,88.18054)"
+         id="path2899"
+         d="m -472.75138,19.3864 159.60409,-131.31983 16.16244,-119.198 82.83251,-64.64976 44.44671,46.46701 -72.73098,60.60916 -4.04061,62.62945"
+         style="fill:#4b4c47;fill-opacity:1;stroke:none" />
+      <path
+         sodipodi:nodetypes="cccccccccc"
+         id="path2901"
+         transform="translate(9.947726,88.18054)"
+         d="m -94.9375,-172.125 -58.5625,74.40625 -56.4375,5.8125 -36.42857,-40.89286 L -471.6875,18.549107 -378.59821,105.28571 -233.25,-27.732143 -109.5625,-44.375 -47.25,-129 -94.9375,-172.125 z"
+         style="fill:#4b4c47;fill-opacity:1;stroke:none" />
+    </g>
+  </g>
+</svg>

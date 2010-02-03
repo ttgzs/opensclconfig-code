@@ -23,16 +23,20 @@ namespace OpenSASUI
 			                                         GLib.GType.Int, 
 			                                         GLib.GType.String);
 			this.aplntreeview.Model = aplnmodel;
-			this.aplntreeview.AppendColumn ("Logical Devices", new Gtk.CellRendererText (), "text", 0);
-			this.aplntreeview.AppendColumn ("Description", new Gtk.CellRendererText (), "text", 2);
+			this.aplntreeview.AppendColumn (Mono.Unix.Catalog.GetString("Logical Devices"),
+			                                new Gtk.CellRendererText (), "text", 0);
+			this.aplntreeview.AppendColumn (Mono.Unix.Catalog.GetString("Description"),
+			                                new Gtk.CellRendererText (), "text", 2);
 			
 			
 			Gtk.TreeStore phymodel = new Gtk.TreeStore (GLib.GType.String, 
 			                                         GLib.GType.Int, 
 			                                         GLib.GType.String);
 			this.physicaltreeview.Model = phymodel;
-			this.physicaltreeview.AppendColumn ("Parameter", new Gtk.CellRendererText (), "text", 0);
-			this.physicaltreeview.AppendColumn ("Description", new Gtk.CellRendererText (), "text", 2);
+			this.physicaltreeview.AppendColumn (Mono.Unix.Catalog.GetString("Parameter"),
+			                                    new Gtk.CellRendererText (), "text", 0);
+			this.physicaltreeview.AppendColumn (Mono.Unix.Catalog.GetString("Description"),
+			                                    new Gtk.CellRendererText (), "text", 2);
 			this.physicaltreeview.Selection.Changed += HandlePhysicaltreeviewSelectionhandleChanged;
 			
 			Gtk.TreeStore addressmodel = new Gtk.TreeStore (typeof(string), 
@@ -40,8 +44,10 @@ namespace OpenSASUI
 			                                         typeof(IEC61850.SCL.tPTypeEnum), 
 			                                         typeof(string));
 			this.addresstreeview.Model = addressmodel;
-			this.addresstreeview.AppendColumn ("Parameter", new Gtk.CellRendererText (), "text", 0);
-			this.addresstreeview.AppendColumn ("Description", new Gtk.CellRendererText (), "text", 3);
+			this.addresstreeview.AppendColumn (Mono.Unix.Catalog.GetString("Parameter"),
+			                                   new Gtk.CellRendererText (), "text", 0);
+			this.addresstreeview.AppendColumn (Mono.Unix.Catalog.GetString("Description"),
+			                                   new Gtk.CellRendererText (), "text", 3);
 			this.addresstreeview.Selection.Changed += HandleAddresstreeviewSelectionhandleChanged;
 			
 			Gtk.ListStore subnetmodel = new Gtk.ListStore (GLib.GType.String, 
@@ -191,8 +197,10 @@ namespace OpenSASUI
 			// Fill Subnetworks
 			Gtk.ListStore subnetmodel = (Gtk.ListStore) this.subnetworklist.Model;
 			Gtk.TreeIter siter, sel;
-			subnetmodel.AppendValues("No Subnetwork", -1, 
-			                         "This AP is not connected to any Subnetwork", -1);
+			subnetmodel.AppendValues(Mono.Unix.Catalog.GetString("No Subnetwork"),
+			                         -1, 
+			                         Mono.Unix.Catalog.GetString("This AP is not connected to any Subnetwork"),
+			                         -1);
 			if (sclfile.Subnetworks != null) {
 				for (int i = 0; i < sclfile.Subnetworks.GetLength(0); i++) {
 					subnetmodel.AppendValues(sclfile.Subnetworks[i].name, i,
@@ -262,6 +270,7 @@ namespace OpenSASUI
 			if (this.SelectAP(sclfile, iedIndex, apIndex)) {
 				this.numied = iedIndex;
 				this.numap = apIndex;
+				this.Sensitive = true;
 				return true;
 			}
 			else {
@@ -317,9 +326,13 @@ namespace OpenSASUI
 			Gtk.TreeStore addmodel = (Gtk.TreeStore) this.physicaltreeview.Model;
 			while (addmodel.GetIterFirst(out iter))
 				addmodel.Remove(ref iter);
-			this.tplist.Model.GetIterFirst(out iter);
-			this.tplist.SetActiveIter(iter);
 			this.addressvalue.Text = "";
+			
+			// TP list
+			Gtk.ListStore tpmodel = (Gtk.ListStore) this.tplist.Model;
+			while (tpmodel.GetIterFirst (out iter))
+				tpmodel.Remove(ref iter);
+			this.Sensitive = false;
 		}
 	}
 }

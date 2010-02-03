@@ -42,13 +42,15 @@ namespace OpenSASUI
 			TreeStore model = new TreeStore (GLib.GType.String , GLib.GType.Int, GLib.GType.String);
 			Gtk.TreeIter root = model.AppendNode();
 			model.SetValues(root,
-			                "No File Loaded",
+			                Mono.Unix.Catalog.GetString("No File Loaded"),
 			                0,
-			                "Open or create a new SCL file");
+			                Mono.Unix.Catalog.GetString("Open or create a new SCL file"));
 			this.Model = model;
 			
-			this.AppendColumn ("Element", new Gtk.CellRendererText (), "text", 0);
-			this.AppendColumn ("Description", new Gtk.CellRendererText (), "text", 2);
+			this.AppendColumn (Mono.Unix.Catalog.GetString("Element"), 
+			                   new Gtk.CellRendererText (), "text", 0);
+			this.AppendColumn (Mono.Unix.Catalog.GetString("Description"), 
+			                   new Gtk.CellRendererText (), "text", 2);
 			this.GetColumn(0).Sizing = TreeViewColumnSizing.Autosize;
 			
 			this.Selection.Changed += HandleSelectionhandleChanged;
@@ -99,15 +101,15 @@ namespace OpenSASUI
 								Gtk.TreeStore model = (Gtk.TreeStore) this.Model;
 								for (int i = 0; i < this.sclfile.RevisionHistory.GetLength(0); i++) {
 																		
-									string desc = "Version: ";
+									string desc = Mono.Unix.Catalog.GetString("Version: ");
 									desc += this.sclfile.RevisionHistory[i].version;
-									desc += " Rv: ";
+									desc += Mono.Unix.Catalog.GetString(" Rv: ");
 									desc += this.sclfile.RevisionHistory[i].revision;
-									desc += " Desc: ";
+									desc += Mono.Unix.Catalog.GetString(" Desc: ");
 									desc += this.sclfile.RevisionHistory[i].what;
-									desc += " / By: ";
+									desc += Mono.Unix.Catalog.GetString(" / By: ");
 									desc += this.sclfile.RevisionHistory[i].who;
-									desc += " / Reason: ";
+									desc += Mono.Unix.Catalog.GetString(" / Reason: ");
 									desc += this.sclfile.RevisionHistory[i].why;
 									
 									model.AppendValues(seliter,
@@ -173,11 +175,11 @@ namespace OpenSASUI
 						{
 							Gtk.TreeStore model = (Gtk.TreeStore) this.Model;
 							for (int i = 0; i < this.sclfile.Devices.GetLength(0); i++) {
-								string desc = " / Config. Version: ";
+								string desc = Mono.Unix.Catalog.GetString(" / Config. Version: ");
 								desc += this.sclfile.Devices[i].configVersion;
-								desc += "Manufacturer: ";
+								desc += Mono.Unix.Catalog.GetString("Manufacturer: ");
 								desc += this.sclfile.Devices[i].manufacturer;
-								desc += " / Description: ";
+								desc += Mono.Unix.Catalog.GetString(" / Description: ");
 								desc += this.sclfile.Devices[i].desc;
 								
 								model.AppendValues(seliter,
@@ -214,54 +216,65 @@ namespace OpenSASUI
 			}
 			set
 			{
-				Gtk.TreeIter root;
-				string desc;
+				
 				
 				this.sclfile = value;
-				// Free All nodes on TreeModel
-				Gtk.TreeStore model = (Gtk.TreeStore) this.Model;
-				while (model.GetIterFirst(out root))
-					model.Remove(ref root);
-				// SCL file information at root element
-				if (this.sclfile.HaveRevisionInformation ())
-				{
-					desc = "Version: ";
-					desc += this.sclfile.Version;
-					desc += " Revision: ";
-					desc += this.sclfile.Revision;
-					desc += " Desc.: ";
-					desc += this.sclfile.Description;
+				this.Clear();
+				if (sclfile != null) {
+					Gtk.TreeIter root;
+					string desc;
+					// SCL file information at root element
+					if (this.sclfile.HaveRevisionInformation ())
+					{
+						desc = Mono.Unix.Catalog.GetString("Version: ");
+						desc += this.sclfile.Version;
+						desc += Mono.Unix.Catalog.GetString(" Revision: ");
+						desc += this.sclfile.Revision;
+						desc += Mono.Unix.Catalog.GetString(" Desc.: ");
+						desc += this.sclfile.Description;
+					}
+					else
+						desc = "";
+					Gtk.TreeStore model = (Gtk.TreeStore) this.Model;
+					root = model.AppendValues(this.sclfile.id, 0, desc);
+					model.AppendValues(root, 
+	                                    Mono.Unix.Catalog.GetString("History"),
+	                                    1,
+	                                    Mono.Unix.Catalog.GetString("Version and History Information"));
+					
+					model.AppendValues(root, 
+	                                    Mono.Unix.Catalog.GetString("Substation"),
+	                                    2,
+	                                    Mono.Unix.Catalog.GetString("Substation Information"));
+					
+					model.AppendValues(root, 
+		                                Mono.Unix.Catalog.GetString("Communication"),
+		                                3,
+		                                Mono.Unix.Catalog.GetString("Communications Information"));
+					
+					model.AppendValues(root, 
+	                                    Mono.Unix.Catalog.GetString("Devices (IED)"),
+	                                    4,
+	                                    Mono.Unix.Catalog.GetString("IEDs configured in this file"));
+					
+					this.ieds_updated = false;
+					this.header_updated = false;
+					this.substation_updated = false;
+					this.communication_updated = false;
+					this.ExpandAll();
+					this.Sensitive = true;
 				}
-				else
-					desc = "";
-				
-				root = model.AppendValues(this.sclfile.id, 0, desc);
-				model.AppendValues(root, 
-                                    "Header",
-                                    1,
-                                    "Version and History Information");
-				
-				model.AppendValues(root, 
-                                    "Substation",
-                                    2,
-                                    "Substation Information");
-				
-				model.AppendValues(root, 
-	                                "Communication",
-	                                3,
-	                                "Communications Information");
-				
-				model.AppendValues(root, 
-                                    "Devices (IED)",
-                                    4,
-                                    "IEDs configured in this file");
-				
-				this.ieds_updated = false;
-				this.header_updated = false;
-				this.substation_updated = false;
-				this.communication_updated = false;
-				this.ExpandAll();
 			}
+		}
+		
+		public void Clear()
+		{
+			// Free All nodes on TreeModel
+			Gtk.TreeIter iter;
+			Gtk.TreeStore model = (Gtk.TreeStore) this.Model;
+			while (model.GetIterFirst(out iter))
+				model.Remove(ref iter);
+			this.Sensitive = false;
 		}
 	}
 }

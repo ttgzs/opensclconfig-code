@@ -1,18 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCLUIGtk/SclTreeView.cs" ctype="Workbench">
-    <Files>
-      <File FileName="OpenSASConfigurator/MainWindow.cs" Line="1" Column="1" />
-      <File FileName="OpenSASUI/SclEditor.cs" Line="1" Column="1" />
-      <File FileName="LibOpenSCLUIGtk/SclTreeView.cs" Line="67" Column="27" />
-      <File FileName="LibOpenSCL/SCL.cs" Line="5978" Column="5" />
-    </Files>
+  <MonoDevelop.Ide.Workbench ctype="Workbench">
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="LibOpenSCL" expanded="True" />
-          <Node name="LibOpenSCLUIGtk" expanded="True">
-            <Node name="SclTreeView.cs" selected="True" />
+          <Node name="LibOpenSCL" expanded="True">
+            <Node name="Object.cs" selected="True" />
           </Node>
+          <Node name="OpenSASConfigurator" expanded="True" />
+          <Node name="OpenSASUI" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">

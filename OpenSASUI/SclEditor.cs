@@ -51,7 +51,7 @@ namespace OpenSASUI
 		public SclEditor (OpenSCL.Object sclfile)
 		{
 			this.Init();
-			this.scltreeview.SclFile = sclfile;
+			this.SclFile = sclfile;
 		}
 		
 		public OpenSCL.Object SclFile
@@ -60,8 +60,11 @@ namespace OpenSASUI
 				return this.scltreeview.SclFile;
 			}
 			set {
-				this.scltreeview.SclFile = value;
-				this.notebook2.Page = 0;
+				this.Clear();
+				if (value != null) {
+					this.scltreeview.SclFile = value;
+					this.notebook2.Page = 0;
+				}
 			}
 		}
 		
@@ -74,6 +77,13 @@ namespace OpenSASUI
 			get {
 				return (Gtk.Container) this.NothingContainer;
 			}
+		}
+		
+		public void Clear () 
+		{
+			this.sclcommmanager.Clear();
+			this.scltreeview.Clear();
+			this.iededitor.Clear();
 		}
 	}
 }

@@ -21,13 +21,15 @@ namespace OpenSASUI
 			                                         GLib.GType.String);
 			Gtk.TreeIter root = model.AppendNode();
 			model.SetValues(root,
-			                "Logical Devices",
+			                Mono.Unix.Catalog.GetString("Logical Devices"),
 			                0,
-			                "Add Logical Devices");
+			                Mono.Unix.Catalog.GetString("Add Logical Devices"));
 			this.treeview.Model = model;
 			
-			this.treeview.AppendColumn ("Logical Devices", new Gtk.CellRendererText (), "text", 0);
-			this.treeview.AppendColumn ("Description", new Gtk.CellRendererText (), "text", 2);
+			this.treeview.AppendColumn (Mono.Unix.Catalog.GetString("Logical Devices"),
+			                            new Gtk.CellRendererText (), "text", 0);
+			this.treeview.AppendColumn (Mono.Unix.Catalog.GetString("Description"),
+			                            new Gtk.CellRendererText (), "text", 2);
 			this.treeview.GetColumn(0).Sizing = Gtk.TreeViewColumnSizing.Autosize;
 			
 			this.treeview.Selection.Changed += HandleTreeviewSelectionhandleChanged;
@@ -43,6 +45,7 @@ namespace OpenSASUI
 			
 			
 			this.notebook.Page = 0; // Select IED tab
+			this.Sensitive = false;
 		}
 
 		void HandleAccesspointlisthandleChanged (object sender, EventArgs e)
@@ -139,6 +142,8 @@ namespace OpenSASUI
 		{
 			Gtk.TreeIter iter;
 			
+			this.Clear();
+			
 			tIED ied = sclfile.GetIED(iednum);
 			
 			if (ied == null)
@@ -146,13 +151,13 @@ namespace OpenSASUI
 			if (ied.AccessPoint == null)
 				return false;
 			
-			string info = "Name: ";
+			string info = Mono.Unix.Catalog.GetString("Name: ");
 			info += ied.name;
 			
-			info += "\nManufacturer: ";
+			info += Mono.Unix.Catalog.GetString("\nManufacturer: ");
 			info += ied.manufacturer;
 			
-			info += "\nConfig. Version: ";
+			info += Mono.Unix.Catalog.GetString("\nConfig. Version: ");
 			info += ied.configVersion;
 			info += "\n";
 			
@@ -175,14 +180,10 @@ namespace OpenSASUI
 			// Populate Tree Model
 			Gtk.TreeStore model = (Gtk.TreeStore) this.treeview.Model;
 			Gtk.ListStore ldmodel = (Gtk.ListStore) this.ldlist.Model;
-			// Flush All
-			Gtk.TreeIter root;
-			while (model.GetIterFirst(out root))
-				model.Remove(ref root);
-			while (ldmodel.GetIterFirst(out root))
-				ldmodel.Remove(ref root);
+			
 			// Append AP and LD to treeview
-			Gtk.TreeIter rootap = model.AppendValues("Access Points", 0, "");
+			Gtk.TreeIter rootap = model.AppendValues(Mono.Unix.Catalog.GetString("Access Points"),
+			                                         0, "");
 			for (int i = 0; i < ied.AccessPoint.GetLength(0); i++) {
 				Gtk.TreeIter apiter = model.AppendValues(rootap, ied.AccessPoint[i].name,
 				                   i,
@@ -194,15 +195,14 @@ namespace OpenSASUI
 						lddesc = ied.AccessPoint[i].Server.LDevice[j].desc;
 						
 						string name = "";
-						name += ied.AccessPoint[i].Server.LDevice[j].ldName;
 						name += ied.AccessPoint[i].Server.LDevice[j].inst;
 						
 						if(name.Length == 0)
-							name = "LD (No Name)";
+							name = Mono.Unix.Catalog.GetString("LD (No Name)");
 						
 						model.AppendValues(apiter, name, j, lddesc);
 						
-						string ldref = "AccessPoint(";
+						string ldref = Mono.Unix.Catalog.GetString("AccessPoint(");
 						ldref += ied.AccessPoint[i].name;
 						ldref += ")/";
 						ldref += name;
@@ -211,11 +211,9 @@ namespace OpenSASUI
 				}
 			}
 			
-			// Remove rows form AP list
-			Gtk.ListStore apmodel = (Gtk.ListStore) this.accesspointlist.Model;
-			while (apmodel.GetIterFirst(out iter))
-			       apmodel.Remove(ref iter);
+			
 			// Populate Access Point list
+			Gtk.ListStore apmodel = (Gtk.ListStore) this.accesspointlist.Model;
 			for (int j = 0; j < ied.AccessPoint.GetLength(0); j++) {
 				apmodel.AppendValues(ied.AccessPoint[j].name, j,
 				                     ied.AccessPoint[j].desc);
@@ -246,12 +244,15 @@ namespace OpenSASUI
 			this.sclfile = sclfile;
 				
 			if (this.SelectIED(sclfile, iedIndex)) {
+				this.Sensitive = true;
 				return true;
 			}
 			else {
 				Gtk.MessageDialog msg = new Gtk.MessageDialog(null, Gtk.DialogFlags.DestroyWithParent,
 				                                              Gtk.MessageType.Error, Gtk.ButtonsType.Close,
-				                                              false, "Error on Set IED %i", iedIndex);
+				                                              false, 
+				                                              Mono.Unix.Catalog.GetString("Error on Set IED %i"),
+				                                              iedIndex);
 				msg.Run();
 				this.numied = -1;
 				this.sclfile = null;
@@ -268,6 +269,24 @@ namespace OpenSASUI
 			}
 			else
 				return false;
+		}
+		
+		public void Clear ()
+		{
+			// Flush All
+			Gtk.TreeStore model = (Gtk.TreeStore) this.treeview.Model;
+			Gtk.ListStore ldmodel = (Gtk.ListStore) this.ldlist.Model;
+			Gtk.TreeIter iter;
+			while (model.GetIterFirst(out iter))
+				model.Remove(ref iter);
+			while (ldmodel.GetIterFirst(out iter))
+				ldmodel.Remove(ref iter);
+			// Remove rows form AP list
+			Gtk.ListStore apmodel = (Gtk.ListStore) this.accesspointlist.Model;
+			while (apmodel.GetIterFirst(out iter))
+			       apmodel.Remove(ref iter);
+			
+			this.Sensitive = false;
 		}
 	}
 }

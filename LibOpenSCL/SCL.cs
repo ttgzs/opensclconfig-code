@@ -1,4 +1,4 @@
-﻿// LibOpenSCL
+// LibOpenSCL
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -6000,13 +6000,12 @@ namespace IEC61850.SCL
 		private tLN[] lnField;		
 		private tAccessControl accessControlField;		
 		private string instField;		
-		private string ldNameField;
 		
 		public tLDevice()
 		{
 			if(this.inst == null)
 			{
-				this.inst = this.ldName = "LDevice" + ( ++index ).ToString();
+				this.inst = "LDevice" + ( ++index ).ToString();
 			}
 		}
 		
@@ -6068,27 +6067,6 @@ namespace IEC61850.SCL
 				else
 				{
 					this.inst = this.instField;
-				}
-			}
-		}
-		
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="Name")]
-		[Category("LDevice"), Description("The LD name")]
-		public string ldName 
-		{
-			get
-			{
-				return this.ldNameField;
-			}
-			set
-			{
-				if( value != "")
-				{
-					this.ldNameField = value;
-				}
-				else
-				{
-					ldName = this.ldNameField;
 				}
 			}
 		}

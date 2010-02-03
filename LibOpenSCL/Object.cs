@@ -526,14 +526,16 @@ namespace OpenSCL
 		/// <param name="apIndex">
 		/// A <see cref="System.Int32"/>
 		/// </param>
-		/// <param name="name">
+		/// <param name="ldInst">
 		/// A <see cref="System.String"/>
 		/// </param>
 		/// <returns>
 		/// A <see cref="System.Int32"/>
 		/// </returns>
-		private int GetLD (int iedIndex, int apIndex, string name)
+		private int GetLD (int iedIndex, int apIndex, string ldInst)
 		{
+			if (ldInst == null)
+				return -1;
 			if (Devices == null)
 				return -1;
 			if (iedIndex < 0 || iedIndex > Devices.GetLength(0))
@@ -551,9 +553,8 @@ namespace OpenSCL
 			
 			int pos = -1;
 			for (int i = 0; i < Devices[iedIndex].AccessPoint[apIndex].Server.LDevice.GetLength(0); i++) {
-				string ldname = Devices[iedIndex].AccessPoint[apIndex].Server.LDevice[i].inst;
-				ldname += Devices[iedIndex].AccessPoint[apIndex].Server.LDevice[i].ldName;
-				if (ldname.Equals(name))
+				string ldinst = Devices[iedIndex].AccessPoint[apIndex].Server.LDevice[i].inst;
+				if (ldinst.Equals(ldInst))
 				{
 					pos = i;
 					break;
@@ -575,16 +576,16 @@ namespace OpenSCL
 			return pos;
 		}
 		
-		public int GetIED (string name)
+		public int GetIED (string iedName)
 		{
 			if (this.Devices == null)
 				return -1;
-			if (name.Equals(null))
+			if (iedName.Equals(null))
 				return -1;
 			
 			int pos = -1;
 			for (int i = 0; i < this.Devices.GetLength(0); i++) {
-				if (this.Devices[i].name.Equals(name)) {
+				if (this.Devices[i].name.Equals(iedName)) {
 					pos = i;
 					break;
 				}

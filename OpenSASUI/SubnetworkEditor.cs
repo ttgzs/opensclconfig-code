@@ -15,7 +15,7 @@ namespace OpenSASUI
 		private void Init ()
 		{
 			this.Build();
-			this.entry1.Text = "SubnetworkName";
+			this.entry1.Text = Mono.Unix.Catalog.GetString("Subnetwork Name");
 			this.expander1.Expanded = false;
 			this.expander1.Sensitive = false;
 		}

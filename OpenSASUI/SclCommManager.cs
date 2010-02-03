@@ -11,17 +11,6 @@ namespace OpenSASUI
 		private OpenSCL.Object sclfile;
 		private int subnetwork;
 		
-		private int comparestring_c0 (object tree, Gtk.TreeIter a, Gtk.TreeIter b)
-		{
-			
-			string s1 = (string) this.iptreeview.Model.GetValue (a, 0);
-			string s2 = (string) this.iptreeview.Model.GetValue (b, 0);
-			if (s1 != null || s2 != null)
-				return s1.CompareTo(s2);
-			else
-				return 0;
-		}
-		
 		private int comparestring_c1 (object tree, Gtk.TreeIter a, Gtk.TreeIter b)
 		{
 			
@@ -142,10 +131,13 @@ namespace OpenSASUI
 			                                          typeof(string), // IED Name 7
 			                                          typeof(string)); // IED description 8
 			this.iptreeview.Model = ipmodel;
-			this.iptreeview.AppendColumn ("IP Address", new Gtk.CellRendererText (), "text", 0);
-			this.iptreeview.AppendColumn ("SubNetwork Mask", new Gtk.CellRendererText (), "text", 2);
-			this.iptreeview.AppendColumn ("IED Name", new Gtk.CellRendererText (), "text", 7);
-			this.iptreeview.AppendColumn ("Description", new Gtk.CellRendererText (), "text", 8);
+			this.iptreeview.AppendColumn (Mono.Unix.Catalog.GetString("IP Address"),
+			                              new Gtk.CellRendererText (), "text", 0);
+			this.iptreeview.AppendColumn (Mono.Unix.Catalog.GetString("SubNetwork Mask"),
+			                              new Gtk.CellRendererText (), "text", 2);
+			this.iptreeview.AppendColumn (Mono.Unix.Catalog.GetString("IED Name"),
+			                              new Gtk.CellRendererText (), "text", 7);
+			this.iptreeview.AppendColumn (Mono.Unix.Catalog.GetString("Description"), new Gtk.CellRendererText (), "text", 8);
 			ipmodel.SetSortColumnId (0, Gtk.SortType.Ascending);
 			ipmodel.SetSortFunc (0, (Gtk.TreeIterCompareFunc) compare_ip);
 			ipmodel.SetSortFunc (7, (Gtk.TreeIterCompareFunc) comparestring_c7);
@@ -167,11 +159,14 @@ namespace OpenSASUI
 			                                          typeof(string), // MAC 3
 			                                          typeof(string)); // ControlBlock 4
 			this.gsetreeview.Model = gsemodel;
-			this.gsetreeview.AppendColumn ("Application ID", new Gtk.CellRendererText (), "text", 0);
-			this.gsetreeview.AppendColumn ("Control Block", new Gtk.CellRendererText (), "text", 4);
-			this.gsetreeview.AppendColumn ("IED Name", new Gtk.CellRendererText (), "text", 1);
-			this.gsetreeview.AppendColumn ("MAC Address", new Gtk.CellRendererText (), "text", 3);
-			gsemodel.SetSortFunc (0, (Gtk.TreeIterCompareFunc) comparestring_c0);
+			this.gsetreeview.AppendColumn (Mono.Unix.Catalog.GetString("Application ID"),
+			                               new Gtk.CellRendererText (), "text", 0);
+			this.gsetreeview.AppendColumn (Mono.Unix.Catalog.GetString("Control Block"),
+			                               new Gtk.CellRendererText (), "text", 4);
+			this.gsetreeview.AppendColumn (Mono.Unix.Catalog.GetString("IED Name"),
+			                               new Gtk.CellRendererText (), "text", 1);
+			this.gsetreeview.AppendColumn (Mono.Unix.Catalog.GetString("MAC Address"),
+			                               new Gtk.CellRendererText (), "text", 3);
 			gsemodel.SetSortFunc (1, (Gtk.TreeIterCompareFunc) comparestring_c1);
 			gsemodel.SetSortFunc (3, (Gtk.TreeIterCompareFunc) compare_mac);
 			gsemodel.SetSortFunc (4, (Gtk.TreeIterCompareFunc) comparestring_c3);

@@ -25,13 +25,13 @@ namespace OpenSASUI
 			Gtk.TreeStore model = new Gtk.TreeStore (GLib.GType.String , GLib.GType.Int, GLib.GType.String);
 			Gtk.TreeIter root = model.AppendNode();
 			model.SetValues(root,
-			                "No Logical Nodes",
+			                Mono.Unix.Catalog.GetString("No Logical Nodes"),
 			                0,
-			                "Add new Logical Nodes");
+			                Mono.Unix.Catalog.GetString("Add new Logical Nodes"));
 			this.lntreeview.Model = model;
 			
-			this.lntreeview.AppendColumn ("LN Class", new Gtk.CellRendererText (), "text", 0);
-			this.lntreeview.AppendColumn ("Description", new Gtk.CellRendererText (), "text", 2);
+			this.lntreeview.AppendColumn (Mono.Unix.Catalog.GetString("LN Class"), new Gtk.CellRendererText (), "text", 0);
+			this.lntreeview.AppendColumn (Mono.Unix.Catalog.GetString("Description"), new Gtk.CellRendererText (), "text", 2);
 			
 			this.lntreeview.Selection.Changed += HandleLntreeviewSelectionhandleChanged;
 			
@@ -39,8 +39,8 @@ namespace OpenSASUI
 			Gtk.TreeStore domodel = new Gtk.TreeStore (GLib.GType.String , GLib.GType.Int, GLib.GType.String);
 			this.dotreeview.Model = domodel;
 			
-			this.dotreeview.AppendColumn ("Data Object", new Gtk.CellRendererText (), "text", 0);
-			this.dotreeview.AppendColumn ("Description", new Gtk.CellRendererText (), "text", 2);
+			this.dotreeview.AppendColumn (Mono.Unix.Catalog.GetString("Data Object"), new Gtk.CellRendererText (), "text", 0);
+			this.dotreeview.AppendColumn (Mono.Unix.Catalog.GetString("Description"), new Gtk.CellRendererText (), "text", 2);
 			this.dotreeview.Selection.Changed += HandleDotreeviewSelectionChanged;
 		}
 
@@ -99,8 +99,8 @@ namespace OpenSASUI
 						                    j, ld.LN[i].DOI[j].desc);
 				}
 				else
-					model.AppendValues("No DOI Information", 0,
-					                   "Sugestion: See at Data Type Templates");
+					model.AppendValues(Mono.Unix.Catalog.GetString("No DOI Information"), 0,
+					                   Mono.Unix.Catalog.GetString("Sugestion: See at Data Type Templates"));
 			}
 		}
 		
@@ -181,7 +181,7 @@ namespace OpenSASUI
 			else {
 				Gtk.MessageDialog msg = new Gtk.MessageDialog(null, Gtk.DialogFlags.DestroyWithParent,
 				                                              Gtk.MessageType.Error, Gtk.ButtonsType.Close,
-				                                              false, "Error on Set LD %i from AP %i IED %I", 
+				                                              false, Mono.Unix.Catalog.GetString("Error on Set LD %i from AP %i IED %I"), 
 				                                              ldIndex, apindex, iedindex);
 				msg.Run();
 				this.apindex = -1;

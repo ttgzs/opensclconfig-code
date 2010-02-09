@@ -53,6 +53,10 @@
     <Compile Include="gtk-gui\OpenSASUI.SclCommManager.cs" />
     <Compile Include="SubnetworkEditor.cs" />
     <Compile Include="gtk-gui\OpenSASUI.SubnetworkEditor.cs" />
+    <Compile Include="GSESuscriptionEditor.cs" />
+    <Compile Include="gtk-gui\OpenSASUI.GSESuscriptionEditor.cs" />
+    <Compile Include="GSESuscriptionEditorDialog.cs" />
+    <Compile Include="gtk-gui\OpenSASUI.GSESuscriptionEditorDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibOpenSCL\LibOpenSCL.csproj">
@@ -65,6 +69,7 @@
       <LogicalName>gui.stetic</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="ied-64x36.png" />
+    <EmbeddedResource Include="network-icon-64x25.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -76,5 +81,7 @@
     <None Include="iedconf.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="network-icon.svg" />
+    <None Include="network-icon-128x50.png" />
   </ItemGroup>
 </Project>

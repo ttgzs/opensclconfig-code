@@ -69,6 +69,10 @@ namespace OpenSASUI {
         
         private Gtk.ComboBox ldlist;
         
+        private Gtk.Button removeld;
+        
+        private Gtk.Button addld;
+        
         private OpenSASUI.LDEditor ldedit;
         
         private Gtk.Label label23;
@@ -122,7 +126,7 @@ namespace OpenSASUI {
             this.notebook = new Gtk.Notebook();
             this.notebook.CanFocus = true;
             this.notebook.Name = "notebook";
-            this.notebook.CurrentPage = 2;
+            this.notebook.CurrentPage = 1;
             // Container child notebook.Gtk.Notebook+NotebookChild
             this.hpaned = new Gtk.HPaned();
             this.hpaned.CanFocus = true;
@@ -288,8 +292,6 @@ namespace OpenSASUI {
             this.vbox1.Add(this.accesspointeditor);
             Gtk.Box.BoxChild w19 = ((Gtk.Box.BoxChild)(this.vbox1[this.accesspointeditor]));
             w19.Position = 1;
-            w19.Expand = false;
-            w19.Fill = false;
             this.notebook.Add(this.vbox1);
             Gtk.Notebook.NotebookChild w20 = ((Gtk.Notebook.NotebookChild)(this.notebook[this.vbox1]));
             w20.Position = 1;
@@ -326,21 +328,47 @@ namespace OpenSASUI {
             w22.Position = 1;
             w22.Expand = false;
             w22.Fill = false;
-            this.vbox5.Add(this.hbox5);
-            Gtk.Box.BoxChild w23 = ((Gtk.Box.BoxChild)(this.vbox5[this.hbox5]));
-            w23.Position = 0;
+            // Container child hbox5.Gtk.Box+BoxChild
+            this.removeld = new Gtk.Button();
+            this.removeld.CanFocus = true;
+            this.removeld.Name = "removeld";
+            this.removeld.UseStock = true;
+            this.removeld.UseUnderline = true;
+            this.removeld.Label = "gtk-remove";
+            this.hbox5.Add(this.removeld);
+            Gtk.Box.BoxChild w23 = ((Gtk.Box.BoxChild)(this.hbox5[this.removeld]));
+            w23.PackType = ((Gtk.PackType)(1));
+            w23.Position = 2;
             w23.Expand = false;
             w23.Fill = false;
+            // Container child hbox5.Gtk.Box+BoxChild
+            this.addld = new Gtk.Button();
+            this.addld.CanFocus = true;
+            this.addld.Name = "addld";
+            this.addld.UseStock = true;
+            this.addld.UseUnderline = true;
+            this.addld.Label = "gtk-add";
+            this.hbox5.Add(this.addld);
+            Gtk.Box.BoxChild w24 = ((Gtk.Box.BoxChild)(this.hbox5[this.addld]));
+            w24.PackType = ((Gtk.PackType)(1));
+            w24.Position = 3;
+            w24.Expand = false;
+            w24.Fill = false;
+            this.vbox5.Add(this.hbox5);
+            Gtk.Box.BoxChild w25 = ((Gtk.Box.BoxChild)(this.vbox5[this.hbox5]));
+            w25.Position = 0;
+            w25.Expand = false;
+            w25.Fill = false;
             // Container child vbox5.Gtk.Box+BoxChild
             this.ldedit = new OpenSASUI.LDEditor();
             this.ldedit.Events = ((Gdk.EventMask)(256));
             this.ldedit.Name = "ldedit";
             this.vbox5.Add(this.ldedit);
-            Gtk.Box.BoxChild w24 = ((Gtk.Box.BoxChild)(this.vbox5[this.ldedit]));
-            w24.Position = 1;
+            Gtk.Box.BoxChild w26 = ((Gtk.Box.BoxChild)(this.vbox5[this.ldedit]));
+            w26.Position = 1;
             this.notebook.Add(this.vbox5);
-            Gtk.Notebook.NotebookChild w25 = ((Gtk.Notebook.NotebookChild)(this.notebook[this.vbox5]));
-            w25.Position = 2;
+            Gtk.Notebook.NotebookChild w27 = ((Gtk.Notebook.NotebookChild)(this.notebook[this.vbox5]));
+            w27.Position = 2;
             // Notebook tab
             this.label23 = new Gtk.Label();
             this.label23.Name = "label23";
@@ -348,27 +376,27 @@ namespace OpenSASUI {
             this.notebook.SetTabLabel(this.vbox5, this.label23);
             this.label23.ShowAll();
             // Notebook tab
-            Gtk.Label w26 = new Gtk.Label();
-            w26.Visible = true;
-            this.notebook.Add(w26);
+            Gtk.Label w28 = new Gtk.Label();
+            w28.Visible = true;
+            this.notebook.Add(w28);
             this.label24 = new Gtk.Label();
             this.label24.Name = "label24";
             this.label24.LabelProp = Mono.Unix.Catalog.GetString("Data Type Templates");
-            this.notebook.SetTabLabel(w26, this.label24);
+            this.notebook.SetTabLabel(w28, this.label24);
             this.label24.ShowAll();
             // Notebook tab
-            Gtk.Label w27 = new Gtk.Label();
-            w27.Visible = true;
-            this.notebook.Add(w27);
+            Gtk.Label w29 = new Gtk.Label();
+            w29.Visible = true;
+            this.notebook.Add(w29);
             this.label25 = new Gtk.Label();
             this.label25.TooltipMarkup = "View and Edit Private nodes on current IED";
             this.label25.Name = "label25";
             this.label25.LabelProp = Mono.Unix.Catalog.GetString("Private");
-            this.notebook.SetTabLabel(w27, this.label25);
+            this.notebook.SetTabLabel(w29, this.label25);
             this.label25.ShowAll();
             this.vbox3.Add(this.notebook);
-            Gtk.Box.BoxChild w28 = ((Gtk.Box.BoxChild)(this.vbox3[this.notebook]));
-            w28.Position = 1;
+            Gtk.Box.BoxChild w30 = ((Gtk.Box.BoxChild)(this.vbox3[this.notebook]));
+            w30.Position = 1;
             // Container child vbox3.Gtk.Box+BoxChild
             this.DeviceDescription = new Gtk.Label();
             this.DeviceDescription.Name = "DeviceDescription";
@@ -377,11 +405,11 @@ namespace OpenSASUI {
             this.DeviceDescription.UseMarkup = true;
             this.DeviceDescription.Selectable = true;
             this.vbox3.Add(this.DeviceDescription);
-            Gtk.Box.BoxChild w29 = ((Gtk.Box.BoxChild)(this.vbox3[this.DeviceDescription]));
-            w29.PackType = ((Gtk.PackType)(1));
-            w29.Position = 2;
-            w29.Expand = false;
-            w29.Fill = false;
+            Gtk.Box.BoxChild w31 = ((Gtk.Box.BoxChild)(this.vbox3[this.DeviceDescription]));
+            w31.PackType = ((Gtk.PackType)(1));
+            w31.Position = 2;
+            w31.Expand = false;
+            w31.Fill = false;
             this.Add(this.vbox3);
             if ((this.Child != null)) {
                 this.Child.ShowAll();

@@ -13,11 +13,15 @@ namespace OpenSASUI {
     
     public partial class SclCommManager {
         
+        private Gtk.VBox vbox2;
+        
+        private OpenSASUI.SubnetworkEditor subnetworkeditor1;
+        
         private Gtk.Notebook notebook1;
         
         private Gtk.VBox vbox1;
         
-        private Gtk.HBox hbox1;
+        private Gtk.HBox hbox3;
         
         private Gtk.Button ipupdate;
         
@@ -33,17 +37,19 @@ namespace OpenSASUI {
         
         private Gtk.Button updategse;
         
+        private Gtk.Button updategsetype;
+        
         private Gtk.ScrolledWindow GtkScrolledWindow1;
         
         private Gtk.TreeView gsetreeview;
         
-        private Gtk.Label label3;
+        private Gtk.Label label7;
         
-        private Gtk.Label label4;
+        private Gtk.Label label8;
         
         private Gtk.Label label6;
         
-        private Gtk.Label label5;
+        private Gtk.Label label9;
         
         protected virtual void Build() {
             Stetic.Gui.Initialize(this);
@@ -51,35 +57,48 @@ namespace OpenSASUI {
             Stetic.BinContainer.Attach(this);
             this.Name = "OpenSASUI.SclCommManager";
             // Container child OpenSASUI.SclCommManager.Gtk.Container+ContainerChild
+            this.vbox2 = new Gtk.VBox();
+            this.vbox2.Name = "vbox2";
+            this.vbox2.Spacing = 6;
+            // Container child vbox2.Gtk.Box+BoxChild
+            this.subnetworkeditor1 = new OpenSASUI.SubnetworkEditor();
+            this.subnetworkeditor1.Events = ((Gdk.EventMask)(256));
+            this.subnetworkeditor1.Name = "subnetworkeditor1";
+            this.vbox2.Add(this.subnetworkeditor1);
+            Gtk.Box.BoxChild w1 = ((Gtk.Box.BoxChild)(this.vbox2[this.subnetworkeditor1]));
+            w1.Position = 0;
+            w1.Expand = false;
+            w1.Fill = false;
+            // Container child vbox2.Gtk.Box+BoxChild
             this.notebook1 = new Gtk.Notebook();
             this.notebook1.CanFocus = true;
             this.notebook1.Name = "notebook1";
-            this.notebook1.CurrentPage = 0;
+            this.notebook1.CurrentPage = 1;
             // Container child notebook1.Gtk.Notebook+NotebookChild
             this.vbox1 = new Gtk.VBox();
             this.vbox1.Name = "vbox1";
             this.vbox1.Spacing = 6;
             // Container child vbox1.Gtk.Box+BoxChild
-            this.hbox1 = new Gtk.HBox();
-            this.hbox1.Name = "hbox1";
-            this.hbox1.Spacing = 6;
-            // Container child hbox1.Gtk.Box+BoxChild
+            this.hbox3 = new Gtk.HBox();
+            this.hbox3.Name = "hbox3";
+            this.hbox3.Spacing = 6;
+            // Container child hbox3.Gtk.Box+BoxChild
             this.ipupdate = new Gtk.Button();
             this.ipupdate.CanFocus = true;
             this.ipupdate.Name = "ipupdate";
             this.ipupdate.UseStock = true;
             this.ipupdate.UseUnderline = true;
             this.ipupdate.Label = "gtk-refresh";
-            this.hbox1.Add(this.ipupdate);
-            Gtk.Box.BoxChild w1 = ((Gtk.Box.BoxChild)(this.hbox1[this.ipupdate]));
-            w1.Position = 0;
-            w1.Expand = false;
-            w1.Fill = false;
-            this.vbox1.Add(this.hbox1);
-            Gtk.Box.BoxChild w2 = ((Gtk.Box.BoxChild)(this.vbox1[this.hbox1]));
+            this.hbox3.Add(this.ipupdate);
+            Gtk.Box.BoxChild w2 = ((Gtk.Box.BoxChild)(this.hbox3[this.ipupdate]));
             w2.Position = 0;
             w2.Expand = false;
             w2.Fill = false;
+            this.vbox1.Add(this.hbox3);
+            Gtk.Box.BoxChild w3 = ((Gtk.Box.BoxChild)(this.vbox1[this.hbox3]));
+            w3.Position = 0;
+            w3.Expand = false;
+            w3.Fill = false;
             // Container child vbox1.Gtk.Box+BoxChild
             this.GtkScrolledWindow = new Gtk.ScrolledWindow();
             this.GtkScrolledWindow.Name = "GtkScrolledWindow";
@@ -90,11 +109,12 @@ namespace OpenSASUI {
             this.iptreeview.Name = "iptreeview";
             this.GtkScrolledWindow.Add(this.iptreeview);
             this.vbox1.Add(this.GtkScrolledWindow);
-            Gtk.Box.BoxChild w4 = ((Gtk.Box.BoxChild)(this.vbox1[this.GtkScrolledWindow]));
-            w4.Position = 1;
+            Gtk.Box.BoxChild w5 = ((Gtk.Box.BoxChild)(this.vbox1[this.GtkScrolledWindow]));
+            w5.Position = 1;
             this.notebook1.Add(this.vbox1);
             // Notebook tab
             this.label2 = new Gtk.Label();
+            this.label2.TooltipMarkup = "IP address list";
             this.label2.Name = "label2";
             this.label2.LabelProp = Mono.Unix.Catalog.GetString("TCP/IP");
             this.notebook1.SetTabLabel(this.vbox1, this.label2);
@@ -115,15 +135,42 @@ namespace OpenSASUI {
             this.updategse.UseUnderline = true;
             this.updategse.Label = "gtk-refresh";
             this.hbox2.Add(this.updategse);
-            Gtk.Box.BoxChild w6 = ((Gtk.Box.BoxChild)(this.hbox2[this.updategse]));
-            w6.Position = 0;
-            w6.Expand = false;
-            w6.Fill = false;
-            this.vbox4.Add(this.hbox2);
-            Gtk.Box.BoxChild w7 = ((Gtk.Box.BoxChild)(this.vbox4[this.hbox2]));
+            Gtk.Box.BoxChild w7 = ((Gtk.Box.BoxChild)(this.hbox2[this.updategse]));
             w7.Position = 0;
             w7.Expand = false;
             w7.Fill = false;
+            // Container child hbox2.Gtk.Box+BoxChild
+            this.updategsetype = new Gtk.Button();
+            this.updategsetype.TooltipMarkup = "Show GSE's types from IED's information";
+            this.updategsetype.CanFocus = true;
+            this.updategsetype.Name = "updategsetype";
+            this.updategsetype.UseUnderline = true;
+            // Container child updategsetype.Gtk.Container+ContainerChild
+            Gtk.Alignment w8 = new Gtk.Alignment(0.5F, 0.5F, 0F, 0F);
+            // Container child GtkAlignment.Gtk.Container+ContainerChild
+            Gtk.HBox w9 = new Gtk.HBox();
+            w9.Spacing = 2;
+            // Container child GtkHBox.Gtk.Container+ContainerChild
+            Gtk.Image w10 = new Gtk.Image();
+            w10.Pixbuf = Stetic.IconLoader.LoadIcon(this, "gtk-refresh", Gtk.IconSize.Menu, 16);
+            w9.Add(w10);
+            // Container child GtkHBox.Gtk.Container+ContainerChild
+            Gtk.Label w12 = new Gtk.Label();
+            w12.LabelProp = Mono.Unix.Catalog.GetString("GSE Types");
+            w12.UseUnderline = true;
+            w9.Add(w12);
+            w8.Add(w9);
+            this.updategsetype.Add(w8);
+            this.hbox2.Add(this.updategsetype);
+            Gtk.Box.BoxChild w16 = ((Gtk.Box.BoxChild)(this.hbox2[this.updategsetype]));
+            w16.Position = 1;
+            w16.Expand = false;
+            w16.Fill = false;
+            this.vbox4.Add(this.hbox2);
+            Gtk.Box.BoxChild w17 = ((Gtk.Box.BoxChild)(this.vbox4[this.hbox2]));
+            w17.Position = 0;
+            w17.Expand = false;
+            w17.Fill = false;
             // Container child vbox4.Gtk.Box+BoxChild
             this.GtkScrolledWindow1 = new Gtk.ScrolledWindow();
             this.GtkScrolledWindow1.Name = "GtkScrolledWindow1";
@@ -134,49 +181,55 @@ namespace OpenSASUI {
             this.gsetreeview.Name = "gsetreeview";
             this.GtkScrolledWindow1.Add(this.gsetreeview);
             this.vbox4.Add(this.GtkScrolledWindow1);
-            Gtk.Box.BoxChild w9 = ((Gtk.Box.BoxChild)(this.vbox4[this.GtkScrolledWindow1]));
-            w9.Position = 1;
+            Gtk.Box.BoxChild w19 = ((Gtk.Box.BoxChild)(this.vbox4[this.GtkScrolledWindow1]));
+            w19.Position = 1;
             this.notebook1.Add(this.vbox4);
-            Gtk.Notebook.NotebookChild w10 = ((Gtk.Notebook.NotebookChild)(this.notebook1[this.vbox4]));
-            w10.Position = 1;
+            Gtk.Notebook.NotebookChild w20 = ((Gtk.Notebook.NotebookChild)(this.notebook1[this.vbox4]));
+            w20.Position = 1;
             // Notebook tab
-            this.label3 = new Gtk.Label();
-            this.label3.Name = "label3";
-            this.label3.LabelProp = Mono.Unix.Catalog.GetString("GOOSE");
-            this.notebook1.SetTabLabel(this.vbox4, this.label3);
-            this.label3.ShowAll();
+            this.label7 = new Gtk.Label();
+            this.label7.TooltipMarkup = "GOOSE and GSSE";
+            this.label7.Name = "label7";
+            this.label7.LabelProp = Mono.Unix.Catalog.GetString("GSE");
+            this.notebook1.SetTabLabel(this.vbox4, this.label7);
+            this.label7.ShowAll();
             // Notebook tab
-            Gtk.Label w11 = new Gtk.Label();
-            w11.Visible = true;
-            this.notebook1.Add(w11);
-            this.label4 = new Gtk.Label();
-            this.label4.Name = "label4";
-            this.label4.LabelProp = Mono.Unix.Catalog.GetString("SMV");
-            this.notebook1.SetTabLabel(w11, this.label4);
-            this.label4.ShowAll();
+            Gtk.Label w21 = new Gtk.Label();
+            w21.Visible = true;
+            this.notebook1.Add(w21);
+            this.label8 = new Gtk.Label();
+            this.label8.TooltipMarkup = "Lists of Sample Values";
+            this.label8.Name = "label8";
+            this.label8.LabelProp = Mono.Unix.Catalog.GetString("SMV");
+            this.notebook1.SetTabLabel(w21, this.label8);
+            this.label8.ShowAll();
             // Notebook tab
-            Gtk.Label w12 = new Gtk.Label();
-            w12.Visible = true;
-            this.notebook1.Add(w12);
+            Gtk.Label w22 = new Gtk.Label();
+            w22.Visible = true;
+            this.notebook1.Add(w22);
             this.label6 = new Gtk.Label();
             this.label6.Name = "label6";
             this.label6.LabelProp = Mono.Unix.Catalog.GetString("Reports");
-            this.notebook1.SetTabLabel(w12, this.label6);
+            this.notebook1.SetTabLabel(w22, this.label6);
             this.label6.ShowAll();
             // Notebook tab
-            Gtk.Label w13 = new Gtk.Label();
-            w13.Visible = true;
-            this.notebook1.Add(w13);
-            this.label5 = new Gtk.Label();
-            this.label5.Name = "label5";
-            this.label5.LabelProp = Mono.Unix.Catalog.GetString("DataSet");
-            this.notebook1.SetTabLabel(w13, this.label5);
-            this.label5.ShowAll();
-            this.Add(this.notebook1);
+            Gtk.Label w23 = new Gtk.Label();
+            w23.Visible = true;
+            this.notebook1.Add(w23);
+            this.label9 = new Gtk.Label();
+            this.label9.Name = "label9";
+            this.label9.LabelProp = Mono.Unix.Catalog.GetString("DataSet");
+            this.notebook1.SetTabLabel(w23, this.label9);
+            this.label9.ShowAll();
+            this.vbox2.Add(this.notebook1);
+            Gtk.Box.BoxChild w24 = ((Gtk.Box.BoxChild)(this.vbox2[this.notebook1]));
+            w24.Position = 1;
+            this.Add(this.vbox2);
             if ((this.Child != null)) {
                 this.Child.ShowAll();
             }
             this.Hide();
+            this.updategsetype.Clicked += new System.EventHandler(this.OnActivatedGSETypes);
         }
     }
 }

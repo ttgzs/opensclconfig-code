@@ -173,11 +173,19 @@ namespace OpenSASUI
 					{
 						if (!ieds_updated && this.sclfile.Devices != null)
 						{
+							
 							Gtk.TreeStore model = (Gtk.TreeStore) this.Model;
+							// add number of configured IEDs
+							string ieddes = (string) model.GetValue(seliter, 2);
+							ieddes += " (";
+							ieddes += this.sclfile.Devices.GetLength(0);
+							ieddes += ")";
+							model.SetValue(seliter, 2, ieddes);
+							// Add IEDs
 							for (int i = 0; i < this.sclfile.Devices.GetLength(0); i++) {
-								string desc = Mono.Unix.Catalog.GetString(" / Config. Version: ");
+								string desc = Mono.Unix.Catalog.GetString("Config. Version: ");
 								desc += this.sclfile.Devices[i].configVersion;
-								desc += Mono.Unix.Catalog.GetString("Manufacturer: ");
+								desc += Mono.Unix.Catalog.GetString(" / Manufacturer: ");
 								desc += this.sclfile.Devices[i].manufacturer;
 								desc += Mono.Unix.Catalog.GetString(" / Description: ");
 								desc += this.sclfile.Devices[i].desc;

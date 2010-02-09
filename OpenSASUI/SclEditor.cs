@@ -18,28 +18,30 @@ namespace OpenSASUI
 		{
 			Gtk.TreeIter seliter;
 			Gtk.TreeSelection sel = (Gtk.TreeSelection) sender;
-			sel.GetSelected(out seliter);
 			
-			Gtk.TreePath path = this.scltreeview.Model.GetPath(seliter);
+			if(sel.GetSelected(out seliter)) {
 			
-			if (path.Indices.GetLength(0) > 2)
-			{
-				// Edit/Show Current Selected IED 
-				if (path.Indices[1] == 3)
+				Gtk.TreePath path = this.scltreeview.Model.GetPath(seliter);
+				
+				if (path.Indices.GetLength(0) > 2)
 				{
-					int iednum = (int) this.scltreeview.Model.GetValue(seliter, 1);
-					this.iededitor.SetIED(this.scltreeview.SclFile, iednum);
-					this.notebook2.Page = 1;
+					// Edit/Show Current Selected IED 
+					if (path.Indices[1] == 3)
+					{
+						int iednum = (int) this.scltreeview.Model.GetValue(seliter, 1);
+						this.iededitor.SetIED(this.scltreeview.SclFile, iednum);
+						this.notebook2.Page = 1;
+					}
+					// Show Communications Subnetwork
+					if (path.Indices[1] == 2) {
+						int subnet = (int) this.scltreeview.Model.GetValue(seliter, 1);
+						this.sclcommmanager.SetSubnetwork (this.scltreeview.SclFile, subnet);
+						this.notebook2.Page = 2;
+					}
+						
 				}
-				// Show Communications Subnetwork
-				if (path.Indices[1] == 2) {
-					int subnet = (int) this.scltreeview.Model.GetValue(seliter, 1);
-					this.sclcommmanager.SetSubnetwork (this.scltreeview.SclFile, subnet);
-					this.notebook2.Page = 2;
-				}
-					
+				//this.notebook.Page = 0;
 			}
-			//this.notebook.Page = 0;
 		}
 
 		

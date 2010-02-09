@@ -13,13 +13,29 @@ namespace OpenSASUI {
     
     public partial class SubnetworkEditor {
         
-        private Gtk.Expander expander1;
+        private Gtk.VBox vbox3;
+        
+        private Gtk.HBox hbox1;
+        
+        private Gtk.Image image69;
+        
+        private Gtk.Label descsubnet;
+        
+        private Gtk.Expander expander;
         
         private Gtk.Table table2;
         
-        private Gtk.Entry entry1;
+        private Gtk.Entry bitrate;
         
         private Gtk.Label label1;
+        
+        private Gtk.Label label3;
+        
+        private Gtk.Label label4;
+        
+        private Gtk.Entry name;
+        
+        private Gtk.Entry type;
         
         private Gtk.Label GtkLabel;
         
@@ -29,41 +45,123 @@ namespace OpenSASUI {
             Stetic.BinContainer.Attach(this);
             this.Name = "OpenSASUI.SubnetworkEditor";
             // Container child OpenSASUI.SubnetworkEditor.Gtk.Container+ContainerChild
-            this.expander1 = new Gtk.Expander(null);
-            this.expander1.CanFocus = true;
-            this.expander1.Name = "expander1";
-            this.expander1.Expanded = true;
-            // Container child expander1.Gtk.Container+ContainerChild
-            this.table2 = new Gtk.Table(((uint)(1)), ((uint)(2)), false);
+            this.vbox3 = new Gtk.VBox();
+            this.vbox3.Name = "vbox3";
+            this.vbox3.Spacing = 6;
+            // Container child vbox3.Gtk.Box+BoxChild
+            this.hbox1 = new Gtk.HBox();
+            this.hbox1.Name = "hbox1";
+            this.hbox1.Spacing = 6;
+            // Container child hbox1.Gtk.Box+BoxChild
+            this.image69 = new Gtk.Image();
+            this.image69.Name = "image69";
+            this.image69.Pixbuf = Gdk.Pixbuf.LoadFromResource("OpenSASUI.network-icon-64x25.png");
+            this.hbox1.Add(this.image69);
+            Gtk.Box.BoxChild w1 = ((Gtk.Box.BoxChild)(this.hbox1[this.image69]));
+            w1.Position = 0;
+            w1.Expand = false;
+            w1.Fill = false;
+            // Container child hbox1.Gtk.Box+BoxChild
+            this.descsubnet = new Gtk.Label();
+            this.descsubnet.Name = "descsubnet";
+            this.descsubnet.LabelProp = Mono.Unix.Catalog.GetString("Subnetwork:\nDescription:\nConnected IEDs:");
+            this.hbox1.Add(this.descsubnet);
+            Gtk.Box.BoxChild w2 = ((Gtk.Box.BoxChild)(this.hbox1[this.descsubnet]));
+            w2.Position = 1;
+            w2.Expand = false;
+            w2.Fill = false;
+            this.vbox3.Add(this.hbox1);
+            Gtk.Box.BoxChild w3 = ((Gtk.Box.BoxChild)(this.vbox3[this.hbox1]));
+            w3.Position = 0;
+            w3.Expand = false;
+            w3.Fill = false;
+            // Container child vbox3.Gtk.Box+BoxChild
+            this.expander = new Gtk.Expander(null);
+            this.expander.CanFocus = true;
+            this.expander.Name = "expander";
+            this.expander.Expanded = true;
+            // Container child expander.Gtk.Container+ContainerChild
+            this.table2 = new Gtk.Table(((uint)(3)), ((uint)(2)), false);
             this.table2.Name = "table2";
             this.table2.RowSpacing = ((uint)(6));
             this.table2.ColumnSpacing = ((uint)(6));
             // Container child table2.Gtk.Table+TableChild
-            this.entry1 = new Gtk.Entry();
-            this.entry1.CanFocus = true;
-            this.entry1.Name = "entry1";
-            this.entry1.IsEditable = true;
-            this.entry1.InvisibleChar = '●';
-            this.table2.Add(this.entry1);
-            Gtk.Table.TableChild w1 = ((Gtk.Table.TableChild)(this.table2[this.entry1]));
-            w1.LeftAttach = ((uint)(1));
-            w1.RightAttach = ((uint)(2));
-            w1.YOptions = ((Gtk.AttachOptions)(4));
+            this.bitrate = new Gtk.Entry();
+            this.bitrate.CanFocus = true;
+            this.bitrate.Name = "bitrate";
+            this.bitrate.IsEditable = true;
+            this.bitrate.InvisibleChar = '●';
+            this.table2.Add(this.bitrate);
+            Gtk.Table.TableChild w4 = ((Gtk.Table.TableChild)(this.table2[this.bitrate]));
+            w4.TopAttach = ((uint)(1));
+            w4.BottomAttach = ((uint)(2));
+            w4.LeftAttach = ((uint)(1));
+            w4.RightAttach = ((uint)(2));
+            w4.YOptions = ((Gtk.AttachOptions)(4));
             // Container child table2.Gtk.Table+TableChild
             this.label1 = new Gtk.Label();
             this.label1.Name = "label1";
             this.label1.LabelProp = Mono.Unix.Catalog.GetString("Name");
             this.table2.Add(this.label1);
-            Gtk.Table.TableChild w2 = ((Gtk.Table.TableChild)(this.table2[this.label1]));
-            w2.XOptions = ((Gtk.AttachOptions)(4));
-            w2.YOptions = ((Gtk.AttachOptions)(4));
-            this.expander1.Add(this.table2);
+            Gtk.Table.TableChild w5 = ((Gtk.Table.TableChild)(this.table2[this.label1]));
+            w5.XOptions = ((Gtk.AttachOptions)(4));
+            w5.YOptions = ((Gtk.AttachOptions)(4));
+            // Container child table2.Gtk.Table+TableChild
+            this.label3 = new Gtk.Label();
+            this.label3.Name = "label3";
+            this.label3.LabelProp = Mono.Unix.Catalog.GetString("BitRate (MB/s)");
+            this.table2.Add(this.label3);
+            Gtk.Table.TableChild w6 = ((Gtk.Table.TableChild)(this.table2[this.label3]));
+            w6.TopAttach = ((uint)(1));
+            w6.BottomAttach = ((uint)(2));
+            w6.XOptions = ((Gtk.AttachOptions)(4));
+            w6.YOptions = ((Gtk.AttachOptions)(4));
+            // Container child table2.Gtk.Table+TableChild
+            this.label4 = new Gtk.Label();
+            this.label4.Name = "label4";
+            this.label4.LabelProp = Mono.Unix.Catalog.GetString("type");
+            this.table2.Add(this.label4);
+            Gtk.Table.TableChild w7 = ((Gtk.Table.TableChild)(this.table2[this.label4]));
+            w7.TopAttach = ((uint)(2));
+            w7.BottomAttach = ((uint)(3));
+            w7.XOptions = ((Gtk.AttachOptions)(4));
+            w7.YOptions = ((Gtk.AttachOptions)(4));
+            // Container child table2.Gtk.Table+TableChild
+            this.name = new Gtk.Entry();
+            this.name.CanFocus = true;
+            this.name.Name = "name";
+            this.name.IsEditable = true;
+            this.name.InvisibleChar = '●';
+            this.table2.Add(this.name);
+            Gtk.Table.TableChild w8 = ((Gtk.Table.TableChild)(this.table2[this.name]));
+            w8.LeftAttach = ((uint)(1));
+            w8.RightAttach = ((uint)(2));
+            w8.YOptions = ((Gtk.AttachOptions)(4));
+            // Container child table2.Gtk.Table+TableChild
+            this.type = new Gtk.Entry();
+            this.type.CanFocus = true;
+            this.type.Name = "type";
+            this.type.IsEditable = true;
+            this.type.InvisibleChar = '●';
+            this.table2.Add(this.type);
+            Gtk.Table.TableChild w9 = ((Gtk.Table.TableChild)(this.table2[this.type]));
+            w9.TopAttach = ((uint)(2));
+            w9.BottomAttach = ((uint)(3));
+            w9.LeftAttach = ((uint)(1));
+            w9.RightAttach = ((uint)(2));
+            w9.YOptions = ((Gtk.AttachOptions)(4));
+            this.expander.Add(this.table2);
             this.GtkLabel = new Gtk.Label();
             this.GtkLabel.Name = "GtkLabel";
-            this.GtkLabel.LabelProp = Mono.Unix.Catalog.GetString("Details");
+            this.GtkLabel.LabelProp = Mono.Unix.Catalog.GetString("Details/Edit");
             this.GtkLabel.UseUnderline = true;
-            this.expander1.LabelWidget = this.GtkLabel;
-            this.Add(this.expander1);
+            this.expander.LabelWidget = this.GtkLabel;
+            this.vbox3.Add(this.expander);
+            Gtk.Box.BoxChild w11 = ((Gtk.Box.BoxChild)(this.vbox3[this.expander]));
+            w11.Position = 1;
+            w11.Expand = false;
+            w11.Fill = false;
+            this.Add(this.vbox3);
             if ((this.Child != null)) {
                 this.Child.ShowAll();
             }

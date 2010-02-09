@@ -11,37 +11,49 @@ namespace OpenSASUI
 		private OpenSCL.Object sclfile;
 		private int subnetwork;
 		
-		private int comparestring_c1 (object tree, Gtk.TreeIter a, Gtk.TreeIter b)
+		private int comparestring (object tree, Gtk.TreeIter a, Gtk.TreeIter b, int column)
 		{
-			
-			string s1 = (string) this.iptreeview.Model.GetValue (a, 1);
-			string s2 = (string) this.iptreeview.Model.GetValue (b, 1);
+			string s1 = (string) this.iptreeview.Model.GetValue (a, column);
+			string s2 = (string) this.iptreeview.Model.GetValue (b, column);
 			if (s1 != null || s2 != null)
 				return s1.CompareTo(s2);
 			else
 				return 0;
 		}
 		
-		private int comparestring_c3 (object tree, Gtk.TreeIter a, Gtk.TreeIter b)
+		private int comparestring_c0 (object tree, Gtk.TreeIter a, Gtk.TreeIter b)
+		{
+			return comparestring (tree, a, b, 0);
+		}
+		
+		private int comparestring_c2 (object tree, Gtk.TreeIter a, Gtk.TreeIter b)
 		{
 			
-			string s1 = (string) this.iptreeview.Model.GetValue (a, 3);
-			string s2 = (string) this.iptreeview.Model.GetValue (b, 3);
-			if (s1 != null || s2 != null)
-				return s1.CompareTo(s2);
-			else
-				return 0;
+			return comparestring (tree, a, b, 2);
+		}
+		
+		private int comparestring_c4 (object tree, Gtk.TreeIter a, Gtk.TreeIter b)
+		{
+			
+			return comparestring (tree, a, b, 4);
+		}
+		
+		private int comparestring_c5 (object tree, Gtk.TreeIter a, Gtk.TreeIter b)
+		{
+			
+			return comparestring (tree, a, b, 5);
+		}
+		
+		private int comparestring_c6 (object tree, Gtk.TreeIter a, Gtk.TreeIter b)
+		{
+			
+			return comparestring (tree, a, b, 6);
 		}
 		
 		private int comparestring_c7 (object tree, Gtk.TreeIter a, Gtk.TreeIter b)
 		{
 			
-			string s1 = (string) this.iptreeview.Model.GetValue (a, 7);
-			string s2 = (string) this.iptreeview.Model.GetValue (b, 7);
-			if (s1 != null || s2 != null)
-				return s1.CompareTo(s2);
-			else
-				return 0;
+			return comparestring (tree, a, b, 7);
 		}
 		
 		private int compare_ip (object tree, Gtk.TreeIter a, Gtk.TreeIter b)
@@ -82,8 +94,8 @@ namespace OpenSASUI
 		private int compare_mac (object tree, Gtk.TreeIter a, Gtk.TreeIter b)
 		{
 			
-			string s1 = (string) this.gsetreeview.Model.GetValue (a, 3);
-			string s2 = (string) this.gsetreeview.Model.GetValue (b, 3);
+			string s1 = (string) this.gsetreeview.Model.GetValue (a, 1);
+			string s2 = (string) this.gsetreeview.Model.GetValue (b, 1);
 			string[] ts1 = { "" };
 			string[] ts2 = { "" };
 			
@@ -130,6 +142,9 @@ namespace OpenSASUI
 			                                          typeof(int), // ConnectedAP num 6
 			                                          typeof(string), // IED Name 7
 			                                          typeof(string)); // IED description 8
+			
+			ipmodel.SetSortFunc (0, (Gtk.TreeIterCompareFunc) compare_ip);
+			ipmodel.SetSortFunc (7, (Gtk.TreeIterCompareFunc) comparestring_c7);
 			this.iptreeview.Model = ipmodel;
 			this.iptreeview.AppendColumn (Mono.Unix.Catalog.GetString("IP Address"),
 			                              new Gtk.CellRendererText (), "text", 0);
@@ -138,9 +153,7 @@ namespace OpenSASUI
 			this.iptreeview.AppendColumn (Mono.Unix.Catalog.GetString("IED Name"),
 			                              new Gtk.CellRendererText (), "text", 7);
 			this.iptreeview.AppendColumn (Mono.Unix.Catalog.GetString("Description"), new Gtk.CellRendererText (), "text", 8);
-			ipmodel.SetSortColumnId (0, Gtk.SortType.Ascending);
-			ipmodel.SetSortFunc (0, (Gtk.TreeIterCompareFunc) compare_ip);
-			ipmodel.SetSortFunc (7, (Gtk.TreeIterCompareFunc) comparestring_c7);
+			
 			this.iptreeview.GetColumn(0).Clickable = true;
 			this.iptreeview.GetColumn(0).SortColumnId = 0;
 			this.iptreeview.GetColumn(0).SortIndicator = true;
@@ -154,38 +167,60 @@ namespace OpenSASUI
 			
 			// Setup GSE table information
 			Gtk.TreeStore gsemodel = new Gtk.TreeStore(typeof(string), // APPID 0
-			                                          typeof(string), // IED 1
-			                                          typeof(int), // ConnectedAP  2
-			                                          typeof(string), // MAC 3
-			                                          typeof(string)); // ControlBlock 4
+			                                           typeof(string), // MAC 1
+			                                           typeof(string), // IED 2
+			                                           typeof(int), // ConnectedAP  3
+			                                           typeof(string), // LD Instance 4
+			                                           typeof(string),// ControlBlock 5
+			                                           typeof(string)); // GSE Type 6
+			                                           
+			gsemodel.SetSortFunc (0, (Gtk.TreeIterCompareFunc) comparestring_c0);
+			gsemodel.SetSortFunc (1, (Gtk.TreeIterCompareFunc) compare_mac);
+			gsemodel.SetSortFunc (2, (Gtk.TreeIterCompareFunc) comparestring_c2);
+			gsemodel.SetSortFunc (4, (Gtk.TreeIterCompareFunc) comparestring_c4);
+			gsemodel.SetSortFunc (5, (Gtk.TreeIterCompareFunc) comparestring_c5);
+			gsemodel.SetSortFunc (6, (Gtk.TreeIterCompareFunc) comparestring_c6);
 			this.gsetreeview.Model = gsemodel;
+			                                         
 			this.gsetreeview.AppendColumn (Mono.Unix.Catalog.GetString("Application ID"),
 			                               new Gtk.CellRendererText (), "text", 0);
-			this.gsetreeview.AppendColumn (Mono.Unix.Catalog.GetString("Control Block"),
-			                               new Gtk.CellRendererText (), "text", 4);
-			this.gsetreeview.AppendColumn (Mono.Unix.Catalog.GetString("IED Name"),
-			                               new Gtk.CellRendererText (), "text", 1);
 			this.gsetreeview.AppendColumn (Mono.Unix.Catalog.GetString("MAC Address"),
-			                               new Gtk.CellRendererText (), "text", 3);
-			gsemodel.SetSortFunc (1, (Gtk.TreeIterCompareFunc) comparestring_c1);
-			gsemodel.SetSortFunc (3, (Gtk.TreeIterCompareFunc) compare_mac);
-			gsemodel.SetSortFunc (4, (Gtk.TreeIterCompareFunc) comparestring_c3);
+			                               new Gtk.CellRendererText (), "text", 1);
+			this.gsetreeview.AppendColumn (Mono.Unix.Catalog.GetString("IED Name"),
+			                               new Gtk.CellRendererText (), "text", 2);
+			this.gsetreeview.AppendColumn (Mono.Unix.Catalog.GetString("LD Instance"),
+			                               new Gtk.CellRendererText (), "text", 4);
+			this.gsetreeview.AppendColumn (Mono.Unix.Catalog.GetString("Control Block Name"),
+			                               new Gtk.CellRendererText (), "text", 5);
+			this.gsetreeview.AppendColumn (Mono.Unix.Catalog.GetString("GSE Type"),
+			                               new Gtk.CellRendererText (), "text", 6);
+			
 			this.gsetreeview.GetColumn(0).Clickable = true;
 			this.gsetreeview.GetColumn(0).SortColumnId = 0;
 			this.gsetreeview.GetColumn(0).SortIndicator = true;
 			this.gsetreeview.GetColumn(0).Sizing = Gtk.TreeViewColumnSizing.Autosize;
 			this.gsetreeview.GetColumn(1).Clickable = true;
-			this.gsetreeview.GetColumn(1).SortColumnId = 4;
+			this.gsetreeview.GetColumn(1).SortColumnId = 1;
 			this.gsetreeview.GetColumn(1).SortIndicator = true;
 			this.gsetreeview.GetColumn(1).Sizing = Gtk.TreeViewColumnSizing.Autosize;
 			this.gsetreeview.GetColumn(2).Clickable = true;
-			this.gsetreeview.GetColumn(2).SortColumnId = 1;
+			this.gsetreeview.GetColumn(2).SortColumnId = 2;
 			this.gsetreeview.GetColumn(2).SortIndicator = true;
 			this.gsetreeview.GetColumn(2).Sizing = Gtk.TreeViewColumnSizing.Autosize;
 			this.gsetreeview.GetColumn(3).Clickable = true;
-			this.gsetreeview.GetColumn(3).SortColumnId = 3;
+			this.gsetreeview.GetColumn(3).SortColumnId = 4;
 			this.gsetreeview.GetColumn(3).SortIndicator = true;
 			this.gsetreeview.GetColumn(3).Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			this.gsetreeview.GetColumn(4).Clickable = true;
+			this.gsetreeview.GetColumn(4).SortColumnId = 5;
+			this.gsetreeview.GetColumn(4).SortIndicator = true;
+			this.gsetreeview.GetColumn(4).Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			this.gsetreeview.GetColumn(5).Clickable = true;
+			this.gsetreeview.GetColumn(5).SortColumnId = 6;
+			this.gsetreeview.GetColumn(5).SortIndicator = true;
+			this.gsetreeview.GetColumn(5).Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			this.gsetreeview.GetColumn(5).Visible = false; // Hide this column until GSE is updated
+														   // from IED's LLN0
 			
 			this.updategse.Clicked += HandleUpdategsehandleClicked;
 			
@@ -193,6 +228,7 @@ namespace OpenSASUI
 			this.iptreeview.Sensitive = false;
 			this.gsetreeview.Sensitive = false;
 			this.updategse.Sensitive = false;
+			this.notebook1.Page = 0;
 		}
 
 		void HandleUpdategsehandleClicked (object sender, EventArgs e)
@@ -255,11 +291,11 @@ namespace OpenSASUI
 								if (macIndex >= 0)
 									mac += gse.Address.P[macIndex].Value;
 								
-								gsemodel.AppendValues (appid, 
+								gsemodel.AppendValues (appid, mac,
 								                       this.sclfile.Subnetworks[this.subnetwork]
 								                       			.ConnectedAP[i].iedName,
-								                       i, mac,
-								                       gse.cbName);
+								                       i, 
+								                       gse.ldInst, gse.cbName);
 							}
 						}
 					}
@@ -346,6 +382,8 @@ namespace OpenSASUI
 				return false;
 			if (sclfile.Subnetworks[subnet].ConnectedAP == null)
 				return false;
+			if (!this.subnetworkeditor1.SetSubnetwork(this.sclfile, this.subnetwork))
+				return false;
 			
 			this.Clear();
 			
@@ -399,6 +437,37 @@ namespace OpenSASUI
 			this.iptreeview.Sensitive = false;
 			this.gsetreeview.Sensitive = false;
 			this.updategse.Sensitive = false;
+			this.gsetreeview.GetColumn(5).Visible = false;
 		}
+		protected virtual void OnActivatedGSETypes (object sender, System.EventArgs e)
+		{
+			Gtk.TreeIter iter;
+			Gtk.TreeStore gsemodel = (Gtk.TreeStore) this.gsetreeview.Model;
+			bool l = gsemodel.GetIterFirst(out iter);
+			
+			while (l) {
+				string iedname, apname, ldinst, cbname;
+				iedname = (string) gsemodel.GetValue (iter, 2);
+				ldinst = (string) gsemodel.GetValue (iter, 4);
+				cbname = (string) gsemodel.GetValue (iter, 5);
+				int ied = this.sclfile.GetIED(iedname);
+				IEC61850.SCL.tGSEControl gsec = this.sclfile.GetGSEControl (ied, ldinst, cbname);
+				if (gsec == null)
+					break;
+				else {
+					if (gsec.type == IEC61850.SCL.tGSEControlTypeEnum.GOOSE) 
+						gsemodel.SetValue (iter, 6, "GOOSE");
+					else
+						if (gsec.type == IEC61850.SCL.tGSEControlTypeEnum.GSSE)
+							gsemodel.SetValue (iter, 6, "GSSE");
+						else
+							gsemodel.SetValue (iter, 6, Mono.Unix.Catalog.GetString("Unknown"));
+				}
+				l = gsemodel.IterNext(ref iter);
+			}
+			this.gsetreeview.GetColumn(5).Visible = true;
+		}
+		
+		
 	}
 }

@@ -8,25 +8,31 @@
     <Packages>
       <Packages>
         <Package name="Microsoft Windows binarios">
-          <Builder targetFile="..\openscltools-win32-0.3.2.zip" platform="Windows" configuration="Debug" ctype="BinariesZipPackageBuilder">
+          <Builder targetFile="openscltools-win32-0.5.zip" platform="Windows" configuration="Debug" ctype="BinariesZipPackageBuilder">
             <ChildEntries>
               <SolutionItemReference path="LibOpenSCL\LibOpenSCL.csproj" />
               <SolutionItemReference path="LibOpenSCLUI\LibOpenSCLUI.csproj" />
               <SolutionItemReference path="OpenSCLConfigurator\OpenSCLConfigurator.csproj" />
               <SolutionItemReference path="OpenSCLConfigurator_console\OpenSCLConfigurator_console.csproj" />
+              <SolutionItemReference path="OpenSASUI\OpenSASUI.csproj" />
+              <SolutionItemReference path="OpenSASUITranslation\OpenSASUITranslation.mdproj" />
+              <SolutionItemReference path="OpenSASConfigurator\OpenSASConfigurator.csproj" />
+              <SolutionItemReference path="OpenSASConfiguratorTranslation\OpenSASConfiguratorTranslation.mdproj" />
             </ChildEntries>
             <RootEntry path="openscltools.sln" id=":root:" />
           </Builder>
         </Package>
         <Package name="Linux binarios">
-          <Builder targetFile="..\opensclconfiguratorgtk-linux-0.1.0.tar.gz" platform="Linux" configuration="Debug" ctype="BinariesZipPackageBuilder">
+          <Builder targetFile="openscltools-linux-0.5.tar.gz" platform="Linux" configuration="Debug" ctype="BinariesZipPackageBuilder">
             <ChildEntries>
-              <SolutionItemReference path="LibOpenSCLUIGtkTranslation\LibOpenSCLUIGtkTranslation.mdproj" />
-              <SolutionItemReference path="LibOpenSCLUIGtk\LibOpenSCLUIGtk.csproj" />
-              <SolutionItemReference path="OpenSCLConfiguratorGTKTranslation\OpenSCLConfiguratorGTKTranslation.mdproj" />
-              <SolutionItemReference path="OpenSCLConfiguratorGTK\OpenSCLConfiguratorGTK.csproj" />
-              <SolutionItemReference path="OpenSCLConfigurator_console\OpenSCLConfigurator_console.csproj" />
               <SolutionItemReference path="LibOpenSCL\LibOpenSCL.csproj" />
+              <SolutionItemReference path="LibOpenSCLUI\LibOpenSCLUI.csproj" />
+              <SolutionItemReference path="OpenSCLConfigurator\OpenSCLConfigurator.csproj" />
+              <SolutionItemReference path="OpenSCLConfigurator_console\OpenSCLConfigurator_console.csproj" />
+              <SolutionItemReference path="OpenSASUI\OpenSASUI.csproj" />
+              <SolutionItemReference path="OpenSASUITranslation\OpenSASUITranslation.mdproj" />
+              <SolutionItemReference path="OpenSASConfigurator\OpenSASConfigurator.csproj" />
+              <SolutionItemReference path="OpenSASConfiguratorTranslation\OpenSASConfiguratorTranslation.mdproj" />
             </ChildEntries>
             <RootEntry path="openscltools.sln" id=":root:" />
           </Builder>

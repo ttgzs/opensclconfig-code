@@ -396,6 +396,23 @@ namespace OpenSCL
 			return objectIEDToImport;
 		}
 		
+		public int GetIED (string iedName)
+		{
+			if (this.Devices == null)
+				return -1;
+			if (iedName.Equals(null))
+				return -1;
+			
+			int pos = -1;
+			for (int i = 0; i < this.Devices.GetLength(0); i++) {
+				if (this.Devices[i].name.Equals(iedName)) {
+					pos = i;
+					break;
+				}
+			}			
+			return pos;
+		}
+		
 		public IEC61850.SCL.tIED GetIED (int iedIndex)
 		{
 			if (this.Devices == null)
@@ -404,6 +421,21 @@ namespace OpenSCL
 				return null;
 			
 			return Devices[iedIndex];
+		}
+		
+		// Access Point related functions
+		
+		public int GetAP (int iedIndex, string name)
+		{
+			int pos = -1;
+			for (int i = 0; i < Devices[iedIndex].AccessPoint.GetLength(0); i++) {
+				if (Devices[iedIndex].AccessPoint[i].name.Equals(name))
+				{
+					pos = i;
+					break;
+				}
+			}			
+			return pos;
 		}
 		
 		public IEC61850.SCL.tAccessPoint[] GetAP (string iedName)
@@ -493,6 +525,46 @@ namespace OpenSCL
 			return this.GetLD(ied);
 		}
 		
+		/// <summary>
+		/// Get an  
+		/// </summary>
+		/// <param name="iedName">
+		/// A <see cref="System.String"/>
+		/// </param>
+		/// <param name="ldname">
+		/// A <see cref="System.String"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="IEC61850.SCL.tLDevice[]"/>
+		/// </returns>
+		public IEC61850.SCL.tLDevice GetLD (IEC61850.SCL.tIED ied, string ldinst)
+		{
+			if (ldinst == null)
+				return null;
+			
+			if (ied == null)
+				return null;
+			
+			if (ied.AccessPoint == null)
+				return null;
+			
+			IEC61850.SCL.tLDevice ldevice = null;
+			int found = 0;
+			for (int i = 0; i < ied.AccessPoint.GetLength(0); i++) {
+				for (int j = 0; j < ied.AccessPoint[i].Server.LDevice.GetLength(0);
+				     j++) {
+					if (ied.AccessPoint[i].Server.LDevice[j].inst.Equals (ldinst)) {
+						ldevice = ied.AccessPoint[i].Server.LDevice[j];
+						found++;
+					}
+				}
+			}
+			if (found == 1)
+				return ldevice;
+			else
+				return null;
+		}
+		
 		public IEC61850.SCL.tLDevice GetLD (int iedIndex, int apIndex, int ldIndex)
 		{
 			if (Devices == null)
@@ -563,36 +635,8 @@ namespace OpenSCL
 			return pos;
 		}
 		
-		private int GetAP (int iedIndex, string name)
-		{
-			int pos = -1;
-			for (int i = 0; i < Devices[iedIndex].AccessPoint.GetLength(0); i++) {
-				if (Devices[iedIndex].AccessPoint[i].name.Equals(name))
-				{
-					pos = i;
-					break;
-				}
-			}			
-			return pos;
-		}
 		
-		public int GetIED (string iedName)
-		{
-			if (this.Devices == null)
-				return -1;
-			if (iedName.Equals(null))
-				return -1;
 			
-			int pos = -1;
-			for (int i = 0; i < this.Devices.GetLength(0); i++) {
-				if (this.Devices[i].name.Equals(iedName)) {
-					pos = i;
-					break;
-				}
-			}			
-			return pos;
-		}
-	
 		// Communications
 		
 		public tSubNetwork[] Subnetworks
@@ -772,6 +816,100 @@ namespace OpenSCL
 				return null;
 		}
 		
+		// GSE Related functions
+		
+		public IEC61850.SCL.tGSEControl GetGSEControl (int iedIndex, int apIndex, int ldinst, int gsecontrolIndex)
+		{
+			if (this.configuration.IED == null)
+				return null;
+			if (iedIndex < 0 || iedIndex > this.configuration.IED.GetLength(0))
+				return null;
+			if (apIndex < 0)
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint == null)
+				return null;
+			if (apIndex < 0 || apIndex > this.configuration.IED[iedIndex].AccessPoint.GetLength(0))
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex].Server == null)
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex].Server.LDevice == null)
+				return null;
+			if (ldinst < 0 
+			    || ldinst > this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice.GetLength(0))
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN0 == null)
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN0.GSEControl == null)
+				return null;
+			if (gsecontrolIndex < 0 || gsecontrolIndex > this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN0.GSEControl.GetLength(0))
+				return null;
+			
+			return this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN0.GSEControl[gsecontrolIndex];
+		}
+		
+		public int GetGSEControl (int iedIndex, int apIndex, int ldinst, string gsecName)
+		{
+			if (this.configuration.IED == null)
+				return -1;
+			if (iedIndex < 0 || iedIndex > this.configuration.IED.GetLength(0))
+				return -1;
+			if (apIndex < 0)
+				return -1;
+			if (this.configuration.IED[iedIndex].AccessPoint == null)
+				return -1;
+			if (apIndex < 0 || apIndex > this.configuration.IED[iedIndex].AccessPoint.GetLength(0))
+				return -1;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex].Server == null)
+				return -1;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex].Server.LDevice == null)
+				return -1;
+			if (ldinst < 0 
+			    || ldinst > this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice.GetLength(0))
+				return -1;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN0 == null)
+				return -1;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN0.GSEControl == null)
+				return -1;
+			
+			IEC61850.SCL.tGSEControl[] gsec = this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    									.Server.LDevice[ldinst].LN0.GSEControl;
+			
+			for (int i = 0; i < gsec.GetLength(0); i++) {
+				if (gsec[i].name.Equals (gsecName))
+					return i;
+			}
+			
+			return -1;
+		}
+		
+		public IEC61850.SCL.tGSEControl GetGSEControl (int iedIndex, string ldinst, string gsecName)
+		{
+			if (iedIndex < 0 || ldinst == null || gsecName == null)
+				return null;
+			
+			IEC61850.SCL.tLDevice ld = this.GetLD (this.GetIED (iedIndex), ldinst);
+			if (ld == null)
+				return null;
+			
+			if (ld.LN0 == null)
+				return null;
+			if (ld.LN0.GSEControl == null)
+				return null;
+			for (int i = 0; i < ld.LN0.GSEControl.GetLength(0); i++) {
+				if (ld.LN0.GSEControl[i].name.Equals(gsecName))
+					return ld.LN0.GSEControl[i];
+			}
+			
+			return null;
+		}
 		// Substation
 		
 		public tSubstation[] Substation

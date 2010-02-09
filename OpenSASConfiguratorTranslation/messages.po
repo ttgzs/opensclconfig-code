@@ -1,0 +1,531 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2010-02-03 17:12:03-0600\n"
+"PO-Revision-Date: 2010-02-03 17:12:03-0600\n"
+"Last-Translator: esodan\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: MonoDevelop Gettext addin\n"
+
+#: ../OpenSCLConfigurator/about.Designer.cs:165
+msgid "richTextBox2.Text"
+msgstr ""
+
+#: ../OpenSCLConfigurator/about.Designer.cs:216
+msgid "richTextBox1.Text"
+msgstr ""
+
+#: ../OpenSCLConfigurator/about.Designer.cs:238
+msgid "richTextBox3.Text"
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:44
+msgid "No File Loaded"
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:46
+msgid "Open or create a new SCL file"
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:49
+msgid "Element"
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:51
+#: ../OpenSASUI/LDEditor.cs:33
+#: ../OpenSASUI/LDEditor.cs:42
+#: ../OpenSASUI/APEditor.cs:27
+#: ../OpenSASUI/APEditor.cs:37
+#: ../OpenSASUI/APEditor.cs:48
+#: ../OpenSASUI/IEDEditor.cs:30
+#: ../OpenSASUI/SclCommManager.cs:139
+msgid "Description"
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:103
+#: ../OpenSASUI/SclTreeView.cs:236
+msgid "Version: "
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:105
+msgid " Rv: "
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:107
+msgid " Desc: "
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:109
+msgid " / By: "
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:111
+msgid " / Reason: "
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:185
+msgid "Config. Version: "
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:187
+msgid " / Manufacturer: "
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:189
+msgid " / Description: "
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:238
+msgid " Revision: "
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:240
+msgid " Desc.: "
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:248
+msgid "History"
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:250
+msgid "Version and History Information"
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:253
+msgid "Substation"
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:255
+msgid "Substation Information"
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:258
+msgid "Communication"
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:260
+msgid "Communications Information"
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:263
+msgid "Devices (IED)"
+msgstr ""
+
+#: ../OpenSASUI/SclTreeView.cs:265
+msgid "IEDs configured in this file"
+msgstr ""
+
+#: ../OpenSASUI/LDEditor.cs:27
+msgid "No Logical Nodes"
+msgstr ""
+
+#: ../OpenSASUI/LDEditor.cs:29
+msgid "Add new Logical Nodes"
+msgstr ""
+
+#: ../OpenSASUI/LDEditor.cs:32
+msgid "LN Class"
+msgstr ""
+
+#: ../OpenSASUI/LDEditor.cs:41
+msgid "Data Object"
+msgstr ""
+
+#: ../OpenSASUI/LDEditor.cs:101
+msgid "No DOI Information"
+msgstr ""
+
+#: ../OpenSASUI/LDEditor.cs:102
+msgid "Sugestion: See at Data Type Templates"
+msgstr ""
+
+#: ../OpenSASUI/LDEditor.cs:183
+msgid "Error on Set LD %i from AP %i IED %I"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.LDEditor.cs:75
+msgid "Instance"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.LDEditor.cs:94
+msgid "Details"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.LDEditor.cs:114
+msgid "Logical Nodes"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.LDEditor.cs:187
+msgid "Data Objects"
+msgstr ""
+
+#: ../OpenSASUI/APEditor.cs:25
+#: ../OpenSASUI/IEDEditor.cs:23
+#: ../OpenSASUI/IEDEditor.cs:28
+#: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:373
+msgid "Logical Devices"
+msgstr ""
+
+#: ../OpenSASUI/APEditor.cs:35
+#: ../OpenSASUI/APEditor.cs:46
+msgid "Parameter"
+msgstr ""
+
+#: ../OpenSASUI/APEditor.cs:199
+msgid "No Subnetwork"
+msgstr ""
+
+#: ../OpenSASUI/APEditor.cs:201
+msgid "This AP is not connected to any Subnetwork"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:152
+msgid "Is Clock"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:167
+msgid "Is Router"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:257
+msgid "Logical Nodes in AP"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:268
+msgid "Name:"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:276
+msgid "Description:"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:286
+msgid "Access Point Details"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:302
+msgid "Subnetwork:"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:409
+#: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:504
+msgid "Type:"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:417
+#: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:494
+msgid "Value:"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:440
+msgid "Manage System Addresses"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:466
+msgid "Address"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:525
+msgid "Manage System Physical Connections"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:569
+msgid "Physical"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:578
+msgid "GSE"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:587
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:169
+msgid "SMV"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:593
+msgid "Connection Details"
+msgstr ""
+
+#: ../OpenSASUI/IEDEditor.cs:25
+msgid "Add Logical Devices"
+msgstr ""
+
+#: ../OpenSASUI/IEDEditor.cs:153
+msgid "Name: "
+msgstr ""
+
+#: ../OpenSASUI/IEDEditor.cs:156
+msgid ""
+"\n"
+"Manufacturer: "
+msgstr ""
+
+#: ../OpenSASUI/IEDEditor.cs:159
+msgid ""
+"\n"
+"Config. Version: "
+msgstr ""
+
+#: ../OpenSASUI/IEDEditor.cs:184
+msgid "Access Points"
+msgstr ""
+
+#: ../OpenSASUI/IEDEditor.cs:200
+msgid "LD (No Name)"
+msgstr ""
+
+#: ../OpenSASUI/IEDEditor.cs:204
+msgid "AccessPoint("
+msgstr ""
+
+#: ../OpenSASUI/IEDEditor.cs:253
+msgid "Error on Set IED %i"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:111
+msgid ""
+"IED Information.\n"
+"Manufacturer.\n"
+"Configuration Revision."
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:168
+msgid "ABB"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:169
+msgid "AREVA"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:170
+msgid "GENERAL ELECTRIC"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:171
+msgid "INGETEAM"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:172
+msgid "SEL"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:173
+msgid "SIEMENS"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:200
+msgid "Conf. Rev.:"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:210
+msgid "IED Name:"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:218
+msgid "Manufacturer:"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:230
+msgid "IED"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:243
+msgid "Access Point:"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:299
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclEditor.cs:107
+msgid "Communications"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:314
+msgid "Logical Device"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:382
+msgid "Data Type Templates"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:392
+msgid "Private"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:402
+msgid "IED Description"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclEditor.cs:73
+msgid "Nothing"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclEditor.cs:87
+msgid "IED Editor"
+msgstr ""
+
+#: ../OpenSASUI/SclCommManager.cs:133
+msgid "IP Address"
+msgstr ""
+
+#: ../OpenSASUI/SclCommManager.cs:135
+msgid "SubNetwork Mask"
+msgstr ""
+
+#: ../OpenSASUI/SclCommManager.cs:137
+#: ../OpenSASUI/SclCommManager.cs:165
+msgid "IED Name"
+msgstr ""
+
+#: ../OpenSASUI/SclCommManager.cs:161
+msgid "Application ID"
+msgstr ""
+
+#: ../OpenSASUI/SclCommManager.cs:163
+msgid "Control Block"
+msgstr ""
+
+#: ../OpenSASUI/SclCommManager.cs:167
+msgid "MAC Address"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:114
+msgid "TCP/IP"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:160
+msgid "GOOSE"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:178
+msgid "Reports"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:187
+msgid "DataSet"
+msgstr ""
+
+#: ../OpenSASUI/SubnetworkEditor.cs:18
+msgid "Subnetwork Name"
+msgstr ""
+
+#: ../OpenSASUI/SubnetworkEditor.cs:50
+msgid "Subnetwork: "
+msgstr ""
+
+#: ../OpenSASUI/SubnetworkEditor.cs:54
+msgid ""
+"\n"
+"Connected Access Points: "
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SubnetworkEditor.cs:66
+msgid ""
+"Subnetwork:\n"
+"Description:\n"
+"Connected IEDs:"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SubnetworkEditor.cs:103
+msgid "Name"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SubnetworkEditor.cs:111
+msgid "BitRate (MB/s)"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SubnetworkEditor.cs:121
+msgid "type"
+msgstr ""
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SubnetworkEditor.cs:155
+msgid "Details/Edit"
+msgstr ""
+
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:87
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:88
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:116
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:117
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:140
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:141
+msgid "_File"
+msgstr ""
+
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:90
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:91
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:122
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:123
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:146
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:147
+msgid "_Abrir"
+msgstr ""
+
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:93
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:94
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:125
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:126
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:149
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:150
+msgid "_Guardar"
+msgstr ""
+
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:96
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:97
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:128
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:129
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:152
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:153
+msgid "Guardar _como"
+msgstr ""
+
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:99
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:100
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:131
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:132
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:155
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:156
+msgid "_Salir"
+msgstr ""
+
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:102
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:103
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:111
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:112
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:119
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:120
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:143
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:144
+msgid "_Nuevo"
+msgstr ""
+
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:105
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:106
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:134
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:135
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:158
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:159
+msgid "_About"
+msgstr ""
+
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:108
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:109
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:137
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:138
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:161
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:162
+msgid "Acerca _de"
+msgstr ""
+
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:167
+msgid "OpenSASConfigurator"
+msgstr ""
+
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:195
+msgid "Tree View"
+msgstr ""
+
+#: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:204
+msgid "ConsoleView"
+msgstr ""
+

@@ -31,8 +31,6 @@ namespace OpenSASUI {
         
         private Gtk.VBox vbox10;
         
-        private OpenSASUI.SubnetworkEditor subnetworkeditor1;
-        
         private OpenSASUI.SclCommManager sclcommmanager;
         
         private Gtk.Label label33;
@@ -83,6 +81,7 @@ namespace OpenSASUI {
             this.notebook2.Add(this.iededitor);
             Gtk.Notebook.NotebookChild w4 = ((Gtk.Notebook.NotebookChild)(this.notebook2[this.iededitor]));
             w4.Position = 1;
+            w4.TabExpand = true;
             // Notebook tab
             this.label26 = new Gtk.Label();
             this.label26.Name = "label26";
@@ -94,24 +93,15 @@ namespace OpenSASUI {
             this.vbox10.Name = "vbox10";
             this.vbox10.Spacing = 6;
             // Container child vbox10.Gtk.Box+BoxChild
-            this.subnetworkeditor1 = new OpenSASUI.SubnetworkEditor();
-            this.subnetworkeditor1.Events = ((Gdk.EventMask)(256));
-            this.subnetworkeditor1.Name = "subnetworkeditor1";
-            this.vbox10.Add(this.subnetworkeditor1);
-            Gtk.Box.BoxChild w5 = ((Gtk.Box.BoxChild)(this.vbox10[this.subnetworkeditor1]));
-            w5.Position = 0;
-            w5.Expand = false;
-            w5.Fill = false;
-            // Container child vbox10.Gtk.Box+BoxChild
             this.sclcommmanager = new OpenSASUI.SclCommManager();
             this.sclcommmanager.Events = ((Gdk.EventMask)(256));
             this.sclcommmanager.Name = "sclcommmanager";
             this.vbox10.Add(this.sclcommmanager);
-            Gtk.Box.BoxChild w6 = ((Gtk.Box.BoxChild)(this.vbox10[this.sclcommmanager]));
-            w6.Position = 1;
+            Gtk.Box.BoxChild w5 = ((Gtk.Box.BoxChild)(this.vbox10[this.sclcommmanager]));
+            w5.Position = 0;
             this.notebook2.Add(this.vbox10);
-            Gtk.Notebook.NotebookChild w7 = ((Gtk.Notebook.NotebookChild)(this.notebook2[this.vbox10]));
-            w7.Position = 2;
+            Gtk.Notebook.NotebookChild w6 = ((Gtk.Notebook.NotebookChild)(this.notebook2[this.vbox10]));
+            w6.Position = 2;
             // Notebook tab
             this.label33 = new Gtk.Label();
             this.label33.Name = "label33";

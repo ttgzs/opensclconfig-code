@@ -37,11 +37,11 @@ namespace OpenSASUI {
         
         private Gtk.VBox vbox2;
         
-        private Gtk.Button button2;
+        private Gtk.Button addapln;
         
-        private Gtk.Button button3;
+        private Gtk.Button removeapln;
         
-        private Gtk.Button button4;
+        private Gtk.Button propertiesapln;
         
         private Gtk.Label GtkLabel3;
         
@@ -57,11 +57,11 @@ namespace OpenSASUI {
         
         private Gtk.ComboBox subnetworklist;
         
-        private Gtk.Button button6;
+        private Gtk.Button propertiessubnet;
         
-        private Gtk.Button button5;
+        private Gtk.Button connectsubnet;
         
-        private Gtk.Button desconnectsubnetwork;
+        private Gtk.Button desconnectsubnet;
         
         private Gtk.Expander connectiondetails;
         
@@ -213,38 +213,38 @@ namespace OpenSASUI {
             this.vbox2.Name = "vbox2";
             this.vbox2.Spacing = 6;
             // Container child vbox2.Gtk.Box+BoxChild
-            this.button2 = new Gtk.Button();
-            this.button2.CanFocus = true;
-            this.button2.Name = "button2";
-            this.button2.UseStock = true;
-            this.button2.UseUnderline = true;
-            this.button2.Label = "gtk-add";
-            this.vbox2.Add(this.button2);
-            Gtk.Box.BoxChild w7 = ((Gtk.Box.BoxChild)(this.vbox2[this.button2]));
+            this.addapln = new Gtk.Button();
+            this.addapln.CanFocus = true;
+            this.addapln.Name = "addapln";
+            this.addapln.UseStock = true;
+            this.addapln.UseUnderline = true;
+            this.addapln.Label = "gtk-add";
+            this.vbox2.Add(this.addapln);
+            Gtk.Box.BoxChild w7 = ((Gtk.Box.BoxChild)(this.vbox2[this.addapln]));
             w7.Position = 0;
             w7.Expand = false;
             w7.Fill = false;
             // Container child vbox2.Gtk.Box+BoxChild
-            this.button3 = new Gtk.Button();
-            this.button3.CanFocus = true;
-            this.button3.Name = "button3";
-            this.button3.UseStock = true;
-            this.button3.UseUnderline = true;
-            this.button3.Label = "gtk-remove";
-            this.vbox2.Add(this.button3);
-            Gtk.Box.BoxChild w8 = ((Gtk.Box.BoxChild)(this.vbox2[this.button3]));
+            this.removeapln = new Gtk.Button();
+            this.removeapln.CanFocus = true;
+            this.removeapln.Name = "removeapln";
+            this.removeapln.UseStock = true;
+            this.removeapln.UseUnderline = true;
+            this.removeapln.Label = "gtk-remove";
+            this.vbox2.Add(this.removeapln);
+            Gtk.Box.BoxChild w8 = ((Gtk.Box.BoxChild)(this.vbox2[this.removeapln]));
             w8.Position = 1;
             w8.Expand = false;
             w8.Fill = false;
             // Container child vbox2.Gtk.Box+BoxChild
-            this.button4 = new Gtk.Button();
-            this.button4.CanFocus = true;
-            this.button4.Name = "button4";
-            this.button4.UseStock = true;
-            this.button4.UseUnderline = true;
-            this.button4.Label = "gtk-properties";
-            this.vbox2.Add(this.button4);
-            Gtk.Box.BoxChild w9 = ((Gtk.Box.BoxChild)(this.vbox2[this.button4]));
+            this.propertiesapln = new Gtk.Button();
+            this.propertiesapln.CanFocus = true;
+            this.propertiesapln.Name = "propertiesapln";
+            this.propertiesapln.UseStock = true;
+            this.propertiesapln.UseUnderline = true;
+            this.propertiesapln.Label = "gtk-properties";
+            this.vbox2.Add(this.propertiesapln);
+            Gtk.Box.BoxChild w9 = ((Gtk.Box.BoxChild)(this.vbox2[this.propertiesapln]));
             w9.Position = 2;
             w9.Expand = false;
             w9.Fill = false;
@@ -316,40 +316,40 @@ namespace OpenSASUI {
             w18.Expand = false;
             w18.Fill = false;
             // Container child hbox4.Gtk.Box+BoxChild
-            this.button6 = new Gtk.Button();
-            this.button6.CanFocus = true;
-            this.button6.Name = "button6";
-            this.button6.UseStock = true;
-            this.button6.UseUnderline = true;
-            this.button6.Label = "gtk-properties";
-            this.hbox4.Add(this.button6);
-            Gtk.Box.BoxChild w19 = ((Gtk.Box.BoxChild)(this.hbox4[this.button6]));
+            this.propertiessubnet = new Gtk.Button();
+            this.propertiessubnet.CanFocus = true;
+            this.propertiessubnet.Name = "propertiessubnet";
+            this.propertiessubnet.UseStock = true;
+            this.propertiessubnet.UseUnderline = true;
+            this.propertiessubnet.Label = "gtk-properties";
+            this.hbox4.Add(this.propertiessubnet);
+            Gtk.Box.BoxChild w19 = ((Gtk.Box.BoxChild)(this.hbox4[this.propertiessubnet]));
             w19.PackType = ((Gtk.PackType)(1));
             w19.Position = 2;
             w19.Expand = false;
             w19.Fill = false;
             // Container child hbox4.Gtk.Box+BoxChild
-            this.button5 = new Gtk.Button();
-            this.button5.CanFocus = true;
-            this.button5.Name = "button5";
-            this.button5.UseStock = true;
-            this.button5.UseUnderline = true;
-            this.button5.Label = "gtk-connect";
-            this.hbox4.Add(this.button5);
-            Gtk.Box.BoxChild w20 = ((Gtk.Box.BoxChild)(this.hbox4[this.button5]));
+            this.connectsubnet = new Gtk.Button();
+            this.connectsubnet.CanFocus = true;
+            this.connectsubnet.Name = "connectsubnet";
+            this.connectsubnet.UseStock = true;
+            this.connectsubnet.UseUnderline = true;
+            this.connectsubnet.Label = "gtk-connect";
+            this.hbox4.Add(this.connectsubnet);
+            Gtk.Box.BoxChild w20 = ((Gtk.Box.BoxChild)(this.hbox4[this.connectsubnet]));
             w20.PackType = ((Gtk.PackType)(1));
             w20.Position = 3;
             w20.Expand = false;
             w20.Fill = false;
             // Container child hbox4.Gtk.Box+BoxChild
-            this.desconnectsubnetwork = new Gtk.Button();
-            this.desconnectsubnetwork.CanFocus = true;
-            this.desconnectsubnetwork.Name = "desconnectsubnetwork";
-            this.desconnectsubnetwork.UseStock = true;
-            this.desconnectsubnetwork.UseUnderline = true;
-            this.desconnectsubnetwork.Label = "gtk-disconnect";
-            this.hbox4.Add(this.desconnectsubnetwork);
-            Gtk.Box.BoxChild w21 = ((Gtk.Box.BoxChild)(this.hbox4[this.desconnectsubnetwork]));
+            this.desconnectsubnet = new Gtk.Button();
+            this.desconnectsubnet.CanFocus = true;
+            this.desconnectsubnet.Name = "desconnectsubnet";
+            this.desconnectsubnet.UseStock = true;
+            this.desconnectsubnet.UseUnderline = true;
+            this.desconnectsubnet.Label = "gtk-disconnect";
+            this.hbox4.Add(this.desconnectsubnet);
+            Gtk.Box.BoxChild w21 = ((Gtk.Box.BoxChild)(this.hbox4[this.desconnectsubnet]));
             w21.PackType = ((Gtk.PackType)(1));
             w21.Position = 4;
             w21.Expand = false;

@@ -37,11 +37,11 @@ namespace OpenSASUI {
         
         private Gtk.HBox hbox2;
         
-        private Gtk.Button button1;
+        private Gtk.Button addln;
         
-        private Gtk.Button button2;
+        private Gtk.Button removeln;
         
-        private Gtk.Button button3;
+        private Gtk.Button propertiesln;
         
         private Gtk.VBox vbox5;
         
@@ -135,38 +135,38 @@ namespace OpenSASUI {
             this.hbox2.Name = "hbox2";
             this.hbox2.Spacing = 6;
             // Container child hbox2.Gtk.Box+BoxChild
-            this.button1 = new Gtk.Button();
-            this.button1.CanFocus = true;
-            this.button1.Name = "button1";
-            this.button1.UseStock = true;
-            this.button1.UseUnderline = true;
-            this.button1.Label = "gtk-add";
-            this.hbox2.Add(this.button1);
-            Gtk.Box.BoxChild w8 = ((Gtk.Box.BoxChild)(this.hbox2[this.button1]));
+            this.addln = new Gtk.Button();
+            this.addln.CanFocus = true;
+            this.addln.Name = "addln";
+            this.addln.UseStock = true;
+            this.addln.UseUnderline = true;
+            this.addln.Label = "gtk-add";
+            this.hbox2.Add(this.addln);
+            Gtk.Box.BoxChild w8 = ((Gtk.Box.BoxChild)(this.hbox2[this.addln]));
             w8.Position = 0;
             w8.Expand = false;
             w8.Fill = false;
             // Container child hbox2.Gtk.Box+BoxChild
-            this.button2 = new Gtk.Button();
-            this.button2.CanFocus = true;
-            this.button2.Name = "button2";
-            this.button2.UseStock = true;
-            this.button2.UseUnderline = true;
-            this.button2.Label = "gtk-remove";
-            this.hbox2.Add(this.button2);
-            Gtk.Box.BoxChild w9 = ((Gtk.Box.BoxChild)(this.hbox2[this.button2]));
+            this.removeln = new Gtk.Button();
+            this.removeln.CanFocus = true;
+            this.removeln.Name = "removeln";
+            this.removeln.UseStock = true;
+            this.removeln.UseUnderline = true;
+            this.removeln.Label = "gtk-remove";
+            this.hbox2.Add(this.removeln);
+            Gtk.Box.BoxChild w9 = ((Gtk.Box.BoxChild)(this.hbox2[this.removeln]));
             w9.Position = 1;
             w9.Expand = false;
             w9.Fill = false;
             // Container child hbox2.Gtk.Box+BoxChild
-            this.button3 = new Gtk.Button();
-            this.button3.CanFocus = true;
-            this.button3.Name = "button3";
-            this.button3.UseStock = true;
-            this.button3.UseUnderline = true;
-            this.button3.Label = "gtk-properties";
-            this.hbox2.Add(this.button3);
-            Gtk.Box.BoxChild w10 = ((Gtk.Box.BoxChild)(this.hbox2[this.button3]));
+            this.propertiesln = new Gtk.Button();
+            this.propertiesln.CanFocus = true;
+            this.propertiesln.Name = "propertiesln";
+            this.propertiesln.UseStock = true;
+            this.propertiesln.UseUnderline = true;
+            this.propertiesln.Label = "gtk-properties";
+            this.hbox2.Add(this.propertiesln);
+            Gtk.Box.BoxChild w10 = ((Gtk.Box.BoxChild)(this.hbox2[this.propertiesln]));
             w10.Position = 2;
             w10.Expand = false;
             w10.Fill = false;

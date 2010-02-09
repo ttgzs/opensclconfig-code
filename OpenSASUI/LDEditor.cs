@@ -99,7 +99,7 @@ namespace OpenSASUI
 						                    j, ld.LN[i].DOI[j].desc);
 				}
 				else
-					model.AppendValues(Mono.Unix.Catalog.GetString("No DOI Information"), 0,
+					domodel.AppendValues(Mono.Unix.Catalog.GetString("No DOI Information"), 0,
 					                   Mono.Unix.Catalog.GetString("Sugestion: See at Data Type Templates"));
 			}
 		}

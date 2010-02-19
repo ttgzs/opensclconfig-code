@@ -129,16 +129,32 @@ namespace OpenSASUI
 						// Fill Adress List
 						if (connap.Address.P != null) {
 							for (int i = 0; i < connap.Address.P.GetLength(0); i++) {
-								string text = this.sclfile.GetPDescription(connap.Address.P[i].type);
-								string name = this.sclfile.GetPName(connap.Address.P[i].type);
+								string text = connap.Address.P[i].Description;
+								string name = connap.Address.P[i].type;
 								addmodel.AppendValues(name, i, 
-								                      connap.Address.P[i].type,
+								                      connap.Address.P[i].typeEnum,
 								                      text);
 							}
 						}
 						// Select first element
 						addmodel.GetIterFirst(out aiter);
 						this.addresstreeview.Selection.SelectIter(aiter);
+						IEC61850.SCL.tPTypeEnum type;
+						type = (IEC61850.SCL.tPTypeEnum) this.addresstreeview.Model.GetValue(aiter, 2);
+						Gtk.ListStore tpmodel = (Gtk.ListStore) this.tplist.Model;
+						Gtk.TreeIter tpiter;
+						if (tpmodel.GetIterFirst(out tpiter)) {
+							while (true) {
+								IEC61850.SCL.tPTypeEnum tp = (IEC61850.SCL.tPTypeEnum) 
+																tpmodel.GetValue (tpiter, 1);
+								if (tp.Equals(type)) {
+									this.tplist.SetActiveIter(tpiter);
+									break;
+								}
+								if (!tpmodel.IterNext(ref tpiter))
+									break;
+							}
+						}
 						
 						this.accesspointdetails.Sensitive = true;
 						this.connectiondetails.Sensitive = true;

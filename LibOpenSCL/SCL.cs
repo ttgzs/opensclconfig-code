@@ -1221,21 +1221,50 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP 
 	{		
-		private tPTypeEnum typeField;		
+		private tPType typeField;		
 		private string valueField;
+		
+		public tP ()
+		{
+			this.typeField = new tPType();
+		}
+		
+		public tPType PType
+		{
+			get {
+				return this.typeField;
+			}
+			set {
+				this.typeField = value;
+			}
+		}
+		
+		public string Description
+		{
+			get {
+				return this.typeField.Description();
+			}
+		}
+		
+		public tPTypeEnum typeEnum
+		{
+			get {
+				return this.typeField.typeEnum;
+			}
+		}
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[Category("P"), Description("This attribute identifies the meaning of the value"), ReadOnlyAttribute(true)]
-		public tPTypeEnum type 
+		public string type 
 		{
 			get 
 			{
-				return this.typeField;
+				return this.typeField.type;
 			}
 			set
 			{
-				this.typeField = value;
+				this.typeField.type = value;
 			}
 		}
 		
@@ -1257,7 +1286,214 @@ namespace IEC61850.SCL
 	/*
 	 * The enumeration "TPTypeEnum" was added to fullfill standar IEC 61850 Ed. 1.0
 	*/
-    [System.SerializableAttribute()]
+	public class tPType
+	{
+		private string typeField;
+		
+		public tPType() 
+		{
+			this.typeField = this.EnumToString(tPTypeEnum.IP);
+		}
+		
+		public tPType (tPTypeEnum t)
+		{
+			this.typeField = this.EnumToString(t);
+		}
+		
+		public string type 
+		{
+			get {
+				return this.typeField;
+			}
+			set {
+				this.typeField = value;
+			}
+		}
+		
+		public tPTypeEnum typeEnum 
+		{
+			get {
+				return this.StringToEnum(this.typeField);
+			}
+			set {
+				this.typeField = this.EnumToString(value);
+			}
+		}
+		
+		public string EnumToString (tPTypeEnum type)
+		{
+			string text = "";
+			switch (type)
+			{
+			case tPTypeEnum.IP:
+				text = "IP";
+				break;
+			case tPTypeEnum.IP_SUBNET:
+				text = "IP-SUBNET";
+				break;
+			case tPTypeEnum.IP_GATEWAY:
+				text = "IP-GATEWAY";
+				break;
+			case tPTypeEnum.OSI_NSAP:
+				text = "OSI-NSAP";
+				break;
+			case tPTypeEnum.OSI_TSEL:
+				text = "OSI-TSEL";
+				break;
+			case tPTypeEnum.OSI_SSEL:
+				text = "OSI-SSEL";
+				break;
+			case tPTypeEnum.OSI_PSEL:
+				text = "OSI-PSEL";
+				break;
+			case tPTypeEnum.OSI_AP_Title:
+				text = "OSI-AP-Title";
+				break;
+			case tPTypeEnum.OSI_AP_Invoke:
+				text = "OSI-AP-Invoke";
+				break;
+			case tPTypeEnum.OSI_AE_Qualifier:
+				text = "OSI-AE-Qualifier";
+				break;
+			case tPTypeEnum.OSI_AE_Invoke:
+				text = "OSI-AE-Invoke";
+				break;
+			case tPTypeEnum.MAC_Address:
+				text = "MAC-Address";
+				break;
+			case tPTypeEnum.APPID:
+				text = "APPID";
+				break;
+			case tPTypeEnum.VLAN_PRIORITY:
+				text = "VLAN-PRIORITY";
+				break;
+			case tPTypeEnum.VLAN_ID:
+				text = "VLAN-ID";
+				break;
+			default:
+				text = "EXTENSION";
+				break;
+			}
+			return text;
+		}
+		
+		public tPTypeEnum StringToEnum (string t)
+		{
+			tPTypeEnum type;
+			switch (t)
+			{
+			case "IP":
+				type = tPTypeEnum.IP;
+				break;
+			case "IP-SUBNET":
+				type = tPTypeEnum.IP_SUBNET;
+				break;
+			case "IP-GATEWAY":
+				type = tPTypeEnum.IP_GATEWAY;
+				break;
+			case "OSI-NSAP":
+				type = tPTypeEnum.OSI_NSAP;
+				break;
+			case "OSI-TSEL":
+				type = tPTypeEnum.OSI_TSEL;
+				break;
+			case "OSI-SSEL":
+				type = tPTypeEnum.OSI_SSEL;
+				break;
+			case "OSI-PSEL":
+				type = tPTypeEnum.OSI_PSEL;
+				break;
+			case "OSI-AP-Title":
+				type = tPTypeEnum.OSI_AP_Title;
+				break;
+			case "OSI-AP-Invoke":
+				type = tPTypeEnum.OSI_AP_Invoke;
+				break;
+			case "OSI-AE-Qualifier":
+				type = tPTypeEnum.OSI_AE_Qualifier;
+				break;
+			case "OSI-AE-Invoke":
+				type = tPTypeEnum.OSI_AE_Invoke;
+				break;
+			case "MAC-Address":
+				type = tPTypeEnum.MAC_Address;
+				break;
+			case "APPID":
+				type = tPTypeEnum.APPID;
+				break;
+			case "VLAN-PRIORITY":
+				type = tPTypeEnum.VLAN_PRIORITY;
+				break;
+			case "VLAN-ID":
+				type = tPTypeEnum.VLAN_ID;
+				break;
+			default:
+				type = tPTypeEnum.EXTENSION;
+				break;
+			}
+			return type;
+		}
+		
+		public string Description ()
+		{
+			string text = "";
+			switch (this.StringToEnum(this.typeField))
+			{
+			case tPTypeEnum.IP:
+				text = "TCP/IP Address";
+				break;
+			case tPTypeEnum.IP_SUBNET:
+				text = "Subnetwork Mask for TCP/IP profiles";
+				break;
+			case tPTypeEnum.IP_GATEWAY:
+				text = "First Hop IP gateway address for TCP/IP profiles";
+				break;
+			case tPTypeEnum.OSI_NSAP:
+				text = "OSI Network Address";
+				break;
+			case tPTypeEnum.OSI_TSEL:
+				text = "OSI Transport Selector";
+				break;
+			case tPTypeEnum.OSI_SSEL:
+				text = "OSI Session Selector";
+				break;
+			case tPTypeEnum.OSI_PSEL:
+				text = "OSI Presentation Selector";
+				break;
+			case tPTypeEnum.OSI_AP_Title:
+				text = "OSI ACSE AP Title value";
+				break;
+			case tPTypeEnum.OSI_AP_Invoke:
+				text = "OSI ACSE AP Invoke ID";
+				break;
+			case tPTypeEnum.OSI_AE_Qualifier:
+				text = "OSI ACSE AE Qualifier";
+				break;
+			case tPTypeEnum.OSI_AE_Invoke:
+				text = "OSI ACSE AE Invoke ID";
+				break;
+			case tPTypeEnum.MAC_Address:
+				text = "Media Access Address value";
+				break;
+			case tPTypeEnum.APPID:
+				text = "Application Identifier";
+				break;
+			case tPTypeEnum.VLAN_PRIORITY:
+				text = "VLAN User Priority";
+				break;
+			case tPTypeEnum.VLAN_ID:
+				text = "VLAN ID";
+				break;
+			default:
+				text = "EXTENSION: Custom type";
+				break;
+			}
+			return text;
+		}
+		
+	}
+	
+	[System.SerializableAttribute()]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public enum tPTypeEnum
 	{
@@ -1289,7 +1525,8 @@ namespace IEC61850.SCL
 		[System.Xml.Serialization.XmlEnumAttribute("VLAN-PRIORITY")]
 		VLAN_PRIORITY,		
 		[System.Xml.Serialization.XmlEnumAttribute("VLAN-ID")]
-		VLAN_ID
+		VLAN_ID,
+		EXTENSION // For custom types
 	}
 	
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
@@ -1305,26 +1542,9 @@ namespace IEC61850.SCL
 	*/	
 	public partial class tP_VLANID : tP 
 	{
-		private tPTypeEnum typeField;
-		
 		public tP_VLANID() 
 		{
-			this.typeField = tPTypeEnum.VLAN_ID;
-		}
-		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("VLAN ID"), Description("VLAN identifier"), DefaultValue(tPTypeEnum.VLAN_ID)]
-		public tPTypeEnum type 
-		{
-			get 
-			{
-				return this.typeField;
-			}
-			set 
-			{
-				this.typeField = value;
-			}
+			this.PType = new tPType(tPTypeEnum.VLAN_ID);
 		}
 	}
 
@@ -1341,26 +1561,9 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_VLAN-PRIORITY", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_VLANPRIORITY : tP 
 	{
-		private tPTypeEnum typeField;
-		
 		public tP_VLANPRIORITY() 
 		{
-			this.typeField = tPTypeEnum.VLAN_PRIORITY;
-		}
-		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("VLAN PRIORITY"), Description("Priority of VLAN"), DefaultValue(tPTypeEnum.VLAN_PRIORITY)]
-		public tPTypeEnum type 
-		{
-			get 
-			{
-				return this.typeField;
-			}
-			set 
-			{
-				this.typeField = value;
-			}
+			this.PType = new tPType (tPTypeEnum.VLAN_PRIORITY);
 		}
 	}
 
@@ -1379,26 +1582,9 @@ namespace IEC61850.SCL
 	*/
 	public partial class tP_APPID : tP 
 	{
-		private tPTypeEnum typeField;
-		
 		public tP_APPID()
 		{
-			this.typeField = tPTypeEnum.APPID;
-		}
-		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]		
-		[Category("APP ID"), Description("Application identifier"), DefaultValue(tPTypeEnum.APPID)]
-		public tPTypeEnum type 
-		{
-			get 
-			{
-				return this.typeField;
-			}
-			set 
-			{
-				this.typeField = value;
-			}
+			this.PType = new tPType(tPTypeEnum.APPID);
 		}
 	}
 
@@ -1415,26 +1601,9 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_MAC-Address", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_MACAddress : tP
 	{
-		private tPTypeEnum typeField;
-		
 		public tP_MACAddress() 
 		{
-			this.typeField = tPTypeEnum.MAC_Address;
-		}
-		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("MACAddress"), Description("Media access address value"), DefaultValue(tPTypeEnum.MAC_Address)]
-		public tPTypeEnum type 
-		{
-			get 
-			{
-				return this.typeField;
-			}
-			set 
-			{
-				this.typeField = value;
-			}
+			this.PType = new tPType(tPTypeEnum.MAC_Address);
 		}
 	}
 
@@ -1451,26 +1620,9 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-AE-Invoke", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_OSIAEInvoke : tP
 	{
-		private tPTypeEnum typeField;
-		
 		public tP_OSIAEInvoke()
 		{
-			this.typeField = tPTypeEnum.OSI_AE_Invoke;
-		}
-		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("OSIAEInvoke"), Description("OSI AE Invoke"), DefaultValue(tPTypeEnum.OSI_AE_Invoke)]			
-		public tPTypeEnum type 
-		{
-			get 
-			{
-				return this.typeField;
-			}
-			set 
-			{
-				this.typeField = value;
-			}
+			this.PType = new tPType(tPTypeEnum.OSI_AE_Invoke);
 		}
 	}
 
@@ -1487,26 +1639,9 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-AE-Qualifier", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_OSIAEQualifier : tP 
 	{
-		private tPTypeEnum typeField;
-		
 		public tP_OSIAEQualifier() 
 		{
-			this.typeField = tPTypeEnum.OSI_AE_Qualifier;
-		}
-		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]		
-		[Category("OSIAEQualifier"), Description("OSI ACSE AE qualifier"), DefaultValue(tPTypeEnum.OSI_AE_Qualifier)]			
-		public tPTypeEnum type 
-		{
-			get 
-			{
-				return this.typeField;
-			}
-			set 
-			{
-				this.typeField = value;
-			}
+			this.PType = new tPType(tPTypeEnum.OSI_AE_Qualifier);
 		}
 	}
 
@@ -1523,26 +1658,9 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-AP-Invoke", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_OSIAPInvoke : tP 
 	{
-		private tPTypeEnum typeField;
-		
 		public tP_OSIAPInvoke() 
 		{
-			this.typeField = tPTypeEnum.OSI_AP_Invoke;
-		}
-		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]		
-		[Category("OSIAPInvoke"), Description("OSI ACSE AP invoke ID"), DefaultValue(tPTypeEnum.OSI_AP_Invoke)]					
-		public tPTypeEnum type 
-		{
-			get 
-			{
-				return this.typeField;
-			}
-			set 
-			{
-				this.typeField = value;
-			}
+			this.PType = new tPType(tPTypeEnum.OSI_AP_Invoke);
 		}
 	}
 
@@ -1559,26 +1677,9 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-AP-Title", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_OSIAPTitle : tP 
 	{
-		private tPTypeEnum typeField;
-		
 		public tP_OSIAPTitle()
 		{
-			this.typeField = tPTypeEnum.OSI_AP_Title;
-		}
-		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("OSIAPTitle"), Description("OSI ACSE AP title value"), DefaultValue(tPTypeEnum.OSI_AP_Title)]					
-		public tPTypeEnum type 
-		{
-			get 
-			{
-				return this.typeField;
-			}
-			set 
-			{
-				this.typeField = value;
-			}
+			this.PType = new tPType(tPTypeEnum.OSI_AP_Title);
 		}
 	}
 	
@@ -1595,26 +1696,9 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-PSEL", Namespace="http://www.iec.ch/61850/2003/SCL")]			
 	public partial class tP_OSIPSEL : tP 
 	{
-		private tPTypeEnum typeField;
-		
 		public tP_OSIPSEL()
 		{
-			this.typeField = tPTypeEnum.OSI_PSEL;
-		}
-		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("OSIPSEL"), Description("OSI presentation selector"), DefaultValue(tPTypeEnum.OSI_PSEL)]							
-		public tPTypeEnum type 
-		{
-			get
-			{
-				return this.typeField;
-			}
-			set 
-			{
-				this.typeField = value;
-			}
+			this.PType = new tPType(tPTypeEnum.OSI_PSEL);
 		}
 	}
 
@@ -1631,26 +1715,9 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-SSEL", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_OSISSEL : tP
 	{
-		private tPTypeEnum typeField;
-		
 		public tP_OSISSEL()
 		{
-			this.typeField = tPTypeEnum.OSI_SSEL;
-		}
-		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]		
-		[Category("OSISSEL"), Description("OSI session selector"), DefaultValue(tPTypeEnum.OSI_SSEL)]							
-		public tPTypeEnum type 
-		{
-			get
-			{
-				return this.typeField;
-			}
-			set 
-			{
-				this.typeField = value;
-			}
+			this.PType = new tPType(tPTypeEnum.OSI_SSEL);
 		}
 	}
 
@@ -1667,26 +1734,9 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-TSEL", Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public partial class tP_OSITSEL : tP 
 	{
-		private tPTypeEnum typeField;
-		
 		public tP_OSITSEL() 
 		{
-			this.typeField = tPTypeEnum.OSI_TSEL;
-		}
-		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("OSITSEL"), Description("OSI transport selector"), DefaultValue(tPTypeEnum.OSI_TSEL)]									
-		public tPTypeEnum type 
-		{
-			get 
-			{
-				return this.typeField;
-			}
-			set 
-			{
-				this.typeField = value;
-			}
+			this.PType = new tPType(tPTypeEnum.OSI_TSEL);
 		}
 	}
 
@@ -1703,26 +1753,9 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_OSI-NSAP", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_OSINSAP : tP
 	{
-		private tPTypeEnum typeField;
-		
 		public tP_OSINSAP()
 		{
-			this.typeField = tPTypeEnum.OSI_NSAP;
-		}
-		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("OSINSAP"), Description("OSI network address"), DefaultValue(tPTypeEnum.OSI_NSAP)]											
-		public tPTypeEnum type 
-		{
-			get 
-			{
-				return this.typeField;
-			}
-			set 
-			{
-				this.typeField = value;
-			}
+			this.PType = new tPType(tPTypeEnum.OSI_NSAP);
 		}
 	}
  
@@ -1739,27 +1772,9 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_IP-GATEWAY", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_IPGATEWAY : tP 
 	{
-		private tPTypeEnum typeField;
-		
 		public tP_IPGATEWAY()
 		{
-			this.typeField = tPTypeEnum.IP_GATEWAY;
-		}
-		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("GATEWAY"), Description("First hop IP gateway address for TCP/IP profiles."), 
-		 DefaultValue(tPTypeEnum.IP_GATEWAY)]
-		public tPTypeEnum type 
-		{
-			get 
-			{
-				return this.typeField;
-			}
-			set 
-			{
-				this.typeField = value;
-			}
+			this.PType = new tPType(tPTypeEnum.IP_GATEWAY);
 		}
 	}
 
@@ -1776,27 +1791,9 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(TypeName="tP_IP-SUBNET", Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_IPSUBNET : tP 
 	{
-		private tPTypeEnum typeField;
-		
 		public tP_IPSUBNET()
 		{
-			this.typeField = tPTypeEnum.IP_SUBNET;
-		}
-		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("SUBNET"), Description("Subnet mask for TCP/IP profiles."), 
-		 DefaultValue(tPTypeEnum.IP_SUBNET)]
-		public tPTypeEnum type
-		{
-			get 
-			{
-				return this.typeField;
-			}
-			set 
-			{
-				this.typeField = value;
-			}
+			this.PType = new tPType(tPTypeEnum.IP_SUBNET);
 		}
 	}
 
@@ -1813,26 +1810,9 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tP_IP : tP
 	{
-		private tPTypeEnum typeField;
-		
 		public tP_IP()
 		{
-			this.typeField = tPTypeEnum.IP;
-		}
-		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("TypeEnum"), Description("Address or DNS name to be used"), DefaultValue(tPTypeEnum.IP)]
-		public tPTypeEnum type
-		{
-			get 
-			{
-				return this.typeField;
-			}
-			set 
-			{
-				this.typeField = value;
-			}
+			this.PType = new tPType(tPTypeEnum.IP);
 		}
 	}
 

@@ -219,16 +219,18 @@ namespace OpenSASUI
 				                     ied.AccessPoint[j].desc);
 			}
 			
-			apmodel.GetIterFirst(out iter);
-			this.accesspointlist.SetActiveIter(iter);
-			int apindex = (int) apmodel.GetValue (iter, 1);
-			this.accesspointeditor.SetAP(this.sclfile, this.numied, apindex);
+			int apindex = -1;
+			if (apmodel.GetIterFirst(out iter)) {
+				this.accesspointlist.SetActiveIter(iter);
+				apindex = (int) apmodel.GetValue (iter, 1);
+				this.accesspointeditor.SetAP(this.sclfile, this.numied, apindex);
+			}
 			
-			ldmodel.GetIterFirst(out iter);
-			this.ldlist.SetActiveIter(iter);
-			int fldnum = (int) ldmodel.GetValue(iter, 1);
-			this.ldedit.SetLD(this.sclfile, this.numied, apindex, fldnum);
-			
+			if (ldmodel.GetIterFirst(out iter)) {
+				this.ldlist.SetActiveIter(iter);
+				int fldnum = (int) ldmodel.GetValue(iter, 1);
+				this.ldedit.SetLD(this.sclfile, this.numied, apindex, fldnum);
+			}
 			// Private
 			
 			// finishing

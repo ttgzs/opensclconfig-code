@@ -276,9 +276,9 @@ namespace OpenSASUI
 									IEC61850.SCL.tP t = this.sclfile.Subnetworks[this.subnetwork]
 																.ConnectedAP[i].GSE[j].Address.P[k];
 									
-									if (t.type == IEC61850.SCL.tPTypeEnum.APPID)
+									if (t.typeEnum == IEC61850.SCL.tPTypeEnum.APPID)
 										appidIndex = k;
-									if (t.type == IEC61850.SCL.tPTypeEnum.MAC_Address)
+									if (t.typeEnum == IEC61850.SCL.tPTypeEnum.MAC_Address)
 										macIndex = k;
 								}
 								
@@ -325,13 +325,13 @@ namespace OpenSASUI
 				if (sclfile.Subnetworks[this.subnetwork].ConnectedAP[i].Address != null) {
 					for (int j = 0; j < sclfile.Subnetworks[this.subnetwork].ConnectedAP[i].Address.P.GetLength(0); j++) {
 						if (sclfile.Subnetworks[this.subnetwork]
-						    .ConnectedAP[i].Address.P[j].type == IEC61850.SCL.tPTypeEnum.IP)
+						    .ConnectedAP[i].Address.P[j].typeEnum == IEC61850.SCL.tPTypeEnum.IP)
 							ipindex = j;
 						if (sclfile.Subnetworks[this.subnetwork]
-						    .ConnectedAP[i].Address.P[j].type == IEC61850.SCL.tPTypeEnum.IP_SUBNET)
+						    .ConnectedAP[i].Address.P[j].typeEnum == IEC61850.SCL.tPTypeEnum.IP_SUBNET)
 							maskindex = j;
 						if (sclfile.Subnetworks[this.subnetwork]
-						    .ConnectedAP[i].Address.P[j].type == IEC61850.SCL.tPTypeEnum.IP_GATEWAY)
+						    .ConnectedAP[i].Address.P[j].typeEnum == IEC61850.SCL.tPTypeEnum.IP_GATEWAY)
 							gatewindex = j;
 						
 					}

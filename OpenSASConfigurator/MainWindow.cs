@@ -27,6 +27,13 @@ public partial class MainWindow : Gtk.Window
 		if (dlg.Run() == (int) Gtk.ResponseType.Accept)
 		{
 			this.scleditor.SclFile = new OpenSCL.Object(dlg.Filename);
+			if (this.scleditor.SclFile != null) {
+				string t = this.Title;
+				t += "[ ";
+				t += this.scleditor.SclFile.FileName;
+				t += " ]";
+				this.Title = t;
+			}
 		}
 		dlg.Destroy();
 	}

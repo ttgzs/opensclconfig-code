@@ -3365,7 +3365,7 @@ namespace IEC61850.SCL
 		private tVal[] valField;		
 		private string nameField;		
 		private string sAddrField;		
-		private tBasicTypeEnum bTypeField;		
+		private tBasicType bTypeField;		
 		private tValKindEnum valKindField;		
 		private string typeField;		
 		private uint countField;
@@ -3374,6 +3374,7 @@ namespace IEC61850.SCL
 		{
 			this.valKindField = tValKindEnum.Set;
 			this.countField = ((uint)(0));
+			this.bTypeField = new tBasicType();
 		}
 		
 		[System.Xml.Serialization.XmlElementAttribute("Val")]
@@ -3419,18 +3420,25 @@ namespace IEC61850.SCL
 			}
 		}
 
+		public tBasicTypeEnum bTypeEnum 
+		{
+			get { return this.bTypeField.bTypeEnum; }
+			set { this.bTypeField.bTypeEnum = value; }
+		}
+		
+		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[Category("AbstractDataAttribute"), Description("The basic type of the attribute."), ReadOnly(true)]
-		public tBasicTypeEnum bType 
+		public string bType 
 		{
 			get 
 			{
-				return this.bTypeField;
+				return this.bTypeField.bType;
 			}
 			set 
 			{
-				this.bTypeField = value;
+				this.bTypeField.bType = value;
 			}
 		}
 		
@@ -6792,6 +6800,207 @@ namespace IEC61850.SCL
 		Check
 	}
 	
+	public class tBasicType
+	{
+		private string typeField;
+		
+		public tBasicType()
+		{
+			this.typeField = "BOOLEAN";
+		}
+		
+		public tBasicTypeEnum bTypeEnum {
+			get { return this.StringToEnum(this.typeField); }
+			set { this.typeField = this.EnumToString(value); }
+		}
+		
+		public string bType {
+			get { return this.typeField; }
+			set { this.typeField = value; }
+		}
+        
+		public string EnumToString (tBasicTypeEnum t)
+		{
+			switch (t) {
+			
+			case tBasicTypeEnum.BOOLEAN:
+				return  "BOOLEAN";
+				break;
+			case tBasicTypeEnum.INT8:
+				return  "INT8";
+				break;				
+			case tBasicTypeEnum.INT16:
+				return  "INT16";
+				break;				
+			case tBasicTypeEnum.INT24:
+				return "INT24";
+				break;			
+			case tBasicTypeEnum.INT32:
+				return "INT32";
+				break;			
+			case tBasicTypeEnum.INT128:
+				return "INT128";
+				break;			
+			case tBasicTypeEnum.INT8U:
+				return "INT8U";
+				break;				
+			case tBasicTypeEnum.INT16U:
+				return "INT16U";
+				break;				
+			case tBasicTypeEnum.INT24U:
+				return "INT24U";
+				break;				
+			case tBasicTypeEnum.INT32U:
+				return "INT32U";
+				break;				
+			case tBasicTypeEnum.FLOAT32:
+				return "FLOAT32";
+				break;				
+			case tBasicTypeEnum.FLOAT64:
+				return "FLOAT64";
+				break;				
+			case tBasicTypeEnum.Enum:
+				return "Enum";
+				break;				
+			case tBasicTypeEnum.Dbpos:
+				return "Dbpos";
+				break;				
+			case tBasicTypeEnum.Tcmd:
+				return "Tcmd";
+				break;				
+			case tBasicTypeEnum.Quality:
+				return "Quality";
+				break;				
+			case tBasicTypeEnum.Timestamp:
+				return "Timestamp";
+				break;				
+			case tBasicTypeEnum.VisString32:
+				return "VisString32";
+				break;				
+			case tBasicTypeEnum.VisString64:
+				return "VisString64";
+				break;
+			case tBasicTypeEnum.VisString255:
+				return "VisString255";
+				break;
+			case tBasicTypeEnum.Octet64:
+				return "Octet64";
+				break;
+			case tBasicTypeEnum.Struct:
+				return "Struct";
+				break;
+			case tBasicTypeEnum.EntryTime:
+				return "EntryTime";
+				break;
+			case tBasicTypeEnum.Unicode255:
+				return "Unicode255";
+				break;
+			default:
+				return "Extension";
+				break;
+			}
+		}
+		
+		public tBasicTypeEnum StringToEnum (string t)
+		{
+			switch (t) {
+			
+			case "BOOLEAN":
+				return  tBasicTypeEnum.BOOLEAN;
+				break;
+			
+			case "INT8":
+				return  tBasicTypeEnum.INT8;
+				break;
+				
+			case "INT16":
+				return  tBasicTypeEnum.INT16;
+				break;
+				
+			case "INT24":
+				return tBasicTypeEnum.INT24;
+				break;
+			
+			case "INT32":
+				return tBasicTypeEnum.INT32;
+				break;
+			
+			case "INT128":
+				return tBasicTypeEnum.INT128;
+				break;
+			
+			case "INT8U":
+				return tBasicTypeEnum.INT8U;
+				break;
+				
+			case "INT16U":
+				return tBasicTypeEnum.INT16U;
+				break;
+				
+			case "INT24U":
+				return tBasicTypeEnum.INT24U;
+				break;
+				
+			case "INT32U":
+				return tBasicTypeEnum.INT32U;
+				break;
+				
+			case "FLOAT32":
+				return tBasicTypeEnum.FLOAT32;
+				break;
+				
+			case "FLOAT64":
+				return tBasicTypeEnum.FLOAT64;
+				break;
+				
+			case "Enum":
+				return tBasicTypeEnum.Enum;
+				break;
+				
+			case "Dbpos":
+				return tBasicTypeEnum.Dbpos;
+				break;
+				
+			case "Tcmd":
+				return tBasicTypeEnum.Tcmd;
+				break;
+				
+			case "Quality":
+				return tBasicTypeEnum.Quality;
+				break;
+				
+			case "Timestamp":
+				return tBasicTypeEnum.Timestamp;
+				break;
+			case "VisString32":
+				return tBasicTypeEnum.VisString32;
+				break;
+				
+			case "VisString64":
+				return tBasicTypeEnum.VisString64;
+				break;
+			case "VisString255":
+				return tBasicTypeEnum.VisString255;
+				break;
+			case "Octet64":
+				return tBasicTypeEnum.Octet64;
+				break;
+			case "Struct":
+				return tBasicTypeEnum.Struct;
+				break;
+			case "EntryTime":
+				return tBasicTypeEnum.EntryTime;
+				break;
+			case "Unicode255":
+				return tBasicTypeEnum.Unicode255;
+				break;
+			default:
+				return tBasicTypeEnum.Extension;
+				break;
+			}
+		}
+	}
+	
 	/*
 	 * The enumeration "tBasicTypeEnum" was added to fulfill standard IEC 61850 Ed. 1.0.
 	 * This is composed by the following Enums: tPredefinedBasicTypeEnum and tExtensionBasicTypeEnum
@@ -6826,7 +7035,8 @@ namespace IEC61850.SCL
 		Unicode255,
 		//tExtensionBasicTypeEnum is missing	
 		Check,
-		VisString65
+		VisString65,
+		Extension // Used for custom types
 	}
 
 	/* 

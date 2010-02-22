@@ -1,4 +1,4 @@
-﻿// LibOpenSCL
+// LibOpenSCL
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -193,7 +193,7 @@ namespace OpenSCL
 			// The variable "d" is the index of the DA (Don't change this class!!)
 			for(int d = 0; d < dOType.DA.Length; d++)
 			{
-				if(dOType.DA[d].bType == tBasicTypeEnum.Struct)
+				if(dOType.DA[d].bTypeEnum == tBasicTypeEnum.Struct)
 				{
 					for(int e = 0; e < dataTypeTemplates.DAType.Length; )
 					{
@@ -247,7 +247,7 @@ namespace OpenSCL
 			// The variable "d" is the index of the DA (Don't change this class!!)
 			for(int d = 0; d < dOType.DA.Length; d++)			
 			{
-				if(dOType.DA[d].bType == tBasicTypeEnum.Struct)
+				if(dOType.DA[d].bTypeEnum == tBasicTypeEnum.Struct)
 				{					
 					// The variable "e" is the index of the DA (This class can be modified)
 					for(int e = 0; e < dataTypeTemplates.DAType.Length; e++)
@@ -313,7 +313,7 @@ namespace OpenSCL
 			// The variable "index2" is the index of the BDA (Don't change this class!!)
 			for(int index2 = 0; dataTypeTemplates.DAType[indexTemp].BDA !=null && index2 < dataTypeTemplates.DAType[indexTemp].BDA.Length; index2++)
 			{
-				if(dataTypeTemplates.DAType[indexTemp].BDA[index2].bType == tBasicTypeEnum.Struct)
+				if(dataTypeTemplates.DAType[indexTemp].BDA[index2].bTypeEnum == tBasicTypeEnum.Struct)
 				{
 					// The variable "index" is the index for the DAType (This class can be modified)
 					int i = 0;

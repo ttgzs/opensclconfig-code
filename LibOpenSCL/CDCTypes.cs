@@ -1,4 +1,4 @@
-﻿// LibOpenSCL
+// LibOpenSCL
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -7872,7 +7872,7 @@ namespace IEC61850.SCL
 		public angRef(tFCEnum fCEnum)
 		{					
 			this.name = "angRef";
-			this.bType = tBasicTypeEnum.Enum;
+			this.bTypeEnum = tBasicTypeEnum.Enum;
 			this.fc = fCEnum;
 			this.iedType = iedType;			
 			conversionObject = new ConversionObject();			
@@ -7916,7 +7916,7 @@ namespace IEC61850.SCL
 		public angSVC(string iedType, string lnType, tFCEnum fCEnum)
 		{				
 			this.name = "angSVC";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"angSVC";
 			this.iedType = iedType;
@@ -7948,10 +7948,10 @@ namespace IEC61850.SCL
 		{		
 			this.iedType = iedType;
 			this.name = "crvPts";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"crvPts";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.PointField = new Point(iedType, this.id);				
 			this.PointField.CheckSelection = true;
 		}
@@ -7980,7 +7980,7 @@ namespace IEC61850.SCL
 		public ctlModel(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "ctlModel";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"ctlModel";
 			this.iedType = iedType;
@@ -7995,7 +7995,7 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(ctlModelsEnum.status_only);
 			}	
 			this.name = "ctlModel";
-			this.bType = tBasicTypeEnum.Enum;
+			this.bTypeEnum = tBasicTypeEnum.Enum;
 			this.id = this.type = "ctlModelsEnum";	
 			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(ctlModelsEnum));			
 			this.EnumVal = new tEnumVal[valuesEnumArray.Length];
@@ -8053,7 +8053,7 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(valModEnum.on);
 			}	
 			this.name = "ctlVal";
-			this.bType = tBasicTypeEnum.Enum;			
+			this.bTypeEnum = tBasicTypeEnum.Enum;			
 			this.iedType = iedType;					
 			this.id = this.type = "ctlValEnum";			
 			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(valModEnum));			
@@ -8075,7 +8075,7 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(valModEnum.on);
 			}	
 			this.name = "ctlVal";
-			this.bType = tBasicTypeEnum.Enum;
+			this.bTypeEnum = tBasicTypeEnum.Enum;
 			this.fc = fCEnum;
 			this.iedType = iedType;					
 			this.id = this.type = "ctlValEnum";			
@@ -8114,7 +8114,7 @@ namespace IEC61850.SCL
 		
 		public cVal(string iedType, string lnType, tFCEnum fCEnum)
 		{	this.name = "cVal";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"cVal";
 			this.iedType = iedType;			
@@ -8150,7 +8150,7 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(dirGeneralEnum.unknown);
 			}	
 			this.name = "dirGeneral";
-			this.bType = tBasicTypeEnum.Enum;
+			this.bTypeEnum = tBasicTypeEnum.Enum;
 			this.fc = fCEnum;
 			this.iedType = iedType;					
 			this.id = this.type = "dirGeneralEnum";			
@@ -8195,7 +8195,7 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(dirEnum.unknown);
 			}	
 			this.name = "dirNeut";
-			this.bType = tBasicTypeEnum.Enum;
+			this.bTypeEnum = tBasicTypeEnum.Enum;
 			this.fc = fCEnum;
 			this.iedType = iedType;					
 			this.id = this.type = "dirNeutEnum";			
@@ -8239,7 +8239,7 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(dirEnum.unknown);
 			}	
 			this.name = "dirPhsA";
-			this.bType = tBasicTypeEnum.Enum;
+			this.bTypeEnum = tBasicTypeEnum.Enum;
 			this.fc = fCEnum;
 			this.iedType = iedType;					
 			this.id = this.type = "dirPhsAEnum";			
@@ -8283,7 +8283,7 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(dirEnum.unknown);
 			}
 			this.name = "dirPhsB";
-			this.bType = tBasicTypeEnum.Enum;
+			this.bTypeEnum = tBasicTypeEnum.Enum;
 			this.fc = fCEnum;
 			this.iedType = iedType;					
 			this.id = this.type = "dirPhsBEnum";			
@@ -8327,7 +8327,7 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(dirEnum.unknown);
 			}	
 			this.name = "dirPhsC";
-			this.bType = tBasicTypeEnum.Enum;
+			this.bTypeEnum = tBasicTypeEnum.Enum;
 			this.fc = fCEnum;
 			this.iedType = iedType;					
 			this.id = this.type = "dirPhsCEnum";			
@@ -8372,7 +8372,7 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(hvRefEnum.fundamental);
 			}	
 			this.name = "hvRef";
-			this.bType = tBasicTypeEnum.Enum;
+			this.bTypeEnum = tBasicTypeEnum.Enum;
 			this.fc = fCEnum;
 			this.iedType = iedType;			
 			this.id = this.type = "hvRefEnum";			
@@ -8411,7 +8411,7 @@ namespace IEC61850.SCL
 		public instCVal(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "instCVal";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"instCVal";
 			this.iedType = iedType;		
@@ -8442,7 +8442,7 @@ namespace IEC61850.SCL
 		public instMag(string iedType, string lnType, tFCEnum fCEnum)
 		{	
 			this.name = "instMag";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"instMag";
 			this.iedType = iedType;			
@@ -8473,7 +8473,7 @@ namespace IEC61850.SCL
 		public mag(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "mag";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"mag";
 			this.iedType = iedType;			
@@ -8484,7 +8484,7 @@ namespace IEC61850.SCL
 		public mag(string iedType, string lnType)
 		{
 			this.name = "mag";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.id = this.type = lnType+"mag";
 			this.iedType = iedType;			
 			this.AnalogueValueField = new AnalogueValue(iedType, this.id);
@@ -8514,7 +8514,7 @@ namespace IEC61850.SCL
 		public magSVC(string iedType, string lnType, tFCEnum fCEnum)
 		{				
 			this.name = "magSVC";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"magSVC";
 			this.iedType = iedType;
@@ -8545,7 +8545,7 @@ namespace IEC61850.SCL
 		public max(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "max";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"max";
 			this.iedType = iedType;
@@ -8556,7 +8556,7 @@ namespace IEC61850.SCL
 		public max(string iedType, string lnType)
 		{
 			this.name = "max";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.id = this.type = lnType+"max";
 			this.iedType = iedType;
 			this.AnalogueValueField = new AnalogueValue(iedType, this.id);
@@ -8589,7 +8589,7 @@ namespace IEC61850.SCL
 		public maxVal(string iedType, string lnType, tFCEnum fCEnum)
 		{				
 			this.name = "maxVal";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"maxVal";
 			this.iedType = iedType;			
@@ -8619,7 +8619,7 @@ namespace IEC61850.SCL
 		public min(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "min";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;			
 			this.id = this.type = lnType+"min";
 			this.iedType = iedType;
@@ -8630,7 +8630,7 @@ namespace IEC61850.SCL
 		public min(string iedType, string lnType)
 		{
 			this.name = "min";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.id = this.type = lnType+"min";
 			this.iedType = iedType;
 			this.AnalogueValueField = new AnalogueValue(iedType, this.id);
@@ -8663,7 +8663,7 @@ namespace IEC61850.SCL
 		public minVal(string iedType, string lnType, tFCEnum fCEnum)
 		{				
 			this.name = "minVal";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"minVal";
 			this.iedType = iedType;			
@@ -8695,7 +8695,7 @@ namespace IEC61850.SCL
 		public origin(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "origin";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"Originator";
 			this.iedType = iedType;			
@@ -8706,7 +8706,7 @@ namespace IEC61850.SCL
 		public origin(string iedType, string lnType)
 		{
 			this.name = "origin";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.id = this.type = lnType+"Originator";
 			this.iedType = iedType;			
 			this.orCatField = new orCat();
@@ -8757,7 +8757,7 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(phsRefEnum.A);
 			}	
 			this.name = "phsRef";
-			this.bType = tBasicTypeEnum.Enum;
+			this.bTypeEnum = tBasicTypeEnum.Enum;
 			this.fc = fCEnum;
 			this.id = this.type = "phsRefEnum";
 			
@@ -8797,7 +8797,7 @@ namespace IEC61850.SCL
 		public pulsQty(string iedType, string lnType, tFCEnum fCEnum)
 		{			
 			this.name = "pulsQty";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"pulsQty";
 			this.iedType = iedType;
@@ -8829,7 +8829,7 @@ namespace IEC61850.SCL
 		public range(tFCEnum fCEnum)
 		{
 			this.name = "range";
-			this.bType = tBasicTypeEnum.Enum;			
+			this.bTypeEnum = tBasicTypeEnum.Enum;			
 			this.fc = fCEnum;
 			this.id = this.type = "rangeEnum";
 			conversionObject = new ConversionObject();			
@@ -8851,7 +8851,7 @@ namespace IEC61850.SCL
 		public range(string iedType, string lnType, tFCEnum fCEnum)
 		{					
 			this.name = "range";			
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"range";
 			this.iedType = iedType;
@@ -8895,7 +8895,7 @@ namespace IEC61850.SCL
 		public rangeC(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "rangeC";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"rangeC";
 			this.iedType = iedType;
@@ -8928,7 +8928,7 @@ namespace IEC61850.SCL
 		public sboClass(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "sboClass";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"sboClass";
 			this.iedType = iedType;			
@@ -8965,7 +8965,7 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(seqTEnum.pos_neg_zero);
 			}	
 			this.name = "seqT";
-			this.bType = tBasicTypeEnum.Enum;
+			this.bTypeEnum = tBasicTypeEnum.Enum;
 			this.fc = fCEnum;
 			this.id = this.type = "seqTEnum";			
 			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(seqTEnum));			
@@ -9006,7 +9006,7 @@ namespace IEC61850.SCL
 		public setMag(string iedType, string lnType, tFCEnum fCEnum)
 		{				
 			this.name = "setMag";		
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"setMag";
 			this.iedType = iedType;
@@ -9040,7 +9040,7 @@ namespace IEC61850.SCL
 		public setMag2(string iedType, string lnType, tFCEnum fCEnum)
 		{				
 			this.name = "setMag2";	
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"setMag2";
 			this.iedType = iedType;
@@ -9076,7 +9076,7 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(sevEnum.unknown);
 			}	
 			this.name = "sev";
-			this.bType = tBasicTypeEnum.Enum;
+			this.bTypeEnum = tBasicTypeEnum.Enum;
 			this.fc = fCEnum;
 			this.id = this.type = "sevEnum";			
 			Array valuesEnumArray = conversionObject.GetValuesEnumToArray(typeof(sevEnum));			
@@ -9118,7 +9118,7 @@ namespace IEC61850.SCL
 		{				
 			this.name = "stepSize";			
 			this.iedType = iedType;
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"stepSize";
 			this.AnalogueValueField = new AnalogueValue(iedType, this.id);
@@ -9165,7 +9165,7 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(valModEnum.on);
 			}	
 			this.name = "stVal";
-			this.bType = tBasicTypeEnum.Enum;
+			this.bTypeEnum = tBasicTypeEnum.Enum;
 			this.fc = fCEnum;
 			this.iedType = iedType;							
 			this.id = this.type = " stValEnum";			
@@ -9210,7 +9210,7 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(valEnum.intermediate_state);
 			}	
 			this.name = "subCVal";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"subCVal";
 			this.iedType = iedType;			
@@ -9267,7 +9267,7 @@ namespace IEC61850.SCL
 		public subVal(tFCEnum fCEnum)
 		{				
 			this.name = "subVal";
-			this.bType = tBasicTypeEnum.Enum;					
+			this.bTypeEnum = tBasicTypeEnum.Enum;					
 			this.fc = fCEnum;
 			this.id = this.type = " subValEnum";			
 			this.EnumVal = new tEnumVal[4];
@@ -9292,7 +9292,7 @@ namespace IEC61850.SCL
 		public subVal(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "subVal";			
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"subVal";
 			this.iedType = iedType;
@@ -9326,7 +9326,7 @@ namespace IEC61850.SCL
 		public sVC(string iedType, string lnType, tFCEnum fCEnum)
 		{				
 			this.name = "sVC";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"sVC";
 			this.iedType = iedType;
@@ -9357,7 +9357,7 @@ namespace IEC61850.SCL
 		public units(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "units";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"units";
 			this.iedType = iedType;			
@@ -9388,7 +9388,7 @@ namespace IEC61850.SCL
 		public valWTr(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "valWTr";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"valWTr";
 			this.iedType = iedType;			
@@ -9419,7 +9419,7 @@ namespace IEC61850.SCL
 		public xUnit(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "xUnit";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"xUnit";
 			this.iedType = iedType;			
@@ -9450,7 +9450,7 @@ namespace IEC61850.SCL
 		public yUnit(string iedType, string lnType, tFCEnum fCEnum)
 		{
 			this.name = "yUnit";
-			this.bType = tBasicTypeEnum.Struct;
+			this.bTypeEnum = tBasicTypeEnum.Struct;
 			this.fc = fCEnum;
 			this.id = this.type = lnType+"yUnit";
 			this.iedType = iedType;			
@@ -9483,7 +9483,7 @@ namespace IEC61850.SCL
 				this.Value = this.conversionObject.SetEnumObjectToString(valModEnum.on);
 			}	
 			this.name = "stVal";
-			this.bType = tBasicTypeEnum.Enum;
+			this.bTypeEnum = tBasicTypeEnum.Enum;
 			this.fc = fCEnum;
 			this.iedType = iedType;							
 			this.id = this.type = " stValEnum";			

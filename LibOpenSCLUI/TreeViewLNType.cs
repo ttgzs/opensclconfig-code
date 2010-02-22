@@ -1,4 +1,4 @@
-﻿// LibOpenSCLUI
+// LibOpenSCLUI
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -269,7 +269,7 @@ namespace OpenSCL.UI
 			else if(attributeInformation.PropertyType!=null&& attributeInformation.PropertyType.BaseType!=null
 			   &&(valueAttributeObject.GetType().BaseType.Equals(typeof(SDOSDIDOTypeDA))))
 			{					
-				node.Text = "DA : "+attributeInformation.Name+" ( type ="+ (valueAttributeObject as SDOSDIDOTypeDA).bType +" ) ";
+				node.Text = "DA : "+attributeInformation.Name+" ( type ="+ (valueAttributeObject as SDOSDIDOTypeDA).bTypeEnum +" ) ";
 				treeSCL.Nodes.Add(node);			
 				this.GetNameNodes(valueAttributeObject, treeSCL.Nodes[attributeInformation.Name]);
 			}
@@ -460,11 +460,11 @@ namespace OpenSCL.UI
 					this.CreateDA(node.Tag);
 					this.CreateDAI(node.Tag);
 					this.CreateDataSet(node);
-					if((node.Tag as tDA).bType == tBasicTypeEnum.Struct)
+					if((node.Tag as tDA).bTypeEnum == tBasicTypeEnum.Struct)
 					{
 						this.CreateDAType(node.Tag);				
 					}
-					else if((node.Tag as tDA).bType == tBasicTypeEnum.Enum)
+					else if((node.Tag as tDA).bTypeEnum == tBasicTypeEnum.Enum)
 					{
 						this.EmptyEnum();
 					}
@@ -495,11 +495,11 @@ namespace OpenSCL.UI
 					{
 						this.CreateDA(node.Tag);
 						this.CreateDAI(node.Tag);
-						if((node.Tag as tDA).bType == tBasicTypeEnum.Struct)
+						if((node.Tag as tDA).bTypeEnum == tBasicTypeEnum.Struct)
 						{
 							this.CreateDAType(node.Tag);
 						}
-						else if((node.Tag as tDA).bType == tBasicTypeEnum.Enum)
+						else if((node.Tag as tDA).bTypeEnum == tBasicTypeEnum.Enum)
 						{
 							this.EmptyEnum();
 						}
@@ -1151,7 +1151,7 @@ namespace OpenSCL.UI
 				this.nodetBDA.Text = this.treeVSCL.GetName(bDA, "tBDA");
 				this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes[this.nodeDataType.Name].Nodes[this.nodeDAType.Name].Nodes[countDAType].Nodes[this.nodeBDA.Name].Nodes.Add(this.nodetBDA);
 			}						
-			if(bDA.bType == tBasicTypeEnum.Enum)
+			if(bDA.bTypeEnum == tBasicTypeEnum.Enum)
 			{
 				this.EmptyEnum();
 			}
@@ -1369,26 +1369,26 @@ namespace OpenSCL.UI
 			for(int index = 0; this.sCL.Configuration.DataTypeTemplates.DOType[z].DA != null &&index < this.sCL.Configuration.DataTypeTemplates.DOType[z].DA.Length; index++)
 			{
 				object DADataType;
-				if(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].bType == tBasicTypeEnum.Struct)
+				if(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].bTypeEnum == tBasicTypeEnum.Struct)
 				{
 					DADataType = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].name, iedType, this.sCL.Configuration.DataTypeTemplates.DOType[z].id, this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].fc);
 				}
 				else
 				{
-					if(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].bType == tBasicTypeEnum.Enum)
+					if(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].bTypeEnum == tBasicTypeEnum.Enum)
 					{
 						DADataType = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].name, this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].fc);
 					}
 					else
 					{
-						DADataType = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].bType.ToString(), this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].name,this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].fc);
+						DADataType = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].bTypeEnum.ToString(), this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].name,this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].fc);
 					}					
 				}
 				this.JoinRefence(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index], DADataType);
 				this.objectManagement.FindVariableAndSetValue(DADataType, "CheckSelection", true);
 				this.objectManagement.FindVariableAndSetValue(DADataType, "Visible", true);										
 				this.objectManagement.FindVariableAndSetValue(DOData, this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].name, DADataType);
-				if(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].bType == tBasicTypeEnum.Struct)
+				if(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].bTypeEnum == tBasicTypeEnum.Struct)
 				{
 					for(int index2 = 0; index2 <this.sCL.Configuration.DataTypeTemplates.DAType.Length; index2++)
 					{
@@ -1421,7 +1421,7 @@ namespace OpenSCL.UI
 			int index2Temp = index2;
 			for(int index3 = 0; this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA !=null && index3 <  this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA.Length; index3++)
 			{
-				if(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].bType == tBasicTypeEnum.Struct)
+				if(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].bTypeEnum == tBasicTypeEnum.Struct)
 				{							
 					object sDIDADataTypeBDASon = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].name, this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].iedType, this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].id);
 					this.JoinRefence(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3], sDIDADataTypeBDASon);
@@ -1445,7 +1445,7 @@ namespace OpenSCL.UI
 				else
 				{					
 					object BDAData;
-					if(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].bType == tBasicTypeEnum.Enum)
+					if(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].bTypeEnum == tBasicTypeEnum.Enum)
 					{
 						BDAData = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].name);
 					}
@@ -1458,7 +1458,7 @@ namespace OpenSCL.UI
 					}
 					else
 					{
-						BDAData = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].bType.ToString(),this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].name);
+						BDAData = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].bTypeEnum.ToString(),this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].name);
 					}					
 					this.objectManagement.EmptySourcetoDestinyObject(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3], BDAData);
 					this.objectManagement.FindVariableAndSetValue(BDAData, "CheckSelection", true);
@@ -1521,7 +1521,7 @@ namespace OpenSCL.UI
 			}
 			else if(node.Tag is DADataType)
 			{				
-				if((node.Tag as tDA).bType != tBasicTypeEnum.Struct)
+				if((node.Tag as tDA).bTypeEnum != tBasicTypeEnum.Struct)
 				{					
 					for(int x = 0; this.dataSetsSource!=null && x < this.dataSetsSource.Length; x++)
 					{

@@ -19,7 +19,7 @@
     <AccessPoint name="AccessPoint1" router="false" clock="false">
       <Server timeout="30">
         <Authentication none="true" password="false" weak="false" strong="false" certificate="false" />
-        <LDevice inst="LDevice1" ldName="LDevice1">
+        <LDevice inst="LDevice1">
           <LN0 desc="Logical Device Supervision" lnType="LLN01" lnClass="LLN0" inst="1">
             <DOI name="Mod">
               <SDI name="ctlModel">

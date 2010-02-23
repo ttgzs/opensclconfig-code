@@ -6,7 +6,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{B684ACAF-2AC9-4D31-89E1-1E902056A7CB}</ProjectGuid>
     <outputType>RelativeToOutput</outputType>
-    <ReleaseVersion>0.3.2</ReleaseVersion>
+    <ReleaseVersion>0.5</ReleaseVersion>
     <translations>
       <translations>
         <Translation isoCode="es" />

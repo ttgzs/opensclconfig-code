@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>LibOpenSCL</RootNamespace>
     <AssemblyName>LibOpenSCL</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
@@ -75,4 +75,15 @@
     <Compile Include="SCL.cs" />
     <Compile Include="ValidatingSCL.cs" />
   </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <ChangeLogPolicy UpdateMode="None" VcsIntegration="None" inheritsSet="Mono">
+            <MessageStyle LineAlign="0" />
+          </ChangeLogPolicy>
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>

@@ -114,6 +114,6 @@ public partial class MainWindow : Gtk.Window
   along with this program.  If not, see <http://www.gnu.org/licenses/>.";
 	
 	private static string [] authors = new string [] { 
-									"Daniel Espinosa <esodan@gmail.com>" 
+									"Daniel Espinosa <daniel.espinosa@cfe.gob.mx>" 
 	};
 }

@@ -3,7 +3,9 @@
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="LibOpenSCL" selected="True" />
+          <Node name="LibOpenSCL" expanded="True" selected="True" />
+          <Node name="OpenSASConfigurator" expanded="True" />
+          <Node name="Paquetes" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">

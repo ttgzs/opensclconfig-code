@@ -224,7 +224,7 @@ namespace OpenSCLConfigurator
 			this.tabDevelop.Padding = new System.Windows.Forms.Padding(3);
 			this.tabDevelop.Size = new System.Drawing.Size(579, 185);
 			this.tabDevelop.TabIndex = 0;
-			this.tabDevelop.Text = "Ported and Developed by";
+			this.tabDevelop.Text = "Autors and Contributors";
 			this.tabDevelop.UseVisualStyleBackColor = true;
 			// 
 			// richTextBox3
@@ -236,7 +236,17 @@ namespace OpenSCLConfigurator
 			this.richTextBox3.ReadOnly = true;
 			this.richTextBox3.Size = new System.Drawing.Size(577, 186);
 			this.richTextBox3.TabIndex = 1;
-			this.richTextBox3.Text = resources.GetString("richTextBox3.Text");
+			this.richTextBox3.Text = "Autors:\n";
+			this.richTextBox3.Text += "\tIng. Federico G. Ibarra Romo\n";
+			this.richTextBox3.Text += "\tIng. Sandra Hernández Silva\n";
+			this.richTextBox3.Text += "\tIng. Ciro A. Norzagaray Gutierrez\n";
+			this.richTextBox3.Text += "\tIng. Daniel Espinosa Ortiz";
+			this.richTextBox3.Text += "\n\nContributors:\n";
+			this.richTextBox3.Text += "\tLic. Giselle Juárez Durán\n";
+			this.richTextBox3.Text += "\tIng. Víctor Juan Badillo Godínez\n";
+			this.richTextBox3.Text += "\tIng. Saúl Benjamín Lezama Alvarez\n";
+			this.richTextBox3.Text += "\tIng. Miguel Angel Martínez Potenciano\n";
+			
 			// 
 			// pictureBox2
 			// 

@@ -8,12 +8,13 @@ namespace OpenSASUI
 
 
 	[System.ComponentModel.ToolboxItem(true)]
-	public partial class APEditor : Gtk.Bin
+	public partial class APEditor : Gtk.Bin, IContainer
 	{
 		private OpenSCL.Object sclfile;
 		private int numied;
 		private int numap;
 		private System.Collections.ArrayList connectedap;
+		private OpenSASUI.IContainer container;
 		
 		private void Init ()
 		{
@@ -68,8 +69,131 @@ namespace OpenSASUI
 			this.connectiondetails.Expanded = false;
 			this.connectiondetails.Sensitive = false;
 			this.aplndetails.Expanded = false;
+			
+			//Edition signals
+			this.addressvalue.Activated += HandleAddressvaluehandleActivated;
+			this.tplist.Changed += HandleTplisthandleChanged;
+			this.accesspointname.Activated += HandleAccesspointnamehandleActivated;
+			this.accesspointdesc.Activated += HandleAccesspointdeschandleActivated;
+			this.accesspointisclock.Toggled += HandleAccesspointisclockhandleToggled;
+			this.accesspointisrouter.Toggled += HandleAccesspointisrouterhandleToggled;
 		}
 
+		void HandleAccesspointisrouterhandleToggled (object sender, EventArgs e)
+		{
+			if (this.sclfile != null) {
+				IEC61850.SCL.tAccessPoint ap = this.sclfile.GetAP(this.numied, this.numap);
+				if (ap != null)
+					ap.router = this.accesspointisrouter.Active;
+			}
+		}
+
+		void HandleAccesspointisclockhandleToggled (object sender, EventArgs e)
+		{
+			if (this.sclfile != null) {
+				IEC61850.SCL.tAccessPoint ap = this.sclfile.GetAP(this.numied, this.numap);
+				if (ap != null)
+					ap.clock = this.accesspointisclock.Active;
+			}
+		}
+
+		void HandleAccesspointdeschandleActivated (object sender, EventArgs e)
+		{
+			if (this.sclfile != null) {
+				IEC61850.SCL.tAccessPoint ap = this.sclfile.GetAP(this.numied, this.numap);
+				if (ap != null)
+					ap.desc = this.accesspointdesc.Text;
+			}
+		}
+
+		void HandleAccesspointnamehandleActivated (object sender, EventArgs e)
+		{
+			if (this.sclfile != null) {
+				Gtk.TreeIter siter;
+				Gtk.ListStore submodel = (Gtk.ListStore) this.subnetworklist.Model;
+				Gtk.MessageDialog msg = new Gtk.MessageDialog(null, Gtk.DialogFlags.Modal,
+						                                              Gtk.MessageType.Warning,
+						                                              Gtk.ButtonsType.YesNo,
+						                            Mono.Unix.Catalog.GetString("If Renames this Access Point, you'll remove its connection to the actual Subnetwork"));
+				if (msg.Run() == (int) Gtk.ResponseType.No)
+					this.container.Reset();
+				else {
+					if (this.subnetworklist.GetActiveIter(out siter)) {
+						int subnet = (int) submodel.GetValue(siter, 1);
+						int conap = (int) submodel.GetValue(siter, 3);
+						IEC61850.SCL.tAccessPoint
+								ap = this.sclfile.GetAP(this.numied, this.numap);
+						
+						if (ap != null)
+							if (!ap.name.Equals(this.accesspointname.Text)) {
+							ap.name = this.accesspointname.Text;
+							
+							this.container.Reset();
+						}
+					}
+				}
+				msg.Destroy();
+			}
+		}
+
+		void HandleAddressvaluehandleActivated (object sender, EventArgs e)
+		{
+			Gtk.TreeSelection sel = this.addresstreeview.Selection;
+			Gtk.TreeIter seliter;
+			if (sel.GetSelected(out seliter) && this.sclfile != null) {
+				Gtk.TreeStore model = (Gtk.TreeStore) this.addresstreeview.Model;
+				int tpindex = (int) model.GetValue(seliter, 1);
+				
+				Gtk.TreeIter siter;
+				Gtk.ListStore submodel = (Gtk.ListStore) this.subnetworklist.Model;
+				if (this.subnetworklist.GetActiveIter(out siter)) {
+					int subnet = (int) submodel.GetValue(siter, 1);
+					int conap = (int) submodel.GetValue(siter, 3);
+					
+					IEC61850.SCL.tP
+						p = this.sclfile.GetPAddress(subnet, conap, tpindex);
+					if (p != null)
+						if (!p.Value.Equals (this.addressvalue.Text))
+							p.Value = this.addressvalue.Text;
+				}
+			}	
+		}
+		
+	
+		void HandleTplisthandleChanged (object sender, EventArgs e)
+		{
+			Gtk.TreeSelection sel = this.addresstreeview.Selection;
+			Gtk.TreeIter seliter;
+			if (sel.GetSelected(out seliter) && this.sclfile != null) {
+				Gtk.TreeStore model = (Gtk.TreeStore) this.addresstreeview.Model;
+				int tpindex = (int) model.GetValue(seliter, 1);
+				
+				Gtk.TreeIter siter;
+				Gtk.ListStore submodel = (Gtk.ListStore) this.subnetworklist.Model;
+				if (this.subnetworklist.GetActiveIter(out siter)) {
+					int subnet = (int) submodel.GetValue(siter, 1);
+					int conap = (int) submodel.GetValue(siter, 3);
+					
+					Gtk.ListStore tpmodel = (Gtk.ListStore) this.tplist.Model;
+					Gtk.TreeIter tpiter;
+					
+					if (this.tplist.GetActiveIter(out tpiter)) {
+					
+						IEC61850.SCL.tPTypeEnum tp = (IEC61850.SCL.tPTypeEnum) tpmodel.GetValue (tpiter, 1);
+						
+						IEC61850.SCL.tP 
+							p = this.sclfile.GetPAddress (subnet, conap, tpindex);
+						if (p != null) 
+							if (!p.PType.typeEnum.Equals(tp)) {
+								p.PType.typeEnum = tp;
+								model.SetValue(seliter, 2, tp);
+							}
+					}
+				}
+			}
+		}
+
+		
 		void HandleAddresstreeviewSelectionhandleChanged (object sender, EventArgs e)
 		{
 			Gtk.TreeSelection sel = (Gtk.TreeSelection) sender;
@@ -85,9 +209,11 @@ namespace OpenSASUI
 				int subnet = (int) submodel.GetValue(siter, 1);
 				int conap = (int) submodel.GetValue(siter, 3);
 				
-				IEC61850.SCL.tAddress 
-					address = this.sclfile.GetIEDAddress (subnet, conap);
-				this.addressvalue.Text = address.P[tpindex].Value;
+				IEC61850.SCL.tP
+					p = this.sclfile.GetPAddress (subnet, conap, tpindex);
+				
+				if(p != null)
+					this.addressvalue.Text = p.Value;
 				
 				Gtk.ListStore tpmodel = (Gtk.ListStore) this.tplist.Model;
 				Gtk.TreeIter tpiter;
@@ -175,7 +301,7 @@ namespace OpenSASUI
 		public APEditor  (OpenSCL.Object sclfile, int iedIndex, int apIndex)
 		{
 			this.Init();
-			this.SetAP (sclfile, iedIndex, apIndex);
+			this.SetAP (sclfile, iedIndex, apIndex, this);
 		}
 		
 		
@@ -277,7 +403,7 @@ namespace OpenSASUI
 			return true;
 		}
 		
-		public bool SetAP (OpenSCL.Object sclfile, int iedIndex, int apIndex)
+		public bool SetAP (OpenSCL.Object sclfile, int iedIndex, int apIndex, OpenSASUI.IContainer topcontainer)
 		{
 			if (sclfile == null)
 				return false;
@@ -287,6 +413,7 @@ namespace OpenSASUI
 				this.numied = iedIndex;
 				this.numap = apIndex;
 				this.Sensitive = true;
+				this.container = topcontainer;
 				return true;
 			}
 			else {
@@ -349,6 +476,13 @@ namespace OpenSASUI
 			while (tpmodel.GetIterFirst (out iter))
 				tpmodel.Remove(ref iter);
 			this.Sensitive = false;
+		}
+		
+		// Interface OpenSASUI.IContainer
+		
+		public void Reset ()
+		{
+			this.ChangeAP(this.numap);
 		}
 	}
 }

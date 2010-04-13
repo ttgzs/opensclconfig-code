@@ -764,6 +764,7 @@ namespace OpenSCL
 						.ConnectedAP[connapIndex].Address;
 		}
 		
+		
 		/// <summary>
 		/// Find all tAddress on the specified subnetwork. Takes the list
 		/// of IED's connected Access Point from connap. connap must include 
@@ -910,6 +911,29 @@ namespace OpenSCL
 			
 			return null;
 		}
+		
+		// tP related
+		
+		public IEC61850.SCL.tP GetPAddress (int subnet, int numap, int nump)
+		{
+			if (this.Subnetworks == null)
+				return null;
+			if (subnet < 0 || subnet > this.Subnetworks.GetLength(0))
+				return null;
+			if (this.Subnetworks[subnet].ConnectedAP == null)
+				return null;
+			if (numap < 0 || numap > this.Subnetworks[subnet].ConnectedAP.GetLength(0))
+				return null;
+			if (this.Subnetworks[subnet].ConnectedAP[numap].Address == null)
+				return null;
+			if (this.Subnetworks[subnet].ConnectedAP[numap].Address.P == null)
+				return null;
+			if (nump < 0 || nump > this.Subnetworks[subnet].ConnectedAP[numap].Address.P.GetLength(0))
+				return null;
+			
+			return this.Subnetworks[subnet].ConnectedAP[numap].Address.P[nump];
+		}
+		
 		// Substation
 		
 		public tSubstation[] Substation

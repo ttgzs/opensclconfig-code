@@ -8,10 +8,11 @@ namespace OpenSASUI
 
 
 	[System.ComponentModel.ToolboxItem(true)]
-	public partial class IEDEditor : Gtk.Bin
+	public partial class IEDEditor : Gtk.Bin, IContainer
 	{
 		private int numied;
 		private OpenSCL.Object sclfile;
+		private OpenSASUI.IContainer container;
 		
 		private void Init()
 		{
@@ -54,7 +55,7 @@ namespace OpenSASUI
 			Gtk.TreeIter sel;
 			if (this.accesspointlist.GetActiveIter(out sel)) {
 				int ap = (int) apmodel.GetValue(sel, 1);
-				this.accesspointeditor.SetAP(this.sclfile, this.numied, ap);
+				this.accesspointeditor.SetAP(this.sclfile, this.numied, ap, this);
 			}
 		}
 
@@ -123,7 +124,7 @@ namespace OpenSASUI
 				Gtk.TreePath apph = new Gtk.TreePath(aps);
 				apmodel.GetIter(out apiter, apph);
 				this.accesspointlist.SetActiveIter(apiter);
-				this.accesspointeditor.SetAP(this.sclfile, this.numied, apindex);
+				this.accesspointeditor.SetAP(this.sclfile, this.numied, apindex, this);
 			}
 		}
 		
@@ -132,13 +133,13 @@ namespace OpenSASUI
 			this.Init ();
 		}
 		
-		public IEDEditor (OpenSCL.Object sclfile, int numied)
+		public IEDEditor (OpenSCL.Object sclfile, int numied, OpenSASUI.IContainer topcontainer)
 		{
 			this.Init();
-			this.SetIED(sclfile, numied);
+			this.SetIED(sclfile, numied, topcontainer);
 		}
 		
-		public bool SelectIED (OpenSCL.Object sclfile, int iednum)
+		private bool SelectIED (OpenSCL.Object sclfile, int iednum)
 		{
 			Gtk.TreeIter iter;
 			
@@ -223,7 +224,7 @@ namespace OpenSASUI
 			if (apmodel.GetIterFirst(out iter)) {
 				this.accesspointlist.SetActiveIter(iter);
 				apindex = (int) apmodel.GetValue (iter, 1);
-				this.accesspointeditor.SetAP(this.sclfile, this.numied, apindex);
+				this.accesspointeditor.SetAP(this.sclfile, this.numied, apindex, this);
 			}
 			
 			if (ldmodel.GetIterFirst(out iter)) {
@@ -240,10 +241,11 @@ namespace OpenSASUI
 			return true;
 		}
 		
-		public bool SetIED (OpenSCL.Object sclfile, int iedIndex)
+		public bool SetIED (OpenSCL.Object sclfile, int iedIndex, OpenSASUI.IContainer topcontainer)
 		{
 			this.numied = iedIndex;
 			this.sclfile = sclfile;
+			this.container = topcontainer;
 				
 			if (this.SelectIED(sclfile, iedIndex)) {
 				this.Sensitive = true;
@@ -289,6 +291,13 @@ namespace OpenSASUI
 			       apmodel.Remove(ref iter);
 			
 			this.Sensitive = false;
+		}
+		
+		// Interface OpenSASUI.IContainer
+		public void Reset ()
+		{
+			if (this.ChangeIED(this.numied))
+				this.Sensitive = true;
 		}
 	}
 }

@@ -7,7 +7,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>OpenSCLConfigurator</RootNamespace>
     <AssemblyName>OpenSCLConfigurator</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <SourceAnalysisOverrideSettingsFile>C:\Documents and Settings\gjuarez\Datos de programa\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>

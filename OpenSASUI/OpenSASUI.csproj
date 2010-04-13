@@ -53,10 +53,7 @@
     <Compile Include="gtk-gui\OpenSASUI.SclCommManager.cs" />
     <Compile Include="SubnetworkEditor.cs" />
     <Compile Include="gtk-gui\OpenSASUI.SubnetworkEditor.cs" />
-    <Compile Include="GSESuscriptionEditor.cs" />
-    <Compile Include="gtk-gui\OpenSASUI.GSESuscriptionEditor.cs" />
-    <Compile Include="GSESuscriptionEditorDialog.cs" />
-    <Compile Include="gtk-gui\OpenSASUI.GSESuscriptionEditorDialog.cs" />
+    <Compile Include="Container.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibOpenSCL\LibOpenSCL.csproj">

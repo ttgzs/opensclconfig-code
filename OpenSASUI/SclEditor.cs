@@ -6,7 +6,7 @@ namespace OpenSASUI
 
 
 	[System.ComponentModel.ToolboxItem(true)]
-	public partial class SclEditor : Gtk.Bin
+	public partial class SclEditor : Gtk.Bin, IContainer
 	{
 		private void Init()
 		{
@@ -29,7 +29,7 @@ namespace OpenSASUI
 					if (path.Indices[1] == 3)
 					{
 						int iednum = (int) this.scltreeview.Model.GetValue(seliter, 1);
-						this.iededitor.SetIED(this.scltreeview.SclFile, iednum);
+						this.iededitor.SetIED(this.scltreeview.SclFile, iednum, this);
 						this.notebook2.Page = 1;
 					}
 					// Show Communications Subnetwork
@@ -86,6 +86,12 @@ namespace OpenSASUI
 			this.sclcommmanager.Clear();
 			this.scltreeview.Clear();
 			this.iededitor.Clear();
+		}
+		
+		// Interface OpenSASUI.IContainer
+		public void Reset ()
+		{
+			this.SclFile = this.scltreeview.SclFile;
 		}
 	}
 }

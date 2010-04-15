@@ -28,8 +28,8 @@ public partial class MainWindow : Gtk.Window
 		{
 			this.scleditor.SclFile = new OpenSCL.Object(dlg.Filename);
 			if (this.scleditor.SclFile != null) {
-				string t = this.Title;
-				t += "[ ";
+				string t = "OpenSASConfigurator";
+				t += " [ ";
 				t += this.scleditor.SclFile.FileName;
 				t += " ]";
 				this.Title = t;

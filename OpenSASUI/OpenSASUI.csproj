@@ -54,6 +54,8 @@
     <Compile Include="SubnetworkEditor.cs" />
     <Compile Include="gtk-gui\OpenSASUI.SubnetworkEditor.cs" />
     <Compile Include="Container.cs" />
+    <Compile Include="HistoryEditor.cs" />
+    <Compile Include="gtk-gui\OpenSASUI.HistoryEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibOpenSCL\LibOpenSCL.csproj">

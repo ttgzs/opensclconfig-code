@@ -33,7 +33,11 @@ namespace OpenSASUI {
         
         private OpenSASUI.SclCommManager sclcommmanager;
         
-        private Gtk.Label label33;
+        private Gtk.Label label35;
+        
+        private OpenSASUI.HistoryEditor historyeditor;
+        
+        private Gtk.Label label36;
         
         protected virtual void Build() {
             Stetic.Gui.Initialize(this);
@@ -62,7 +66,7 @@ namespace OpenSASUI {
             this.notebook2 = new Gtk.Notebook();
             this.notebook2.CanFocus = true;
             this.notebook2.Name = "notebook2";
-            this.notebook2.CurrentPage = 2;
+            this.notebook2.CurrentPage = 3;
             // Container child notebook2.Gtk.Notebook+NotebookChild
             this.NothingContainer = new Gtk.VBox();
             this.NothingContainer.Name = "NothingContainer";
@@ -103,11 +107,24 @@ namespace OpenSASUI {
             Gtk.Notebook.NotebookChild w6 = ((Gtk.Notebook.NotebookChild)(this.notebook2[this.vbox10]));
             w6.Position = 2;
             // Notebook tab
-            this.label33 = new Gtk.Label();
-            this.label33.Name = "label33";
-            this.label33.LabelProp = Mono.Unix.Catalog.GetString("Communications");
-            this.notebook2.SetTabLabel(this.vbox10, this.label33);
-            this.label33.ShowAll();
+            this.label35 = new Gtk.Label();
+            this.label35.Name = "label35";
+            this.label35.LabelProp = Mono.Unix.Catalog.GetString("Communications");
+            this.notebook2.SetTabLabel(this.vbox10, this.label35);
+            this.label35.ShowAll();
+            // Container child notebook2.Gtk.Notebook+NotebookChild
+            this.historyeditor = new OpenSASUI.HistoryEditor();
+            this.historyeditor.Events = ((Gdk.EventMask)(256));
+            this.historyeditor.Name = "historyeditor";
+            this.notebook2.Add(this.historyeditor);
+            Gtk.Notebook.NotebookChild w7 = ((Gtk.Notebook.NotebookChild)(this.notebook2[this.historyeditor]));
+            w7.Position = 3;
+            // Notebook tab
+            this.label36 = new Gtk.Label();
+            this.label36.Name = "label36";
+            this.label36.LabelProp = Mono.Unix.Catalog.GetString("History");
+            this.notebook2.SetTabLabel(this.historyeditor, this.label36);
+            this.label36.ShowAll();
             this.hpaned3.Add(this.notebook2);
             this.Add(this.hpaned3);
             if ((this.Child != null)) {

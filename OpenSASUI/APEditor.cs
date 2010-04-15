@@ -111,28 +111,21 @@ namespace OpenSASUI
 			if (this.sclfile != null) {
 				Gtk.TreeIter siter;
 				Gtk.ListStore submodel = (Gtk.ListStore) this.subnetworklist.Model;
-				Gtk.MessageDialog msg = new Gtk.MessageDialog(null, Gtk.DialogFlags.Modal,
-						                                              Gtk.MessageType.Warning,
-						                                              Gtk.ButtonsType.YesNo,
-						                            Mono.Unix.Catalog.GetString("If Renames this Access Point, you'll remove its connection to the actual Subnetwork"));
-				if (msg.Run() == (int) Gtk.ResponseType.No)
-					this.container.Reset();
-				else {
-					if (this.subnetworklist.GetActiveIter(out siter)) {
-						int subnet = (int) submodel.GetValue(siter, 1);
-						int conap = (int) submodel.GetValue(siter, 3);
-						IEC61850.SCL.tAccessPoint
-								ap = this.sclfile.GetAP(this.numied, this.numap);
-						
-						if (ap != null)
-							if (!ap.name.Equals(this.accesspointname.Text)) {
-							ap.name = this.accesspointname.Text;
-							
-							this.container.Reset();
-						}
+				
+				if (this.subnetworklist.GetActiveIter(out siter)) {
+					int subnetIndex = (int) submodel.GetValue(siter, 1);
+					int conapIndex = (int) submodel.GetValue(siter, 3);
+					IEC61850.SCL.tAccessPoint
+							ap = this.sclfile.GetAP(this.numied, this.numap);
+					IEC61850.SCL.tConnectedAP 
+						conap = this.sclfile.GetConnectedAP (subnetIndex, conapIndex);
+					if (ap != null && conap != null)
+						if (!ap.name.Equals(this.accesspointname.Text)) {
+						ap.name = this.accesspointname.Text;
+						conap.apName = ap.name;
+						this.container.Reset();
 					}
 				}
-				msg.Destroy();
 			}
 		}
 

@@ -96,33 +96,6 @@ namespace OpenSASUI
 					{
 						if (!this.header_updated)
 						{
-							if (this.sclfile.RevisionHistory != null)
-							{
-								Gtk.TreeStore model = (Gtk.TreeStore) this.Model;
-								for (int i = 0; i < this.sclfile.RevisionHistory.GetLength(0); i++) {
-																		
-									string desc = Mono.Unix.Catalog.GetString("Version: ");
-									desc += this.sclfile.RevisionHistory[i].version;
-									desc += Mono.Unix.Catalog.GetString(" Rv: ");
-									desc += this.sclfile.RevisionHistory[i].revision;
-									desc += Mono.Unix.Catalog.GetString(" Desc: ");
-									desc += this.sclfile.RevisionHistory[i].what;
-									desc += Mono.Unix.Catalog.GetString(" / By: ");
-									desc += this.sclfile.RevisionHistory[i].who;
-									desc += Mono.Unix.Catalog.GetString(" / Reason: ");
-									desc += this.sclfile.RevisionHistory[i].why;
-									
-									model.AppendValues(seliter,
-								                   this.sclfile.RevisionHistory[i].when,
-								                   i,
-								                   desc);
-								}
-								
-							}
-							else
-							{
-								// FIXME: Set to RED the Header Node because no Revisión Information found
-							}
 							this.header_updated = true;
 						}
 					}

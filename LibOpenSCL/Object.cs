@@ -669,7 +669,7 @@ namespace OpenSCL
 			return pos;
 		}
 		
-		public tConnectedAP GetIEDConnectedAP (int subnetIndex, int connectedapIndex)
+		public tConnectedAP GetConnectedAP (int subnetIndex, int connectedapIndex)
 		{
 			if(subnetIndex < 0)
 				return null;
@@ -686,6 +686,13 @@ namespace OpenSCL
 			
 			return this.Subnetworks[subnetIndex].ConnectedAP[connectedapIndex];
 			
+		}
+		
+		
+		// DEPRECATED use tConnectedAP GetConnectedAP (int subnetIndex, int connectedapIndex)
+		public tConnectedAP GetIEDConnectedAP (int subnetIndex, int connectedapIndex)
+		{
+			return this.GetConnectedAP(subnetIndex, connectedapIndex);			
 		}
 			
 		public  System.Collections.ArrayList

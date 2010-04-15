@@ -1,17 +1,25 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="OpenSASUI/APEditor.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="OpenSASConfigurator/MainWindow.cs" ctype="Workbench">
     <Files>
-      <File FileName="OpenSASUI/APEditor.cs" Line="240" Column="19" />
+      <File FileName="OpenSASUI/APEditor.cs" Line="125" Column="30" />
+      <File FileName="OpenSASConfigurator/AssemblyInfo.cs" Line="20" Column="34" />
+      <File FileName="OpenSASUI/HistoryEditor.cs" Line="71" Column="17" />
+      <File FileName="OpenSASUI/SclEditor.cs" Line="29" Column="49" />
+      <File FileName="OpenSASUI/SclTreeView.cs" Line="258" Column="27" />
+      <File FileName="LibOpenSCL/Object.cs" Line="692" Column="88" />
+      <File FileName="OpenSASConfigurator/MainWindow.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="LibOpenSCLUI" selected="True" />
+        <State expanded="True" selected="True">
+          <Node name="LibOpenSCL" expanded="True" />
+          <Node name="LibOpenSCLUI" expanded="True" />
           <Node name="OpenSASConfigurator" expanded="True" />
+          <Node name="OpenSASConfiguratorTranslation" expanded="True" />
           <Node name="OpenSASUI" expanded="True" />
-          <Node name="OpenSCLConfigurator" expanded="True">
-            <Node name="References" expanded="True" />
-          </Node>
+          <Node name="OpenSASUITranslation" expanded="True" />
+          <Node name="OpenSCLConfigurator" expanded="True" />
+          <Node name="OpenSCLConfigurator_console" expanded="True" />
           <Node name="Paquetes" expanded="True" />
         </State>
       </Pad>

@@ -23,6 +23,13 @@ namespace OpenSASUI
 			
 				Gtk.TreePath path = this.scltreeview.Model.GetPath(seliter);
 				
+				if (path.Indices.GetLength(0) > 1) {
+					if (path.Indices[1] == 0) {
+						this.notebook2.Page = 3;
+						this.historyeditor.SclFile = this.SclFile;
+					}
+				}
+				
 				if (path.Indices.GetLength(0) > 2)
 				{
 					// Edit/Show Current Selected IED 

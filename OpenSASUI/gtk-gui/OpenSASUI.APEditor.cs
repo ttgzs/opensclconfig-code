@@ -210,7 +210,6 @@ namespace OpenSASUI {
             w6.Position = 0;
             // Container child hbox3.Gtk.Box+BoxChild
             this.vbox2 = new Gtk.VBox();
-            this.vbox2.Name = "vbox2";
             this.vbox2.Spacing = 6;
             // Container child vbox2.Gtk.Box+BoxChild
             this.addapln = new Gtk.Button();

@@ -26,10 +26,21 @@ namespace OpenSASUI
 			return comparestring (tree, a, b, 0);
 		}
 		
+		private int comparestring_c1 (object tree, Gtk.TreeIter a, Gtk.TreeIter b)
+		{
+			return comparestring (tree, a, b, 1);
+		}
+		
 		private int comparestring_c2 (object tree, Gtk.TreeIter a, Gtk.TreeIter b)
 		{
 			
 			return comparestring (tree, a, b, 2);
+		}
+		
+		private int comparestring_c3 (object tree, Gtk.TreeIter a, Gtk.TreeIter b)
+		{
+			
+			return comparestring (tree, a, b, 3);
 		}
 		
 		private int comparestring_c4 (object tree, Gtk.TreeIter a, Gtk.TreeIter b)
@@ -199,36 +210,209 @@ namespace OpenSASUI
 			this.gsetreeview.GetColumn(0).SortColumnId = 0;
 			this.gsetreeview.GetColumn(0).SortIndicator = true;
 			this.gsetreeview.GetColumn(0).Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			this.gsetreeview.GetColumn(0).Resizable = true;
 			this.gsetreeview.GetColumn(1).Clickable = true;
 			this.gsetreeview.GetColumn(1).SortColumnId = 1;
 			this.gsetreeview.GetColumn(1).SortIndicator = true;
 			this.gsetreeview.GetColumn(1).Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			this.gsetreeview.GetColumn(1).Resizable = true;
 			this.gsetreeview.GetColumn(2).Clickable = true;
 			this.gsetreeview.GetColumn(2).SortColumnId = 2;
 			this.gsetreeview.GetColumn(2).SortIndicator = true;
 			this.gsetreeview.GetColumn(2).Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			this.gsetreeview.GetColumn(2).Resizable = true;
 			this.gsetreeview.GetColumn(3).Clickable = true;
 			this.gsetreeview.GetColumn(3).SortColumnId = 4;
 			this.gsetreeview.GetColumn(3).SortIndicator = true;
 			this.gsetreeview.GetColumn(3).Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			this.gsetreeview.GetColumn(3).Resizable = true;
 			this.gsetreeview.GetColumn(4).Clickable = true;
 			this.gsetreeview.GetColumn(4).SortColumnId = 5;
 			this.gsetreeview.GetColumn(4).SortIndicator = true;
 			this.gsetreeview.GetColumn(4).Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			this.gsetreeview.GetColumn(4).Resizable = true;
 			this.gsetreeview.GetColumn(5).Clickable = true;
 			this.gsetreeview.GetColumn(5).SortColumnId = 6;
 			this.gsetreeview.GetColumn(5).SortIndicator = true;
 			this.gsetreeview.GetColumn(5).Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			this.gsetreeview.GetColumn(5).Resizable = true;
 			this.gsetreeview.GetColumn(5).Visible = false; // Hide this column until GSE is updated
 														   // from IED's LLN0
 			
 			this.updategse.Clicked += HandleUpdategsehandleClicked;
 			
+			// Setup Report table information
+			Gtk.TreeStore reportmodel = new Gtk.TreeStore(typeof(string), // Report's Name 0
+			                                           typeof(string), // Report ID 1
+			                                           typeof(string), // IED/LD/LN 2
+				                                       typeof(string), // DataSet Reference 3
+			                                           typeof(int), // IED Index  4
+				                                       typeof(int), // AP Index  5
+			                                           typeof(int), // LD Index 6
+			                                           typeof(int),// LN Index If < 0 is the LD's LN0 7
+			                                           typeof(int),// Report Index 8
+			                                           typeof(string)); // Report's Description 9
+			                                           
+			reportmodel.SetSortFunc (0, (Gtk.TreeIterCompareFunc) comparestring_c0);
+			reportmodel.SetSortFunc (1, (Gtk.TreeIterCompareFunc) comparestring_c1);
+			reportmodel.SetSortFunc (2, (Gtk.TreeIterCompareFunc) comparestring_c2);
+			reportmodel.SetSortFunc (3, (Gtk.TreeIterCompareFunc) comparestring_c3);
+			this.reportstreeview.Model = reportmodel;
+			                                         
+			this.reportstreeview.AppendColumn (Mono.Unix.Catalog.GetString("Name"),
+			                               new Gtk.CellRendererText (), "text", 0);
+			this.reportstreeview.AppendColumn (Mono.Unix.Catalog.GetString("ID"),
+			                               new Gtk.CellRendererText (), "text", 1);
+			this.reportstreeview.AppendColumn (Mono.Unix.Catalog.GetString("IED/LD/LN"),
+			                               new Gtk.CellRendererText (), "text", 2);
+			this.reportstreeview.AppendColumn (Mono.Unix.Catalog.GetString("DataSet Ref."),
+			                               new Gtk.CellRendererText (), "text", 3);
+			this.reportstreeview.AppendColumn (Mono.Unix.Catalog.GetString("Description"),
+			                               new Gtk.CellRendererText (), "text", 9);
+			
+			this.reportstreeview.GetColumn(0).Clickable = true;
+			this.reportstreeview.GetColumn(0).SortColumnId = 0;
+			this.reportstreeview.GetColumn(0).SortIndicator = true;
+			this.reportstreeview.GetColumn(0).Resizable = true;
+			this.reportstreeview.GetColumn(1).Clickable = true;
+			this.reportstreeview.GetColumn(1).SortColumnId = 1;
+			this.reportstreeview.GetColumn(1).SortIndicator = true;
+			this.reportstreeview.GetColumn(1).Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			this.reportstreeview.GetColumn(1).Resizable = true;
+			this.reportstreeview.GetColumn(2).Clickable = true;
+			this.reportstreeview.GetColumn(2).SortColumnId = 2;
+			this.reportstreeview.GetColumn(2).SortIndicator = true;
+			this.reportstreeview.GetColumn(2).Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			this.reportstreeview.GetColumn(2).Resizable = true;
+			this.reportstreeview.GetColumn(3).Clickable = true;
+			this.reportstreeview.GetColumn(3).SortColumnId = 2;
+			this.reportstreeview.GetColumn(3).SortIndicator = true;
+			this.reportstreeview.GetColumn(3).Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			this.reportstreeview.GetColumn(3).Resizable = true;
+			
+			this.updatereports.Clicked += HandleUpdatereportshandleClicked;
+			
 			this.ipupdate.Sensitive = false;
 			this.iptreeview.Sensitive = false;
 			this.gsetreeview.Sensitive = false;
-			this.updategse.Sensitive = false;
+			this.reportstreeview.Sensitive = false;
+			
 			this.notebook1.Page = 0;
+		}
+
+		// Reports listed are searched on LN0 and LN on each IED and its LDs
+		// no reports are searched on other LNs
+		void HandleUpdatereportshandleClicked (object sender, EventArgs e)
+		{
+			if (this.sclfile == null)
+				return;
+			if (this.sclfile.Devices == null)
+				return;
+						
+			Gtk.TreeStore model = (Gtk.TreeStore) this.reportstreeview.Model;
+			Gtk.TreeIter iter;
+			// Clear Reports table
+			while (model.GetIterFirst(out iter))
+				model.Remove(ref iter);
+			// Fill Reports table
+			string id = "";
+			string name = "";
+			string reference = "";
+			string desc = "";
+			string dataset = "";
+			int iedIndex;
+			int apIndex;
+			int lnIndex;
+			
+			// Scan IED's reports
+			for (int i = 0; i < this.sclfile.Devices.GetLength(0); i++) {
+				if (this.sclfile.Devices[i].AccessPoint != null) {
+					
+					for (int j = 0; j < this.sclfile.Devices[i].AccessPoint.GetLength(0); j++) {
+						
+						if (this.sclfile.Devices[i].AccessPoint[j].Server != null) {
+							
+							if (this.sclfile.Devices[i].AccessPoint[j].Server.LDevice != null) {
+								
+								for ( int k = 0; k < this.sclfile.Devices[i]
+								     						.AccessPoint[j].Server.LDevice.GetLength(0); 
+								     	k++) {
+									
+									// Reports at LN0
+									if (this.sclfile.Devices[i].AccessPoint[j].Server.LDevice[k].LN0 != null) {
+										if (this.sclfile.Devices[i].AccessPoint[j]
+										    	.Server.LDevice[k].LN0.ReportControl != null) {
+											for (int l = 0; l < this.sclfile.Devices[i].AccessPoint[j]
+										    						.Server.LDevice[k].LN0.ReportControl.GetLength(0);
+											     l++) {
+												IEC61850.SCL.tReportControl rep = this.sclfile.Devices[i].AccessPoint[j]
+										    										.Server.LDevice[k].LN0.ReportControl[l];
+												name = "" + rep.name;
+												id = "" + rep.rptID;
+												desc = "" + rep.desc;
+												dataset = "" + rep.datSet;
+												reference = "" + this.sclfile.Devices[i].name;
+												reference += "(";
+												reference += this.sclfile.Devices[i].AccessPoint[j].name;
+												reference += ")/";
+												reference += this.sclfile.Devices[i].AccessPoint[j].Server.LDevice[k].inst;
+												reference += "/LN0";
+												
+												model.AppendValues(name, id, reference, dataset, 
+												                   i, j, k, -1, // LN to -1 represents the LN0
+												                   l, desc);
+											}
+										}
+									}
+									
+									// Reports at LN
+									if (this.sclfile.Devices[i].AccessPoint[j].Server.LDevice[k].LN != null) {
+										
+										for (int m = 0; m < this.sclfile.Devices[i].AccessPoint[j]
+											    	.Server.LDevice[k].LN.GetLength(0);
+										     m++) {
+											
+											if (this.sclfile.Devices[i].AccessPoint[j]
+											    .Server.LDevice[k].LN[m].ReportControl != null) {
+												
+												for (int l = 0; l < this.sclfile.Devices[i].AccessPoint[j]
+											    						.Server.LDevice[k].LN[m].ReportControl.GetLength(0);
+												     l++) {
+													
+													IEC61850.SCL.tReportControl rep = this.sclfile.Devices[i].AccessPoint[j]
+											    										.Server.LDevice[k].LN[m].ReportControl[l];
+													name = "" + rep.name;
+													id = "" + rep.rptID;
+													desc = "" + rep.desc;
+													dataset = "" + rep.datSet;
+													reference = "" + this.sclfile.Devices[i].name;
+													reference += "(";
+													reference += this.sclfile.Devices[i].AccessPoint[j].name;
+													reference += ")/";
+													reference += this.sclfile.Devices[i].AccessPoint[j]
+																	.Server.LDevice[k].inst;
+													reference += "/";
+													reference += this.sclfile.Devices[i].AccessPoint[j]
+																	.Server.LDevice[k].LN[l].prefix;
+													reference += this.sclfile.Devices[i].AccessPoint[j]
+																	.Server.LDevice[k].LN[l].lnClass;
+													reference += this.sclfile.Devices[i].AccessPoint[j]
+																	.Server.LDevice[k].LN[l].inst;
+													
+													model.AppendValues(name, id, reference, dataset, 
+												                   i, j, k, m, l, desc);
+												}
+											}
+										}
+									}
+									
+								}
+							}
+						}
+					}
+				}
+			}
+			// FIXME: Search Reports on Other LNs
 		}
 
 		void HandleUpdategsehandleClicked (object sender, EventArgs e)
@@ -389,8 +573,12 @@ namespace OpenSASUI
 			
 			this.ipupdate.Sensitive = true;
 			this.iptreeview.Sensitive = true;
+			
 			this.gsetreeview.Sensitive = true;
 			this.updategse.Sensitive = true;
+			
+			this.reportstreeview.Sensitive = true;
+			this.updatereports.Sensitive = true;
 			
 			return true;
 		}
@@ -432,12 +620,17 @@ namespace OpenSASUI
 			Gtk.TreeStore gsemodel = (Gtk.TreeStore) this.gsetreeview.Model;
 			while (gsemodel.GetIterFirst(out iter))
 				gsemodel.Remove(ref iter);
+			// Report Viewer
+			Gtk.TreeStore repmodel = (Gtk.TreeStore) this.reportstreeview.Model;
+			while (repmodel.GetIterFirst(out iter))
+				repmodel.Remove(ref iter);
 			
 			this.ipupdate.Sensitive = false;
 			this.iptreeview.Sensitive = false;
 			this.gsetreeview.Sensitive = false;
-			this.updategse.Sensitive = false;
+			this.updatedatasets.Sensitive = false;
 			this.gsetreeview.GetColumn(5).Visible = false;
+			this.updategse.Sensitive = false;
 		}
 		protected virtual void OnActivatedGSETypes (object sender, System.EventArgs e)
 		{

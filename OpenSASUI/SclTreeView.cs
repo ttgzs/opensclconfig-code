@@ -52,6 +52,9 @@ namespace OpenSASUI
 			this.AppendColumn (Mono.Unix.Catalog.GetString("Description"), 
 			                   new Gtk.CellRendererText (), "text", 2);
 			this.GetColumn(0).Sizing = TreeViewColumnSizing.Autosize;
+			this.GetColumn(0).Resizable = true;
+			this.GetColumn(1).Sizing = TreeViewColumnSizing.Autosize;
+			this.GetColumn(1).Resizable = true;
 			
 			this.Selection.Changed += HandleSelectionhandleChanged;
 			

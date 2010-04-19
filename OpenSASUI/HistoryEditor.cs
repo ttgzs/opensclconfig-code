@@ -47,6 +47,12 @@ namespace OpenSASUI
 			                   new Gtk.CellRendererText (), "text", 5);
 			this.history.AppendColumn (Mono.Unix.Catalog.GetString("Why"), 
 			                   new Gtk.CellRendererText (), "text", 6);
+			this.history.GetColumn(0).Resizable = true;
+			this.history.GetColumn(1).Resizable = true;
+			this.history.GetColumn(2).Resizable = true;
+			this.history.GetColumn(3).Resizable = true;
+			this.history.GetColumn(4).Resizable = true;
+			this.history.GetColumn(5).Resizable = true;
 			
 			this.Sensitive = false;
 		}

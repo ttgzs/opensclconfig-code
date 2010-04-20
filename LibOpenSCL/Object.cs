@@ -919,6 +919,183 @@ namespace OpenSCL
 			return null;
 		}
 		
+		// Reports Related functions
+		
+		/// <summary>
+		/// Returns a tReportControl at reportIndex in the LN0 of the Logical Device at ldinst index,
+		/// exposed at access point at apIndex from the IED at iedIndex. 
+		/// </summary>
+		/// <param name="iedIndex">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <param name="apIndex">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <param name="ldinst">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// /// <param name="reportIndex">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="IEC61850.SCL.tReportControl"/>
+		/// </returns>
+		public IEC61850.SCL.tReportControl GetReportControl (int iedIndex, int apIndex, int ldinst, int reportIndex)
+		{
+			if (this.configuration.IED == null)
+				return null;
+			if (iedIndex < 0 || iedIndex > this.configuration.IED.GetLength(0))
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint == null)
+				return null;
+			if (apIndex < 0 || apIndex > this.configuration.IED[iedIndex].AccessPoint.GetLength(0))
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex].Server == null)
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex].Server.LDevice == null)
+				return null;
+			if (ldinst < 0 
+			    || ldinst > this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice.GetLength(0))
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN0 == null)
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN0.ReportControl == null)
+				return null;
+			if (reportIndex < 0 || 
+			    reportIndex > this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN0.ReportControl.GetLength(0))
+				return null;
+			
+			return this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN0.ReportControl[reportIndex];
+		}
+		
+		/// <summary>
+		/// Returns a tReportControl at reportIndex in the LN at lnIndex of the Logical Device at ldinst index,
+		/// exposed at access point at apIndex from the IED at iedIndex. 
+		/// </summary>
+		/// <param name="iedIndex">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <param name="apIndex">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <param name="ldinst">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <param name="lnIndex">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <param name="reportIndex">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="IEC61850.SCL.tReportControl"/>
+		/// </returns>
+		public IEC61850.SCL.tReportControl GetReportControl (int iedIndex, int apIndex, int ldinst, 
+		                                                     int lnIndex, int reportIndex)
+		{
+			if (this.configuration.IED == null)
+				return null;
+			if (iedIndex < 0 || iedIndex > this.configuration.IED.GetLength(0))
+				return null;
+			if (apIndex < 0)
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint == null)
+				return null;
+			if (apIndex < 0 || apIndex > this.configuration.IED[iedIndex].AccessPoint.GetLength(0))
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex].Server == null)
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex].Server.LDevice == null)
+				return null;
+			if (ldinst < 0 
+			    || ldinst > this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice.GetLength(0))
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN == null)
+				return null;
+			if (lnIndex < this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN.GetLength(0))
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN[lnIndex].ReportControl == null)
+				return null;
+			if (reportIndex < 0 || reportIndex > this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN[lnIndex].ReportControl.GetLength(0))
+				return null;
+			
+			return this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN[lnIndex].ReportControl[reportIndex];
+		}
+		
+		// LN Related
+		
+		public IEC61850.SCL.tLN0 GetLN0 (int iedIndex, int apIndex, int ldinst)
+		{
+			if (this.configuration.IED == null)
+				return null;
+			if (iedIndex < 0 || iedIndex > this.configuration.IED.GetLength(0))
+				return null;
+			if (apIndex < 0)
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint == null)
+				return null;
+			if (apIndex < 0 || apIndex > this.configuration.IED[iedIndex].AccessPoint.GetLength(0))
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex].Server == null)
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex].Server.LDevice == null)
+				return null;
+			if (ldinst < 0 
+			    || ldinst > this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice.GetLength(0))
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN0 == null)
+				return null;
+			
+			return this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN0;
+		}
+		
+		public IEC61850.SCL.tLN GetLN (int iedIndex, int apIndex, int ldinst, int lnIndex)
+		{
+			if (this.configuration.IED == null)
+				return null;
+			if (iedIndex < 0 || iedIndex > this.configuration.IED.GetLength(0))
+				return null;
+			if (apIndex < 0)
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint == null)
+				return null;
+			if (apIndex < 0 || apIndex > this.configuration.IED[iedIndex].AccessPoint.GetLength(0))
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex].Server == null)
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex].Server.LDevice == null)
+				return null;
+			if (ldinst < 0 
+			    || ldinst > this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice.GetLength(0))
+				return null;
+			if (this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN == null)
+				return null;
+			if (lnIndex < this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN.GetLength(0))
+				return null;
+			
+			return this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			    					.Server.LDevice[ldinst].LN[lnIndex];
+		}
+		
+		// t
+		
 		// tP related
 		
 		public IEC61850.SCL.tP GetPAddress (int subnet, int numap, int nump)

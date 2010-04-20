@@ -1,22 +1,21 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCL/SCL.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="OpenSASUI/SclCommManager.cs" ctype="Workbench">
     <Files>
-      <File FileName="OpenSASUI/APEditor.cs" Line="1" Column="1" />
-      <File FileName="OpenSASConfigurator/AssemblyInfo.cs" Line="1" Column="1" />
-      <File FileName="OpenSASUI/HistoryEditor.cs" Line="1" Column="1" />
-      <File FileName="OpenSASUI/SclEditor.cs" Line="1" Column="1" />
-      <File FileName="OpenSASUI/SclCommManager.cs" Line="97" Column="41" />
-      <File FileName="LibOpenSCL/SCL.cs" Line="8217" Column="5" />
+      <File FileName="OpenSASUI/SclEditor.cs" Line="22" Column="38" />
+      <File FileName="OpenSASUI/SclCommManager.cs" Line="375" Column="43" />
+      <File FileName="LibOpenSCL/SCL.cs" Line="2058" Column="1" />
+      <File FileName="LibOpenSCL/Object.cs" Line="972" Column="1" />
+      <File FileName="OpenSASUI/SclTreeView.cs" Line="254" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="LibOpenSCL" expanded="True">
-            <Node name="SCL.cs" selected="True" />
-          </Node>
+          <Node name="LibOpenSCL" expanded="True" />
           <Node name="OpenSASConfigurator" expanded="True" />
           <Node name="OpenSASConfiguratorTranslation" expanded="True" />
-          <Node name="OpenSASUI" expanded="True" />
+          <Node name="OpenSASUI" expanded="True">
+            <Node name="SclCommManager.cs" selected="True" />
+          </Node>
           <Node name="OpenSASUITranslation" expanded="True" />
           <Node name="OpenSCLConfigurator" expanded="True" />
           <Node name="OpenSCLConfigurator_console" expanded="True" />
@@ -31,6 +30,7 @@
   <MonoDevelop.Ide.DebuggingService>
     <BreakpointStore>
       <Breakpoint enabled="false" file="/home/esodan/Projects/OpenSCLTools/openscltools/opensclconfig/LibOpenSCLUIGtk/SclCommManager.cs" line="150" />
+      <Breakpoint file="/home/esodan/Proyectos/OpenSCLTools/opensclconfig/OpenSASUI/SclCommManager.cs" line="323" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" ctype="Workspace" />

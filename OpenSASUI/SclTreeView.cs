@@ -120,6 +120,7 @@ namespace OpenSASUI
 								                   i,
 								                   desc);
 							}
+							this.ExpandRow(path, false);
 							this.substation_updated = true;
 						}
 					}
@@ -141,6 +142,7 @@ namespace OpenSASUI
 								                    i,
 								                    desc);
 							}
+							this.ExpandRow(path, false);
 							communication_updated = true;
 						}
 					}
@@ -171,6 +173,7 @@ namespace OpenSASUI
 								                   i,
 								                   desc);
 							}
+							this.ExpandRow(path, false);
 							ieds_updated = true;
 						}
 					}

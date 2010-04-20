@@ -290,16 +290,129 @@ namespace OpenSASUI
 			this.reportstreeview.GetColumn(3).Sizing = Gtk.TreeViewColumnSizing.Autosize;
 			this.reportstreeview.GetColumn(3).Resizable = true;
 			
+			this.reportstreeview.Selection.Changed += HandleReportstreeviewSelectionhandleChanged;
+			
 			this.updatereports.Clicked += HandleUpdatereportshandleClicked;
+			
+			
+			// Setup DataSet table information
+			Gtk.TreeStore rdsetmodel = new Gtk.TreeStore(typeof(string), // FCDA / DataSet name 0
+			                                            typeof(string), // desc 1
+			                                            typeof(int), // FCDA Index 2
+			                                            typeof(int)); // DataSet Index 3
+			
+			this.dsetreportreeview.AppendColumn (Mono.Unix.Catalog.GetString("Data Reference"),
+			                               new Gtk.CellRendererText (), "text", 0);
+			this.dsetreportreeview.AppendColumn (Mono.Unix.Catalog.GetString("FC/Desc"),
+			                               new Gtk.CellRendererText (), "text", 1);
+			this.dsetreportreeview.Model = rdsetmodel;
+			
+			this.dsetreportreeview.GetColumn(0).Resizable = true;
+			this.dsetreportreeview.GetColumn(1).Resizable = true;
 			
 			this.ipupdate.Sensitive = false;
 			this.iptreeview.Sensitive = false;
+			
+			this.updategse.Sensitive = false;
 			this.gsetreeview.Sensitive = false;
+			
+			this.updatereports.Sensitive = false;
 			this.reportstreeview.Sensitive = false;
+			this.dsetreportreeview.Sensitive = false;
 			
 			this.notebook1.Page = 0;
 		}
 
+		void HandleReportstreeviewSelectionhandleChanged (object sender, EventArgs e)
+		{
+			Gtk.TreeIter seliter;
+			Gtk.TreeSelection sel = (Gtk.TreeSelection) sender;
+			
+			if(sel.GetSelected(out seliter)) {
+				Gtk.TreeStore model = (Gtk.TreeStore) this.reportstreeview.Model;
+				int iedIndex = (int) model.GetValue(seliter, 4);
+				int apIndex = (int) model.GetValue(seliter, 5);
+				int ldIndex = (int) model.GetValue(seliter, 6);
+				int lnIndex = (int) model.GetValue(seliter, 7);
+				int repIndex = (int) model.GetValue(seliter, 8);
+				
+				// Clear DataSet information
+				Gtk.TreeIter iter;
+				Gtk.TreeStore dsmodel = (Gtk.TreeStore) this.dsetreportreeview.Model;
+				while(dsmodel.GetIterFirst(out iter))
+				      dsmodel.Remove(ref iter);
+				// Get DataSet Information from LN and Report information
+				if (iedIndex >= 0 && apIndex >= 0 && ldIndex >= 0 && repIndex >= 0) {
+					IEC61850.SCL.tReportControl rep;
+					IEC61850.SCL.tLN ln;
+					IEC61850.SCL.tLN0 ln0;
+					if (lnIndex < 0 ) { // Is the LN0
+						rep = this.sclfile.GetReportControl(iedIndex, apIndex, 
+						                                    ldIndex, repIndex);
+						ln0 = this.sclfile.GetLN0(iedIndex, apIndex, ldIndex);
+						this.FillReportDataSetInfo(rep, ln0, dsmodel);
+					}
+					else { // It is a LN
+						rep = this.sclfile.GetReportControl(iedIndex, apIndex, 
+                                                            ldIndex, lnIndex,
+                                                            repIndex);
+						ln = this.sclfile.GetLN(iedIndex, apIndex, ldIndex, lnIndex);
+						this.FillReportDataSetInfo(rep, ln, dsmodel);
+					}
+					
+				}
+			}
+		}
+		
+		private void FillReportDataSetInfo(IEC61850.SCL.tReportControl rep, IEC61850.SCL.tAnyLN ln, Gtk.TreeStore dsmodel)
+		{
+			if (ln.DataSet != null) {
+				for (int i = 0; i < ln.DataSet.GetLength(0); i++) {
+					if(rep.datSet.Equals(ln.DataSet[i].name)) {
+						IEC61850.SCL.tDataSet ds = ln.DataSet[i];
+						string name = "" + ds.name;
+						string desc = "" + ds.desc;
+						Gtk.TreeIter dsIter;
+						dsIter = dsmodel.AppendValues(name, desc);
+						if (ds.FCDA != null) {
+							for (int j = 0; j < ds.FCDA.GetLength(0); j++) {
+								string t = "";
+								if (ds.FCDA[j].ldInst != null)
+									if(ds.FCDA[j].ldInst.Length > 0) {
+										t += ds.FCDA[j].ldInst + ".";
+								}
+								else
+									t += "[NO LD DEFINED].";
+								
+								if (ds.FCDA[j].lnClass != null)
+									if (ds.FCDA[j].lnClass.Length > 0) {
+										t += ds.FCDA[j].prefix;
+										t += ds.FCDA[j].lnClass;
+										t += ds.FCDA[j].lnInst + ".";
+									}
+								else
+									t += "[NO LN INFO].";
+								if (ds.FCDA[j].doName != null)
+									if (ds.FCDA[j].doName.Length > 0)
+										t += ds.FCDA[j].doName;
+								else
+									t += "[NO DATA OBJECT INFO]";
+								if (ds.FCDA[j].daName != null)
+									if (ds.FCDA[j].daName.Length > 0)
+										t += "." + ds.FCDA[j].daName;
+								
+								dsmodel.AppendValues(dsIter, t, ds.FCDA[j].fc.ToString());
+							}
+						}
+						this.dsetreportreeview.ExpandAll();
+						break;
+					}
+				}
+			}
+			else
+				dsmodel.AppendValues("No DataSet list exist at this LN", "");
+		}
+		
 		// Reports listed are searched on LN0 and LN on each IED and its LDs
 		// no reports are searched on other LNs
 		void HandleUpdatereportshandleClicked (object sender, EventArgs e)
@@ -354,9 +467,9 @@ namespace OpenSASUI
 												reference = "" + this.sclfile.Devices[i].name;
 												reference += "(";
 												reference += this.sclfile.Devices[i].AccessPoint[j].name;
-												reference += ")/";
+												reference += ").";
 												reference += this.sclfile.Devices[i].AccessPoint[j].Server.LDevice[k].inst;
-												reference += "/LN0";
+												reference += ".LN0";
 												
 												model.AppendValues(name, id, reference, dataset, 
 												                   i, j, k, -1, // LN to -1 represents the LN0
@@ -388,10 +501,10 @@ namespace OpenSASUI
 													reference = "" + this.sclfile.Devices[i].name;
 													reference += "(";
 													reference += this.sclfile.Devices[i].AccessPoint[j].name;
-													reference += ")/";
+													reference += ").";
 													reference += this.sclfile.Devices[i].AccessPoint[j]
 																	.Server.LDevice[k].inst;
-													reference += "/";
+													reference += ".";
 													reference += this.sclfile.Devices[i].AccessPoint[j]
 																	.Server.LDevice[k].LN[l].prefix;
 													reference += this.sclfile.Devices[i].AccessPoint[j]
@@ -555,8 +668,7 @@ namespace OpenSASUI
 			this.SetSubnetwork(sclfile, subnet);
 		}
 		
-		public bool SelectSubnetwork (OpenSCL.Object sclfile, 
-		                           int subnet)
+		public bool SelectSubnetwork (OpenSCL.Object sclfile, int subnet)
 		{
 			if (sclfile == null)
 				return false;
@@ -578,6 +690,7 @@ namespace OpenSASUI
 			this.updategse.Sensitive = true;
 			
 			this.reportstreeview.Sensitive = true;
+			this.dsetreportreeview.Sensitive = true;
 			this.updatereports.Sensitive = true;
 			
 			return true;
@@ -624,6 +737,10 @@ namespace OpenSASUI
 			Gtk.TreeStore repmodel = (Gtk.TreeStore) this.reportstreeview.Model;
 			while (repmodel.GetIterFirst(out iter))
 				repmodel.Remove(ref iter);
+			// Report's DataSet Viewer
+			Gtk.TreeStore dsrepmodel = (Gtk.TreeStore) this.dsetreportreeview.Model;
+			while (dsrepmodel.GetIterFirst(out iter))
+				dsrepmodel.Remove(ref iter);
 			
 			this.ipupdate.Sensitive = false;
 			this.iptreeview.Sensitive = false;

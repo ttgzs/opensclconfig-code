@@ -432,42 +432,45 @@ namespace OpenSASUI
 		
 		private void FillModelDataSetInfo(IEC61850.SCL.tDataSet ds, int dsIndex, Gtk.TreeStore dsmodel)
 		{
-			
-			string name = "" + ds.name;
-			string desc = "" + ds.desc;
-			Gtk.TreeIter dsIter;
-			
-			dsIter = dsmodel.AppendValues(name, desc, -1, dsIndex);
-			if (ds.FCDA != null) {
-				for (int j = 0; j < ds.FCDA.GetLength(0); j++) {
-					string t = "";
-					if (ds.FCDA[j].ldInst != null)
-						if(ds.FCDA[j].ldInst.Length > 0) {
-							t += ds.FCDA[j].ldInst + ".";
-					}
-					else
-						t += "[NO LD DEFINED].";
-					
-					if (ds.FCDA[j].lnClass != null)
-						if (ds.FCDA[j].lnClass.Length > 0) {
-							t += ds.FCDA[j].prefix;
-							t += ds.FCDA[j].lnClass;
-							t += ds.FCDA[j].lnInst + ".";
+			if (!(ds == null || dsIndex < 0)) {
+				string name = "" + ds.name;
+				string desc = "" + ds.desc;
+				Gtk.TreeIter dsIter;
+				
+				dsIter = dsmodel.AppendValues(name, desc, -1, dsIndex);
+				if (ds.FCDA != null) {
+					for (int j = 0; j < ds.FCDA.GetLength(0); j++) {
+						string t = "";
+						if (ds.FCDA[j].ldInst != null)
+							if(ds.FCDA[j].ldInst.Length > 0) {
+								t += ds.FCDA[j].ldInst + ".";
 						}
-					else
-						t += "[NO LN INFO].";
-					if (ds.FCDA[j].doName != null)
-						if (ds.FCDA[j].doName.Length > 0)
-							t += ds.FCDA[j].doName;
-					else
-						t += "[NO DATA OBJECT INFO]";
-					if (ds.FCDA[j].daName != null)
-						if (ds.FCDA[j].daName.Length > 0)
-							t += "." + ds.FCDA[j].daName;
-					
-					dsmodel.AppendValues(dsIter, t, ds.FCDA[j].fc.ToString(), j, dsIndex);
+						else
+							t += "[NO LD DEFINED].";
+						
+						if (ds.FCDA[j].lnClass != null)
+							if (ds.FCDA[j].lnClass.Length > 0) {
+								t += ds.FCDA[j].prefix;
+								t += ds.FCDA[j].lnClass;
+								t += ds.FCDA[j].lnInst + ".";
+							}
+						else
+							t += "[NO LN INFO].";
+						if (ds.FCDA[j].doName != null)
+							if (ds.FCDA[j].doName.Length > 0)
+								t += ds.FCDA[j].doName;
+						else
+							t += "[NO DATA OBJECT INFO]";
+						if (ds.FCDA[j].daName != null)
+							if (ds.FCDA[j].daName.Length > 0)
+								t += "." + ds.FCDA[j].daName;
+						
+						dsmodel.AppendValues(dsIter, t, ds.FCDA[j].fc.ToString(), j, dsIndex);
+					}
 				}
 			}
+			else
+				dsmodel.AppendValues("NO DataSet REFERENCE IS SET");
 		}
 		
 		// Reports listed are searched on LN0 and LN on each IED and its LDs
@@ -563,11 +566,11 @@ namespace OpenSASUI
 																	.Server.LDevice[k].inst;
 													reference += ".";
 													reference += this.sclfile.Devices[i].AccessPoint[j]
-																	.Server.LDevice[k].LN[l].prefix;
+																	.Server.LDevice[k].LN[m].prefix;
 													reference += this.sclfile.Devices[i].AccessPoint[j]
-																	.Server.LDevice[k].LN[l].lnClass;
+																	.Server.LDevice[k].LN[m].lnClass;
 													reference += this.sclfile.Devices[i].AccessPoint[j]
-																	.Server.LDevice[k].LN[l].inst;
+																	.Server.LDevice[k].LN[m].inst;
 													
 													model.AppendValues(name, id, reference, dataset, 
 												                   i, j, k, m, l, desc);
@@ -721,6 +724,7 @@ namespace OpenSASUI
 		}
 		public SclCommManager (OpenSCL.Object sclfile, int subnet)
 		{
+			this.subnetwork = -1;
 			this.Init();
 			this.SetSubnetwork(sclfile, subnet);
 		}
@@ -755,6 +759,8 @@ namespace OpenSASUI
 		
 		public bool SetSubnetwork (OpenSCL.Object sclfile, int subnet)
 		{
+			if (this.subnetwork == subnet)
+				return true;
 			this.sclfile = sclfile;
 			this.subnetwork = subnet;
 			if (SelectSubnetwork(sclfile, subnet)) 
@@ -769,6 +775,9 @@ namespace OpenSASUI
 		
 		public bool ChangeSubnetwork (int subnet)
 		{
+			if (this.subnetwork == subnet)
+				return true;
+			
 			this.subnetwork = subnet;
 			int s = subnet;
 			if (SelectSubnetwork(this.sclfile, subnet))

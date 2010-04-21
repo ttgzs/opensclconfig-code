@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2010-02-22 18:01:34-0600\n"
+"POT-Creation-Date: 2010-04-21 14:29:13-0500\n"
 "PO-Revision-Date: 2010-02-22 18:19:42-0600\n"
 "Last-Translator: esodan\n"
 "Language-Team: \n"
@@ -18,10 +18,6 @@ msgstr ""
 msgid "richTextBox1.Text"
 msgstr ""
 
-#: ../OpenSCLConfigurator/about.Designer.cs:238
-msgid "richTextBox3.Text"
-msgstr ""
-
 #: ../OpenSASUI/SclTreeView.cs:44
 msgid "No File Loaded"
 msgstr "No hay archivo cargado"
@@ -34,87 +30,68 @@ msgstr "Abre o crea un nuevo archivo SCL"
 msgid "Element"
 msgstr "Elemento"
 
-#: ../OpenSASUI/SclTreeView.cs:51
-#: ../OpenSASUI/LDEditor.cs:33
-#: ../OpenSASUI/LDEditor.cs:42
-#: ../OpenSASUI/APEditor.cs:27
-#: ../OpenSASUI/APEditor.cs:37
-#: ../OpenSASUI/APEditor.cs:48
-#: ../OpenSASUI/IEDEditor.cs:30
-#: ../OpenSASUI/SclCommManager.cs:154
+#: ../OpenSASUI/SclTreeView.cs:51 ../OpenSASUI/LDEditor.cs:33
+#: ../OpenSASUI/LDEditor.cs:42 ../OpenSASUI/APEditor.cs:28
+#: ../OpenSASUI/APEditor.cs:38 ../OpenSASUI/APEditor.cs:49
+#: ../OpenSASUI/IEDEditor.cs:31 ../OpenSASUI/SclCommManager.cs:165
+#: ../OpenSASUI/SclCommManager.cs:283
 msgid "Description"
 msgstr "Descripción"
 
-#: ../OpenSASUI/SclTreeView.cs:103
-#: ../OpenSASUI/SclTreeView.cs:236
-msgid "Version: "
-msgstr "Versión"
-
-#: ../OpenSASUI/SclTreeView.cs:105
-msgid " Rv: "
-msgstr " Rv: "
-
-#: ../OpenSASUI/SclTreeView.cs:107
-msgid " Desc: "
-msgstr " Desc: "
-
-#: ../OpenSASUI/SclTreeView.cs:109
-msgid " / By: "
-msgstr " / By: "
-
-#: ../OpenSASUI/SclTreeView.cs:111
-msgid " / Reason: "
-msgstr " / Reason: "
-
-#: ../OpenSASUI/SclTreeView.cs:185
+#: ../OpenSASUI/SclTreeView.cs:163
 msgid "Config. Version: "
 msgstr "Versión Config.: "
 
-#: ../OpenSASUI/SclTreeView.cs:187
+#: ../OpenSASUI/SclTreeView.cs:165
 msgid " / Manufacturer: "
 msgstr " / Fabricante: "
 
-#: ../OpenSASUI/SclTreeView.cs:189
+#: ../OpenSASUI/SclTreeView.cs:167
 msgid " / Description: "
 msgstr " / Descripción"
 
-#: ../OpenSASUI/SclTreeView.cs:238
+#: ../OpenSASUI/SclTreeView.cs:215
+msgid "Version: "
+msgstr "Versión"
+
+#: ../OpenSASUI/SclTreeView.cs:217
 msgid " Revision: "
 msgstr " Revisión: "
 
-#: ../OpenSASUI/SclTreeView.cs:240
+#: ../OpenSASUI/SclTreeView.cs:219
 msgid " Desc.: "
 msgstr " Desc.: "
 
-#: ../OpenSASUI/SclTreeView.cs:248
+#: ../OpenSASUI/SclTreeView.cs:227
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclEditor.cs:124
 msgid "History"
 msgstr "Historial"
 
-#: ../OpenSASUI/SclTreeView.cs:250
+#: ../OpenSASUI/SclTreeView.cs:229
 msgid "Version and History Information"
 msgstr "Información de Versión e Histórico"
 
-#: ../OpenSASUI/SclTreeView.cs:253
+#: ../OpenSASUI/SclTreeView.cs:232
 msgid "Substation"
 msgstr "Subestación"
 
-#: ../OpenSASUI/SclTreeView.cs:255
+#: ../OpenSASUI/SclTreeView.cs:234
 msgid "Substation Information"
 msgstr "Información de la Subestación"
 
-#: ../OpenSASUI/SclTreeView.cs:258
+#: ../OpenSASUI/SclTreeView.cs:237
 msgid "Communication"
 msgstr "Comunicación"
 
-#: ../OpenSASUI/SclTreeView.cs:260
+#: ../OpenSASUI/SclTreeView.cs:239
 msgid "Communications Information"
 msgstr "Información de la Comunicación"
 
-#: ../OpenSASUI/SclTreeView.cs:263
+#: ../OpenSASUI/SclTreeView.cs:242
 msgid "Devices (IED)"
 msgstr "Dispostivos (DEI)"
 
-#: ../OpenSASUI/SclTreeView.cs:265
+#: ../OpenSASUI/SclTreeView.cs:244
 msgid "IEDs configured in this file"
 msgstr "DEIs configuradas en este archivo"
 
@@ -151,6 +128,7 @@ msgid "Instance"
 msgstr "Instancia"
 
 #: ../OpenSASUI/gtk-gui/OpenSASUI.LDEditor.cs:94
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:333
 msgid "Details"
 msgstr "Detalles"
 
@@ -162,23 +140,21 @@ msgstr "Nodos Lógicos"
 msgid "Data Objects"
 msgstr "Datos Objecto"
 
-#: ../OpenSASUI/APEditor.cs:25
-#: ../OpenSASUI/IEDEditor.cs:23
-#: ../OpenSASUI/IEDEditor.cs:28
+#: ../OpenSASUI/APEditor.cs:26 ../OpenSASUI/IEDEditor.cs:24
+#: ../OpenSASUI/IEDEditor.cs:29
 #: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:374
 msgid "Logical Devices"
 msgstr "Dispositivos Lógicos"
 
-#: ../OpenSASUI/APEditor.cs:35
-#: ../OpenSASUI/APEditor.cs:46
+#: ../OpenSASUI/APEditor.cs:36 ../OpenSASUI/APEditor.cs:47
 msgid "Parameter"
 msgstr "Parámetro"
 
-#: ../OpenSASUI/APEditor.cs:215
+#: ../OpenSASUI/APEditor.cs:334
 msgid "No Subnetwork"
 msgstr "Sin Subnetwork"
 
-#: ../OpenSASUI/APEditor.cs:217
+#: ../OpenSASUI/APEditor.cs:336
 msgid "This AP is not connected to any Subnetwork"
 msgstr "Este PA no está conectado a ninguna Subred"
 
@@ -237,12 +213,12 @@ msgid "Physical"
 msgstr "Físico"
 
 #: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:579
-#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:192
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:363
 msgid "GSE"
 msgstr "GSE"
 
 #: ../OpenSASUI/gtk-gui/OpenSASUI.APEditor.cs:588
-#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:202
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:446
 msgid "SMV"
 msgstr "SMV"
 
@@ -250,15 +226,15 @@ msgstr "SMV"
 msgid "Connection Details"
 msgstr "Detalles de la Conexión"
 
-#: ../OpenSASUI/IEDEditor.cs:25
+#: ../OpenSASUI/IEDEditor.cs:26
 msgid "Add Logical Devices"
 msgstr "Agregar Dispositivos Lógicos"
 
-#: ../OpenSASUI/IEDEditor.cs:153
+#: ../OpenSASUI/IEDEditor.cs:154
 msgid "Name: "
 msgstr "Nombre:"
 
-#: ../OpenSASUI/IEDEditor.cs:156
+#: ../OpenSASUI/IEDEditor.cs:157
 msgid ""
 "\n"
 "Manufacturer: "
@@ -266,7 +242,7 @@ msgstr ""
 "\n"
 "Fabricante:"
 
-#: ../OpenSASUI/IEDEditor.cs:159
+#: ../OpenSASUI/IEDEditor.cs:160
 msgid ""
 "\n"
 "Config. Version: "
@@ -274,19 +250,19 @@ msgstr ""
 "\n"
 "Versión de Config.:"
 
-#: ../OpenSASUI/IEDEditor.cs:184
+#: ../OpenSASUI/IEDEditor.cs:185
 msgid "Access Points"
 msgstr "Puntos de Acceso"
 
-#: ../OpenSASUI/IEDEditor.cs:200
+#: ../OpenSASUI/IEDEditor.cs:201
 msgid "LD (No Name)"
 msgstr "DL (Sin Nombre)"
 
-#: ../OpenSASUI/IEDEditor.cs:204
+#: ../OpenSASUI/IEDEditor.cs:205
 msgid "AccessPoint("
 msgstr "Punto de Acceso("
 
-#: ../OpenSASUI/IEDEditor.cs:255
+#: ../OpenSASUI/IEDEditor.cs:257
 msgid "Error on Set IED %i"
 msgstr "Error al asignar DEI %i"
 
@@ -345,7 +321,7 @@ msgid "Access Point:"
 msgstr "Punto de Acceso:"
 
 #: ../OpenSASUI/gtk-gui/OpenSASUI.IEDEditor.cs:300
-#: ../OpenSASUI/gtk-gui/OpenSASUI.SclEditor.cs:107
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclEditor.cs:111
 msgid "Communications"
 msgstr "Comunicaciones"
 
@@ -365,64 +341,110 @@ msgstr "Privado"
 msgid "IED Description"
 msgstr "Descripción de DEI"
 
-#: ../OpenSASUI/gtk-gui/OpenSASUI.SclEditor.cs:73
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclEditor.cs:77
 msgid "Nothing"
 msgstr "Nada"
 
-#: ../OpenSASUI/gtk-gui/OpenSASUI.SclEditor.cs:87
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclEditor.cs:91
 msgid "IED Editor"
 msgstr "Editor DEI"
 
-#: ../OpenSASUI/SclCommManager.cs:148
+#: ../OpenSASUI/SclCommManager.cs:159
 msgid "IP Address"
 msgstr "Dirección IP"
 
-#: ../OpenSASUI/SclCommManager.cs:150
+#: ../OpenSASUI/SclCommManager.cs:161
 msgid "SubNetwork Mask"
 msgstr "Máscara de Subred"
 
-#: ../OpenSASUI/SclCommManager.cs:152
-#: ../OpenSASUI/SclCommManager.cs:188
+#: ../OpenSASUI/SclCommManager.cs:163 ../OpenSASUI/SclCommManager.cs:199
 msgid "IED Name"
 msgstr "Nombre DEI"
 
-#: ../OpenSASUI/SclCommManager.cs:184
+#: ../OpenSASUI/SclCommManager.cs:195
 msgid "Application ID"
 msgstr "ID de Aplicación"
 
-#: ../OpenSASUI/SclCommManager.cs:186
+#: ../OpenSASUI/SclCommManager.cs:197
 msgid "MAC Address"
 msgstr "Dirección MAC"
 
-#: ../OpenSASUI/SclCommManager.cs:190
+#: ../OpenSASUI/SclCommManager.cs:201
 msgid "LD Instance"
 msgstr "Instancia DL"
 
-#: ../OpenSASUI/SclCommManager.cs:192
+#: ../OpenSASUI/SclCommManager.cs:203
 msgid "Control Block Name"
 msgstr "Nombre del Bloque de Control"
 
-#: ../OpenSASUI/SclCommManager.cs:194
+#: ../OpenSASUI/SclCommManager.cs:205
 msgid "GSE Type"
 msgstr "Tipo de GSE"
 
-#: ../OpenSASUI/SclCommManager.cs:463
+#: ../OpenSASUI/SclCommManager.cs:248
+#, fuzzy
+msgid "DataSet/IED"
+msgstr "Grupo de Datos"
+
+#: ../OpenSASUI/SclCommManager.cs:250 ../OpenSASUI/SclCommManager.cs:319
+msgid "FC/Desc"
+msgstr ""
+
+#: ../OpenSASUI/SclCommManager.cs:275
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SubnetworkEditor.cs:103
+msgid "Name"
+msgstr "Nombre"
+
+#: ../OpenSASUI/SclCommManager.cs:277
+#, fuzzy
+msgid "ID"
+msgstr "DEI"
+
+#: ../OpenSASUI/SclCommManager.cs:279
+msgid "IED/LD/LN"
+msgstr ""
+
+#: ../OpenSASUI/SclCommManager.cs:281
+#, fuzzy
+msgid "DataSet Ref."
+msgstr "Grupo de Datos"
+
+#: ../OpenSASUI/SclCommManager.cs:317
+msgid "Data Reference"
+msgstr ""
+
+#: ../OpenSASUI/SclCommManager.cs:834
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:118
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:202
 msgid "TCP/IP"
 msgstr "TCP/IP"
 
-#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:158
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:242
 msgid "GSE Types"
 msgstr "Tipos de GSE"
 
-#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:211
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:305
+#, fuzzy
+msgid "GSE Information"
+msgstr "Sin Información de DOI"
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:526
+#, fuzzy
+msgid "Report Control Block"
+msgstr "Nombre del Bloque de Control"
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:557
+#, fuzzy
+msgid "DataSet Information"
+msgstr "Información de la Subestación"
+
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:585
 msgid "Reports"
 msgstr "Reportes"
 
-#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:220
+#: ../OpenSASUI/gtk-gui/OpenSASUI.SclCommManager.cs:667
 msgid "DataSet"
 msgstr "Grupo de Datos"
 
@@ -452,10 +474,6 @@ msgstr ""
 "Descripción:\n"
 "DEIs Conectados:"
 
-#: ../OpenSASUI/gtk-gui/OpenSASUI.SubnetworkEditor.cs:103
-msgid "Name"
-msgstr "Nombre"
-
 #: ../OpenSASUI/gtk-gui/OpenSASUI.SubnetworkEditor.cs:111
 #, fuzzy
 msgid "BitRate (MB/s)"
@@ -469,27 +487,31 @@ msgstr "tipo"
 msgid "Details/Edit"
 msgstr "Detalles/Editar"
 
-#: ../OpenSASUI/gtk-gui/OpenSASUI.GSESuscriptionEditor.cs:69
-msgid ""
-"<strong>IED Name:</strong>\n"
-"<strong>LD Instance (Access Point):</strong>\n"
-"<strong>GSE Control Name</strong>"
+#: ../OpenSASUI/HistoryEditor.cs:37
+#, fuzzy
+msgid "Version"
+msgstr "Versión"
+
+#: ../OpenSASUI/HistoryEditor.cs:39
+#, fuzzy
+msgid "Revision"
+msgstr " Revisión: "
+
+#: ../OpenSASUI/HistoryEditor.cs:41
+msgid "What"
 msgstr ""
-"\n"
-"<strong>Nombre DEI:</strong>\n"
-"<strong>Instancia DL (Punto de Acceso):<"
 
-#: ../OpenSASUI/gtk-gui/OpenSASUI.GSESuscriptionEditor.cs:146
-msgid "Add A_ll"
-msgstr "Agregar _Todo"
+#: ../OpenSASUI/HistoryEditor.cs:43
+msgid "When"
+msgstr ""
 
-#: ../OpenSASUI/gtk-gui/OpenSASUI.GSESuscriptionEditor.cs:172
-msgid "Remov_e All"
-msgstr "_Quitar Todo"
+#: ../OpenSASUI/HistoryEditor.cs:45
+msgid "Who"
+msgstr ""
 
-#: ../OpenSASUI/gtk-gui/OpenSASUI.GSESuscriptionEditorDialog.cs:25
-msgid "GSE Suscription Editor"
-msgstr "Editor de Suscripciones GSE"
+#: ../OpenSASUI/HistoryEditor.cs:47
+msgid "Why"
+msgstr ""
 
 #: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:87
 #: ../OpenSASConfigurator/gtk-gui/MainWindow.cs:88
@@ -577,3 +599,32 @@ msgstr "Vista Árbol"
 msgid "ConsoleView"
 msgstr "Vista Consola"
 
+#~ msgid " Rv: "
+#~ msgstr " Rv: "
+
+#~ msgid " Desc: "
+#~ msgstr " Desc: "
+
+#~ msgid " / By: "
+#~ msgstr " / By: "
+
+#~ msgid " / Reason: "
+#~ msgstr " / Reason: "
+
+#~ msgid ""
+#~ "<strong>IED Name:</strong>\n"
+#~ "<strong>LD Instance (Access Point):</strong>\n"
+#~ "<strong>GSE Control Name</strong>"
+#~ msgstr ""
+#~ "\n"
+#~ "<strong>Nombre DEI:</strong>\n"
+#~ "<strong>Instancia DL (Punto de Acceso):<"
+
+#~ msgid "Add A_ll"
+#~ msgstr "Agregar _Todo"
+
+#~ msgid "Remov_e All"
+#~ msgstr "_Quitar Todo"
+
+#~ msgid "GSE Suscription Editor"
+#~ msgstr "Editor de Suscripciones GSE"

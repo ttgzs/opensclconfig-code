@@ -759,8 +759,6 @@ namespace OpenSASUI
 		
 		public bool SetSubnetwork (OpenSCL.Object sclfile, int subnet)
 		{
-			if (this.subnetwork == subnet)
-				return true;
 			this.sclfile = sclfile;
 			this.subnetwork = subnet;
 			if (SelectSubnetwork(sclfile, subnet)) 
@@ -775,9 +773,6 @@ namespace OpenSASUI
 		
 		public bool ChangeSubnetwork (int subnet)
 		{
-			if (this.subnetwork == subnet)
-				return true;
-			
 			this.subnetwork = subnet;
 			int s = subnet;
 			if (SelectSubnetwork(this.sclfile, subnet))
@@ -847,7 +842,6 @@ namespace OpenSASUI
 			}
 			this.gsetreeview.GetColumn(5).Visible = true;
 		}
-		
 		
 	}
 }

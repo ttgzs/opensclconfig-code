@@ -826,7 +826,8 @@ namespace OpenSCL
 		
 		// GSE Related functions
 		
-		public IEC61850.SCL.tGSEControl GetGSEControl (int iedIndex, int apIndex, int ldinst, int gsecontrolIndex)
+		public IEC61850.SCL.tGSEControl GetGSEControl (int iedIndex, int apIndex, int ldinst, 
+		                                               int gsecontrolIndex)
 		{
 			if (this.configuration.IED == null)
 				return null;
@@ -860,7 +861,7 @@ namespace OpenSCL
 			    					.Server.LDevice[ldinst].LN0.GSEControl[gsecontrolIndex];
 		}
 		
-		public int GetGSEControl (int iedIndex, int apIndex, int ldinst, string gsecName)
+		public int GetGSEControlIndex (int iedIndex, int apIndex, int ldinst, string gsecName)
 		{
 			if (this.configuration.IED == null)
 				return -1;
@@ -898,8 +899,19 @@ namespace OpenSCL
 			return -1;
 		}
 		
+		public IEC61850.SCL.tGSEControl GetGSEControl (int iedIndex, int apIndex, int ldinst, string gsecName)
+		{
+			return this.GetGSEControl(iedIndex, apIndex, ldinst,
+			                               this.GetGSEControlIndex(iedIndex,
+			                                                       apIndex,
+			                                                       ldinst,
+			                                                       gsecName));
+		}
+		
 		public IEC61850.SCL.tGSEControl GetGSEControl (int iedIndex, string ldinst, string gsecName)
 		{
+			//
+			
 			if (iedIndex < 0 || ldinst == null || gsecName == null)
 				return null;
 			
@@ -917,6 +929,58 @@ namespace OpenSCL
 			}
 			
 			return null;
+		}
+		
+		
+		public int GetGSEControlDataSetIndex (int iedIndex, string ldinst, string gsecName)
+		{
+			IEC61850.SCL.tGSEControl gc = this.GetGSEControl(iedIndex, ldinst, gsecName);
+			if (gc == null)
+				return -1;
+			if (gc.datSet == null)
+				return -1;
+			
+			IEC61850.SCL.tLDevice ld = this.GetLD (this.GetIED (iedIndex), ldinst);
+			if (ld == null)
+				return -1;
+			if (ld.LN0 == null)
+				return -1;
+			if (ld.LN0.DataSet == null)
+				return -1;
+			
+			for (int i = 0; i < ld.LN0.DataSet.GetLength(0); i++) {
+				if (ld.LN0.DataSet[i].name.Equals(gc.datSet))
+					return i;
+			}
+			
+			return -1;
+		}
+		
+		public IEC61850.SCL.tDataSet GetGSEControlDataSet (int iedIndex, string ldinst, string gsecName)
+		{
+			int gc = this.GetGSEControlDataSetIndex(iedIndex, ldinst, gsecName);
+			if (gc < 0)
+				return null;
+			
+			IEC61850.SCL.tLDevice ld = this.GetLD (this.GetIED (iedIndex), ldinst);
+			if (ld == null)
+				return null;
+			if (ld.LN0 == null)
+				return null;
+			if (ld.LN0.DataSet == null)
+				return null;
+			
+			return ld.LN0.DataSet[gc];
+		}
+		
+		public string[] GetGSEControlSuscriptions (int iedIndex, int apIndex, int ldinst, int gsecIndex)
+		{
+			IEC61850.SCL.tGSEControl gc = this.GetGSEControl(iedIndex, apIndex, ldinst, gsecIndex);
+			if (gc == null)
+				return null;
+			if (gc.IEDName == null)
+				return null;
+			return gc.IEDName;
 		}
 		
 		// Reports Related functions
@@ -940,7 +1004,7 @@ namespace OpenSCL
 		/// <returns>
 		/// A <see cref="IEC61850.SCL.tReportControl"/>
 		/// </returns>
-		public IEC61850.SCL.tReportControl GetReportControl (int iedIndex, int apIndex, int ldinst, int reportIndex)
+		public IEC61850.SCL.tReportControl GetLN0ReportControl (int iedIndex, int apIndex, int ldinst, int reportIndex)
 		{
 			if (this.configuration.IED == null)
 				return null;
@@ -995,7 +1059,7 @@ namespace OpenSCL
 		/// <returns>
 		/// A <see cref="IEC61850.SCL.tReportControl"/>
 		/// </returns>
-		public IEC61850.SCL.tReportControl GetReportControl (int iedIndex, int apIndex, int ldinst, 
+		public IEC61850.SCL.tReportControl GetLNReportControl (int iedIndex, int apIndex, int ldinst, 
 		                                                     int lnIndex, int reportIndex)
 		{
 			if (this.configuration.IED == null)
@@ -1032,6 +1096,83 @@ namespace OpenSCL
 			return this.configuration.IED[iedIndex].AccessPoint[apIndex]
 			    					.Server.LDevice[ldinst].LN[lnIndex].ReportControl[reportIndex];
 		}
+		
+		public int GetLN0ReportControlDataSetIndex (int iedIndex, int apIndex, int ldinst, int reportIndex)
+		{
+			IEC61850.SCL.tReportControl rep = this.GetLN0ReportControl(iedIndex, apIndex, ldinst,
+			                                                        reportIndex);
+			if (rep == null)
+				return -1;
+			if (rep.datSet == null)
+				return -1;
+			
+			IEC61850.SCL.tLN0 ln = this.GetLN0(iedIndex, apIndex, ldinst);
+			if (ln == null)
+				return -1;
+			if (ln.DataSet == null)
+				return -1;
+			for (int i = 0; i < ln.DataSet.GetLength(0); i++) {
+				if (ln.DataSet[i].name.Equals(rep.datSet))
+					return i;
+			}
+			return -1;
+		}
+		
+		public IEC61850.SCL.tDataSet GetLN0ReportControlDataSet (int iedIndex, int apIndex, int ldinst, 
+		                                                     int reportIndex)
+		{
+			int rep = this.GetLN0ReportControlDataSetIndex(iedIndex, apIndex, ldinst, reportIndex);
+			if (rep < 0)
+				return null;
+			
+			IEC61850.SCL.tLN0 ln = this.GetLN0(iedIndex, apIndex, ldinst);
+			if (ln == null)
+				return null;
+			if (ln.DataSet == null)
+				return null;
+			
+			return ln.DataSet[rep];
+		}
+		
+		public int GetLNReportControlDataSetIndex (int iedIndex, int apIndex, int ldinst, 
+		                                         int lnIndex, int reportIndex)
+		{
+			IEC61850.SCL.tReportControl rep = this.GetLNReportControl(iedIndex, apIndex, ldinst,
+			                                                        lnIndex, reportIndex);
+			if (rep == null)
+				return -1;
+			if (rep.datSet == null)
+				return -1;
+			
+			IEC61850.SCL.tLN ln = this.GetLN(iedIndex, apIndex, ldinst, lnIndex);
+			if (ln == null)
+				return -1;
+			if (ln.DataSet == null)
+				return -1;
+			for (int i = 0; i < ln.DataSet.GetLength(0); i++) {
+				if (ln.DataSet[i].name.Equals(rep.datSet))
+					return i;
+			}
+			
+			return -1;
+		}
+		
+		public IEC61850.SCL.tDataSet GetLNReportControlDataSet (int iedIndex, int apIndex, int ldinst, 
+		                                                     int lnIndex, int reportIndex)
+		{
+			int rep = this.GetLNReportControlDataSetIndex(iedIndex, apIndex, ldinst, lnIndex, reportIndex);
+			if (rep < 0)
+				return null;
+			
+			IEC61850.SCL.tLN ln = this.GetLN(iedIndex, apIndex, ldinst, lnIndex);
+			if (ln == null)
+				return null;
+			if (ln.DataSet == null)
+				return null;
+			
+			return ln.DataSet[rep];
+		}
+		
 		
 		// LN Related
 		
@@ -1093,8 +1234,6 @@ namespace OpenSCL
 			return this.configuration.IED[iedIndex].AccessPoint[apIndex]
 			    					.Server.LDevice[ldinst].LN[lnIndex];
 		}
-		
-		// t
 		
 		// tP related
 		

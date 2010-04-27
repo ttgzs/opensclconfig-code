@@ -2886,7 +2886,6 @@ namespace IEC61850.SCL
 			this.tField = new Timestamp("t", tFCEnum.ST);
 			this.SBOField = new VisString65("SBO", tFCEnum.CO);
 			this.SBOField.Visible = false;
-			ObjectManagement objectManagement = new ObjectManagement();
 			this.SBOwField = new SBOw(iedType, this.id, tFCEnum.CO);
 			this.OperField = new Oper(iedType, this.id, tFCEnum.CO);
 			this.CancelField = new Cancel(iedType, this.id, tFCEnum.CO);		

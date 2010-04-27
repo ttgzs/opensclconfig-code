@@ -6821,183 +6821,189 @@ namespace IEC61850.SCL
         
 		public string EnumToString (tBasicTypeEnum t)
 		{
+			string text = "";
 			switch (t) {
 			
 			case tBasicTypeEnum.BOOLEAN:
-				return  "BOOLEAN";
+				text = "BOOLEAN";
 				break;
 			case tBasicTypeEnum.INT8:
-				return  "INT8";
+				text = "INT8";
 				break;				
 			case tBasicTypeEnum.INT16:
-				return  "INT16";
+				text = "INT16";
 				break;				
 			case tBasicTypeEnum.INT24:
-				return "INT24";
+				text = "INT24";
 				break;			
 			case tBasicTypeEnum.INT32:
-				return "INT32";
+				text = "INT32";
 				break;			
 			case tBasicTypeEnum.INT128:
-				return "INT128";
+				text = "INT128";
 				break;			
 			case tBasicTypeEnum.INT8U:
-				return "INT8U";
+				text = "INT8U";
 				break;				
 			case tBasicTypeEnum.INT16U:
-				return "INT16U";
+				text = "INT16U";
 				break;				
 			case tBasicTypeEnum.INT24U:
-				return "INT24U";
+				text = "INT24U";
 				break;				
 			case tBasicTypeEnum.INT32U:
-				return "INT32U";
+				text = "INT32U";
 				break;				
 			case tBasicTypeEnum.FLOAT32:
-				return "FLOAT32";
+				text = "FLOAT32";
 				break;				
 			case tBasicTypeEnum.FLOAT64:
-				return "FLOAT64";
+				text = "FLOAT64";
 				break;				
 			case tBasicTypeEnum.Enum:
-				return "Enum";
+				text = "Enum";
 				break;				
 			case tBasicTypeEnum.Dbpos:
-				return "Dbpos";
+				text = "Dbpos";
 				break;				
 			case tBasicTypeEnum.Tcmd:
-				return "Tcmd";
+				text = "Tcmd";
 				break;				
 			case tBasicTypeEnum.Quality:
-				return "Quality";
+				text = "Quality";
 				break;				
 			case tBasicTypeEnum.Timestamp:
-				return "Timestamp";
+				text = "Timestamp";
 				break;				
 			case tBasicTypeEnum.VisString32:
-				return "VisString32";
+				text = "VisString32";
 				break;				
 			case tBasicTypeEnum.VisString64:
-				return "VisString64";
+				text = "VisString64";
 				break;
 			case tBasicTypeEnum.VisString255:
-				return "VisString255";
+				text = "VisString255";
 				break;
 			case tBasicTypeEnum.Octet64:
-				return "Octet64";
+				text = "Octet64";
 				break;
 			case tBasicTypeEnum.Struct:
-				return "Struct";
+				text = "Struct";
 				break;
 			case tBasicTypeEnum.EntryTime:
-				return "EntryTime";
+				text = "EntryTime";
 				break;
 			case tBasicTypeEnum.Unicode255:
-				return "Unicode255";
+				text = "Unicode255";
 				break;
 			default:
-				return "Extension";
+				text = "Extension";
 				break;
 			}
+			
+			return text;
 		}
 		
 		public tBasicTypeEnum StringToEnum (string t)
 		{
+			tBasicTypeEnum type;
 			switch (t) {
 			
 			case "BOOLEAN":
-				return  tBasicTypeEnum.BOOLEAN;
+				type = tBasicTypeEnum.BOOLEAN;
 				break;
 			
 			case "INT8":
-				return  tBasicTypeEnum.INT8;
+				type = tBasicTypeEnum.INT8;
 				break;
 				
 			case "INT16":
-				return  tBasicTypeEnum.INT16;
+				type = tBasicTypeEnum.INT16;
 				break;
 				
 			case "INT24":
-				return tBasicTypeEnum.INT24;
+				type = tBasicTypeEnum.INT24;
 				break;
 			
 			case "INT32":
-				return tBasicTypeEnum.INT32;
+				type = tBasicTypeEnum.INT32;
 				break;
 			
 			case "INT128":
-				return tBasicTypeEnum.INT128;
+				type = tBasicTypeEnum.INT128;
 				break;
 			
 			case "INT8U":
-				return tBasicTypeEnum.INT8U;
+				type = tBasicTypeEnum.INT8U;
 				break;
 				
 			case "INT16U":
-				return tBasicTypeEnum.INT16U;
+				type = tBasicTypeEnum.INT16U;
 				break;
 				
 			case "INT24U":
-				return tBasicTypeEnum.INT24U;
+				type = tBasicTypeEnum.INT24U;
 				break;
 				
 			case "INT32U":
-				return tBasicTypeEnum.INT32U;
+				type = tBasicTypeEnum.INT32U;
 				break;
 				
 			case "FLOAT32":
-				return tBasicTypeEnum.FLOAT32;
+				type = tBasicTypeEnum.FLOAT32;
 				break;
 				
 			case "FLOAT64":
-				return tBasicTypeEnum.FLOAT64;
+				type = tBasicTypeEnum.FLOAT64;
 				break;
 				
 			case "Enum":
-				return tBasicTypeEnum.Enum;
+				type = tBasicTypeEnum.Enum;
 				break;
 				
 			case "Dbpos":
-				return tBasicTypeEnum.Dbpos;
+				type = tBasicTypeEnum.Dbpos;
 				break;
 				
 			case "Tcmd":
-				return tBasicTypeEnum.Tcmd;
+				type = tBasicTypeEnum.Tcmd;
 				break;
 				
 			case "Quality":
-				return tBasicTypeEnum.Quality;
+				type = tBasicTypeEnum.Quality;
 				break;
 				
 			case "Timestamp":
-				return tBasicTypeEnum.Timestamp;
+				type = tBasicTypeEnum.Timestamp;
 				break;
 			case "VisString32":
-				return tBasicTypeEnum.VisString32;
+				type = tBasicTypeEnum.VisString32;
 				break;
 				
 			case "VisString64":
-				return tBasicTypeEnum.VisString64;
+				type = tBasicTypeEnum.VisString64;
 				break;
 			case "VisString255":
-				return tBasicTypeEnum.VisString255;
+				type = tBasicTypeEnum.VisString255;
 				break;
 			case "Octet64":
-				return tBasicTypeEnum.Octet64;
+				type = tBasicTypeEnum.Octet64;
 				break;
 			case "Struct":
-				return tBasicTypeEnum.Struct;
+				type = tBasicTypeEnum.Struct;
 				break;
 			case "EntryTime":
-				return tBasicTypeEnum.EntryTime;
+				type = tBasicTypeEnum.EntryTime;
 				break;
 			case "Unicode255":
-				return tBasicTypeEnum.Unicode255;
+				type = tBasicTypeEnum.Unicode255;
 				break;
 			default:
-				return tBasicTypeEnum.Extension;
+				type = tBasicTypeEnum.Extension;
 				break;
 			}
+			
+			return type;
 		}
 	}
 	

@@ -1,4 +1,4 @@
-﻿// OpenSCLConfigurator 
+// OpenSCLConfigurator 
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -534,7 +534,11 @@ namespace OpenSCLConfigurator
 			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//open_file.ico"));																		
 			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//save_file.ico"));						
 			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//exit.ico"));												
-			toolBar1.ImageList = tb_il;  				
+			toolBar1.ImageList = tb_il;
+			
+			//Set app icon
+			System.Drawing.Icon ico = new Icon(Application.StartupPath+"/imgs//OpenSCL_logo.ico");
+			this.Icon = ico;
 		}												
 
 		/// <summary>

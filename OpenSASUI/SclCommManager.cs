@@ -238,6 +238,7 @@ namespace OpenSASUI
 			this.gsetreeview.GetColumn(5).Resizable = true;
 			this.gsetreeview.GetColumn(5).Visible = false; // Hide this column until GSE is updated
 														   // from IED's LLN0
+			this.gsetreeview.SearchColumn = 2;
 			
 			this.updategse.Clicked += HandleUpdategsehandleClicked;
 			this.gsetreeview.Selection.Changed += HandleGsetreeviewSelectionhandleChanged;
@@ -277,7 +278,7 @@ namespace OpenSASUI
 			                               new Gtk.CellRendererText (), "text", 0);
 			this.reportstreeview.AppendColumn (Mono.Unix.Catalog.GetString("ID"),
 			                               new Gtk.CellRendererText (), "text", 1);
-			this.reportstreeview.AppendColumn (Mono.Unix.Catalog.GetString("IED/LD/LN"),
+			this.reportstreeview.AppendColumn (Mono.Unix.Catalog.GetString("IED.LD.LN"),
 			                               new Gtk.CellRendererText (), "text", 2);
 			this.reportstreeview.AppendColumn (Mono.Unix.Catalog.GetString("DataSet Ref."),
 			                               new Gtk.CellRendererText (), "text", 3);

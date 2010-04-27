@@ -1083,13 +1083,15 @@ namespace OpenSCL
 			if (this.configuration.IED[iedIndex].AccessPoint[apIndex]
 			    					.Server.LDevice[ldinst].LN == null)
 				return null;
-			if (lnIndex < this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			if (lnIndex < 0
+			    || lnIndex > this.configuration.IED[iedIndex].AccessPoint[apIndex]
 			    					.Server.LDevice[ldinst].LN.GetLength(0))
 				return null;
 			if (this.configuration.IED[iedIndex].AccessPoint[apIndex]
 			    					.Server.LDevice[ldinst].LN[lnIndex].ReportControl == null)
 				return null;
-			if (reportIndex < 0 || reportIndex > this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			if (reportIndex < 0 
+			    || reportIndex > this.configuration.IED[iedIndex].AccessPoint[apIndex]
 			    					.Server.LDevice[ldinst].LN[lnIndex].ReportControl.GetLength(0))
 				return null;
 			
@@ -1227,7 +1229,8 @@ namespace OpenSCL
 			if (this.configuration.IED[iedIndex].AccessPoint[apIndex]
 			    					.Server.LDevice[ldinst].LN == null)
 				return null;
-			if (lnIndex < this.configuration.IED[iedIndex].AccessPoint[apIndex]
+			if (lnIndex < 0
+			    || lnIndex > this.configuration.IED[iedIndex].AccessPoint[apIndex]
 			    					.Server.LDevice[ldinst].LN.GetLength(0))
 				return null;
 			

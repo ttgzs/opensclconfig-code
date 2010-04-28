@@ -1346,6 +1346,7 @@ namespace OpenSCL
 			}
 		}
 		
+		// DEPRECATED: Not use in new code
 		public string GetPDescription (tPTypeEnum type)
 		{
 			string text = "";
@@ -1403,6 +1404,7 @@ namespace OpenSCL
 			return text;
 		}
 		
+		// DEPRECATED: Not use in new code
 		public string GetPName (tPTypeEnum type)
 		{
 			string text = "";

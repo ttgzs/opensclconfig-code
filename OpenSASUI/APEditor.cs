@@ -40,10 +40,10 @@ namespace OpenSASUI
 			                                    new Gtk.CellRendererText (), "text", 2);
 			this.physicaltreeview.Selection.Changed += HandlePhysicaltreeviewSelectionhandleChanged;
 			
-			Gtk.TreeStore addressmodel = new Gtk.TreeStore (typeof(string), 
-			                                         typeof(int),
-			                                         typeof(IEC61850.SCL.tPTypeEnum), 
-			                                         typeof(string));
+			Gtk.TreeStore addressmodel = new Gtk.TreeStore (typeof(string), // Type text
+			                                         typeof(int), // TP index
+			                                         typeof(IEC61850.SCL.tPTypeEnum), // Type type 
+			                                         typeof(string)); // TP description
 			this.addresstreeview.Model = addressmodel;
 			this.addresstreeview.AppendColumn (Mono.Unix.Catalog.GetString("Parameter"),
 			                                   new Gtk.CellRendererText (), "text", 0);
@@ -61,6 +61,12 @@ namespace OpenSASUI
 			Gtk.ListStore tpmodel = new Gtk.ListStore (typeof(string), 
 			                                         typeof(IEC61850.SCL.tPTypeEnum));
 			this.tplist.Model = tpmodel;
+			// Add pre-defined types
+			IEC61850.SCL.tPType type = new IEC61850.SCL.tPType();
+			for (int t = 0; t < (int) IEC61850.SCL.tPTypeEnum.EXTENSION; t++) {
+				type.typeEnum = (IEC61850.SCL.tPTypeEnum) t;
+				tpmodel.AppendValues(type.type, type.typeEnum);
+			}
 			
 			this.notebook.Page = 0; // Show the Address Tab
 			
@@ -73,12 +79,14 @@ namespace OpenSASUI
 			//Edition signals
 			this.addressvalue.Activated += HandleAddressvaluehandleActivated;
 			this.tplist.Changed += HandleTplisthandleChanged;
+			this.tplist.Entry.Activated += HandleTplistEntryhandleActivated;
 			this.accesspointname.Activated += HandleAccesspointnamehandleActivated;
 			this.accesspointdesc.Activated += HandleAccesspointdeschandleActivated;
 			this.accesspointisclock.Toggled += HandleAccesspointisclockhandleToggled;
 			this.accesspointisrouter.Toggled += HandleAccesspointisrouterhandleToggled;
 		}
 
+		
 		void HandleAccesspointisrouterhandleToggled (object sender, EventArgs e)
 		{
 			if (this.sclfile != null) {
@@ -152,8 +160,7 @@ namespace OpenSASUI
 			}	
 		}
 		
-	
-		void HandleTplisthandleChanged (object sender, EventArgs e)
+		void ChangeAddressTPType (IEC61850.SCL.tP tp)
 		{
 			Gtk.TreeSelection sel = this.addresstreeview.Selection;
 			Gtk.TreeIter seliter;
@@ -166,27 +173,42 @@ namespace OpenSASUI
 				if (this.subnetworklist.GetActiveIter(out siter)) {
 					int subnet = (int) submodel.GetValue(siter, 1);
 					int conap = (int) submodel.GetValue(siter, 3);
-					
-					Gtk.ListStore tpmodel = (Gtk.ListStore) this.tplist.Model;
-					Gtk.TreeIter tpiter;
-					
-					if (this.tplist.GetActiveIter(out tpiter)) {
-					
-						IEC61850.SCL.tPTypeEnum tp = (IEC61850.SCL.tPTypeEnum) tpmodel.GetValue (tpiter, 1);
 						
-						IEC61850.SCL.tP 
-							p = this.sclfile.GetPAddress (subnet, conap, tpindex);
-						if (p != null) 
-							if (!p.PType.typeEnum.Equals(tp)) {
-								p.PType.typeEnum = tp;
-								model.SetValue(seliter, 2, tp);
-							}
-					}
+					IEC61850.SCL.tP 
+						p = this.sclfile.GetPAddress (subnet, conap, tpindex);
+					if (p != null) 
+						if (!p.type.Equals(tp.type)) {
+							p.type = tp.type;
+							model.SetValue(seliter, 0, p.type);
+							model.SetValue(seliter, 2, p.typeEnum);
+							model.SetValue(seliter, 3, p.Description);
+						}
 				}
 			}
 		}
+	
+		void HandleTplisthandleChanged (object sender, EventArgs e)
+		{
+			Gtk.ListStore tpmodel = (Gtk.ListStore) this.tplist.Model;
+			Gtk.TreeIter tpiter;
+			
+			if (this.tplist.GetActiveIter(out tpiter)) {
+			
+				IEC61850.SCL.tP tp = new IEC61850.SCL.tP();
+				tp.type = (string) tpmodel.GetValue (tpiter, 0);
+				this.ChangeAddressTPType(tp);
+			}
+			
+		}
 
-		
+		void HandleTplistEntryhandleActivated (object sender, EventArgs e)
+		{
+			IEC61850.SCL.tP tp = new IEC61850.SCL.tP();
+			tp.type = this.tplist.Entry.Text;
+			this.AddressCheckCustomTP(tp);
+			this.ChangeAddressTPType(tp);
+		}
+
 		void HandleAddresstreeviewSelectionhandleChanged (object sender, EventArgs e)
 		{
 			Gtk.TreeSelection sel = (Gtk.TreeSelection) sender;
@@ -228,6 +250,32 @@ namespace OpenSASUI
 		{
 			
 		}
+		
+		void AddressCheckCustomTP(IEC61850.SCL.tP tp)
+		{
+			// Check For Custom Types to add at tp list
+			if (tp.typeEnum == tPTypeEnum.EXTENSION) {
+				Gtk.ListStore tpmodel = (Gtk.ListStore) this.tplist.Model;
+				// Search for this custom type
+				bool exist = false;
+				Gtk.TreeIter s;
+				bool cont = tpmodel.GetIterFirst(out s);
+				while (cont) {
+					string t = (string) tpmodel.GetValue(s, 0);
+					if (t.Equals(tp.type)) {
+						exist = true;
+						break;
+					}
+					Gtk.TreePath path = tpmodel.GetPath(s);
+					path.Next();
+					cont = tpmodel.GetIter(out s, path);
+				}
+				if(!exist) {
+					tpmodel.AppendValues(tp.type, 
+					                     tp.typeEnum);
+				}
+			}
+		}
 
 		void HandleSubnetworklisthandleChanged (object sender, EventArgs e)
 		{
@@ -239,6 +287,9 @@ namespace OpenSASUI
 					int cap = (int) submodel.GetValue (siter, 3);
 					IEC61850.SCL.tConnectedAP connap = this.sclfile.GetIEDConnectedAP(subn, cap);
 					if (connap != null) {
+						
+						Gtk.ListStore tpmodel = (Gtk.ListStore) this.tplist.Model;
+						
 						// Remove all Address
 						Gtk.TreeStore addmodel = (Gtk.TreeStore) this.addresstreeview.Model;
 						Gtk.TreeIter aiter;
@@ -253,6 +304,8 @@ namespace OpenSASUI
 								addmodel.AppendValues(name, i, 
 								                      connap.Address.P[i].typeEnum,
 								                      text);
+								// Check tP to be added
+								this.AddressCheckCustomTP(connap.Address.P[i]);
 							}
 						}
 						// Select first element
@@ -260,7 +313,6 @@ namespace OpenSASUI
 						this.addresstreeview.Selection.SelectIter(aiter);
 						IEC61850.SCL.tPTypeEnum type;
 						type = (IEC61850.SCL.tPTypeEnum) this.addresstreeview.Model.GetValue(aiter, 2);
-						Gtk.ListStore tpmodel = (Gtk.ListStore) this.tplist.Model;
 						Gtk.TreeIter tpiter;
 						if (tpmodel.GetIterFirst(out tpiter)) {
 							while (true) {
@@ -358,40 +410,6 @@ namespace OpenSASUI
 			}
 			this.subnetworklist.SetActiveIter (sel);
 			
-			// Add tPTypes to tplist combobox
-			Gtk.ListStore tpmodel = (Gtk.ListStore) this.tplist.Model;
-			
-			tpmodel.AppendValues(sclfile.GetPName (IEC61850.SCL.tPTypeEnum.APPID)
-			                     , IEC61850.SCL.tPTypeEnum.APPID);
-			tpmodel.AppendValues(sclfile.GetPName (IEC61850.SCL.tPTypeEnum.IP)
-			                     , IEC61850.SCL.tPTypeEnum.IP);
-			tpmodel.AppendValues(sclfile.GetPName (IEC61850.SCL.tPTypeEnum.IP_GATEWAY)
-			                     , IEC61850.SCL.tPTypeEnum.IP_GATEWAY);
-			tpmodel.AppendValues(sclfile.GetPName (IEC61850.SCL.tPTypeEnum.IP_SUBNET)
-			                     , IEC61850.SCL.tPTypeEnum.IP_SUBNET);
-			tpmodel.AppendValues(sclfile.GetPName (IEC61850.SCL.tPTypeEnum.MAC_Address)
-			                     , IEC61850.SCL.tPTypeEnum.MAC_Address);
-			tpmodel.AppendValues(sclfile.GetPName (IEC61850.SCL.tPTypeEnum.OSI_AE_Invoke)
-			                     , IEC61850.SCL.tPTypeEnum.OSI_AE_Invoke);
-			tpmodel.AppendValues(sclfile.GetPName (IEC61850.SCL.tPTypeEnum.OSI_AE_Qualifier)
-			                     , IEC61850.SCL.tPTypeEnum.OSI_AE_Qualifier);
-			tpmodel.AppendValues(sclfile.GetPName (IEC61850.SCL.tPTypeEnum.OSI_AP_Invoke)
-			                     , IEC61850.SCL.tPTypeEnum.OSI_AP_Invoke);
-			tpmodel.AppendValues(sclfile.GetPName (IEC61850.SCL.tPTypeEnum.OSI_AP_Title)
-			                     , IEC61850.SCL.tPTypeEnum.OSI_AP_Title);
-			tpmodel.AppendValues(sclfile.GetPName (IEC61850.SCL.tPTypeEnum.OSI_NSAP)
-			                     , IEC61850.SCL.tPTypeEnum.OSI_NSAP);
-			tpmodel.AppendValues(sclfile.GetPName (IEC61850.SCL.tPTypeEnum.OSI_PSEL)
-			                     , IEC61850.SCL.tPTypeEnum.OSI_PSEL);
-			tpmodel.AppendValues(sclfile.GetPName (IEC61850.SCL.tPTypeEnum.OSI_SSEL)
-			                     , IEC61850.SCL.tPTypeEnum.OSI_SSEL);
-			tpmodel.AppendValues(sclfile.GetPName (IEC61850.SCL.tPTypeEnum.OSI_TSEL)
-			                     , IEC61850.SCL.tPTypeEnum.OSI_TSEL);
-			tpmodel.AppendValues(sclfile.GetPName (IEC61850.SCL.tPTypeEnum.VLAN_ID)
-			                     , IEC61850.SCL.tPTypeEnum.VLAN_ID);
-			tpmodel.AppendValues(sclfile.GetPName (IEC61850.SCL.tPTypeEnum.VLAN_PRIORITY)
-			                     , IEC61850.SCL.tPTypeEnum.VLAN_PRIORITY);
-			
 			this.accesspointdetails.Sensitive = true;
 			return true;
 		}
@@ -464,10 +482,6 @@ namespace OpenSASUI
 				addmodel.Remove(ref iter);
 			this.addressvalue.Text = "";
 			
-			// TP list
-			Gtk.ListStore tpmodel = (Gtk.ListStore) this.tplist.Model;
-			while (tpmodel.GetIterFirst (out iter))
-				tpmodel.Remove(ref iter);
 			this.Sensitive = false;
 		}
 		

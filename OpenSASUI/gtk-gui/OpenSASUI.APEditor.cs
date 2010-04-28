@@ -69,9 +69,17 @@ namespace OpenSASUI {
         
         private Gtk.HPaned hpaned1;
         
+        private Gtk.VBox vbox3;
+        
         private Gtk.ScrolledWindow GtkScrolledWindow;
         
         private Gtk.TreeView addresstreeview;
+        
+        private Gtk.HButtonBox hbuttonbox1;
+        
+        private Gtk.Button addressadd;
+        
+        private Gtk.Button addressremove;
         
         private Gtk.Table table1;
         
@@ -83,7 +91,7 @@ namespace OpenSASUI {
         
         private Gtk.Button manageaddress;
         
-        private Gtk.ComboBox tplist;
+        private Gtk.ComboBoxEntry tplist;
         
         private Gtk.Label label2;
         
@@ -111,7 +119,7 @@ namespace OpenSASUI {
         
         private Gtk.Label label4;
         
-        private Gtk.Label GtkLabel12;
+        private Gtk.Label GtkLabel13;
         
         protected virtual void Build() {
             Stetic.Gui.Initialize(this);
@@ -373,8 +381,12 @@ namespace OpenSASUI {
             this.hpaned1 = new Gtk.HPaned();
             this.hpaned1.CanFocus = true;
             this.hpaned1.Name = "hpaned1";
-            this.hpaned1.Position = 209;
+            this.hpaned1.Position = 327;
             // Container child hpaned1.Gtk.Paned+PanedChild
+            this.vbox3 = new Gtk.VBox();
+            this.vbox3.Name = "vbox3";
+            this.vbox3.Spacing = 6;
+            // Container child vbox3.Gtk.Box+BoxChild
             this.GtkScrolledWindow = new Gtk.ScrolledWindow();
             this.GtkScrolledWindow.Name = "GtkScrolledWindow";
             this.GtkScrolledWindow.ShadowType = ((Gtk.ShadowType)(1));
@@ -383,9 +395,45 @@ namespace OpenSASUI {
             this.addresstreeview.CanFocus = true;
             this.addresstreeview.Name = "addresstreeview";
             this.GtkScrolledWindow.Add(this.addresstreeview);
-            this.hpaned1.Add(this.GtkScrolledWindow);
-            Gtk.Paned.PanedChild w24 = ((Gtk.Paned.PanedChild)(this.hpaned1[this.GtkScrolledWindow]));
-            w24.Resize = false;
+            this.vbox3.Add(this.GtkScrolledWindow);
+            Gtk.Box.BoxChild w24 = ((Gtk.Box.BoxChild)(this.vbox3[this.GtkScrolledWindow]));
+            w24.Position = 0;
+            // Container child vbox3.Gtk.Box+BoxChild
+            this.hbuttonbox1 = new Gtk.HButtonBox();
+            this.hbuttonbox1.Name = "hbuttonbox1";
+            this.hbuttonbox1.Homogeneous = true;
+            this.hbuttonbox1.LayoutStyle = ((Gtk.ButtonBoxStyle)(3));
+            // Container child hbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
+            this.addressadd = new Gtk.Button();
+            this.addressadd.CanFocus = true;
+            this.addressadd.Name = "addressadd";
+            this.addressadd.UseStock = true;
+            this.addressadd.UseUnderline = true;
+            this.addressadd.Label = "gtk-add";
+            this.hbuttonbox1.Add(this.addressadd);
+            Gtk.ButtonBox.ButtonBoxChild w25 = ((Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox1[this.addressadd]));
+            w25.Expand = false;
+            w25.Fill = false;
+            // Container child hbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
+            this.addressremove = new Gtk.Button();
+            this.addressremove.CanFocus = true;
+            this.addressremove.Name = "addressremove";
+            this.addressremove.UseStock = true;
+            this.addressremove.UseUnderline = true;
+            this.addressremove.Label = "gtk-remove";
+            this.hbuttonbox1.Add(this.addressremove);
+            Gtk.ButtonBox.ButtonBoxChild w26 = ((Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox1[this.addressremove]));
+            w26.Position = 1;
+            w26.Expand = false;
+            w26.Fill = false;
+            this.vbox3.Add(this.hbuttonbox1);
+            Gtk.Box.BoxChild w27 = ((Gtk.Box.BoxChild)(this.vbox3[this.hbuttonbox1]));
+            w27.Position = 1;
+            w27.Expand = false;
+            w27.Fill = false;
+            this.hpaned1.Add(this.vbox3);
+            Gtk.Paned.PanedChild w28 = ((Gtk.Paned.PanedChild)(this.hpaned1[this.vbox3]));
+            w28.Resize = false;
             // Container child hpaned1.Gtk.Paned+PanedChild
             this.table1 = new Gtk.Table(((uint)(3)), ((uint)(2)), false);
             this.table1.Name = "table1";
@@ -398,68 +446,68 @@ namespace OpenSASUI {
             this.addressvalue.IsEditable = true;
             this.addressvalue.InvisibleChar = '●';
             this.table1.Add(this.addressvalue);
-            Gtk.Table.TableChild w25 = ((Gtk.Table.TableChild)(this.table1[this.addressvalue]));
-            w25.TopAttach = ((uint)(1));
-            w25.BottomAttach = ((uint)(2));
-            w25.LeftAttach = ((uint)(1));
-            w25.RightAttach = ((uint)(2));
-            w25.XOptions = ((Gtk.AttachOptions)(0));
-            w25.YOptions = ((Gtk.AttachOptions)(4));
+            Gtk.Table.TableChild w29 = ((Gtk.Table.TableChild)(this.table1[this.addressvalue]));
+            w29.TopAttach = ((uint)(1));
+            w29.BottomAttach = ((uint)(2));
+            w29.LeftAttach = ((uint)(1));
+            w29.RightAttach = ((uint)(2));
+            w29.XOptions = ((Gtk.AttachOptions)(0));
+            w29.YOptions = ((Gtk.AttachOptions)(4));
             // Container child table1.Gtk.Table+TableChild
             this.label6 = new Gtk.Label();
             this.label6.Name = "label6";
             this.label6.LabelProp = Mono.Unix.Catalog.GetString("Type:");
             this.table1.Add(this.label6);
-            Gtk.Table.TableChild w26 = ((Gtk.Table.TableChild)(this.table1[this.label6]));
-            w26.XOptions = ((Gtk.AttachOptions)(4));
-            w26.YOptions = ((Gtk.AttachOptions)(4));
+            Gtk.Table.TableChild w30 = ((Gtk.Table.TableChild)(this.table1[this.label6]));
+            w30.XOptions = ((Gtk.AttachOptions)(4));
+            w30.YOptions = ((Gtk.AttachOptions)(4));
             // Container child table1.Gtk.Table+TableChild
             this.label7 = new Gtk.Label();
             this.label7.Name = "label7";
             this.label7.LabelProp = Mono.Unix.Catalog.GetString("Value:");
             this.table1.Add(this.label7);
-            Gtk.Table.TableChild w27 = ((Gtk.Table.TableChild)(this.table1[this.label7]));
-            w27.TopAttach = ((uint)(1));
-            w27.BottomAttach = ((uint)(2));
-            w27.XOptions = ((Gtk.AttachOptions)(4));
-            w27.YOptions = ((Gtk.AttachOptions)(4));
+            Gtk.Table.TableChild w31 = ((Gtk.Table.TableChild)(this.table1[this.label7]));
+            w31.TopAttach = ((uint)(1));
+            w31.BottomAttach = ((uint)(2));
+            w31.XOptions = ((Gtk.AttachOptions)(4));
+            w31.YOptions = ((Gtk.AttachOptions)(4));
             // Container child table1.Gtk.Table+TableChild
             this.manageaddress = new Gtk.Button();
             this.manageaddress.CanFocus = true;
             this.manageaddress.Name = "manageaddress";
             this.manageaddress.UseUnderline = true;
             // Container child manageaddress.Gtk.Container+ContainerChild
-            Gtk.Alignment w28 = new Gtk.Alignment(0.5F, 0.5F, 0F, 0F);
+            Gtk.Alignment w32 = new Gtk.Alignment(0.5F, 0.5F, 0F, 0F);
             // Container child GtkAlignment.Gtk.Container+ContainerChild
-            Gtk.HBox w29 = new Gtk.HBox();
-            w29.Spacing = 2;
+            Gtk.HBox w33 = new Gtk.HBox();
+            w33.Spacing = 2;
             // Container child GtkHBox.Gtk.Container+ContainerChild
-            Gtk.Image w30 = new Gtk.Image();
-            w30.Pixbuf = Stetic.IconLoader.LoadIcon(this, "stock_navigator-references", Gtk.IconSize.Button, 16);
-            w29.Add(w30);
+            Gtk.Image w34 = new Gtk.Image();
+            w34.Pixbuf = Stetic.IconLoader.LoadIcon(this, "stock_navigator-references", Gtk.IconSize.Button, 16);
+            w33.Add(w34);
             // Container child GtkHBox.Gtk.Container+ContainerChild
-            Gtk.Label w32 = new Gtk.Label();
-            w32.LabelProp = Mono.Unix.Catalog.GetString("Manage System Addresses");
-            w32.UseUnderline = true;
-            w29.Add(w32);
-            w28.Add(w29);
-            this.manageaddress.Add(w28);
+            Gtk.Label w36 = new Gtk.Label();
+            w36.LabelProp = Mono.Unix.Catalog.GetString("Manage System Addresses");
+            w36.UseUnderline = true;
+            w33.Add(w36);
+            w32.Add(w33);
+            this.manageaddress.Add(w32);
             this.table1.Add(this.manageaddress);
-            Gtk.Table.TableChild w36 = ((Gtk.Table.TableChild)(this.table1[this.manageaddress]));
-            w36.TopAttach = ((uint)(2));
-            w36.BottomAttach = ((uint)(3));
-            w36.RightAttach = ((uint)(2));
-            w36.XOptions = ((Gtk.AttachOptions)(4));
-            w36.YOptions = ((Gtk.AttachOptions)(4));
+            Gtk.Table.TableChild w40 = ((Gtk.Table.TableChild)(this.table1[this.manageaddress]));
+            w40.TopAttach = ((uint)(2));
+            w40.BottomAttach = ((uint)(3));
+            w40.RightAttach = ((uint)(2));
+            w40.XOptions = ((Gtk.AttachOptions)(4));
+            w40.YOptions = ((Gtk.AttachOptions)(4));
             // Container child table1.Gtk.Table+TableChild
-            this.tplist = Gtk.ComboBox.NewText();
+            this.tplist = Gtk.ComboBoxEntry.NewText();
             this.tplist.Name = "tplist";
             this.table1.Add(this.tplist);
-            Gtk.Table.TableChild w37 = ((Gtk.Table.TableChild)(this.table1[this.tplist]));
-            w37.LeftAttach = ((uint)(1));
-            w37.RightAttach = ((uint)(2));
-            w37.XOptions = ((Gtk.AttachOptions)(0));
-            w37.YOptions = ((Gtk.AttachOptions)(4));
+            Gtk.Table.TableChild w41 = ((Gtk.Table.TableChild)(this.table1[this.tplist]));
+            w41.LeftAttach = ((uint)(1));
+            w41.RightAttach = ((uint)(2));
+            w41.XOptions = ((Gtk.AttachOptions)(4));
+            w41.YOptions = ((Gtk.AttachOptions)(4));
             this.hpaned1.Add(this.table1);
             this.notebook.Add(this.hpaned1);
             // Notebook tab
@@ -483,8 +531,8 @@ namespace OpenSASUI {
             this.physicaltreeview.Name = "physicaltreeview";
             this.GtkScrolledWindow2.Add(this.physicaltreeview);
             this.hpaned2.Add(this.GtkScrolledWindow2);
-            Gtk.Paned.PanedChild w41 = ((Gtk.Paned.PanedChild)(this.hpaned2[this.GtkScrolledWindow2]));
-            w41.Resize = false;
+            Gtk.Paned.PanedChild w45 = ((Gtk.Paned.PanedChild)(this.hpaned2[this.GtkScrolledWindow2]));
+            w45.Resize = false;
             // Container child hpaned2.Gtk.Paned+PanedChild
             this.table3 = new Gtk.Table(((uint)(3)), ((uint)(2)), false);
             this.table3.Name = "table3";
@@ -495,46 +543,46 @@ namespace OpenSASUI {
             this.label11.Name = "label11";
             this.label11.LabelProp = Mono.Unix.Catalog.GetString("Value:");
             this.table3.Add(this.label11);
-            Gtk.Table.TableChild w42 = ((Gtk.Table.TableChild)(this.table3[this.label11]));
-            w42.TopAttach = ((uint)(1));
-            w42.BottomAttach = ((uint)(2));
-            w42.XOptions = ((Gtk.AttachOptions)(4));
-            w42.YOptions = ((Gtk.AttachOptions)(4));
+            Gtk.Table.TableChild w46 = ((Gtk.Table.TableChild)(this.table3[this.label11]));
+            w46.TopAttach = ((uint)(1));
+            w46.BottomAttach = ((uint)(2));
+            w46.XOptions = ((Gtk.AttachOptions)(4));
+            w46.YOptions = ((Gtk.AttachOptions)(4));
             // Container child table3.Gtk.Table+TableChild
             this.label12 = new Gtk.Label();
             this.label12.Name = "label12";
             this.label12.LabelProp = Mono.Unix.Catalog.GetString("Type:");
             this.table3.Add(this.label12);
-            Gtk.Table.TableChild w43 = ((Gtk.Table.TableChild)(this.table3[this.label12]));
-            w43.XOptions = ((Gtk.AttachOptions)(4));
-            w43.YOptions = ((Gtk.AttachOptions)(4));
+            Gtk.Table.TableChild w47 = ((Gtk.Table.TableChild)(this.table3[this.label12]));
+            w47.XOptions = ((Gtk.AttachOptions)(4));
+            w47.YOptions = ((Gtk.AttachOptions)(4));
             // Container child table3.Gtk.Table+TableChild
             this.managephysicalconnections = new Gtk.Button();
             this.managephysicalconnections.CanFocus = true;
             this.managephysicalconnections.Name = "managephysicalconnections";
             this.managephysicalconnections.UseUnderline = true;
             // Container child managephysicalconnections.Gtk.Container+ContainerChild
-            Gtk.Alignment w44 = new Gtk.Alignment(0.5F, 0.5F, 0F, 0F);
+            Gtk.Alignment w48 = new Gtk.Alignment(0.5F, 0.5F, 0F, 0F);
             // Container child GtkAlignment.Gtk.Container+ContainerChild
-            Gtk.HBox w45 = new Gtk.HBox();
-            w45.Spacing = 2;
+            Gtk.HBox w49 = new Gtk.HBox();
+            w49.Spacing = 2;
             // Container child GtkHBox.Gtk.Container+ContainerChild
-            Gtk.Image w46 = new Gtk.Image();
-            w46.Pixbuf = Stetic.IconLoader.LoadIcon(this, "stock_navigator-references", Gtk.IconSize.Button, 16);
-            w45.Add(w46);
+            Gtk.Image w50 = new Gtk.Image();
+            w50.Pixbuf = Stetic.IconLoader.LoadIcon(this, "stock_navigator-references", Gtk.IconSize.Button, 16);
+            w49.Add(w50);
             // Container child GtkHBox.Gtk.Container+ContainerChild
-            Gtk.Label w48 = new Gtk.Label();
-            w48.LabelProp = Mono.Unix.Catalog.GetString("Manage System Physical Connections");
-            w48.UseUnderline = true;
-            w45.Add(w48);
-            w44.Add(w45);
-            this.managephysicalconnections.Add(w44);
+            Gtk.Label w52 = new Gtk.Label();
+            w52.LabelProp = Mono.Unix.Catalog.GetString("Manage System Physical Connections");
+            w52.UseUnderline = true;
+            w49.Add(w52);
+            w48.Add(w49);
+            this.managephysicalconnections.Add(w48);
             this.table3.Add(this.managephysicalconnections);
-            Gtk.Table.TableChild w52 = ((Gtk.Table.TableChild)(this.table3[this.managephysicalconnections]));
-            w52.TopAttach = ((uint)(2));
-            w52.BottomAttach = ((uint)(3));
-            w52.RightAttach = ((uint)(2));
-            w52.YOptions = ((Gtk.AttachOptions)(4));
+            Gtk.Table.TableChild w56 = ((Gtk.Table.TableChild)(this.table3[this.managephysicalconnections]));
+            w56.TopAttach = ((uint)(2));
+            w56.BottomAttach = ((uint)(3));
+            w56.RightAttach = ((uint)(2));
+            w56.YOptions = ((Gtk.AttachOptions)(4));
             // Container child table3.Gtk.Table+TableChild
             this.physicaltype = new Gtk.Entry();
             this.physicaltype.CanFocus = true;
@@ -542,11 +590,11 @@ namespace OpenSASUI {
             this.physicaltype.IsEditable = true;
             this.physicaltype.InvisibleChar = '●';
             this.table3.Add(this.physicaltype);
-            Gtk.Table.TableChild w53 = ((Gtk.Table.TableChild)(this.table3[this.physicaltype]));
-            w53.LeftAttach = ((uint)(1));
-            w53.RightAttach = ((uint)(2));
-            w53.XOptions = ((Gtk.AttachOptions)(4));
-            w53.YOptions = ((Gtk.AttachOptions)(4));
+            Gtk.Table.TableChild w57 = ((Gtk.Table.TableChild)(this.table3[this.physicaltype]));
+            w57.LeftAttach = ((uint)(1));
+            w57.RightAttach = ((uint)(2));
+            w57.XOptions = ((Gtk.AttachOptions)(4));
+            w57.YOptions = ((Gtk.AttachOptions)(4));
             // Container child table3.Gtk.Table+TableChild
             this.physicalvalue = new Gtk.Entry();
             this.physicalvalue.CanFocus = true;
@@ -554,17 +602,17 @@ namespace OpenSASUI {
             this.physicalvalue.IsEditable = true;
             this.physicalvalue.InvisibleChar = '●';
             this.table3.Add(this.physicalvalue);
-            Gtk.Table.TableChild w54 = ((Gtk.Table.TableChild)(this.table3[this.physicalvalue]));
-            w54.TopAttach = ((uint)(1));
-            w54.BottomAttach = ((uint)(2));
-            w54.LeftAttach = ((uint)(1));
-            w54.RightAttach = ((uint)(2));
-            w54.XOptions = ((Gtk.AttachOptions)(4));
-            w54.YOptions = ((Gtk.AttachOptions)(4));
+            Gtk.Table.TableChild w58 = ((Gtk.Table.TableChild)(this.table3[this.physicalvalue]));
+            w58.TopAttach = ((uint)(1));
+            w58.BottomAttach = ((uint)(2));
+            w58.LeftAttach = ((uint)(1));
+            w58.RightAttach = ((uint)(2));
+            w58.XOptions = ((Gtk.AttachOptions)(4));
+            w58.YOptions = ((Gtk.AttachOptions)(4));
             this.hpaned2.Add(this.table3);
             this.notebook.Add(this.hpaned2);
-            Gtk.Notebook.NotebookChild w56 = ((Gtk.Notebook.NotebookChild)(this.notebook[this.hpaned2]));
-            w56.Position = 1;
+            Gtk.Notebook.NotebookChild w60 = ((Gtk.Notebook.NotebookChild)(this.notebook[this.hpaned2]));
+            w60.Position = 1;
             // Notebook tab
             this.label5 = new Gtk.Label();
             this.label5.Name = "label5";
@@ -572,32 +620,32 @@ namespace OpenSASUI {
             this.notebook.SetTabLabel(this.hpaned2, this.label5);
             this.label5.ShowAll();
             // Notebook tab
-            Gtk.Label w57 = new Gtk.Label();
-            w57.Visible = true;
-            this.notebook.Add(w57);
+            Gtk.Label w61 = new Gtk.Label();
+            w61.Visible = true;
+            this.notebook.Add(w61);
             this.label3 = new Gtk.Label();
             this.label3.Name = "label3";
             this.label3.LabelProp = Mono.Unix.Catalog.GetString("GSE");
-            this.notebook.SetTabLabel(w57, this.label3);
+            this.notebook.SetTabLabel(w61, this.label3);
             this.label3.ShowAll();
             // Notebook tab
-            Gtk.Label w58 = new Gtk.Label();
-            w58.Visible = true;
-            this.notebook.Add(w58);
+            Gtk.Label w62 = new Gtk.Label();
+            w62.Visible = true;
+            this.notebook.Add(w62);
             this.label4 = new Gtk.Label();
             this.label4.Name = "label4";
             this.label4.LabelProp = Mono.Unix.Catalog.GetString("SMV");
-            this.notebook.SetTabLabel(w58, this.label4);
+            this.notebook.SetTabLabel(w62, this.label4);
             this.label4.ShowAll();
             this.connectiondetails.Add(this.notebook);
-            this.GtkLabel12 = new Gtk.Label();
-            this.GtkLabel12.Name = "GtkLabel12";
-            this.GtkLabel12.LabelProp = Mono.Unix.Catalog.GetString("Connection Details");
-            this.GtkLabel12.UseUnderline = true;
-            this.connectiondetails.LabelWidget = this.GtkLabel12;
+            this.GtkLabel13 = new Gtk.Label();
+            this.GtkLabel13.Name = "GtkLabel13";
+            this.GtkLabel13.LabelProp = Mono.Unix.Catalog.GetString("Connection Details");
+            this.GtkLabel13.UseUnderline = true;
+            this.connectiondetails.LabelWidget = this.GtkLabel13;
             this.vbox1.Add(this.connectiondetails);
-            Gtk.Box.BoxChild w60 = ((Gtk.Box.BoxChild)(this.vbox1[this.connectiondetails]));
-            w60.Position = 2;
+            Gtk.Box.BoxChild w64 = ((Gtk.Box.BoxChild)(this.vbox1[this.connectiondetails]));
+            w64.Position = 2;
             this.Add(this.vbox1);
             if ((this.Child != null)) {
                 this.Child.ShowAll();

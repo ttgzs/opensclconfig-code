@@ -107,7 +107,6 @@ namespace OpenSASUI {
             this.hpaned1.Position = 233;
             // Container child hpaned1.Gtk.Paned+PanedChild
             this.vbox3 = new Gtk.VBox();
-            this.vbox3.Name = "vbox3";
             this.vbox3.Spacing = 6;
             // Container child vbox3.Gtk.Box+BoxChild
             this.label1 = new Gtk.Label();

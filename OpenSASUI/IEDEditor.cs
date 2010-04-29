@@ -258,6 +258,7 @@ namespace OpenSASUI
 				                                              Mono.Unix.Catalog.GetString("Error on Set IED %i"),
 				                                              iedIndex);
 				msg.Run();
+				msg.Destroy();
 				this.numied = -1;
 				this.sclfile = null;
 				

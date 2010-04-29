@@ -2,7 +2,7 @@ OpenSASUI Notes and News
 
 * Installation
 
-Actually you need to copy this library in the folder where the application is
+Currently you need to copy this library in the folder where the application is
 executed from.
 
 * Compilation

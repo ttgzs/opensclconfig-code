@@ -1240,6 +1240,21 @@ namespace OpenSCL
 		
 		// tP related
 		
+		/// <summary>
+		/// Get a tP object from a tAddress. 
+		/// </summary>
+		/// <param name="subnet">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <param name="numap">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <param name="nump">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="IEC61850.SCL.tP"/>
+		/// </returns>
 		public IEC61850.SCL.tP GetPAddress (int subnet, int numap, int nump)
 		{
 			if (this.Subnetworks == null)
@@ -1258,6 +1273,108 @@ namespace OpenSCL
 				return null;
 			
 			return this.Subnetworks[subnet].ConnectedAP[numap].Address.P[nump];
+		}
+		
+		/// <summary>
+		/// Returns an array with all tP on the given subnetwork and connected accesspoint's address.
+		/// </summary>
+		/// <param name="subnet">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <param name="numap">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="IEC61850.SCL.tP[]"/>
+		/// </returns>
+		public IEC61850.SCL.tP[] GetPAddress (int subnet, int numap)
+		{
+			if (this.Subnetworks == null)
+				return null;
+			if (subnet < 0 || subnet > this.Subnetworks.GetLength(0))
+				return null;
+			if (this.Subnetworks[subnet].ConnectedAP == null)
+				return null;
+			if (numap < 0 || numap > this.Subnetworks[subnet].ConnectedAP.GetLength(0))
+				return null;
+			if (this.Subnetworks[subnet].ConnectedAP[numap].Address == null)
+				return null;
+			if (this.Subnetworks[subnet].ConnectedAP[numap].Address.P == null)
+				return null;
+			
+			return this.Subnetworks[subnet].ConnectedAP[numap].Address.P;
+		}
+		
+		/// <summary>
+		/// Returns an array with all tP on the given subnetwork and connected accesspoint's phycal connection. 
+		/// </summary>
+		/// <param name="subnet">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <param name="numap">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <param name="pcIndex">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="IEC61850.SCL.tP[]"/>
+		/// </returns>
+		public IEC61850.SCL.tP[] GetPPhysConn (int subnet, int numap, int pcIndex)
+		{
+			if (this.Subnetworks == null)
+				return null;
+			if (subnet < 0 || subnet > this.Subnetworks.GetLength(0))
+				return null;
+			if (this.Subnetworks[subnet].ConnectedAP == null)
+				return null;
+			if (numap < 0 || numap > this.Subnetworks[subnet].ConnectedAP.GetLength(0))
+				return null;
+			if (this.Subnetworks[subnet].ConnectedAP[numap].PhysConn == null)
+				return null;
+			if (pcIndex < 0 || pcIndex > this.Subnetworks[subnet].ConnectedAP[numap].PhysConn.GetLength(0))
+				return null;
+			if (this.Subnetworks[subnet].ConnectedAP[numap].PhysConn[pcIndex].P == null)
+				return null;
+			
+			return this.Subnetworks[subnet].ConnectedAP[numap].PhysConn[pcIndex].P;
+		}
+
+		/// <summary>
+		/// Get a tP from a tPhysConn. 
+		/// </summary>
+		/// <param name="subnet">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <param name="numap">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <param name="nump">
+		/// A <see cref="System.Int32"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="IEC61850.SCL.tP"/>
+		/// </returns>
+		public IEC61850.SCL.tP GetPPhysConn (int subnet, int numap, int pcIndex, int nump)
+		{
+			if (this.Subnetworks == null)
+				return null;
+			if (subnet < 0 || subnet > this.Subnetworks.GetLength(0))
+				return null;
+			if (this.Subnetworks[subnet].ConnectedAP == null)
+				return null;
+			if (numap < 0 || numap > this.Subnetworks[subnet].ConnectedAP.GetLength(0))
+				return null;
+			if (this.Subnetworks[subnet].ConnectedAP[numap].PhysConn == null)
+				return null;
+			if (pcIndex < 0 || pcIndex > this.Subnetworks[subnet].ConnectedAP[numap].PhysConn.GetLength(0))
+				return null;
+			if (this.Subnetworks[subnet].ConnectedAP[numap].PhysConn[pcIndex].P == null)
+				return null;
+			if (nump < 0 || nump > this.Subnetworks[subnet].ConnectedAP[numap].PhysConn[pcIndex].P.GetLength(0))
+				return null;
+			
+			return this.Subnetworks[subnet].ConnectedAP[numap].PhysConn[pcIndex].P[nump];
 		}
 		
 		// Substation

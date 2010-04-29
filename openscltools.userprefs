@@ -1,9 +1,16 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="OpenSASUI/GSEditor.cs" ctype="Workbench">
+    <Files>
+      <File FileName="OpenSASUI/APEditor.cs" Line="488" Column="59" />
+      <File FileName="LibOpenSCL/Object.cs" Line="1340" Column="54" />
+      <File FileName="OpenSASUI/SclCommManager.cs" Line="509" Column="4" />
+      <File FileName="OpenSASUI/GSEditor.cs" Line="31" Column="34" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="OpenSASConfigurator" expanded="True" />
+          <Node name="LibOpenSCL" expanded="True" />
+          <Node name="OpenSASConfigurator" selected="True" />
           <Node name="OpenSASUI" expanded="True" />
         </State>
       </Pad>

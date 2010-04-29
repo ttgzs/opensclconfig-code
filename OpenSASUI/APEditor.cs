@@ -29,10 +29,11 @@ namespace OpenSASUI
 			this.aplntreeview.AppendColumn (Mono.Unix.Catalog.GetString("Description"),
 			                                new Gtk.CellRendererText (), "text", 2);
 			
-			
-			Gtk.TreeStore phymodel = new Gtk.TreeStore (GLib.GType.String, 
-			                                         GLib.GType.Int, 
-			                                         GLib.GType.String);
+			// Physical Connections
+			Gtk.TreeStore phymodel = new Gtk.TreeStore (typeof(string), // Type text
+			                                         typeof(int), // TP index
+			                                         typeof(IEC61850.SCL.tPTypeEnum), // Type type 
+			                                         typeof(string)); // TP description
 			this.physicaltreeview.Model = phymodel;
 			this.physicaltreeview.AppendColumn (Mono.Unix.Catalog.GetString("Parameter"),
 			                                    new Gtk.CellRendererText (), "text", 0);
@@ -40,6 +41,7 @@ namespace OpenSASUI
 			                                    new Gtk.CellRendererText (), "text", 2);
 			this.physicaltreeview.Selection.Changed += HandlePhysicaltreeviewSelectionhandleChanged;
 			
+			// Address
 			Gtk.TreeStore addressmodel = new Gtk.TreeStore (typeof(string), // Type text
 			                                         typeof(int), // TP index
 			                                         typeof(IEC61850.SCL.tPTypeEnum), // Type type 
@@ -51,23 +53,37 @@ namespace OpenSASUI
 			                                   new Gtk.CellRendererText (), "text", 3);
 			this.addresstreeview.Selection.Changed += HandleAddresstreeviewSelectionhandleChanged;
 			
-			Gtk.ListStore subnetmodel = new Gtk.ListStore (GLib.GType.String, 
-					                                       GLib.GType.Int, 
-					                                       GLib.GType.String,
-			                                               GLib.GType.Int);
+			// Subnetwork list
+			Gtk.ListStore subnetmodel = new Gtk.ListStore (GLib.GType.String, // Name
+					                                       GLib.GType.Int, // subnetwork Index
+					                                       GLib.GType.String, // subnet description
+			                                               GLib.GType.Int); // index of ConnectedAP for this IED
 			this.subnetworklist.Model = subnetmodel;
 			this.subnetworklist.Changed += HandleSubnetworklisthandleChanged;
 			
+			// Physical Connections list
+			Gtk.ListStore pcmodel = new Gtk.ListStore (GLib.GType.String, // type
+					                                       GLib.GType.Int); // PhysConn Index
+			
+			this.physclist.Model = pcmodel;
+			
+			// tP types
 			Gtk.ListStore tpmodel = new Gtk.ListStore (typeof(string), 
 			                                         typeof(IEC61850.SCL.tPTypeEnum));
 			this.tplist.Model = tpmodel;
+			
+			Gtk.ListStore tphmodel = new Gtk.ListStore (typeof(string), 
+			                                         typeof(IEC61850.SCL.tPTypeEnum));
+			this.tplist_physical.Model = tphmodel;
 			// Add pre-defined types
 			IEC61850.SCL.tPType type = new IEC61850.SCL.tPType();
 			for (int t = 0; t < (int) IEC61850.SCL.tPTypeEnum.EXTENSION; t++) {
 				type.typeEnum = (IEC61850.SCL.tPTypeEnum) t;
 				tpmodel.AppendValues(type.type, type.typeEnum);
+				tphmodel.AppendValues(type.type, type.typeEnum);
 			}
 			
+			// Last inits
 			this.notebook.Page = 0; // Show the Address Tab
 			
 			this.accesspointdetails.Expanded = false;
@@ -205,7 +221,7 @@ namespace OpenSASUI
 		{
 			IEC61850.SCL.tP tp = new IEC61850.SCL.tP();
 			tp.type = this.tplist.Entry.Text;
-			this.AddressCheckCustomTP(tp);
+			this.CheckCustomTP(tp);
 			this.ChangeAddressTPType(tp);
 		}
 
@@ -248,14 +264,51 @@ namespace OpenSASUI
 
 		void HandlePhysicaltreeviewSelectionhandleChanged (object sender, EventArgs e)
 		{
-			
+			Gtk.TreeSelection sel = (Gtk.TreeSelection) sender;
+			Gtk.TreeIter seliter;
+			if (sel.GetSelected(out seliter) && this.sclfile != null) {
+				Gtk.TreeStore model = (Gtk.TreeStore) this.physicaltreeview.Model;
+				int tpindex = (int) model.GetValue(seliter, 1);
+				IEC61850.SCL.tPTypeEnum tpdata = (IEC61850.SCL.tPTypeEnum) model.GetValue(seliter, 2);
+				
+				Gtk.TreeIter siter;
+				Gtk.ListStore submodel = (Gtk.ListStore) this.subnetworklist.Model;
+				this.subnetworklist.GetActiveIter(out siter);
+				int subnet = (int) submodel.GetValue(siter, 1);
+				int conap = (int) submodel.GetValue(siter, 3);
+				
+				Gtk.ListStore pcmodel = (Gtk.ListStore) this.physclist.Model;
+				this.physclist.GetActiveIter(out siter);
+				int pcIndex = (int) pcmodel.GetValue(siter, 1);
+				
+				IEC61850.SCL.tP
+					p = this.sclfile.GetPPhysConn (subnet, conap, pcIndex, tpindex);
+				
+				if(p != null)
+					this.addressvalue.Text = p.Value;
+				
+				Gtk.ListStore tpmodel = (Gtk.ListStore) this.tplist_physical.Model;
+				Gtk.TreeIter tpiter;
+				if (tpmodel.GetIterFirst(out tpiter)) {
+					while (true) {
+						IEC61850.SCL.tPTypeEnum tp = (IEC61850.SCL.tPTypeEnum) tpmodel.GetValue (tpiter, 1);
+						if (tp.Equals((IEC61850.SCL.tPTypeEnum) tpdata)) {
+							this.tplist_physical.SetActiveIter(tpiter);
+							break;
+						}
+						if (!tpmodel.IterNext(ref tpiter))
+							break;
+					}
+				}
+			}
 		}
 		
-		void AddressCheckCustomTP(IEC61850.SCL.tP tp)
+		void CheckCustomTP(IEC61850.SCL.tP tp)
 		{
 			// Check For Custom Types to add at tp list
 			if (tp.typeEnum == tPTypeEnum.EXTENSION) {
 				Gtk.ListStore tpmodel = (Gtk.ListStore) this.tplist.Model;
+				Gtk.ListStore tphmodel = (Gtk.ListStore) this.tplist.Model;
 				// Search for this custom type
 				bool exist = false;
 				Gtk.TreeIter s;
@@ -273,6 +326,8 @@ namespace OpenSASUI
 				if(!exist) {
 					tpmodel.AppendValues(tp.type, 
 					                     tp.typeEnum);
+					tphmodel.AppendValues(tp.type, 
+					                     tp.typeEnum);
 				}
 			}
 		}
@@ -284,29 +339,29 @@ namespace OpenSASUI
 			if (this.subnetworklist.GetActiveIter (out siter) && this.sclfile != null) {
 				int subn = (int) submodel.GetValue (siter, 1);
 				if (!(subn < 0)) {
+					Gtk.TreeIter aiter;
 					int cap = (int) submodel.GetValue (siter, 3);
-					IEC61850.SCL.tConnectedAP connap = this.sclfile.GetIEDConnectedAP(subn, cap);
-					if (connap != null) {
+					IEC61850.SCL.tP[] addp = this.sclfile.GetPAddress(subn, cap);
+					if (addp != null) {
 						
 						Gtk.ListStore tpmodel = (Gtk.ListStore) this.tplist.Model;
 						
-						// Remove all Address
+						// Remove all Address & physical
 						Gtk.TreeStore addmodel = (Gtk.TreeStore) this.addresstreeview.Model;
-						Gtk.TreeIter aiter;
+						Gtk.TreeStore phymodel = (Gtk.TreeStore) this.physicaltreeview.Model;
 						while(addmodel.GetIterFirst(out aiter))
 							addmodel.Remove(ref aiter);
-						
+						while(phymodel.GetIterFirst(out aiter))
+							phymodel.Remove(ref aiter);
 						// Fill Adress List
-						if (connap.Address.P != null) {
-							for (int i = 0; i < connap.Address.P.GetLength(0); i++) {
-								string text = connap.Address.P[i].Description;
-								string name = connap.Address.P[i].type;
-								addmodel.AppendValues(name, i, 
-								                      connap.Address.P[i].typeEnum,
-								                      text);
-								// Check tP to be added
-								this.AddressCheckCustomTP(connap.Address.P[i]);
-							}
+						for (int i = 0; i < addp.GetLength(0); i++) {
+							string text = addp[i].Description;
+							string name = addp[i].type;
+							addmodel.AppendValues(name, i, 
+							                      addp[i].typeEnum,
+							                      text);
+							// Check tP to be added
+							this.CheckCustomTP(addp[i]);
 						}
 						// Select first element
 						addmodel.GetIterFirst(out aiter);
@@ -324,6 +379,25 @@ namespace OpenSASUI
 								}
 								if (!tpmodel.IterNext(ref tpiter))
 									break;
+							}
+						}
+						
+						Gtk.ListStore phmodel = (Gtk.ListStore) this.physclist.Model;
+						if (physclist.GetActiveIter(out siter)) {
+							int pcIndex = (int) phmodel.GetValue(siter, 1);
+							
+							// Fill Physical Conn List
+							IEC61850.SCL.tP[] php = this.sclfile.GetPPhysConn(subn, cap, pcIndex);
+							if (php != null) {
+								for (int i = 0; i < php.GetLength(0); i++) {
+									string text = php[i].Description;
+									string name = php[i].type;
+									addmodel.AppendValues(name, i, 
+									                      php[i].typeEnum,
+									                      text);
+									// Check tP to be added
+									this.CheckCustomTP(php[i]);
+								}
 							}
 						}
 						
@@ -409,8 +483,9 @@ namespace OpenSASUI
 				l = subnetmodel.IterNext(ref siter);
 			}
 			this.subnetworklist.SetActiveIter (sel);
-			
+			int subnet = (int) subnetmodel.GetValue(sel, 1);
 			this.accesspointdetails.Sensitive = true;
+			this.gseditor.SetIED(this.sclfile, subnet, this.numied, true);
 			return true;
 		}
 		

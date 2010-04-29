@@ -57,6 +57,8 @@
     <Compile Include="Container.cs" />
     <Compile Include="HistoryEditor.cs" />
     <Compile Include="gtk-gui\OpenSASUI.HistoryEditor.cs" />
+    <Compile Include="GSEditor.cs" />
+    <Compile Include="gtk-gui\OpenSASUI.GSEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibOpenSCL\LibOpenSCL.csproj">

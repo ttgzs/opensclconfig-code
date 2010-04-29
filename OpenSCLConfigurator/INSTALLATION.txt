@@ -2,7 +2,7 @@ OpenSCLConfigurator Notes and News
 
 * Installation
 
-Actually you need to copy this application and its library (DLLs) in the folder
+Currently you need to copy this application and its library (DLLs) in the folder
 where it is executed from.
 
 * Compilation

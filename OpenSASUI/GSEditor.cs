@@ -80,7 +80,7 @@ namespace OpenSASUI
 			
 			Gtk.TreeStore gsemodel = (Gtk.TreeStore) this.gsetreeview.Model;
 			Gtk.TreeIter iter;
-			this.Clear();
+			this.Clear(true);
 			// Fill GSE table
 			string appid = "";
 			string mac;
@@ -180,7 +180,7 @@ namespace OpenSASUI
 			this.UpdateGSETypes();
 		}
 		
-		public void Clear ()
+		private void Clear(bool sensitive)
 		{
 			Gtk.TreeIter iter;
 			// GSE Viewer
@@ -192,9 +192,14 @@ namespace OpenSASUI
 			while (gsedsmodel.GetIterFirst(out iter))
 				gsedsmodel.Remove(ref iter);
 			
-			this.gsetreeview.Sensitive = false;
-			this.gsetreeview.GetColumn(5).Visible = false;
-			this.updategse.Sensitive = false;
+			this.gsetreeview.Sensitive = sensitive;
+			this.gsetreeview.GetColumn(5).Visible = sensitive;
+			this.updategse.Sensitive = sensitive;
+		}
+		
+		public void Clear ()
+		{
+			this.Clear(false);
 		}
 		
 		

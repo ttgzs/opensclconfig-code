@@ -1,19 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="OpenSASUI/APEditor.cs" ctype="Workbench">
-    <Files>
-      <File FileName="OpenSASUI/APEditor.cs" Line="209" Column="22" />
-      <File FileName="LibOpenSCL/Object.cs" Line="1349" Column="3" />
-      <File FileName="LibOpenSCL/SCL.cs" Line="1232" Column="8" />
-    </Files>
+  <MonoDevelop.Ide.Workbench ctype="Workbench">
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="LibOpenSCL" expanded="True" />
-          <Node name="OpenSASConfigurator" selected="True" />
-          <Node name="OpenSASConfiguratorTranslation" expanded="True" />
+          <Node name="OpenSASConfigurator" expanded="True" />
           <Node name="OpenSASUI" expanded="True" />
-          <Node name="OpenSASUITranslation" expanded="True" />
-          <Node name="Paquetes" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">

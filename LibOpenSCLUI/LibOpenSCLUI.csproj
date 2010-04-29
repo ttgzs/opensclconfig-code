@@ -134,4 +134,9 @@
       <Name>LibOpenSCL</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="INSTALLATION.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

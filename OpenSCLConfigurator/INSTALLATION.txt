@@ -1,0 +1,10 @@
+OpenSCLConfigurator Notes and News
+
+* Installation
+
+Actually you need to copy this application and its library (DLLs) in the folder
+where it is executed from.
+
+* Compilation
+
+On Win64 you need to set target CPU to 32 bits.

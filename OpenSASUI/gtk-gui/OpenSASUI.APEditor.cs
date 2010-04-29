@@ -438,6 +438,7 @@ namespace OpenSASUI {
             this.hpaned1.Position = 286;
             // Container child hpaned1.Gtk.Paned+PanedChild
             this.vbox3 = new Gtk.VBox();
+            this.vbox3.Name = "vbox3";
             this.vbox3.Spacing = 6;
             // Container child vbox3.Gtk.Box+BoxChild
             this.GtkScrolledWindow = new Gtk.ScrolledWindow();
@@ -789,6 +790,7 @@ namespace OpenSASUI {
             this.gseditor = new OpenSASUI.GSEditor();
             this.gseditor.Events = ((Gdk.EventMask)(256));
             this.gseditor.Name = "gseditor";
+            this.gseditor.Update = false;
             this.notebook.Add(this.gseditor);
             Gtk.Notebook.NotebookChild w73 = ((Gtk.Notebook.NotebookChild)(this.notebook[this.gseditor]));
             w73.Position = 2;

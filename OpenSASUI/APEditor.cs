@@ -72,15 +72,12 @@ namespace OpenSASUI
 			                                         typeof(IEC61850.SCL.tPTypeEnum));
 			this.tplist.Model = tpmodel;
 			
-			Gtk.ListStore tphmodel = new Gtk.ListStore (typeof(string), 
-			                                         typeof(IEC61850.SCL.tPTypeEnum));
-			this.tplist_physical.Model = tphmodel;
+			this.tplist_physical.Model = tpmodel;
 			// Add pre-defined types
 			IEC61850.SCL.tPType type = new IEC61850.SCL.tPType();
 			for (int t = 0; t < (int) IEC61850.SCL.tPTypeEnum.EXTENSION; t++) {
 				type.typeEnum = (IEC61850.SCL.tPTypeEnum) t;
 				tpmodel.AppendValues(type.type, type.typeEnum);
-				tphmodel.AppendValues(type.type, type.typeEnum);
 			}
 			
 			// Last inits
@@ -308,7 +305,6 @@ namespace OpenSASUI
 			// Check For Custom Types to add at tp list
 			if (tp.typeEnum == tPTypeEnum.EXTENSION) {
 				Gtk.ListStore tpmodel = (Gtk.ListStore) this.tplist.Model;
-				Gtk.ListStore tphmodel = (Gtk.ListStore) this.tplist.Model;
 				// Search for this custom type
 				bool exist = false;
 				Gtk.TreeIter s;
@@ -325,8 +321,6 @@ namespace OpenSASUI
 				}
 				if(!exist) {
 					tpmodel.AppendValues(tp.type, 
-					                     tp.typeEnum);
-					tphmodel.AppendValues(tp.type, 
 					                     tp.typeEnum);
 				}
 			}

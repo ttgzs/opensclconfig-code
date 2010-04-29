@@ -177,6 +177,7 @@ namespace OpenSASUI {
             this.gseditor = new OpenSASUI.GSEditor();
             this.gseditor.Events = ((Gdk.EventMask)(256));
             this.gseditor.Name = "gseditor";
+            this.gseditor.Update = false;
             this.notebook1.Add(this.gseditor);
             Gtk.Notebook.NotebookChild w7 = ((Gtk.Notebook.NotebookChild)(this.notebook1[this.gseditor]));
             w7.Position = 1;

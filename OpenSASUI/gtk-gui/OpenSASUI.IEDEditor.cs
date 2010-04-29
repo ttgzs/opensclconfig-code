@@ -90,6 +90,7 @@ namespace OpenSASUI {
             this.Name = "OpenSASUI.IEDEditor";
             // Container child OpenSASUI.IEDEditor.Gtk.Container+ContainerChild
             this.vbox3 = new Gtk.VBox();
+            this.vbox3.Name = "vbox3";
             this.vbox3.Spacing = 6;
             this.vbox3.BorderWidth = ((uint)(9));
             // Container child vbox3.Gtk.Box+BoxChild

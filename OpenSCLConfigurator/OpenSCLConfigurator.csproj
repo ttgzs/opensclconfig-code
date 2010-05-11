@@ -19,6 +19,7 @@
     <DocumentationFile>bin\Debug\OpenSCLConfigurator.xml</DocumentationFile>
     <ReleaseVersion>0.2.2</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
+    <ApplicationIcon>imgs\OpenSCL_logo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>

@@ -11,6 +11,7 @@
     <AssemblyName>OpenSASConfigurator</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <ReleaseVersion>0.5</ReleaseVersion>
+    <ApplicationIcon>OpenSASConfigurator-64x62.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

@@ -139,37 +139,9 @@ namespace OpenSASUI {
         
         private Gtk.Label label5;
         
-        private OpenSASUI.GSEditor gseditor;
+        private OpenSASUI.GSEListViewer gselistviewer;
         
         private Gtk.Label label3;
-        
-        private Gtk.VBox vbox9;
-        
-        private Gtk.HButtonBox hbuttonbox5;
-        
-        private Gtk.Button addsmv;
-        
-        private Gtk.Button removesmv;
-        
-        private Gtk.Button propertiessmv;
-        
-        private Gtk.HPaned hpaned4;
-        
-        private Gtk.VBox vbox10;
-        
-        private Gtk.Label label15;
-        
-        private Gtk.ScrolledWindow GtkScrolledWindow5;
-        
-        private Gtk.TreeView smvtreeview;
-        
-        private Gtk.VBox vbox11;
-        
-        private Gtk.Label label16;
-        
-        private Gtk.ScrolledWindow GtkScrolledWindow6;
-        
-        private Gtk.TreeView smvdsettreeview;
         
         private Gtk.Label label4;
         
@@ -787,144 +759,28 @@ namespace OpenSASUI {
             this.notebook.SetTabLabel(this.vbox4, this.label5);
             this.label5.ShowAll();
             // Container child notebook.Gtk.Notebook+NotebookChild
-            this.gseditor = new OpenSASUI.GSEditor();
-            this.gseditor.Events = ((Gdk.EventMask)(256));
-            this.gseditor.Name = "gseditor";
-            this.gseditor.Update = false;
-            this.notebook.Add(this.gseditor);
-            Gtk.Notebook.NotebookChild w73 = ((Gtk.Notebook.NotebookChild)(this.notebook[this.gseditor]));
+            this.gselistviewer = new OpenSASUI.GSEListViewer();
+            this.gselistviewer.Events = ((Gdk.EventMask)(256));
+            this.gselistviewer.Name = "gselistviewer";
+            this.notebook.Add(this.gselistviewer);
+            Gtk.Notebook.NotebookChild w73 = ((Gtk.Notebook.NotebookChild)(this.notebook[this.gselistviewer]));
             w73.Position = 2;
             // Notebook tab
             this.label3 = new Gtk.Label();
             this.label3.TooltipMarkup = "Generic Substation Events Published by this IED";
             this.label3.Name = "label3";
             this.label3.LabelProp = Mono.Unix.Catalog.GetString("GSE");
-            this.notebook.SetTabLabel(this.gseditor, this.label3);
+            this.notebook.SetTabLabel(this.gselistviewer, this.label3);
             this.label3.ShowAll();
-            // Container child notebook.Gtk.Notebook+NotebookChild
-            this.vbox9 = new Gtk.VBox();
-            this.vbox9.Name = "vbox9";
-            this.vbox9.Spacing = 6;
-            // Container child vbox9.Gtk.Box+BoxChild
-            this.hbuttonbox5 = new Gtk.HButtonBox();
-            this.hbuttonbox5.Name = "hbuttonbox5";
-            this.hbuttonbox5.LayoutStyle = ((Gtk.ButtonBoxStyle)(3));
-            // Container child hbuttonbox5.Gtk.ButtonBox+ButtonBoxChild
-            this.addsmv = new Gtk.Button();
-            this.addsmv.TooltipMarkup = "Add a new SMV to publish";
-            this.addsmv.CanFocus = true;
-            this.addsmv.Name = "addsmv";
-            this.addsmv.UseStock = true;
-            this.addsmv.UseUnderline = true;
-            this.addsmv.Label = "gtk-add";
-            this.hbuttonbox5.Add(this.addsmv);
-            Gtk.ButtonBox.ButtonBoxChild w74 = ((Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox5[this.addsmv]));
-            w74.Expand = false;
-            w74.Fill = false;
-            // Container child hbuttonbox5.Gtk.ButtonBox+ButtonBoxChild
-            this.removesmv = new Gtk.Button();
-            this.removesmv.TooltipMarkup = "Remove current selected SVM";
-            this.removesmv.CanFocus = true;
-            this.removesmv.Name = "removesmv";
-            this.removesmv.UseStock = true;
-            this.removesmv.UseUnderline = true;
-            this.removesmv.Label = "gtk-remove";
-            this.hbuttonbox5.Add(this.removesmv);
-            Gtk.ButtonBox.ButtonBoxChild w75 = ((Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox5[this.removesmv]));
-            w75.Position = 1;
-            w75.Expand = false;
-            w75.Fill = false;
-            // Container child hbuttonbox5.Gtk.ButtonBox+ButtonBoxChild
-            this.propertiessmv = new Gtk.Button();
-            this.propertiessmv.TooltipMarkup = "Edit current selected SMV";
-            this.propertiessmv.CanFocus = true;
-            this.propertiessmv.Name = "propertiessmv";
-            this.propertiessmv.UseStock = true;
-            this.propertiessmv.UseUnderline = true;
-            this.propertiessmv.Label = "gtk-properties";
-            this.hbuttonbox5.Add(this.propertiessmv);
-            Gtk.ButtonBox.ButtonBoxChild w76 = ((Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox5[this.propertiessmv]));
-            w76.Position = 2;
-            w76.Expand = false;
-            w76.Fill = false;
-            this.vbox9.Add(this.hbuttonbox5);
-            Gtk.Box.BoxChild w77 = ((Gtk.Box.BoxChild)(this.vbox9[this.hbuttonbox5]));
-            w77.Position = 0;
-            w77.Expand = false;
-            w77.Fill = false;
-            // Container child vbox9.Gtk.Box+BoxChild
-            this.hpaned4 = new Gtk.HPaned();
-            this.hpaned4.CanFocus = true;
-            this.hpaned4.Name = "hpaned4";
-            this.hpaned4.Position = 293;
-            // Container child hpaned4.Gtk.Paned+PanedChild
-            this.vbox10 = new Gtk.VBox();
-            this.vbox10.Name = "vbox10";
-            this.vbox10.Spacing = 6;
-            // Container child vbox10.Gtk.Box+BoxChild
-            this.label15 = new Gtk.Label();
-            this.label15.Name = "label15";
-            this.label15.LabelProp = Mono.Unix.Catalog.GetString("SMV Control Block");
-            this.vbox10.Add(this.label15);
-            Gtk.Box.BoxChild w78 = ((Gtk.Box.BoxChild)(this.vbox10[this.label15]));
-            w78.Position = 0;
-            w78.Expand = false;
-            w78.Fill = false;
-            // Container child vbox10.Gtk.Box+BoxChild
-            this.GtkScrolledWindow5 = new Gtk.ScrolledWindow();
-            this.GtkScrolledWindow5.Name = "GtkScrolledWindow5";
-            this.GtkScrolledWindow5.ShadowType = ((Gtk.ShadowType)(1));
-            // Container child GtkScrolledWindow5.Gtk.Container+ContainerChild
-            this.smvtreeview = new Gtk.TreeView();
-            this.smvtreeview.TooltipMarkup = "List of SMVs configured in this IED";
-            this.smvtreeview.CanFocus = true;
-            this.smvtreeview.Name = "smvtreeview";
-            this.GtkScrolledWindow5.Add(this.smvtreeview);
-            this.vbox10.Add(this.GtkScrolledWindow5);
-            Gtk.Box.BoxChild w80 = ((Gtk.Box.BoxChild)(this.vbox10[this.GtkScrolledWindow5]));
-            w80.Position = 1;
-            this.hpaned4.Add(this.vbox10);
-            Gtk.Paned.PanedChild w81 = ((Gtk.Paned.PanedChild)(this.hpaned4[this.vbox10]));
-            w81.Resize = false;
-            // Container child hpaned4.Gtk.Paned+PanedChild
-            this.vbox11 = new Gtk.VBox();
-            this.vbox11.Name = "vbox11";
-            this.vbox11.Spacing = 6;
-            // Container child vbox11.Gtk.Box+BoxChild
-            this.label16 = new Gtk.Label();
-            this.label16.Name = "label16";
-            this.label16.LabelProp = Mono.Unix.Catalog.GetString("DataSet Information");
-            this.vbox11.Add(this.label16);
-            Gtk.Box.BoxChild w82 = ((Gtk.Box.BoxChild)(this.vbox11[this.label16]));
-            w82.Position = 0;
-            w82.Expand = false;
-            w82.Fill = false;
-            // Container child vbox11.Gtk.Box+BoxChild
-            this.GtkScrolledWindow6 = new Gtk.ScrolledWindow();
-            this.GtkScrolledWindow6.Name = "GtkScrolledWindow6";
-            this.GtkScrolledWindow6.ShadowType = ((Gtk.ShadowType)(1));
-            // Container child GtkScrolledWindow6.Gtk.Container+ContainerChild
-            this.smvdsettreeview = new Gtk.TreeView();
-            this.smvdsettreeview.TooltipMarkup = "DataSet information of the current selected SMV";
-            this.smvdsettreeview.CanFocus = true;
-            this.smvdsettreeview.Name = "smvdsettreeview";
-            this.GtkScrolledWindow6.Add(this.smvdsettreeview);
-            this.vbox11.Add(this.GtkScrolledWindow6);
-            Gtk.Box.BoxChild w84 = ((Gtk.Box.BoxChild)(this.vbox11[this.GtkScrolledWindow6]));
-            w84.Position = 1;
-            this.hpaned4.Add(this.vbox11);
-            this.vbox9.Add(this.hpaned4);
-            Gtk.Box.BoxChild w86 = ((Gtk.Box.BoxChild)(this.vbox9[this.hpaned4]));
-            w86.Position = 1;
-            this.notebook.Add(this.vbox9);
-            Gtk.Notebook.NotebookChild w87 = ((Gtk.Notebook.NotebookChild)(this.notebook[this.vbox9]));
-            w87.Position = 3;
             // Notebook tab
+            Gtk.Label w74 = new Gtk.Label();
+            w74.Visible = true;
+            this.notebook.Add(w74);
             this.label4 = new Gtk.Label();
             this.label4.TooltipMarkup = "Sample Values Published by this IED";
             this.label4.Name = "label4";
             this.label4.LabelProp = Mono.Unix.Catalog.GetString("SMV");
-            this.notebook.SetTabLabel(this.vbox9, this.label4);
+            this.notebook.SetTabLabel(w74, this.label4);
             this.label4.ShowAll();
             this.connectiondetails.Add(this.notebook);
             this.GtkLabel23 = new Gtk.Label();
@@ -933,8 +789,8 @@ namespace OpenSASUI {
             this.GtkLabel23.UseUnderline = true;
             this.connectiondetails.LabelWidget = this.GtkLabel23;
             this.vbox1.Add(this.connectiondetails);
-            Gtk.Box.BoxChild w89 = ((Gtk.Box.BoxChild)(this.vbox1[this.connectiondetails]));
-            w89.Position = 2;
+            Gtk.Box.BoxChild w76 = ((Gtk.Box.BoxChild)(this.vbox1[this.connectiondetails]));
+            w76.Position = 2;
             this.Add(this.vbox1);
             if ((this.Child != null)) {
                 this.Child.ShowAll();

@@ -1113,10 +1113,9 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="OpenSASUI.GSEditor" id="gseditor">
+                  <widget class="OpenSASUI.GSEListViewer" id="gselistviewer">
                     <property name="MemberName" />
                     <property name="Events">ButtonPressMask</property>
-                    <property name="Update">False</property>
                   </widget>
                   <packing>
                     <property name="Position">2</property>
@@ -1133,159 +1132,7 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.VBox" id="vbox9">
-                    <property name="MemberName" />
-                    <property name="Spacing">6</property>
-                    <child>
-                      <widget class="Gtk.HButtonBox" id="hbuttonbox5">
-                        <property name="MemberName" />
-                        <property name="Size">3</property>
-                        <property name="LayoutStyle">Start</property>
-                        <child>
-                          <widget class="Gtk.Button" id="addsmv">
-                            <property name="MemberName" />
-                            <property name="Tooltip" translatable="yes">Add a new SMV to publish</property>
-                            <property name="CanFocus">True</property>
-                            <property name="UseStock">True</property>
-                            <property name="Type">StockItem</property>
-                            <property name="StockId">gtk-add</property>
-                            <property name="label">gtk-add</property>
-                          </widget>
-                          <packing>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gtk.Button" id="removesmv">
-                            <property name="MemberName" />
-                            <property name="Tooltip" translatable="yes">Remove current selected SVM</property>
-                            <property name="CanFocus">True</property>
-                            <property name="UseStock">True</property>
-                            <property name="Type">StockItem</property>
-                            <property name="StockId">gtk-remove</property>
-                            <property name="label">gtk-remove</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">1</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gtk.Button" id="propertiessmv">
-                            <property name="MemberName" />
-                            <property name="Tooltip" translatable="yes">Edit current selected SMV</property>
-                            <property name="CanFocus">True</property>
-                            <property name="UseStock">True</property>
-                            <property name="Type">StockItem</property>
-                            <property name="StockId">gtk-properties</property>
-                            <property name="label">gtk-properties</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">2</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                      </widget>
-                      <packing>
-                        <property name="Position">0</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.HPaned" id="hpaned4">
-                        <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="Position">293</property>
-                        <child>
-                          <widget class="Gtk.VBox" id="vbox10">
-                            <property name="MemberName" />
-                            <property name="Spacing">6</property>
-                            <child>
-                              <widget class="Gtk.Label" id="label15">
-                                <property name="MemberName" />
-                                <property name="LabelProp" translatable="yes">SMV Control Block</property>
-                              </widget>
-                              <packing>
-                                <property name="Position">0</property>
-                                <property name="AutoSize">True</property>
-                                <property name="Expand">False</property>
-                                <property name="Fill">False</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow5">
-                                <property name="MemberName" />
-                                <property name="ShadowType">In</property>
-                                <child>
-                                  <widget class="Gtk.TreeView" id="smvtreeview">
-                                    <property name="MemberName" />
-                                    <property name="Tooltip" translatable="yes">List of SMVs configured in this IED</property>
-                                    <property name="CanFocus">True</property>
-                                    <property name="ShowScrollbars">True</property>
-                                  </widget>
-                                </child>
-                              </widget>
-                              <packing>
-                                <property name="Position">1</property>
-                                <property name="AutoSize">True</property>
-                              </packing>
-                            </child>
-                          </widget>
-                          <packing>
-                            <property name="Resize">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gtk.VBox" id="vbox11">
-                            <property name="MemberName" />
-                            <property name="Spacing">6</property>
-                            <child>
-                              <widget class="Gtk.Label" id="label16">
-                                <property name="MemberName" />
-                                <property name="LabelProp" translatable="yes">DataSet Information</property>
-                              </widget>
-                              <packing>
-                                <property name="Position">0</property>
-                                <property name="AutoSize">True</property>
-                                <property name="Expand">False</property>
-                                <property name="Fill">False</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow6">
-                                <property name="MemberName" />
-                                <property name="ShadowType">In</property>
-                                <child>
-                                  <widget class="Gtk.TreeView" id="smvdsettreeview">
-                                    <property name="MemberName" />
-                                    <property name="Tooltip" translatable="yes">DataSet information of the current selected SMV</property>
-                                    <property name="CanFocus">True</property>
-                                    <property name="ShowScrollbars">True</property>
-                                  </widget>
-                                </child>
-                              </widget>
-                              <packing>
-                                <property name="Position">1</property>
-                                <property name="AutoSize">True</property>
-                              </packing>
-                            </child>
-                          </widget>
-                        </child>
-                      </widget>
-                      <packing>
-                        <property name="Position">1</property>
-                        <property name="AutoSize">True</property>
-                      </packing>
-                    </child>
-                  </widget>
-                  <packing>
-                    <property name="Position">3</property>
-                  </packing>
+                  <placeholder />
                 </child>
                 <child>
                   <widget class="Gtk.Label" id="label4">
@@ -1789,7 +1636,7 @@ SIEMENS</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="OpenSASUI.SclCommManager" design-size="413 363">
+  <widget class="Gtk.Bin" id="OpenSASUI.SclCommManager" design-size="413 368">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -1812,62 +1659,11 @@ SIEMENS</property>
           <widget class="Gtk.Notebook" id="notebook1">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="CurrentPage">1</property>
+            <property name="CurrentPage">3</property>
             <child>
-              <widget class="Gtk.VBox" id="vbox1">
+              <widget class="OpenSASUI.IPListViewer" id="iplistviewer">
                 <property name="MemberName" />
-                <property name="Spacing">6</property>
-                <child>
-                  <widget class="Gtk.HBox" id="hbox3">
-                    <property name="MemberName" />
-                    <property name="Spacing">6</property>
-                    <child>
-                      <widget class="Gtk.Button" id="ipupdate">
-                        <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="UseStock">True</property>
-                        <property name="Type">StockItem</property>
-                        <property name="StockId">gtk-refresh</property>
-                        <property name="label">gtk-refresh</property>
-                      </widget>
-                      <packing>
-                        <property name="Position">0</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <placeholder />
-                    </child>
-                    <child>
-                      <placeholder />
-                    </child>
-                  </widget>
-                  <packing>
-                    <property name="Position">0</property>
-                    <property name="AutoSize">True</property>
-                    <property name="Expand">False</property>
-                    <property name="Fill">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow">
-                    <property name="MemberName" />
-                    <property name="ShadowType">In</property>
-                    <child>
-                      <widget class="Gtk.TreeView" id="iptreeview">
-                        <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="ShowScrollbars">True</property>
-                      </widget>
-                    </child>
-                  </widget>
-                  <packing>
-                    <property name="Position">1</property>
-                    <property name="AutoSize">True</property>
-                  </packing>
-                </child>
+                <property name="Events">ButtonPressMask</property>
               </widget>
             </child>
             <child>
@@ -1881,10 +1677,9 @@ SIEMENS</property>
               </packing>
             </child>
             <child>
-              <widget class="OpenSASUI.GSEditor" id="gseditor">
+              <widget class="OpenSASUI.GSEListViewer" id="gselistviewer">
                 <property name="MemberName" />
                 <property name="Events">ButtonPressMask</property>
-                <property name="Update">False</property>
               </widget>
               <packing>
                 <property name="Position">1</property>
@@ -1901,106 +1696,7 @@ SIEMENS</property>
               </packing>
             </child>
             <child>
-              <widget class="Gtk.VBox" id="vbox5">
-                <property name="MemberName" />
-                <property name="Spacing">6</property>
-                <child>
-                  <widget class="Gtk.HBox" id="hbox4">
-                    <property name="MemberName" />
-                    <property name="Spacing">6</property>
-                    <child>
-                      <widget class="Gtk.Button" id="updatesmv">
-                        <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="UseStock">True</property>
-                        <property name="Type">StockItem</property>
-                        <property name="StockId">gtk-refresh</property>
-                        <property name="label">gtk-refresh</property>
-                      </widget>
-                      <packing>
-                        <property name="Position">0</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.Button" id="addsmv">
-                        <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="UseStock">True</property>
-                        <property name="Type">StockItem</property>
-                        <property name="StockId">gtk-add</property>
-                        <property name="label">gtk-add</property>
-                      </widget>
-                      <packing>
-                        <property name="Position">1</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.Button" id="removesmv">
-                        <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="UseStock">True</property>
-                        <property name="Type">StockItem</property>
-                        <property name="StockId">gtk-remove</property>
-                        <property name="label">gtk-remove</property>
-                      </widget>
-                      <packing>
-                        <property name="Position">2</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.Button" id="editsmv">
-                        <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="UseStock">True</property>
-                        <property name="Type">StockItem</property>
-                        <property name="StockId">gtk-edit</property>
-                        <property name="label">gtk-edit</property>
-                      </widget>
-                      <packing>
-                        <property name="Position">3</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
-                      </packing>
-                    </child>
-                  </widget>
-                  <packing>
-                    <property name="Position">0</property>
-                    <property name="AutoSize">True</property>
-                    <property name="Expand">False</property>
-                    <property name="Fill">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow2">
-                    <property name="MemberName" />
-                    <property name="ShadowType">In</property>
-                    <child>
-                      <widget class="Gtk.TreeView" id="smvtreeview">
-                        <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="ShowScrollbars">True</property>
-                      </widget>
-                    </child>
-                  </widget>
-                  <packing>
-                    <property name="Position">1</property>
-                    <property name="AutoSize">False</property>
-                  </packing>
-                </child>
-              </widget>
-              <packing>
-                <property name="Position">2</property>
-              </packing>
+              <placeholder />
             </child>
             <child>
               <widget class="Gtk.Label" id="label8">
@@ -2013,179 +1709,9 @@ SIEMENS</property>
               </packing>
             </child>
             <child>
-              <widget class="Gtk.VBox" id="vbox6">
+              <widget class="OpenSASUI.ReportListViewer" id="reportlistviewer">
                 <property name="MemberName" />
-                <property name="Spacing">6</property>
-                <child>
-                  <widget class="Gtk.HBox" id="hbox5">
-                    <property name="MemberName" />
-                    <property name="Spacing">6</property>
-                    <child>
-                      <widget class="Gtk.Button" id="updatereports">
-                        <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="UseStock">True</property>
-                        <property name="Type">StockItem</property>
-                        <property name="StockId">gtk-refresh</property>
-                        <property name="label">gtk-refresh</property>
-                      </widget>
-                      <packing>
-                        <property name="Position">0</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.Button" id="addreport">
-                        <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="UseStock">True</property>
-                        <property name="Type">StockItem</property>
-                        <property name="StockId">gtk-add</property>
-                        <property name="label">gtk-add</property>
-                      </widget>
-                      <packing>
-                        <property name="Position">1</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.Button" id="removereport">
-                        <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="UseStock">True</property>
-                        <property name="Type">StockItem</property>
-                        <property name="StockId">gtk-remove</property>
-                        <property name="label">gtk-remove</property>
-                      </widget>
-                      <packing>
-                        <property name="Position">2</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.Button" id="editreport">
-                        <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="UseStock">True</property>
-                        <property name="Type">StockItem</property>
-                        <property name="StockId">gtk-edit</property>
-                        <property name="label">gtk-edit</property>
-                      </widget>
-                      <packing>
-                        <property name="Position">3</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
-                      </packing>
-                    </child>
-                  </widget>
-                  <packing>
-                    <property name="Position">0</property>
-                    <property name="AutoSize">True</property>
-                    <property name="Expand">False</property>
-                    <property name="Fill">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="Gtk.HPaned" id="hpaned1">
-                    <property name="MemberName" />
-                    <property name="CanFocus">True</property>
-                    <property name="Position">247</property>
-                    <child>
-                      <widget class="Gtk.HBox" id="hbox7">
-                        <property name="MemberName" />
-                        <property name="Spacing">6</property>
-                        <child>
-                          <widget class="Gtk.VBox" id="vbox8">
-                            <property name="MemberName" />
-                            <property name="Spacing">6</property>
-                            <child>
-                              <widget class="Gtk.Label" id="label5">
-                                <property name="MemberName" />
-                                <property name="LabelProp" translatable="yes">Report Control Block</property>
-                              </widget>
-                              <packing>
-                                <property name="Position">0</property>
-                                <property name="AutoSize">True</property>
-                                <property name="Expand">False</property>
-                                <property name="Fill">False</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow3">
-                                <property name="MemberName" />
-                                <property name="ShadowType">In</property>
-                                <child>
-                                  <widget class="Gtk.TreeView" id="reportstreeview">
-                                    <property name="MemberName" />
-                                    <property name="CanFocus">True</property>
-                                    <property name="ShowScrollbars">True</property>
-                                  </widget>
-                                </child>
-                              </widget>
-                              <packing>
-                                <property name="Position">1</property>
-                                <property name="AutoSize">False</property>
-                              </packing>
-                            </child>
-                          </widget>
-                          <packing>
-                            <property name="Position">0</property>
-                            <property name="AutoSize">False</property>
-                          </packing>
-                        </child>
-                      </widget>
-                      <packing>
-                        <property name="Resize">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.VBox" id="vbox9">
-                        <property name="MemberName" />
-                        <property name="Spacing">6</property>
-                        <child>
-                          <widget class="Gtk.Label" id="label10">
-                            <property name="MemberName" />
-                            <property name="LabelProp" translatable="yes">DataSet Information</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">0</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow5">
-                            <property name="MemberName" />
-                            <property name="ShadowType">In</property>
-                            <child>
-                              <widget class="Gtk.TreeView" id="dsetreportreeview">
-                                <property name="MemberName" />
-                                <property name="CanFocus">True</property>
-                                <property name="ShowScrollbars">True</property>
-                              </widget>
-                            </child>
-                          </widget>
-                          <packing>
-                            <property name="Position">1</property>
-                            <property name="AutoSize">True</property>
-                          </packing>
-                        </child>
-                      </widget>
-                    </child>
-                  </widget>
-                  <packing>
-                    <property name="Position">1</property>
-                    <property name="AutoSize">True</property>
-                  </packing>
-                </child>
+                <property name="Events">ButtonPressMask</property>
               </widget>
               <packing>
                 <property name="Position">3</property>
@@ -2201,106 +1727,7 @@ SIEMENS</property>
               </packing>
             </child>
             <child>
-              <widget class="Gtk.VBox" id="vbox7">
-                <property name="MemberName" />
-                <property name="Spacing">6</property>
-                <child>
-                  <widget class="Gtk.HBox" id="hbox6">
-                    <property name="MemberName" />
-                    <property name="Spacing">6</property>
-                    <child>
-                      <widget class="Gtk.Button" id="updatedatasets">
-                        <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="UseStock">True</property>
-                        <property name="Type">StockItem</property>
-                        <property name="StockId">gtk-refresh</property>
-                        <property name="label">gtk-refresh</property>
-                      </widget>
-                      <packing>
-                        <property name="Position">0</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.Button" id="adddataset">
-                        <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="UseStock">True</property>
-                        <property name="Type">StockItem</property>
-                        <property name="StockId">gtk-add</property>
-                        <property name="label">gtk-add</property>
-                      </widget>
-                      <packing>
-                        <property name="Position">1</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.Button" id="removedataset">
-                        <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="UseStock">True</property>
-                        <property name="Type">StockItem</property>
-                        <property name="StockId">gtk-remove</property>
-                        <property name="label">gtk-remove</property>
-                      </widget>
-                      <packing>
-                        <property name="Position">2</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.Button" id="editdataset">
-                        <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="UseStock">True</property>
-                        <property name="Type">StockItem</property>
-                        <property name="StockId">gtk-edit</property>
-                        <property name="label">gtk-edit</property>
-                      </widget>
-                      <packing>
-                        <property name="Position">3</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
-                      </packing>
-                    </child>
-                  </widget>
-                  <packing>
-                    <property name="Position">0</property>
-                    <property name="AutoSize">True</property>
-                    <property name="Expand">False</property>
-                    <property name="Fill">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow4">
-                    <property name="MemberName" />
-                    <property name="ShadowType">In</property>
-                    <child>
-                      <widget class="Gtk.TreeView" id="datasetstreeview">
-                        <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="ShowScrollbars">True</property>
-                      </widget>
-                    </child>
-                  </widget>
-                  <packing>
-                    <property name="Position">1</property>
-                    <property name="AutoSize">False</property>
-                  </packing>
-                </child>
-              </widget>
-              <packing>
-                <property name="Position">4</property>
-              </packing>
+              <placeholder />
             </child>
             <child>
               <widget class="Gtk.Label" id="label9">
@@ -2727,6 +2154,20 @@ Connected IEDs:</property>
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
+      <placeholder />
+    </child>
+  </widget>
+  <widget class="Gtk.Bin" id="OpenSASUI.ReportEditor" design-size="700 300">
+    <property name="MemberName" />
+    <property name="Visible">False</property>
+    <child>
+      <placeholder />
+    </child>
+  </widget>
+  <widget class="Gtk.Bin" id="OpenSASUI.CommViewer" design-size="685 300">
+    <property name="MemberName" />
+    <property name="Visible">False</property>
+    <child>
       <widget class="Gtk.VBox" id="vbox4">
         <property name="MemberName" />
         <property name="Spacing">6</property>
@@ -2735,7 +2176,7 @@ Connected IEDs:</property>
             <property name="MemberName" />
             <property name="Spacing">6</property>
             <child>
-              <widget class="Gtk.Button" id="updategse">
+              <widget class="Gtk.Button" id="updatelist">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="UseStock">True</property>
@@ -2768,7 +2209,7 @@ Connected IEDs:</property>
               </packing>
             </child>
             <child>
-              <widget class="Gtk.Button" id="addgse">
+              <widget class="Gtk.Button" id="addobject">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="UseStock">True</property>
@@ -2784,7 +2225,7 @@ Connected IEDs:</property>
               </packing>
             </child>
             <child>
-              <widget class="Gtk.Button" id="removegse">
+              <widget class="Gtk.Button" id="deleteobject">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="UseStock">True</property>
@@ -2800,7 +2241,7 @@ Connected IEDs:</property>
               </packing>
             </child>
             <child>
-              <widget class="Gtk.Button" id="gseedit">
+              <widget class="Gtk.Button" id="editobject">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="UseStock">True</property>
@@ -2827,13 +2268,13 @@ Connected IEDs:</property>
           <widget class="Gtk.HPaned" id="hpaned2">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="Position">350</property>
+            <property name="Position">488</property>
             <child>
               <widget class="Gtk.VBox" id="vbox10">
                 <property name="MemberName" />
                 <property name="Spacing">6</property>
                 <child>
-                  <widget class="Gtk.Label" id="label11">
+                  <widget class="Gtk.Label" id="information_label">
                     <property name="MemberName" />
                     <property name="LabelProp" translatable="yes">GSE Information</property>
                   </widget>
@@ -2849,7 +2290,7 @@ Connected IEDs:</property>
                     <property name="MemberName" />
                     <property name="ShadowType">In</property>
                     <child>
-                      <widget class="Gtk.TreeView" id="gsetreeview">
+                      <widget class="Gtk.TreeView" id="informationtreeview">
                         <property name="MemberName" />
                         <property name="CanFocus">True</property>
                         <property name="ShowScrollbars">True</property>
@@ -2887,7 +2328,7 @@ Connected IEDs:</property>
                     <property name="MemberName" />
                     <property name="ShadowType">In</property>
                     <child>
-                      <widget class="Gtk.TreeView" id="gsedetailstreeview">
+                      <widget class="Gtk.TreeView" id="detailstreeview">
                         <property name="MemberName" />
                         <property name="Tooltip" translatable="yes">GSE Details. List DataSet information and IED recommended to be suscribed to this GSE.</property>
                         <property name="CanFocus">True</property>

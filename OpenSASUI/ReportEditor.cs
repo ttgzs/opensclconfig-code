@@ -1,17 +1,17 @@
 
 using System;
-using OpenSCL;
 
 namespace OpenSASUI
 {
 
 
 	[System.ComponentModel.ToolboxItem(true)]
-	public partial class GSEditor : Gtk.Bin
+	public partial class ReportEditor : Gtk.Bin
 	{
 
-		public GSEditor ()
+		public ReportEditor ()
 		{
+			this.Build();
 		}
 	}
 }

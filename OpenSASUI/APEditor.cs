@@ -479,7 +479,7 @@ namespace OpenSASUI
 			this.subnetworklist.SetActiveIter (sel);
 			int subnet = (int) subnetmodel.GetValue(sel, 1);
 			this.accesspointdetails.Sensitive = true;
-			this.gseditor.SetIED(this.sclfile, subnet, this.numied, true);
+			this.gselistviewer.SetIED(this.sclfile, subnet, this.numied, true);
 			return true;
 		}
 		

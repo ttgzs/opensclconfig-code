@@ -26,6 +26,8 @@ public partial class MainWindow : Gtk.Window
 		
 		if (dlg.Run() == (int) Gtk.ResponseType.Accept)
 		{
+			dlg.Hide();
+			// Do this on using a idle function and show a widget to show it is opening
 			this.scleditor.SclFile = new OpenSCL.Object(dlg.Filename);
 			if (this.scleditor.SclFile != null) {
 				string t = "OpenSASConfigurator";

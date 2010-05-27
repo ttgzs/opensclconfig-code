@@ -57,6 +57,7 @@ namespace OpenSCL.UI
 			{
 				listBox.Dock = System.Windows.Forms.DockStyle.Fill;		
 				listBox.ScrollAlwaysVisible = true;
+				listBox.HorizontalScrollbar = true;
 				listBox.Show();
 			}				
 			return listBox;					

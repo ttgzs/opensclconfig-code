@@ -1,4 +1,4 @@
-// OpenSCLConfigurator 
+﻿// OpenSCLConfigurator 
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -198,11 +198,6 @@ namespace OpenSCLConfigurator
 			// 
 			// Panel2
 			// 
-			this.Panel2.Anchor = ((System.Windows.Forms.AnchorStyles)
-			                      ((((System.Windows.Forms.AnchorStyles.Top | 
-			                          System.Windows.Forms.AnchorStyles.Bottom) 
-									| System.Windows.Forms.AnchorStyles.Left) 
-									| System.Windows.Forms.AnchorStyles.Right)));
 			this.Panel2.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.Panel2.Controls.Add(this.PropertyGridAttributes);
 						
@@ -211,7 +206,7 @@ namespace OpenSCLConfigurator
 			//this.Panel2.Size = new System.Drawing.Size(583, 670);
 			this.Panel2.TabIndex = 2;
 			//this.Panel2.AutoScroll = true;
-			//this.Panel2.AutoSize = true;
+			this.Panel2.AutoSize = true;
 			
 			// 
 			// PropertyGridAttributes
@@ -802,12 +797,15 @@ namespace OpenSCLConfigurator
 				Panel2.Dock = System.Windows.Forms.DockStyle.Fill;						
 				if (listError.Count == 0 )
 				{					
-					Panel2.Controls.Add(PropertyGridAttributes);	
+					Panel2.Controls.Add(PropertyGridAttributes);
+					Panel2.AutoScroll = false;
 				}
 				else
-				{			
+				{
 					UIErrorsManagement uiError = new UIErrorsManagement();
-					Panel2.Controls.Add(uiError.ShowError(listError));						
+					Panel2.Controls.Add(uiError.ShowError(listError));
+					
+					Panel2.AutoScroll = true;
 				}								
 			}
 			Panel1.Controls.Add(this.treeViewFile);

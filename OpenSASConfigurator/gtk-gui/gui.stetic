@@ -9,7 +9,7 @@
     <widget-library name="../../OpenSASUI/bin/Debug/OpenSASUI.dll" />
     <widget-library name="../bin/Debug/OpenSASConfigurator.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="671 817">
+  <widget class="Gtk.Window" id="MainWindow" design-size="708 834">
     <action-group name="Default">
       <action id="FileAction">
         <property name="Type">Action</property>
@@ -185,7 +185,7 @@
         <child>
           <widget class="Gtk.MenuBar" id="menubar1">
             <property name="MemberName" />
-            <node name="__gtksharp_124_Stetic_Editor_ActionMenuBar" type="Menubar">
+            <node name="menubar1" type="Menubar">
               <node type="Menu" action="FileAction2">
                 <node type="Menuitem" action="newAction3" />
                 <node type="Menuitem" action="openAction2" />
@@ -212,7 +212,7 @@
             <property name="CanFocus">True</property>
             <property name="CurrentPage">0</property>
             <child>
-              <widget class="OpenSASUI.SclEditor" id="scleditor">
+              <widget class="OpenSASUI.SclEditor" id="scleditor1">
                 <property name="MemberName" />
                 <property name="Events">ButtonPressMask</property>
               </widget>
@@ -254,6 +254,42 @@
             <property name="AutoSize">True</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Window" id="OpenSASConfigurator.OpenProgess" design-size="400 133">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">Opening an SCL File</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <child>
+      <widget class="Gtk.VBox" id="vbox1">
+        <property name="MemberName" />
+        <property name="Spacing">6</property>
+        <child>
+          <widget class="Gtk.Label" id="label">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">Opening an SCL File</property>
+          </widget>
+          <packing>
+            <property name="Position">0</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+            <property name="Padding">9</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.ProgressBar" id="progressbar">
+            <property name="MemberName" />
+          </widget>
+          <packing>
+            <property name="Position">1</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+            <property name="Padding">20</property>
           </packing>
         </child>
       </widget>

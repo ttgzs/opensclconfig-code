@@ -5,17 +5,48 @@ using OpenSCL;
 
 public partial class MainWindow : Gtk.Window
 {
+	static OpenSASUI.SclEditor scleditor;
+	static OpenSASConfigurator.OpenProgess progress;
+	static bool load_done;
+	static string filename;
+	
 	public MainWindow () : base(Gtk.WindowType.Toplevel)
 	{
 		Build ();
 		this.notebook1.CurrentPage = 0;
+		scleditor = this.scleditor1;
+		load_done = false;
+		filename = "";
 	}
-
+	
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
 	{
 		Application.Quit ();
 		a.RetVal = true;
 	}
+	
+	static bool OnIdleMoveProgressBar ()
+	{
+		if (load_done) {
+			progress.Destroy();
+			return false;
+		}
+		else {
+			progress.Pulse();
+			return true;
+		}
+	}
+	
+	static void ThrdOpenSCLFile ()
+	{
+		load_done = false;
+		GLib.IdleHandler idle = new GLib.IdleHandler (OnIdleMoveProgressBar);
+		GLib.Idle.Add (idle);
+		scleditor.SclFile = new OpenSCL.Object(filename);
+		load_done = true;
+		GLib.Idle.Remove(idle);
+	}	
+
 	protected virtual void OnOpen (object sender, System.EventArgs e)
 	{
 		Gtk.FileChooserDialog dlg = new FileChooserDialog("Open SCL File",
@@ -26,18 +57,13 @@ public partial class MainWindow : Gtk.Window
 		
 		if (dlg.Run() == (int) Gtk.ResponseType.Accept)
 		{
-			dlg.Hide();
-			// Do this on using a idle function and show a widget to show it is opening
-			this.scleditor.SclFile = new OpenSCL.Object(dlg.Filename);
-			if (this.scleditor.SclFile != null) {
-				string t = "OpenSASConfigurator";
-				t += " [ ";
-				t += this.scleditor.SclFile.FileName;
-				t += " ]";
-				this.Title = t;
-			}
-		}
-		dlg.Destroy();
+			filename = dlg.Filename;
+			dlg.Destroy();
+			progress = new OpenSASConfigurator.OpenProgess(this, filename);
+			progress.Show();
+			System.Threading.Thread thr = new System.Threading.Thread (new System.Threading.ThreadStart (ThrdOpenSCLFile));
+			thr.Start ();
+		}		
 	}
 	
 	protected virtual void OnNew (object sender, System.EventArgs e)
@@ -46,13 +72,13 @@ public partial class MainWindow : Gtk.Window
 	
 	protected virtual void OnSave (object sender, System.EventArgs e)
 	{
-		if (this.scleditor.SclFile != null)
-			this.scleditor.SclFile.Serialize ();
+		if (scleditor.SclFile != null)
+			scleditor.SclFile.Serialize ();
 	}
 	
 	protected virtual void OnSaveAs (object sender, System.EventArgs e)
 	{
-		if (this.scleditor.SclFile != null)
+		if (scleditor.SclFile != null)
 		{
 			Gtk.FileChooserDialog dlg = new Gtk.FileChooserDialog ("Save As",
 			                                                       this,
@@ -61,7 +87,7 @@ public partial class MainWindow : Gtk.Window
 			                                                       "Cancel", Gtk.ResponseType.Cancel);
 			if (dlg.Run() == (int) ResponseType.Accept)
 			{
-				this.scleditor.SclFile.Serialize(dlg.Filename);
+				scleditor.SclFile.Serialize(dlg.Filename);
 			}
 			
 			dlg.Destroy();
@@ -99,8 +125,6 @@ public partial class MainWindow : Gtk.Window
 		dialog.Destroy();
 	}
 	
-	
-	
 	private static string license = 
   @"This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU Lesser General Public License as published by
@@ -119,3 +143,5 @@ public partial class MainWindow : Gtk.Window
 									"Daniel Espinosa <daniel.espinosa@cfe.gob.mx>" 
 	};
 }
+
+

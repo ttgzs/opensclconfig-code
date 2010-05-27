@@ -72,7 +72,7 @@ public partial class MainWindow {
     
     private Gtk.Notebook notebook1;
     
-    private OpenSASUI.SclEditor scleditor;
+    private OpenSASUI.SclEditor scleditor1;
     
     private Gtk.Label TreeView;
     
@@ -187,15 +187,15 @@ public partial class MainWindow {
         this.notebook1.Name = "notebook1";
         this.notebook1.CurrentPage = 0;
         // Container child notebook1.Gtk.Notebook+NotebookChild
-        this.scleditor = new OpenSASUI.SclEditor();
-        this.scleditor.Events = ((Gdk.EventMask)(256));
-        this.scleditor.Name = "scleditor";
-        this.notebook1.Add(this.scleditor);
+        this.scleditor1 = new OpenSASUI.SclEditor();
+        this.scleditor1.Events = ((Gdk.EventMask)(256));
+        this.scleditor1.Name = "scleditor1";
+        this.notebook1.Add(this.scleditor1);
         // Notebook tab
         this.TreeView = new Gtk.Label();
         this.TreeView.Name = "TreeView";
         this.TreeView.LabelProp = Mono.Unix.Catalog.GetString("Tree View");
-        this.notebook1.SetTabLabel(this.scleditor, this.TreeView);
+        this.notebook1.SetTabLabel(this.scleditor1, this.TreeView);
         this.TreeView.ShowAll();
         // Notebook tab
         Gtk.Label w4 = new Gtk.Label();
@@ -222,8 +222,8 @@ public partial class MainWindow {
         if ((this.Child != null)) {
             this.Child.ShowAll();
         }
-        this.DefaultWidth = 671;
-        this.DefaultHeight = 817;
+        this.DefaultWidth = 708;
+        this.DefaultHeight = 834;
         this.Show();
         this.DeleteEvent += new Gtk.DeleteEventHandler(this.OnDeleteEvent);
         this.openAction.Activated += new System.EventHandler(this.OnOpen);

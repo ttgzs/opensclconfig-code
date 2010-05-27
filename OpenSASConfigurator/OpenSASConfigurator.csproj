@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -33,20 +33,27 @@
     <Reference Include="System" />
     <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <SpecificVersion>False</SpecificVersion>
+      <Package>gtk-sharp-2.0</Package>
     </Reference>
     <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <SpecificVersion>False</SpecificVersion>
+      <Package>gtk-sharp-2.0</Package>
     </Reference>
     <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <SpecificVersion>False</SpecificVersion>
+      <Package>glib-sharp-2.0</Package>
     </Reference>
     <Reference Include="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <SpecificVersion>False</SpecificVersion>
+      <Package>glade-sharp-2.0</Package>
     </Reference>
     <Reference Include="pango-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <SpecificVersion>False</SpecificVersion>
+      <Package>gtk-sharp-2.0</Package>
     </Reference>
-    <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
     <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
   </ItemGroup>
   <ItemGroup>
@@ -63,21 +70,13 @@
     <Compile Include="gtk-gui\MainWindow.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="OpenProgess.cs" />
+    <Compile Include="gtk-gui\OpenSASConfigurator.OpenProgess.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.desktop">
       <DeployService-TargetDirectoryId>Linux.DesktopApplications</DeployService-TargetDirectoryId>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OpenSASUI\OpenSASUI.csproj">
-      <Project>{A7DB3A18-E2F6-4403-A7B4-50C6E5A21078}</Project>
-      <Name>OpenSASUI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LibOpenSCL\LibOpenSCL.csproj">
-      <Project>{5BBE0EEF-4DDA-482F-AA3B-4B7FBE1C02EE}</Project>
-      <Name>LibOpenSCL</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="OpenSASConfigurator.svg">
@@ -105,4 +104,14 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <ProjectReference Include="..\OpenSASUI\OpenSASUI.csproj">
+      <Project>{A7DB3A18-E2F6-4403-A7B4-50C6E5A21078}</Project>
+      <Name>OpenSASUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibOpenSCL\LibOpenSCL.csproj">
+      <Project>{5BBE0EEF-4DDA-482F-AA3B-4B7FBE1C02EE}</Project>
+      <Name>LibOpenSCL</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

@@ -1,20 +1,28 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCLUI/UIErrorsManagement.cs" ctype="Workbench">
-    <Files>
-      <File FileName="OpenSCLConfigurator/OpenSCLConfigurator.cs" Line="1" Column="1" />
-      <File FileName="OpenSCLConfigurator/XSD/SCL_Communication.xsd" Line="1" Column="1" />
-      <File FileName="../../../Documentos/Trabajo/Normalizacion/IEC61850/Norma IEC 61850/IEC61850-6/1.4/SCL_Communication.xsd" Line="1" Column="1" />
-      <File FileName="LibOpenSCL/SCL.cs" Line="1" Column="1" />
-      <File FileName="LibOpenSCL/ValidatingSCL.cs" Line="1" Column="1" />
-      <File FileName="LibOpenSCLUI/RegularExpressionTree.cs" Line="1" Column="1" />
-      <File FileName="LibOpenSCLUI/UIErrorsManagement.cs" Line="59" Column="40" />
-    </Files>
+  <MonoDevelop.Ide.Workbench ctype="Workbench">
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" selected="True" />
+        <State expanded="True">
+          <Node name="LibOpenSCL" expanded="True">
+            <Node name="Properties" expanded="True" />
+          </Node>
+          <Node name="OpenSCLConfigurator" expanded="True">
+            <Node name="Properties" expanded="True">
+              <Node name="AssemblyInfo.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
       </Pad>
       <Pad Id="ClassPad">
-        <State expanded="True" selected="True" />
+        <State expanded="True">
+          <Node name="LibOpenSCL" expanded="True">
+            <Node name="IEC61850" expanded="True">
+              <Node name="SCL" expanded="True">
+                <Node name="IEC61850.SCL.tBaseElement" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

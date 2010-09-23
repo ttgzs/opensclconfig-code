@@ -1229,6 +1229,7 @@ namespace IEC61850.SCL
 			this.typeField = new tPType();
 		}
 		
+		[System.Xml.Serialization.XmlIgnore]
 		public tPType PType
 		{
 			get {
@@ -1239,6 +1240,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
+		[System.Xml.Serialization.XmlIgnore]
 		public string Description
 		{
 			get {
@@ -1246,6 +1248,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
+		[System.Xml.Serialization.XmlIgnore]
 		public tPTypeEnum typeEnum
 		{
 			get {

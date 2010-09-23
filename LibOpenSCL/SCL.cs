@@ -3422,7 +3422,8 @@ namespace IEC61850.SCL
 				this.sAddrField = value;
 			}
 		}
-
+		
+		[System.Xml.Serialization.XmlIgnore]
 		public tBasicTypeEnum bTypeEnum 
 		{
 			get { return this.bTypeField.bTypeEnum; }

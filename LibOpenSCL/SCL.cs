@@ -2024,7 +2024,7 @@ namespace IEC61850.SCL
 		private string doNameField;		
 		private string daNameField;		
 		private tFCEnum fcField;
-		private tLDevice tLDevice;
+		private tLDevice ldField;
 		
 		public tFCDA() 
 		{
@@ -2037,19 +2037,23 @@ namespace IEC61850.SCL
 		{
 			get 
 			{
-				if(this.tLDevice != null)
-				{
-					return this.tLDevice.inst;
-				}
-				return "";				
+				if (this.ldInstField == null)
+					return "";
+				else
+					return this.ldInstField;
 			}
 			set 
 			{
-				if(this.tLDevice != null)
-				{
-					this.tLDevice.inst = this.ldInstField = value;
-				}
+				this.ldInstField = value;
 			}
+		}
+		
+		[System.Xml.Serialization.XmlIgnore]
+		public tLDevice LDevice {
+			
+			get { return this.ldField; }
+			
+			set { this.ldField = value; }
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
@@ -5695,6 +5699,12 @@ namespace IEC61850.SCL
 			}
 		}
 	}
+	
+	public enum tStatusEnum {
+		Valid,
+		Invalid,
+		Unknown
+	}
 
 	/* 
 	 * According to IEC 61850 Ed. 1.0 standard, there are some mandatory attributes, the 
@@ -5714,21 +5724,77 @@ namespace IEC61850.SCL
 	{		
 		private static uint index = 0;
 		private tLNClassEnum lnClassField;		
-		[System.Xml.Serialization.XmlIgnore()]
-		public tLNClassEnum lnClassFieldTemp;
 		private uint instField;		
 		private string prefixField;
 		private string lnClassString;
+		private tStatusEnum status;
+		
+		[System.Xml.Serialization.XmlIgnore()]
+		public tLNClassEnum lnClassFieldTemp;
 		
 		public tLN() 
 		{
-			this.prefixField = "";
+			this.lnClass = tLNClassEnum.LPHD.ToString();
+			this.lnClassEnum = tLNClassEnum.LPHD;
 			this.inst = ++index;
-			lnClass = tLNClassEnum.LPHD.ToString();
-			if(this.lnType==null)
-			{
-				this.lnType = this.prefix + this.lnClassEnum.ToString() + this.inst.ToString();
-			}	
+			this.status = tStatusEnum.Unknown;
+		}
+		
+		/// <summary>
+		/// Use this constructor to create a new LN and verify if it is Valid, if there's no other
+		/// LN in the LD with the same prefix, class and instance. Check Status property in order 
+		/// to know its status. 
+		/// </summary>
+		/// <param name="ld">
+		/// A <see cref="tLDevice"/> to be used to check for duplicated instances.
+		/// </param>
+		/// <param name="lnClass">
+		/// A <see cref="System.String"/> with the name of the LN Class as on IEC 61850-7-x
+		/// </param>
+		/// <param name="prefix">
+		/// A <see cref="System.String"/> with the prefix on LN Class.
+		/// </param>
+		/// <param name="inst">
+		/// A <see cref="System.UInt32"/> with the instance number of the LN Class.
+		/// </param>
+		/// <param name="lnType">
+		/// A <see cref="tLNodeType"/> reference to instantied.
+		/// </param>
+		public tLN (tLDevice ld, string lnClass, string prefix, uint inst, tLNodeType lnType) {
+			if (ld == null) return;
+			if (lnType == null) return;
+			
+			if (inst == 0)
+				this.inst = ++index;
+			else
+				this.inst = inst;
+			
+			this.lnClass = lnClass;
+			
+			this.lnType = lnType.id;
+			
+			// Search for duplicated LN
+			if(ld.LN != null) {
+				for (int i = 0; i < ld.LN.GetLength(0); i++) {
+					tLN ln = ld.LN[i];
+					if ( ln.prefix == this.prefix && ln.inst == this.inst && ln.lnClass == this.lnClass) {
+						this.status = tStatusEnum.Invalid;
+						break;
+					}
+				}
+				this.status = tStatusEnum.Valid;
+			}
+		}
+		
+		
+		/// <summary>
+		/// Check this property in order to know if this LN has been verified for duplicated nodes, if so
+		/// this returns tLNValidEnum.Valid, other wise it returns tLNValidEnum.Invalid. If not checked, 
+		/// when is created by using the default constructor, it return tLNValidEnum.Unknown.
+		/// </summary>
+		[System.Xml.Serialization.XmlIgnore]
+		public tStatusEnum Status {
+			get { return this.status; }
 		}
 		
 		[Required]
@@ -5743,16 +5809,16 @@ namespace IEC61850.SCL
 			set
 			{				
 				this.lnClassString = value;
-				if(System.Enum.IsDefined(typeof(tLNClassEnum), value.ToString()))
+				if(System.Enum.IsDefined(typeof(tLNClassEnum), lnClass))
 				{
-					this.lnClassEnum = (tLNClassEnum) System.Enum.Parse(typeof(tLNClassEnum), value.ToString());
+					this.lnClassEnum = (tLNClassEnum) System.Enum.Parse(typeof(tLNClassEnum), lnClass);
 				}
 				else
 				{
 					this.lnClassEnum = tLNClassEnum.Custom;
-				}			
+				}		
 			}
-		}	
+		}
 		
 		[Required]
 		[System.Xml.Serialization.XmlIgnore()]
@@ -5789,7 +5855,6 @@ namespace IEC61850.SCL
 			set 
 			{
 				this.instField = value;
-				this.lnType = this.prefix + this.lnClassEnum.ToString() + this.instField;
 			}
 		}
 		
@@ -5804,7 +5869,6 @@ namespace IEC61850.SCL
 			set 
 			{
 				this.prefixField = value;
-				this.lnType = this.prefixField +  this.lnClassEnum.ToString() + this.inst.ToString();
 			}
 		}
 	}
@@ -6100,10 +6164,7 @@ namespace IEC61850.SCL
 		{
 			this.lnClassField = tLNClassEnum.LLN0;
 			inst = "1";
-			if(lnType==null)
-			{
-				lnType = lnClass + inst;
-			}
+			lnType = lnClass + inst;
 		}
 		
 		[System.Xml.Serialization.XmlElementAttribute("GSEControl")]
@@ -7071,32 +7132,54 @@ namespace IEC61850.SCL
 		private string ldInstField;		
 		private string prefixField;		
 		private string lnTypeField;
-		
-		[System.Xml.Serialization.XmlIgnoreAttribute()]
 		private tLN tLN;
-		[System.Xml.Serialization.XmlIgnoreAttribute()]
 		private tLDevice tLDevice;
-		[System.Xml.Serialization.XmlIgnoreAttribute()]
 		private tIED tIED;
-		public tLNode()
+		
+		/// <summary>
+		/// This constructor set lnClass to XSWI as default logical node class type. 
+		/// </summary>
+		public tLNode () {
+			this.lnClass = "XSWI";
+		}
+		
+		/// <summary>
+		/// Use this constructor to create a new tLNode to be used on SCL's Substation section.
+		/// </summary>
+		/// <param name="ied">
+		/// A <see cref="tIED"/> witch contains the referer LD and LN in a configured system. Use null if no IED is
+		/// referer because you are creating a Specification.
+		/// </param>
+		/// <param name="ld">
+		/// A <see cref="tLDevice"/> reference witch contains a LN to be referer in a configured system. Use null if no IED is
+		/// referer because you are creating a Specification.
+		/// </param>
+		/// <param name="ln">
+		/// A <see cref="tLN"/> reference in configured system. Use null if no IED is
+		/// referer because you are creating a Specification.
+		/// </param>
+		public tLNode(tIED ied, tLDevice ld, tLN ln)
 		{
-			this.lnInstField = "";
-			this.iedNameField = "None";
-			this.ldInstField = "";
-			this.prefixField = "";			
-			if(this.tLN != null)
-			{
+			if (ied != null) {
+				this.iedNameField = ied.name;
+				
+				if(ld != null)
+					this.ldInstField = ld.inst;
+				else
+					this.ldInstField = "";
+			}
+			else
+				this.iedNameField = "None";
+			
+			if(ln != null) {
 				this.lnInstField = (string) System.Convert.ChangeType(this.tLN.inst, typeof(string));
 				this.lnClassField = this.tLN.lnClass;
 				this.lnTypeField = this.tLN.lnType;
 			}
-			if(this.tLDevice != null)
-			{
-				this.ldInstField = this.tLDevice.inst;
-			}
-			if(this.tIED != null)
-			{
-				this.iedNameField = this.tIED.name;
+			else {
+				this.ldInstField = "";
+				this.prefixField = "";
+				this.lnClass = "XSWI";
 			}
 		}
 		
@@ -7106,19 +7189,10 @@ namespace IEC61850.SCL
 		{
 			get
 			{
-				if(this.tLN != null)
-				{
-					this.lnInstField = (string) System.Convert.ChangeType(this.tLN.inst, typeof(string));
-				}
 				return this.lnInstField;
 			}
 			set 
 			{
-				if(this.tLN != null)
-				{
-					this.tLN.inst = (uint) System.Convert.ChangeType(value, typeof(uint));
-					this.lnInstField =  (string) System.Convert.ChangeType(this.tLN.inst, typeof(string));
-				}
 				this.lnInstField = value;
 			}
 		}
@@ -7130,22 +7204,11 @@ namespace IEC61850.SCL
 		{
 			get 
 			{
-				if(this.tLN != null)
-				{
-					this.lnClassField = this.tLN.lnClass;
-				}
 				return this.lnClassField;
 			}
 			set
 			{
-				if(this.tLN != null)
-				{
-					this.lnClassField = this.tLN.lnClass= value;
-				}
-				else
-				{
-					this.lnClassField = value;
-				}
+				this.lnClassField = value;
 			}
 		}
 		
@@ -7155,22 +7218,11 @@ namespace IEC61850.SCL
 		{
 			get 
 			{
-				if(this.tIED != null)
-				{
-					this.iedNameField = this.tIED.name;
-				}
 				return this.iedNameField;
 			}
 			set 
 			{
-				if(this.tIED != null)
-				{
-					this.iedNameField = this.tIED.name = value;
-				}
-				else
-				{
 				this.iedNameField = value;
-				}
 			}
 		}
 		
@@ -7180,22 +7232,11 @@ namespace IEC61850.SCL
 		{
 			get 
 			{
-				if(this.tLDevice != null)
-				{
-					this.ldInstField = this.tLDevice.inst;
-				}
 				return this.ldInstField;
 			}
 			set 
 			{
-				if(this.tLDevice != null)
-				{
-					this.ldInstField = this.tLDevice.inst = value;
-				}
-				else
-				{
-					this.ldInstField = value;
-				}
+				this.ldInstField = value;
 			}
 		}
 		
@@ -7219,22 +7260,11 @@ namespace IEC61850.SCL
 		{
 			get 
 			{
-				if(this.tLN != null)
-				{
-					this.lnTypeField = this.tLN.lnType;
-				}
 				return this.lnTypeField;
 			}
 			set 
 			{
-				if(this.tLN != null)
-				{
-					this.lnTypeField = this.tLN.lnType = value;
-				}
-				else
-				{
-					this.lnTypeField = value;
-				}
+				this.lnTypeField = value;
 			}
 		}
 	}

@@ -2171,8 +2171,8 @@ namespace IEC61850.SCL
 		
 		public tConfLNs() 
 		{
-			this.fixPrefixField = false;
-			this.fixLnInstField = false;
+			/*this.fixPrefixField = false;
+			this.fixLnInstField = false;*/
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
@@ -2461,6 +2461,7 @@ namespace IEC61850.SCL
 		
 		public tReportSettings()
 		{
+			// FIXME: Check/Delete default values
 			this.rptIDField = tServiceSettingsEnum.Fix;
 			this.optFieldsField = tServiceSettingsEnum.Fix;
 			this.bufTimeField = tServiceSettingsEnum.Fix;
@@ -3172,6 +3173,10 @@ namespace IEC61850.SCL
 		private tPrivate[] privateField;		
 		private System.Xml.XmlAttribute[] anyAttrField;
 		
+		//Name spaces
+		[System.Xml.Serialization.XmlNamespaceDeclarations]
+    	public System.Xml.Serialization.XmlSerializerNamespaces xmlns;
+		
 		[System.Xml.Serialization.XmlAnyElementAttribute()]
 		[Category("BaseElement"), Browsable(false)]
 		public System.Xml.XmlElement[] Any 
@@ -3379,8 +3384,8 @@ namespace IEC61850.SCL
 		
 		public tAbstractDataAttribute() 
 		{
-			this.valKindField = tValKindEnum.Set;
-			this.countField = ((uint)(0));
+			//this.valKindField = tValKindEnum.Set;
+			//this.countField = ((uint)(0));
 			this.bTypeField = new tBasicType();
 		}
 		
@@ -5734,6 +5739,7 @@ namespace IEC61850.SCL
 		
 		public tLN() 
 		{
+			this.prefix = "";
 			this.lnClass = tLNClassEnum.LPHD.ToString();
 			this.lnClassEnum = tLNClassEnum.LPHD;
 			this.inst = ++index;
@@ -7140,7 +7146,7 @@ namespace IEC61850.SCL
 		/// This constructor set lnClass to XSWI as default logical node class type. 
 		/// </summary>
 		public tLNode () {
-			this.lnClass = "XSWI";
+			
 		}
 		
 		/// <summary>
@@ -7965,9 +7971,9 @@ namespace IEC61850.SCL
 		
 		public tDA() 
 		{
-			this.dchgField = false;
-			this.qchgField = false;
-			this.dupdField = false;
+			//this.dchgField = false;
+			//this.qchgField = false;
+			//this.dupdField = false;
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]

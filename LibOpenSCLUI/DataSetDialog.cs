@@ -1,4 +1,4 @@
-﻿// LibOpenSCLUI
+// LibOpenSCLUI
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -317,7 +317,7 @@ namespace OpenSCL.UI
 			}	
 			else
 			{
-				MessageBox.Show("Any FCDA was selected");
+				MessageBox.Show("No data has been added to the DataSet");
 			}
 		}
 	}
@@ -340,7 +340,7 @@ namespace OpenSCL.UI
 		{
 			get
 			{				
-				return this.lNType+"$"+this.fCDA.doName+"$"+this.fCDA.daName;
+				return this.lNType+"."+this.fCDA.doName+"."+this.fCDA.daName;
 			}
 		}
 	}

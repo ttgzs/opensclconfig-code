@@ -1,4 +1,4 @@
-﻿// OpenSCLConfigurator 
+// OpenSCLConfigurator 
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -430,7 +430,6 @@ namespace OpenSCLConfigurator
 									this.Exit});
 			this.toolBar1.ButtonSize = new System.Drawing.Size(16, 16);
 			
-			this.toolBar1.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.toolBar1.DropDownArrows = true;
 			this.toolBar1.Location = new System.Drawing.Point(0, 24);
 			this.toolBar1.Name = "toolBar1";
@@ -611,7 +610,7 @@ namespace OpenSCLConfigurator
 				{
 					SaveDialog saveD = new SaveDialog();
 					saveD.SaveSCLFile(this.treeViewFile);
-				}				
+				}
 			}			
 		}
 		

@@ -1,4 +1,4 @@
-﻿// LibOpenSCLUI
+// LibOpenSCLUI
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -67,174 +67,189 @@ namespace OpenSCL.UI
 			this.DataSetGroupBox.SuspendLayout();
 			this.FCDAGroupBox.SuspendLayout();
 			this.SuspendLayout();
+			
 			// 
 			// LNLabel
 			// 
 			this.LNLabel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.LNLabel.Location = new System.Drawing.Point(142, 26);
+			this.LNLabel.Location = new System.Drawing.Point(15, 26);
 			this.LNLabel.Name = "LNLabel";
-			this.LNLabel.Size = new System.Drawing.Size(146, 21);
-			this.LNLabel.TabIndex = 0;
-			this.LNLabel.Text = "Logical Node Type";
+			this.LNLabel.Size = new System.Drawing.Size(154, 21);
+			this.LNLabel.Text = "Source Logical Node:";
+			
+			// FIXME: Add a combobox to select a different LN source or use a tree to browse through the LD and LN
+			// 
+			// LNtypeLabel
+			// 
+			this.LNtypeLabel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+			this.LNtypeLabel.Location = new System.Drawing.Point(160, 26);
+			this.LNtypeLabel.Name = "LNtypeLabel";
+			this.LNtypeLabel.Size = new System.Drawing.Size(215, 21);
+			this.LNtypeLabel.Text = "LNtype";
 			// 
 			// DataSetGroupBox
 			// 
 			this.DataSetGroupBox.Controls.Add(this.SourceDataSetListBox);
-			this.DataSetGroupBox.Controls.Add(this.DescTextBox);
-			this.DataSetGroupBox.Controls.Add(this.NameTextBox);
-			this.DataSetGroupBox.Controls.Add(this.DescriptionLabel);
-			this.DataSetGroupBox.Controls.Add(this.NameLabel);
-			this.DataSetGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.DataSetGroupBox.Location = new System.Drawing.Point(16, 95);
+			this.DataSetGroupBox.Controls.Add(this.LNtypeLabel);
+			this.DataSetGroupBox.Controls.Add(this.LNLabel);
+			this.DataSetGroupBox.Font = new System.Drawing.Font(this.Font.FontFamily,
+			                                                    this.Font.Size*(float)1.5, 
+			                                                    System.Drawing.FontStyle.Bold);
+			this.DataSetGroupBox.Location = new System.Drawing.Point(15, 15);
 			this.DataSetGroupBox.Name = "DataSetGroupBox";
 			this.DataSetGroupBox.Size = new System.Drawing.Size(324, 413);
-			this.DataSetGroupBox.TabIndex = 2;
+			this.DataSetGroupBox.TabIndex = 0;
 			this.DataSetGroupBox.TabStop = false;
-			this.DataSetGroupBox.Text = "DataSet";
+			this.DataSetGroupBox.Text = "Data Source";
+			// 
+			// FCDAGroupBox
+			// 
+			this.FCDAGroupBox.Controls.Add(this.DestinyDataSetListBox);
+			this.FCDAGroupBox.Controls.Add(this.DescTextBox);
+			this.FCDAGroupBox.Controls.Add(this.NameTextBox);
+			this.FCDAGroupBox.Controls.Add(this.DescriptionLabel);
+			this.FCDAGroupBox.Controls.Add(this.NameLabel);
+			this.FCDAGroupBox.Font = new System.Drawing.Font(this.Font.FontFamily,
+			                                                    this.Font.Size*(float)1.5, 
+			                                                    System.Drawing.FontStyle.Bold);
+			this.FCDAGroupBox.Location = new System.Drawing.Point(414, 15);
+			this.FCDAGroupBox.Name = "FCDAGroupBox";
+			this.FCDAGroupBox.Size = new System.Drawing.Size(324, 413);
+			this.FCDAGroupBox.TabIndex = 1;
+			this.FCDAGroupBox.TabStop = false;
+			this.FCDAGroupBox.Text = "DataSet Contents";
 			// 
 			// SourceDataSetListBox
 			// 
 			this.SourceDataSetListBox.FormattingEnabled = true;
+			this.SourceDataSetListBox.Font = new System.Drawing.Font(this.Font.FontFamily,
+			                                                    this.Font.Size, 
+			                                                    System.Drawing.FontStyle.Regular);
 			this.SourceDataSetListBox.HorizontalScrollbar = true;
 			this.SourceDataSetListBox.ItemHeight = 16;
-			this.SourceDataSetListBox.Location = new System.Drawing.Point(15, 153);
+			this.SourceDataSetListBox.Location = new System.Drawing.Point(15, 46);
 			this.SourceDataSetListBox.Name = "SourceDataSetListBox";
-			this.SourceDataSetListBox.Size = new System.Drawing.Size(294, 228);
+			this.SourceDataSetListBox.Size = new System.Drawing.Size(294, 340);
 			this.SourceDataSetListBox.TabIndex = 2;
-			// 
-			// DescTextBox
-			// 
-			this.DescTextBox.Location = new System.Drawing.Point(126, 63);
-			this.DescTextBox.Name = "DescTextBox";
-			this.DescTextBox.Size = new System.Drawing.Size(148, 23);
-			this.DescTextBox.TabIndex = 1;
-			// 
-			// NameTextBox
-			// 
-			this.NameTextBox.Location = new System.Drawing.Point(126, 28);
-			this.NameTextBox.Name = "NameTextBox";
-			this.NameTextBox.Size = new System.Drawing.Size(148, 23);
-			this.NameTextBox.TabIndex = 1;
-			// 
-			// DescriptionLabel
-			// 
-			this.DescriptionLabel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.DescriptionLabel.Location = new System.Drawing.Point(15, 66);
-			this.DescriptionLabel.Name = "DescriptionLabel";
-			this.DescriptionLabel.Size = new System.Drawing.Size(102, 21);
-			this.DescriptionLabel.TabIndex = 0;
-			this.DescriptionLabel.Text = "Description";
 			// 
 			// NameLabel
 			// 
 			this.NameLabel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.NameLabel.Location = new System.Drawing.Point(15, 31);
 			this.NameLabel.Name = "NameLabel";
-			this.NameLabel.Size = new System.Drawing.Size(58, 21);
-			this.NameLabel.TabIndex = 0;
+			this.NameLabel.AutoSize = true;
 			this.NameLabel.Text = "Name";
 			// 
-			// FCDAGroupBox
+			// NameTextBox
 			// 
-			this.FCDAGroupBox.Controls.Add(this.DestinyDataSetListBox);
-			this.FCDAGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.FCDAGroupBox.Location = new System.Drawing.Point(414, 95);
-			this.FCDAGroupBox.Name = "FCDAGroupBox";
-			this.FCDAGroupBox.Size = new System.Drawing.Size(324, 413);
-			this.FCDAGroupBox.TabIndex = 2;
-			this.FCDAGroupBox.TabStop = false;
-			this.FCDAGroupBox.Text = "FCDA";
+			this.NameTextBox.Location = new System.Drawing.Point(126, 31);
+			this.NameTextBox.Name = "NameTextBox";
+			this.NameTextBox.AutoSize = true;
+			this.NameTextBox.Font = new System.Drawing.Font(this.Font.FontFamily,
+			                                                    this.Font.Size, 
+			                                                    System.Drawing.FontStyle.Regular);
+			this.NameTextBox.TabIndex = 3;
+			// 
+			// DescriptionLabel
+			// 
+			this.DescriptionLabel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.DescriptionLabel.Location = new System.Drawing.Point(15, 66);
+			this.DescriptionLabel.Name = "DescriptionLabel";
+			this.DescriptionLabel.AutoSize = true;
+			this.DescriptionLabel.Text = "Description";
+			// 
+			// DescTextBox
+			// 
+			this.DescTextBox.Location = new System.Drawing.Point(126, 66);
+			this.DescTextBox.Name = "DescTextBox";
+			this.DescTextBox.AutoSize = true;
+			this.DescTextBox.Font = new System.Drawing.Font(this.Font.FontFamily,
+			                                                    this.Font.Size, 
+			                                                    System.Drawing.FontStyle.Regular);
+			this.DescTextBox.TabIndex = 4;
 			// 
 			// DestinyDataSetListBox
 			// 
 			this.DestinyDataSetListBox.FormattingEnabled = true;
+			this.DestinyDataSetListBox.Font = new System.Drawing.Font(this.Font.FontFamily,
+			                                                    this.Font.Size, 
+			                                                    System.Drawing.FontStyle.Regular);
 			this.DestinyDataSetListBox.ItemHeight = 16;
-			this.DestinyDataSetListBox.Location = new System.Drawing.Point(18, 37);
+			this.DestinyDataSetListBox.Location =  new System.Drawing.Point(15, 95);
 			this.DestinyDataSetListBox.Name = "DestinyDataSetListBox";
-			this.DestinyDataSetListBox.Size = new System.Drawing.Size(300, 340);
-			this.DestinyDataSetListBox.TabIndex = 0;
-			// 
-			// OKButton
-			// 
-			this.OKButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.OKButton.Location = new System.Drawing.Point(238, 537);
-			this.OKButton.Name = "OKButton";
-			this.OKButton.Size = new System.Drawing.Size(87, 23);
-			this.OKButton.TabIndex = 3;
-			this.OKButton.Text = "OK";
-			this.OKButton.UseVisualStyleBackColor = true;
-			this.OKButton.Click += new System.EventHandler(this.OKButtonClick);
-			// 
-			// CancelBtn
-			// 
-			this.CancelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.CancelBtn.Location = new System.Drawing.Point(442, 537);
-			this.CancelBtn.Name = "CancelBtn";
-			this.CancelBtn.Size = new System.Drawing.Size(84, 23);
-			this.CancelBtn.TabIndex = 3;
-			this.CancelBtn.Text = "Cancel";
-			this.CancelBtn.UseVisualStyleBackColor = true;
-			this.CancelBtn.Click += new System.EventHandler(this.CancelBtnClick);
+			this.DestinyDataSetListBox.Size = new System.Drawing.Size(294, 300);
+			this.DestinyDataSetListBox.TabIndex = 5;
 			// 
 			// chooseAllFCDAButton
 			// 
 			this.chooseAllFCDAButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.chooseAllFCDAButton.Location = new System.Drawing.Point(358, 271);
+			this.chooseAllFCDAButton.Location = new System.Drawing.Point(358, 131);
 			this.chooseAllFCDAButton.Name = "chooseAllFCDAButton";
 			this.chooseAllFCDAButton.Size = new System.Drawing.Size(39, 33);
-			this.chooseAllFCDAButton.TabIndex = 4;
+			this.chooseAllFCDAButton.TabIndex = 6;
 			this.chooseAllFCDAButton.Text = ">>";
 			this.chooseAllFCDAButton.UseVisualStyleBackColor = true;
 			this.chooseAllFCDAButton.Click += new System.EventHandler(this.ChooseAllFCDAButtonClick);
 			// 
-			// comeBackOneFCDAButton
-			// 
-			this.comeBackOneFCDAButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.comeBackOneFCDAButton.Location = new System.Drawing.Point(358, 349);
-			this.comeBackOneFCDAButton.Name = "comeBackOneFCDAButton";
-			this.comeBackOneFCDAButton.Size = new System.Drawing.Size(39, 33);
-			this.comeBackOneFCDAButton.TabIndex = 4;
-			this.comeBackOneFCDAButton.Text = "<";
-			this.comeBackOneFCDAButton.UseVisualStyleBackColor = true;
-			this.comeBackOneFCDAButton.Click += new System.EventHandler(this.ComeBackOneFCDAButtonClick);
-			// 
 			// chooseOneFCDAButton
 			// 
 			this.chooseOneFCDAButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.chooseOneFCDAButton.Location = new System.Drawing.Point(358, 310);
+			this.chooseOneFCDAButton.Location = new System.Drawing.Point(358, 175);
 			this.chooseOneFCDAButton.Name = "chooseOneFCDAButton";
 			this.chooseOneFCDAButton.Size = new System.Drawing.Size(39, 33);
-			this.chooseOneFCDAButton.TabIndex = 4;
+			this.chooseOneFCDAButton.TabIndex = 7;
 			this.chooseOneFCDAButton.Text = ">";
 			this.chooseOneFCDAButton.UseVisualStyleBackColor = true;
 			this.chooseOneFCDAButton.Click += new System.EventHandler(this.ChooseOneFCDAButtonClick);
 			// 
+			// comeBackOneFCDAButton
+			// 
+			this.comeBackOneFCDAButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.comeBackOneFCDAButton.Location = new System.Drawing.Point(358, 213);
+			this.comeBackOneFCDAButton.Name = "comeBackOneFCDAButton";
+			this.comeBackOneFCDAButton.Size = new System.Drawing.Size(39, 33);
+			this.comeBackOneFCDAButton.TabIndex = 8;
+			this.comeBackOneFCDAButton.Text = "<";
+			this.comeBackOneFCDAButton.UseVisualStyleBackColor = true;
+			this.comeBackOneFCDAButton.Click += new System.EventHandler(this.ComeBackOneFCDAButtonClick);
+			// 
 			// comeBackAllFCDAButton
 			// 
 			this.comeBackAllFCDAButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.comeBackAllFCDAButton.Location = new System.Drawing.Point(358, 388);
+			this.comeBackAllFCDAButton.Location = new System.Drawing.Point(358, 251);
 			this.comeBackAllFCDAButton.Name = "comeBackAllFCDAButton";
 			this.comeBackAllFCDAButton.Size = new System.Drawing.Size(39, 33);
-			this.comeBackAllFCDAButton.TabIndex = 4;
+			this.comeBackAllFCDAButton.TabIndex = 9;
 			this.comeBackAllFCDAButton.Text = "<<";
 			this.comeBackAllFCDAButton.UseVisualStyleBackColor = true;
 			this.comeBackAllFCDAButton.Click += new System.EventHandler(this.ComeBackAllFCDAButtonClick);
 			// 
-			// LNtypeLabel
+			// CancelBtn
 			// 
-			this.LNtypeLabel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-			this.LNtypeLabel.Location = new System.Drawing.Point(305, 26);
-			this.LNtypeLabel.Name = "LNtypeLabel";
-			this.LNtypeLabel.Size = new System.Drawing.Size(209, 23);
-			this.LNtypeLabel.TabIndex = 5;
-			this.LNtypeLabel.Text = "label1";
+			//this.CancelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.CancelBtn.Location = new System.Drawing.Point(238, 450);
+			this.CancelBtn.Name = "CancelBtn";
+			this.CancelBtn.AutoSize = true;
+			this.CancelBtn.TabIndex = 10;
+			this.CancelBtn.Text = "Cancel";
+			this.CancelBtn.UseVisualStyleBackColor = true;
+			this.CancelBtn.Click += new System.EventHandler(this.CancelBtnClick);
+			// 
+			// OKButton
+			// 
+			//this.OKButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.OKButton.Location = new System.Drawing.Point(442, 450);
+			this.OKButton.Name = "OKButton";
+			this.OKButton.AutoSize = true;
+			this.OKButton.TabIndex = 11;
+			this.OKButton.Text = "OK";
+			this.OKButton.UseVisualStyleBackColor = true;
+			this.OKButton.Click += new System.EventHandler(this.OKButtonClick);
 			// 
 			// DataSetDialog
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoSize = true;
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(757, 580);
-			this.Controls.Add(this.LNtypeLabel);
 			this.Controls.Add(this.comeBackAllFCDAButton);
 			this.Controls.Add(this.chooseOneFCDAButton);
 			this.Controls.Add(this.comeBackOneFCDAButton);
@@ -243,10 +258,8 @@ namespace OpenSCL.UI
 			this.Controls.Add(this.OKButton);
 			this.Controls.Add(this.FCDAGroupBox);
 			this.Controls.Add(this.DataSetGroupBox);
-			this.Controls.Add(this.LNLabel);
 			this.Name = "DataSetDialog";
-			this.Opacity = 0.9;
-			this.Text = "WindowDataSet";
+			this.Text = "Create/Edit DataSet";
 			this.DataSetGroupBox.ResumeLayout(false);
 			this.DataSetGroupBox.PerformLayout();
 			this.FCDAGroupBox.ResumeLayout(false);

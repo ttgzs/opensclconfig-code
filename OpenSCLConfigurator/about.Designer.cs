@@ -237,12 +237,12 @@ namespace OpenSCLConfigurator
 			this.richTextBox3.Size = new System.Drawing.Size(577, 186);
 			this.richTextBox3.TabIndex = 1;
 			this.richTextBox3.Text = "Autors:\n";
-			this.richTextBox3.Text += "\tIng. Federico G. Ibarra Romo\n";
-			this.richTextBox3.Text += "\tIng. Sandra Hernández Silva\n";
-			this.richTextBox3.Text += "\tIng. Ciro A. Norzagaray Gutierrez\n";
-			this.richTextBox3.Text += "\tIng. Daniel Espinosa Ortiz";
+			this.richTextBox3.Text += "\tIng. Federico G. Ibarra Romo <federico.ibarra@cfe.gob.mx>\n";
+			this.richTextBox3.Text += "\tIng. Sandra Hernández Silva <sandra.hernandez@cfe.gob.mx>\n";
+			this.richTextBox3.Text += "\tIng. Ciro A. Norzagaray Gutierrez <ciro.norzagaray@cfe.gob.mx>\n";
+			this.richTextBox3.Text += "\tIng. Daniel Espinosa Ortiz <daniel.espinosa@cfe.gob.mx>";
 			this.richTextBox3.Text += "\n\nContributors:\n";
-			this.richTextBox3.Text += "\tLic. Giselle Juárez Durán\n";
+			this.richTextBox3.Text += "\tLic. Giselle Juárez Durán <gjuarez@iie.org.mx>\n";
 			this.richTextBox3.Text += "\tIng. Víctor Juan Badillo Godínez\n";
 			this.richTextBox3.Text += "\tIng. Saúl Benjamín Lezama Alvarez\n";
 			this.richTextBox3.Text += "\tIng. Miguel Angel Martínez Potenciano\n";

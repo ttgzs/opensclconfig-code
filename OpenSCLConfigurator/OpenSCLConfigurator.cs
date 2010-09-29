@@ -71,7 +71,7 @@ namespace OpenSCLConfigurator
 		private System.Windows.Forms.ToolBarButton Separator2;
 		private System.Windows.Forms.ToolBarButton Separator1;
 		
-		ImageList tb_il					= new ImageList();	
+		ImageList tb_il	= new ImageList();	
 		string xSDFiles = Application.StartupPath+"/XSD//SCL.xsd";
 		
 		
@@ -491,7 +491,7 @@ namespace OpenSCLConfigurator
 			this.Controls.Add(this.statusStrip1);
 			this.Name = "FormSCL";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = ":..OpenSCLConfigurator..:";
+			this.Text = "OpenSCLConfigurator";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			//this.AutoScroll = true;
 			this.AutoSize = true;

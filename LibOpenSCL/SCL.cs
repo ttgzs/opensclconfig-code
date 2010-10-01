@@ -3251,6 +3251,13 @@ namespace IEC61850.SCL
 		private string idField;		
 		private string descField;
 		
+		public tIDNaming() {}
+		
+		public tIDNaming(string id)
+		{
+			this.id = id;
+		}
+		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
 		[Category("Identifier"), Description("Mandatory identifier attribute."), ReadOnly(true)]
@@ -8153,6 +8160,12 @@ namespace IEC61850.SCL
 		public tLNodeType() 
 		{
 			this.iedTypeField = "";
+		}
+		
+		public tLNodeType(string iedType, string lnClass, string id) : base (id)
+		{
+			this.lnClass = lnClass;
+			this.iedType = iedType;
 		}
 		
 		[System.Xml.Serialization.XmlElementAttribute("DO")]

@@ -1,4 +1,4 @@
-﻿// LibOpenSCL
+// LibOpenSCL
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -1329,21 +1329,36 @@ namespace IEC61850.SCL
 	/// </summary>
 	public class CommonLogicalNode : tLNodeType
 	{				
+		// FIXME: CommonLogicalNode must inherit from tLN
+		// FIXME: These properties are for GUI not for OpenSCL library
 		public bool CheckSelection = false;
 		public bool Visible = true;
+		
 		public string lnType;
+		
 		private INC ModField;	
 		private INS BehField;		
 		private INS HealthField;
 		private LPL NamPltField;
-	
-		public CommonLogicalNode(string lnType, string iedType)
-		{						
-			this.lnType = lnType;
+		
+		private void Init() {
 			this.ModField = new INC("Mod", lnType, iedType);
 		  	this.BehField = new INS("Beh", lnType, iedType);
 			this.HealthField = new INS("Health",  lnType, iedType);
 			this.NamPltField = new LPL("NamPlt",  lnType, iedType);
+		}
+				
+		public CommonLogicalNode(string lnType, string iedType)
+		{	
+			this.Init();
+			this.lnType = lnType;			
+		}
+		
+		public CommonLogicalNode(string lnType, string iedType, string lnClass) 
+			: base (iedType, lnClass, lnType)
+		{	
+			this.Init();
+			this.lnType = lnType;
 		}
 		
 		[Required]
@@ -6577,6 +6592,7 @@ namespace IEC61850.SCL
 	/// </remarks>
 	public class PSCH : CommonLogicalNode
 	{		
+		// Status Information
 		private INC OpCntRsField;
 		private SPS ProRxField;
 		private SPS ProTxField; 
@@ -6585,8 +6601,10 @@ namespace IEC61850.SCL
 		private ACT CarRxField; 
 		private SPS LosOfGrdField; 
 		private ACT EchoField;
-		private ACT WeiOpField; 
-		private SPS GrdRxField; 
+		private ACT WeiOpField;
+		private ACT RvABlkField;
+		private SPS GrdRxField;
+		// Settings 
 		private ING SchTypField; 
 		private ING OpDlTmmsField; 
 		private ING CrdTmmsField;
@@ -6599,15 +6617,14 @@ namespace IEC61850.SCL
 		private ASG PhGndValField; 
 		private ING RvAModField; 
 		private ING RvRsTmmsField;
-		private ACT RvABlkField;
-		private ING RvATmmsField;	
+		private ING RvATmmsField;
 		
-		public PSCH(string lnType, string iedType) : base(lnType, iedType)
+		public PSCH(string lnType, string iedType) : base(lnType, iedType, "PSCH")
 		{
-			this.id = lnType;			
-			this.lnClass = tLNClassEnum.CCGR.ToString();
-			this.iedType = iedType;				
-			this.OpCntRsField = new INC("OpCntRs", lnType, iedType); 
+			
+			// Common Logical Node
+			this.OpCntRsField = new INC("OpCntRs", lnType, iedType);
+			// Status Information
 			this.ProTxField = new SPS("ProTx", lnType, iedType); 
 			this.ProRxField = new SPS("ProRx", lnType, iedType); 
 			this.StrField = new ACD("Str", lnType, iedType); 
@@ -6616,7 +6633,9 @@ namespace IEC61850.SCL
 			this.LosOfGrdField = new SPS("LosOfGrd", lnType, iedType); 
 			this.EchoField = new ACT("Echo", lnType, iedType);
 			this.WeiOpField = new ACT("WeiOp", lnType, iedType);
-			this.GrdRxField = new SPS("GrdRx", lnType, iedType); 	
+			this.RvABlkField = new ACT("RvABlk", lnType, iedType);
+			this.GrdRxField = new SPS("GrdRx", lnType, iedType);
+			// Settings
 			this.SchTypField = new ING("SchTyp", lnType, iedType); 
 			this.OpDlTmmsField = new ING("OpDlTmms", lnType, iedType); 
 			this.CrdTmmsField = new ING("CrdTmms", lnType, iedType); 
@@ -6627,10 +6646,51 @@ namespace IEC61850.SCL
 			this.WeiTmmsField = new ING("WeiTmms", lnType, iedType); 	
 			this.PPVValField = new ASG("PPVVal", lnType, iedType); 
 			this.PhGndValField = new ASG("PhGndVal", lnType, iedType);
-			this.RvAModField = new ING("RvAMod", lnType, iedType); 
-			this.RvRsTmmsField = new ING("RvRsTmms", lnType, iedType);	
+			this.RvAModField = new ING("RvAMod", lnType, iedType);
+			this.RvATmmsField = new ING("RvATmms", lnType, iedType);
+			this.RvRsTmmsField = new ING("RvRsTmms", lnType, iedType);			
+		}
+		
+		// Common Logical Node
+		public INC OpCntRs
+		{
+			get 
+			{
+				return this.OpCntRsField;
+			}			
+			set
+			{				
+				this.OpCntRsField = value;
+			}			
+		}	
+
+		// Status Information
+		[Required]
+		public SPS ProRx
+		{
+			get 
+			{
+				return this.ProRxField;
+			}			
+			set
+			{				
+				this.ProRxField = value;
+			}			
 		}
 
+		[Required]
+		public SPS ProTx
+		{
+			get 
+			{
+				return this.ProTxField;
+			}			
+			set
+			{				
+				this.ProTxField = value;
+			}			
+		}
+		
 		[Required]
 		public ACD Str
 		{
@@ -6643,33 +6703,7 @@ namespace IEC61850.SCL
 				this.StrField = value;
 			}			
 		} 
-
-		public ACT CarRx
-		{
-			get 
-			{
-				return this.CarRxField;
-			}			
-			set
-			{				
-				this.CarRxField = value;
-			}
-			
-		} 
-
-		public ACT Echo
-		{
-			get 
-			{
-				return this.EchoField;
-			}			
-			set
-			{				
-				this.EchoField = value;
-			}
-			
-		} 			
-
+		
 		[Required]
 		public ACT Op
 		{
@@ -6683,20 +6717,45 @@ namespace IEC61850.SCL
 			}
 			
 		}
-
-		public ACT RvABlk
+		
+		public ACT CarRx
 		{
 			get 
 			{
-				return this.RvABlkField;
+				return this.CarRxField;
 			}			
 			set
 			{				
-				this.RvABlkField = value;
+				this.CarRxField = value;
 			}
 			
-		}	
-
+		}
+		
+		public SPS LosOfGrd
+		{
+			get 
+			{
+				return this.LosOfGrdField;
+			}			
+			set
+			{				
+				this.LosOfGrdField = value;
+			}			
+		}
+		
+		public ACT Echo
+		{
+			get 
+			{
+				return this.EchoField;
+			}			
+			set
+			{				
+				this.EchoField = value;
+			}
+			
+		}
+		
 		public ACT WeiOp
 		{
 			get 
@@ -6708,19 +6767,129 @@ namespace IEC61850.SCL
 				this.WeiOpField = value;
 			}			
 		} 	
-
-		public ASG PhGndVal
+ 	
+		public ACT RvABlk
 		{
 			get 
 			{
-				return this.PhGndValField;
+				return this.RvABlkField;
 			}			
 			set
 			{				
-				this.PhGndValField = value;
+				this.RvABlkField = value;
+			}
+			
+		}		
+		
+		public SPS GrdRx
+		{
+			get 
+			{
+				return this.GrdRxField;
+			}			
+			set
+			{				
+				this.GrdRxField = value;
+			}			
+		} 				
+		
+		// Settings
+		
+		public ING SchTyp
+		{
+			get 
+			{
+				return this.SchTypField;
+			}			
+			set
+			{				
+				this.SchTypField = value;
+			}			
+		}
+		
+		public ING OpDlTmms
+		{
+			get 
+			{
+				return this.OpDlTmmsField;
+			}			
+			set
+			{				
+				this.OpDlTmmsField = value;
+			}			
+		} 
+		
+		public ING CrdTmms
+		{
+			get 
+			{
+				return this.CrdTmmsField;
+			}			
+			set
+			{				
+				this.CrdTmmsField = value;
 			}			
 		} 	
-
+		
+		public ING DurTmms
+		{
+			get 
+			{
+				return this.DurTmmsField;
+			}			
+			set
+			{				
+				this.DurTmmsField = value;
+			}			
+		} 	
+		
+		public ING UnBlkMod
+		{
+			get 
+			{
+				return this.UnBlkModField;
+			}			
+			set
+			{				
+				this.UnBlkModField = value;
+			}			
+		}  	
+				
+		public ING SecTmms
+		{
+			get 
+			{
+				return this.SecTmmsField;
+			}			
+			set
+			{				
+				this.SecTmmsField = value;
+			}			
+		}
+		public ING WeiMod
+		{
+			get 
+			{
+				return this.WeiModField;
+			}			
+			set
+			{				
+				this.WeiModField = value;
+			}			
+		} 	
+			
+		public ING WeiTmms
+		{
+			get 
+			{
+				return this.WeiTmmsField;
+			}			
+			set
+			{				
+				this.WeiTmmsField = value;
+			}			
+		}
+		
 		public ASG PPVVal
 		{
 			get 
@@ -6734,54 +6903,18 @@ namespace IEC61850.SCL
 			
 		}
 
-		public INC OpCntRs
+		public ASG PhGndVal
 		{
 			get 
 			{
-				return this.OpCntRsField;
+				return this.PhGndValField;
 			}			
 			set
 			{				
-				this.OpCntRsField = value;
-			}			
-		}	
-
-		public ING CrdTmms
-		{
-			get 
-			{
-				return this.CrdTmmsField;
-			}			
-			set
-			{				
-				this.CrdTmmsField = value;
-			}			
-		} 	
-
-		public ING DurTmms
-		{
-			get 
-			{
-				return this.DurTmmsField;
-			}			
-			set
-			{				
-				this.DurTmmsField = value;
-			}			
-		} 	
-
-		public ING OpDlTmms
-		{
-			get 
-			{
-				return this.OpDlTmmsField;
-			}			
-			set
-			{				
-				this.OpDlTmmsField = value;
+				this.PhGndValField = value;
 			}			
 		} 
-
+		
 		public ING RvAMod
 		{
 			get 
@@ -6816,117 +6949,7 @@ namespace IEC61850.SCL
 			{				
 				this.RvRsTmmsField = value;
 			}			
-		}	
-	
-		public ING SchTyp
-		{
-			get 
-			{
-				return this.SchTypField;
-			}			
-			set
-			{				
-				this.SchTypField = value;
-			}			
-		}	
-
-		public ING SecTmms
-		{
-			get 
-			{
-				return this.SecTmmsField;
-			}			
-			set
-			{				
-				this.SecTmmsField = value;
-			}			
-		} 	
-	
-		public ING UnBlkMod
-		{
-			get 
-			{
-				return this.UnBlkModField;
-			}			
-			set
-			{				
-				this.UnBlkModField = value;
-			}			
-		}  	
-
-		public ING WeiMod
-		{
-			get 
-			{
-				return this.WeiModField;
-			}			
-			set
-			{				
-				this.WeiModField = value;
-			}			
-		} 	
-			
-		public ING WeiTmms
-		{
-			get 
-			{
-				return this.WeiTmmsField;
-			}			
-			set
-			{				
-				this.WeiTmmsField = value;
-			}			
-		} 	
-
-		public SPS GrdRx
-		{
-			get 
-			{
-				return this.GrdRxField;
-			}			
-			set
-			{				
-				this.GrdRxField = value;
-			}			
-		} 				
-
-		public SPS LosOfGrd
-		{
-			get 
-			{
-				return this.LosOfGrdField;
-			}			
-			set
-			{				
-				this.LosOfGrdField = value;
-			}			
-		}	
-
-		[Required]
-		public SPS ProRx
-		{
-			get 
-			{
-				return this.ProRxField;
-			}			
-			set
-			{				
-				this.ProRxField = value;
-			}			
-		}
-
-		[Required]
-		public SPS ProTx
-		{
-			get 
-			{
-				return this.ProTxField;
-			}			
-			set
-			{				
-				this.ProTxField = value;
-			}			
-		}
+		}			
 	}
 
 	/// <summary>

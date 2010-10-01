@@ -1,32 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="OpenSCLConfigurator/about.Designer.cs" ctype="Workbench">
-    <Files>
-      <File FileName="OpenSCLConfigurator/OpenSCLConfigurator.cs" Line="494" Column="36" />
-      <File FileName="OpenSCLConfigurator/about.Designer.cs" Line="245" Column="79" />
-    </Files>
+  <MonoDevelop.Ide.Workbench ctype="Workbench">
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="LibOpenSCL" expanded="True" />
-          <Node name="LibOpenSCLUI" expanded="True">
-            <Node name="Properties" expanded="True" />
-            <Node name="DataSetDialog.cs" expanded="True" />
-          </Node>
-          <Node name="OpenSCLConfigurator" expanded="True">
-            <Node name="Properties" expanded="True" />
-            <Node name="about.cs" expanded="True">
-              <Node name="about.Designer.cs" selected="True" />
-            </Node>
-            <Node name="OpenSCLConfigurator.cs" expanded="True" />
-          </Node>
-        </State>
+        <State expanded="True" />
       </Pad>
       <Pad Id="ClassPad">
         <State expanded="True">
           <Node name="LibOpenSCL" expanded="True">
             <Node name="IEC61850" expanded="True">
               <Node name="SCL" expanded="True">
-                <Node name="IEC61850.SCL.tBaseElement" selected="True" />
+                <Node name="IEC61850.SCL.PSCH" expanded="True">
+                  <Node name="CrdTmmsField" selected="True" />
+                </Node>
               </Node>
             </Node>
           </Node>

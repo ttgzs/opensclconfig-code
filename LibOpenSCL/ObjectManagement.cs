@@ -1,4 +1,4 @@
-﻿// LibOpenSCL
+// LibOpenSCL
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -275,7 +275,9 @@ namespace OpenSCL
    			return true;
    		}
    		
-   		/// <summary>
+		// FIXME: Deprecate the use of AddObjectToSCLObject function
+		
+		/// <summary>
    		/// This method adds an object to a parent object.   		
    		/// </summary>
    		/// <param name="objectToAdd">

@@ -8369,6 +8369,12 @@ namespace IEC61850.SCL
 	{		
 		private tSubNetwork[] subNetworkField;
 		
+		private int isn;
+		
+		public tCommunication() {
+			this.isn = 0; // Points to the unused index
+		}
+		
 		[System.Xml.Serialization.XmlElementAttribute("SubNetwork")]
 		[Category("Communication"), Browsable(false)]
 		public tSubNetwork[] SubNetwork 
@@ -8380,6 +8386,44 @@ namespace IEC61850.SCL
 			set 
 			{
 				this.subNetworkField = value;
+			}
+		}
+		
+		public bool AddSubNetwork(tSubNetwork sn) {
+			if (sn== null) return false;
+			if (sn.name == null) return false;
+			if (sn.name.Equals("")) return false;
+			
+			if(this.subNetworkField == null) { // Init array
+				this.subNetworkField = new tSubNetwork[1];
+				this.subNetworkField[0] = sn;
+				return true;
+			}
+			// Search for existing subnetwork
+			bool exist = false;
+			for (int i = 0; i < this.subNetworkField.GetLength(0); i++) {
+				if (this.subNetworkField[i] == null) 
+					break;
+				if (sn.name.Equals(this.subNetworkField[i].name)) {
+					exist = true;
+					break;
+				}
+			}
+			if (exist) 
+				return false;
+			else {
+				if (this.isn > this.subNetworkField.GetLength(0) - 1) {
+					// Grow array
+					System.Array.Resize<tSubNetwork>(ref this.subNetworkField, ++this.isn);
+					this.subNetworkField[this.isn] = sn;
+					this.isn++;// Set point to the next non existent index
+					return true;
+				}
+				else {
+					this.subNetworkField[this.isn] = sn;
+					this.isn++; // Set point to the next non existent index
+					return true;
+				}
 			}
 		}
 	}

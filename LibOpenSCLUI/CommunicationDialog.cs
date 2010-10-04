@@ -1,4 +1,4 @@
-﻿// LibOpenSCLUI
+// LibOpenSCLUI
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -231,8 +231,9 @@ namespace OpenSCL.UI
 			if(this.sCL.Communication == null)
 			{				
 				tCommunication communication = new tCommunication();
-				this.objectManagement.AddObjectToSCLObject(communication , this.sCL);
-				nodeComm = new TreeNode();				
+				//this.objectManagement.AddObjectToSCLObject(communication , this.sCL);
+				this.sCL.Communication = communication;
+				nodeComm = new TreeNode();
 				nodeComm.Name = "tCommunication";
 				nodeComm.Tag = this.sCL.Communication;
 				nodeComm.Text = "tCommunication";				
@@ -260,13 +261,21 @@ namespace OpenSCL.UI
 			if(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[this.nameSubNet.Text]==null && 
 			   this.GetNodeName(nodeSubNetwork.Nodes, nameSubNet.Text, "name")==null)
 			{						
-				this.objectManagement.AddObjectToArrayObjectOfParentObject(subnetwork, this.sCL.Communication);
-				this.objectManagement.AddObjectToSCLObject(this.sCL.Communication.SubNetwork, this.sCL);					
-				nodetSubNetwork = new TreeNode();			
-				nodetSubNetwork.Name = subnetwork.name; 
-				nodetSubNetwork.Text = "tSubNetwork";
-				nodetSubNetwork.Tag = subnetwork;
-				treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes.Add(nodetSubNetwork);
+				//this.objectManagement.AddObjectToArrayObjectOfParentObject(subnetwork, this.sCL.Communication);
+				//this.objectManagement.AddObjectToSCLObject(this.sCL.Communication.SubNetwork, this.sCL);					
+				if (this.sCL.Communication.AddSubNetwork(subnetwork)) {
+					nodetSubNetwork = new TreeNode();
+					nodetSubNetwork.Name = subnetwork.name; 
+					nodetSubNetwork.Text = "tSubNetwork";
+					nodetSubNetwork.Tag = subnetwork;
+					treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes.Add(nodetSubNetwork);
+				}
+				else {
+					System.Windows.Forms.MessageBox.Show("Subnetwork couldn't be added. Verify if it already exist and try again",
+					                                            "Subnetwork wasn't added",
+					                                            System.Windows.Forms.MessageBoxButtons.OK,
+					                                            System.Windows.Forms.MessageBoxIcon.Error);
+				}
 			}
 			else
 			{										
@@ -315,37 +324,37 @@ namespace OpenSCL.UI
 			Utils utilsOM = new Utils();
 			tP t_ip = new tP();
 			tP_IP t_ip_ = new tP_IP();
-			this.objectManagement.EmptySourcetoDestinyObject(t_ip_, t_ip);
+			//this.objectManagement.EmptySourcetoDestinyObject(t_ip_, t_ip);
 			t_ip.Value = ip.Text;
 			utilsOM.DrawTPNodes(t_ip, "tP_ip", "tP", address, nodeP);
 			
 			tP t_subnet = new tP();
 			tP_IPSUBNET t_subnet_ = new tP_IPSUBNET();
-			this.objectManagement.EmptySourcetoDestinyObject(t_subnet_, t_subnet);
+			//this.objectManagement.EmptySourcetoDestinyObject(t_subnet_, t_subnet);
 			t_subnet.Value = mask.Text;
 			utilsOM.DrawTPNodes(t_subnet, "tP_subnet", "tP", address, nodeP);
 			
 			tP t_gate = new tP();
 			tP_IPGATEWAY  t_gate_ = new tP_IPGATEWAY();
-			this.objectManagement.EmptySourcetoDestinyObject(t_gate_, t_gate);
+			//this.objectManagement.EmptySourcetoDestinyObject(t_gate_, t_gate);
 			t_gate.Value = gateway.Text;
 			utilsOM.DrawTPNodes(t_gate, "tP_gate", "tP", address, nodeP);
 
 			tP t_tsel = new tP();
 			tP_OSITSEL t_tsel_ = new tP_OSITSEL();
-			this.objectManagement.EmptySourcetoDestinyObject(t_tsel_,t_tsel);
+			//this.objectManagement.EmptySourcetoDestinyObject(t_tsel_,t_tsel);
 			t_tsel.Value = tsel.Text;
 			utilsOM.DrawTPNodes(t_tsel, "tP_tsel", "tP", address, nodeP);
 				
 			tP t_psel = new tP();
 			tP_OSIPSEL t_psel_ = new tP_OSIPSEL();
-			this.objectManagement.EmptySourcetoDestinyObject(t_psel_,t_psel);
+			//this.objectManagement.EmptySourcetoDestinyObject(t_psel_,t_psel);
 			t_psel.Value = psel.Text;
 			utilsOM.DrawTPNodes(t_psel, "tP_psel", "tP", address, nodeP);
 
 			tP t_ssel = new tP();
 			tP_OSISSEL t_ssel_ = new tP_OSISSEL();
-			this.objectManagement.EmptySourcetoDestinyObject(t_ssel_,t_ssel);
+			//this.objectManagement.EmptySourcetoDestinyObject(t_ssel_,t_ssel);
 			t_ssel.Value = ssel.Text;
 			utilsOM.DrawTPNodes(t_ssel, "tP_ssel", "tP", address, nodeP);					
 		}						

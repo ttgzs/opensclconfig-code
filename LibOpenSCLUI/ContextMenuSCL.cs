@@ -67,7 +67,8 @@ namespace OpenSCL.UI
 				          this.GenerateSubMenuItemInsert("Communication", "Communication")});
 				}
 				// Edit Custom XML Attributes
-				this.GenerateMenuItemCustomAttributes(this.contextMenuStrip);
+				if(sCLObject is tBaseElement)
+					this.GenerateMenuItemCustomAttributes(this.contextMenuStrip);
 				//An insert option is added to allow create another node of the same type.
 				if(sCLObject.GetType().IsArray)
 				{							

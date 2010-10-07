@@ -1,4 +1,4 @@
-﻿// LibOpenSCLUI
+// LibOpenSCLUI
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -28,7 +28,7 @@ namespace OpenSCL.UI
 	public partial class LNodeDialog : Form
 	{
 		private TreeNode treeSCL;
-		private SCL sCL;
+		private SCL scl;
 		private object nodeSCL;
 		private tLNode LNodeSCL;
 		private TreeViewSCL treeViewSCL;
@@ -47,45 +47,45 @@ namespace OpenSCL.UI
 		public void CreatetLNode(TreeNode treeSCL, SCL sCLObject)
 		{
 			this.treeSCL = treeSCL;
-			this.sCL = sCLObject;
+			this.scl = sCLObject;
 			this.nodeSCL =sCLObject;
 			
-			if(this.sCL.IED!=null)
+			if(this.scl.IED!=null)
 			{
-				for( int a = 0; a < this.sCL.IED.Length; a++ )
+				for( int a = 0; a < this.scl.IED.Length; a++ )
 				{
-					if( this.sCL.IED[a].AccessPoint != null)
+					if( this.scl.IED[a].AccessPoint != null)
 					{
-						for(int b= 0;  b < this.sCL.IED[a].AccessPoint.Length; b++ )
+						for(int b= 0;  b < this.scl.IED[a].AccessPoint.Length; b++ )
 						{
-							if(this.sCL.IED[a].AccessPoint[b].Server != null)
+							if(this.scl.IED[a].AccessPoint[b].Server != null)
 							{
-								for( int c =0; c < this.sCL.IED[a].AccessPoint[b].Server.LDevice.Length; c++)
+								for( int c =0; c < this.scl.IED[a].AccessPoint[b].Server.LDevice.Length; c++)
 								{
-									if(this.sCL.IED[a].AccessPoint[b].Server.LDevice[c].LN != null)
+									if(this.scl.IED[a].AccessPoint[b].Server.LDevice[c].LN != null)
 									{
-										for( int d = 0; d < this.sCL.IED[a].AccessPoint[b].Server.LDevice[c].LN.Length; d++)
+										for( int d = 0; d < this.scl.IED[a].AccessPoint[b].Server.LDevice[c].LN.Length; d++)
 										{
 											this.LNodeSCL = new tLNode();
-											this.LNodeSCL.ldInst = this.sCL.IED[a].AccessPoint[b].Server.LDevice[c].inst.ToString();
-											this.LNodeSCL.iedName = this.sCL.IED[a].name;
-											this.LNodeSCL.lnInst = this.sCL.IED[a].AccessPoint[b].Server.LDevice[c].LN[d].inst.ToString();
-											this.LNodeSCL.lnClass = this.sCL.IED[a].AccessPoint[b].Server.LDevice[c].LN[d].lnClass;
-											this.LNodeSCL.lnType = this.sCL.IED[a].AccessPoint[b].Server.LDevice[c].LN[d].lnType;
+											this.LNodeSCL.ldInst = this.scl.IED[a].AccessPoint[b].Server.LDevice[c].inst.ToString();
+											this.LNodeSCL.iedName = this.scl.IED[a].name;
+											this.LNodeSCL.lnInst = this.scl.IED[a].AccessPoint[b].Server.LDevice[c].LN[d].inst.ToString();
+											this.LNodeSCL.lnClass = this.scl.IED[a].AccessPoint[b].Server.LDevice[c].LN[d].lnClass;
+											this.LNodeSCL.lnType = this.scl.IED[a].AccessPoint[b].Server.LDevice[c].LN[d].lnType;
 											this.comboBoxtLNode.Items.Add( new LNodeComboBox(this.LNodeSCL) );
 										}
 									}
 								}
 							}
-							if(this.sCL.IED[a].AccessPoint[b].LN != null)
+							if(this.scl.IED[a].AccessPoint[b].LN != null)
 							{
-								for(int d = 0; d < this.sCL.IED[a].AccessPoint[b].LN.Length; d++)
+								for(int d = 0; d < this.scl.IED[a].AccessPoint[b].LN.Length; d++)
 								{
 									this.LNodeSCL = new tLNode();
-									this.LNodeSCL.iedName = this.sCL.IED[a].name;
-									this.LNodeSCL.lnInst = this.sCL.IED[a].AccessPoint[b].LN[d].inst.ToString();
-									this.LNodeSCL.lnClass = this.sCL.IED[a].AccessPoint[b].LN[d].lnClass;
-									this.LNodeSCL.lnType = this.sCL.IED[a].AccessPoint[b].LN[d].lnType;
+									this.LNodeSCL.iedName = this.scl.IED[a].name;
+									this.LNodeSCL.lnInst = this.scl.IED[a].AccessPoint[b].LN[d].inst.ToString();
+									this.LNodeSCL.lnClass = this.scl.IED[a].AccessPoint[b].LN[d].lnClass;
+									this.LNodeSCL.lnType = this.scl.IED[a].AccessPoint[b].LN[d].lnType;
 									this.comboBoxtLNode.Items.Add( new LNodeComboBox(this.LNodeSCL) );
 								}
 							}

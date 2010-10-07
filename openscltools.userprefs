@@ -1,17 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCLUI/CustomAttribute.cs" ctype="Workbench">
     <Files>
-      <File FileName="LibOpenSCL/SCL.cs" Line="1" Column="1" />
+      <File FileName="LibOpenSCL/SCL.cs" Line="8673" Column="87" />
       <File FileName="LibOpenSCL/Object.cs" Line="1" Column="1" />
-      <File FileName="LibOpenSCLUI/ContextMenuSCL.cs" Line="544" Column="66" />
-      <File FileName="LibOpenSCLUI/CustomAttribute.cs" Line="251" Column="34" />
+      <File FileName="LibOpenSCLUI/ContextMenuSCL.cs" Line="71" Column="6" />
+      <File FileName="LibOpenSCLUI/CustomAttribute.cs" Line="278" Column="6" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="LibOpenSCLUI" expanded="True">
-            <Node name="DataSetDialog.cs" expanded="True" />
-          </Node>
+          <Node name="LibOpenSCL" expanded="True" />
+          <Node name="LibOpenSCLUI" expanded="True" />
           <Node name="OpenSCLConfigurator" selected="True" />
         </State>
       </Pad>

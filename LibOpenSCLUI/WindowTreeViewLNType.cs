@@ -1,4 +1,4 @@
-﻿// LibOpenSCLUI
+// LibOpenSCLUI
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -33,7 +33,7 @@ namespace OpenSCL.UI
 		private TreeNode treeNodeLN;
 		private object lN;	
 		private bool bandModify;		
-		private OpenSCL.Object sCL = new OpenSCL.Object();
+		private OpenSCL.Object scl = new OpenSCL.Object();
 		private TreeNode nodeSelected;
 		private ObjectManagement objectManagement;
 		
@@ -55,13 +55,13 @@ namespace OpenSCL.UI
 		public WindowTreeViewLNType(TreeNode treeNodeLN, SCL sCLObject, object lN, string title)
 		{
 			this.treeNodeLN= treeNodeLN;
-			this.sCL.Configuration = sCLObject;			
+			this.scl.Configuration = sCLObject;			
 			this.lN = lN;
 			// Calling InitializeComponent() is required for Windows Forms designer support.
 			InitializeComponent();
 			this.Text = title;
 			this.label1.ForeColor = Color.Blue;					
-			this.treeViewLNType = new TreeViewLNType(this.treeNodeLN, this.sCL.Configuration);			
+			this.treeViewLNType = new TreeViewLNType(this.treeNodeLN, this.scl.Configuration);			
 			this.treeLN.Nodes.Add(treeViewLNType.GetTreeNodeTypesLNs(this.lN));
 			this.treeLN.Nodes[0].Expand();
 			this.bandModify = false;
@@ -155,7 +155,7 @@ namespace OpenSCL.UI
 		{
 			this.bandModify = true;
 			this.treeLN.Nodes.Clear();
-			this.treeViewLNType = new TreeViewLNType(this.treeNodeLN, this.sCL.Configuration);			
+			this.treeViewLNType = new TreeViewLNType(this.treeNodeLN, this.scl.Configuration);			
 			this.treeLN.Nodes.Add(treeViewLNType.ReloadLNType(this.lN));
 			this.treeLN.Nodes[0].Expand();
 		}

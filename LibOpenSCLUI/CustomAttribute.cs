@@ -24,7 +24,7 @@ namespace OpenSCL.UI
 	public class CustomAttributeDialog : Form
 	{
 		private TreeNode treeSCL;
-		private SCL sCL;
+		private SCL scl;
 		private tBaseElement element;
 		
 		private Button okButton;
@@ -44,7 +44,7 @@ namespace OpenSCL.UI
 		private TextBox attrValue;
 		
 		public CustomAttributeDialog(SCL scl, tBaseElement element) {
-			this.sCL = scl;
+			this.scl = scl;
 			this.element = element;
 			this.InitializeComponent();
 		}
@@ -154,9 +154,9 @@ namespace OpenSCL.UI
 			this.nameSpaceList.Left = this.nameSpaceLabel.Right + right;
 			this.nameSpaceList.Height = this.nameSpaceLabel.Height * 2;
 			this.nameSpaceList.Width = this.attrName.Width;
-			if (this.sCL.xmlns != null) {
-				for (int i = 0; i < this.sCL.xmlns.ToArray().GetLength(0); i++) {
-					this.nameSpaceList.Items.Add(this.sCL.xmlns.ToArray()[i].Namespace);
+			if (this.scl.xmlns != null) {
+				for (int i = 0; i < this.scl.xmlns.ToArray().GetLength(0); i++) {
+					this.nameSpaceList.Items.Add(this.scl.xmlns.ToArray()[i].Namespace);
 				}
 			}
 			
@@ -216,56 +216,132 @@ namespace OpenSCL.UI
 			this.CancelButton = this.cancelButton;
 			this.CancelButton.DialogResult = DialogResult.Cancel;
 			this.addAttribute.Click += HandleAddAttributehandleClick;
+			this.addNameSpace.Click += HandleAddNameSpacehandleClick;
+		}
+		
+		public static void AddNameSpace(SCL scl, ComboBox nameSpaceList) {
+			EditDialog dlg = new EditDialog(scl);
+			dlg.Text = "Add new Name Space";
+			dlg.L1 = "Name:";
+			dlg.L2 = "URI:";
+			DialogResult res = dlg.ShowDialog();
+			if (res == DialogResult.OK) {
+				if (scl.xmlns == null) {
+					scl.xmlns = new System.Xml.Serialization.XmlSerializerNamespaces();
+				}
+				scl.xmlns.Add(dlg.T1, dlg.T2);
+				nameSpaceList.Items.Clear();
+				for (int i = 0; i < scl.xmlns.ToArray().GetLength(0); i++) {
+					nameSpaceList.Items.Add("xmlns:" 
+					                             + scl.xmlns.ToArray()[i].Name + "="
+					                             + scl.xmlns.ToArray()[i].Namespace);
+				}
+			}
+		}
+		
+		void HandleAddNameSpacehandleClick (object sender, System.EventArgs e)
+		{
+			CustomAttributeDialog.AddNameSpace(this.scl, this.nameSpaceList);
 		}
 
 		void HandleAddAttributehandleClick (object sender, System.EventArgs e)
 		{
-			System.Xml.XmlAttribute[] attr;
-			if (this.element.AnyAttr == null) {
-				attr = new System.Xml.XmlAttribute[1];
-			}
-			else {
-				attr = new System.Xml.XmlAttribute[this.element.AnyAttr.GetLength(0) + 1];
-				this.element.AnyAttr.CopyTo(attr, 0);
-			}
-			string name;
-			string prefix;
-			string nameSpace;
+			// Add a custom Name Space before to add a new one
+			if(this.scl.xmlns == null)
+				CustomAttributeDialog.AddNameSpace(this.scl, this.nameSpaceList);
 			
-			EditDialog dlg = new EditDialog(ref name, ref prefix, ref nameSpace);
-			
-			this.sCL.xmlns.Add(prefix, nameSpace);			
-			attr[attr.GetLength(0) - 1] = new System.Xml.XmlAttribute (name, prefix, nameSpace);
+			// If no custom name space then abort
+			if(this.scl.xmlns != null) {
+				System.Xml.XmlAttribute[] attrArray;
+				if (this.element.AnyAttr == null) {
+					attrArray = new System.Xml.XmlAttribute[1];
+				}
+				else {
+					attrArray = new System.Xml.XmlAttribute[this.element.AnyAttr.GetLength(0) + 1];
+					this.element.AnyAttr.CopyTo(attrArray, 0);
+				}
+				
+				string[] ns = new string[this.scl.xmlns.ToArray().Length];
+				for(int i = 0; i < ns.Length; i++) {
+					ns[i] = "xmlns:"+this.scl.xmlns.ToArray()[i].Name
+						+ "=" + this.scl.xmlns.ToArray()[i].Namespace;
+				}
+				
+				EditDialog dlg = new EditDialog(this.scl, ns);
+				DialogResult res = dlg.ShowDialog();
+				dlg.L1 = "Name:";
+				dlg.L2 = "Value:";
+				dlg.Text = "Add Custom Attribute";
+				if (res == DialogResult.OK) {
+					System.Console.WriteLine("NameSpace = "
+					                         + this.scl.xmlns.ToArray()[dlg.NameSpaceIndex]);
+					
+				}
+			}
 		}
 	}
 	
 	public class EditDialog : Form
 	{
-		private Label nameLabel;
-		private TextBox name;
-		private Label valueLabel;
-		private TextBox valueText;
+		private Label t1Label;
+		private TextBox t1;
+		private Label t2Label;
+		private TextBox t2;
 		private Button okButton;
 		private Button cancelButton;
 		
+		private Label nameSpaceLabel;
 		private ComboBox nameSpaceList;
+		private Button addNameSpace;
+				
+		private string[] ns;
+		private SCL scl;
 		
-		private string[] nameSpace;
-		
-		public string Name {
-			get { return name.Text; }
+		/// <summary>
+		/// Set the value to show in the first label of the first textbox. 
+		/// </summary>
+		public string L1 {
+			set { this.t1Label.Text = value; }
 		}
 		
-		public string Value {
-			get { return valueText.Text; }
+		/// <summary>
+		/// Get the value on in the first textbox. 
+		/// </summary>
+		public string T1 {
+			get { return t1.Text; }
 		}
 		
-		public EditDialog() {
+		/// <summary>
+		/// Set the value to show in the second label of the second textbox. 
+		/// </summary>
+		public string L2 {
+			set { this.t2Label.Text = value; }
+		}
+		
+		/// <summary>
+		/// Get the value on in the second textbox. 
+		/// </summary>
+		public string T2 {
+			get { return t2.Text; }
+		}
+		
+		public int NameSpaceIndex {
+			get {
+				return this.nameSpaceList.SelectedIndex;
+			}
+		}
+			
+		public EditDialog(SCL scl) {
+			this.scl = scl;
 			this.InitializeComponent();
 		}
 		
-		public EditDialog(string[] ns) {
-			this.nameSpace = ns.Clone();
+		public EditDialog(SCL scl, string[] namespaces) {
+			if(namespaces != null) {
+				this.ns = new System.String[namespaces.Length];
+				namespaces.CopyTo(this.ns, 0);
+			}
+			this.scl = scl;
 			this.InitializeComponent();
 		}
 		                  
@@ -297,7 +373,95 @@ namespace OpenSCL.UI
 		/// not be able to load this method if it was changed manually.
 		/// </summary>
 		private void InitializeComponent() {
+			int righ = this.Margin.Right * 2;
+			int bottom = this.Margin.Bottom * 4;
+			int left = this.Margin.Left * 2;
+			int text_size = 200;
 			
+			// Setup longest Label
+			this.nameSpaceLabel = new Label();
+			this.nameSpaceLabel.Text = "Select a NameSpace";
+			this.nameSpaceLabel.AutoSize = true;
+						
+			this.t1Label = new Label();
+			this.t1Label.Text = "Name:";
+			this.t1Label.Size = this.nameSpaceLabel.Size;
+			this.t1Label.Location = new System.Drawing.Point(20,20);
+			
+			this.t1 = new TextBox();
+			this.t1.Size = new System.Drawing.Size(text_size, this.t1Label.Height);
+			this.t1.Top = this.t1Label.Top;
+			this.t1.Left = this.t1Label.Right + righ;
+			
+			this.t2Label = new Label();
+			this.t2Label.Text = "Value:";
+			this.t2Label.Size = this.nameSpaceLabel.Size;
+			this.t2Label.Top = this.t1Label.Bottom + bottom;
+			this.t2Label.Left = this.t1Label.Left;
+			
+			this.t2 = new TextBox();
+			this.t2.Size = t1.Size;
+			this.t2.Top = this.t2Label.Top;
+			this.t2.Left = this.t1.Left;
+			
+			// Finish nameSpaceLabel setup
+			this.nameSpaceLabel.Top = this.t2Label.Bottom + bottom;
+			this.nameSpaceLabel.Left = this.t2Label.Left;
+						
+			this.nameSpaceList = new ComboBox();
+			this.nameSpaceList.Size = this.t1.Size;
+			this.nameSpaceList.Top = this.nameSpaceLabel.Top;
+			this.nameSpaceList.Left = this.t1.Left;
+			if(this.ns != null) {
+				this.nameSpaceList.Items.AddRange(this.ns);
+			}
+			
+			this.addNameSpace = new Button();
+			this.addNameSpace.AutoSize = true;
+			this.addNameSpace.Text = "Add";
+			this.addNameSpace.Top = this.nameSpaceList.Bottom + bottom;
+			this.addNameSpace.Left = this.nameSpaceList.Right - this.addNameSpace.Width;
+			
+			this.okButton = new Button();
+			this.okButton.AutoSize = true;
+			this.okButton.Text = "&Accept";
+			this.okButton.Top = this.t2Label.Bottom + bottom * 2;;
+			this.okButton.Left = this.t2.Right - this.okButton.Width;
+			
+			this.cancelButton = new Button();
+			this.cancelButton.Text = "&Cancel";
+			this.cancelButton.AutoSize = true;
+			this.cancelButton.Top = this.okButton.Top;
+			this.cancelButton.Left = this.okButton.Left - left - this.cancelButton.Width;
+			
+			this.Text = "Edit";
+			this.Size = new System.Drawing.Size(this.okButton.Right + righ * 2, this.okButton.Bottom + bottom * 3);
+			this.AcceptButton = this.okButton;
+			this.AcceptButton.DialogResult = DialogResult.OK;
+			this.CancelButton = this.cancelButton;
+			this.CancelButton.DialogResult = DialogResult.Cancel;
+			
+			this.Controls.Add(t1Label);
+			this.Controls.Add(t1);
+			this.Controls.Add(t2Label);
+			this.Controls.Add(t2);
+			this.Controls.Add(okButton);
+			this.Controls.Add(cancelButton);
+			if(this.ns != null) {
+				this.Controls.Add(nameSpaceLabel);
+				this.Controls.Add(nameSpaceList);
+				// Move ok and cancel buttons
+				this.okButton.Top = this.nameSpaceLabel.Bottom + bottom * 2;
+				this.cancelButton.Top = this.okButton.Top;
+				this.AutoSize = true;
+				
+			}
+			this.addNameSpace.Click += HandleAddNameSpacehandleClick;
+		}
+
+		void HandleAddNameSpacehandleClick (object sender, System.EventArgs e)
+		{
+			CustomAttributeDialog.AddNameSpace(this.scl, this.nameSpaceList);
 		}
 	}
 	

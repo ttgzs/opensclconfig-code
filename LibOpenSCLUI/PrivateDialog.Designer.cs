@@ -57,7 +57,7 @@ namespace OpenSCL.UI
 			this.localNameTextBox = new System.Windows.Forms.TextBox();
 			this.namespaceTextBox = new System.Windows.Forms.TextBox();
 			this.prefixLabel = new System.Windows.Forms.Label();
-			this.valueLabel = new System.Windows.Forms.Label();
+			this.t2Label = new System.Windows.Forms.Label();
 			this.localNameLabel = new System.Windows.Forms.Label();
 			this.namespaceLabel = new System.Windows.Forms.Label();
 			this.elementGroupBox1 = new System.Windows.Forms.GroupBox();
@@ -123,12 +123,12 @@ namespace OpenSCL.UI
 			// 
 			// valueLabel
 			// 
-			this.valueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.valueLabel.Location = new System.Drawing.Point(52, 295);
-			this.valueLabel.Name = "valueLabel";
-			this.valueLabel.Size = new System.Drawing.Size(86, 22);
-			this.valueLabel.TabIndex = 4;
-			this.valueLabel.Text = "Value";
+			this.t2Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.t2Label.Location = new System.Drawing.Point(52, 295);
+			this.t2Label.Name = "valueLabel";
+			this.t2Label.Size = new System.Drawing.Size(86, 22);
+			this.t2Label.TabIndex = 4;
+			this.t2Label.Text = "Value";
 			// 
 			// localNameLabel
 			// 
@@ -157,7 +157,7 @@ namespace OpenSCL.UI
 			this.elementGroupBox1.Controls.Add(this.namespaceLabel);
 			this.elementGroupBox1.Controls.Add(this.localNameLabel);
 			this.elementGroupBox1.Controls.Add(this.prefixTextBox);
-			this.elementGroupBox1.Controls.Add(this.valueLabel);
+			this.elementGroupBox1.Controls.Add(this.t2Label);
 			this.elementGroupBox1.Controls.Add(this.valueTextBox);
 			this.elementGroupBox1.Controls.Add(this.prefixLabel);
 			this.elementGroupBox1.Controls.Add(this.localNameTextBox);
@@ -395,7 +395,7 @@ namespace OpenSCL.UI
 		private System.Windows.Forms.Button AddAttributeButton;
 		private System.Windows.Forms.Button AddElementButton;
 		private System.Windows.Forms.GroupBox elementGroupBox1;
-		private System.Windows.Forms.Label valueLabel;
+		private System.Windows.Forms.Label t2Label;
 		private System.Windows.Forms.TextBox valueTextBox;
 		private System.Windows.Forms.Label localNameLabel;
 		private System.Windows.Forms.Label prefixLabel;

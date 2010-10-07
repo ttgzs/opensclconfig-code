@@ -29,7 +29,7 @@ namespace OpenSCL.UI
 	public partial class DataSetDialog : Form
 	{
 		private TreeNode treeSCL;
-		private SCL sCL;
+		private SCL scl;
 		private tDataSet dataSetSCL;
 		private ObjectManagement objectManagement;
 		private TreeViewSCL treeViewSCL;
@@ -57,7 +57,7 @@ namespace OpenSCL.UI
 		public void CreateDataSet(TreeNode treeSCL, SCL sCLObject)
 		{
 			this.treeSCL = treeSCL;
-			this.sCL = sCLObject;
+			this.scl = sCLObject;
 			this.anyLN = this.treeViewSCL.SearchUPForBaseTypeAndGetSCLTreeNode(treeSCL, typeof(tAnyLN)).Tag;
 			this.node = this.treeViewSCL.SearchUPForTypeAndGetSCLTreeNode(treeSCL, typeof(tLDevice));
 			DataSet dataSet = new DataSet();					
@@ -67,12 +67,12 @@ namespace OpenSCL.UI
 				if(this.anyLN is tLN)
 				{
 					this.LNtypeLabel.Text = ((anyLN as tLN).prefix+(anyLN as tLN).lnClass+(anyLN as tLN).inst);
-					this.dataSetSCL = dataSet.GetLNFCDAs(node.Tag as tLDevice, this.anyLN as tLN, this.sCL.DataTypeTemplates);
+					this.dataSetSCL = dataSet.GetLNFCDAs(node.Tag as tLDevice, this.anyLN as tLN, this.scl.DataTypeTemplates);
 				}
 				else
 				{
 					this.LNtypeLabel.Text = ((anyLN as LN0).lnClass+(anyLN as LN0).inst);
-					this.dataSetSCL = dataSet.GetLN0FCDAs(node.Tag as tLDevice, this.anyLN as LN0, this.sCL.DataTypeTemplates);
+					this.dataSetSCL = dataSet.GetLN0FCDAs(node.Tag as tLDevice, this.anyLN as LN0, this.scl.DataTypeTemplates);
 				}	
 				for(int x = 0; this.dataSetSCL != null && this.dataSetSCL.FCDA != null && x < this.dataSetSCL.FCDA.Length; x++)
 				{
@@ -82,7 +82,7 @@ namespace OpenSCL.UI
 			else
 			{				
 				this.LNtypeLabel.Text = ((anyLN as tLN).prefix+(anyLN as tLN).lnClass+(anyLN as tLN).inst);				
-				this.dataSetSCL = dataSet.GetLNFCDAs(null, this.anyLN as tLN, this.sCL.DataTypeTemplates);
+				this.dataSetSCL = dataSet.GetLNFCDAs(null, this.anyLN as tLN, this.scl.DataTypeTemplates);
 				for(int x = 0; this.dataSetSCL != null && this.dataSetSCL.FCDA != null && x < this.dataSetSCL.FCDA.Length; x++)
 				{
 					this.SourceDataSetListBox.Items.Add(new FCDAListBox(this.dataSetSCL.FCDA[x], (this.anyLN as tLN).lnType));
@@ -179,7 +179,7 @@ namespace OpenSCL.UI
 		public void ReloadDataSet(TreeNode treeDataSet, SCL sCL)
 		{
 			this.bandModify = true;
-			this.sCL = sCL;
+			this.scl = sCL;
 			this.treeSCL = treeDataSet;
 			tDataSet dataSetSCLDestiny = (tDataSet) treeDataSet.Tag;			
 			tDataSet dataSetSCLSource;
@@ -194,12 +194,12 @@ namespace OpenSCL.UI
 				if(this.anyLN is tLN)
 				{
 					this.LNtypeLabel.Text = ((anyLN as tLN).prefix+(anyLN as tLN).lnClass+(anyLN as tLN).inst);
-					dataSetSCLSource = dataSet.GetLNFCDAs(node.Tag as tLDevice, this.anyLN as tLN, this.sCL.DataTypeTemplates);
+					dataSetSCLSource = dataSet.GetLNFCDAs(node.Tag as tLDevice, this.anyLN as tLN, this.scl.DataTypeTemplates);
 				}
 				else
 				{
 					this.LNtypeLabel.Text = ((anyLN as LN0).lnClass+(anyLN as LN0).inst);
-					dataSetSCLSource = dataSet.GetLN0FCDAs(node.Tag as tLDevice, this.anyLN as LN0, this.sCL.DataTypeTemplates);
+					dataSetSCLSource = dataSet.GetLN0FCDAs(node.Tag as tLDevice, this.anyLN as LN0, this.scl.DataTypeTemplates);
 				}
 				for(int x = 0, y = 0; dataSetSCLSource != null && dataSetSCLSource.FCDA != null && x < dataSetSCLSource.FCDA.Length; x++)
 				{				
@@ -217,7 +217,7 @@ namespace OpenSCL.UI
 			else
 			{
 				this.LNtypeLabel.Text = ((anyLN as tLN).prefix+(anyLN as tLN).lnClass+(anyLN as tLN).inst);				
-				dataSetSCLSource = dataSet.GetLNFCDAs(null, this.anyLN as tLN, this.sCL.DataTypeTemplates);
+				dataSetSCLSource = dataSet.GetLNFCDAs(null, this.anyLN as tLN, this.scl.DataTypeTemplates);
 				for(int x = 0, y = 0; dataSetSCLSource != null && dataSetSCLSource.FCDA != null && x < dataSetSCLSource.FCDA.Length; x++)
 				{				
 					if(dataSetSCLDestiny != null&& dataSetSCLDestiny.FCDA != null && y < dataSetSCLDestiny.FCDA.Length && this.objectManagement.Compare(dataSetSCLSource.FCDA[x],dataSetSCLDestiny.FCDA[y]))

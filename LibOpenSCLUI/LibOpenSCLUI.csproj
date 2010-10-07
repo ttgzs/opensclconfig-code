@@ -127,6 +127,7 @@
     <EmbeddedResource Include="WindowTreeViewLNType.resx">
       <DependentUpon>WindowTreeViewLNType.cs</DependentUpon>
     </EmbeddedResource>
+    <Compile Include="CustomAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibOpenSCL\LibOpenSCL.csproj">

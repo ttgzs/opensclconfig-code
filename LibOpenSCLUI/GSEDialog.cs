@@ -1,4 +1,4 @@
-﻿// LibOpenSCLUI
+// LibOpenSCLUI
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -356,25 +356,25 @@ namespace OpenSCL.UI
 					tP_MACAddress t_mac_ = new tP_MACAddress();
 					this.objectManagement.EmptySourcetoDestinyObject(t_mac_,t_mac);
 					t_mac.Value = this.mac.Text;
-					utilsOM.DrawTPNodes(t_mac, "tP_mac", "tP", taddr, nodeP);
+					utilsOM.AddTPTreeNode(t_mac, "tP_mac", "tP", taddr, nodeP);
 					
 					tP t_app = new tP();
 					tP_APPID  t_app_ = new tP_APPID();
 					this.objectManagement.EmptySourcetoDestinyObject(t_app_, t_app);
 					t_app.Value = this.appId.Text;
-					utilsOM.DrawTPNodes(t_app, "tP_app", "tP", taddr, nodeP);
+					utilsOM.AddTPTreeNode(t_app, "tP_app", "tP", taddr, nodeP);
 		
 					tP t_vlap = new tP();
 					tP_VLANPRIORITY t_vlap_ = new tP_VLANPRIORITY();
 					this.objectManagement.EmptySourcetoDestinyObject(t_vlap_,t_vlap);
 					t_vlap.Value = this.vLANP.Text;
-					utilsOM.DrawTPNodes(t_vlap, "tP_vlanp", "tP", taddr, nodeP);
+					utilsOM.AddTPTreeNode(t_vlap, "tP_vlanp", "tP", taddr, nodeP);
 						
 					tP t_vlani = new tP();
 					tP_VLANID t_vlani_ = new tP_VLANID();
 					this.objectManagement.EmptySourcetoDestinyObject(t_vlani_,t_vlani);
 					t_vlani.Value = this.vLANI.Text;
-					utilsOM.DrawTPNodes(t_vlani, "tP_vlani", "tP", taddr, nodeP);
+					utilsOM.AddTPTreeNode(t_vlani, "tP_vlani", "tP", taddr, nodeP);
 				}
 			}
 		}		

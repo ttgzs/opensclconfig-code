@@ -4382,11 +4382,15 @@ namespace IEC61850.SCL
 		private tPhysConn[] physConnField;		
 		private string iedNameField;		
 		private string apNameField;
-
-		[System.Xml.Serialization.XmlIgnoreAttribute()]
-		private tAccessPoint tAccessPoint;
-		[System.Xml.Serialization.XmlIgnoreAttribute()]
-		private tIED tIED;		
+		
+		public tConnectedAP () {}
+		
+		public tConnectedAP (tIED ied, int ap, tAddress addr) {
+			this.iedNameField = ied.name;
+			this.apName = ied.AccessPoint[ap].name;
+			this.addressField = addr;
+		}
+		
 		[Category("ConnectedAP"), Description("The Address element contains the address parameters of this access point at this bus."), Browsable(false)]
 		public tAddress Address 
 		{
@@ -4449,18 +4453,10 @@ namespace IEC61850.SCL
 		{
 			get
 			{
-				if(this.tIED != null)
-				{
-					return this.tIED.name;
-				}
 				return this.iedNameField;
 			}
 			set 
 			{
-				if(this.tIED != null)
-				{
-					this.tIED.name = this.iedNameField = value;
-				}
 				this.iedNameField = value;
 			}
 		}
@@ -4472,18 +4468,11 @@ namespace IEC61850.SCL
 		{
 			get 
 			{
-				if(this.tAccessPoint != null)
-				{
-					return this.tAccessPoint.name;
-				}
 				return this.apNameField;
 			}
 			set
 			{
-				if(this.tAccessPoint != null)
-				{
-					this.tAccessPoint.name = this.apNameField = value;
-				}
+				// FIXME: Must search for this object before to set its value to verify it exists
 				this.apNameField = value;
 			}
 		}
@@ -4794,10 +4783,7 @@ namespace IEC61850.SCL
 		
 		public tSubNetwork()
 		{
-			if( this.name == null)
-			{
-				this.name = "SubNetwork" + ( ++ index ).ToString();
-			}
+			this.name = "SubNetwork" + ( ++ index ).ToString();
 		}
 		
 		[Category("SubNetwork"), Description("Defining the bit rate in Mbit/s."), Browsable(false)]	
@@ -4839,6 +4825,49 @@ namespace IEC61850.SCL
 			{
 				this.typeField = value;
 			}
+		}
+		
+		/// <summary>
+		/// Add a new Connected Access Point to a Subnetwork. 
+		/// </summary>
+		/// <param name="ied">
+		/// A <see cref="tIED"/> object with the IED to connect to this subnetwork.
+		/// </param>
+		/// <param name="ap">
+		/// A <see cref="System.Int32"/> with the index of the Access Point in the IED to connect to
+		/// this subnetwork.
+		/// </param>
+		/// <param name="addr">
+		/// A <see cref="tAddress"/> object to set Connected Access Point's address of the IED to
+		/// connect to this network.
+		/// </param>
+		/// <param name="desc">
+		/// A <see cref="System.String"/> with the description of the new Connected Access Point.
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.Int32"/>, with the index of Connected Access Point added, -1 on error.
+		/// </returns>
+		public int AddConnectedAP(tIED ied, int apIndex, tAddress addr, string desc) {
+			if(ied == null || addr == null || apIndex < 0 || apIndex > ied.AccessPoint.GetLength(0)) 
+				return -1;
+			
+			tConnectedAP ap = new tConnectedAP();
+			ap.Address = addr;
+			ap.desc = desc;
+			ap.iedName = ied.name;
+			ap.apName = ied.AccessPoint[apIndex].name;
+			
+			if (this.connectedAPField == null) {
+				this.connectedAPField = new tConnectedAP[1];
+				this.connectedAPField[0] = ap;
+				return 0;
+			}
+			
+			System.Array.Resize<tConnectedAP>(ref this.connectedAPField, 
+				                              this.connectedAPField.GetLength(0) + 1);
+			int index = this.connectedAPField.GetLength(0) - 1;
+			this.connectedAPField[index] = ap;
+			return index;
 		}
 	}
 
@@ -8357,6 +8386,60 @@ namespace IEC61850.SCL
 				this.configVersionField = value;
 			}
 		}
+		
+		/// <summary>
+		/// Add a new Access Point to the IED. 
+		/// </summary>
+		/// <param name="name">
+		/// A <see cref="System.String"/> with the name of the new Access Point to be added.
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.Int32"/> with the index of the new Access Point added.
+		/// </returns>
+		public int AddAP (string name) {
+			if (name == null) return -1;
+			tAccessPoint ap = new tAccessPoint();
+			ap.name = name;
+			int index = -1;
+			if (this.accessPointField == null) {
+				this.accessPointField = new tAccessPoint[1];
+				this.accessPointField[0] = ap;
+				index = 0;
+			}
+			
+			// Search for AP name if duplicated return -1				
+			for (int i = 0; i < this.accessPointField.GetLength(0); i++) {
+				if (this.accessPointField[i].name.Equals(name)) {
+					System.Console.WriteLine("Found a Duplicated AP with name " + name);
+					return -1;
+				}
+			}
+			// No duplicated, add to the array
+			System.Array.Resize<tAccessPoint>(ref this.accessPointField,
+			                                  this.accessPointField.GetLength(0) + 1);
+			index = this.accessPointField.GetLength(0) - 1;
+			this.accessPointField[index] = ap;
+			return index;
+		}
+		
+		/// <summary>
+		/// Search the Access Point's index with the given name. 
+		/// </summary>
+		/// <param name="apname">
+		/// A <see cref="System.String"/> with the access point to search.
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.Int32"/> with the index of the found access point or -1 if no one was found.
+		/// </returns>
+		public int GetAP (string apname) {
+			for (int i = 0; i < this.accessPointField.GetLength(0); i++) {
+				if (this.accessPointField[i].name.Equals(apname))
+				{
+					return i;
+				}
+			}
+			return -1;
+		}
 	}
 
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
@@ -8389,42 +8472,41 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		public bool AddSubNetwork(tSubNetwork sn) {
-			if (sn== null) return false;
-			if (sn.name == null) return false;
-			if (sn.name.Equals("")) return false;
+		/// <summary>
+		/// Adds a new Subnetwork with the given name. 
+		/// </summary>
+		/// <param name="name">
+		/// A <see cref="System.String"/> with the name of the new subnetwork to add.
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.Int32"/> with the index of the new subnetwork.
+		/// </returns>
+		public int AddSubNetwork(string name, string desc) {
+			if (name == null) return -1;
+			
+			tSubNetwork sn = new tSubNetwork();
+			sn.name = name;
+			sn.desc = desc;
 			
 			if(this.subNetworkField == null) { // Init array
 				this.subNetworkField = new tSubNetwork[1];
 				this.subNetworkField[0] = sn;
-				return true;
+				return 0;
 			}
 			// Search for existing subnetwork
-			bool exist = false;
 			for (int i = 0; i < this.subNetworkField.GetLength(0); i++) {
-				if (this.subNetworkField[i] == null) 
-					break;
-				if (sn.name.Equals(this.subNetworkField[i].name)) {
-					exist = true;
-					break;
+				if (name.Equals(this.subNetworkField[i].name)) {
+					return -1;
 				}
 			}
-			if (exist) 
-				return false;
-			else {
-				if (this.isn > this.subNetworkField.GetLength(0) - 1) {
-					// Grow array
-					System.Array.Resize<tSubNetwork>(ref this.subNetworkField, ++this.isn);
-					this.subNetworkField[this.isn] = sn;
-					this.isn++;// Set point to the next non existent index
-					return true;
-				}
-				else {
-					this.subNetworkField[this.isn] = sn;
-					this.isn++; // Set point to the next non existent index
-					return true;
-				}
-			}
+			// Add to Array
+			int index = -1;
+			System.Array.Resize<tSubNetwork>(ref this.subNetworkField,
+			                                 this.subNetworkField.GetLength(0) + 1);
+			
+			index = this.subNetworkField.GetLength(0);
+			this.subNetworkField[index] = sn;
+			return index;
 		}
 	}
 
@@ -8580,5 +8662,31 @@ namespace IEC61850.SCL
 				this.dataTypeTemplatesField = value;
 			}
 		}
+		
+		/// <summary>
+		/// Get the IED index with the given name. 
+		/// </summary>
+		/// <param name="iedName">
+		/// A <see cref="System.String"/> with the IED to search.
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.Int32"/> with the index of the found IED or -1 on not found.
+		/// </returns>
+		public int GetIED (string iedName) {
+			if (this.iEDField == null)
+				return -1;
+			if (iedName.Equals(null))
+				return -1;
+			
+			int pos = -1;
+			for (int i = 0; i < this.iEDField.GetLength(0); i++) {
+				if (this.iEDField[i].name.Equals(iedName)) {
+					pos = i;
+					break;
+				}
+			}			
+			return pos;
+		}
+		
 	}
 }

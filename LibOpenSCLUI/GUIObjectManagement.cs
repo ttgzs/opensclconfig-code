@@ -1,4 +1,4 @@
-﻿// LibOpenSCLUI
+// LibOpenSCLUI
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -207,7 +207,16 @@ namespace OpenSCL.UI
 			}				
 		}	
 		
-		public void DrawTPNodes(object tagNode, string name, string text, object address, TreeNode p)		
+		public static void AddTPTreeNode(tP tp, TreeNode p) {
+			TreeNode treenode1 = new TreeNode();
+			treenode1 = new TreeNode();				
+			treenode1.Name = tp.typeEnum.ToString();
+			treenode1.Tag = tp;
+			treenode1.Text = tp.typeEnum.ToString();
+			p.Nodes.Add(treenode1);
+		}
+		
+		public void AddTPTreeNode(object tagNode, string name, string text, object address, TreeNode p)		
 		{
 			TreeNode treenode1 = new TreeNode();
 			this.objectManagement.AddObjectToArrayObjectOfParentObject(tagNode, address);		

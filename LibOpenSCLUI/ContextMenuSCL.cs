@@ -1,4 +1,4 @@
-﻿// LibOpenSCLUI
+// LibOpenSCLUI
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
 // 
@@ -66,6 +66,8 @@ namespace OpenSCL.UI
 					insertOption.DropDownItems.AddRange(new ToolStripItem[] {
 				          this.GenerateSubMenuItemInsert("Communication", "Communication")});
 				}
+				// Edit Custom XML Attributes
+				this.GenerateMenuItemCustomAttributes(this.contextMenuStrip);
 				//An insert option is added to allow create another node of the same type.
 				if(sCLObject.GetType().IsArray)
 				{							
@@ -377,6 +379,15 @@ namespace OpenSCL.UI
 			contextMenuStrip.Items.Add(editOption);
 		}
 		
+		private void GenerateMenuItemCustomAttributes(ContextMenuStrip contextMenuStrip)
+		{
+			ToolStripMenuItem customAttrOption = new ToolStripMenuItem();
+			customAttrOption.Name = "CustomAttrOption";
+			customAttrOption.Text = "Add/Edit Custom Attribute";
+			customAttrOption.Click+= new EventHandler(CustomAttrOption_Click);
+			contextMenuStrip.Items.Add(customAttrOption);
+		}
+		
 		/// <summary>
 		/// This method validates if the selected node should show an edit menu.		
 		/// </summary>
@@ -526,6 +537,21 @@ namespace OpenSCL.UI
 				                                 this.treeSCL.TreeView.SelectedNode.Tag, opt,
 				                                 this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Tag, "inst").ToString()); //victor
 					smvDlg.ShowDialog();
+				}
+			}
+		}
+		
+		private void CustomAttrOption_Click(object sender, EventArgs e)
+		{
+			OpenSCL.Object sCL = new OpenSCL.Object();
+			sCL.Configuration = (SCL) this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Tag;
+			if(treeSCL.Tag is tBaseElement) {
+				CustomAttributeDialog custAttrDlg = new CustomAttributeDialog(sCL.Configuration,
+				                                                              treeSCL.Tag as  tBaseElement);
+				DialogResult res =  custAttrDlg.ShowDialog();
+				
+				if (res == DialogResult.OK) {
+					
 				}
 			}
 		}

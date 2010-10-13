@@ -80,16 +80,6 @@
     <Compile Include="Preferences.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LibOpenSCL\LibOpenSCL.csproj">
-      <Project>{5BBE0EEF-4DDA-482F-AA3B-4B7FBE1C02EE}</Project>
-      <Name>LibOpenSCL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LibOpenSCLUI\LibOpenSCLUI.csproj">
-      <Project>{766E7582-B924-482A-887B-3E754B895B8F}</Project>
-      <Name>LibOpenSCLUI</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="imgs\exit.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -150,5 +140,15 @@
     <None Include="INSTALLATION.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibOpenSCLUI\LibOpenSCLUI.csproj">
+      <Project>{766E7582-B924-482A-887B-3E754B895B8F}</Project>
+      <Name>LibOpenSCLUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibOpenSCL\LibOpenSCL.csproj">
+      <Project>{5BBE0EEF-4DDA-482F-AA3B-4B7FBE1C02EE}</Project>
+      <Name>LibOpenSCL</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

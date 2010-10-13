@@ -38,12 +38,6 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="OpenSCLConfigurator_Console.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LibOpenSCL\LibOpenSCL.csproj">
-      <Project>{5BBE0EEF-4DDA-482F-AA3B-4B7FBE1C02EE}</Project>
-      <Name>LibOpenSCL</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <MonoDevelop>

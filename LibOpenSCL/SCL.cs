@@ -3173,9 +3173,66 @@ namespace IEC61850.SCL
 		private tPrivate[] privateField;		
 		private System.Xml.XmlAttribute[] anyAttrField;
 		
+		
+		/*
+		 * TODO: This implementation fails to add new XmlAttributes because no XmlDocument exists
+		 * 
+		private System.Collections.Generic.List<System.Xml.XmlAttribute> anyAttrField;
+		
+		[Category("BaseElement"), Browsable(false)]
+		[System.Xml.Serialization.XmlAnyAttributeAttribute()]
+		public System.Xml.XmlAttribute[] AnyAttr
+		{
+			get 
+			{
+				return this.anyAttrField.ToArray();
+			}
+			set 
+			{
+				if (value == null) 
+					this.anyAttrField.Clear();
+				else {
+					for(int i = 0; i < value.Length; i++) {
+						this.anyAttrField.Add(value[i]);
+					}
+				}
+					
+			}
+		}
+		
+		public bool AddCustomAttribute (string name, string val, string prefix, string ns) {
+			if(this.anyAttrField.Count > 0) {
+				
+			}
+			return false;
+		}
+		
+		public tBaseElement() {
+			anyAttrField = new System.Collections.Generic.List<System.Xml.XmlAttribute>();
+		}
+		
+		
+		*/
+		
+		[Category("BaseElement"), Browsable(false)]
+		[System.Xml.Serialization.XmlAnyAttributeAttribute()]
+		public System.Xml.XmlAttribute[] AnyAttr
+		{
+			get 
+			{
+				return this.anyAttrField;
+			}
+			set 
+			{
+				this.anyAttrField = value;
+			}
+		}
+		
+		
 		//Name spaces
 		[System.Xml.Serialization.XmlNamespaceDeclarations]
     	public System.Xml.Serialization.XmlSerializerNamespaces xmlns;
+		
 		
 		[System.Xml.Serialization.XmlAnyElementAttribute()]
 		[Category("BaseElement"), Browsable(false)]
@@ -3218,19 +3275,7 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		[Category("BaseElement"), Browsable(false)]
-		[System.Xml.Serialization.XmlAnyAttributeAttribute()]
-		public System.Xml.XmlAttribute[] AnyAttr
-		{
-			get 
-			{
-				return this.anyAttrField;
-			}
-			set 
-			{
-				this.anyAttrField = value;
-			}
-		}
+		
 	}
 	
 	/* 

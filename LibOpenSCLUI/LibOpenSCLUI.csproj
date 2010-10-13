@@ -130,14 +130,14 @@
     <Compile Include="CustomAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="INSTALLATION.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\LibOpenSCL\LibOpenSCL.csproj">
       <Project>{5BBE0EEF-4DDA-482F-AA3B-4B7FBE1C02EE}</Project>
       <Name>LibOpenSCL</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="INSTALLATION.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>

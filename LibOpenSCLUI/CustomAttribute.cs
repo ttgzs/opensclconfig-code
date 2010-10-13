@@ -197,17 +197,19 @@ namespace OpenSCL.UI
 			this.Text = "Edit Custom Attribute";
 			this.Controls.Add(this.attrListLabel);
 			this.Controls.Add(this.attrList);
-			this.Controls.Add(this.addAttribute);
-			this.Controls.Add(this.deleteAttribute);
+			// TODO: Add this buttoms when Add Attribute is possible
+			//this.Controls.Add(this.addAttribute);
+			//this.Controls.Add(this.deleteAttribute);
 			this.Controls.Add(this.attrNameLabel);
 			this.Controls.Add(this.attrName);
 			this.Controls.Add(this.attrValueLabel);
 			this.Controls.Add(this.attrValue);
 			this.Controls.Add(this.nameSpaceLabel);
 			this.Controls.Add(this.nameSpaceList);
-			this.Controls.Add(this.addNameSpace);
-			this.Controls.Add(this.removeNameSpace);
-			this.Controls.Add(this.editNameSpace);
+			// TODO: Add this buttoms when Add Attribute is possible
+			//this.Controls.Add(this.addNameSpace);
+			//this.Controls.Add(this.removeNameSpace);
+			//this.Controls.Add(this.editNameSpace);
 			this.Controls.Add(this.cancelButton);
 			this.Controls.Add(this.okButton);
 			
@@ -215,8 +217,39 @@ namespace OpenSCL.UI
 			this.AcceptButton.DialogResult =  DialogResult.OK;
 			this.CancelButton = this.cancelButton;
 			this.CancelButton.DialogResult = DialogResult.Cancel;
-			this.addAttribute.Click += HandleAddAttributehandleClick;
-			this.addNameSpace.Click += HandleAddNameSpacehandleClick;
+			// TODO: Add this methods when Add Attribute is possible
+			//this.addAttribute.Click += HandleAddAttributehandleClick;
+			//this.addNameSpace.Click += HandleAddNameSpacehandleClick;
+			//this.attrName.KeyPress += HandleAttrNamehandleKeyPress;
+			//this.attrValue.KeyPess += HandleAttrValuehandleKeyPress;
+		}
+		
+		private void ChangeAttrName() {
+			if (this.element.AnyAttr != null) {
+				//this.element.AnyAttr[this.attrList.SelectedIndex].Name = this.attrName.Text;
+				//this.attrList.Items[this.attrList.SelectedIndex] = this.element.AnyAttr[this.attrList.SelectedIndex].Name;
+			}
+		}
+		
+		private void ChangeAttrValue() {
+			if (this.element.AnyAttr != null) {
+				this.element.AnyAttr[this.attrList.SelectedIndex].Value = this.attrName.Text;
+				this.attrList.Items[this.attrList.SelectedIndex] = this.element.AnyAttr[this.attrList.SelectedIndex].Name;
+			}
+		}
+		
+		void HandleAttrNamehandleKeyPress (object sender, System.EventArgs e)
+		{
+			/*if (e.KeyCode == Keys.Enter) {
+				this.ChangeAttrName();
+			}*/
+		}
+		
+		void HandleAttrValuehandleKeyPress (object sender, System.EventArgs e)
+		{
+			/*if (e.KeyCode == Keys.Enter) {
+				this.ChangeAttrValue();
+			}*/
 		}
 		
 		public static void AddNameSpace(SCL scl, ComboBox nameSpaceList) {
@@ -244,6 +277,7 @@ namespace OpenSCL.UI
 			CustomAttributeDialog.AddNameSpace(this.scl, this.nameSpaceList);
 		}
 
+		// TODO: We can't add new Custom Attributes due to you need an XML document object reference
 		void HandleAddAttributehandleClick (object sender, System.EventArgs e)
 		{
 			// Add a custom Name Space before to add a new one
@@ -275,7 +309,17 @@ namespace OpenSCL.UI
 				if (res == DialogResult.OK) {
 					System.Console.WriteLine("NameSpace = "
 					                         + this.scl.xmlns.ToArray()[dlg.NameSpaceIndex]);
-					
+					if(this.element.AnyAttr != null) {
+						System.Console.WriteLine("Attr Name = "
+						                         + this.element.AnyAttr[0].Name);
+						if(this.element.AnyAttr[0].OwnerDocument != null)
+							System.Console.WriteLine("Doc Name = "
+							                         + this.element.AnyAttr[0].OwnerDocument.Name);
+						else
+							System.Console.WriteLine("No Doc");
+						
+						//System.Xml.XmlAttribute a = new System.Xml.XmlAttribute(null, "TEST", null, null);
+					}
 				}
 			}
 		}

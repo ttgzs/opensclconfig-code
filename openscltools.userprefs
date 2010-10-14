@@ -1,31 +1,23 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCLUI/CustomAttribute.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCLUI/ContextMenuSCL.cs" ctype="Workbench">
     <Files>
-      <File FileName="LibOpenSCL/SCL.cs" Line="8673" Column="87" />
-      <File FileName="LibOpenSCL/Object.cs" Line="1" Column="1" />
-      <File FileName="LibOpenSCLUI/ContextMenuSCL.cs" Line="71" Column="6" />
-      <File FileName="LibOpenSCLUI/CustomAttribute.cs" Line="278" Column="6" />
+      <File FileName="LibOpenSCL/SCL.cs" Line="3175" Column="3" />
+      <File FileName="LibOpenSCLUI/ContextMenuSCL.cs" Line="73" Column="8" />
+      <File FileName="LibOpenSCLUI/CustomAttribute.cs" Line="243" Column="17" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="LibOpenSCL" expanded="True" />
-          <Node name="LibOpenSCLUI" expanded="True" />
-          <Node name="OpenSCLConfigurator" selected="True" />
+          <Node name="OpenSASConfigurator" expanded="True" />
+          <Node name="OpenSASUI" expanded="True">
+            <Node name="References" selected="True" />
+          </Node>
+          <Node name="OpenSCLConfigurator_console" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">
-        <State expanded="True">
-          <Node name="LibOpenSCL" expanded="True">
-            <Node name="IEC61850" expanded="True">
-              <Node name="SCL" expanded="True">
-                <Node name="IEC61850.SCL.PSCH" expanded="True">
-                  <Node name="CrdTmmsField" selected="True" />
-                </Node>
-              </Node>
-            </Node>
-          </Node>
-        </State>
+        <State expanded="True" selected="True" />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
@@ -33,4 +25,8 @@
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" ctype="Workspace" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches ctype="PinnedWatchStore" />
 </Properties>

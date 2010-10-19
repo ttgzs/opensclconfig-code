@@ -24,8 +24,11 @@ using System.Runtime.InteropServices;
 
 // The assembly version has following format :
 //
-// Major.Minor.Build.Revision
+// Major.Minor.Micro.Build
 //
-// You can specify all the values or you can use the default the Revision and 
-// Build Numbers by using the '*' as shown below:
-[assembly: AssemblyVersion("0.2.7.*")]
+// Next version of 0.2.6 will follow the following statements
+// Major for stable versions, will be the same Major version of OpenSCLUI
+// Minor for milestone versions, will be the same Minor version of OpenSCLUI
+// Micro will be increased when OpenSCLUI micro version is incresed or when this application have changes
+// Build number is set by the build system used
+[assembly: AssemblyVersion("0.2.6.*")]

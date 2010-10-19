@@ -22,13 +22,8 @@ using System.Runtime.InteropServices;
 // If you need to expose a type to COM, use [ComVisible(true)] on that type.
 [assembly: ComVisible(false)]
 
-// The assembly version has following format :
-//
-// Major.Minor.Micro.Build
-//
-// Next version of 0.2.6 will follow the following statements
+// The assembly version has the format "{Major}.{Minor}.{Micro}".
 // Major for stable versions, will be the same Major version of OpenSCLUI
 // Minor for milestone versions, will be the same Minor version of OpenSCLUI
-// Micro will be increased when OpenSCLUI micro version is incresed or when this application have changes
-// Build number is set by the build system used
-[assembly: AssemblyVersion("0.2.6.*")]
+// Micro will be increased when OpenSCLUI or OpenSCL micro version is incresed or when this application is modified
+[assembly: AssemblyVersion("0.3.0")]

@@ -22,10 +22,8 @@ using System.Runtime.InteropServices;
 // If you need to expose a type to COM, use [ComVisible(true)] on that type.
 [assembly: ComVisible(false)]
 
-// The assembly version has following format :
-//
-// Major.Minor.Build.Revision
-//
-// You can specify all the values or you can use the default the Revision and 
-// Build Numbers by using the '*' as shown below:
+// The assembly version has the format "{Major}.{Minor}.{Micro}".
+// Major for stable versions
+// Minor for milestone versions
+// Micro will be increased when this library is modified
 [assembly: AssemblyVersion("0.5.2")]

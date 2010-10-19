@@ -1,19 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCLUI/ContextMenuSCL.cs" ctype="Workbench">
-    <Files>
-      <File FileName="LibOpenSCL/SCL.cs" Line="3175" Column="3" />
-      <File FileName="LibOpenSCLUI/ContextMenuSCL.cs" Line="73" Column="8" />
-      <File FileName="LibOpenSCLUI/CustomAttribute.cs" Line="243" Column="17" />
-    </Files>
+  <MonoDevelop.Ide.Workbench ctype="Workbench">
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="LibOpenSCL" expanded="True" />
-          <Node name="OpenSASConfigurator" expanded="True" />
-          <Node name="OpenSASUI" expanded="True">
-            <Node name="References" selected="True" />
-          </Node>
-          <Node name="OpenSCLConfigurator_console" expanded="True" />
+          <Node name="LibOpenSCL" selected="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">
@@ -24,7 +14,7 @@
   <MonoDevelop.Ide.DebuggingService>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" ctype="Workspace" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" ctype="Workspace" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

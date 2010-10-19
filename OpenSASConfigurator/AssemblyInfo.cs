@@ -9,15 +9,15 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("OpenSASConfigurator")]
-[assembly: AssemblyCopyright("2010 Comision Federal de Electricidad")]
-[assembly: AssemblyTrademark("2010 Comision Federal de Electricidad")]
+[assembly: AssemblyCopyright("2010 Daniel Espinosa <esodan@gmail.com>")]
+[assembly: AssemblyTrademark("2010 Daniel Espinosa <esodan@gmail.com>")]
 [assembly: AssemblyCulture("")]
 
-// The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
-// The form "{Major}.{Minor}.*" will automatically update the build and revision,
-// and "{Major}.{Minor}.{Build}.*" will update just the revision.
-
-[assembly: AssemblyVersion("0.3.0.*")]
+// The assembly version has the format "{Major}.{Minor}.{Micro}".
+// Major for stable versions, will be the same Major version of OpenSASUI
+// Minor for milestone versions, will be the same Minor version of OpenSASUI
+// Micro will be increased when OpenSASUI or OpenSCL micro version is incresed or when this application is modified
+[assembly: AssemblyVersion("0.3.1")]
 
 // The following attributes are used to specify the signing key for the assembly, 
 // if desired. See the Mono documentation for more information about signing.

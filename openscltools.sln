@@ -51,8 +51,7 @@ Global
 		$1.DirectoryNamespaceAssociation = None
 		$1.ResourceNamePolicy = FileFormatDefault
 		$0.StandardHeader = $2
-		$2.Text = 
-		$2.inheritsSet = Apache2License
+		$2.inheritsSet = LGPLv3License
 		$0.VersionControlPolicy = $3
 		$3.inheritsSet = Mono
 		$0.ChangeLogPolicy = $4

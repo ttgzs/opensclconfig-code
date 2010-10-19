@@ -5,7 +5,7 @@
     <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
-    <widget-library name="../bin/Debug/OpenSASUI.dll" internal="true" />
+    <widget-library name="../bin/Release/OpenSASUI.dll" internal="true" />
   </import>
   <widget class="Gtk.Bin" id="OpenSASUI.LDEditor" design-size="474 300">
     <property name="MemberName" />
@@ -1116,6 +1116,7 @@
                   <widget class="OpenSASUI.GSEListViewer" id="gselistviewer">
                     <property name="MemberName" />
                     <property name="Events">ButtonPressMask</property>
+                    <property name="Update">False</property>
                   </widget>
                   <packing>
                     <property name="Position">2</property>
@@ -1664,6 +1665,7 @@ SIEMENS</property>
               <widget class="OpenSASUI.IPListViewer" id="iplistviewer">
                 <property name="MemberName" />
                 <property name="Events">ButtonPressMask</property>
+                <property name="Update">False</property>
               </widget>
             </child>
             <child>
@@ -1680,6 +1682,7 @@ SIEMENS</property>
               <widget class="OpenSASUI.GSEListViewer" id="gselistviewer">
                 <property name="MemberName" />
                 <property name="Events">ButtonPressMask</property>
+                <property name="Update">False</property>
               </widget>
               <packing>
                 <property name="Position">1</property>
@@ -1712,6 +1715,7 @@ SIEMENS</property>
               <widget class="OpenSASUI.ReportListViewer" id="reportlistviewer">
                 <property name="MemberName" />
                 <property name="Events">ButtonPressMask</property>
+                <property name="Update">False</property>
               </widget>
               <packing>
                 <property name="Position">3</property>

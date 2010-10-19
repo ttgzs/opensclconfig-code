@@ -104,6 +104,7 @@
           <ChangeLogPolicy UpdateMode="None" inheritsSet="Mono">
             <MessageStyle LineAlign="0" />
           </ChangeLogPolicy>
+          <StandardHeader inheritsSet="LGPLv3License" />
         </Policies>
       </Properties>
     </MonoDevelop>

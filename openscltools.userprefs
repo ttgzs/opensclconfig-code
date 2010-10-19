@@ -2,9 +2,7 @@
   <MonoDevelop.Ide.Workbench ctype="Workbench">
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="LibOpenSCL" selected="True" />
-        </State>
+        <State expanded="True" />
       </Pad>
       <Pad Id="ClassPad">
         <State expanded="True" selected="True" />

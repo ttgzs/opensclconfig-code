@@ -24,6 +24,25 @@ using System;
 namespace IEC61850.SCL
 {
 	
+	
+	// Helper enum
+	public enum tStatusEnum {
+		Valid,
+		Invalid,
+		Unknown
+	}
+	
+	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
+	[Category("GSEControl"), Description("GSE Type")]
+	public enum tGSEControlTypeEnum 
+	{		
+		GSSE,
+		GOOSE,
+	}
+	
 	/*
 	 * The enumeration "tLPHDEnum" was added to fulfill standard IEC 61850 Ed. 1.0
 	*/
@@ -575,6 +594,7 @@ namespace IEC61850.SCL
 		Unicode255,
 		Check
 	}
+	
 	
 	
 	

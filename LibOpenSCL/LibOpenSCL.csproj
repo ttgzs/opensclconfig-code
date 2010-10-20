@@ -105,6 +105,17 @@
     <Compile Include="tLDevice.cs" />
     <Compile Include="tServerAuthentication.cs" />
     <Compile Include="tServer.cs" />
+    <Compile Include="tLN.cs" />
+    <Compile Include="tAccessPoint.cs" />
+    <Compile Include="tReportControlOptFields.cs" />
+    <Compile Include="tReportControl.cs" />
+    <Compile Include="tLogControl.cs" />
+    <Compile Include="tControlWithTriggerOpt.cs" />
+    <Compile Include="tGSEControl.cs" />
+    <Compile Include="tSampledValueControlSmvOpts.cs" />
+    <Compile Include="tSampledValueControl.cs" />
+    <Compile Include="tControlWithIEDName.cs" />
+    <Compile Include="tControl.cs" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

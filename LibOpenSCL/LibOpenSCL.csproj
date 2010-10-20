@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
-    <RootNamespace>LibOpenSCL</RootNamespace>
+    <RootNamespace>IEC61850.SCL</RootNamespace>
     <AssemblyName>LibOpenSCL</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -74,6 +74,37 @@
     <Compile Include="RegularExpression.cs" />
     <Compile Include="SCL.cs" />
     <Compile Include="ValidatingSCL.cs" />
+    <Compile Include="tDataTypeTemplates.cs" />
+    <Compile Include="tCommunication.cs" />
+    <Compile Include="tIED.cs" />
+    <Compile Include="tDurationInSec.cs" />
+    <Compile Include="tLNodeType.cs" />
+    <Compile Include="tDOType.cs" />
+    <Compile Include="tDA.cs" />
+    <Compile Include="tBay.cs" />
+    <Compile Include="tEquipmentContainer.cs" />
+    <Compile Include="tFunction.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="tConductingEquipment.cs" />
+    <Compile Include="tSubEquipment.cs" />
+    <Compile Include="tTerminal.cs" />
+    <Compile Include="tAbstractConductingEquipment.cs" />
+    <Compile Include="tTapChanger.cs" />
+    <Compile Include="tTransformerWinding.cs" />
+    <Compile Include="tPowerTransformer.cs" />
+    <Compile Include="tEquipment.cs" />
+    <Compile Include="tGeneralEquipment.cs" />
+    <Compile Include="tSubFunction.cs" />
+    <Compile Include="tPowerSystemResource.cs" />
+    <Compile Include="tConnectivityNode.cs" />
+    <Compile Include="tLNode.cs" />
+    <Compile Include="tBasicType.cs" />
+    <Compile Include="tLNodeContainer.cs" />
+    <Compile Include="tLN0.cs" />
+    <Compile Include="LN0.cs" />
+    <Compile Include="tLDevice.cs" />
+    <Compile Include="tServerAuthentication.cs" />
+    <Compile Include="tServer.cs" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
@@ -82,6 +113,7 @@
           <ChangeLogPolicy UpdateMode="None" VcsIntegration="None" inheritsSet="Mono">
             <MessageStyle LineAlign="0" />
           </ChangeLogPolicy>
+          <StandardHeader Text="&#xA; ${FileName}&#xA; &#xA; Authors:&#xA;      Comision Federal de Electricidad&#xA;      ${AuthorName} &lt;${AuthorEmail}&gt;&#xA; &#xA; Copyright (c) 2009 Comision Federal de Electricidad&#xA; Copyright (c) ${Year} ${CopyrightHolder}&#xA;&#xA; This program is free software: you can redistribute it and/or modify&#xA; it under the terms of the GNU Lesser General Public License as published by&#xA; the Free Software Foundation, either version 3 of the License, or&#xA; (at your option) any later version.&#xA;&#xA; This program is distributed in the hope that it will be useful,&#xA; but WITHOUT ANY WARRANTY; without even the implied warranty of&#xA; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#xA; GNU Lesser General Public License for more details.&#xA;&#xA; You should have received a copy of the GNU Lesser General Public License&#xA; along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;." inheritsSet="Apache2License" />
         </Policies>
       </Properties>
     </MonoDevelop>

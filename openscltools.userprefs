@@ -1,13 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCL/tDataTypeTemplates.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCL/SCL.cs" ctype="Workbench">
     <Files>
-      <File FileName="LibOpenSCL/SCL.cs" Line="8564" Column="41" />
-      <File FileName="LibOpenSCL/tDataTypeTemplates.cs" Line="24" Column="23" />
+      <File FileName="LibOpenSCL/SCL.cs" Line="4974" Column="1" />
+      <File FileName="LibOpenSCL/Enums.cs" Line="33" Column="3" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="LibOpenSCL" expanded="True" selected="True" />
+          <Node name="LibOpenSCL" expanded="True">
+            <Node name="SCL.cs" selected="True" />
+          </Node>
           <Node name="LibOpenSCLUI" expanded="True" />
           <Node name="OpenSCLConfigurator" expanded="True" />
         </State>

@@ -21,6 +21,8 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.ComponentModel;
+
 namespace IEC61850.SCL
 {
 	
@@ -32,6 +34,209 @@ namespace IEC61850.SCL
 		Unknown
 	}
 	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
+	public enum tServiceSettingsEnum 
+	{		
+		Dyn,
+		Conf,
+		Fix,
+	}
+	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
+	public enum tFCEnum
+	{		
+		ST,
+		MX,
+		CO,
+		SP,
+		SG,
+		SE,
+		SV,
+		CF,
+		DC,
+		EX									
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
+	public enum tAssociationKindEnum 
+	{		
+		[System.Xml.Serialization.XmlEnumAttribute("pre-established")]
+		preestablished,
+		
+		predefined,
+	}
+	
+	
+	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.iec.ch/61850/2003/SCL")]
+	public enum tHeaderNameStructure 
+	{		
+		IEDName,
+		FuncName
+	}
+
+	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
+	public enum tSIUnitEnum : int
+	{		
+		none = 1,
+		m = 2,
+		kg = 3,
+		s = 4,
+		A = 5,
+		K = 6,
+		mol = 7,
+		cd = 8,
+		deg = 9,
+		rad = 10,
+		sr = 11,
+		Gy = 21,
+		q = 22,
+		
+		[System.Xml.Serialization.XmlEnumAttribute("°C")]
+		C = 23,
+		
+		Sv = 24,
+		F = 25,
+		
+		[System.Xml.Serialization.XmlEnumAttribute("C")]
+		C1 = 26,
+		
+		S = 27,
+		H = 28,
+		V = 29,
+		ohm = 30,
+		J = 31,
+		N = 32,
+		Hz = 33,
+		lx = 34,
+		Lm = 35,
+		Wb = 36,
+		T = 37,
+		W = 38,
+		Pa = 39,
+		
+		[System.Xml.Serialization.XmlEnumAttribute("m^2")]
+		m2 = 41,
+		
+		[System.Xml.Serialization.XmlEnumAttribute("m^3")]
+		m3 = 42,
+		
+		[System.Xml.Serialization.XmlEnumAttribute("m/s")]
+		ms = 43,
+		
+		[System.Xml.Serialization.XmlEnumAttribute("m/s^2")]
+		ms2 = 44,
+		
+		[System.Xml.Serialization.XmlEnumAttribute("m^3/s")]
+		m3s = 45,
+		
+		[System.Xml.Serialization.XmlEnumAttribute("m/m^3")]
+		mm3 = 46,
+		
+		M = 47,
+		
+		[System.Xml.Serialization.XmlEnumAttribute("kg/m^3")]
+		kgm3 = 48,
+		
+		[System.Xml.Serialization.XmlEnumAttribute("m^2/s")]
+		m2s = 49,
+
+		[System.Xml.Serialization.XmlEnumAttribute("W/m K")]
+		WmK = 50,
+
+		[System.Xml.Serialization.XmlEnumAttribute("J/K")]
+		JK = 51,
+
+		ppm = 52,
+
+		[System.Xml.Serialization.XmlEnumAttribute("s^-1")]
+		s1 = 53,
+
+		[System.Xml.Serialization.XmlEnumAttribute("rad/s")]
+		rads = 54,
+
+		VA = 61,
+		Watts = 62,
+		VAr = 63,
+		phi = 64,
+		cos_phi = 65,
+		Vs = 66,
+		
+		[System.Xml.Serialization.XmlEnumAttribute("V^2")]
+		V2 = 67,
+
+		As = 68,
+
+		[System.Xml.Serialization.XmlEnumAttribute("A^2")]
+		A2 = 69,
+
+		[System.Xml.Serialization.XmlEnumAttribute("A^2 s")]
+		A2s = 70,
+
+		VAh = 71,
+		Wh = 72,
+		VArh = 73,
+
+		[System.Xml.Serialization.XmlEnumAttribute("V/Hz")]
+		VHz = 74,
+
+		[System.Xml.Serialization.XmlEnumAttribute("b/s")]
+		bs = 75,
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
+	public enum tUnitMultiplierEnum : int 
+	{		
+		[System.Xml.Serialization.XmlEnumAttribute("")]
+		Item = 0,
+		m = -3,
+		k = 3,
+		M = 6,
+		mu = -6,
+		y = -24,
+		z = -21,
+		a = -18,
+		f = -15,
+		p = -12,
+		n = -9,
+		c = -2,
+		d = -1,
+		da = 1,
+		h = 2,
+		G = 9,
+		T = 12,
+		P = 15,
+		E = 18,
+		Z = 21,
+		Y = 24,
+	}
+
+	
+	
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
+	public enum tValKindEnum 
+	{
+		Spec,
+		Conf,
+		RO,
+		Set
+	}
+
 	
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]

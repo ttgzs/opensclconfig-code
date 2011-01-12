@@ -89,8 +89,20 @@ namespace OpenSCL.UI
 				if (list.Count == 0 && showFile)
 				{										
 					treeViewSCLOpen = new TreeViewSCL();
-					Object.Deserialize(dlg.FileName);						
+					// Creating a SCL object
+					System.Console.WriteLine("Deserializating file to SCLObject:...");
+					System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+					sw.Start();
+					Object.Deserialize(dlg.FileName);
+					sw.Stop();
+					System.Console.WriteLine("Enlapsed Time:"+sw.ElapsedMilliseconds+" ms");
+					// Creating TreeView
+					System.Console.WriteLine("Creating TreeView:...");
+					System.Diagnostics.Stopwatch swt = new System.Diagnostics.Stopwatch();
+					swt.Start();
 					treeViewOpen.Nodes.Add(treeViewSCLOpen.GetTreeNodeSCL(Path.GetFileName(dlg.FileName), Object.Configuration));
+					swt.Stop();
+					System.Console.WriteLine("Enlapsed Time:"+swt.ElapsedMilliseconds+" ms");
 				}
 			}
 			return list;

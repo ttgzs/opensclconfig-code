@@ -5,7 +5,7 @@
     <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
-    <widget-library name="../bin/Release/OpenSASUI.dll" internal="true" />
+    <widget-library name="../bin/Debug/OpenSASUI.dll" internal="true" />
   </import>
   <widget class="Gtk.Bin" id="OpenSASUI.LDEditor" design-size="474 300">
     <property name="MemberName" />

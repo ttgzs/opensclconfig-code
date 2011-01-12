@@ -110,8 +110,8 @@ namespace OpenSCL.UI
 		/// </param>
 		private void AddNodesToTreeSCL(object sCLObject,TreeNode treeSCL)
 		{
-			object valueAttributeObject;
-			Array valuesAttributeObject;
+			//object valueAttributeObject;
+			//Array valuesAttributeObject;
 			PropertyInfo[] attributesInformation = sCLObject.GetType().GetProperties();        	        	        	        										                 							
         	foreach (PropertyInfo attributeInformation in attributesInformation) 
         	{        		
@@ -121,17 +121,17 @@ namespace OpenSCL.UI
         			// will be sent to a method that adds it in some node of the tree.    
         			if(attributeInformation.PropertyType.BaseType.Name.Equals("Array"))
         			{
-		       			valuesAttributeObject = sCLObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, sCLObject, null ) as  Array;        				
+		       			Array valuesAttributeObject = sCLObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, sCLObject, null ) as  Array;        				
 		       			if(valuesAttributeObject!=null && (valuesAttributeObject as Array).GetValue(0) != null)
         				{
         					this.GetNodesItemOfArray(attributeInformation, valuesAttributeObject,  treeSCL.Nodes[sCLObject.GetType().Name.ToString()]);
         				}     				
         			}
-        			// If the variable is an Object type then a method will be called for 
+        			// If the variable is an Object type then a method will be called to
         			// add it to a node of the tree.        			
 	        		else
     	    		{        				
-        				valueAttributeObject = sCLObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, sCLObject, null );				        			        						
+        				object valueAttributeObject = sCLObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, sCLObject, null );				        			        						
         				if(valueAttributeObject!=null)
         				{        					
         					this.GetNodes(valueAttributeObject, treeSCL.Nodes[sCLObject.GetType().Name.ToString()]);
@@ -399,7 +399,7 @@ namespace OpenSCL.UI
 		}
 		
 		/// <summary>
-		/// This method search and returns the TreeNode that contents on his tag the base type of an object 
+		/// This method searchs and returns the TreeNode that contains on his tag the base type of an object 
 		/// specified on the typeSCLToSearch variable. 
 		/// </summary>
 		/// <param name="nodeSCL">
@@ -410,25 +410,22 @@ namespace OpenSCL.UI
 		/// </param>
 		/// <returns>
 		/// A TreeNode that contents on his tag the base type of an object specified on the typeSCLToSearch variable. 
-		/// </returns>
-		public TreeNode SearchUPForBaseTypeAndGetSCLTreeNode(TreeNode nodeSCL, Type typeSCLToSearch)
-		{					
-			if(nodeSCL.Tag != null && nodeSCL.Tag.GetType().BaseType!= null && (nodeSCL.Tag.GetType().BaseType==(typeSCLToSearch) || (nodeSCL.Tag.GetType().BaseType.BaseType == (typeSCLToSearch)) ))
-			{
-				return nodeSCL;
-			}
-			else
-			{
-				if(nodeSCL.Parent != null)
-				{
-					return this.SearchUPForBaseTypeAndGetSCLTreeNode(nodeSCL.Parent, typeSCLToSearch);
-				}
-				else
-				{
-					return null;
-				}
-			}
-		}
+		/// </returns>        
+        public TreeNode SearchUPForBaseTypeAndGetSCLTreeNode(TreeNode nodeSCL, Type typeSCLToSearch)
+        {
+            TreeNode tAux = nodeSCL;
+
+            while (tAux != null) 
+            {
+                if (tAux.Tag != null && tAux.Tag.GetType().BaseType != null && (tAux.Tag.GetType().BaseType == (typeSCLToSearch) || (tAux.Tag.GetType().BaseType.BaseType == (typeSCLToSearch))))
+                    return tAux;
+                else
+                    tAux = tAux.Parent;
+            
+            }
+            
+            return null;                            
+        }
 		
 		/// <summary>
 		/// This method search a tag of an specific type.
@@ -441,24 +438,21 @@ namespace OpenSCL.UI
 		/// </param>
 		/// <returns>
 		/// If the type is found then it returns a true value otherwise a false value is returned.
-		/// </returns>
-		public bool SearchUPForType(TreeNode nodeSCL, Type typeSCLToSearch)
-		{					
-			if(nodeSCL.Tag != null && nodeSCL.Tag.GetType() == typeSCLToSearch)
-			{
-				return true;
-			}	
-			else
-			{   if(nodeSCL.Parent != null)
-				{
-					return this.SearchUPForType(nodeSCL.Parent, typeSCLToSearch);
-				}
-				else
-				{
-					return false;
-				}				
-			}
-		}
+		/// </returns>        
+        public bool SearchUPForType(TreeNode nodeSCL, Type typeSCLToSearch)
+        {
+            TreeNode tAux = nodeSCL;
+
+            while(tAux != null)
+            {
+                if (tAux.Tag != null && tAux.Tag.GetType() == typeSCLToSearch)            
+                    return true;
+                else
+                    tAux = tAux.Parent;
+            
+            }
+            return false;                            
+        }
 		
 		/// <summary>
 		/// This method creates an SCL project using the creation of a new tree with the main nodes
@@ -581,22 +575,31 @@ namespace OpenSCL.UI
 		{
 			if((sCLObject is tNaming) || (sCLObject is tUnNaming))
 			{
-				if(this.objectManagement.FindVariable(sCLObject, "name")!=null && this.objectManagement.FindVariable(sCLObject, "name").ToString()!="null")
+                object foundVariable = this.objectManagement.FindVariable(sCLObject, "name");
+
+				if(foundVariable!=null && foundVariable.ToString()!="null")
 				{
-					textPossible = this.objectManagement.FindVariable(sCLObject, "name").ToString();
+					textPossible = foundVariable.ToString();
 				}
-				if(this.objectManagement.FindVariable(sCLObject, "cbName")!=null && this.objectManagement.FindVariable(sCLObject, "cbName").ToString()!="null")
+
+                foundVariable = this.objectManagement.FindVariable(sCLObject, "cbName");
+
+				if(foundVariable!=null && foundVariable.ToString()!="null")
 				{
-					textPossible = this.objectManagement.FindVariable(sCLObject, "cbName").ToString();
+					textPossible = foundVariable.ToString();
 				}
-			}				
-			if(sCLObject is tLN && this.objectManagement.FindVariable(sCLObject, "lnClass")!= null && this.objectManagement.FindVariable(sCLObject, "inst").ToString()!= "null")
-			{
-				textPossible = this.objectManagement.FindVariable(sCLObject, "prefix").ToString()+this.objectManagement.FindVariable(sCLObject, "lnClass").ToString()+this.objectManagement.FindVariable(sCLObject, "inst").ToString();
 			}
-			if(sCLObject is tLDevice && this.objectManagement.FindVariable(sCLObject, "inst")!= null  && this.objectManagement.FindVariable(sCLObject, "inst").ToString()!="null")
+
+            object foundInst = this.objectManagement.FindVariable(sCLObject, "inst");
+            object foundLnClass = this.objectManagement.FindVariable(sCLObject, "lnClass");
+
+			if(sCLObject is tLN && foundLnClass!= null && foundInst.ToString()!= "null")
 			{
-				textPossible = this.objectManagement.FindVariable(sCLObject, "inst").ToString();
+                textPossible = this.objectManagement.FindVariable(sCLObject, "prefix").ToString() + foundLnClass.ToString() + foundInst.ToString();
+			}
+			if(sCLObject is tLDevice && foundInst!= null  && foundInst.ToString()!="null")
+			{
+				textPossible = foundInst.ToString();
 			}
 			if(sCLObject is tIDNaming)
 			{	
@@ -604,7 +607,7 @@ namespace OpenSCL.UI
 			}
 			return textPossible;
 		}
-		
+        
 		/// <summary>
 		/// This method searchs a type of an SCL object on the tree.		
 		/// </summary>
@@ -616,25 +619,22 @@ namespace OpenSCL.UI
 		/// </param>
 		/// <returns>
 		/// If the object is found then a node is returned, otherwise a null value will be returned.
-		/// </returns>
-		public TreeNode SearchUPForTypeAndGetSCLTreeNode(TreeNode nodeSCL, Type typeSCLToSearch)
-		{
-			if(nodeSCL.Tag != null && (nodeSCL.Tag.GetType()==typeSCLToSearch ))
-			{
-				return nodeSCL;
-			}
-			else
-			{
-				if(nodeSCL.Parent != null)
-				{
-					return this.SearchUPForTypeAndGetSCLTreeNode(nodeSCL.Parent, typeSCLToSearch);
-				}
-				else
-				{
-					return null;
-				}
-			}
-		}		
+		/// </returns>        
+        public TreeNode SearchUPForTypeAndGetSCLTreeNode(TreeNode nodeSCL, Type typeSCLToSearch)
+        {
+            TreeNode tAux = nodeSCL;
+
+            while (tAux != null)
+            {
+
+                if (tAux.Tag != null && (tAux.Tag.GetType() == typeSCLToSearch))
+                    return tAux;
+                else
+                    tAux = tAux.Parent;
+            }
+
+            return null;
+        }		
 		
 		//New
 		/// <summary>
@@ -874,5 +874,11 @@ namespace OpenSCL.UI
 			}
 			return a;
 		}
+
+        
 	}
 }
+
+
+        
+		

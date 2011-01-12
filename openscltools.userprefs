@@ -1,17 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCL/SCL.cs" ctype="Workbench">
-    <Files>
-      <File FileName="LibOpenSCL/SCL.cs" Line="4974" Column="1" />
-      <File FileName="LibOpenSCL/Enums.cs" Line="33" Column="3" />
-    </Files>
+  <MonoDevelop.Ide.Workbench ctype="Workbench">
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="LibOpenSCL" expanded="True">
-            <Node name="SCL.cs" selected="True" />
+          <Node name="OpenSASConfigurator" expanded="True" />
+          <Node name="OpenSASUI" expanded="True">
+            <Node name="GSEListViewer.cs" selected="True" />
           </Node>
-          <Node name="LibOpenSCLUI" expanded="True" />
-          <Node name="OpenSCLConfigurator" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">
@@ -22,7 +17,7 @@
   <MonoDevelop.Ide.DebuggingService>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" ctype="Workspace" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" ctype="Workspace" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

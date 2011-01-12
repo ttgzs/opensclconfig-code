@@ -586,7 +586,7 @@ namespace OpenSCLConfigurator
 			List<ErrorsManagement> listError = null;
 			SaveFile(sender, e);
 			this.treeViewFile.Nodes.Clear();
-			openDialog o = new openDialog(false);					
+			openDialog o = new openDialog(false);
 			listError = o.OpenSCLFile(this.treeViewFile, xSDFiles, true);
 			EnablePanels(listError);
 		}		

@@ -587,7 +587,12 @@ namespace OpenSCLConfigurator
 			SaveFile(sender, e);
 			this.treeViewFile.Nodes.Clear();
 			openDialog o = new openDialog(false);					
-			listError = o.OpenSCLFile(this.treeViewFile, xSDFiles, true);												
+			System.Console.WriteLine("Opening file:...");
+			System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+			sw.Start();
+			listError = o.OpenSCLFile(this.treeViewFile, xSDFiles, true);
+			sw.Stop();
+			System.Console.WriteLine("Enlapsed Time:"+sw.ElapsedMilliseconds+" ms");
 			EnablePanels(listError);
 		}		
 		

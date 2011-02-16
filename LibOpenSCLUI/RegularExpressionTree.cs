@@ -114,8 +114,7 @@ namespace OpenSCL.UI
 		ArrayList property;
 		ArrayList valueProperties;		
 		ArrayList namesPropertiesObject;
-		object valueProperty;
-		ObjectManagement objectManagement;
+		object valueProperty;		
 		object objectSCL;				
 		string number;		
 		int kTemp2;		
@@ -135,8 +134,7 @@ namespace OpenSCL.UI
 			this.index = 0;
 			this.regularExpression = new RegularExpression();
 			this.property = new ArrayList();
-			this.valueProperties = new ArrayList();
-			this.objectManagement = new ObjectManagement();
+			this.valueProperties = new ArrayList();			
 			this.objectSCL = this.node.Tag;			
 			this.namesPropertiesObject = new ArrayList ();			
 			this.flag = true;
@@ -159,7 +157,7 @@ namespace OpenSCL.UI
 			{		
 		  		case "/" :
 		  			this.nameProperty = this.ConcatenateProperty();
-		  			this.valueProperty = this.objectManagement.FindVariable(this.objectSCL, nameProperty);
+		  			this.valueProperty = ObjectManagement.FindVariable(this.objectSCL, nameProperty);
 		  			if(!this.valueProperty.ToString().Equals("null")&&this.valueProperty.GetType().IsArray)
 		  			{			  				
 		  				for(int i = 0; i < this.node.Nodes.Count; i++)
@@ -247,7 +245,7 @@ namespace OpenSCL.UI
 					 					this.valueProperties.Add("");
 					 				}
 					 			}				
-					 			this.valueProperty = this.objectManagement.FindVariable(this.objectSCL, this.nameProperty);					 		
+					 			this.valueProperty = ObjectManagement.FindVariable(this.objectSCL, this.nameProperty);					 		
 					 			this.ValidateEmptyString(this.valueProperty);					 			
 					 			this.valueProperties[valueNumber] = this.valueProperty;
 					 			this.index++;					 			
@@ -262,7 +260,7 @@ namespace OpenSCL.UI
 					 	else
 					 	{
 					 		this.index+=2;					 	
-					 		this.valueProperty = this.objectManagement.FindVariable(this.objectSCL, this.nameProperty);					 							 		
+					 		this.valueProperty = ObjectManagement.FindVariable(this.objectSCL, this.nameProperty);					 							 		
 					 		if(this.keys.Substring(this.index+1,1).Equals("="))
 						 	{
 						 		this.index--;
@@ -435,7 +433,7 @@ namespace OpenSCL.UI
 					this.kTemp2 = k;
 					while( k< this.namesPropertiesObject.Count)
 					{							
-						this.valueProperty =  this.objectManagement.FindVariable(nodeObject, this.namesPropertiesObject[k].ToString());
+						this.valueProperty =  ObjectManagement.FindVariable(nodeObject, this.namesPropertiesObject[k].ToString());
 						if(this.valueProperty!=null&&this.valueProperty.ToString().Equals(this.valueProperties[k].ToString()))
 						{								
 							k++;							

@@ -32,8 +32,7 @@ namespace OpenSCL.UI
 		private string iedParentName;
 		private string oldSMVName;		
 		private bool edit = false;		 
-		private TreeViewSCL treeViewSCL = new TreeViewSCL();
-		private ObjectManagement objectManagement = new ObjectManagement();
+		private TreeViewSCL treeViewSCL = new TreeViewSCL();		
 		
 		/// <summary>
 		/// This method shows a dialog box that allows to create a Sampled Value (SMV) configuration
@@ -96,33 +95,33 @@ namespace OpenSCL.UI
 			InitializeComponent();
 			this.datSet.DataSource = this.treeViewSCL.getDataset(this.treeSCL);//victor
 			this.datSet.SelectedIndex = this.treeViewSCL.getDataSetSelected(treeSCL, smvObject);//victor
-			this.oldSMVName = this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Tag, "name").ToString();			
+			this.oldSMVName = ObjectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Tag, "name").ToString();			
 			this.propertySMV.SelectedObject = smvObject;
 			this.propertyOptions.SelectedObject = optObject;
 			TreeNode smvNode = null;
 			if(sCL.Communication != null)
 			{
 				this.treeViewSCL = new TreeViewSCL();
-				smvNode = this.treeViewSCL.SeekAssociation(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes, this.objectManagement.FindVariable(smvObject, "name").ToString(), "cbName", "tSMV" );
+				smvNode = this.treeViewSCL.SeekAssociation(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes, ObjectManagement.FindVariable(smvObject, "name").ToString(), "cbName", "tSMV" );
 			}
 			tSMV tsmv = new tSMV();			
 			this.ldInst.Enabled = false;			
 			this.ldInst.Text = ldInst;
 			if(smvNode!= null)
 			{
-				this.desc.Text  = this.objectManagement.FindVariable(smvNode.Tag, "desc").ToString();						
+				this.desc.Text  = ObjectManagement.FindVariable(smvNode.Tag, "desc").ToString();						
 				if(smvNode.FirstNode!=null)
 				{	
 					object arrayOf = smvNode.FirstNode.Tag;
-					tP[] arr = (tP[]) this.objectManagement.FindVariable(arrayOf, "P");
+					tP[] arr = (tP[]) ObjectManagement.FindVariable(arrayOf, "P");
 					if(arr!=null)
 					{
 						if(arr.Length>0)
 						{
-							this.mac.Text    = this.objectManagement.GetTpValue(arr, "MAC_Address");
-							this.appID.Text  = this.objectManagement.GetTpValue(arr, "APPID");
-							this.vLANP.Text  = this.objectManagement.GetTpValue(arr, "VLAN_PRIORITY");
-							this.vLANI.Text  = this.objectManagement.GetTpValue(arr, "VLAN_ID");
+							this.mac.Text    = ObjectManagement.GetTpValue(arr, "MAC_Address");
+							this.appID.Text  = ObjectManagement.GetTpValue(arr, "APPID");
+							this.vLANP.Text  = ObjectManagement.GetTpValue(arr, "VLAN_PRIORITY");
+							this.vLANI.Text  = ObjectManagement.GetTpValue(arr, "VLAN_ID");
 						}	
 					}
 				}
@@ -204,7 +203,7 @@ namespace OpenSCL.UI
 			tsmvc = (tSampledValueControl) smvc;				
 			tSampledValueControlSmvOpts tsmvco = (tSampledValueControlSmvOpts) smvopt;			
 			tsmvco = (tSampledValueControlSmvOpts) smvopt;				
-			this.objectManagement.ModifyObjectOfArrayObjectOfParentObject(tsmvc, treeSCL.TreeView.SelectedNode.Index, treeSCL.TreeView.SelectedNode.Parent.Parent.Tag);			
+			ObjectManagement.ModifyObjectOfArrayObjectOfParentObject(tsmvc, treeSCL.TreeView.SelectedNode.Index, treeSCL.TreeView.SelectedNode.Parent.Parent.Tag);			
 			treeSCL.TreeView.SelectedNode.Tag = tsmvc;
 			treeSCL.TreeView.SelectedNode.Text = tsmvc.name;						
 			String[] names = new String[4];
@@ -215,9 +214,9 @@ namespace OpenSCL.UI
 			if(sCL.Communication!=null)
 			{
 				TreeNode Conn = this.treeViewSCL.SeekAssociation(treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes, 
-			                this.objectManagement.FindVariable(
+			                ObjectManagement.FindVariable(
 				            this.treeViewSCL.SearchUPForTypeAndGetSCLTreeNode(treeSCL.TreeView.SelectedNode, typeof(tAccessPoint)).Tag, "name").ToString(),
-			                this.objectManagement.FindVariable(
+			                ObjectManagement.FindVariable(
 							this.treeViewSCL.SearchUPForTypeAndGetSCLTreeNode(treeSCL.TreeView.SelectedNode, typeof(tIED)).Tag, "name").ToString());
 				if(sCL.Communication.SubNetwork!=null && Conn != null)
 				{
@@ -232,12 +231,12 @@ namespace OpenSCL.UI
 							tsmv.cbName = tsmvc.name;			
 							tsmv.desc = smv[5];	
 							tsmvc.datSet = this.datSet.SelectedItem.ToString();//victor
-							if(this.objectManagement.ModifyObjectOfArrayObjectOfParentObject(tsmv, smvN.Index, smvN.Parent.Parent.Tag))
+							if(ObjectManagement.ModifyObjectOfArrayObjectOfParentObject(tsmv, smvN.Index, smvN.Parent.Parent.Tag))
 							{
 								if(smvN.FirstNode!=null)
 								{
 									object arrayOf = smvN.FirstNode.Tag;
-									tP[] arr = (tP[]) this.objectManagement.FindVariable(arrayOf, "P");
+									tP[] arr = (tP[]) ObjectManagement.FindVariable(arrayOf, "P");
 									tAddress tad = new tAddress();
 									tsmv.Address = tad;		
 									if(arr!=null)
@@ -256,7 +255,7 @@ namespace OpenSCL.UI
 									tsmv.Address.P = (tP[]) arr;
 									smvN.Tag = tsmv;
 									smvN.Text = tsmv.cbName;	
-									if(this.objectManagement.ModifyObjectOfArrayObjectOfParentObject((tP[]) arr, 0, tsmv.Address.P))
+									if(ObjectManagement.ModifyObjectOfArrayObjectOfParentObject((tP[]) arr, 0, tsmv.Address.P))
 									{									
 									}	
 				}
@@ -304,7 +303,7 @@ namespace OpenSCL.UI
 			nodeSMVControl.Tag = sMVCtrl;
 			TreeNode nodetSMV;		
 			tSMV tsmv = new tSMV();			
-			if(this.objectManagement.AddObjectToArrayObjectOfParentObject(sMVCtrl, treeSCL.Tag))
+			if(ObjectManagement.AddObjectToArrayObjectOfParentObject(sMVCtrl, treeSCL.Tag))
 			{
 				if(treeSCL.TreeView.SelectedNode.Tag is tLN0)
 				{
@@ -321,7 +320,7 @@ namespace OpenSCL.UI
 					treeSCL = treeSCL.TreeView.SelectedNode;
 				}				
 				treeSCL.Nodes.Add(nodeSMVControl);				
-				this.objectManagement.AddObjectToSCLObject(sMVOpts, sMVCtrl);							  	
+				ObjectManagement.AddObjectToSCLObject(sMVOpts, sMVCtrl);							  	
 				TreeNode nodeOP = new TreeNode();
 				nodeOP.Name = "SMVOpts";
 				nodeOP.Text = "SMVOpts";
@@ -344,7 +343,7 @@ namespace OpenSCL.UI
 					tsmv.ldInst = smv[0];
 					tsmv.desc = smv[5];		
 					nodeSMV = new TreeNode();				
-					this.objectManagement.AddObjectToArrayObjectOfParentObject(tsmv, connAPRef.Tag);					
+					ObjectManagement.AddObjectToArrayObjectOfParentObject(tsmv, connAPRef.Tag);					
 					if(connAPRef.Nodes["tSMV[]"]==null)
 					{								
 						tConnectedAP tconn = (tConnectedAP) connAPRef.Tag;
@@ -365,7 +364,7 @@ namespace OpenSCL.UI
 					AttributeReferences aReferences = new AttributeReferences();
 					aReferences.Insert(tsmv, nodeSMVControl);
 					tAddress taddr = new tAddress();
-					this.objectManagement.AddObjectToSCLObject(taddr, tsmv);
+					ObjectManagement.AddObjectToSCLObject(taddr, tsmv);
 					TreeNode nodeAddress = new TreeNode();
 					nodeAddress.Text = "Address";
 					nodeAddress.Name = "Address";
@@ -379,25 +378,25 @@ namespace OpenSCL.UI
 					
 					tP t_mac = new tP();
 					tP_MACAddress t_mac_ = new tP_MACAddress();
-					this.objectManagement.EmptySourcetoDestinyObject(t_mac_,t_mac);
+					ObjectManagement.EmptySourcetoDestinyObject(t_mac_,t_mac);
 					t_mac.Value = this.mac.Text;
 					utilsOM.AddTPTreeNode(t_mac, "tP_mac", "tP", taddr, nodetP);
 					
 					tP t_app = new tP();
 					tP_APPID  t_app_ = new tP_APPID();
-					this.objectManagement.EmptySourcetoDestinyObject(t_app_, t_app);
+					ObjectManagement.EmptySourcetoDestinyObject(t_app_, t_app);
 					t_app.Value = this.appID.Text;
 					utilsOM.AddTPTreeNode(t_app, "tP_app", "tP", taddr, nodetP);
 		
 					tP t_vlap = new tP();
 					tP_VLANPRIORITY t_vlap_ = new tP_VLANPRIORITY();
-					this.objectManagement.EmptySourcetoDestinyObject(t_vlap_,t_vlap);
+					ObjectManagement.EmptySourcetoDestinyObject(t_vlap_,t_vlap);
 					t_vlap.Value = this.vLANP.Text;
 					utilsOM.AddTPTreeNode(t_vlap, "tP_vlanp", "tP", taddr, nodetP);
 						
 					tP t_vlani = new tP();
 					tP_VLANID t_vlani_ = new tP_VLANID();
-					this.objectManagement.EmptySourcetoDestinyObject(t_vlani_,t_vlani);
+					ObjectManagement.EmptySourcetoDestinyObject(t_vlani_,t_vlani);
 					t_vlani.Value = this.vLANI.Text;
 					utilsOM.AddTPTreeNode(t_vlani, "tP_vlani", "tP", taddr, nodetP);
 				}

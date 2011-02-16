@@ -37,8 +37,7 @@ namespace OpenSCL
 		private string lnInst;
 		private string lnType;		
 		private tDataSet dataSet;
-		private ObjectManagement objectManagement;
-		private tLDevice tLDevice;		
+        private tLDevice tLDevice;
 		
 		public DataSet()
 		{
@@ -63,8 +62,7 @@ namespace OpenSCL
 		/// </returns>
 		public tDataSet GetLN0FCDAs(tLDevice tLDevice, LN0 lN, tDataTypeTemplates dataTypeTemplates)
 		{
-			this.tLDevice = tLDevice;
-			this.objectManagement = new ObjectManagement();
+			this.tLDevice = tLDevice;			
 			this.lnClass = lN.lnClass.ToString();
 			this.lnInst = lN.inst;
 			this.lnType = lN.lnType;			
@@ -90,8 +88,7 @@ namespace OpenSCL
 		/// </returns>
 		public tDataSet GetLNFCDAs(tLDevice tLDevice, tLN lN, tDataTypeTemplates dataTypeTemplates)
 		{
-			this.tLDevice = tLDevice;
-			this.objectManagement = new ObjectManagement();
+			this.tLDevice = tLDevice;			
 			this.prefix = lN.prefix;
 			this.lnClass = lN.lnClass;
 			this.lnInst = lN.inst.ToString();
@@ -130,9 +127,9 @@ namespace OpenSCL
 						fCDA.doName = dataTypeTemplates.LNodeType[a].DO[b].name;						
 						if(this.tLDevice!=null)
 						{
-							this.objectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
+							ObjectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
 						}
-						this.objectManagement.AddObjectToArrayObjectOfParentObject(fCDA, dataSet);
+						ObjectManagement.AddObjectToArrayObjectOfParentObject(fCDA, dataSet);
 						for(; c < dataTypeTemplates.DOType.Length; c++)
 						{
 							if(dataTypeTemplates.LNodeType[a].DO[b].type.Equals(dataTypeTemplates.DOType[c].id))
@@ -156,9 +153,9 @@ namespace OpenSCL
 											fCDA.daName = dataTypeTemplates.DOType[c].SDO[count].name;
 											if(this.tLDevice!=null)
 											{
-												this.objectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
+												ObjectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
 											}
-											this.objectManagement.AddObjectToArrayObjectOfParentObject(fCDA, dataSet);
+											ObjectManagement.AddObjectToArrayObjectOfParentObject(fCDA, dataSet);
 											this.InsertDaNameParent(dataTypeTemplates, dataTypeTemplates.DOType[count2], dataTypeTemplates.LNodeType[a].DO[b].name, dataTypeTemplates.DOType[c].SDO[count].name);
 											count2++;
 											break;
@@ -219,9 +216,9 @@ namespace OpenSCL
 					fCDA.daName = dOType.DA[d].name;
 					if(this.tLDevice!=null)
 					{
-						this.objectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
+						ObjectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
 					}
-					this.objectManagement.AddObjectToArrayObjectOfParentObject(fCDA, dataSet);					
+					ObjectManagement.AddObjectToArrayObjectOfParentObject(fCDA, dataSet);					
 				}
 			}
 		}
@@ -263,9 +260,9 @@ namespace OpenSCL
 							fCDA.daName = daNameParent+"."+dOType.DA[d].name;
 							if(this.tLDevice!=null)
 							{
-								this.objectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
+								ObjectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
 							}
-							this.objectManagement.AddObjectToArrayObjectOfParentObject(fCDA, dataSet);
+							ObjectManagement.AddObjectToArrayObjectOfParentObject(fCDA, dataSet);
 							this.InsertDaNameParent(dataTypeTemplates, ref e, doName, daNameParent+"."+dOType.DA[d].name);
 							break;
 						}
@@ -282,9 +279,9 @@ namespace OpenSCL
 					fCDA.daName = daNameParent+"."+dOType.DA[d].name;
 					if(this.tLDevice!=null)
 					{
-						this.objectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
+						ObjectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
 					}
-					this.objectManagement.AddObjectToArrayObjectOfParentObject(fCDA, dataSet);					
+					ObjectManagement.AddObjectToArrayObjectOfParentObject(fCDA, dataSet);					
 				}
 			}
 		}
@@ -330,9 +327,9 @@ namespace OpenSCL
 							fCDA.daName = daNameParent+"."+dataTypeTemplates.DAType[indexTemp].BDA[index2].name;
 							if(this.tLDevice!=null)
 							{
-								this.objectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
+								ObjectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
 							}
-							this.objectManagement.AddObjectToArrayObjectOfParentObject(fCDA, dataSet);							
+							ObjectManagement.AddObjectToArrayObjectOfParentObject(fCDA, dataSet);							
 							this.InsertDaNameParent(dataTypeTemplates, ref i, doName, daNameParent+"."+dataTypeTemplates.DAType[indexTemp].BDA[index2].name);
 							break;
 						}
@@ -350,9 +347,9 @@ namespace OpenSCL
 					fCDA.daName = daNameParent+"."+dataTypeTemplates.DAType[indexTemp].BDA[index2].name;
 					if(this.tLDevice!=null)
 					{
-						this.objectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
+						ObjectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
 					}
-					this.objectManagement.AddObjectToArrayObjectOfParentObject(fCDA, dataSet);
+					ObjectManagement.AddObjectToArrayObjectOfParentObject(fCDA, dataSet);
 				}
 			}
 		}

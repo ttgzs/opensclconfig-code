@@ -62,8 +62,7 @@ namespace OpenSCL
 	{
 		// An Errors List that occurs when a serialization or deserialization is 
 		// executed.
-		List<ErrorsManagement> ListErrors;
-		private ObjectManagement objectManagement;
+		List<ErrorsManagement> ListErrors;		
 		private SCL configuration;
 		private string filename;
 		
@@ -243,14 +242,12 @@ namespace OpenSCL
 		
 		public Object()
 		{
-			this.ListErrors = new List<ErrorsManagement>();
-			this.objectManagement = new ObjectManagement();
+			this.ListErrors = new List<ErrorsManagement>();			
 		}
 		
 		public Object(string filepath)
 		{
-			this.ListErrors = new List<ErrorsManagement>();
-			this.objectManagement = new ObjectManagement();
+			this.ListErrors = new List<ErrorsManagement>();			
 			this.filename = filepath;
 			this.Deserialize (filepath);
 		}
@@ -348,15 +345,15 @@ namespace OpenSCL
 						return null;
 					}
 				}
-				this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.IED, objectSCLProject);						
+				ObjectManagement.AddArrayObjectToParentObject(objectIEDToImport.IED, objectSCLProject);						
 			}				
 			if(objectSCLToImport.Communication!=null)
 			{
 				if(objectSCLProject.Communication !=null)
 				{
-					this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.AnyAttr, objectSCLProject.Communication);
-					this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.Any, objectSCLProject.Communication);
-					this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.Private, objectSCLProject.Communication);					
+					ObjectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.AnyAttr, objectSCLProject.Communication);
+					ObjectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.Any, objectSCLProject.Communication);
+					ObjectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.Private, objectSCLProject.Communication);					
 					bool Subnetfound = false;
 					for(int i=0; i < objectSCLProject.Communication.SubNetwork.Length; i++)
 					{
@@ -364,14 +361,14 @@ namespace OpenSCL
 						{
 							if (objectSCLProject.Communication.SubNetwork[i].name == objectSCLToImport.Communication.SubNetwork[j].name)
 							{					
-								this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.SubNetwork[j].ConnectedAP, objectSCLProject.Communication.SubNetwork[i]);
+								ObjectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.SubNetwork[j].ConnectedAP, objectSCLProject.Communication.SubNetwork[i]);
 								Subnetfound = true;
 							}							
 						}
 					}	
 					if (!Subnetfound)
 					{						
-						this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.SubNetwork, objectSCLProject.Communication);						
+						ObjectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.SubNetwork, objectSCLProject.Communication);						
 					}
 				}	
 				else
@@ -1449,14 +1446,14 @@ namespace OpenSCL
 				{
 					if((arrayToImport[x] as tIDNaming).id.Equals((arraySCLProject[y] as tIDNaming).id))
 					{						
-						this.objectManagement.RemoveObjectOfArrayObjectOfParentObject(arrayToImport[x], i, ParentToImport);
+						ObjectManagement.RemoveObjectOfArrayObjectOfParentObject(arrayToImport[x], i, ParentToImport);
 						bandAddObject=false;						
 						break;
 					}
 				}
 				if(bandAddObject)
 				{
-					this.objectManagement.AddObjectToArrayObjectOfParentObject(arrayToImport[x], ParenSCLProyect);
+					ObjectManagement.AddObjectToArrayObjectOfParentObject(arrayToImport[x], ParenSCLProyect);
 					i++;					
 				}
 				bandAddObject=true;

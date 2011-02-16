@@ -29,16 +29,12 @@ namespace OpenSCL.UI
 	/// </summary>
 	public class TreeViewSCL
 	{				
-		TreeNode node;
-		ObjectManagement objectManagement;
+		TreeNode node;		
 		private TreeNode treeReferenced; 	
 		private Type typeNode;
 		private Type dataType;	 		
 		
-		public TreeViewSCL()
-		{
-			this.objectManagement = new ObjectManagement();			
-		}
+		public TreeViewSCL(){ }
 		
 		/// <summary>
 		/// This method creates a graphical component called "tree" 
@@ -280,7 +276,7 @@ namespace OpenSCL.UI
 				objectParent = nodePossibleRemove.Parent.Parent.Tag;
 				objectToRemove = nodePossibleRemove.Tag;
 				int indexOfObject = nodePossibleRemove.Parent.Nodes.IndexOf(nodePossibleRemove);
-				if(objectParent!=null && this.objectManagement.RemoveObjectOfArrayObjectOfParentObject(objectToRemove, indexOfObject, objectParent))					
+				if(objectParent!=null && ObjectManagement.RemoveObjectOfArrayObjectOfParentObject(objectToRemove, indexOfObject, objectParent))					
 				{						
 					nodePossibleRemove = nodePossibleRemove.Parent;
 					nodePossibleRemove.Nodes.RemoveAt(indexOfObject);											
@@ -300,7 +296,7 @@ namespace OpenSCL.UI
 			{
 				objectParent = nodePossibleRemove.Parent.Tag;
 				objectToRemove = nodePossibleRemove.Tag;
-				if(this.objectManagement.DeleteSCLObject(objectToRemove, objectParent))
+				if(ObjectManagement.DeleteSCLObject(objectToRemove, objectParent))
 				{
 					nodePossibleRemove.Tag = null;
 					nodePossibleRemove.Parent.Nodes.Remove(nodePossibleRemove);											
@@ -331,10 +327,10 @@ namespace OpenSCL.UI
 			if(nodePossibleInsert.Tag.GetType().IsArray)
 			{				
 				objectParent = nodePossibleInsert.Parent.Tag;
-				objectToInsert = this.objectManagement.CreateObject(typePropertyPossibleInsert);
+				objectToInsert = ObjectManagement.CreateObject(typePropertyPossibleInsert);
 				string attributeName = nodePossibleInsert.Text;		
 								
-				if(!objectManagement.AddItemToArray(objectToInsert, attributeName, objectParent))
+				if(!ObjectManagement.AddItemToArray(objectToInsert, attributeName, objectParent))
    				{
 					MessageBox.Show(objectToInsert.GetType().Name+" is not saved");
    				}
@@ -349,7 +345,7 @@ namespace OpenSCL.UI
 			else
 			{
 				objectParent = nodePossibleInsert.Tag;
-				objectToInsert = this.objectManagement.FindVariable(objectParent, namePropertyPossibleInsert);				
+				objectToInsert = ObjectManagement.FindVariable(objectParent, namePropertyPossibleInsert);				
 				MemberInfo[] objectToInsertInfo = objectParent.GetType().FindMembers(
    							MemberTypes.Property, 
    							BindingFlags.Public | 
@@ -359,8 +355,8 @@ namespace OpenSCL.UI
 				{
 					string nameObjectToInsert = (objectToInsertInfo[0] as PropertyInfo).PropertyType.Name;						
 					nameObjectToInsert = nameObjectToInsert.Substring(0,typePropertyPossibleInsert.IndexOf('['));
-					objectToInsert = this.objectManagement.CreateObject(nameObjectToInsert);
-					if(!objectManagement.AddItemToArray(objectToInsert, namePropertyPossibleInsert, objectParent))
+					objectToInsert = ObjectManagement.CreateObject(nameObjectToInsert);
+					if(!ObjectManagement.AddItemToArray(objectToInsert, namePropertyPossibleInsert, objectParent))
 					{
 						MessageBox.Show(objectParent.GetType().Name+" is not saved");   						
    					}
@@ -382,8 +378,8 @@ namespace OpenSCL.UI
 				else
 				{
 					//Object that will be added and it is not an array type.
-					objectToInsert = this.objectManagement.CreateObject(typePropertyPossibleInsert);
-					if(!objectManagement.AddObjectToSCLObject(objectToInsert, namePropertyPossibleInsert, objectParent))
+					objectToInsert = ObjectManagement.CreateObject(typePropertyPossibleInsert);
+					if(!ObjectManagement.AddObjectToSCLObject(objectToInsert, namePropertyPossibleInsert, objectParent))
 					{
 						MessageBox.Show(objectParent.GetType().Name+" is not saved");   						
 					} 
@@ -506,8 +502,8 @@ namespace OpenSCL.UI
 				}				
 				if(treeAux.Tag != null &&  typeNode.Name== "tConnectedAP")
 				{
-					if((this.objectManagement.FindVariable(treeAux.Tag, "apName").ToString() == apName) && 
-					   (this.objectManagement.FindVariable(treeAux.Tag, "iedName").ToString() == iedName))
+					if((ObjectManagement.FindVariable(treeAux.Tag, "apName").ToString() == apName) && 
+					   (ObjectManagement.FindVariable(treeAux.Tag, "iedName").ToString() == iedName))
 					{
 						treeReferenced = treeAux;						
 					}	
@@ -532,7 +528,7 @@ namespace OpenSCL.UI
 		/// </param>	
 		public void GetNodesItemOfArray(Array valuesArray, Type parentType, TreeNode treeSCL)
 		{
-			PropertyInfo attributeInformation = this.objectManagement.GetProperty((valuesArray as Array).GetValue(0).GetType(), parentType);
+			PropertyInfo attributeInformation = ObjectManagement.GetProperty((valuesArray as Array).GetValue(0).GetType(), parentType);
 			bool band1 = true, band2 = true;
 			if(treeSCL.Nodes!=null)
 			{
@@ -575,14 +571,14 @@ namespace OpenSCL.UI
 		{
 			if((sCLObject is tNaming) || (sCLObject is tUnNaming))
 			{
-                object foundVariable = this.objectManagement.FindVariable(sCLObject, "name");
+                object foundVariable = ObjectManagement.FindVariable(sCLObject, "name");
 
 				if(foundVariable!=null && foundVariable.ToString()!="null")
 				{
 					textPossible = foundVariable.ToString();
 				}
 
-                foundVariable = this.objectManagement.FindVariable(sCLObject, "cbName");
+                foundVariable = ObjectManagement.FindVariable(sCLObject, "cbName");
 
 				if(foundVariable!=null && foundVariable.ToString()!="null")
 				{
@@ -590,12 +586,12 @@ namespace OpenSCL.UI
 				}
 			}
 
-            object foundInst = this.objectManagement.FindVariable(sCLObject, "inst");
-            object foundLnClass = this.objectManagement.FindVariable(sCLObject, "lnClass");
+            object foundInst = ObjectManagement.FindVariable(sCLObject, "inst");
+            object foundLnClass = ObjectManagement.FindVariable(sCLObject, "lnClass");
 
 			if(sCLObject is tLN && foundLnClass!= null && foundInst.ToString()!= "null")
 			{
-                textPossible = this.objectManagement.FindVariable(sCLObject, "prefix").ToString() + foundLnClass.ToString() + foundInst.ToString();
+                textPossible = ObjectManagement.FindVariable(sCLObject, "prefix").ToString() + foundLnClass.ToString() + foundInst.ToString();
 			}
 			if(sCLObject is tLDevice && foundInst!= null  && foundInst.ToString()!="null")
 			{
@@ -603,7 +599,7 @@ namespace OpenSCL.UI
 			}
 			if(sCLObject is tIDNaming)
 			{	
-				textPossible = this.objectManagement.FindVariable(sCLObject, "id").ToString();				
+				textPossible = ObjectManagement.FindVariable(sCLObject, "id").ToString();				
 			}
 			return textPossible;
 		}
@@ -668,8 +664,8 @@ namespace OpenSCL.UI
 				}				
 				if(t2.Tag != null &&  dataType.Name== "tConnectedAP")
 				{	
-					if((this.objectManagement.FindVariable(t2.Tag, var1).ToString() == apName) && 
-					   (this.objectManagement.FindVariable(t2.Tag, var2).ToString() == iedName))
+					if((ObjectManagement.FindVariable(t2.Tag, var1).ToString() == apName) && 
+					   (ObjectManagement.FindVariable(t2.Tag, var2).ToString() == iedName))
 					{
 						this.treeReferenced = t2;
 						return this.treeReferenced;							
@@ -708,7 +704,7 @@ namespace OpenSCL.UI
 				}				
 				if(t2.Tag != null &&  dataType.Name == condition)
 				{
-					if(this.objectManagement.FindVariable(t2.Tag, varName_).ToString() == value_)
+					if(ObjectManagement.FindVariable(t2.Tag, varName_).ToString() == value_)
 					{
 						this.treeReferenced = t2;					
 					}										
@@ -732,7 +728,7 @@ namespace OpenSCL.UI
 			if(sCL.Communication == null)
 			{				
 				tCommunication communication = new tCommunication();
-				this.objectManagement.AddObjectToSCLObject(communication , sCL);
+				ObjectManagement.AddObjectToSCLObject(communication , sCL);
 				TreeNode nodeComm = new TreeNode();				
 				nodeComm.Name = "tCommunication";
 				nodeComm.Tag = sCL.Communication;
@@ -749,8 +745,8 @@ namespace OpenSCL.UI
 					treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes.Add(nodeSubNetwork);
 
 			tSubNetwork subnetwork = new tSubNetwork();					
-			this.objectManagement.AddObjectToArrayObjectOfParentObject(subnetwork, sCL.Communication);
-			this.objectManagement.AddObjectToSCLObject(sCL.Communication.SubNetwork, sCL);					
+			ObjectManagement.AddObjectToArrayObjectOfParentObject(subnetwork, sCL.Communication);
+			ObjectManagement.AddObjectToSCLObject(sCL.Communication.SubNetwork, sCL);					
 			TreeNode nodetSubNetwork = new TreeNode();			
 			nodetSubNetwork.Name = subnetwork.name; 
 			nodetSubNetwork.Text = "tSubNetwork";
@@ -782,7 +778,7 @@ namespace OpenSCL.UI
 			tConnectedAP tConnected = new tConnectedAP();
 			tConnected.apName = apName;
 			tConnected.iedName = iedName;	
-			this.objectManagement.AddObjectToArrayObjectOfParentObject(tConnected,sCL.Communication.SubNetwork[posSubnet]);
+			ObjectManagement.AddObjectToArrayObjectOfParentObject(tConnected,sCL.Communication.SubNetwork[posSubnet]);
 			TreeNode nodeComm = new TreeNode();			
 			nodeComm.Name = "tConnectedAP[]";
 			nodeComm.Tag = sCL.Communication.SubNetwork[posSubnet].ConnectedAP;
@@ -816,7 +812,7 @@ namespace OpenSCL.UI
 				nodeToRemove = tr.SeekAssociation(treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[i].Nodes, nameOfObject ,"cbName", condition);				
 				if(nodeToRemove!=null && nodeToRemove.Parent!= null)
 				{ 
-					if(nameOfObject == objectManagement.FindVariable(nodeToRemove.Tag, "cbName").ToString())
+					if(nameOfObject == ObjectManagement.FindVariable(nodeToRemove.Tag, "cbName").ToString())
 					{
 						tr.Remove(nodeToRemove);
 					}	
@@ -837,7 +833,7 @@ namespace OpenSCL.UI
 			aL = getDataset(treeSCL);
 			for(int i=0; i<aL.Count ; i++)
 			{
-				if(this.objectManagement.FindVariable(objDat, "datSet").ToString() == aL[i].ToString())
+				if(ObjectManagement.FindVariable(objDat, "datSet").ToString() == aL[i].ToString())
 				{
 					return i;
 				}

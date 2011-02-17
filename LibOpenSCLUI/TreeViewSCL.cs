@@ -496,18 +496,11 @@ namespace OpenSCL.UI
 		{
 			foreach(TreeNode treeAux in tree2)
 			{
-				if(treeAux.Tag != null)
-				{					
-					 typeNode = treeAux.Tag.GetType();	
-				}				
-				if(treeAux.Tag != null &&  typeNode.Name== "tConnectedAP")
-				{
-					if((ObjectManagement.FindVariable(treeAux.Tag, "apName").ToString() == apName) && 
-					   (ObjectManagement.FindVariable(treeAux.Tag, "iedName").ToString() == iedName))
-					{
-						treeReferenced = treeAux;						
-					}	
-				}				
+				if (treeAux.Tag != null) {
+					tConnectedAP ap = (tConnectedAP) treeAux.Tag;
+					if (ap.apName.Equals(apName) && ap.iedName.Equals(iedName))
+						treeReferenced = treeAux;
+				}
 				SeekAssociation(treeAux.Nodes, apName, iedName);
 			}			
 			return treeReferenced;	
@@ -571,35 +564,31 @@ namespace OpenSCL.UI
 		{
 			if((sCLObject is tNaming) || (sCLObject is tUnNaming))
 			{
-                object foundVariable = ObjectManagement.FindVariable(sCLObject, "name");
-
-				if(foundVariable!=null && foundVariable.ToString()!="null")
-				{
-					textPossible = foundVariable.ToString();
-				}
-
-                foundVariable = ObjectManagement.FindVariable(sCLObject, "cbName");
-
-				if(foundVariable!=null && foundVariable.ToString()!="null")
-				{
-					textPossible = foundVariable.ToString();
-				}
+                tNaming obj = (tNaming) sCLObject;
+				textPossible = obj.name;				
+			}
+			if (sCLObject is tControlBlock) {
+				tControlBlock cb = (tControlBlock) sCLObject;
+				textPossible = cb.cbName;
 			}
 
+			if (sCLObject is tLN) {
+				tLN ln = (tLN) sCLObject;
+				textPossible = ln.prefix + ln.lnClass + ln.inst;
+			}
             object foundInst = ObjectManagement.FindVariable(sCLObject, "inst");
             object foundLnClass = ObjectManagement.FindVariable(sCLObject, "lnClass");
 
-			if(sCLObject is tLN && foundLnClass!= null && foundInst.ToString()!= "null")
+			
+			if(sCLObject is tLDevice)
 			{
-                textPossible = ObjectManagement.FindVariable(sCLObject, "prefix").ToString() + foundLnClass.ToString() + foundInst.ToString();
-			}
-			if(sCLObject is tLDevice && foundInst!= null  && foundInst.ToString()!="null")
-			{
-				textPossible = foundInst.ToString();
+				textPossible = ((tLDevice)sCLObject).inst;
+				if (textPossible == null)
+					textPossible = "NoInstanceLogicalDevice";
 			}
 			if(sCLObject is tIDNaming)
 			{	
-				textPossible = ObjectManagement.FindVariable(sCLObject, "id").ToString();				
+				textPossible = ( (tIDNaming) sCLObject).id;
 			}
 			return textPossible;
 		}

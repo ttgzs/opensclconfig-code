@@ -562,7 +562,7 @@ namespace OpenSCL.UI
 		/// </returns>
 		public string GetName(object sCLObject, string textPossible)
 		{
-			if((sCLObject is tNaming) || (sCLObject is tUnNaming))
+			if((sCLObject is tNaming))
 			{
                 tNaming obj = (tNaming) sCLObject;
 				textPossible = obj.name;				

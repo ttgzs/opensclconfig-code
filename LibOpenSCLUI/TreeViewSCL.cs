@@ -500,7 +500,7 @@ namespace OpenSCL.UI
 		{
 			foreach(TreeNode treeAux in tree2)
 			{
-			    if (treeAux.Tag != null) {
+			    if (treeAux.Tag != null && treeAux.Tag is tConnectedAP) {
 					tConnectedAP ap = (tConnectedAP) treeAux.Tag;
 					if (ap.apName.Equals(apName) && ap.iedName.Equals(iedName))
 						treeReferenced = treeAux;

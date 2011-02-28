@@ -77,17 +77,21 @@ namespace IEC61850.SCL
 				return 0;
 			}
 			// Search for existing subnetwork
-			for (int i = 0; i < this.subNetworkField.GetLength(0); i++) {
+			for (int i = 0; i < this.subNetworkField.Length; i++) {
 				if (name.Equals(this.subNetworkField[i].name)) {
 					return -1;
 				}
 			}
 			// Add to Array
+			return AddSubNetwork(sn);
+		}
+		
+		public int AddSubNetwork (tSubNetwork sn) {
 			int index = -1;
 			System.Array.Resize<tSubNetwork>(ref this.subNetworkField,
-			                                 this.subNetworkField.GetLength(0) + 1);
+			                                 this.subNetworkField.Length + 1);
 			
-			index = this.subNetworkField.GetLength(0);
+			index = this.subNetworkField.Length - 1;
 			this.subNetworkField[index] = sn;
 			return index;
 		}

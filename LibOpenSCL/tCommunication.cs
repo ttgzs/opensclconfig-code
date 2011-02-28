@@ -88,10 +88,16 @@ namespace IEC61850.SCL
 		
 		public int AddSubNetwork (tSubNetwork sn) {
 			int index = -1;
-			System.Array.Resize<tSubNetwork>(ref this.subNetworkField,
-			                                 this.subNetworkField.Length + 1);
-			
-			index = this.subNetworkField.Length - 1;
+			if (this.subNetworkField != null) {
+				System.Array.Resize<tSubNetwork>(ref this.subNetworkField,
+				                                 this.subNetworkField.Length + 1);
+				
+				index = this.subNetworkField.Length - 1;
+			}
+			else {
+				this.subNetworkField = new tSubNetwork[1];
+				index = 0;
+			}
 			this.subNetworkField[index] = sn;
 			return index;
 		}

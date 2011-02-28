@@ -129,6 +129,22 @@ namespace IEC61850.SCL
 				this.lnTypeField = value;
 			}
 		}
+		
+		public int AddDataSet (tDataSet ds) {
+			int index = -1;
+			if (this.dataSetField != null) {
+				System.Array.Resize<tDataSet>(ref this.dataSetField,
+				                                 this.dataSetField.Length + 1);
+				
+				index = this.dataSetField.Length - 1;
+			}
+			else {
+				this.dataSetField = new tDataSet[1];
+				index = 0;
+			}
+			this.dataSetField[index] = ds;
+			return index;
+		}
 	}
 
 }

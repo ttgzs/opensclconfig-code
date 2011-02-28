@@ -57,6 +57,23 @@ namespace IEC61850.SCL
 				this.fCDAField = value;
 			}
 		}
+		
+		public int AddFCDA (tFCDA fcda) {
+			int index = -1;
+			if (this.fCDAField != null) {
+				System.Array.Resize<tFCDA>(ref this.fCDAField,
+				                                 this.fCDAField.Length + 1);
+				
+				index = this.fCDAField.Length - 1;
+			}
+			else {
+				this.fCDAField = new tFCDA[1];
+				index = 0;
+			}
+			
+			this.fCDAField[index] = fcda;
+			return index;
+		}
 	}
 
 }

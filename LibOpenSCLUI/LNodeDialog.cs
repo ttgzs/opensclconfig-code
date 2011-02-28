@@ -31,7 +31,8 @@ namespace OpenSCL.UI
 		private SCL scl;
 		private object nodeSCL;
 		private tLNode LNodeSCL;
-		private TreeViewSCL treeViewSCL;		
+		private TreeViewSCL treeViewSCL;
+		private ObjectManagement objectManagement = new ObjectManagement();
 		
 		public LNodeDialog()
 		{
@@ -114,7 +115,7 @@ namespace OpenSCL.UI
 					this.LNodeSCL = new tLNode();
 				}	
 				this.LNodeSCL = LNodes[this.comboBoxtLNode.SelectedIndex];
-				ObjectManagement.AddObjectToArrayObjectOfParentObject(this.LNodeSCL, lN);
+				this.objectManagement.AddObjectToArrayObjectOfParentObject(this.LNodeSCL, lN);
 				treeViewSCL.GetNodesItemOfArray((lN as tSubstation).LNode, lN.GetType(), this.treeViewSCL.SearchUPForTypeAndGetSCLTreeNode(this.treeSCL.TreeView.SelectedNode, typeof(tSubstation)));
 			}
 			this.Close();

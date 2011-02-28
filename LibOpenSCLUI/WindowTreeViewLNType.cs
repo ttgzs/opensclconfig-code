@@ -34,7 +34,8 @@ namespace OpenSCL.UI
 		private object lN;	
 		private bool bandModify;		
 		private OpenSCL.Object scl = new OpenSCL.Object();
-		private TreeNode nodeSelected;		
+		private TreeNode nodeSelected;
+		private ObjectManagement objectManagement;
 		
 		/// <summary>
 		/// This method inicializes the values.
@@ -63,7 +64,8 @@ namespace OpenSCL.UI
 			this.treeViewLNType = new TreeViewLNType(this.treeNodeLN, this.scl.Configuration);			
 			this.treeLN.Nodes.Add(treeViewLNType.GetTreeNodeTypesLNs(this.lN));
 			this.treeLN.Nodes[0].Expand();
-			this.bandModify = false;			
+			this.bandModify = false;
+			this.objectManagement =new ObjectManagement();
 		}		
 		
 		/// <summary>
@@ -314,8 +316,8 @@ namespace OpenSCL.UI
 		{
 			if(this.nodeSelected.Parent.Parent.Nodes[nameDAToAdd]==null)
 			{
-				object objectDA = ObjectManagement.FindVariable(this.nodeSelected.Parent.Parent.Tag, nameDAToAdd);
-				ObjectManagement.FindVariableAndSetValue(objectDA,"Visible", true);
+				object objectDA = this.objectManagement.FindVariable(this.nodeSelected.Parent.Parent.Tag, nameDAToAdd);
+				this.objectManagement.FindVariableAndSetValue(objectDA,"Visible", true);
 				PropertyInfo property = this.nodeSelected.Parent.Parent.Tag.GetType().GetProperty(nameDAToAdd);
 				this.treeViewLNType.AddNodesOfArray(property, objectDA, this.nodeSelected.Parent.Parent);
 			}

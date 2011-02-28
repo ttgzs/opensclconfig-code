@@ -30,7 +30,8 @@ namespace OpenSCL.UI
 	{
 		private TreeNode treeSCL;
 		private SCL scl;
-		private tDataSet dataSetSCL;		
+		private tDataSet dataSetSCL;
+		private ObjectManagement objectManagement;
 		private TreeViewSCL treeViewSCL;
 		private TreeNode node;
 		private object anyLN;
@@ -38,7 +39,8 @@ namespace OpenSCL.UI
 		
 		public DataSetDialog()
 		{			
-			this.treeViewSCL = new TreeViewSCL();			
+			this.treeViewSCL = new TreeViewSCL();
+			this.objectManagement = new ObjectManagement();			
 			this.bandModify = false;
 			InitializeComponent();	
 		}		
@@ -201,7 +203,7 @@ namespace OpenSCL.UI
 				}
 				for(int x = 0, y = 0; dataSetSCLSource != null && dataSetSCLSource.FCDA != null && x < dataSetSCLSource.FCDA.Length; x++)
 				{				
-					if(dataSetSCLDestiny != null&& dataSetSCLDestiny.FCDA != null && y < dataSetSCLDestiny.FCDA.Length && ObjectManagement.Compare(dataSetSCLSource.FCDA[x],dataSetSCLDestiny.FCDA[y]))
+					if(dataSetSCLDestiny != null&& dataSetSCLDestiny.FCDA != null && y < dataSetSCLDestiny.FCDA.Length && this.objectManagement.Compare(dataSetSCLSource.FCDA[x],dataSetSCLDestiny.FCDA[y]))
 					{
 						this.DestinyDataSetListBox.Items.Add(new FCDAListBox(dataSetSCLDestiny.FCDA[y], (this.anyLN as tAnyLN).lnType));						
 						y++;
@@ -218,7 +220,7 @@ namespace OpenSCL.UI
 				dataSetSCLSource = dataSet.GetLNFCDAs(null, this.anyLN as tLN, this.scl.DataTypeTemplates);
 				for(int x = 0, y = 0; dataSetSCLSource != null && dataSetSCLSource.FCDA != null && x < dataSetSCLSource.FCDA.Length; x++)
 				{				
-					if(dataSetSCLDestiny != null&& dataSetSCLDestiny.FCDA != null && y < dataSetSCLDestiny.FCDA.Length && ObjectManagement.Compare(dataSetSCLSource.FCDA[x],dataSetSCLDestiny.FCDA[y]))
+					if(dataSetSCLDestiny != null&& dataSetSCLDestiny.FCDA != null && y < dataSetSCLDestiny.FCDA.Length && this.objectManagement.Compare(dataSetSCLSource.FCDA[x],dataSetSCLDestiny.FCDA[y]))
 					{
 						this.DestinyDataSetListBox.Items.Add(new FCDAListBox(dataSetSCLDestiny.FCDA[y], (this.anyLN as tAnyLN).lnType));						
 						y++;
@@ -302,7 +304,7 @@ namespace OpenSCL.UI
 				this.dataSetSCL.FCDA = fCDAs;
 				this.dataSetSCL.name = this.NameTextBox.Text;
 				this.dataSetSCL.desc = this.DescTextBox.Text;
-				ObjectManagement.AddObjectToArrayObjectOfParentObject(this.dataSetSCL, lN);
+				this.objectManagement.AddObjectToArrayObjectOfParentObject(this.dataSetSCL, lN);
 				treeViewSCL.GetNodesItemOfArray((lN as tAnyLN).DataSet, lN.GetType(), this.treeSCL.TreeView.SelectedNode);				
 				if(this.bandModify)
 				{

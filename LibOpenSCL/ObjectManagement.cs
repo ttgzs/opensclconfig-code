@@ -26,12 +26,18 @@ namespace OpenSCL
 	/// <summary>
 	/// 
 	/// </summary>
-	public static class ObjectManagement
+	public class ObjectManagement
 	{		
+		/// <summary>
+		/// 
+		/// </summary>
+		public ObjectManagement()
+		{
 			
+		}	
 		
 		/// <summary>
-		/// This method adds a valid object to an array, both of them have to be of the same type. The array 
+		/// This method adds a valid object to an array, both of them has to be of the same type. The array 
 		/// should be a variable of a parent object.		
 		/// </summary>
 		/// <param name="itemObject">
@@ -48,14 +54,14 @@ namespace OpenSCL
 		/// To know if the object is valid, the object should be validated previously to verify if it 
 		/// is according to the IEC 61850 Ed.1.0. 
 		/// </remarks>
-   		public static bool AddObjectToArrayObjectOfParentObject(object itemObject, object parentObject)
+   		public bool AddObjectToArrayObjectOfParentObject(object itemObject, object parentObject)
 		{   			
    			if(itemObject!=null)
    			{
-   				string attributeName = GetNameAttributeArray(itemObject.GetType(), parentObject.GetType());
+   				string attributeName = this.GetNameAttributeArray(itemObject.GetType(), parentObject.GetType());
    				if(!attributeName.Equals(""))
    				{
-	   			   	return AddItemToArray(itemObject, attributeName, parentObject);   			
+	   			   	return this.AddItemToArray(itemObject, attributeName, parentObject);   			
    				}
    			}   			
    			return false;
@@ -78,7 +84,7 @@ namespace OpenSCL
 		/// <remarks>
 		/// This method should be used when the typeAttributeRequired is not an array type.
 		/// </remarks>
-        public static string GetNameAttributeArray(Type typeAttributeRequired, Type typeParentObject)
+   		public string GetNameAttributeArray(Type typeAttributeRequired, Type typeParentObject)
    		{   			
    			PropertyInfo[] attributesInformation = typeParentObject.GetProperties();      			
 			foreach (PropertyInfo attributeInformation in attributesInformation) 
@@ -107,7 +113,7 @@ namespace OpenSCL
 		/// If the valid object was added correctly, it returns a "True" value, otherwise a "False" value 
 		/// is returned.
 		/// </returns>		
-        public static bool AddItemToArray(object itemObject, string nameArrayObject, object parentObject)
+   		public bool AddItemToArray(object itemObject, string nameArrayObject, object parentObject)
    		{
    			Array array  = parentObject.GetType().InvokeMember(nameArrayObject, BindingFlags.Instance | BindingFlags.Public |
               BindingFlags.GetProperty | BindingFlags.GetField, null, parentObject, null) as Array;//   			
@@ -152,16 +158,16 @@ namespace OpenSCL
 		/// If the valid object was deleted correctly, it returns a "True" value, otherwise a "False" value 
 		/// is returned.
 		/// </returns>		
-        public static bool RemoveObjectOfArrayObjectOfParentObject(object itemObject, int indexObject, object parentObject)
+   		public bool RemoveObjectOfArrayObjectOfParentObject(object itemObject, int indexObject, object parentObject)
 		{ 					
    			if(itemObject==null)   				
    			{
    				return false;
    			}
-   			string attributeArrayName = GetNameAttributeArray(itemObject.GetType(), parentObject.GetType());   			
+   			string attributeArrayName = this.GetNameAttributeArray(itemObject.GetType(), parentObject.GetType());   			
    			if(!attributeArrayName.Equals(""))
    			{
-   				return RemoveItemOfArray(indexObject, attributeArrayName, parentObject);
+   				return this.RemoveItemOfArray(indexObject, attributeArrayName, parentObject);
    			}
    			return false;		
    		}
@@ -180,9 +186,9 @@ namespace OpenSCL
    		/// If the valid object was deleted correctly, it returns a "True" value, otherwise 
 		/// a "False" value is returned.
 		/// </returns>		
-        public static bool DeleteSCLObject(object objectToDelete, object parentObject)
+   		public bool DeleteSCLObject(object objectToDelete, object parentObject)
    		{
-   			string attributeName = GetNameAttribute(objectToDelete, parentObject);
+   			string attributeName = this.GetNameAttribute(objectToDelete, parentObject);
    			if(!attributeName.Equals(""))
    			{   				
    			   	parentObject.GetType().InvokeMember(attributeName, BindingFlags.Instance | BindingFlags.Public | 
@@ -208,7 +214,7 @@ namespace OpenSCL
 		/// <remarks>
 		/// This method is used when a type "attributeRequired" is the same of the variable's parent object. 
 		/// </remarks>
-        private static string GetNameAttribute(object attributeRequired, object parentObject)
+   		private string GetNameAttribute(object attributeRequired, object parentObject)
    		{   			
    			PropertyInfo[] attributesInformation = parentObject.GetType().GetProperties();   			
 			foreach (PropertyInfo attributeInformation in attributesInformation) 
@@ -237,7 +243,7 @@ namespace OpenSCL
 		/// If the valid object was deleted correctly from the object's array, it returns a "True" value, otherwise 
 		/// a "False" value is returned.
 		/// </returns>		
-        private static bool RemoveItemOfArray(int indexObject, string nameArrayObject, object parentObject)
+   		private bool RemoveItemOfArray(int indexObject, string nameArrayObject, object parentObject)
    		{
    			Array array = parentObject.GetType().InvokeMember(nameArrayObject,
    			 BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.GetField,
@@ -257,16 +263,15 @@ namespace OpenSCL
 			{
    				return false;   			
 			}
-			//Array newArray = Array.CreateInstance(array.GetValue(0).GetType(), arrayList.Count);			
-            //arrayList.ToArray();
-			arrayList.CopyTo(array);			
-			if(array.Length==0)
+			Array newArray = Array.CreateInstance(array.GetValue(0).GetType(), arrayList.Count);			
+			arrayList.CopyTo(newArray);			
+			if(newArray.Length==0)
 			{
-				array = null;		
+				newArray = null;		
 			}
 			parentObject.GetType().InvokeMember(nameArrayObject,
    			  BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.SetField,
-   			     null, parentObject, new object[1] { array });			
+   			     null, parentObject, new object[1] { newArray });			
    			return true;
    		}
    		
@@ -285,9 +290,10 @@ namespace OpenSCL
    		/// If the valid object was added correctly, it returns a "True" value, otherwise 
 		/// a "False" value is returned.
 		/// </returns>		
-        public static bool AddObjectToSCLObject(object objectToAdd, object parentObject)
+   		public bool AddObjectToSCLObject(object objectToAdd, object parentObject)
    		{
-            return AddObjectToSCLObject(objectToAdd, GetNameAttribute(objectToAdd, parentObject), parentObject);
+   			string attributeName = this.GetNameAttribute(objectToAdd, parentObject);
+   			return this.AddObjectToSCLObject(objectToAdd, attributeName, parentObject);
    		}
 		
 		/// <summary>
@@ -306,7 +312,7 @@ namespace OpenSCL
    		/// If the valid object was added correctly, it returns a "True" value, otherwise 
 		/// a "False" value is returned.
 		/// </returns>		
-        public static bool AddObjectToSCLObject(object objectToAdd, string attributeName, object parentObject)
+   		public bool AddObjectToSCLObject(object objectToAdd, string attributeName, object parentObject)
    		{   			
    			if(!attributeName.Equals(""))
    			{   				
@@ -330,7 +336,7 @@ namespace OpenSCL
    		/// <returns>
    		/// If the class type is defined on the library then it returns the object, otherwise it a NULL value is returned.
    		/// </returns>
-        public static object CreateObject(string nameClassType, object parameter)
+   		public object CreateObject(string nameClassType, object parameter)
    		{     			   			
    			object[] parameters = new object[1];
             parameters[0] = parameter;
@@ -339,14 +345,14 @@ namespace OpenSCL
             	Type TypeClass = Type.GetType("IEC61850.SCL."+nameClassType);
             	if(TypeClass != null)
             	{            	
-	            	return CreateInstanceObject(TypeClass, parameters);
+	            	return this.CreateInstanceObject(TypeClass, parameters);
     	        }
         	    else
             	{
             		TypeClass = Type.GetType("IEC61850.SCL."+nameClassType);
             		if(TypeClass != null)
 	            	{            	
-    	        		return CreateInstanceObject(TypeClass, parameters);
+    	        		return this.CreateInstanceObject(TypeClass, parameters);
         	    	}		
             		else
             		{
@@ -370,21 +376,21 @@ namespace OpenSCL
    		/// <returns>
    		/// If the class type is defined on the library then it returns the object, otherwise it a NULL value is returned.
    		/// </returns>
-        public static object CreateObject(string nameClassType, params object[] parameters)
+   		public object CreateObject(string nameClassType, params object[] parameters)
    		{     			   			   			
             if(!string.IsNullOrEmpty(nameClassType))
             {
             	Type TypeClass = Type.GetType("IEC61850.SCL."+nameClassType);
             	if(TypeClass != null)
             	{            	
-	            	return CreateInstanceObject(TypeClass, parameters);
+	            	return this.CreateInstanceObject(TypeClass, parameters);
     	        }
         	    else
             	{
             		TypeClass = Type.GetType("OpenSCL."+nameClassType);
             		if(TypeClass != null)
 	            	{            	
-    	        		return CreateInstanceObject(TypeClass, parameters);
+    	        		return this.CreateInstanceObject(TypeClass, parameters);
         	    	}		
             		else
             		{
@@ -405,7 +411,7 @@ namespace OpenSCL
    		/// <returns>
    		/// If the class type is defined on the library then it returns the object, otherwise it a NULL value is returned.
    		/// </returns>
-        public static object CreateObject(string nameClassType)
+   		public object CreateObject(string nameClassType)
    		{     			   			   			
             if(!string.IsNullOrEmpty(nameClassType))
             {
@@ -443,7 +449,7 @@ namespace OpenSCL
    		/// <returns>
    		/// If the class type is defined on the library then it returns the object, otherwise it a NULL value is returned.
    		/// </returns>
-        private static object CreateInstanceObject(Type TypeClass, object[] parameters)
+   		private object CreateInstanceObject(Type TypeClass, object[] parameters)
    		{        
             object newClass = Activator.CreateInstance(TypeClass, parameters);
             if (newClass != null)
@@ -469,7 +475,7 @@ namespace OpenSCL
    		/// If the property exists on the object provided, then the property's value will be returned, otherwise a NULL value 
    		/// will be returned. If the property exist but his value is NULL, a value of -1 will be returned.
    		/// </returns>
-        public static object FindVariable(object objectToEval, string nameVariable)
+   		public object FindVariable(object objectToEval, string nameVariable)
    		{
    			MemberInfo[] nameOfVariablesToFind;			
 			nameOfVariablesToFind = objectToEval.GetType().FindMembers(
@@ -507,7 +513,7 @@ namespace OpenSCL
    		/// Common Data Classes (CDC) that are an int type but on the DataTypeTemplates are an Enum 
    		/// Type.
    		/// </remarks>		
-        public static void FindVariableAndSetValue(object objectToEval, string nameVariable, object valueVariable)
+   		public void FindVariableAndSetValue(object objectToEval, string nameVariable, object valueVariable)
    		{
    			MemberInfo[] nameOfVariablesToFind;			
 			nameOfVariablesToFind = objectToEval.GetType().FindMembers(
@@ -527,7 +533,7 @@ namespace OpenSCL
 				catch(Exception)
 				{
 					object newObject = Activator.CreateInstance(Type.GetType("IEC61850.SCL."+nameVariable));
-					EmptySourcetoDestinyObject(valueVariable, newObject);							
+					this.EmptySourcetoDestinyObject(valueVariable, newObject);							
 					objectToEval.GetType().InvokeMember(nameVariable, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic |
                  	BindingFlags.SetProperty | BindingFlags.SetField, null, objectToEval, new object [] {newObject});
 				}				
@@ -546,7 +552,7 @@ namespace OpenSCL
    		/// <param name="value">
    		/// Value used on the parameter step.
    		/// </param>
-        public static void SetValueMethod(object objectToEval, string nameMethod, object value)
+   		public void SetValueMethod(object objectToEval, string nameMethod, object value)
    		{
    			MemberInfo[] nameOfVariablesToFind;			
 			nameOfVariablesToFind = objectToEval.GetType().FindMembers(
@@ -574,9 +580,9 @@ namespace OpenSCL
 		/// <returns>
 		/// The information of the property choosen.
 		/// </returns>
-        public static PropertyInfo GetProperty(Type typeAttributeRequired, Type typeSCLObject)
+   		public PropertyInfo GetProperty(Type typeAttributeRequired, Type typeSCLObject)
    		{
-   			string propertyName = GetNameAttributeArray(typeAttributeRequired, typeSCLObject);
+   			string propertyName = this.GetNameAttributeArray(typeAttributeRequired, typeSCLObject);
    			if(!propertyName.Equals(""))
    			{
    			   	return typeSCLObject.GetProperty(propertyName);
@@ -601,11 +607,11 @@ namespace OpenSCL
    		/// If the array was added correctly, it returns a "True" value, otherwise a "False" value 
 		/// is returned.
 		/// </returns>
-        public static bool AddArrayObjectToParentObject(object[] arrayObject, object parentObject)
+   		public bool AddArrayObjectToParentObject(object[] arrayObject, object parentObject)
 		{   
    			if(arrayObject!=null && arrayObject[0]!=null)
    			{
-   				string nameArrayObject = GetNameAttributeArray(arrayObject[0].GetType(), parentObject.GetType());
+   				string nameArrayObject = this.GetNameAttributeArray(arrayObject[0].GetType(), parentObject.GetType());
    				if(!nameArrayObject.Equals(""))
    				{
    					Array array  = parentObject.GetType().InvokeMember(nameArrayObject, BindingFlags.Instance | BindingFlags.Public |   					                                                   
@@ -650,7 +656,7 @@ namespace OpenSCL
    		/// <returns>
    		/// 
    		/// </returns>
-        public static bool Compare(object A, object B)
+   		public bool Compare(object A, object B)
 		{
 			if(A.GetType()==B.GetType())
 			{
@@ -695,12 +701,12 @@ namespace OpenSCL
 		/// <remarks>
 		/// The object should be validated previously to verify if it is according to the IEC 61850 Ed.1.0.
 		/// </remarks>
-        public static bool ModifyObjectOfArrayObjectOfParentObject(object itemObject, int indexObject, object parentObject)
+   		public bool ModifyObjectOfArrayObjectOfParentObject(object itemObject, int indexObject, object parentObject)
    		{
-   			string attributeArrayName = GetNameAttributeArray(itemObject.GetType(), parentObject.GetType());
+   			string attributeArrayName = this.GetNameAttributeArray(itemObject.GetType(), parentObject.GetType());
    			if(!attributeArrayName.Equals(""))
    			{
-   				return ModifyItemOfArray(itemObject, indexObject, attributeArrayName, parentObject);
+   				return this.ModifyItemOfArray(itemObject, indexObject, attributeArrayName, parentObject);
    			}
    			return false;
    		}   		
@@ -724,7 +730,7 @@ namespace OpenSCL
 		/// If the valid object was modified correctly, it returns a "True" value, otherwise 
 		/// a "False" value is returned.
 		/// </returns>		
-        public static bool ModifyItemOfArray(object itemObject, int indexObject, string nameArrayObject, object parentObject)
+   		public bool ModifyItemOfArray(object itemObject, int indexObject, string nameArrayObject, object parentObject)
    		{
    			Array array = parentObject.GetType().InvokeMember(nameArrayObject,
    			 BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.GetField,
@@ -754,7 +760,7 @@ namespace OpenSCL
 		/// <param name="assignObject">
 		/// SCL object.
 		/// </param>
-        public static void EmptySourcetoDestinyObject(object sourceObject, object assignObject)			
+		public void EmptySourcetoDestinyObject(object sourceObject, object assignObject)			
 		{
 			PropertyInfo[] attributesInformation = sourceObject.GetType().GetProperties();        	        	        	        							
 			object[] valueObjectAttribute = new object[1];
@@ -787,7 +793,7 @@ namespace OpenSCL
 		/// <param name="assignObject">
 		/// Graphical Object that will contain the values of the SCL object.
 		/// </param>
-        public static void EmptyDestinytoSourceObject(object sourceObject, object assignObject)
+   		public void EmptyDestinytoSourceObject(object sourceObject, object assignObject)
 		{
 			PropertyInfo[] attributesInformation = assignObject.GetType().GetProperties();        	        	        	        							
 			object[] valueObjectAttribute = new object[1];
@@ -814,7 +820,7 @@ namespace OpenSCL
 		/// <param name="tpArray">tp array</param>
 		/// <param name="type">the type of tP</param>
 		/// <returns>the value of current tP otherwise return ""</returns>
-        public static string GetTpValue(tP[] tpArray, string type)
+		public string GetTpValue(tP[] tpArray, string type)
 		{
 			for(int i=0; i<tpArray.Length; i++)
 			{

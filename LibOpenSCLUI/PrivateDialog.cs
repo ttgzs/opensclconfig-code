@@ -31,13 +31,15 @@ namespace OpenSCL.UI
 		private tPrivate sCLPrivate;		
 		private Private privateObject;
 		private bool bandModifyElement = false;
-		private bool bandModifyAttribute = false;		
+		private bool bandModifyAttribute = false;
+		private ObjectManagement objectManagement;
 		int indexElementTemp;
 		
 		public PrivateDialog(tPrivate sCLPrivate)
 		{
 			// The InitializeComponent() call is required for Windows Forms designer support.
-			InitializeComponent();			
+			InitializeComponent();
+			this.objectManagement = new ObjectManagement();		
 			if(sCLPrivate.Any != null && sCLPrivate.Any.Length > 0)
 			{
 				this.elementsListBox.DataSource = sCLPrivate.Any;

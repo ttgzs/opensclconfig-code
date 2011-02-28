@@ -30,7 +30,8 @@ namespace OpenSCL.UI
 	/// </summary>
 	public class TreeViewLNType
 	{
-		private TreeNode node;		
+		private TreeNode node;
+		private ObjectManagement objectManagement;		
 		private object classDataType;
 		private TreeNode treeLNType;
 		private TreeNode treeSCL;
@@ -77,7 +78,8 @@ namespace OpenSCL.UI
 		public TreeViewLNType(TreeNode treeSCL, SCL sCLObject)		
 		{			
 			this.treeSCL = treeSCL;
-			this.sCL.Configuration = sCLObject;								
+			this.sCL.Configuration = sCLObject;					
+			this.objectManagement = new ObjectManagement();	
 			this.treeVSCL = new TreeViewSCL();			
 			this.bandAddLNToAP = false;
 			this.countSDI = 0;
@@ -127,11 +129,11 @@ namespace OpenSCL.UI
 		{
 			if(lN is tLN)
 			{
-				return ObjectManagement.CreateObject((lN as tLN).lnClass.ToString(),(lN as tLN).lnType, this.sCL.Configuration.IED[this.positionIED].type);
+				return this.objectManagement.CreateObject((lN as tLN).lnClass.ToString(),(lN as tLN).lnType, this.sCL.Configuration.IED[this.positionIED].type);
 			}
 			else if(lN is tLN0)
 			{
-				return ObjectManagement.CreateObject((lN as tLN0).lnClass.ToString(),(lN as tLN0).lnType, this.sCL.Configuration.IED[this.positionIED].type);
+				return this.objectManagement.CreateObject((lN as tLN0).lnClass.ToString(),(lN as tLN0).lnType, this.sCL.Configuration.IED[this.positionIED].type);
 			}
 			else
 			{
@@ -178,8 +180,8 @@ namespace OpenSCL.UI
 				     attributeInformation.PropertyType.BaseType.Equals(typeof(SDIDADataTypeBDA)) ||
 				     attributeInformation.PropertyType.BaseType.Equals(typeof(SDOSDIDOTypeDA)))))) 
 				{
-					valueAttributeObject = ObjectManagement.FindVariable(LNType,attributeInformation.Name);
-					this.valueCheck = (bool) ObjectManagement.FindVariable(valueAttributeObject,"Visible");
+					valueAttributeObject = this.objectManagement.FindVariable(LNType,attributeInformation.Name);
+					this.valueCheck = (bool) this.objectManagement.FindVariable(valueAttributeObject,"Visible");
 					if(this.valueCheck)
 					{
 						this.AddNodesOfArray(attributeInformation, valueAttributeObject, treeLNType);
@@ -187,7 +189,7 @@ namespace OpenSCL.UI
 				}
 				else if(attributeInformation.PropertyType.Equals(typeof(DOData)))
 				{
-					valueAttributeObject = ObjectManagement.FindVariable(LNType,attributeInformation.Name);
+					valueAttributeObject = this.objectManagement.FindVariable(LNType,attributeInformation.Name);
 				    this.GetNameNodes(valueAttributeObject, treeLNType);
 				}
 			}
@@ -216,7 +218,7 @@ namespace OpenSCL.UI
 				node.Checked=true;
 				node.ForeColor = Color.Blue;
 			}			
-			this.valueCheck = (bool) ObjectManagement.FindVariable(valueAttributeObject,"CheckSelection");
+			this.valueCheck = (bool) this.objectManagement.FindVariable(valueAttributeObject,"CheckSelection");
 			if(this.valueCheck)
 			{
 				node.Checked= true;
@@ -238,18 +240,18 @@ namespace OpenSCL.UI
 			}
 			else if(valueAttributeObject.GetType().BaseType.Equals(typeof(DADataType)))
 			{
-				classDataType = ObjectManagement.FindVariable(valueAttributeObject, "bType").ToString();
+				classDataType = this.objectManagement.FindVariable(valueAttributeObject, "bType").ToString();
 				node.Text = "DA : "+attributeInformation.Name+" ( type ="+ classDataType +" ) ";
 				treeSCL.Nodes.Add(node);							
 			}
 			else if(valueAttributeObject.GetType().BaseType.Equals(typeof(SDIDADataTypeBDA))||valueAttributeObject.GetType().Equals(typeof(SDIDADataTypeBDA)))
 			{
-				classDataType = ObjectManagement.FindVariable(valueAttributeObject, "bType").ToString();
+				classDataType = this.objectManagement.FindVariable(valueAttributeObject, "bType").ToString();
 				if(classDataType.ToString().Equals("Struct"))
 				{					
 					if(node.Name.Equals("SDIDADataTypeBDA"))
 					{
-						node.Text = "SDI : "+ObjectManagement.FindVariable(valueAttributeObject, "name").ToString()+" ( type ="+ classDataType +" ) ";
+						node.Text = "SDI : "+this.objectManagement.FindVariable(valueAttributeObject, "name").ToString()+" ( type ="+ classDataType +" ) ";
 					}
 					else
 					{
@@ -283,7 +285,7 @@ namespace OpenSCL.UI
 			if(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tDataTypeTemplates"]==null)
 			{				
 				tDataTypeTemplates dataTypeTemplates = new tDataTypeTemplates();
-				ObjectManagement.AddObjectToSCLObject(dataTypeTemplates, sCL.Configuration);							
+				this.objectManagement.AddObjectToSCLObject(dataTypeTemplates, sCL.Configuration);							
 				this.nodeDataType = new TreeNode();				
 				this.nodeDataType.Name = "tDataTypeTemplates";
 				this.nodeDataType.Tag = sCL.Configuration.DataTypeTemplates;
@@ -295,9 +297,9 @@ namespace OpenSCL.UI
 				this.nodeDataType = this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tDataTypeTemplates"];
 			}						
 			tLNodeType lNodeType = new tLNodeType();		
-			ObjectManagement.EmptyDestinytoSourceObject(this.treeLNType.Tag, lNodeType);	
+			this.objectManagement.EmptyDestinytoSourceObject(this.treeLNType.Tag, lNodeType);	
 			tLN lN = new tLN();		
-			ObjectManagement.EmptyDestinytoSourceObject(this.treeLNType.Tag,lN);			
+			this.objectManagement.EmptyDestinytoSourceObject(this.treeLNType.Tag,lN);			
 			if(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes[nodeDataType.Name].Nodes["tLNodeType[]"]==null)
 			{
 				this.nodeLNodeType = new TreeNode();
@@ -320,7 +322,7 @@ namespace OpenSCL.UI
 					for(int x = 0; x < this.dataSetsSource.Length; x++)
 					{
 						this.dataSetsDestiny[x] = new tDataSet();
-						ObjectManagement.EmptyDestinytoSourceObject(this.dataSetsSource[x],this.dataSetsDestiny[x]);
+						objectManagement.EmptyDestinytoSourceObject(this.dataSetsSource[x],this.dataSetsDestiny[x]);
 						this.dataSetsDestiny[x].FCDA = null;
 					}
 					this.InspectionNode(this.treeLNType);
@@ -328,7 +330,7 @@ namespace OpenSCL.UI
 					{
 						if(this.dataSetsDestiny[x].FCDA!=null && this.dataSetsDestiny[x].FCDA.Length > 0)
 						{
-							ObjectManagement.AddObjectToArrayObjectOfParentObject((lN as tAnyLN), this.dataSetsDestiny[x]);
+							this.objectManagement.AddObjectToArrayObjectOfParentObject((lN as tAnyLN), this.dataSetsDestiny[x]);
 						}
 					}
 					AutomataForValidateToTreeNode automataForValidateToTreeNode;
@@ -379,7 +381,7 @@ namespace OpenSCL.UI
 				}
 				else if(attributeInformation.PropertyType.Equals(typeof(SDIDADataTypeBDA)))
 				{
-					this.classDataType = ObjectManagement.FindVariable(treeLNType.Tag, "bType").ToString();
+					this.classDataType = this.objectManagement.FindVariable(treeLNType.Tag, "bType").ToString();
 					if(this.classDataType.ToString().Equals("Struct"))
 					{						
 						if(treeLNType.Nodes[attributeInformation.Name].Parent != null &&(!(treeLNType.Nodes[attributeInformation.Name].Parent.Tag is DOData))&&(attributeInformation.PropertyType.Equals(typeof(SDIDADataTypeBDA))))
@@ -394,7 +396,7 @@ namespace OpenSCL.UI
 				{
 					countBand++;
 					this.countBandRepeateSDIDADataTypeBDA = countBand;
-					treeLNType.Tag = ObjectManagement.FindVariable(treeLNType.Tag,attributeInformation.Name);				
+					treeLNType.Tag = this.objectManagement.FindVariable(treeLNType.Tag,attributeInformation.Name);				
 				    this.InspectionNode(treeLNType);
 				}
 			}			
@@ -418,8 +420,8 @@ namespace OpenSCL.UI
 				this.doName = (node.Tag as DOData).name;
 				this.CreateDataSet(node);
 				tDO dO = new tDO();
-				ObjectManagement.EmptyDestinytoSourceObject(node.Tag, dO);
-				ObjectManagement.AddObjectToArrayObjectOfParentObject(dO,
+				this.objectManagement.EmptyDestinytoSourceObject(node.Tag, dO);
+				this.objectManagement.AddObjectToArrayObjectOfParentObject(dO,
 				this.sCL.Configuration.DataTypeTemplates.LNodeType[sCL.Configuration.DataTypeTemplates.LNodeType.Length-1]);
 				if(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tDataTypeTemplates"].Nodes["tLNodeType[]"].Nodes[this.nodetLNodeType.Name].Nodes["tDO"+this.nodetLNodeType.Name]==null)
 				{
@@ -470,7 +472,7 @@ namespace OpenSCL.UI
 			}
 			else if(node.Tag is SDIDADataTypeBDA)
 			{
-				this.classDataType = ObjectManagement.FindVariable(node.Tag, "bType").ToString();
+				this.classDataType = this.objectManagement.FindVariable(node.Tag, "bType").ToString();
 				if(this.classDataType.ToString().Equals("Struct"))
 				{
 					if(node.Parent.Tag is SDIDADataTypeBDA)
@@ -506,7 +508,7 @@ namespace OpenSCL.UI
 			}	
 			else
 			{	
-				classDataType = ObjectManagement.FindVariable(node.Tag, "iedType").ToString();
+				classDataType = this.objectManagement.FindVariable(node.Tag, "iedType").ToString();
 				if(classDataType.Equals("null"))
 				{
 					this.CreateDA(node.Tag);
@@ -591,11 +593,11 @@ namespace OpenSCL.UI
 			{
 				if(this.countSDI!=0)
 				{
-					tSDI[] sDIs = (tSDI[]) ObjectManagement.FindVariable(dOI, "SDI");
+					tSDI[] sDIs = (tSDI[]) this.objectManagement.FindVariable(dOI, "SDI");
 					this.nodeSDI = this.nodeDOI.Nodes[this.nodeDOI.Nodes.Count-1].Nodes["tSDI[]"];
 					for(int x = 1; x < this.countSDI; x++)
 					{
-						sDIs = (tSDI[]) ObjectManagement.FindVariable(sDIs[sDIs.Length-1], "SDI");
+						sDIs = (tSDI[]) this.objectManagement.FindVariable(sDIs[sDIs.Length-1], "SDI");
 						this.nodeSDI = this.nodeSDI.Nodes[this.nodeSDI.Nodes.Count-1].Nodes["tSDI[]"];
 					}
 					return sDIs;
@@ -607,11 +609,11 @@ namespace OpenSCL.UI
 				this.countSDI = this.CountLevelLNTypeTreeNode(this.node, typeof(DOData));
 				if(this.countSDI-1!=0)
 				{
-					tSDI[] sDIs = (tSDI[]) ObjectManagement.FindVariable(dOI, "SDI");
+					tSDI[] sDIs = (tSDI[]) this.objectManagement.FindVariable(dOI, "SDI");
 					this.nodeSDI = this.nodeDOI.Nodes[this.nodeDOI.Nodes.Count-1].Nodes["tSDI[]"];
 					for(int x = 1; x < this.countSDI-1; x++)
 					{
-						sDIs = (tSDI[]) ObjectManagement.FindVariable(sDIs[sDIs.Length-1], "SDI");
+						sDIs = (tSDI[]) this.objectManagement.FindVariable(sDIs[sDIs.Length-1], "SDI");
 						this.nodeSDI = this.nodeSDI.Nodes[this.nodeSDI.Nodes.Count-1].Nodes["tSDI[]"];
 					}
 					return sDIs;
@@ -629,7 +631,7 @@ namespace OpenSCL.UI
 		private void CreateDOType(object doTypePossible)
 		{
 			tDOType dOType = new tDOType();
-			ObjectManagement.EmptyDestinytoSourceObject(doTypePossible, dOType);
+			this.objectManagement.EmptyDestinytoSourceObject(doTypePossible, dOType);
 			if(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tDataTypeTemplates"].Nodes["tDOType[]"]==null)
 			{
 				this.nodeDOType = new TreeNode();
@@ -654,23 +656,23 @@ namespace OpenSCL.UI
 		private void CreateDOI(object dOIPossible)
 		{
 			tDOI dOI = new tDOI();
-			ObjectManagement.EmptyDestinytoSourceObject(dOIPossible, dOI);			
+			this.objectManagement.EmptyDestinytoSourceObject(dOIPossible, dOI);			
 			tDOI[] tDOIArray;
 			if(this.bandAddLNToAP)
 			{
-				ObjectManagement.AddObjectToArrayObjectOfParentObject(dOI, this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].LN[this.positionLN]);
+				this.objectManagement.AddObjectToArrayObjectOfParentObject(dOI, this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].LN[this.positionLN]);
 				tDOIArray = this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].LN[this.positionLN].DOI;				
 			}
 			else
 			{
 				if(this.treeSCL.Tag is tLN0)
 				{
-					ObjectManagement.AddObjectToArrayObjectOfParentObject(dOI, this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN0);
+					this.objectManagement.AddObjectToArrayObjectOfParentObject(dOI, this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN0);
 					tDOIArray = this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN0.DOI;
 				}
 				else
 				{
-					ObjectManagement.AddObjectToArrayObjectOfParentObject(dOI, this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN[this.positionLN]);
+					this.objectManagement.AddObjectToArrayObjectOfParentObject(dOI, this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN[this.positionLN]);
 					tDOIArray = this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN[this.positionLN].DOI;
 				}
 			}			
@@ -708,14 +710,14 @@ namespace OpenSCL.UI
 		private void CreateSDI(object sDIPossible)
 		{
 			tSDI sDI = new tSDI();
-			ObjectManagement.EmptyDestinytoSourceObject(sDIPossible, sDI);
+			this.objectManagement.EmptyDestinytoSourceObject(sDIPossible, sDI);
 			this.daNameParent += sDI.name+".";
 			tSDI[] tSDIArrayTemp;
 			if((node.Parent != null &&(node.Parent.Tag is DOData))&&(node.Parent.Parent != null &&!(node.Parent.Parent.Tag is DOData)))
 			{
 				if(this.bandAddLNToAP)
 				{
-					ObjectManagement.AddObjectToArrayObjectOfParentObject(sDI, this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].LN[this.positionLN].
+					this.objectManagement.AddObjectToArrayObjectOfParentObject(sDI, this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].LN[this.positionLN].
 					 DOI[this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].LN[this.positionLN].DOI.Length-1]);					
 					tSDIArrayTemp = this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].LN[this.positionLN].
 						DOI[this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].LN[this.positionLN].DOI.Length-1].SDI;
@@ -724,14 +726,14 @@ namespace OpenSCL.UI
 				{
 					if(this.treeSCL.Tag is tLN0)
 					{
-						ObjectManagement.AddObjectToArrayObjectOfParentObject(sDI, this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.
+						this.objectManagement.AddObjectToArrayObjectOfParentObject(sDI, this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.
 						 LDevice[this.positionLDevice].LN0.DOI[this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN0.DOI.Length-1]);						
 						tSDIArrayTemp = this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.
 							LDevice[this.positionLDevice].LN0.DOI[this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN0.DOI.Length-1].SDI;
 					}
 					else
 					{
-						ObjectManagement.AddObjectToArrayObjectOfParentObject(sDI, this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.
+						this.objectManagement.AddObjectToArrayObjectOfParentObject(sDI, this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.
 						  LDevice[this.positionLDevice].LN[this.positionLN].DOI[this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN[this.positionLN].DOI.Length-1]);						
 						tSDIArrayTemp = this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.
 							LDevice[this.positionLDevice].LN[this.positionLN].DOI[this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN[this.positionLN].DOI.Length-1].SDI;
@@ -780,7 +782,7 @@ namespace OpenSCL.UI
 				{
 					positionDOI = this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].LN[this.positionLN].DOI.Length-1;					
 					sDIsTemp = this.SearchSDI(this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].LN[this.positionLN].DOI[positionDOI]);
-					ObjectManagement.AddObjectToArrayObjectOfParentObject(sDI, sDIsTemp[sDIsTemp.Length-1]);
+					this.objectManagement.AddObjectToArrayObjectOfParentObject(sDI, sDIsTemp[sDIsTemp.Length-1]);
 					tSDIArrayTemp = sDIsTemp[sDIsTemp.Length-1].SDI;
 				}
 				else
@@ -789,14 +791,14 @@ namespace OpenSCL.UI
 					{
 						positionDOI = this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN0.DOI.Length-1;
 						sDIsTemp = this.SearchSDI(this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN0.DOI[positionDOI]);
-						ObjectManagement.AddObjectToArrayObjectOfParentObject(sDI, sDIsTemp[sDIsTemp.Length-1]);						
+						this.objectManagement.AddObjectToArrayObjectOfParentObject(sDI, sDIsTemp[sDIsTemp.Length-1]);						
 						tSDIArrayTemp = sDIsTemp[sDIsTemp.Length-1].SDI;
 					}
 					else
 					{
 						positionDOI = this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN[this.positionLN].DOI.Length-1;
 						sDIsTemp = this.SearchSDI(this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN[this.positionLN].DOI[positionDOI]);
-						ObjectManagement.AddObjectToArrayObjectOfParentObject(sDI, sDIsTemp[sDIsTemp.Length-1]);						
+						this.objectManagement.AddObjectToArrayObjectOfParentObject(sDI, sDIsTemp[sDIsTemp.Length-1]);						
 						tSDIArrayTemp = sDIsTemp[sDIsTemp.Length-1].SDI;
 					}
 				}
@@ -839,13 +841,13 @@ namespace OpenSCL.UI
 		private void CreateSDO(object sDOPossible)
 		{
 			tSDO sDO = new tSDO();
-			ObjectManagement.EmptyDestinytoSourceObject(sDOPossible, sDO);			
+			this.objectManagement.EmptyDestinytoSourceObject(sDOPossible, sDO);			
 			int countSDO = 0;			
 			while(countSDO < this.sCL.Configuration.DataTypeTemplates.DOType.Length)
 			{
 				if(this.sCL.Configuration.DataTypeTemplates.DOType[countSDO].id.Equals((this.node.Parent.Tag as tDOType).id))
 				{
-					ObjectManagement.AddObjectToArrayObjectOfParentObject(sDO, this.sCL.Configuration.DataTypeTemplates.DOType[countSDO]);
+					this.objectManagement.AddObjectToArrayObjectOfParentObject(sDO, this.sCL.Configuration.DataTypeTemplates.DOType[countSDO]);
 					break;
 				}
 				countSDO++;
@@ -887,13 +889,13 @@ namespace OpenSCL.UI
 		private void CreateDA(object dAPossible)
 		{
 			tDA dA = new tDA();
-			ObjectManagement.EmptyDestinytoSourceObject( dAPossible, dA);
+			this.objectManagement.EmptyDestinytoSourceObject( dAPossible, dA);
 			int countDA = 0;
 			while(countDA < this.sCL.Configuration.DataTypeTemplates.DOType.Length)
 			{
 				if(this.sCL.Configuration.DataTypeTemplates.DOType[countDA].id.Equals((this.node.Parent.Tag as tDOType).id))
 				{
-					ObjectManagement.AddObjectToArrayObjectOfParentObject(dA, this.sCL.Configuration.DataTypeTemplates.DOType[countDA]);
+					this.objectManagement.AddObjectToArrayObjectOfParentObject(dA, this.sCL.Configuration.DataTypeTemplates.DOType[countDA]);
 					break;
 				}
 				countDA++;
@@ -935,13 +937,13 @@ namespace OpenSCL.UI
 		private void CreateDAI(object dAIPossible)
 		{
 			tDAI dAI = new tDAI();
-			ObjectManagement.EmptyDestinytoSourceObject(dAIPossible, dAI);
+			this.objectManagement.EmptyDestinytoSourceObject(dAIPossible, dAI);
 			tDAI[] tDAIArrayTemp;
 			if(this.nodeSDI == null)
 			{
 				if(this.bandAddLNToAP)
 				{
-					ObjectManagement.AddObjectToArrayObjectOfParentObject(dAI, this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].LN[this.positionLN].
+					this.objectManagement.AddObjectToArrayObjectOfParentObject(dAI, this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].LN[this.positionLN].
 						DOI[this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].LN[this.positionLN].DOI.Length-1]);						
 					tDAIArrayTemp = this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].LN[this.positionLN].
 						DOI[this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].LN[this.positionLN].DOI.Length-1].DAI;
@@ -950,14 +952,14 @@ namespace OpenSCL.UI
 				{
 					if(this.treeSCL.Tag is tLN0)
 					{
-						ObjectManagement.AddObjectToArrayObjectOfParentObject(dAI, this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.
+						this.objectManagement.AddObjectToArrayObjectOfParentObject(dAI, this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.
 							LDevice[this.positionLDevice].LN0.DOI[this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN0.DOI.Length-1]);							
 						tDAIArrayTemp = this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.
 							LDevice[this.positionLDevice].LN0.DOI[this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN0.DOI.Length-1].DAI;
 					}
 					else
 					{
-						ObjectManagement.AddObjectToArrayObjectOfParentObject(dAI, this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.
+						this.objectManagement.AddObjectToArrayObjectOfParentObject(dAI, this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.
 							LDevice[this.positionLDevice].LN[this.positionLN].DOI[this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN[this.positionLN].DOI.Length-1]);							
 						tDAIArrayTemp = this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.
 							LDevice[this.positionLDevice].LN[this.positionLN].DOI[this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN[this.positionLN].DOI.Length-1].DAI;
@@ -993,7 +995,7 @@ namespace OpenSCL.UI
 				{
 					positionDOI = this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].LN[this.positionLN].DOI.Length-1;						
 					sDIsTemp = this.SearchSDI(this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].LN[this.positionLN].DOI[positionDOI]);
-					ObjectManagement.AddObjectToArrayObjectOfParentObject(dAI, sDIsTemp[sDIsTemp.Length-1]);
+					this.objectManagement.AddObjectToArrayObjectOfParentObject(dAI, sDIsTemp[sDIsTemp.Length-1]);
 					tDAIArrayTemp = sDIsTemp[sDIsTemp.Length-1].DAI;						
 				}
 				else
@@ -1002,14 +1004,14 @@ namespace OpenSCL.UI
 					{
 						positionDOI = this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN0.DOI.Length-1;
 						sDIsTemp = this.SearchSDI(this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN0.DOI[positionDOI]);
-						ObjectManagement.AddObjectToArrayObjectOfParentObject(dAI, sDIsTemp[sDIsTemp.Length-1]);							
+						this.objectManagement.AddObjectToArrayObjectOfParentObject(dAI, sDIsTemp[sDIsTemp.Length-1]);							
 						tDAIArrayTemp = sDIsTemp[sDIsTemp.Length-1].DAI;
 					}
 					else
 					{
 						positionDOI = this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN[this.positionLN].DOI.Length-1;
 						sDIsTemp = this.SearchSDI(this.sCL.Configuration.IED[this.positionIED].AccessPoint[this.positionAccessPoint].Server.LDevice[this.positionLDevice].LN[this.positionLN].DOI[positionDOI]);
-						ObjectManagement.AddObjectToArrayObjectOfParentObject(dAI, sDIsTemp[sDIsTemp.Length-1]);							
+						this.objectManagement.AddObjectToArrayObjectOfParentObject(dAI, sDIsTemp[sDIsTemp.Length-1]);							
 						tDAIArrayTemp = sDIsTemp[sDIsTemp.Length-1].DAI;							
 					}
 				}					
@@ -1049,7 +1051,7 @@ namespace OpenSCL.UI
 		private void CreateDAType(object dATypePossible)
 		{
 			tDAType dAType = new tDAType();
-			ObjectManagement.EmptyDestinytoSourceObject(dATypePossible, dAType);					
+			this.objectManagement.EmptyDestinytoSourceObject(dATypePossible, dAType);					
 			if(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes[this.nodeDataType.Name].Nodes["tDAType[]"]==null)
 			{	
 				this.nodeDAType = new TreeNode();
@@ -1078,11 +1080,11 @@ namespace OpenSCL.UI
 		private void CreateBDA(object bDAPossible)
 		{
 			tBDA bDA = new tBDA();
-			ObjectManagement.EmptyDestinytoSourceObject(bDAPossible, bDA);			
+			this.objectManagement.EmptyDestinytoSourceObject(bDAPossible, bDA);			
 			int countDAType = 0;
 			if(this.countBandRepeateSDIDADataTypeBDA < 2)
 			{
-				ObjectManagement.AddObjectToArrayObjectOfParentObject(bDA, this.sCL.Configuration.DataTypeTemplates.DAType[this.sCL.Configuration.DataTypeTemplates.DAType.Length-1]);
+				this.objectManagement.AddObjectToArrayObjectOfParentObject(bDA, this.sCL.Configuration.DataTypeTemplates.DAType[this.sCL.Configuration.DataTypeTemplates.DAType.Length-1]);
 			}
 			else
 			{
@@ -1090,7 +1092,7 @@ namespace OpenSCL.UI
 				{					
 					if(this.sCL.Configuration.DataTypeTemplates.DAType[countDAType].id.Equals((this.node.Parent.Tag as tDA).type))
 					{
-						ObjectManagement.AddObjectToArrayObjectOfParentObject(bDA, this.sCL.Configuration.DataTypeTemplates.DAType[countDAType]);
+						this.objectManagement.AddObjectToArrayObjectOfParentObject(bDA, this.sCL.Configuration.DataTypeTemplates.DAType[countDAType]);
 						break;
 					}
 					countDAType++;
@@ -1308,19 +1310,19 @@ namespace OpenSCL.UI
 						{
 							if(this.sCL.Configuration.DataTypeTemplates.DOType[z].id.Equals(this.sCL.Configuration.DataTypeTemplates.LNodeType[x].DO[y].type))
 							{
-								object DOData = ObjectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[z].cdc, this.sCL.Configuration.DataTypeTemplates.LNodeType[x].DO[y].name, logicNodeType.lnType, logicNodeType.iedType);
+								object DOData = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[z].cdc, this.sCL.Configuration.DataTypeTemplates.LNodeType[x].DO[y].name, logicNodeType.lnType, logicNodeType.iedType);
 								this.JoinRefence(this.sCL.Configuration.DataTypeTemplates.DOType[z], DOData);
 								if(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA!=null)
 								{
-									ObjectManagement.FindVariableAndSetValue(DOData, "DA", null);
+									this.objectManagement.FindVariableAndSetValue(DOData, "DA", null);
 								}		
-								ObjectManagement.FindVariableAndSetValue(DOData, "CheckSelection", true);										
-								ObjectManagement.FindVariableAndSetValue(DOData, "Visible", true);										
-								ObjectManagement.FindVariableAndSetValue(logicNodeType, this.sCL.Configuration.DataTypeTemplates.LNodeType[x].DO[y].name,DOData);
+								this.objectManagement.FindVariableAndSetValue(DOData, "CheckSelection", true);										
+								this.objectManagement.FindVariableAndSetValue(DOData, "Visible", true);										
+								this.objectManagement.FindVariableAndSetValue(logicNodeType, this.sCL.Configuration.DataTypeTemplates.LNodeType[x].DO[y].name,DOData);
 								this.ReloadDADataType(DOData, z, logicNodeType.lnType);
 								if(this.sCL.Configuration.DataTypeTemplates.DOType[z].SDO!=null)
 								{	
-									ObjectManagement.FindVariableAndSetValue(DOData, "SDO", null);
+									this.objectManagement.FindVariableAndSetValue(DOData, "SDO", null);
 									int count = 0;
 									for(; count < this.sCL.Configuration.DataTypeTemplates.DOType[z].SDO.Length; count++)
 									{
@@ -1328,13 +1330,13 @@ namespace OpenSCL.UI
 										{
 											if(this.sCL.Configuration.DataTypeTemplates.DOType[z].SDO[count].type == this.sCL.Configuration.DataTypeTemplates.DOType[count2].id)
 											{
-												object DODataSon = ObjectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[count2].cdc, this.sCL.Configuration.DataTypeTemplates.DOType[z].SDO[count].name,this.sCL.Configuration.DataTypeTemplates.DOType[z].id, logicNodeType.iedType);
-												ObjectManagement.EmptySourcetoDestinyObject(this.sCL.Configuration.DataTypeTemplates.DOType[count2], DODataSon);													
-												ObjectManagement.FindVariableAndSetValue(DODataSon, "DA", null);
-												ObjectManagement.FindVariableAndSetValue(DODataSon, "SDO", null);												
-												ObjectManagement.FindVariableAndSetValue(DODataSon, "CheckSelection", true);	
-												ObjectManagement.FindVariableAndSetValue(DODataSon, "Visible", true);										
-												ObjectManagement.FindVariableAndSetValue(DOData, this.sCL.Configuration.DataTypeTemplates.DOType[z].SDO[count].name, DODataSon);	
+												object DODataSon = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[count2].cdc, this.sCL.Configuration.DataTypeTemplates.DOType[z].SDO[count].name,this.sCL.Configuration.DataTypeTemplates.DOType[z].id, logicNodeType.iedType);
+												this.objectManagement.EmptySourcetoDestinyObject(this.sCL.Configuration.DataTypeTemplates.DOType[count2], DODataSon);													
+												this.objectManagement.FindVariableAndSetValue(DODataSon, "DA", null);
+												this.objectManagement.FindVariableAndSetValue(DODataSon, "SDO", null);												
+												this.objectManagement.FindVariableAndSetValue(DODataSon, "CheckSelection", true);	
+												this.objectManagement.FindVariableAndSetValue(DODataSon, "Visible", true);										
+												this.objectManagement.FindVariableAndSetValue(DOData, this.sCL.Configuration.DataTypeTemplates.DOType[z].SDO[count].name, DODataSon);	
 												this.ReloadDADataType(DODataSon, count2, logicNodeType.lnType);
 												break;
 											}											
@@ -1369,34 +1371,34 @@ namespace OpenSCL.UI
 				object DADataType;
 				if(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].bTypeEnum == tBasicTypeEnum.Struct)
 				{
-					DADataType = ObjectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].name, iedType, this.sCL.Configuration.DataTypeTemplates.DOType[z].id, this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].fc);
+					DADataType = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].name, iedType, this.sCL.Configuration.DataTypeTemplates.DOType[z].id, this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].fc);
 				}
 				else
 				{
 					if(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].bTypeEnum == tBasicTypeEnum.Enum)
 					{
-						DADataType = ObjectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].name, this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].fc);
+						DADataType = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].name, this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].fc);
 					}
 					else
 					{
-						DADataType = ObjectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].bTypeEnum.ToString(), this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].name,this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].fc);
+						DADataType = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].bTypeEnum.ToString(), this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].name,this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].fc);
 					}					
 				}
 				this.JoinRefence(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index], DADataType);
-				ObjectManagement.FindVariableAndSetValue(DADataType, "CheckSelection", true);
-				ObjectManagement.FindVariableAndSetValue(DADataType, "Visible", true);										
-				ObjectManagement.FindVariableAndSetValue(DOData, this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].name, DADataType);
+				this.objectManagement.FindVariableAndSetValue(DADataType, "CheckSelection", true);
+				this.objectManagement.FindVariableAndSetValue(DADataType, "Visible", true);										
+				this.objectManagement.FindVariableAndSetValue(DOData, this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].name, DADataType);
 				if(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].bTypeEnum == tBasicTypeEnum.Struct)
 				{
 					for(int index2 = 0; index2 <this.sCL.Configuration.DataTypeTemplates.DAType.Length; index2++)
 					{
 						if(this.sCL.Configuration.DataTypeTemplates.DAType[index2].id == this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].type)
 						{
-							object sDIDADataTypeBDA = ObjectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].name, this.sCL.Configuration.DataTypeTemplates.DAType[index2].iedType, this.sCL.Configuration.DataTypeTemplates.DOType[z].id,this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].fc);
+							object sDIDADataTypeBDA = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].name, this.sCL.Configuration.DataTypeTemplates.DAType[index2].iedType, this.sCL.Configuration.DataTypeTemplates.DOType[z].id,this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].fc);
 							this.JoinRefence(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index], sDIDADataTypeBDA);
-							ObjectManagement.FindVariableAndSetValue(sDIDADataTypeBDA, "CheckSelection", true);
-							ObjectManagement.FindVariableAndSetValue(sDIDADataTypeBDA, "Visible", true);										
-							ObjectManagement.FindVariableAndSetValue(DOData, this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].name, sDIDADataTypeBDA);
+							this.objectManagement.FindVariableAndSetValue(sDIDADataTypeBDA, "CheckSelection", true);
+							this.objectManagement.FindVariableAndSetValue(sDIDADataTypeBDA, "Visible", true);										
+							this.objectManagement.FindVariableAndSetValue(DOData, this.sCL.Configuration.DataTypeTemplates.DOType[z].DA[index].name, sDIDADataTypeBDA);
 							this.ReloadSDIDADataTypeBDA(sDIDADataTypeBDA, ref index2);
 							break;
 						}
@@ -1421,18 +1423,18 @@ namespace OpenSCL.UI
 			{
 				if(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].bTypeEnum == tBasicTypeEnum.Struct)
 				{							
-					object sDIDADataTypeBDASon = ObjectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].name, this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].iedType, this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].id);
+					object sDIDADataTypeBDASon = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].name, this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].iedType, this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].id);
 					this.JoinRefence(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3], sDIDADataTypeBDASon);
-					ObjectManagement.FindVariableAndSetValue(sDIDADataTypeBDASon, "CheckSelection", true);
-					ObjectManagement.FindVariableAndSetValue(sDIDADataTypeBDASon, "Visible", true);										
-					this.classDataType = ObjectManagement.FindVariable(sDIDADataTypeBDA, "SDIDADataTypeBDA");
+					this.objectManagement.FindVariableAndSetValue(sDIDADataTypeBDASon, "CheckSelection", true);
+					this.objectManagement.FindVariableAndSetValue(sDIDADataTypeBDASon, "Visible", true);										
+					this.classDataType = this.objectManagement.FindVariable(sDIDADataTypeBDA, "SDIDADataTypeBDA");
 					if(this.classDataType!=null)
 					{
-						ObjectManagement.FindVariableAndSetValue(sDIDADataTypeBDA, "SDIDADataTypeBDA", sDIDADataTypeBDASon);
+						this.objectManagement.FindVariableAndSetValue(sDIDADataTypeBDA, "SDIDADataTypeBDA", sDIDADataTypeBDASon);
 					}
 					else
 					{
-						ObjectManagement.FindVariableAndSetValue(sDIDADataTypeBDA, this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].name, sDIDADataTypeBDASon);
+						this.objectManagement.FindVariableAndSetValue(sDIDADataTypeBDA, this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].name, sDIDADataTypeBDASon);
 					}					
 					if(this.sCL.Configuration.DataTypeTemplates.DAType[index2+1].id == this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].type)
 					{						
@@ -1445,23 +1447,23 @@ namespace OpenSCL.UI
 					object BDAData;
 					if(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].bTypeEnum == tBasicTypeEnum.Enum)
 					{
-						BDAData = ObjectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].name);
+						BDAData = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].name);
 					}
 					//The attribute "check" can get different values according to the SCL files analized.
 					else if(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].name.Equals("Check"))
 					{
-						object bType = ObjectManagement.FindVariable(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3], "bType");
-						BDAData = ObjectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].name, this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].id, this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].iedType);
-						ObjectManagement.FindVariableAndSetValue(BDAData, "bType", bType );
+						object bType = this.objectManagement.FindVariable(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3], "bType");
+						BDAData = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].name, this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].id, this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].iedType);
+						this.objectManagement.FindVariableAndSetValue(BDAData, "bType", bType );
 					}
 					else
 					{
-						BDAData = ObjectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].bTypeEnum.ToString(),this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].name);
+						BDAData = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].bTypeEnum.ToString(),this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].name);
 					}					
-					ObjectManagement.EmptySourcetoDestinyObject(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3], BDAData);
-					ObjectManagement.FindVariableAndSetValue(BDAData, "CheckSelection", true);
-					ObjectManagement.FindVariableAndSetValue(BDAData, "Visible", true);										
-					ObjectManagement.FindVariableAndSetValue(sDIDADataTypeBDA, this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].name, BDAData);
+					this.objectManagement.EmptySourcetoDestinyObject(this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3], BDAData);
+					this.objectManagement.FindVariableAndSetValue(BDAData, "CheckSelection", true);
+					this.objectManagement.FindVariableAndSetValue(BDAData, "Visible", true);										
+					this.objectManagement.FindVariableAndSetValue(sDIDADataTypeBDA, this.sCL.Configuration.DataTypeTemplates.DAType[index2Temp].BDA[index3].name, BDAData);
 				}
 			}
 		}
@@ -1472,7 +1474,7 @@ namespace OpenSCL.UI
 		private void EmptyEnum()
 		{			
 			tEnumType enumType = new tEnumType();
-			ObjectManagement.EmptyDestinytoSourceObject(node.Tag, enumType);			
+			this.objectManagement.EmptyDestinytoSourceObject(node.Tag, enumType);			
 			if(this.sCL.Configuration.DataTypeTemplates.EnumType!=null)
 			{				
 				for(int j=0; j < this.sCL.Configuration.DataTypeTemplates.EnumType.Length; j++)
@@ -1486,7 +1488,7 @@ namespace OpenSCL.UI
 			}				
 			if(enumType!=null)
 			{
-				ObjectManagement.AddObjectToArrayObjectOfParentObject(enumType, this.sCL.Configuration.DataTypeTemplates);			
+				this.objectManagement.AddObjectToArrayObjectOfParentObject(enumType, this.sCL.Configuration.DataTypeTemplates);			
 				this.drawEnums(enumType);
 			}			
 		}
@@ -1509,7 +1511,7 @@ namespace OpenSCL.UI
 						{
 							if(dataSetsSource[x].FCDA[y].daName==null)
 							{
-								ObjectManagement.AddObjectToArrayObjectOfParentObject(dataSetsSource[x].FCDA[y],dataSetsDestiny[x]);
+								this.objectManagement.AddObjectToArrayObjectOfParentObject(dataSetsSource[x].FCDA[y],dataSetsDestiny[x]);
 								break;
 							}
 						}
@@ -1527,7 +1529,7 @@ namespace OpenSCL.UI
 						{						
 							if(dataSetsSource[x].FCDA!=null && y < dataSetsSource[x].FCDA.Length && this.doName.Equals(dataSetsSource[x].FCDA[y].doName)&&(this.daNameParent+(node.Tag as tDA).name).Equals(dataSetsSource[x].FCDA[y].daName))
 							{																	
-									ObjectManagement.AddObjectToArrayObjectOfParentObject(dataSetsSource[x].FCDA[y],dataSetsDestiny[x]);
+									this.objectManagement.AddObjectToArrayObjectOfParentObject(dataSetsSource[x].FCDA[y],dataSetsDestiny[x]);
 									break;						
 							}
 						}						
@@ -1543,18 +1545,18 @@ namespace OpenSCL.UI
 			{
 				if(dOData.cdc == this.sCL.Configuration.DataTypeTemplates.DOType[z].cdc)
 				{
-					object DOData = ObjectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[z].cdc,  dOData.name, (nodeDoDATAParent.Tag as CommonLogicalNode).lnType, (nodeDoDATAParent.Tag as CommonLogicalNode).iedType);
-					ObjectManagement.EmptySourcetoDestinyObject(this.sCL.Configuration.DataTypeTemplates.DOType[z], DOData);
+					object DOData = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[z].cdc,  dOData.name, (nodeDoDATAParent.Tag as CommonLogicalNode).lnType, (nodeDoDATAParent.Tag as CommonLogicalNode).iedType);
+					this.objectManagement.EmptySourcetoDestinyObject(this.sCL.Configuration.DataTypeTemplates.DOType[z], DOData);
 					if(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA!=null)
 					{
-						ObjectManagement.FindVariableAndSetValue(DOData, "DA", null);
+						this.objectManagement.FindVariableAndSetValue(DOData, "DA", null);
 					}
-					ObjectManagement.FindVariableAndSetValue(DOData, "CheckSelection", true);
-					ObjectManagement.FindVariableAndSetValue(DOData, "Visible", true);
+					this.objectManagement.FindVariableAndSetValue(DOData, "CheckSelection", true);
+					this.objectManagement.FindVariableAndSetValue(DOData, "Visible", true);
 					dODatas.Add(DOData);
 					if(this.sCL.Configuration.DataTypeTemplates.DOType[z].SDO!=null)
 					{
-						ObjectManagement.FindVariableAndSetValue(DOData, "SDO", null);
+						this.objectManagement.FindVariableAndSetValue(DOData, "SDO", null);
 						int count = 0;
 						for(; count < this.sCL.Configuration.DataTypeTemplates.DOType[z].SDO.Length; count++)
 						{
@@ -1562,13 +1564,13 @@ namespace OpenSCL.UI
 							{
 								if(this.sCL.Configuration.DataTypeTemplates.DOType[z].SDO[count].type == this.sCL.Configuration.DataTypeTemplates.DOType[count2].id)
 								{
-									object DODataSon = ObjectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[count2].cdc, this.sCL.Configuration.DataTypeTemplates.DOType[z].SDO[count].name,this.sCL.Configuration.DataTypeTemplates.DOType[z].id, (nodeDoDATAParent.Tag as CommonLogicalNode).iedType);
-									ObjectManagement.EmptySourcetoDestinyObject(this.sCL.Configuration.DataTypeTemplates.DOType[count2], DODataSon);
-									ObjectManagement.FindVariableAndSetValue(DODataSon, "DA", null);
-									ObjectManagement.FindVariableAndSetValue(DODataSon, "SDO", null);
-									ObjectManagement.FindVariableAndSetValue(DODataSon, "CheckSelection", true);
-									ObjectManagement.FindVariableAndSetValue(DODataSon, "Visible", true);
-									ObjectManagement.FindVariableAndSetValue(DOData, this.sCL.Configuration.DataTypeTemplates.DOType[z].SDO[count].name, DODataSon);
+									object DODataSon = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[count2].cdc, this.sCL.Configuration.DataTypeTemplates.DOType[z].SDO[count].name,this.sCL.Configuration.DataTypeTemplates.DOType[z].id, (nodeDoDATAParent.Tag as CommonLogicalNode).iedType);
+									this.objectManagement.EmptySourcetoDestinyObject(this.sCL.Configuration.DataTypeTemplates.DOType[count2], DODataSon);
+									this.objectManagement.FindVariableAndSetValue(DODataSon, "DA", null);
+									this.objectManagement.FindVariableAndSetValue(DODataSon, "SDO", null);
+									this.objectManagement.FindVariableAndSetValue(DODataSon, "CheckSelection", true);
+									this.objectManagement.FindVariableAndSetValue(DODataSon, "Visible", true);
+									this.objectManagement.FindVariableAndSetValue(DOData, this.sCL.Configuration.DataTypeTemplates.DOType[z].SDO[count].name, DODataSon);
 									this.ReloadDADataType(DODataSon, count2, (nodeDoDATAParent.Tag as CommonLogicalNode).lnType);
 									break;
 								}
@@ -1588,7 +1590,7 @@ namespace OpenSCL.UI
 				id = (objectDestiny as DOData).id;
 				type = (objectDestiny as DOData).type;
 				iedtype = (objectDestiny as DOData).iedType;				
-				ObjectManagement.EmptySourcetoDestinyObject(objectSource, objectDestiny);
+				this.objectManagement.EmptySourcetoDestinyObject(objectSource, objectDestiny);
 				(objectDestiny as DOData).id = id;
 				(objectDestiny as DOData).type = type;
 				(objectDestiny as DOData).iedType = iedtype;
@@ -1598,7 +1600,7 @@ namespace OpenSCL.UI
 				id = (objectDestiny as SDIDADataTypeBDA).id;
 				type = (objectDestiny as SDIDADataTypeBDA).type;
 				iedtype = (objectDestiny as SDIDADataTypeBDA).iedType;				
-				ObjectManagement.EmptySourcetoDestinyObject(objectSource, objectDestiny);
+				this.objectManagement.EmptySourcetoDestinyObject(objectSource, objectDestiny);
 				(objectDestiny as SDIDADataTypeBDA).id = id;
 				(objectDestiny as SDIDADataTypeBDA).type = type;
 				(objectDestiny as SDIDADataTypeBDA).iedType = iedtype;
@@ -1609,7 +1611,7 @@ namespace OpenSCL.UI
 				id = (objectDestiny as DADataType).id;
 				type = (objectDestiny as DADataType).type;
 				iedtype = (objectDestiny as DADataType).iedType;				
-				ObjectManagement.EmptySourcetoDestinyObject(objectSource, objectDestiny);
+				this.objectManagement.EmptySourcetoDestinyObject(objectSource, objectDestiny);
 				(objectDestiny as DADataType).id = id;
 				(objectDestiny as DADataType).type = type;
 				(objectDestiny as DADataType).iedType = iedtype;
@@ -1623,12 +1625,12 @@ namespace OpenSCL.UI
 			{
 				if((objectToAdd as tIDNaming).id.Equals((arraySCLProject[x] as tIDNaming).id))
 				{
-					ObjectManagement.RemoveObjectOfArrayObjectOfParentObject(objectToAdd, x, ParenSCLProyect);
+					this.objectManagement.RemoveObjectOfArrayObjectOfParentObject(objectToAdd, x, ParenSCLProyect);
 					nodeSLC.Nodes.RemoveAt(x);
 					break;
 				}
 			}
-			ObjectManagement.AddObjectToArrayObjectOfParentObject(objectToAdd, ParenSCLProyect);			
+			this.objectManagement.AddObjectToArrayObjectOfParentObject(objectToAdd, ParenSCLProyect);			
 			TreeNode nodeType = new TreeNode();
 			nodeType.Name = (objectToAdd as tIDNaming).id;
 			nodeType.Tag = objectToAdd;

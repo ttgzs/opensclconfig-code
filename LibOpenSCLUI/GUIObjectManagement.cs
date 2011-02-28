@@ -24,15 +24,17 @@ using IEC61850.SCL;
 namespace OpenSCL.UI
 {
 	/// <summary>
-	/// Description of GUIObjectManagement..
+	/// Description of GUIObjectManagement.
 	/// </summary>
 	public class Utils
 	{
 		public object ObjectReturnedinAfterSelect;																																																		
-		public TreeViewSCL treeViewSCL;		
+		public TreeViewSCL treeViewSCL;
+		private ObjectManagement objectManagement;
    		
 		public Utils()
-		{			
+		{
+			this.objectManagement = new ObjectManagement();
 			this.treeViewSCL = new TreeViewSCL();
 		}
    		
@@ -53,7 +55,7 @@ namespace OpenSCL.UI
                     object HierachyClass = Activator.CreateInstance(TypeClass);
                     if (HierachyClass != null)
                     {
-                        ObjectManagement.EmptySourcetoDestinyObject(NodetreeViewFile, HierachyClass);
+                        this.objectManagement.EmptySourcetoDestinyObject(NodetreeViewFile, HierachyClass);
                         ObjectReturnedinAfterSelect = HierachyClass;                       
                     }                    
                     else
@@ -217,7 +219,7 @@ namespace OpenSCL.UI
 		public void AddTPTreeNode(object tagNode, string name, string text, object address, TreeNode p)		
 		{
 			TreeNode treenode1 = new TreeNode();
-			ObjectManagement.AddObjectToArrayObjectOfParentObject(tagNode, address);		
+			this.objectManagement.AddObjectToArrayObjectOfParentObject(tagNode, address);		
 			treenode1 = new TreeNode();				
 			treenode1.Name = name;
 			treenode1.Tag = tagNode;
@@ -229,19 +231,19 @@ namespace OpenSCL.UI
 		{		
 			tIED iED = new tIED();	
 			iED.configVersion = "0";
-			ObjectManagement.AddObjectToArrayObjectOfParentObject(iED, sCL);
+			this.objectManagement.AddObjectToArrayObjectOfParentObject(iED, sCL);
 			tAccessPoint accessPoint = new tAccessPoint();
-			ObjectManagement.AddObjectToArrayObjectOfParentObject(accessPoint, iED);
+			this.objectManagement.AddObjectToArrayObjectOfParentObject(accessPoint, iED);
 			accessPoint.Server = new tServer();
 			accessPoint.Server.Authentication = new tServerAuthentication();
 			tLDevice lDevice = new tLDevice();
-			ObjectManagement.AddObjectToArrayObjectOfParentObject(lDevice, accessPoint.Server);
+			this.objectManagement.AddObjectToArrayObjectOfParentObject(lDevice, accessPoint.Server);
 			lDevice.LN0 = new LN0();
 			tLN lN = new tLN();
 			lN.lnType = "LPHD1";
 			lN.inst = 1;			
 			lN.lnClass = tLNClassEnum.LPHD.ToString();
-			ObjectManagement.AddObjectToArrayObjectOfParentObject(lN, lDevice);			
+			this.objectManagement.AddObjectToArrayObjectOfParentObject(lN, lDevice);			
 			this.treeViewSCL.GetNodesItemOfArray(sCL.IED, sCL.GetType(), nodeSCL.TreeView.Nodes["root"].Nodes["SCL"]);
 			this.CreatingDependenciesLN(sCL, sCL.IED[sCL.IED.Length-1].AccessPoint[0].Server.LDevice[0].LN0, nodeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tIED[]"].Nodes[sCL.IED.Length-1].Nodes["tAccessPoint[]"].Nodes[0].Nodes["tServer"].Nodes["tLDevice[]"].Nodes[0].Nodes["LN0"]);
 			this.CreatingDependenciesLN(sCL, sCL.IED[sCL.IED.Length-1].AccessPoint[0].Server.LDevice[0].LN[0], nodeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tIED[]"].Nodes[sCL.IED.Length-1].Nodes["tAccessPoint[]"].Nodes[0].Nodes["tServer"].Nodes["tLDevice[]"].Nodes[0].Nodes["tLN[]"].Nodes[0]);

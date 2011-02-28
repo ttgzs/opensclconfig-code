@@ -27,14 +27,16 @@ namespace OpenSCL.UI
 	/// </summary>
 	public class AttributeReferences
 	{
-		private TreeViewSCL treeViewSCL;		
+		private TreeViewSCL treeViewSCL;
+		private ObjectManagement objectManagement;
 		private TreeNode nodeSCL;
 		private TreeNode nodeSCL2;
 		private SCL sCL;
 		
 		public AttributeReferences()
 		{
-			this.treeViewSCL = new TreeViewSCL();			
+			this.treeViewSCL = new TreeViewSCL();
+			this.objectManagement = new ObjectManagement();
 		}
 		
 		/// <summary>
@@ -54,7 +56,7 @@ namespace OpenSCL.UI
 					this.nodeSCL = this.treeViewSCL.SearchUPForTypeAndGetSCLTreeNode(nodePossibleInsert, typeof(tLDevice));
 					if(this.nodeSCL!=null)
 					{
-						ObjectManagement.FindVariableAndSetValue(objectToInsert,this.nodeSCL.Tag.GetType().Name, this.nodeSCL.Tag);
+						this.objectManagement.FindVariableAndSetValue(objectToInsert,this.nodeSCL.Tag.GetType().Name, this.nodeSCL.Tag);
 					}
 					break;	
 				case "tConnectedAP":
@@ -62,8 +64,8 @@ namespace OpenSCL.UI
 					this.nodeSCL2 = this.treeViewSCL.SearchUPForTypeAndGetSCLTreeNode(nodePossibleInsert, typeof(tIED));					
 					if(this.nodeSCL!=null && this.nodeSCL2!=null)
 					{
-						ObjectManagement.FindVariableAndSetValue(objectToInsert,this.nodeSCL.Tag.GetType().Name, this.nodeSCL.Tag);
-						ObjectManagement.FindVariableAndSetValue(objectToInsert,this.nodeSCL2.Tag.GetType().Name, this.nodeSCL2.Tag);
+						this.objectManagement.FindVariableAndSetValue(objectToInsert,this.nodeSCL.Tag.GetType().Name, this.nodeSCL.Tag);
+						this.objectManagement.FindVariableAndSetValue(objectToInsert,this.nodeSCL2.Tag.GetType().Name, this.nodeSCL2.Tag);
 					}
 					break;
 				case "tServer": 
@@ -82,8 +84,8 @@ namespace OpenSCL.UI
 									{
 										if( this.sCL.Communication.SubNetwork[i].ConnectedAP[j].apName.Equals((access as tAccessPoint).name))
 										{
-											ObjectManagement.FindVariableAndSetValue(this.sCL.Communication.SubNetwork[i].ConnectedAP[j],access.GetType().Name, access);
-											ObjectManagement.FindVariableAndSetValue(this.sCL.Communication.SubNetwork[i].ConnectedAP[j],ied.GetType().Name, ied);
+											this.objectManagement.FindVariableAndSetValue(this.sCL.Communication.SubNetwork[i].ConnectedAP[j],access.GetType().Name, access);
+											this.objectManagement.FindVariableAndSetValue(this.sCL.Communication.SubNetwork[i].ConnectedAP[j],ied.GetType().Name, ied);
 											break;
 										}										
 									}	
@@ -111,8 +113,8 @@ namespace OpenSCL.UI
 										{
 											if(this.sCL.Communication.SubNetwork[i].ConnectedAP[j].GSE[k].cbName.Equals((currentTag as tGSEControl).name) && (this.sCL.Communication.SubNetwork[i].ConnectedAP[j].GSE[k].ldInst.Equals((tLd as tLDevice).inst)))
 											{
-										        ObjectManagement.FindVariableAndSetValue(this.sCL.Communication.SubNetwork[i].ConnectedAP[j].GSE[k],currentTag.GetType().Name, currentTag);
-												ObjectManagement.FindVariableAndSetValue(this.sCL.Communication.SubNetwork[i].ConnectedAP[j].GSE[k],tLd.GetType().Name, tLd);
+										        this.objectManagement.FindVariableAndSetValue(this.sCL.Communication.SubNetwork[i].ConnectedAP[j].GSE[k],currentTag.GetType().Name, currentTag);
+												this.objectManagement.FindVariableAndSetValue(this.sCL.Communication.SubNetwork[i].ConnectedAP[j].GSE[k],tLd.GetType().Name, tLd);
 												break;                                                                   	
 											}
 										}
@@ -126,8 +128,8 @@ namespace OpenSCL.UI
 										{
 											if(this.sCL.Communication.SubNetwork[i].ConnectedAP[j].SMV[k].cbName.Equals((currentTag as tSampledValueControl).name) && (this.sCL.Communication.SubNetwork[i].ConnectedAP[j].SMV[k].ldInst.Equals((tLd as tLDevice).inst)))
 											{
-										        ObjectManagement.FindVariableAndSetValue(this.sCL.Communication.SubNetwork[i].ConnectedAP[j].SMV[k],currentTag.GetType().Name, currentTag);
-												ObjectManagement.FindVariableAndSetValue(this.sCL.Communication.SubNetwork[i].ConnectedAP[j].SMV[k],tLd.GetType().Name, tLd);
+										        this.objectManagement.FindVariableAndSetValue(this.sCL.Communication.SubNetwork[i].ConnectedAP[j].SMV[k],currentTag.GetType().Name, currentTag);
+												this.objectManagement.FindVariableAndSetValue(this.sCL.Communication.SubNetwork[i].ConnectedAP[j].SMV[k],tLd.GetType().Name, tLd);
 												break;                                                                   	
 											}
 										}
@@ -142,8 +144,8 @@ namespace OpenSCL.UI
 					this.nodeSCL = this.treeViewSCL.SearchUPForTypeAndGetSCLTreeNode(nodePossibleInsert, typeof(tLDevice));
 					if(this.nodeSCL!=null)
 					{
-						ObjectManagement.FindVariableAndSetValue(objectToInsert,this.nodeSCL.Tag.GetType().Name, this.nodeSCL.Tag);
-						ObjectManagement.FindVariableAndSetValue(objectToInsert ,nodePossibleInsert.Tag.GetType().Name, nodePossibleInsert.Tag);//victor, puse esta condicion por el property del GSE está habilitado y hay que actualizar el nombre 
+						this.objectManagement.FindVariableAndSetValue(objectToInsert,this.nodeSCL.Tag.GetType().Name, this.nodeSCL.Tag);
+						this.objectManagement.FindVariableAndSetValue(objectToInsert ,nodePossibleInsert.Tag.GetType().Name, nodePossibleInsert.Tag);//victor, puse esta condicion por el property del GSE está habilitado y hay que actualizar el nombre 
 					}
 					break;
 				case "tSubstation":
@@ -164,7 +166,7 @@ namespace OpenSCL.UI
 											if(this.sCL.Substation[i].LNode[j].iedName.Equals(  this.sCL.IED[a].name ))
 											{
 												object ied = (this.sCL.IED[a]  as tIED);
-												ObjectManagement.FindVariableAndSetValue(this.sCL.Substation[i].LNode[j],ied.GetType().Name, ied);
+												this.objectManagement.FindVariableAndSetValue(this.sCL.Substation[i].LNode[j],ied.GetType().Name, ied);
 												if( this.sCL.IED[a].AccessPoint != null)
 												{
 													for(int b= 0;  b < this.sCL.IED[a].AccessPoint.Length; b++ )
@@ -176,7 +178,7 @@ namespace OpenSCL.UI
 																if(this.sCL.Substation[i].LNode[j].ldInst.Equals(  this.sCL.IED[a].AccessPoint[b].Server.LDevice[c].inst ))
 																{
 																	object ld = (this.sCL.IED[a].AccessPoint[b].Server.LDevice[c]  as tLDevice);
-																	ObjectManagement.FindVariableAndSetValue(this.sCL.Substation[i].LNode[j],ld.GetType().Name, ld);
+																	this.objectManagement.FindVariableAndSetValue(this.sCL.Substation[i].LNode[j],ld.GetType().Name, ld);
 																	
 																	if(this.sCL.IED[a].AccessPoint[b].Server.LDevice[c].LN != null)
 																	{
@@ -188,9 +190,9 @@ namespace OpenSCL.UI
 																			     )
 																			{
 																				object ln = (this.sCL.IED[a].AccessPoint[b].Server.LDevice[c].LN[d]  as tLN);
-																				ObjectManagement.FindVariableAndSetValue(this.sCL.Substation[i].LNode[j],ln.GetType().Name, ln);
-																				ObjectManagement.FindVariableAndSetValue(this.sCL.Substation[i].LNode[j], ln.GetType().Name,ln);
-																				ObjectManagement.FindVariableAndSetValue(this.sCL.Substation[i].LNode[j], ln.GetType().Name,ln);
+																				this.objectManagement.FindVariableAndSetValue(this.sCL.Substation[i].LNode[j],ln.GetType().Name, ln);
+																				this.objectManagement.FindVariableAndSetValue(this.sCL.Substation[i].LNode[j], ln.GetType().Name,ln);
+																				this.objectManagement.FindVariableAndSetValue(this.sCL.Substation[i].LNode[j], ln.GetType().Name,ln);
 																			}
 																		}
 																	}
@@ -207,9 +209,9 @@ namespace OpenSCL.UI
 																  )
 																{
 																	object ln = (this.sCL.IED[a].AccessPoint[b].LN[d]  as tLN);
-																	ObjectManagement.FindVariableAndSetValue(this.sCL.Substation[i].LNode[j],ln.GetType().Name, ln);
-																	ObjectManagement.FindVariableAndSetValue(this.sCL.Substation[i].LNode[j], ln.GetType().Name,ln);
-																	ObjectManagement.FindVariableAndSetValue(this.sCL.Substation[i].LNode[j], ln.GetType().Name, ln);
+																	this.objectManagement.FindVariableAndSetValue(this.sCL.Substation[i].LNode[j],ln.GetType().Name, ln);
+																	this.objectManagement.FindVariableAndSetValue(this.sCL.Substation[i].LNode[j], ln.GetType().Name,ln);
+																	this.objectManagement.FindVariableAndSetValue(this.sCL.Substation[i].LNode[j], ln.GetType().Name, ln);
 																}
 															}
 														}

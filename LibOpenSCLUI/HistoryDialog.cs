@@ -29,12 +29,14 @@ namespace OpenSCL.UI
 	public partial class HistoryDialog : Form
 	{			
 		private tHitem objectHitem;
-		private tHeader objectHeader;		
+		private tHeader objectHeader;
+		private ObjectManagement objectManagement;
 	
 		public HistoryDialog(tHeader objectHeader)
 		{			
 			this.objectHeader = objectHeader;
-			this.objectHitem = new tHitem();			
+			this.objectHitem = new tHitem();
+			this.objectManagement = new ObjectManagement();
 			InitializeComponent();
 			this.OkButton.DialogResult = DialogResult.OK;			
 			this.AcceptButton = this.OkButton;				
@@ -55,7 +57,7 @@ namespace OpenSCL.UI
 		void OkButtonClick(object sender, EventArgs e)
 		{	
 			this.objectHitem = (tHitem)this.tHitemPropertyGrid.SelectedObject;		
-			ObjectManagement.AddObjectToArrayObjectOfParentObject(this.objectHitem, this.objectHeader);
+			this.objectManagement.AddObjectToArrayObjectOfParentObject(this.objectHitem, this.objectHeader);
 		}
 	}
 }

@@ -30,7 +30,8 @@ namespace OpenSCL.UI
 		private TreeNode treeSCL;
 		private SCL scl;
 		private string iedName;
-		private string apName;			
+		private string apName;	
+		private ObjectManagement objectManagement = new ObjectManagement();
 		private	TreeNode nodeComm = new TreeNode();
 		private	TreeNode nodeSubNetwork = new TreeNode();
 		private	TreeNode nodetSubNetwork = new TreeNode();
@@ -83,10 +84,10 @@ namespace OpenSCL.UI
 					this.nameSubNetCB.Items.AddRange(new object[] {this.scl.Communication.SubNetwork[i].name});						
 					if (objFound != null) 
 					{
-						if(ObjectManagement.FindVariable(objFound.Parent.Parent.Tag, "name").ToString() == this.scl.Communication.SubNetwork[i].name)
+						if(this.objectManagement.FindVariable(objFound.Parent.Parent.Tag, "name").ToString() == this.scl.Communication.SubNetwork[i].name)
 						{
 							this.nameSubNetCB.SelectedIndex = i;
-							this.descSubNet.Text = ObjectManagement.FindVariable(objFound.Parent.Parent.Tag, "desc").ToString();				
+							this.descSubNet.Text = this.objectManagement.FindVariable(objFound.Parent.Parent.Tag, "desc").ToString();				
 						}
 					}	
 					else
@@ -177,15 +178,15 @@ namespace OpenSCL.UI
 			if (objFound != null && objFound.FirstNode != null)
 			{								
 				object arrayOf = objFound.FirstNode.Tag;
-				tP[] arr = (tP[]) ObjectManagement.FindVariable(arrayOf, "P");					
+				tP[] arr = (tP[]) this.objectManagement.FindVariable(arrayOf, "P");					
 				if(arr!=null && arr.Length>0)
 				{
-					this.ip.Text = ObjectManagement.GetTpValue(arr, "IP");
-					this.mask.Text = ObjectManagement.GetTpValue(arr, "IP_SUBNET");//ObjectManagement.FindVariable(arr[1], "Value").ToString();
-					this.gateway.Text = ObjectManagement.GetTpValue(arr, "IP_GATEWAY");//ObjectManagement.FindVariable(arr[2], "Value").ToString();
-					this.tsel.Text = ObjectManagement.GetTpValue(arr, "OSI_TSEL");//ObjectManagement.FindVariable(arr[3], "Value").ToString();
-					this.psel.Text = ObjectManagement.GetTpValue(arr, "OSI_PSEL");//ObjectManagement.FindVariable(arr[4], "Value").ToString();
-					this.ssel.Text = ObjectManagement.GetTpValue(arr, "OSI_SSEL");//ObjectManagement.FindVariable(arr[5], "Value").ToString();
+					this.ip.Text = this.objectManagement.GetTpValue(arr, "IP");
+					this.mask.Text = this.objectManagement.GetTpValue(arr, "IP_SUBNET");//this.objectManagement.FindVariable(arr[1], "Value").ToString();
+					this.gateway.Text = this.objectManagement.GetTpValue(arr, "IP_GATEWAY");//this.objectManagement.FindVariable(arr[2], "Value").ToString();
+					this.tsel.Text = this.objectManagement.GetTpValue(arr, "OSI_TSEL");//this.objectManagement.FindVariable(arr[3], "Value").ToString();
+					this.psel.Text = this.objectManagement.GetTpValue(arr, "OSI_PSEL");//this.objectManagement.FindVariable(arr[4], "Value").ToString();
+					this.ssel.Text = this.objectManagement.GetTpValue(arr, "OSI_SSEL");//this.objectManagement.FindVariable(arr[5], "Value").ToString();
 				}
 			}			
 		}
@@ -396,7 +397,7 @@ namespace OpenSCL.UI
 			string nameOf;
 			foreach (TreeNode n in nodes)
             {         
-				nameOf  = (string)ObjectManagement.FindVariable(n.Tag, var);
+				nameOf  = (string)this.objectManagement.FindVariable(n.Tag, var);
 				if(nameOfSub == nameOf)
 				{
 					return n.Name;
@@ -451,12 +452,12 @@ namespace OpenSCL.UI
 						tconn = (tConnectedAP) connected.Tag;
 						tconn.iedName = iedParentName;
 						tconn.apName = apParentName;
-						if(ObjectManagement.ModifyObjectOfArrayObjectOfParentObject(tconn, connected.Index, connected.Parent.Parent.Tag))
+						if(this.objectManagement.ModifyObjectOfArrayObjectOfParentObject(tconn, connected.Index, connected.Parent.Parent.Tag))
 						{
 							if(connected.FirstNode!=null)
 							{
 								object arrayOf = connected.FirstNode.Tag;
-								tP[] arr = (tP[]) ObjectManagement.FindVariable(arrayOf, "P");
+								tP[] arr = (tP[]) this.objectManagement.FindVariable(arrayOf, "P");
 								tAddress tad = new tAddress();
 								tconn.Address = tad;
 								tconn.Address.P = arr;
@@ -473,7 +474,7 @@ namespace OpenSCL.UI
 											}	
 										}
 									}	
-									ObjectManagement.ModifyObjectOfArrayObjectOfParentObject((tP[]) arr, 0, tconn.Address.P);
+									this.objectManagement.ModifyObjectOfArrayObjectOfParentObject((tP[]) arr, 0, tconn.Address.P);
 								}
 								else
 								{

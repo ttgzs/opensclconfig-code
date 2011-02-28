@@ -32,7 +32,8 @@ namespace OpenSCL.UI
 		private string iedParentName;
 		private string oldGSEName;
 		private bool editWindow = false;			
-		private TreeViewSCL treeViewSCL = new TreeViewSCL();				
+		private TreeViewSCL treeViewSCL = new TreeViewSCL();		
+		private ObjectManagement objectManagement = new ObjectManagement();
 		
 		/// <summary>
 		/// This method shows a dialog box that allows to create a GOOSE or GSE configuration
@@ -89,33 +90,33 @@ namespace OpenSCL.UI
 			InitializeComponent();
 			this.datSet.DataSource = this.treeViewSCL.getDataset(this.treeSCL);
 			this.datSet.SelectedIndex = this.treeViewSCL.getDataSetSelected(treeSCL, gseSelected.Tag);
-			this.oldGSEName = ObjectManagement.FindVariable(gseSelected.Tag, "name").ToString();			
+			this.oldGSEName = this.objectManagement.FindVariable(gseSelected.Tag, "name").ToString();			
 			this.mac.Mask = "AA-AA-AA-AA-AA-AA";			
 			this.gseProperty.SelectedObject = gseObject;									
 			TreeNode ld = this.treeViewSCL.SearchUPForTypeAndGetSCLTreeNode(this.treeSCL, typeof(tLDevice));
-			this.IdInst.Text = ObjectManagement.FindVariable(ld.Tag, "inst").ToString();
+			this.IdInst.Text = this.objectManagement.FindVariable(ld.Tag, "inst").ToString();
 			TreeNode gse = null;
 			if(sCL.Communication != null)
 			{
 				this.treeViewSCL = new TreeViewSCL();
-				gse = this.treeViewSCL.SeekAssociation(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes, ObjectManagement.FindVariable(gseSelected.Tag, "name").ToString(), "cbName", "tGSE" );
+				gse = this.treeViewSCL.SeekAssociation(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes, this.objectManagement.FindVariable(gseSelected.Tag, "name").ToString(), "cbName", "tGSE" );
 			}
 			if(gse!=null)
 			{
-				this.cbName.Text = ObjectManagement.FindVariable(gse.Tag, "cbName").ToString();
-				this.desc2.Text  = ObjectManagement.FindVariable(gse.Tag, "desc").ToString();		
+				this.cbName.Text = this.objectManagement.FindVariable(gse.Tag, "cbName").ToString();
+				this.desc2.Text  = this.objectManagement.FindVariable(gse.Tag, "desc").ToString();		
 				if(gse.FirstNode!=null)
 				{	
 					object arrayOf = gse.FirstNode.Tag;
-					tP[] arr = (tP[]) ObjectManagement.FindVariable(arrayOf, "P");
+					tP[] arr = (tP[]) this.objectManagement.FindVariable(arrayOf, "P");
 					if(arr!=null)
 					{
 						if(arr.Length>0)
 						{
-							this.mac.Text    = ObjectManagement.GetTpValue(arr, "MAC_Address");
-							this.appId.Text  = ObjectManagement.GetTpValue(arr, "APPID");
-							this.vLANP.Text  = ObjectManagement.GetTpValue(arr, "VLAN_PRIORITY");
-							this.vLANI.Text  = ObjectManagement.GetTpValue(arr, "VLAN_ID");
+							this.mac.Text    = this.objectManagement.GetTpValue(arr, "MAC_Address");
+							this.appId.Text  = this.objectManagement.GetTpValue(arr, "APPID");
+							this.vLANP.Text  = this.objectManagement.GetTpValue(arr, "VLAN_PRIORITY");
+							this.vLANI.Text  = this.objectManagement.GetTpValue(arr, "VLAN_ID");
 						}	
 					}
 				}
@@ -191,7 +192,7 @@ namespace OpenSCL.UI
 			tGSEControl tgseC = new tGSEControl();
 			tgseC = (tGSEControl) objectgse;				
 			tgseC.datSet = this.datSet.SelectedItem.ToString();
-			ObjectManagement.ModifyObjectOfArrayObjectOfParentObject(tgseC, treeSCL.TreeView.SelectedNode.Index, treeSCL.TreeView.SelectedNode.Parent.Parent.Tag);		
+			this.objectManagement.ModifyObjectOfArrayObjectOfParentObject(tgseC, treeSCL.TreeView.SelectedNode.Index, treeSCL.TreeView.SelectedNode.Parent.Parent.Tag);		
 			treeSCL.TreeView.SelectedNode.Tag = tgseC;
 			treeSCL.TreeView.SelectedNode.Text = tgseC.name;		
 			String[] names = new String[4];
@@ -202,9 +203,9 @@ namespace OpenSCL.UI
 			if(sCL.Communication!=null)
 			{
 				TreeNode Conn = this.treeViewSCL.SeekAssociation(treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes, 
-			                ObjectManagement.FindVariable(
+			                this.objectManagement.FindVariable(
 				            this.treeViewSCL.SearchUPForTypeAndGetSCLTreeNode(treeSCL.TreeView.SelectedNode, typeof(tAccessPoint)).Tag, "name").ToString(),
-			                ObjectManagement.FindVariable(
+			                this.objectManagement.FindVariable(
 							this.treeViewSCL.SearchUPForTypeAndGetSCLTreeNode(treeSCL.TreeView.SelectedNode, typeof(tIED)).Tag, "name").ToString());
 				if(sCL.Communication.SubNetwork!=null && Conn != null)
 				{
@@ -220,12 +221,12 @@ namespace OpenSCL.UI
 							tgse.ldInst = gsc[0];
 							tgse.cbName = tgseC.name;
 							tgse.desc = gsc[6];			
-							if(ObjectManagement.ModifyObjectOfArrayObjectOfParentObject(tgse, gseN.Index, gseN.Parent.Parent.Tag))
+							if(this.objectManagement.ModifyObjectOfArrayObjectOfParentObject(tgse, gseN.Index, gseN.Parent.Parent.Tag))
 							{
 								if(gseN.FirstNode!=null)
 								{
 									object arrayOf = gseN.FirstNode.Tag;
-									tP[] arr = (tP[]) ObjectManagement.FindVariable(arrayOf, "P");
+									tP[] arr = (tP[]) this.objectManagement.FindVariable(arrayOf, "P");
 									tAddress tad = new tAddress();
 									tgse.Address = tad;
 									if(arr!=null)
@@ -243,7 +244,7 @@ namespace OpenSCL.UI
 										tgse.Address.P = (tP[]) arr;
 										gseN.Tag = tgse;
 										gseN.Text = tgse.cbName;	
-										if(ObjectManagement.ModifyObjectOfArrayObjectOfParentObject((tP[]) arr, 0, tgse.Address.P))
+										if(this.objectManagement.ModifyObjectOfArrayObjectOfParentObject((tP[]) arr, 0, tgse.Address.P))
 										{									
 										}
 									}
@@ -283,7 +284,7 @@ namespace OpenSCL.UI
 			nodetGSECtrl.Tag = gs;
 			tGSE tGse = new tGSE();
 			tGse.cbName = gs.name;		
-			if(ObjectManagement.AddObjectToArrayObjectOfParentObject(gs, treeSCL.Tag))
+			if(this.objectManagement.AddObjectToArrayObjectOfParentObject(gs, treeSCL.Tag))
 			{
 				if(treeSCL.TreeView.SelectedNode.Tag is tLN0)
 				{
@@ -318,7 +319,7 @@ namespace OpenSCL.UI
 					tGse.ldInst = gsc[0];
 					tGse.desc = gsc[6];								
 					TreeNode nodeGSE = new TreeNode();	
-					ObjectManagement.AddObjectToArrayObjectOfParentObject(tGse, connAPRef.Tag);					
+					this.objectManagement.AddObjectToArrayObjectOfParentObject(tGse, connAPRef.Tag);					
 					if(connAPRef.Nodes["tGSE[]"]==null)
 					{								
 						tConnectedAP tConnectAP = (tConnectedAP) connAPRef.Tag;
@@ -339,7 +340,7 @@ namespace OpenSCL.UI
 					AttributeReferences aReferences = new AttributeReferences();
 					aReferences.Insert(tGse, nodetGSECtrl);
 					tAddress taddr = new tAddress();
-					ObjectManagement.AddObjectToSCLObject(taddr, tGse);
+					this.objectManagement.AddObjectToSCLObject(taddr, tGse);
 					TreeNode nodeAddress = new TreeNode();
 					nodeAddress.Text = "Address";
 					nodeAddress.Name = "Address";
@@ -353,25 +354,25 @@ namespace OpenSCL.UI
 										
 					tP t_mac = new tP();
 					tP_MACAddress t_mac_ = new tP_MACAddress();
-					ObjectManagement.EmptySourcetoDestinyObject(t_mac_,t_mac);
+					this.objectManagement.EmptySourcetoDestinyObject(t_mac_,t_mac);
 					t_mac.Value = this.mac.Text;
 					utilsOM.AddTPTreeNode(t_mac, "tP_mac", "tP", taddr, nodeP);
 					
 					tP t_app = new tP();
 					tP_APPID  t_app_ = new tP_APPID();
-					ObjectManagement.EmptySourcetoDestinyObject(t_app_, t_app);
+					this.objectManagement.EmptySourcetoDestinyObject(t_app_, t_app);
 					t_app.Value = this.appId.Text;
 					utilsOM.AddTPTreeNode(t_app, "tP_app", "tP", taddr, nodeP);
 		
 					tP t_vlap = new tP();
 					tP_VLANPRIORITY t_vlap_ = new tP_VLANPRIORITY();
-					ObjectManagement.EmptySourcetoDestinyObject(t_vlap_,t_vlap);
+					this.objectManagement.EmptySourcetoDestinyObject(t_vlap_,t_vlap);
 					t_vlap.Value = this.vLANP.Text;
 					utilsOM.AddTPTreeNode(t_vlap, "tP_vlanp", "tP", taddr, nodeP);
 						
 					tP t_vlani = new tP();
 					tP_VLANID t_vlani_ = new tP_VLANID();
-					ObjectManagement.EmptySourcetoDestinyObject(t_vlani_,t_vlani);
+					this.objectManagement.EmptySourcetoDestinyObject(t_vlani_,t_vlani);
 					t_vlani.Value = this.vLANI.Text;
 					utilsOM.AddTPTreeNode(t_vlani, "tP_vlani", "tP", taddr, nodeP);
 				}

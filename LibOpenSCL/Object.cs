@@ -348,7 +348,8 @@ namespace OpenSCL
 						return null;
 					}
 				}
-				this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.IED, objectSCLProject);						
+				objectSCLProject.AddIED(objectSCLToImport.IED);
+				//this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.IED, objectSCLProject);						
 			}				
 			if(objectSCLToImport.Communication!=null)
 			{

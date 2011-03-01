@@ -17,7 +17,7 @@ using System.Runtime.CompilerServices;
 // Major for stable versions, will be the same Major version of OpenSASUI
 // Minor for milestone versions, will be the same Minor version of OpenSASUI
 // Micro will be increased when OpenSASUI or OpenSCL micro version is incresed or when this application is modified
-[assembly: AssemblyVersion("0.3.1")]
+[assembly: AssemblyVersion("0.3.2")]
 
 // The following attributes are used to specify the signing key for the assembly, 
 // if desired. See the Mono documentation for more information about signing.

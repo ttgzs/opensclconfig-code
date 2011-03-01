@@ -39,7 +39,7 @@ using System.Runtime.CompilerServices;
 // Major for stable versions
 // Minor for milestone versions
 // Micro will be increased when OpenSCL micro version is incresed or when this library is modified
-[assembly: AssemblyVersion("0.3.1")]
+[assembly: AssemblyVersion("0.3.2")]
 
 // The following attributes are used to specify the signing key for the assembly, 
 // if desired. See the Mono documentation for more information about signing.

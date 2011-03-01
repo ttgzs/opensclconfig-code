@@ -132,5 +132,36 @@ namespace IEC61850.SCL
 			return pos;
 		}
 		
+		public int AddIED (tIED ied) {
+			int index = -1;
+			if (this.iEDField != null) {
+				System.Array.Resize<tIED>(ref this.iEDField,
+				                                 this.iEDField.Length + 1);
+				
+				index = this.iEDField.Length - 1;
+			}
+			else {
+				this.iEDField = new tIED[1];
+				index = 0;
+			}
+			this.iEDField[index] = ied;
+			return index;
+		}
+		
+		public bool AddIED(tIED[] ieds) {
+			
+			if (this.iEDField != null) {
+				int index = this.iEDField.Length;
+				System.Array.Resize<tIED>(ref this.iEDField,
+				                                 this.iEDField.Length + ieds.Length);
+				for (int i = 0; i <  ieds.Length; i++) {
+					this.iEDField[i+index] = ieds[i];
+				}
+			}
+			else {
+				ieds.CopyTo(this.iEDField, 0);
+			}
+			return true;
+		}
 	}
 }

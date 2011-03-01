@@ -355,9 +355,12 @@ namespace OpenSCL
 			{
 				if(objectSCLProject.Communication !=null)
 				{
-					this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.AnyAttr, objectSCLProject.Communication);
-					this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.Any, objectSCLProject.Communication);
-					this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.Private, objectSCLProject.Communication);					
+					objectSCLProject.Communication.AnyAttr = objectSCLToImport.Communication.AnyAttr;
+					objectSCLProject.Communication.Any = objectSCLToImport.Communication.Any;
+					objectSCLProject.Communication.Private = objectSCLToImport.Communication.Private;
+//					this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.AnyAttr, objectSCLProject.Communication);
+//					this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.Any, objectSCLProject.Communication);
+//					this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.Private, objectSCLProject.Communication);					
 					bool Subnetfound = false;
 					for(int i=0; i < objectSCLProject.Communication.SubNetwork.Length; i++)
 					{
@@ -365,14 +368,16 @@ namespace OpenSCL
 						{
 							if (objectSCLProject.Communication.SubNetwork[i].name == objectSCLToImport.Communication.SubNetwork[j].name)
 							{					
-								this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.SubNetwork[j].ConnectedAP, objectSCLProject.Communication.SubNetwork[i]);
+								objectSCLProject.Communication.SubNetwork[i].AddConnectedAP(objectIEDToImport.Communication.SubNetwork[j].ConnectedAP);
+								//this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.SubNetwork[j].ConnectedAP, objectSCLProject.Communication.SubNetwork[i]);
 								Subnetfound = true;
 							}							
 						}
 					}	
 					if (!Subnetfound)
 					{						
-						this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.SubNetwork, objectSCLProject.Communication);						
+						objectSCLProject.Communication.AddSubNetwork(objectIEDToImport.Communication.SubNetwork);
+						//this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.SubNetwork, objectSCLProject.Communication);						
 					}
 				}	
 				else

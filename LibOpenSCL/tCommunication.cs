@@ -101,6 +101,26 @@ namespace IEC61850.SCL
 			this.subNetworkField[index] = sn;
 			return index;
 		}
+		
+		public bool AddSubNetwork(tSubNetwork[] sns) {
+			if (this.subNetworkField != null) {
+				try {
+					int index = this.subNetworkField.Length;
+					System.Array.Resize<tSubNetwork>(ref this.subNetworkField,
+					                                 this.subNetworkField.Length + sns.Length);
+					for (int i = 0; i <  sns.Length; i++) {
+						this.subNetworkField[i+index] = sns[i];
+					}
+				}
+				catch {
+					return false;
+				}
+			}
+			else {
+				sns.CopyTo(this.subNetworkField, 0);
+			}
+			return true;
+		}
 	}
 
 }

@@ -119,12 +119,47 @@ namespace IEC61850.SCL
 				this.connectedAPField[0] = ap;
 				return 0;
 			}
-			
-			System.Array.Resize<tConnectedAP>(ref this.connectedAPField, 
-				                              this.connectedAPField.GetLength(0) + 1);
-			int index = this.connectedAPField.GetLength(0) - 1;
+			return this.AddConnectedAP(ap);
+		}
+		
+		public int AddConnectedAP(tConnectedAP ap) {
+			int index = -1;
+			if (this.connectedAPField != null) {
+				try {
+					System.Array.Resize<tConnectedAP>(ref this.connectedAPField, 
+					                              this.connectedAPField.Length + 1);
+					index = this.connectedAPField.Length - 1;
+				}
+				catch {
+					return -1;
+				}
+			}
+			else {
+				this.connectedAPField = new tConnectedAP[1];
+				index = 0;
+			}			
 			this.connectedAPField[index] = ap;
 			return index;
+		}
+		
+		public bool AddConnectedAP(tConnectedAP[] aps) {
+			if (this.connectedAPField != null) {
+				try {
+					int index = this.connectedAPField.Length;
+					System.Array.Resize<tConnectedAP>(ref this.connectedAPField,
+					                                 this.connectedAPField.Length + aps.Length);
+					for (int i = 0; i <  aps.Length; i++) {
+						this.connectedAPField[i+index] = aps[i];
+					}
+				}
+				catch {
+					return false;
+				}
+			}
+			else {
+				aps.CopyTo(this.connectedAPField, 0);
+			}
+			return true;
 		}
 	}
 

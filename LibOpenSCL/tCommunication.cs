@@ -55,6 +55,22 @@ namespace IEC61850.SCL
 			}
 		}
 		
+		public int GetSubNetwork (string name) {
+			if (this.subNetworkField == null)
+				return -1;
+			if (name.Equals(null))
+				return -1;
+			
+			int pos = -1;
+			for (int i = 0; i < this.subNetworkField.Length; i++) {
+				if (this.subNetworkField[i].name.Equals(name)) {
+					pos = i;
+					break;
+				}
+			}			
+			return pos;
+		}
+		
 		/// <summary>
 		/// Adds a new Subnetwork with the given name. 
 		/// </summary>
@@ -70,12 +86,6 @@ namespace IEC61850.SCL
 			tSubNetwork sn = new tSubNetwork();
 			sn.name = name;
 			sn.desc = desc;
-			// FIXME: Review
-			if(this.subNetworkField == null) { // Init array
-				this.subNetworkField = new tSubNetwork[1];
-				this.subNetworkField[0] = sn;
-				return 0;
-			}
 			// Search for existing subnetwork
 			for (int i = 0; i < this.subNetworkField.Length; i++) {
 				if (name.Equals(this.subNetworkField[i].name)) {
@@ -103,17 +113,16 @@ namespace IEC61850.SCL
 		}
 		
 		public bool AddSubNetwork(tSubNetwork[] sns) {
+			if (sns == null)
+				return false;
+			
 			if (this.subNetworkField != null) {
-				try {
-					int index = this.subNetworkField.Length;
-					System.Array.Resize<tSubNetwork>(ref this.subNetworkField,
-					                                 this.subNetworkField.Length + sns.Length);
-					for (int i = 0; i <  sns.Length; i++) {
-						this.subNetworkField[i+index] = sns[i];
-					}
-				}
-				catch {
-					return false;
+				for (int j = 0; j < sns.Length; j++) {
+					int isn = this.GetSubNetwork(sns[j].name);
+					if (isn >= 0)
+						this.subNetworkField[isn].AddConnectedAP(sns[j].ConnectedAP);
+					else
+						this.AddSubNetwork(sns[j]);
 				}
 			}
 			else {

@@ -93,6 +93,197 @@ namespace IEC61850.SCL
 				this.enumTypeField = value;
 			}
 		}
+		
+		public int GetLNType (string id) {
+			if (this.lNodeTypeField==null)
+				return -1;
+			for (int i = 0; i < this.lNodeTypeField.Length; i++) {
+				tLNodeType lnt = this.lNodeTypeField[i];
+				if (lnt.id.Equals(id))
+					return i;
+			}
+			return -1;
+		}
+		
+		/// <summary>
+		/// Add an array of tLNodeTypes, if one of them already exists is not added.
+		/// </summary>
+		/// <param name="array">
+		/// A <see cref="tLNodeType[]"/> with the tLNodeType objects to add.
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.Collections.Generic.List<tLNodeType>"/>, a list of ignored tLNTypes.
+		/// </returns>
+		public System.Collections.Generic.List<tLNodeType> AddLNodeType(tLNodeType[] lnts) {
+			if(lnts==null)
+				return null;
+			
+			System.Collections.Generic.List<tLNodeType> ignored;
+			System.Collections.ArrayList toadd;
+			
+			ignored = new System.Collections.Generic.List<tLNodeType>();
+			toadd = new System.Collections.ArrayList();
+			if (this.lNodeTypeField != null) {
+				for (int i = 0; i < lnts.Length; i++) {
+					int j = this.GetLNType(lnts[i].id);
+					if(j >= 0) {
+						ignored.Add(lnts[i]);
+						continue;
+					}
+					else
+						toadd.Add(lnts[i]);
+				}
+				
+				
+				int index = this.lNodeTypeField.Length;
+				System.Array.Resize<tLNodeType>(ref this.lNodeTypeField,
+				                                 this.lNodeTypeField.Length + toadd.Count);
+				for (int i = 0; i <  toadd.Count; i++) {
+					this.lNodeTypeField[i+index] = (tLNodeType) toadd[i];
+				}
+			}
+			else {
+				this.lNodeTypeField = (tLNodeType[]) toadd.ToArray();
+			}
+			return ignored;
+		}
+		
+		public int GetDOType (string id) {
+			if (this.dOTypeField==null)
+				return -1;
+			for (int i = 0; i < this.dOTypeField.Length; i++) {
+				tDOType dot = this.dOTypeField[i];
+				if (dot.id.Equals(id))
+					return i;
+			}
+			return -1;
+		}
+		
+		public System.Collections.Generic.List<tDOType> AddDOType(tDOType[] array) {
+			if(array==null)
+				return null;
+			
+			System.Collections.Generic.List<tDOType> ignored;
+			System.Collections.ArrayList toadd;
+			
+			ignored = new System.Collections.Generic.List<tDOType>();
+			toadd = new System.Collections.ArrayList();
+			if (this.dOTypeField != null) {
+				for (int i = 0; i < array.Length; i++) {
+					int j = this.GetDOType(array[i].id);
+					if(j >= 0) {
+						ignored.Add(array[i]);
+						continue;
+					}
+					else
+						toadd.Add(array[i]);
+				}
+				
+				
+				int index = this.dOTypeField.Length;
+				System.Array.Resize<tDOType>(ref this.dOTypeField,
+				                                 this.dOTypeField.Length + toadd.Count);
+				for (int i = 0; i <  toadd.Count; i++) {
+					this.dOTypeField[i+index] = (tDOType) toadd[i];
+				}
+			}
+			else {
+				this.dOTypeField = (tDOType[]) toadd.ToArray();
+			}
+			return ignored;
+		}
+		
+		public int GetDAType (string id) {
+			if (this.dATypeField==null)
+				return -1;
+			for (int i = 0; i < this.dATypeField.Length; i++) {
+				tDAType dat = this.dATypeField[i];
+				if (dat.id.Equals(id))
+					return i;
+			}
+			return -1;
+		}
+		
+		public System.Collections.Generic.List<tDAType> AddDAType(tDAType[] array) {
+			if(array==null)
+				return null;
+			
+			System.Collections.Generic.List<tDAType> ignored;
+			System.Collections.ArrayList toadd;
+			
+			ignored = new System.Collections.Generic.List<tDAType>();
+			toadd = new System.Collections.ArrayList();
+			if (this.dATypeField != null) {
+				for (int i = 0; i < array.Length; i++) {
+					int j = this.GetDAType(array[i].id);
+					if(j >= 0) {
+						ignored.Add(array[i]);
+						continue;
+					}
+					else
+						toadd.Add(array[i]);
+				}
+				
+				
+				int index = this.dATypeField.Length;
+				System.Array.Resize<tDAType>(ref this.dATypeField,
+				                                 this.dATypeField.Length + toadd.Count);
+				for (int i = 0; i <  toadd.Count; i++) {
+					this.dATypeField[i+index] = (tDAType) toadd[i];
+				}
+			}
+			else {
+				this.dATypeField = (tDAType[]) toadd.ToArray();
+			}
+			return ignored;
+		}		
+		
+		public int GetEnumType (string id) {
+			if (this.enumTypeField==null)
+				return -1;
+			for (int i = 0; i < this.enumTypeField.Length; i++) {
+				tEnumType ent = this.enumTypeField[i];
+				if (ent.id.Equals(id))
+					return i;
+			}
+			return -1;
+		}
+		
+		public System.Collections.Generic.List<tEnumType> AddEnumType(tEnumType[] array) {
+			if(array==null)
+				return null;
+			
+			System.Collections.Generic.List<tEnumType> ignored;
+			System.Collections.ArrayList toadd;
+			
+			ignored = new System.Collections.Generic.List<tEnumType>();
+			toadd = new System.Collections.ArrayList();
+			if (this.enumTypeField != null) {
+				for (int i = 0; i < array.Length; i++) {
+					int j = this.GetEnumType(array[i].id);
+					if(j >= 0) {
+						ignored.Add(array[i]);
+						continue;
+					}
+					else
+						toadd.Add(array[i]);
+				}
+				
+				
+				int index = this.enumTypeField.Length;
+				System.Array.Resize<tEnumType>(ref this.enumTypeField,
+				                                 this.enumTypeField.Length + toadd.Count);
+				for (int i = 0; i <  toadd.Count; i++) {
+					this.enumTypeField[i+index] = (tEnumType) toadd[i];
+				}
+			}
+			else {
+				this.enumTypeField = (tEnumType[]) toadd.ToArray();
+			}
+			return ignored;
+		}
+		
+		
 	}
 }
 

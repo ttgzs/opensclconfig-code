@@ -157,6 +157,59 @@ namespace IEC61850.SCL
 				this.nameStructureField = value;
 			}
 		}
+		
+		public int AddHistoryItem(tHitem item) {
+			int index = -1;
+			if (this.historyField != null) {
+				System.Array.Resize<tHitem>(ref this.historyField,
+				                                 this.historyField.Length + 1);
+				
+				index = this.historyField.Length - 1;
+			}
+			else {
+				this.historyField = new tHitem[1];
+				index = 0;
+			}
+			this.historyField[index] = item;
+			return index;
+		}
+		
+		/// <summary>
+		/// Add Items to History.
+		/// </summary>
+		/// <param name="its">
+		/// A <see cref="tHitem[]"/>
+		/// </param>
+		/// <param name="prefix">
+		/// A <see cref="System.String"/>, it is added at the bigining of the tHitem.what field.
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.Int32"/>
+		/// </returns>
+		public bool AddHistoryItem(tHitem[] its, string prefix) {
+			if(its == null)
+				return false;
+			
+			if (this.historyField != null) {
+				try {
+					int index = this.historyField.Length;
+					System.Array.Resize<tHitem>(ref this.historyField,
+					                                 this.historyField.Length + its.Length);
+					for (int i = 0; i <  its.Length; i++) {
+						this.historyField[i+index] = its[i];
+						if(prefix!=null)
+								this.historyField[i+index].what = prefix + this.historyField[i+index].what;
+					}
+				}
+				catch {
+					return false;
+				}
+			}
+			else {
+				its.CopyTo(this.historyField, 0);
+			}
+			return true;
+		}
 	}
 
 	

@@ -143,6 +143,9 @@ namespace IEC61850.SCL
 		}
 		
 		public bool AddConnectedAP(tConnectedAP[] aps) {
+			if(aps == null)
+				return false;
+			
 			if (this.connectedAPField != null) {
 				try {
 					int index = this.connectedAPField.Length;

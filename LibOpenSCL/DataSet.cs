@@ -38,7 +38,7 @@ namespace OpenSCL
 		private string lnType;		
 		private tDataSet dataSet;
 		//private ObjectManagement objectManagement;
-		private tLDevice tLDevice;		
+		private tLDevice ldevice;		
 		
 		public DataSet()
 		{
@@ -63,7 +63,7 @@ namespace OpenSCL
 		/// </returns>
 		public tDataSet GetLN0FCDAs(tLDevice ld, LN0 lN, tDataTypeTemplates dataTypeTemplates)
 		{
-			this.tLDevice = ld;
+			this.ldevice = ld;
 			this.ldInst = ld.inst;		
 			//this.objectManagement = new ObjectManagement();
 			this.lnClass = lN.lnClass.ToString();
@@ -91,7 +91,7 @@ namespace OpenSCL
 		/// </returns>
 		public tDataSet GetLNFCDAs(tLDevice ld, tLN lN, tDataTypeTemplates dataTypeTemplates)
 		{
-			this.tLDevice = ld;
+			this.ldevice = ld;
 			this.ldInst = ld.inst;
 			//this.objectManagement = new ObjectManagement();
 			this.prefix = lN.prefix;
@@ -130,10 +130,15 @@ namespace OpenSCL
 						fCDA.lnClass = this.lnClass;
 						fCDA.lnInst = this.lnInst;
 						fCDA.doName = dataTypeTemplates.LNodeType[a].DO[b].name;						
-						if(this.tLDevice!=null)
+						if(this.ldevice!=null)
 						{
+							// FIXME: FindVariableAndSetValue works but set tFCDA.LDevice not!!!
+							//tLDevice d = new tLDevice();
+							//d = this.ldevice;
+							//fCDA.LDevice = d;
 							//fCDA.LDevice = this.tLDevice;
-							//this.objectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
+							//ObjectManagement om = new ObjectManagement();
+							//om.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
 						}
 						dataSet.AddFCDA(fCDA);
 						//this.objectManagement.AddObjectToArrayObjectOfParentObject(fCDA, dataSet);
@@ -158,7 +163,7 @@ namespace OpenSCL
 											fCDA.lnInst = this.lnInst;
 											fCDA.doName = dataTypeTemplates.LNodeType[a].DO[b].name;											
 											fCDA.daName = dataTypeTemplates.DOType[c].SDO[count].name;
-											if(this.tLDevice!=null)
+											if(this.ldevice!=null)
 											{
 												//fCDA.LDevice = this.tLDevice;
 												//this.objectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
@@ -223,7 +228,7 @@ namespace OpenSCL
 					fCDA.lnInst = this.lnInst;
 					fCDA.doName = doName;					
 					fCDA.daName = dOType.DA[d].name;
-					if(this.tLDevice!=null)
+					if(this.ldevice!=null)
 					{
 						//fCDA.LDevice = this.tLDevice;
 						//this.objectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
@@ -269,7 +274,7 @@ namespace OpenSCL
 							fCDA.lnInst = this.lnInst;
 							fCDA.doName = doName;							
 							fCDA.daName = daNameParent+"."+dOType.DA[d].name;
-							if(this.tLDevice!=null)
+							if(this.ldevice!=null)
 							{
 								//fCDA.LDevice = this.tLDevice;
 								//this.objectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
@@ -290,7 +295,7 @@ namespace OpenSCL
 					fCDA.lnInst = this.lnInst;
 					fCDA.doName = doName;					
 					fCDA.daName = daNameParent+"."+dOType.DA[d].name;
-					if(this.tLDevice!=null)
+					if(this.ldevice!=null)
 					{
 						//fCDA.LDevice = this.tLDevice;
 						//this.objectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
@@ -340,7 +345,7 @@ namespace OpenSCL
 							fCDA.lnInst = this.lnInst;
 							fCDA.doName = doName;							
 							fCDA.daName = daNameParent+"."+dataTypeTemplates.DAType[indexTemp].BDA[index2].name;
-							if(this.tLDevice!=null)
+							if(this.ldevice!=null)
 							{
 								//fCDA.LDevice = this.tLDevice;
 								//this.objectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);
@@ -362,7 +367,7 @@ namespace OpenSCL
 					fCDA.lnInst = this.lnInst;
 					fCDA.doName = doName;					
 					fCDA.daName = daNameParent+"."+dataTypeTemplates.DAType[indexTemp].BDA[index2].name;
-					if(this.tLDevice!=null)
+					if(this.ldevice!=null)
 					{
 						//fCDA.LDevice = this.tLDevice;
 						//this.objectManagement.FindVariableAndSetValue(fCDA, this.tLDevice.GetType().Name, this.tLDevice);

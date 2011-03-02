@@ -233,6 +233,7 @@ namespace IEC61850.SCL
 					int v = int.Parse(this.Header.version);
 					v+=1;
 					this.Header.version = v.ToString();
+					this.Header.revision = "0";
 				}
 				catch {
 					System.Console.WriteLine("Configuration's version is not an integer; version not updated...");

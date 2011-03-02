@@ -323,6 +323,7 @@ namespace OpenSCL
 		
 		// IED Related functions
 		
+		// DEPRECATED not use on new code
 		/// <summary>
 		/// This method imports an ICD or CID file to the project file.
 		/// </summary>
@@ -335,71 +336,11 @@ namespace OpenSCL
 		/// <returns>
 		/// The SCL object of the IED imported.
 		/// </returns>
-		public SCL ImportIED(SCL objectSCLProject, SCL objectSCLToImport)
+		public SCL ImportIED(SCL project, SCL import)
 		{
-			SCL objectIEDToImport;
-			objectIEDToImport = objectSCLToImport;			
-			if(objectIEDToImport.IED!=null)
-			{
-				for(int y=0; y < objectSCLProject.IED.Length; y++)
-				{
-					if(objectSCLToImport.IED[0].name.Equals(objectSCLProject.IED[y].name))
-					{
-						return null;
-					}
-				}
-				objectSCLProject.AddIED(objectSCLToImport.IED);
-				//this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.IED, objectSCLProject);						
-			}				
-			if(objectSCLToImport.Communication!=null)
-			{
-				if(objectSCLProject.Communication !=null)
-				{
-					objectSCLProject.Communication.AnyAttr = objectSCLToImport.Communication.AnyAttr;
-					objectSCLProject.Communication.Any = objectSCLToImport.Communication.Any;
-					objectSCLProject.Communication.Private = objectSCLToImport.Communication.Private;
-//					this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.AnyAttr, objectSCLProject.Communication);
-//					this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.Any, objectSCLProject.Communication);
-//					this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.Private, objectSCLProject.Communication);					
-					bool Subnetfound = false;
-					for(int i=0; i < objectSCLProject.Communication.SubNetwork.Length; i++)
-					{
-						for(int j=0; j < objectIEDToImport.Communication.SubNetwork.Length; j++)
-						{
-							if (objectSCLProject.Communication.SubNetwork[i].name == objectSCLToImport.Communication.SubNetwork[j].name)
-							{					
-								objectSCLProject.Communication.SubNetwork[i].AddConnectedAP(objectIEDToImport.Communication.SubNetwork[j].ConnectedAP);
-								//this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.SubNetwork[j].ConnectedAP, objectSCLProject.Communication.SubNetwork[i]);
-								Subnetfound = true;
-							}							
-						}
-					}	
-					if (!Subnetfound)
-					{						
-						objectSCLProject.Communication.AddSubNetwork(objectIEDToImport.Communication.SubNetwork);
-						//this.objectManagement.AddArrayObjectToParentObject(objectIEDToImport.Communication.SubNetwork, objectSCLProject.Communication);						
-					}
-				}	
-				else
-				{											
-					objectSCLProject.Communication = objectIEDToImport.Communication;					
-				}
-			}				
-			if(objectIEDToImport.DataTypeTemplates!=null)
-			{
-				if(objectSCLProject.DataTypeTemplates !=null)
-				{
-					this.ValidateIDName(objectIEDToImport.DataTypeTemplates.LNodeType, objectSCLProject.DataTypeTemplates.LNodeType, objectIEDToImport.DataTypeTemplates, objectSCLProject.DataTypeTemplates);
-					this.ValidateIDName(objectIEDToImport.DataTypeTemplates.DOType, objectSCLProject.DataTypeTemplates.DOType, objectIEDToImport.DataTypeTemplates, objectSCLProject.DataTypeTemplates);
-					this.ValidateIDName(objectIEDToImport.DataTypeTemplates.DAType, objectSCLProject.DataTypeTemplates.DAType, objectIEDToImport.DataTypeTemplates, objectSCLProject.DataTypeTemplates);
-					this.ValidateIDName(objectIEDToImport.DataTypeTemplates.EnumType, objectSCLProject.DataTypeTemplates.EnumType, objectIEDToImport.DataTypeTemplates, objectSCLProject.DataTypeTemplates);										
-				}		
-				else
-				{
-					objectSCLProject.DataTypeTemplates = objectIEDToImport.DataTypeTemplates;
-				}
-			}		
-			return objectIEDToImport;
+			project.AddIED(import);
+			// FIXME: Review why to return the import and not the new modified configuration
+			return import;
 		}
 		
 		public int GetIED (string iedName)

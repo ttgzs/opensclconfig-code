@@ -132,36 +132,90 @@ namespace IEC61850.SCL
 			return pos;
 		}
 		
-		public int AddIED (tIED ied) {
-			int index = -1;
-			if (this.iEDField != null) {
-				System.Array.Resize<tIED>(ref this.iEDField,
-				                                 this.iEDField.Length + 1);
-				
-				index = this.iEDField.Length - 1;
+		
+		/// <summary>
+		/// Adds all IEDs configured on conf parameter, including its templates, communications
+		/// and history. Ignores any IED and templates already configured.
+		/// </summary>
+		/// <param name="conf">
+		/// A <see cref="SCL"/> a configuration with IEDs, templates, communications and history.
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.Collections.Generic.List<tIED>"/>, with all ignored IEDs.
+		/// </returns>
+		public System.Collections.Generic.List<tIED> AddIED (SCL conf) {
+			if(conf==null)
+				return null;
+			if(conf.IED == null)
+				return null;
+			// Add Types, if one template already exist it is ignored
+			if (conf.DataTypeTemplates != null) {
+				this.DataTypeTemplates.AddLNodeType(conf.DataTypeTemplates.LNodeType);
+				this.DataTypeTemplates.AddDOType(conf.DataTypeTemplates.DOType);
+				this.DataTypeTemplates.AddDAType(conf.DataTypeTemplates.DAType);
+				this.DataTypeTemplates.AddEnumType(conf.DataTypeTemplates.EnumType);
 			}
-			else {
-				this.iEDField = new tIED[1];
-				index = 0;
+			
+			// Subnetworks
+			
+			if(this.Communication != null) {
+				if(this.Communication.SubNetwork != null) {
+					if(conf.Communication != null)
+						this.Communication.AddSubNetwork(conf.Communication.SubNetwork);
+				}
+				else
+					this.Communication.SubNetwork = conf.Communication.SubNetwork;
 			}
-			this.iEDField[index] = ied;
-			return index;
+			else
+				this.Communication = conf.Communication;
+			
+			// History
+			if(this.Header != null) {
+				if(this.Header.History != null)
+					if(conf.Header != null)
+						if(conf.Header.History != null)
+							// History items.what with the ied name to add
+							this.Header.AddHistoryItem(conf.Header.History, conf.Header.id);
+			}				
+			else
+				this.Header = conf.Header;
+			
+			// Add IED, only new IED are added, if not they are ignored
+			return this.AddIED(conf.IED);
 		}
 		
-		public bool AddIED(tIED[] ieds) {
+		private System.Collections.Generic.List<tIED> AddIED(tIED[] array) {
+			if(array==null)
+				return null;
 			
+			System.Collections.Generic.List<tIED> ignored;
+			System.Collections.ArrayList toadd;
+			
+			ignored = new System.Collections.Generic.List<tIED>();
+			toadd = new System.Collections.ArrayList();
 			if (this.iEDField != null) {
+				for (int i = 0; i < array.Length; i++) {
+					int j = this.GetIED(array[i].name);
+					if(j >= 0) {
+						ignored.Add(array[i]);
+						continue;
+					}
+					else
+						toadd.Add(array[i]);
+				}
+				
+				
 				int index = this.iEDField.Length;
 				System.Array.Resize<tIED>(ref this.iEDField,
-				                                 this.iEDField.Length + ieds.Length);
-				for (int i = 0; i <  ieds.Length; i++) {
-					this.iEDField[i+index] = ieds[i];
+				                                 this.iEDField.Length + toadd.Count);
+				for (int i = 0; i <  toadd.Count; i++) {
+					this.iEDField[i+index] = (tIED) toadd[i];
 				}
 			}
 			else {
-				ieds.CopyTo(this.iEDField, 0);
+				this.iEDField = (tIED[]) toadd.ToArray();
 			}
-			return true;
+			return ignored;
 		}
 	}
 }

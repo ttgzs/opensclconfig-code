@@ -551,10 +551,14 @@ namespace OpenSCLConfigurator
 			SaveFile(sender, e);			
 			this.treeViewFile.Nodes.Clear();			
 			Utils utils = new Utils();
-			IEC61850.SCL.SCL sCL = new IEC61850.SCL.SCL();
-			sCL.Header = new IEC61850.SCL.tHeader();
-			this.treeViewFile.Nodes.Add(utils.treeViewSCL.GetTreeNodeSCL("SCL File", sCL));
-			utils.CreateIED(sCL, this.treeViewFile.Nodes[0]);
+			IEC61850.SCL.SCL scl = new IEC61850.SCL.SCL();
+			tHitem item = new tHitem();
+			item.version = scl.Header.version;
+			item.revision = scl.Header.revision;
+			item.why = "New SCL";
+			scl.Header.AddHistoryItem(item);
+			this.treeViewFile.Nodes.Add(utils.treeViewSCL.GetTreeNodeSCL("SCL File", scl));
+			utils.CreateIED(scl, this.treeViewFile.Nodes[0]);
 		}
 		
 		/// <summary>

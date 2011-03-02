@@ -180,6 +180,8 @@ namespace IEC61850.SCL
 			// Add IEDs, only new IED are added, if not, they are ignored
 			System.Collections.Generic.List<tIED> ignored = this.AddIED(conf.IED, conf.Header.version, conf.Header.revision);
 			
+			// Update Revision number due to IEDs added
+			this.Header.UpdateRevision();
 			// History items
 			if(this.Header != null) {
 				if(this.Header.History != null){
@@ -187,10 +189,10 @@ namespace IEC61850.SCL
 						if(conf.Header.History != null) {
 							if (conf.Header.History.Length > 0) {
 								if (conf.Header.History[0] != null) {							
-									string why = "[ImpSC--Strc:" + conf.Header.nameStructure +
-						 				"--id:" + conf.Header.id 
-										+ "--V:" + conf.Header.version 
-										+ "--R:" + conf.Header.revision + "]";
+									string why = "[ImpSC;Strc:" + conf.Header.nameStructure +
+						 				";id:" + conf.Header.id 
+										+ ";V:" + conf.Header.version 
+										+ ";R:" + conf.Header.revision + "]";
 									this.Header.AddHistoryItem(conf.Header.History, why);
 								}
 							}
@@ -228,11 +230,11 @@ namespace IEC61850.SCL
 				System.Array.Resize<tIED>(ref this.iEDField,
 				                                 this.iEDField.Length + toadd.Count);
 				// Setup History items to add
+				this.Header.UpdateRevision();
 				tHitem item = new tHitem();
 				item.version = this.Header.version;
 				item.revision = this.Header.revision;
 				item.what = "Configured IEDs";
-				item.when = System.DateTime.UtcNow.ToString();
 				string why = " [ConfVer:"+ iedVersion
 							+ " ConfRev:" + iedRevision;
 				for (int i = 0; i <  toadd.Count; i++) {

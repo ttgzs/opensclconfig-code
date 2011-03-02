@@ -54,7 +54,7 @@ namespace IEC61850.SCL
 			
 			this.version = "0";
 			this.revision = "0";
-			this.id = "Created by LibOpenSCL (c) Comision Federal de Electricidad, 2010";
+			this.id = "Created by LibOpenSCL (c) Comision Federal de Electricidad, 2009";
 		}
 		
 		/// <summary>
@@ -125,7 +125,6 @@ namespace IEC61850.SCL
 					item.version = this.version;
 					item.revision = this.revision;
 					item.what = "Version updated: new value = " + value.ToString();
-					item.when = System.DateTime.Now.ToString();
 					item.who = "No one. Automatic";
 					item.why = "Log forsed version updated";
 					this.AddHistoryItem(item);
@@ -150,7 +149,6 @@ namespace IEC61850.SCL
 					item.version = this.version;
 					item.revision = this.revision;
 					item.what = "Revision updated: new value = " + value.ToString();
-					item.when = System.DateTime.Now.ToString();
 					item.who = "No one. Automatic";
 					item.why = "Log forsed revision updated";
 					this.AddHistoryItem(item);

@@ -49,7 +49,7 @@ namespace IEC61850.SCL
 		{
 			this.versionField = "0";
 			this.revisionField = "0";
-			this.whenField = "";	
+			this.whenField = System.DateTime.Now.ToString();
 			this.whatField = "";
 			this.whoField = "No one. Automatic";
 		}

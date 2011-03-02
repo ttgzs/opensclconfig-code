@@ -115,9 +115,12 @@ namespace OpenSCL.UI
 		private void InicializeOpenIEDDialog()
 		{
 			dlg.Title = "Open an IED File";
-			dlg.Filter = "SCL Files (*.icd,*.cid)|*.icd;*.cid|" +
+			dlg.Filter = "SCL Files (*.icd,*.cid,*.ssd,*.scd)|*.icd;*.cid;*.ssd;*.scd|" +
 				"IED Capability Description Files (*.icd)|*.icd|" +
-				"Configured IED Description Files (*.cid)|*.cid";
+				"Configured IED Description Files (*.cid)|*.cid|" +
+				"Substation Configuration Description Files (*.scd)|*.scd|" +
+				"System Specification Description Files (*.ssd)|*.ssd|" +
+				"All Files (*.*)|*.*";
 			dlg.FilterIndex =1;
 			dlg.CheckPathExists = true;
 			dlg.CheckFileExists = true;			

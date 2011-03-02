@@ -245,6 +245,14 @@ namespace IEC61850.SCL
 				this.Header.revision = "0";
 				System.Guid id = new System.Guid("Generated with OpenSCL");
 				this.Header.id = id.ToString();
+				tHitem item = new tHitem();
+				item.version = this.Header.version;
+				item.revision = this.Header.revision;
+				item.what = "New SCL";
+				item.when = System.DateTime.Now.ToString();
+				item.who = "No one. Automatic";
+				item.why = "History initialization";
+				this.Header.AddHistoryItem(item);
 				return "0";
 			}
 		}

@@ -223,18 +223,18 @@ namespace IEC61850.SCL
 		}
 		
 		/// <summary>
-		/// Add Items to History.
+		/// Add Items to History. Item's version and revision, are set to Header's ones.
 		/// </summary>
 		/// <param name="its">
 		/// A <see cref="tHitem[]"/>
 		/// </param>
-		/// <param name="prefix">
+		/// <param name="whatprefix">
 		/// A <see cref="System.String"/>, it is added at the bigining of the tHitem.what field.
 		/// </param>
 		/// <returns>
 		/// A <see cref="System.Int32"/>
 		/// </returns>
-		public bool AddHistoryItem(tHitem[] its, string prefix) {
+		public bool AddHistoryItem(tHitem[] its, string whatPrefix) {
 			if(its == null)
 				return false;
 			
@@ -245,8 +245,10 @@ namespace IEC61850.SCL
 					                                 this.historyField.Length + its.Length);
 					for (int i = 0; i <  its.Length; i++) {
 						this.historyField[i+index] = its[i];
-						if(prefix!=null)
-								this.historyField[i+index].what = prefix + this.historyField[i+index].what;
+						this.historyField[i+index].revision = this.revision;
+						this.historyField[i+index].version = this.version;
+						if(whatPrefix!=null)
+								this.historyField[i+index].what = whatPrefix + this.historyField[i+index].what;
 					}
 				}
 				catch {

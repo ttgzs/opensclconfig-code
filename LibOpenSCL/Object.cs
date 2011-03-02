@@ -340,7 +340,7 @@ namespace OpenSCL
 		{
 			project.AddIED(import);
 			// FIXME: Review why to return the import and not the new modified configuration
-			return import;
+			return project;
 		}
 		
 		public int GetIED (string iedName)

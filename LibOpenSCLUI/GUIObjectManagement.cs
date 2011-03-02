@@ -74,39 +74,77 @@ namespace OpenSCL.UI
 		/// <param name="treeViewProject">
 		/// TreeView of the main SCL where the new nodes of the IED file will be insert.
 		/// </param>
-		/// <param name="objectSCLToImport">
+		/// <param name="scl">
 		/// SCL object created using the deserializer method on the ICD or CID file of the IED to import.
 		/// </param>
-		public void ImportIEDUI(TreeView treeViewProject, SCL objectSCLToImport)
+		public void ImportIEDUI(TreeView treeViewProject, SCL scl)
 		{
 			TreeView treeViewSCLProject;
 			TreeViewSCL treeViewSCL = new TreeViewSCL();
 			TreeNode sCLObject;
 			treeViewSCLProject = treeViewProject;
 			TreeNode treeViewToImport = new TreeNode();					
-			objectSCLToImport.Header = null;
-			objectSCLToImport.Substation = null;			
-			treeViewToImport = treeViewSCL.GetTreeNodeSCL("TreeNodeToImport",objectSCLToImport);			
-			if(objectSCLToImport.IED!=null)
+			treeViewToImport = treeViewSCL.GetTreeNodeSCL("TreeNodeToImport",scl);			
+			
+			if(scl.Substation != null)
+			{
+				sCLObject = treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tSubstation[]"];
+				if(sCLObject !=null)
+				{
+					treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes.RemoveByKey("tSubstation[]");					
+					treeViewSCL.GetNodesItemOfArray((treeViewSCLProject.Nodes["root"].Nodes["SCL"].Tag as SCL).Substation, treeViewSCLProject.Nodes["root"].Nodes["SCL"].Tag.GetType(), treeViewSCLProject.Nodes["root"].Nodes["SCL"]);
+				}	
+				else
+				{						
+					TreeNode node = new TreeNode();
+					node.Name = "tSubstation[]";
+					node.Text = "Substation";
+					node.Tag =  scl.Header;						
+					treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes.Add(node);
+					
+					this.CopyNodes(treeViewToImport.Nodes["SCL"].Nodes["tSubstation[]"], treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tSubstation[]"], sCLObject);
+				}
+			}
+			if(scl.Header!=null)
+			{
+				sCLObject = treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tHeader"];					
+				if(sCLObject !=null)
+				{
+					treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes.RemoveByKey("tHeader");					
+					treeViewSCL.GetNodes((treeViewSCLProject.Nodes["root"].Nodes["SCL"].Tag as SCL).Header, treeViewSCLProject.Nodes["root"].Nodes["SCL"]);
+				}	
+				else
+				{						
+					TreeNode node = new TreeNode();
+					node.Name = "tHeader";
+					node.Text = "Header";
+					node.Tag =  scl.Header;						
+					treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes.Add(node);					
+					this.CopyNodes(treeViewToImport.Nodes["SCL"].Nodes["tHeader"], treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tHeader"], sCLObject);
+				}
+			}			
+			if(scl.IED!=null)
 			{
 				sCLObject = treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tIED[]"];					
 				if(sCLObject !=null)
 				{
 					treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes.RemoveByKey("tIED[]");					
-					treeViewSCL.GetNodesItemOfArray((treeViewSCLProject.Nodes["root"].Nodes["SCL"].Tag as SCL).IED, treeViewSCLProject.Nodes["root"].Nodes["SCL"].Tag.GetType(), treeViewSCLProject.Nodes["root"].Nodes["SCL"]);
+					treeViewSCL.GetNodesItemOfArray((treeViewSCLProject.Nodes["root"].Nodes["SCL"].Tag as SCL).IED, 
+					                                treeViewSCLProject.Nodes["root"].Nodes["SCL"].Tag.GetType(), 
+					                                treeViewSCLProject.Nodes["root"].Nodes["SCL"]);
 				}	
 				else
 				{						
 					TreeNode nodeIED = new TreeNode();
 					nodeIED.Name = "tIED[]";
 					nodeIED.Text = "IED";
-					nodeIED.Tag =  objectSCLToImport.IED;						
+					nodeIED.Tag =  scl.IED;						
 					treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes.Add(nodeIED);
 					
 					this.CopyNodes(treeViewToImport.Nodes["SCL"].Nodes["tIED[]"], treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tIED[]"], sCLObject);
 				}
 			}					
-			if(objectSCLToImport.Communication!=null)
+			if(scl.Communication!=null)
 			{
 				sCLObject = treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"];					
 				if(sCLObject !=null)
@@ -119,12 +157,12 @@ namespace OpenSCL.UI
 					TreeNode nodeCommunication = new TreeNode();
 					nodeCommunication.Name = "tCommunication";
 					nodeCommunication.Text = "Communication";
-					nodeCommunication.Tag =  objectSCLToImport.Communication;						
+					nodeCommunication.Tag =  scl.Communication;						
 					treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes.Add(nodeCommunication);					
 					this.CopyNodes(treeViewToImport.Nodes["SCL"].Nodes["tCommunication"], treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"], sCLObject);
 				}
 			}				
-			if(objectSCLToImport.DataTypeTemplates!=null)
+			if(scl.DataTypeTemplates!=null)
 			{
 				sCLObject = treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tDataTypeTemplates"];
 				if(sCLObject !=null)
@@ -139,7 +177,7 @@ namespace OpenSCL.UI
 					TreeNode nodeDataTypeTemplates = new TreeNode();
 					nodeDataTypeTemplates.Name = "tDataTypeTemplates";
 					nodeDataTypeTemplates.Text = "DataTypeTemplates";
-					nodeDataTypeTemplates.Tag =  objectSCLToImport.DataTypeTemplates;						
+					nodeDataTypeTemplates.Tag =  scl.DataTypeTemplates;						
 					treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes.Add(nodeDataTypeTemplates);					
 					this.CopyNodes(treeViewToImport.Nodes["SCL"].Nodes["tDataTypeTemplates"], treeViewProject.Nodes["root"].Nodes["SCL"].Nodes["tDataTypeTemplates"], sCLObject);
 				}

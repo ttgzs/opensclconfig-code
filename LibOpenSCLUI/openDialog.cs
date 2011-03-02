@@ -156,17 +156,12 @@ namespace OpenSCL.UI
 					treeViewSCLOpen = new TreeViewSCL();
 					Object.Deserialize(dlg.FileName);					
 					Utils utilsGuiObject = new Utils();						 																	
-					SCL objectSCLProject = (SCL) treeViewOpen.Nodes["root"].Nodes["SCL"].Tag;
-					SCL objectSCLToImport = Object.ImportIED(objectSCLProject, Object.Configuration);														
-					if(objectSCLToImport!=null)
-					{
-						utilsGuiObject.CreateHistory(treeViewOpen, objectSCLProject);
-						utilsGuiObject.ImportIEDUI(treeViewOpen, objectSCLToImport);								
-					}
-					else
-					{
-						MessageBox.Show("The IED name is already exist");
-					}
+					SCL project = (SCL) treeViewOpen.Nodes["root"].Nodes["SCL"].Tag;
+					//SCL objectSCLToImport = Object.ImportIED(objectSCLProject, Object.Configuration);
+					// TODO: Add a dialog to show rejected IEDs
+					project.AddIED(Object.Configuration);
+					//utilsGuiObject.CreateHistory(treeViewOpen, project);
+					utilsGuiObject.ImportIEDUI(treeViewOpen, project);
 				}
 			}	
 			return list;

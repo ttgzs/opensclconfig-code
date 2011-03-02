@@ -45,17 +45,33 @@ namespace IEC61850.SCL
 		private string revisionField;		
 		private string toolIDField;		
 		private tHeaderNameStructure nameStructureField;
+		private bool logsetversion;
 				
 		public tHeader() 
 		{
-			this.versionField = "0";
-			if(this.revision == null )
-			{
-				this.revision = ( ++index ).ToString();
-			}
-			this.idField = "SCL File";
-			this.toolIDField = "OpenSCLConfigurator";
-			this.nameStructureField = tHeaderNameStructure.IEDName;				
+			// By default not log any set version updated
+			this.logsetversion = false;
+			
+			this.version = "0";
+			this.revision = "0";
+			this.id = "Created by LibOpenSCL (c) Comision Federal de Electricidad, 2010";
+			tHitem item = new tHitem();
+			item.version = this.version;
+			item.revision = this.revision;
+			item.what = "";
+			item.when = System.DateTime.Now.ToString();
+			item.who = "No one. Automatic";
+			item.why = "New SCL";
+			this.AddHistoryItem(item);	
+		}
+		
+		/// <summary>
+		/// Set to true if you want to log any update of version number not using UpdateVersion().
+		/// </summary>
+		[System.Xml.Serialization.XmlIgnore]
+		public bool LogSetVersion {
+			get { return this.logsetversion; }
+			set { this.logsetversion = value; }
 		}
 		
 		[Category("Header"), Browsable(false)]
@@ -111,6 +127,17 @@ namespace IEC61850.SCL
 			set 
 			{
 				this.versionField = value;
+				if(this.logsetversion) 
+				{
+					tHitem item = new tHitem();
+					item.version = this.version;
+					item.revision = this.revision;
+					item.what = "Version updated: new value = " + value.ToString();
+					item.when = System.DateTime.Now.ToString();
+					item.who = "No one. Automatic";
+					item.why = "Log forsed version updated";
+					this.AddHistoryItem(item);
+				}				
 			}
 		}
 		
@@ -125,6 +152,17 @@ namespace IEC61850.SCL
 			set 
 			{
 				this.revisionField = value;
+				if(this.logsetversion) 
+				{
+					tHitem item = new tHitem();
+					item.version = this.version;
+					item.revision = this.revision;
+					item.what = "Revision updated: new value = " + value.ToString();
+					item.when = System.DateTime.Now.ToString();
+					item.who = "No one. Automatic";
+					item.why = "Log forsed revision updated";
+					this.AddHistoryItem(item);
+				}
 			}
 		}
 		
@@ -158,6 +196,16 @@ namespace IEC61850.SCL
 			}
 		}
 		
+		
+		/// <summary>
+		/// Add a tHitem object to History.
+		/// </summary>
+		/// <param name="item">
+		/// A <see cref="tHitem"/> object to add.
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.Int32"/> index of the added item.
+		/// </returns>
 		public int AddHistoryItem(tHitem item) {
 			int index = -1;
 			if (this.historyField != null) {
@@ -209,6 +257,45 @@ namespace IEC61850.SCL
 				its.CopyTo(this.historyField, 0);
 			}
 			return true;
+		}
+		
+		/// <summary>
+		/// Increase version number in one. If the version is not a number, it is not updated.
+		/// If updated, set revision to 0.
+		/// </summary>
+		/// <returns>
+		/// A <see cref="System.String"/> updated version or the original if it is not a number.
+		/// </returns>
+		public string UpdateVersion() {
+			try {
+				int v = int.Parse(this.version);
+				v+=1;
+				this.version = v.ToString();
+				this.revision = "0";
+			}
+			catch {
+				System.Console.WriteLine("Configuration's version is not an integer; version not updated...");
+			}
+			return this.version;
+		}
+		
+		
+		/// <summary>
+		/// Increase revision number in one. If the version is not a number, it is not updated.
+		/// </summary>
+		/// <returns>
+		/// A <see cref="System.String"/> updated revision or the original if it is not a number.
+		/// </returns>
+		public string UpdateRevision() {
+			try {
+				int v = int.Parse(this.revision);
+				v+=1;
+				this.revision = v.ToString();
+			}
+			catch {
+				System.Console.WriteLine("Configuration's revision is not an integer; revision not updated...");
+			}
+			return this.revision;
 		}
 	}
 

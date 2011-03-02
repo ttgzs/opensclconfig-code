@@ -38,6 +38,11 @@ namespace IEC61850.SCL
 		private tIED[] iEDField;		
 		private tDataTypeTemplates dataTypeTemplatesField;
 		
+		public SCL()
+		{
+			this.Header = new tHeader();
+		}
+		
 		[Category("SCL"), Description("The header serves to identify an SCL configuration file and its version, and to specify options "+
 			"for the mapping of names to signals."), Browsable(false)]
 		public tHeader Header 
@@ -186,7 +191,9 @@ namespace IEC61850.SCL
 			// Add History
 			tHitem item = new tHitem();
 			// Update Configuration version and log on history
-			item.version = this.UpdateVersion();
+			// TODO: Set version and revision update policies
+			item.version = this.Header.UpdateVersion();
+			item.revision = this.Header.revision;
 			item.what = "Added IEDs to the configuration";
 			item.when = System.DateTime.Now.ToString();
 			item.who = "";
@@ -225,54 +232,6 @@ namespace IEC61850.SCL
 				this.iEDField = (tIED[]) toadd.ToArray();
 			}
 			return ignored;
-		}
-		
-		public string UpdateVersion() {
-			if(this.Header != null) {
-				try {
-					int v = int.Parse(this.Header.version);
-					v+=1;
-					this.Header.version = v.ToString();
-					this.Header.revision = "0";
-				}
-				catch {
-					System.Console.WriteLine("Configuration's version is not an integer; version not updated...");
-				}
-				return this.Header.version;
-			}
-			else {
-				this.Header = new tHeader();
-				this.Header.version = "0";
-				this.Header.revision = "0";
-				System.Guid id = new System.Guid("Generated with OpenSCL");
-				this.Header.id = id.ToString();
-				tHitem item = new tHitem();
-				item.version = this.Header.version;
-				item.revision = this.Header.revision;
-				item.what = "New SCL";
-				item.when = System.DateTime.Now.ToString();
-				item.who = "No one. Automatic";
-				item.why = "History initialization";
-				this.Header.AddHistoryItem(item);
-				return "0";
-			}
-		}
-		
-		public string UpdateRevision() {
-			if(this.Header != null) {
-				try {
-					int v = int.Parse(this.Header.revision);
-					v+=1;
-					this.Header.revision = v.ToString();
-				}
-				catch {
-					System.Console.WriteLine("Configuration's revision is not an integer; version not updated...");
-				}
-			}
-			else {
-				this.UpdateVersion();
-			}
-			return this.Header.revision;
 		}
 		
 	}

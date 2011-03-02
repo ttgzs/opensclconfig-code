@@ -181,7 +181,18 @@ namespace IEC61850.SCL
 				this.Header = conf.Header;
 			
 			// Add IED, only new IED are added, if not they are ignored
-			return this.AddIED(conf.IED);
+			System.Collections.Generic.List<tIED> ignored = this.AddIED(conf.IED);
+			
+			// Add History
+			tHitem item = new tHitem();
+			// Update Configuration version and log on history
+			item.version = this.UpdateVersion();
+			item.what = "Added IEDs to the configuration";
+			item.when = System.DateTime.Now.ToString();
+			item.who = "";
+			item.why = "";
+			this.Header.AddHistoryItem(item);
+			return ignored;
 		}
 		
 		private System.Collections.Generic.List<tIED> AddIED(tIED[] array) {
@@ -203,8 +214,6 @@ namespace IEC61850.SCL
 					else
 						toadd.Add(array[i]);
 				}
-				
-				
 				int index = this.iEDField.Length;
 				System.Array.Resize<tIED>(ref this.iEDField,
 				                                 this.iEDField.Length + toadd.Count);
@@ -217,5 +226,45 @@ namespace IEC61850.SCL
 			}
 			return ignored;
 		}
+		
+		public string UpdateVersion() {
+			if(this.Header != null) {
+				try {
+					int v = int.Parse(this.Header.version);
+					v+=1;
+					this.Header.version = v.ToString();
+				}
+				catch {
+					System.Console.WriteLine("Configuration's version is not an integer; version not updated...");
+				}
+				return this.Header.version;
+			}
+			else {
+				this.Header = new tHeader();
+				this.Header.version = "0";
+				this.Header.revision = "0";
+				System.Guid id = new System.Guid("Generated with OpenSCL");
+				this.Header.id = id.ToString();
+				return "0";
+			}
+		}
+		
+		public string UpdateRevision() {
+			if(this.Header != null) {
+				try {
+					int v = int.Parse(this.Header.revision);
+					v+=1;
+					this.Header.revision = v.ToString();
+				}
+				catch {
+					System.Console.WriteLine("Configuration's revision is not an integer; version not updated...");
+				}
+			}
+			else {
+				this.UpdateVersion();
+			}
+			return this.Header.revision;
+		}
+		
 	}
 }

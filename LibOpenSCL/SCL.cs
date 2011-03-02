@@ -153,6 +153,8 @@ namespace IEC61850.SCL
 				return null;
 			if(conf.IED == null)
 				return null;
+			string now = System.DateTime.Now.ToString();
+			
 			// Add Types, if one template already exist it is ignored
 			if (conf.DataTypeTemplates != null) {
 				this.DataTypeTemplates.AddLNodeType(conf.DataTypeTemplates.LNodeType);
@@ -175,33 +177,26 @@ namespace IEC61850.SCL
 				this.Communication = conf.Communication;
 			
 			
-			// Add IED, only new IED are added, if not they are ignored
-			System.Collections.Generic.List<tIED> ignored = this.AddIED(conf.IED);
+			// Add IEDs, only new IED are added, if not, they are ignored
+			System.Collections.Generic.List<tIED> ignored = this.AddIED(conf.IED, conf.Header.version, conf.Header.revision);
 			
-			// Add History
-			tHitem item = new tHitem();
-			// Update Configuration revision and log on history
-			// TODO: Set version and revision update policies
-			item.revision = this.Header.UpdateRevision();
-			item.version = this.Header.version;
-			item.what = "Added IEDs to the configuration: Name Structure: " + conf.Header.nameStructure 
-						+ " ConfVer: " + conf.Header.version + " ConfRev: " + conf.Header.revision;
-			item.when = System.DateTime.Now.ToString();
-			item.who = "";
-			item.why = "";
-			this.Header.AddHistoryItem(item);
-			// History
+			// History items
 			if(this.Header != null) {
-				if(this.Header.History != null)
-					if(conf.Header != null)
+				if(this.Header.History != null){
+					if(conf.Header != null) {
 						if(conf.Header.History != null) {
-							// History items.what with the ied name to add
-							string what = "[ImpSC--Strc:" + conf.Header.nameStructure +
-							 				"--id:" + conf.Header.id 
-											+ "--V:" + conf.Header.version 
-											+ "--R:" + conf.Header.revision + "]";
-							this.Header.AddHistoryItem(conf.Header.History, what);
+							if (conf.Header.History.Length > 0) {
+								if (conf.Header.History[0] != null) {							
+									string why = "[ImpSC--Strc:" + conf.Header.nameStructure +
+						 				"--id:" + conf.Header.id 
+										+ "--V:" + conf.Header.version 
+										+ "--R:" + conf.Header.revision + "]";
+									this.Header.AddHistoryItem(conf.Header.History, why);
+								}
+							}
+						}
 					}
+				}
 			}
 			else
 				this.Header = conf.Header;
@@ -209,7 +204,8 @@ namespace IEC61850.SCL
 			return ignored;
 		}
 		
-		private System.Collections.Generic.List<tIED> AddIED(tIED[] array) {
+		
+		private System.Collections.Generic.List<tIED> AddIED(tIED[] array, string iedVersion, string iedRevision) {
 			if(array==null)
 				return null;
 			
@@ -231,8 +227,19 @@ namespace IEC61850.SCL
 				int index = this.iEDField.Length;
 				System.Array.Resize<tIED>(ref this.iEDField,
 				                                 this.iEDField.Length + toadd.Count);
+				// Setup History items to add
+				tHitem item = new tHitem();
+				item.version = this.Header.version;
+				item.revision = this.Header.revision;
+				item.what = "Configured IEDs";
+				item.when = System.DateTime.UtcNow.ToString();
+				string why = " [ConfVer:"+ iedVersion
+							+ " ConfRev:" + iedRevision;
 				for (int i = 0; i <  toadd.Count; i++) {
+					// Set value and item to add
 					this.iEDField[i+index] = (tIED) toadd[i];
+					item.why = "Added IED: " + this.iEDField[i+index].name + why;
+					this.Header.AddHistoryItem(item);
 				}
 			}
 			else {

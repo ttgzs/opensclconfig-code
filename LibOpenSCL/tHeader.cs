@@ -55,14 +55,6 @@ namespace IEC61850.SCL
 			this.version = "0";
 			this.revision = "0";
 			this.id = "Created by LibOpenSCL (c) Comision Federal de Electricidad, 2010";
-			tHitem item = new tHitem();
-			item.version = this.version;
-			item.revision = this.revision;
-			item.what = "";
-			item.when = System.DateTime.Now.ToString();
-			item.who = "No one. Automatic";
-			item.why = "New SCL";
-			this.AddHistoryItem(item);	
 		}
 		
 		/// <summary>
@@ -228,13 +220,13 @@ namespace IEC61850.SCL
 		/// <param name="its">
 		/// A <see cref="tHitem[]"/>
 		/// </param>
-		/// <param name="whatprefix">
-		/// A <see cref="System.String"/>, it is added at the bigining of the tHitem.what field.
+		/// <param name="whyPrefix">
+		/// A <see cref="System.String"/>, if not null, it is added at the bigining of the tHitem.why field.
 		/// </param>
 		/// <returns>
 		/// A <see cref="System.Int32"/>
 		/// </returns>
-		public bool AddHistoryItem(tHitem[] its, string whatPrefix) {
+		public bool AddHistoryItem(tHitem[] its, string whyPrefix) {
 			if(its == null)
 				return false;
 			
@@ -247,8 +239,8 @@ namespace IEC61850.SCL
 						this.historyField[i+index] = its[i];
 						this.historyField[i+index].revision = this.revision;
 						this.historyField[i+index].version = this.version;
-						if(whatPrefix!=null)
-								this.historyField[i+index].what = whatPrefix + this.historyField[i+index].what;
+						if(whyPrefix!=null)
+								this.historyField[i+index].what = whyPrefix + this.historyField[i+index].what;
 					}
 				}
 				catch {
@@ -300,10 +292,5 @@ namespace IEC61850.SCL
 			return this.revision;
 		}
 	}
-
-	
-
-	
-	
 }
 

@@ -48,12 +48,10 @@ namespace IEC61850.SCL
 		public tHitem()
 		{
 			this.versionField = "0";
-			if(this.revision == null)
-			{
-				this.revision = (++index).ToString();
-			}
+			this.revisionField = "0";
 			this.whenField = "";	
-			this.what = "New SCL File";
+			this.whatField = "";
+			this.whoField = "No one. Automatic";
 		}
 		
 		[Required]

@@ -589,11 +589,20 @@ namespace OpenSCL
 		public tSubNetwork[] Subnetworks
 		{
 			get {
-				return this.configuration.Communication.SubNetwork;
+				if(this.Configuration.Communication != null)
+					return this.configuration.Communication.SubNetwork;
+				else
+					return null;
 			}
 			
 			set {
-				this.configuration.Communication.SubNetwork = value;
+				if(this.Configuration.Communication != null)
+					this.configuration.Communication.SubNetwork = value;
+				else
+				{
+					this.configuration.Communication = new tCommunication();
+					this.configuration.Communication.SubNetwork = value;
+				}
 			}
 		}
 		

@@ -23,8 +23,6 @@ public partial class MainWindow
 
 	private global::Gtk.Action newAction1;
 
-	private global::Gtk.Action Action;
-
 	private global::Gtk.Action FileAction1;
 
 	private global::Gtk.Action newAction2;
@@ -56,6 +54,12 @@ public partial class MainWindow
 	private global::Gtk.Action AboutAction2;
 
 	private global::Gtk.Action aboutAction2;
+
+	private global::Gtk.Action ImportIEDsAction;
+
+	private global::Gtk.Action newAction4;
+
+	private global::Gtk.Action ImportIEDsAction1;
 
 	private global::Gtk.VBox vbox1;
 
@@ -104,8 +108,6 @@ public partial class MainWindow
 		this.newAction1 = new global::Gtk.Action ("newAction1", global::Mono.Unix.Catalog.GetString ("_Nuevo"), null, "gtk-new");
 		this.newAction1.ShortLabel = global::Mono.Unix.Catalog.GetString ("_Nuevo");
 		w1.Add (this.newAction1, null);
-		this.Action = new global::Gtk.Action ("Action", null, null, null);
-		w1.Add (this.Action, null);
 		this.FileAction1 = new global::Gtk.Action ("FileAction1", global::Mono.Unix.Catalog.GetString ("_File"), null, null);
 		this.FileAction1.ShortLabel = global::Mono.Unix.Catalog.GetString ("_File");
 		w1.Add (this.FileAction1, null);
@@ -154,6 +156,15 @@ public partial class MainWindow
 		this.aboutAction2 = new global::Gtk.Action ("aboutAction2", global::Mono.Unix.Catalog.GetString ("Acerca _de"), null, "gtk-about");
 		this.aboutAction2.ShortLabel = global::Mono.Unix.Catalog.GetString ("Acerca _de");
 		w1.Add (this.aboutAction2, null);
+		this.ImportIEDsAction = new global::Gtk.Action ("ImportIEDsAction", global::Mono.Unix.Catalog.GetString ("Import IEDs"), global::Mono.Unix.Catalog.GetString ("Import IEDs from a SCL file"), null);
+		this.ImportIEDsAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Import IEDs");
+		w1.Add (this.ImportIEDsAction, null);
+		this.newAction4 = new global::Gtk.Action ("newAction4", global::Mono.Unix.Catalog.GetString ("Import IEDs"), null, "gtk-new");
+		this.newAction4.ShortLabel = global::Mono.Unix.Catalog.GetString ("Import IEDs");
+		w1.Add (this.newAction4, null);
+		this.ImportIEDsAction1 = new global::Gtk.Action ("ImportIEDsAction1", global::Mono.Unix.Catalog.GetString ("Import IEDs"), null, null);
+		this.ImportIEDsAction1.ShortLabel = global::Mono.Unix.Catalog.GetString ("Import IEDs");
+		w1.Add (this.ImportIEDsAction1, null);
 		this.UIManager.InsertActionGroup (w1, 0);
 		this.AddAccelGroup (this.UIManager.AccelGroup);
 		this.Name = "MainWindow";
@@ -165,7 +176,7 @@ public partial class MainWindow
 		this.vbox1.Name = "vbox1";
 		this.vbox1.Spacing = 6;
 		// Container child vbox1.Gtk.Box+BoxChild
-		this.UIManager.AddUiFromString ("<ui><menubar name='menubar1'><menu name='FileAction2' action='FileAction2'><menuitem name='newAction3' action='newAction3'/><menuitem name='openAction2' action='openAction2'/><menuitem name='saveAction2' action='saveAction2'/><menuitem name='saveAsAction2' action='saveAsAction2'/><separator/><menuitem name='quitAction2' action='quitAction2'/></menu><menu name='AboutAction2' action='AboutAction2'><menuitem name='aboutAction2' action='aboutAction2'/></menu></menubar></ui>");
+		this.UIManager.AddUiFromString ("<ui><menubar name='menubar1'><menu name='FileAction2' action='FileAction2'><menuitem name='newAction3' action='newAction3'/><menuitem name='openAction2' action='openAction2'/><menuitem name='saveAction2' action='saveAction2'/><menuitem name='saveAsAction2' action='saveAsAction2'/><separator/><menuitem name='ImportIEDsAction1' action='ImportIEDsAction1'/><separator/><menuitem name='quitAction2' action='quitAction2'/></menu><menu name='AboutAction2' action='AboutAction2'><menuitem name='aboutAction2' action='aboutAction2'/></menu></menubar></ui>");
 		this.menubar1 = ((global::Gtk.MenuBar)(this.UIManager.GetWidget ("/menubar1")));
 		this.menubar1.Name = "menubar1";
 		this.vbox1.Add (this.menubar1);
@@ -231,5 +242,7 @@ public partial class MainWindow
 		this.saveAsAction2.Activated += new global::System.EventHandler (this.OnSaveAs);
 		this.quitAction2.Activated += new global::System.EventHandler (this.OnExit);
 		this.aboutAction2.Activated += new global::System.EventHandler (this.OnAbout);
+		this.ImportIEDsAction.Activated += new global::System.EventHandler (this.OnImportIED);
+		this.ImportIEDsAction1.Activated += new global::System.EventHandler (this.OnImportIED);
 	}
 }

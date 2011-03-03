@@ -47,5 +47,15 @@ namespace OpenSASConfigurator
 		{
 			this.progressbar.Pulse();
 		}
+		
+		public string TextBar {
+			get { return this.progressbar.Text; }
+			set { this.progressbar.Text = value; }
+		}
+		
+		public string Label {
+			get { return this.label.Text; }
+			set { this.label.Text = value; }
+		}
 	}
 }

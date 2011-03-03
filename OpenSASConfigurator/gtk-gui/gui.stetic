@@ -6,8 +6,8 @@
   </configuration>
   <import>
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <widget-library name="../../OpenSASUI/bin/Release/OpenSASUI.dll" />
-    <widget-library name="../bin/Release/OpenSASConfigurator.exe" internal="true" />
+    <widget-library name="../../OpenSASUI/bin/Debug/OpenSASUI.dll" />
+    <widget-library name="../bin/Debug/OpenSASConfigurator.exe" internal="true" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="708 834">
     <action-group name="Default">
@@ -63,10 +63,6 @@
         <property name="Label" translatable="yes">_Nuevo</property>
         <property name="ShortLabel" translatable="yes">_Nuevo</property>
         <property name="StockId">gtk-new</property>
-      </action>
-      <action id="Action">
-        <property name="Type">Action</property>
-        <property name="Label" translatable="yes" />
       </action>
       <action id="FileAction1">
         <property name="Type">Action</property>
@@ -172,6 +168,25 @@
         <property name="StockId">gtk-about</property>
         <signal name="Activated" handler="OnAbout" />
       </action>
+      <action id="ImportIEDsAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Import IEDs</property>
+        <property name="ShortLabel" translatable="yes">Import IEDs</property>
+        <property name="Tooltip" translatable="yes">Import IEDs from a SCL file</property>
+        <signal name="Activated" handler="OnImportIED" />
+      </action>
+      <action id="newAction4">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Import IEDs</property>
+        <property name="ShortLabel" translatable="yes">Import IEDs</property>
+        <property name="StockId">gtk-new</property>
+      </action>
+      <action id="ImportIEDsAction1">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Import IEDs</property>
+        <property name="ShortLabel" translatable="yes">Import IEDs</property>
+        <signal name="Activated" handler="OnImportIED" />
+      </action>
     </action-group>
     <property name="MemberName" />
     <property name="Title" translatable="yes">OpenSASConfigurator</property>
@@ -191,6 +206,8 @@
                 <node type="Menuitem" action="openAction2" />
                 <node type="Menuitem" action="saveAction2" />
                 <node type="Menuitem" action="saveAsAction2" />
+                <node type="Separator" />
+                <node type="Menuitem" action="ImportIEDsAction1" />
                 <node type="Separator" />
                 <node type="Menuitem" action="quitAction2" />
               </node>

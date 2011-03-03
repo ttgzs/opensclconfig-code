@@ -30,7 +30,9 @@ public partial class MainWindow : Gtk.Window
 	static OpenSASUI.SclEditor scleditor;
 	static OpenSASConfigurator.OpenProgess progress;
 	static bool load_done;
+	static bool import_error;
 	static string filename;
+	static IEC61850.SCL.SCL sclimport;
 	
 	public MainWindow () : base(Gtk.WindowType.Toplevel)
 	{
@@ -38,6 +40,7 @@ public partial class MainWindow : Gtk.Window
 		this.notebook1.CurrentPage = 0;
 		scleditor = this.scleditor1;
 		load_done = false;
+		import_error = false;
 		filename = "";
 	}
 	
@@ -51,6 +54,12 @@ public partial class MainWindow : Gtk.Window
 	{
 		if (load_done) {
 			progress.Destroy();
+			if(import_error) {
+				Gtk.MessageDialog dlg = new Gtk.MessageDialog(null, DialogFlags.Modal, MessageType.Error, 
+				                                              ButtonsType.Close, false, 
+				                                              "Error: No IEDs was imported", null);
+				dlg.Show();
+			}
 			return false;
 		}
 		else {
@@ -67,16 +76,35 @@ public partial class MainWindow : Gtk.Window
 		scleditor.SclFile = new OpenSCL.Object(filename);
 		load_done = true;
 		GLib.Idle.Remove(idle);
-	}	
-
+	}
+	
+	static void ThrdOpenImportSCL ()
+	{
+		load_done = false;
+		import_error = false;
+		GLib.IdleHandler idle = new GLib.IdleHandler (OnIdleMoveProgressBar);
+		GLib.Idle.Add (idle);
+		sclimport = new OpenSCL.Object(filename).Configuration;
+		if(sclimport != null) {
+			progress.TextBar = "Importing IEDs...";
+			progress.Label = "Trying to Import" + sclimport.IED.Length + "IEDs...";
+			scleditor.SclFile.Configuration.AddIED(sclimport);
+		}
+		else
+			import_error = true;
+		load_done = true;
+		GLib.Idle.Remove(idle);		
+	}
+	
 	protected virtual void OnOpen (object sender, System.EventArgs e)
 	{
-		Gtk.FileChooserDialog dlg = new FileChooserDialog("Open SCL File",
+		Gtk.FileChooserDialog dlg = new FileChooserDialog("Open SCL file",
 		                                            this,
 		                                            FileChooserAction.Open,
 		                                            "Cancel", ResponseType.Cancel,
 		                                            "Open", ResponseType.Accept);
 		
+		OpenSASUI.SclFileChooser.SetSCLFilters(dlg);
 		if (dlg.Run() == (int) Gtk.ResponseType.Accept)
 		{
 			filename = dlg.Filename;
@@ -85,7 +113,8 @@ public partial class MainWindow : Gtk.Window
 			progress.Show();
 			System.Threading.Thread thr = new System.Threading.Thread (new System.Threading.ThreadStart (ThrdOpenSCLFile));
 			thr.Start ();
-		}		
+		}
+		dlg.Destroy();
 	}
 	
 	protected virtual void OnNew (object sender, System.EventArgs e)
@@ -107,6 +136,8 @@ public partial class MainWindow : Gtk.Window
 			                                                       Gtk.FileChooserAction.Save,
 			                                                       "Accept", Gtk.ResponseType.Accept,
 			                                                       "Cancel", Gtk.ResponseType.Cancel);
+			
+			OpenSASUI.SclFileChooser.SetSCLFilters(dlg);
 			if (dlg.Run() == (int) ResponseType.Accept)
 			{
 				scleditor.SclFile.Serialize(dlg.Filename);
@@ -146,6 +177,32 @@ public partial class MainWindow : Gtk.Window
 		dialog.Run();
 		dialog.Destroy();
 	}
+	
+	protected virtual void OnImportIED (object sender, System.EventArgs e)
+	{
+		if(scleditor.SclFile == null)
+			return;
+		
+		Gtk.FileChooserDialog dlg = new FileChooserDialog("Select SCL File to Import IEDs from",
+		                                            this,
+		                                            FileChooserAction.Open,
+		                                            "Cancel", ResponseType.Cancel,
+		                                            "Import", ResponseType.Accept);
+		
+		if (dlg.Run() == (int) Gtk.ResponseType.Accept)
+		{
+			filename = dlg.Filename;
+			dlg.Destroy();
+			progress = new OpenSASConfigurator.OpenProgess(this, filename);
+			progress.Show();
+			System.Threading.Thread thr = new System.Threading.Thread (new System.Threading.ThreadStart (ThrdOpenImportSCL));
+			thr.Start ();
+		}
+		
+		dlg.Destroy();
+	}
+	
+	
 	
 	private static string license = 
   @"This program is free software: you can redistribute it and/or modify

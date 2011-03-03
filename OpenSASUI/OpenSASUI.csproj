@@ -44,7 +44,7 @@
     <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>gtk-sharp-2.0</Package>
     </Reference>
-    <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
+    <Reference Include="Mono.Posix" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -74,6 +74,7 @@
     <Compile Include="ReportListViewer.cs" />
     <Compile Include="GSEListViewer.cs" />
     <Compile Include="gtk-gui\OpenSASUI.CommViewer.cs" />
+    <Compile Include="SclFileChooser.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibOpenSCL\LibOpenSCL.csproj">

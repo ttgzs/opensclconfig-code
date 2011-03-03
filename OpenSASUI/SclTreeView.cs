@@ -127,23 +127,25 @@ namespace OpenSASUI
 						break;
 					case 2: // Communication
 					{
-						if (!communication_updated && this.sclfile.Subnetworks != null)
+						if (!communication_updated && this.sclfile.Configuration.Communication != null)
 						{
-							Gtk.TreeStore model = (Gtk.TreeStore) this.Model;
-							for (int i = 0; i < this.sclfile.Subnetworks.GetLength(0); i++) {
-								string desc;
-								if (this.sclfile.Subnetworks[i].desc != null)
-									desc = this.sclfile.Subnetworks[i].desc;
-								else
-									desc = "";
-								
-								model.AppendValues (seliter,
-								                    this.sclfile.Subnetworks[i].name,
-								                    i,
-								                    desc);
+							if (this.sclfile.Subnetworks != null) {
+								Gtk.TreeStore model = (Gtk.TreeStore) this.Model;
+								for (int i = 0; i < this.sclfile.Subnetworks.GetLength(0); i++) {
+									string desc;
+									if (this.sclfile.Subnetworks[i].desc != null)
+										desc = this.sclfile.Subnetworks[i].desc;
+									else
+										desc = "";
+									
+									model.AppendValues (seliter,
+									                    this.sclfile.Subnetworks[i].name,
+									                    i,
+									                    desc);
+								}
+								this.ExpandRow(path, false);
+								communication_updated = true;
 							}
-							this.ExpandRow(path, false);
-							communication_updated = true;
 						}
 					}
 						break;

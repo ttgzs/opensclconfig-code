@@ -795,6 +795,8 @@ namespace OpenSCL
 		/// </param>
    		public void EmptyDestinytoSourceObject(object sourceObject, object assignObject)
 		{
+			System.Console.WriteLine("source type: " + sourceObject.GetType().ToString()
+			                         + "assign type: " + assignObject.GetType().ToString());
 			PropertyInfo[] attributesInformation = assignObject.GetType().GetProperties();        	        	        	        							
 			object[] valueObjectAttribute = new object[1];
 			MemberInfo[] nameOfVariablesToFind;

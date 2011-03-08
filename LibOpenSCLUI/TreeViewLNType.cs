@@ -129,11 +129,17 @@ namespace OpenSCL.UI
 		{
 			if(lN is tLN)
 			{
-				return this.objectManagement.CreateObject((lN as tLN).lnClass.ToString(),(lN as tLN).lnType, this.sCL.Configuration.IED[this.positionIED].type);
+				//return this.objectManagement.CreateObject((lN as tLN).lnClass.ToString(),(lN as tLN).lnType, this.sCL.Configuration.IED[this.positionIED].type, "Algo", "Algo", 0, 0.1003033);
+				tLN ln = new tLN();
+				ln.lnType = (lN as tLN).lnType;
+				return ln;
 			}
 			else if(lN is tLN0)
 			{
-				return this.objectManagement.CreateObject((lN as tLN0).lnClass.ToString(),(lN as tLN0).lnType, this.sCL.Configuration.IED[this.positionIED].type);
+				//return this.objectManagement.CreateObject((lN as tLN0).lnClass.ToString(),(lN as tLN0).lnType, this.sCL.Configuration.IED[this.positionIED].type);
+				tLN0 ln = new tLN0();
+				ln.lnType = (lN as tLN0).lnType;
+				return ln;
 			}
 			else
 			{
@@ -285,7 +291,7 @@ namespace OpenSCL.UI
 			if(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tDataTypeTemplates"]==null)
 			{				
 				tDataTypeTemplates dataTypeTemplates = new tDataTypeTemplates();
-				this.objectManagement.AddObjectToSCLObject(dataTypeTemplates, sCL.Configuration);							
+				sCL.Configuration.DataTypeTemplates = dataTypeTemplates;
 				this.nodeDataType = new TreeNode();				
 				this.nodeDataType.Name = "tDataTypeTemplates";
 				this.nodeDataType.Tag = sCL.Configuration.DataTypeTemplates;
@@ -296,10 +302,14 @@ namespace OpenSCL.UI
 			{
 				this.nodeDataType = this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tDataTypeTemplates"];
 			}						
-			tLNodeType lNodeType = new tLNodeType();		
-			this.objectManagement.EmptyDestinytoSourceObject(this.treeLNType.Tag, lNodeType);	
-			tLN lN = new tLN();		
-			this.objectManagement.EmptyDestinytoSourceObject(this.treeLNType.Tag,lN);			
+			if (this.treeLNType.Tag is CommonLogicalNode) {
+				
+			}
+			tLNodeType lNodeType = new tLNodeType();
+			
+			this.objectManagement.EmptyDestinytoSourceObject(this.treeLNType.Tag, lNodeType);
+			tLN lN = new tLN();
+			this.objectManagement.EmptyDestinytoSourceObject(this.treeLNType.Tag, lN);
 			if(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes[nodeDataType.Name].Nodes["tLNodeType[]"]==null)
 			{
 				this.nodeLNodeType = new TreeNode();
@@ -1301,7 +1311,7 @@ namespace OpenSCL.UI
 		{			
 			for(int x = 0; this.sCL.Configuration.DataTypeTemplates != null && this.sCL.Configuration.DataTypeTemplates.LNodeType != null && x < this.sCL.Configuration.DataTypeTemplates.LNodeType.Length; x++)
 			{
-				if(this.sCL.Configuration.DataTypeTemplates.LNodeType[x].id.Equals(logicNodeType.id ))
+				if(this.sCL.Configuration.DataTypeTemplates.LNodeType[x].id.Equals(logicNodeType.lnType ))
 				{
 					int z = 0;
 					for(int y = 0; this.sCL.Configuration.DataTypeTemplates.LNodeType[x].DO != null && y < this.sCL.Configuration.DataTypeTemplates.LNodeType[x].DO.Length; y++)
@@ -1310,19 +1320,21 @@ namespace OpenSCL.UI
 						{
 							if(this.sCL.Configuration.DataTypeTemplates.DOType[z].id.Equals(this.sCL.Configuration.DataTypeTemplates.LNodeType[x].DO[y].type))
 							{
-								object DOData = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[z].cdc, this.sCL.Configuration.DataTypeTemplates.LNodeType[x].DO[y].name, logicNodeType.lnType, logicNodeType.iedType);
-								this.JoinRefence(this.sCL.Configuration.DataTypeTemplates.DOType[z], DOData);
+								object dot = this.objectManagement.CreateObject(this.sCL.Configuration.DataTypeTemplates.DOType[z].cdc, 
+								                                                   this.sCL.Configuration.DataTypeTemplates.LNodeType[x].DO[y].name, 
+								                                                   logicNodeType.lnType, logicNodeType.iedType);
+								this.JoinRefence(this.sCL.Configuration.DataTypeTemplates.DOType[z], dot);
 								if(this.sCL.Configuration.DataTypeTemplates.DOType[z].DA!=null)
 								{
-									this.objectManagement.FindVariableAndSetValue(DOData, "DA", null);
+									this.objectManagement.FindVariableAndSetValue(dot, "DA", null);
 								}		
-								this.objectManagement.FindVariableAndSetValue(DOData, "CheckSelection", true);										
-								this.objectManagement.FindVariableAndSetValue(DOData, "Visible", true);										
-								this.objectManagement.FindVariableAndSetValue(logicNodeType, this.sCL.Configuration.DataTypeTemplates.LNodeType[x].DO[y].name,DOData);
-								this.ReloadDADataType(DOData, z, logicNodeType.lnType);
+								this.objectManagement.FindVariableAndSetValue(dot, "CheckSelection", true);										
+								this.objectManagement.FindVariableAndSetValue(dot, "Visible", true);										
+								this.objectManagement.FindVariableAndSetValue(logicNodeType, this.sCL.Configuration.DataTypeTemplates.LNodeType[x].DO[y].name,dot);
+								this.ReloadDADataType(dot, z, logicNodeType.lnType);
 								if(this.sCL.Configuration.DataTypeTemplates.DOType[z].SDO!=null)
 								{	
-									this.objectManagement.FindVariableAndSetValue(DOData, "SDO", null);
+									this.objectManagement.FindVariableAndSetValue(dot, "SDO", null);
 									int count = 0;
 									for(; count < this.sCL.Configuration.DataTypeTemplates.DOType[z].SDO.Length; count++)
 									{
@@ -1336,7 +1348,7 @@ namespace OpenSCL.UI
 												this.objectManagement.FindVariableAndSetValue(DODataSon, "SDO", null);												
 												this.objectManagement.FindVariableAndSetValue(DODataSon, "CheckSelection", true);	
 												this.objectManagement.FindVariableAndSetValue(DODataSon, "Visible", true);										
-												this.objectManagement.FindVariableAndSetValue(DOData, this.sCL.Configuration.DataTypeTemplates.DOType[z].SDO[count].name, DODataSon);	
+												this.objectManagement.FindVariableAndSetValue(dot, this.sCL.Configuration.DataTypeTemplates.DOType[z].SDO[count].name, DODataSon);	
 												this.ReloadDADataType(DODataSon, count2, logicNodeType.lnType);
 												break;
 											}											

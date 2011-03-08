@@ -37,7 +37,7 @@ namespace IEC61850.SCL
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
-	public partial class tAnyLN : tUnNaming 
+	public abstract partial class tAnyLN : tUnNaming 
 	{		
 		private tDataSet[] dataSetField;		
 		private tReportControl[] reportControlField;		

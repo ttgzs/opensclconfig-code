@@ -28,14 +28,17 @@ namespace IEC61850.SCL
 	/// This class defines the logical node attributes that are defined for his use in the 
 	/// Common Logical Node.
 	/// </summary>
-	public class CommonLogicalNode : tLNodeType
+	public class CommonLogicalNode : tLN
 	{				
 		// FIXME: CommonLogicalNode must inherit from tLN
 		// FIXME: These properties are for GUI not for OpenSCL library
 		public bool CheckSelection = false;
 		public bool Visible = true;
 		
-		public string lnType;
+		// FIXME: Must not be used or reimplemented
+		public string iedType;
+		
+		//public string lnType;
 		
 		private INC ModField;	
 		private INS BehField;		

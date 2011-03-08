@@ -54,6 +54,8 @@ namespace OpenSCL.UI
 		/// </param>
 		public WindowTreeViewLNType(TreeNode treeNodeLN, SCL sCLObject, object lN, string title)
 		{
+			if(lN is tLN)
+				System.Console.WriteLine("IS A tLN");
 			this.treeNodeLN= treeNodeLN;
 			this.scl.Configuration = sCLObject;			
 			this.lN = lN;

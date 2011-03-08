@@ -61,6 +61,13 @@ namespace IEC61850.SCL
 			this.status = tStatusEnum.Unknown;
 		}
 		
+		// Deprecate iedType
+		public tLN (string iedType, string lnClass, string lnType)
+		{
+			this.lnClass = lnClass;
+			this.lnType = lnType;
+		}
+		
 		/// <summary>
 		/// Use this constructor to create a new LN and verify if it is Valid, if there's no other
 		/// LN in the LD with the same prefix, class and instance. Check Status property in order 

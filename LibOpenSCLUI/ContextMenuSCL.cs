@@ -261,7 +261,7 @@ namespace OpenSCL.UI
 					windowTreeViewLNType = new WindowTreeViewLNType(this.treeSCL.TreeView.SelectedNode, 
 				                                                sCL.Configuration, 
 				                                                this.treeSCL.TreeView.SelectedNode.Tag, 
-				                                                "New");
+				                                                "Edit Logical Node's Data Objects");
 					windowTreeViewLNType.ShowDialog();
 					break;
 				case "tDataSet[]":

@@ -177,6 +177,7 @@
     <Compile Include="tVoltage.cs" />
     <Compile Include="tVoltageLevel.cs" />
     <Compile Include="tSubstation.cs" />
+    <Compile Include="CommonLogicalNode.cs" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

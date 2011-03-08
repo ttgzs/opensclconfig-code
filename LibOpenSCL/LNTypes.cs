@@ -88,7 +88,7 @@ namespace IEC61850.SCL
 		
 		public ANCR(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.ANCR.ToString();
 			this.iedType = iedType;
 			this.TapChgField = new BSC("TapChg", lnType, iedType);
@@ -195,7 +195,7 @@ namespace IEC61850.SCL
 			
 		public ARCO(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.ARCO.ToString();
 			this.iedType = iedType;			
 			this.TapChgField = new BSC("TapChg", lnType, iedType);
@@ -341,7 +341,7 @@ namespace IEC61850.SCL
 					
 		public ATCC(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.ATCC.ToString();
 			this.iedType = iedType;
 			this.BlkLVField = new ASG("BlkLV", lnType, iedType);
@@ -814,7 +814,7 @@ namespace IEC61850.SCL
 		
 		public AVCO(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.AVCO.ToString();
 			this.iedType = iedType;			
 			this.LimAOvField = new ASG("LimAOv",lnType, iedType);
@@ -943,7 +943,7 @@ namespace IEC61850.SCL
 	
 		public CALH(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.CALH.ToString();
 			this.iedType = iedType;			
 			this.AlmLstOvField = new SPS("AlmLstOv", lnType, iedType); 				 
@@ -1021,7 +1021,7 @@ namespace IEC61850.SCL
 	
 		public CCGR(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.CCGR.ToString();
 			this.iedType = iedType;			
 			this.OilTmpSetField = new ASG("OilTmpSet", lnType, iedType); 				 
@@ -1289,7 +1289,7 @@ namespace IEC61850.SCL
 		
 		public CILO(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.CILO.ToString();
 			this.iedType = iedType;			
 			this.EnaClsField = new SPS("EnaCls",  lnType, iedType);
@@ -1341,7 +1341,7 @@ namespace IEC61850.SCL
 	
 		public CPOW(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.CPOW.ToString();
 			this.iedType = iedType;
 			this.OpClsField = new ACT("OpCls",  lnType, iedType);
@@ -1434,7 +1434,7 @@ namespace IEC61850.SCL
 
 		public CSWI(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.CSWI.ToString();
 			this.iedType = iedType;			
 			this.OpClsField = new ACT("OpCls", lnType, iedType);
@@ -1567,7 +1567,7 @@ namespace IEC61850.SCL
 
 		public GAPC(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.GAPC.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -1716,7 +1716,7 @@ namespace IEC61850.SCL
 	
 		public GGIO(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.GGIO.ToString();
 			this.iedType = iedType;			
 			this.DPCSOField = new DPC("DPCSO", lnType, iedType);
@@ -1884,7 +1884,7 @@ namespace IEC61850.SCL
 		
 		public GSAL(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.GSAL.ToString();
 			this.iedType = iedType;			
 			this.NumCntRsField = new INC("NumCntRs", lnType, iedType);
@@ -1995,7 +1995,7 @@ namespace IEC61850.SCL
 	
 		public IARC(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.IARC.ToString();
 			this.iedType = iedType;			
 			this.NumCntRsField = new INC("NumCntRs", lnType, iedType);
@@ -2120,7 +2120,7 @@ namespace IEC61850.SCL
 	{
 		public IHMI(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.IHMI.ToString();
 			this.iedType = iedType;
 		}
@@ -2138,7 +2138,7 @@ namespace IEC61850.SCL
 	{
 		public ITCI(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.ITCI.ToString();
 			this.iedType = iedType;
 		}
@@ -2156,7 +2156,7 @@ namespace IEC61850.SCL
 	{
 		public ITMI(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.ITMI.ToString();
 			this.iedType = iedType;
 		}
@@ -2179,7 +2179,7 @@ namespace IEC61850.SCL
 	
 		public LLN0(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.LLN0.ToString();
 			this.iedType = iedType;
 			this.OpTmhField = new INS("OpTmh", lnType, iedType);
@@ -2262,7 +2262,7 @@ namespace IEC61850.SCL
 	
 		public LPHD(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.LPHD.ToString();
 			this.iedType = iedType;			
 			this.PhyNamField = new DPL("PhyNam", lnType, iedType);				 
@@ -2444,7 +2444,7 @@ namespace IEC61850.SCL
 		
 		public MDIF(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.MDIF.ToString();
 			this.iedType = iedType;			
 			this.Amp1Field = new SAV("Amp1", lnType, iedType);				 
@@ -2556,7 +2556,7 @@ namespace IEC61850.SCL
 	
 		public MHAI(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.MHAI.ToString();
 			this.iedType = iedType;			
 			this.HzSetField = new ASG("HzSet", lnType, iedType);
@@ -3119,7 +3119,7 @@ namespace IEC61850.SCL
 	
 		public MHAN(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.MHAN.ToString();
 			this.iedType = iedType;			
 			this.HzSetField = new ASG("HzSet", lnType, iedType);
@@ -3590,7 +3590,7 @@ namespace IEC61850.SCL
 	
 		public MMTR(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.MMTR.ToString();
 			this.iedType = iedType;			
 			this.TotVAhField = new BCR("TotVAh", lnType, iedType);
@@ -3736,7 +3736,7 @@ namespace IEC61850.SCL
 
 		public MMXN(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.MMXN.ToString();
 			this.iedType = iedType;			
 			this.ImpField = new CMV("Imp", lnType, iedType);
@@ -3899,7 +3899,7 @@ namespace IEC61850.SCL
 		
 		public MMXU(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.MMXU.ToString();
 			this.iedType = iedType;		
 			this.PPVField = new DEL("PPV", lnType, iedType);
@@ -4115,7 +4115,7 @@ namespace IEC61850.SCL
 		
 		public MSQI(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.MSQI.ToString();
 			this.iedType = iedType;			
 			this.ImbPPVField = new DEL("ImbPPV", lnType, iedType);
@@ -4348,7 +4348,7 @@ namespace IEC61850.SCL
 	
 		public MSTA(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.MSTA.ToString();
 			this.iedType = iedType;			
 			this.EvTmmsField = new ASG("EvTmms", lnType, iedType);
@@ -4628,7 +4628,7 @@ namespace IEC61850.SCL
 	
 		public PDIF(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.PDIF.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -4834,7 +4834,7 @@ namespace IEC61850.SCL
 	
 		public PDIR(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.PDIR.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -4932,7 +4932,7 @@ namespace IEC61850.SCL
 		
 		public PDIS(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.PDIS.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -5285,7 +5285,7 @@ namespace IEC61850.SCL
 		
 		public PDOP(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.PDOP.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -5404,7 +5404,7 @@ namespace IEC61850.SCL
 	
 		public PDUP(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.PDUP.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -5524,7 +5524,7 @@ namespace IEC61850.SCL
 	
 		public PFRC(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.PFRC.ToString();
 			this.iedType = iedType;		
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -5656,7 +5656,7 @@ namespace IEC61850.SCL
 	
 		public PHAR(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.PHAR.ToString();
 			this.iedType = iedType;	
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -5775,7 +5775,7 @@ namespace IEC61850.SCL
 	
 		public PHIZ(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.PHIZ.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -5904,7 +5904,7 @@ namespace IEC61850.SCL
 
 		public PIOC(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.PIOC.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -5987,7 +5987,7 @@ namespace IEC61850.SCL
 
 		public PMRI(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.PMRI.ToString();
 			this.iedType = iedType;			
 			this.OpField =new ACT("Op", lnType, iedType);
@@ -6156,7 +6156,7 @@ namespace IEC61850.SCL
 
 		public PMSS(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.PMSS.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -6276,7 +6276,7 @@ namespace IEC61850.SCL
 
 		public POPF(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.POPF.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -6431,7 +6431,7 @@ namespace IEC61850.SCL
 	
 		public PPAM(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.PPAM.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -6883,7 +6883,7 @@ namespace IEC61850.SCL
 	
 		public PSDE(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.CCGR.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -7026,7 +7026,7 @@ namespace IEC61850.SCL
 		
 		public PTEF(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.CCGR.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -7124,7 +7124,7 @@ namespace IEC61850.SCL
 		 		
 		public PTOC(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.CCGR.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -7322,7 +7322,7 @@ namespace IEC61850.SCL
 			
 		public PTOF(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.CCGR.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -7458,7 +7458,7 @@ namespace IEC61850.SCL
 
 		public PTOV(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.CCGR.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -7628,7 +7628,7 @@ namespace IEC61850.SCL
 		
 		public PTRC(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.CCGR.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType); 
@@ -7747,7 +7747,7 @@ namespace IEC61850.SCL
 		
 		public PTTR(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.CCGR.ToString();
 			this.iedType = iedType;			
 			this.StrField = new ACD("Str", lnType, iedType); 
@@ -8066,7 +8066,7 @@ namespace IEC61850.SCL
 		
 		public PTUC(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.PTUC.ToString();
 			this.iedType = iedType;
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -8264,7 +8264,7 @@ namespace IEC61850.SCL
 		
 		public PTUF(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.PTUF.ToString();
 			this.iedType = iedType;
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -8400,7 +8400,7 @@ namespace IEC61850.SCL
 		
 		public PTUV(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.PTUV.ToString();
 			this.iedType = iedType;
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -8574,7 +8574,7 @@ namespace IEC61850.SCL
 		
 		public PUPF(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.PUPF.ToString();
 			this.iedType = iedType;
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -8738,7 +8738,7 @@ namespace IEC61850.SCL
 		
 		public PVOC(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.PVOC.ToString();
 			this.iedType = iedType;
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -8940,7 +8940,7 @@ namespace IEC61850.SCL
 		
 		public PVPH(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.PVPH.ToString();
 			this.iedType = iedType;
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -9123,7 +9123,7 @@ namespace IEC61850.SCL
 		
 		public PZSU(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.PZSU.ToString();
 			this.iedType = iedType;
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -9231,7 +9231,7 @@ namespace IEC61850.SCL
 		
 		public RADR(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.RADR.ToString();
 			this.iedType = iedType;
 			this.HiTrgLevField = new ASG("HiTrgLev", lnType, iedType);
@@ -9375,7 +9375,7 @@ namespace IEC61850.SCL
 		
 		public RBDR(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.RBDR.ToString();
 			this.iedType = iedType;
 			this.OpCntRsField = new INC("OpCntRs", lnType, iedType);
@@ -9496,7 +9496,7 @@ namespace IEC61850.SCL
 		
 		public RBRF(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.RBRF.ToString();
 			this.iedType = iedType;
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -9655,7 +9655,7 @@ namespace IEC61850.SCL
 		
 		public RDIR(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.RDIR.ToString();
 			this.iedType = iedType;
 			this.DirField = new ACD("Dir", lnType, iedType);
@@ -9824,7 +9824,7 @@ namespace IEC61850.SCL
 		
 		public RDRE(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.RDRE.ToString();
 			this.iedType = iedType;
 			this.OpCntRsField = new INC("OpCntRs", lnType, iedType);
@@ -10094,7 +10094,7 @@ namespace IEC61850.SCL
 		
 		public RDRS(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.RDRS.ToString();
 			this.iedType = iedType;
 			this.AutoUpLodField = new SPC("AutoUpLod", lnType, iedType);
@@ -10156,7 +10156,7 @@ namespace IEC61850.SCL
 		
 		public RFLO(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.RFLO.ToString();
 			this.iedType = iedType;
 			this.LinLenKmField = new ASG("LinLenKm", lnType, iedType);
@@ -10411,7 +10411,7 @@ namespace IEC61850.SCL
 		
 		public RPSB(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.RPSB.ToString();
 			this.iedType = iedType;
 			this.StrField = new ACD("Str", lnType, iedType);
@@ -10623,7 +10623,7 @@ namespace IEC61850.SCL
 		
 		public RREC(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.RREC.ToString();
 			this.iedType = iedType;
 			this.OpField =new ACT("Op", lnType, iedType);
@@ -10809,7 +10809,7 @@ namespace IEC61850.SCL
 		
 		public RSYN(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.RSYN.ToString();
 			this.iedType = iedType;
 			this.DifVField = new ASG("DifV", lnType, iedType);
@@ -11122,7 +11122,7 @@ namespace IEC61850.SCL
 		
 		public SARC(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.SARC.ToString();
 			this.iedType = iedType;
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -11247,7 +11247,7 @@ namespace IEC61850.SCL
 		
 		public SIMG(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.SIMG.ToString();
 			this.iedType = iedType;
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -11457,7 +11457,7 @@ namespace IEC61850.SCL
 		
 		public SIML(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.SIML.ToString();
 			this.iedType = iedType;
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -11756,7 +11756,7 @@ namespace IEC61850.SCL
 		
 		public SPDC(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.SPDC.ToString();
 			this.iedType = iedType;
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -11850,7 +11850,7 @@ namespace IEC61850.SCL
 		
 		public TCTR(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.TCTR.ToString();
 			this.iedType = iedType;
 			this.ARtgField = new ASG("ARtg", lnType, iedType);
@@ -11997,7 +11997,7 @@ namespace IEC61850.SCL
 		
 		public TVTR(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.TVTR.ToString();
 			this.iedType = iedType;
 			this.VRtgField = new ASG("VRtg", lnType, iedType);
@@ -12159,7 +12159,7 @@ namespace IEC61850.SCL
 		
 		public XCBR(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.XCBR.ToString();
 			this.iedType = iedType;
 			this.SumSwARsField = new BCR("SumSwARs", lnType, iedType);
@@ -12351,7 +12351,7 @@ namespace IEC61850.SCL
 		
 		public XSWI(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.XSWI.ToString();
 			this.iedType = iedType;
 			this.PosField = new DPC("Pos", lnType, iedType);
@@ -12527,7 +12527,7 @@ namespace IEC61850.SCL
 		
 		public YEFN(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.YEFN.ToString();
 			this.iedType = iedType;
 			this.ColPosField = new APC("ColPos", lnType, iedType);
@@ -12650,7 +12650,7 @@ namespace IEC61850.SCL
 		
 		public YLTC(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.YLTC.ToString();
 			this.iedType = iedType;
 			this.TapChgField = new BSC("TapChg", lnType, iedType);
@@ -12810,7 +12810,7 @@ namespace IEC61850.SCL
 		
 		public YPSH(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.YPSH.ToString();
 			this.iedType = iedType;
 			this.PosField = new DPC("Pos", lnType, iedType);
@@ -12964,7 +12964,7 @@ namespace IEC61850.SCL
 	
 		public YPTR(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.YPTR.ToString();
 			this.iedType = iedType;
 			this.HiVRtgField = new ASG("HiVRtg", lnType, iedType);
@@ -13170,7 +13170,7 @@ namespace IEC61850.SCL
 		
 		public ZAXN(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.ZAXN.ToString();
 			this.iedType = iedType;
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -13266,7 +13266,7 @@ namespace IEC61850.SCL
 	
 		public ZBAT(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;			
+			this.lnType = lnType;			
 			this.lnClass = tLNClassEnum.ZBAT.ToString();
 			this.iedType = iedType;			
 			this.LoBatValField = new ASG("LoBatVal", lnType, iedType);
@@ -13451,7 +13451,7 @@ namespace IEC61850.SCL
 
 		public ZBSH(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.ZBSH.ToString();
 			this.iedType = iedType;			
 			this.RefReactField = new ASG("RefReact", lnType, iedType);
@@ -13591,7 +13591,7 @@ namespace IEC61850.SCL
 	
 		public ZCAB(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.ZCAB.ToString();
 			this.iedType = iedType;			
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -13654,7 +13654,7 @@ namespace IEC61850.SCL
 	
 		public ZCAP(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.ZCAP.ToString();
 			this.iedType = iedType;			
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -13743,7 +13743,7 @@ namespace IEC61850.SCL
 	
 		public ZCON(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.ZCON.ToString();
 			this.iedType = iedType;			
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -13823,7 +13823,7 @@ namespace IEC61850.SCL
 	
 		public ZGEN(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.ZGEN.ToString();
 			this.iedType = iedType;			
 			this.DmdPwrField = new ASG("DmdPwr", lnType, iedType);
@@ -14139,7 +14139,7 @@ namespace IEC61850.SCL
 	
 		public ZGIL(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.ZGIL.ToString();
 			this.iedType = iedType;		
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -14200,7 +14200,7 @@ namespace IEC61850.SCL
 
 		public ZLIN(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.ZLIN.ToString();
 			this.iedType = iedType;			
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -14265,7 +14265,7 @@ namespace IEC61850.SCL
 
 		public ZMOT(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.ZMOT.ToString();
 			this.iedType = iedType;			
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -14379,7 +14379,7 @@ namespace IEC61850.SCL
 	
 		public ZREA(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.ZREA.ToString();
 			this.iedType = iedType;			
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -14440,7 +14440,7 @@ namespace IEC61850.SCL
 
 		public ZRRC(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.ZRRC.ToString();
 			this.iedType = iedType;			
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -14502,7 +14502,7 @@ namespace IEC61850.SCL
 	
 		public ZSAR(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.ZSAR.ToString();
 			this.iedType = iedType;			
 			this.EENameField = new DPL("EEName", lnType, iedType);
@@ -14578,7 +14578,7 @@ namespace IEC61850.SCL
 
 		public ZTCF(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.ZTCF.ToString();
 			this.iedType = iedType;			
 			this.PwrFrqField = new ASG("PwrFrq", lnType, iedType);
@@ -14652,7 +14652,7 @@ namespace IEC61850.SCL
 	
 		public ZTCR(string lnType, string iedType) : base(lnType, iedType)
 		{
-			this.id = lnType;
+			this.lnType = lnType;
 			this.lnClass = tLNClassEnum.ZTCR.ToString();
 			this.iedType = iedType;
 			this.EENameField = new DPL("EEName", lnType, iedType);

@@ -35,10 +35,7 @@ namespace OpenSCLConfigurator
             InitializeComponent();
 			
 			System.Reflection.Assembly asm = Assembly.GetExecutingAssembly();
-			string appname = (asm.GetCustomAttributes (
-			typeof (AssemblyTitleAttribute), false) [0]
-			as AssemblyTitleAttribute).Title;
-			
+						
 			this.appversion.Text = asm.GetName().Version.ToString();
 			
 			string libver = "";
@@ -65,7 +62,7 @@ namespace OpenSCLConfigurator
         /// </param>
 		void OKAboutClick(object sender, EventArgs e)
 		{
-			this.Hide();			
+			this.Close ();			
 		}
 		
 		

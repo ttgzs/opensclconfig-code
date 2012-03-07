@@ -51,7 +51,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("Control"), Description("Data set reference"), BrowsableAttribute(false)]
+		[Category("Control"), Description("Data set reference")]
 		public string datSet 
 		{
 			get 

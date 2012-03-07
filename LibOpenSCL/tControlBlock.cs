@@ -63,7 +63,9 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("ControlBlock"), Description("The instance identification of the LD within this IED, on which the control block is located."), ReadOnlyAttribute(true)]
+		[Category("ControlBlock"), 
+		 Description("The instance identification of the LD within this IED, on which the control block is located."), 
+		 ReadOnlyAttribute(true)]
 		public string ldInst 
 		{
 			get 
@@ -86,7 +88,9 @@ namespace IEC61850.SCL
 
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("ControlBlock"), Description("The name of the control block within the LLN0 of the LD ldInst."), ReadOnlyAttribute(true)]
+		[Category("ControlBlock"), 
+		 Description("The name of the control block within the LLN0 of the LD ldInst."), 
+		 ReadOnlyAttribute(true)]
 		public string cbName 
 		{
 			get 

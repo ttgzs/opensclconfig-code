@@ -32,9 +32,17 @@ namespace OpenSCLConfigurator
 	/// </summary>
 	public class App : Form
 	{		
+		
+		// Private variables
 		private System.Boolean modified;
 		private System.Boolean validate;
+		private ImageList tb_il	= new ImageList();	
+		private string xSDFiles = Application.StartupPath+"/XSD//SCL.xsd";
+		private string AppName = "OpenSCLConfigurator";
+		private string file = "";
+		private OpenSCL.Object scl;
 		
+		// Form objects
 		private System.Windows.Forms.ToolStripMenuItem importIEDConfigToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem validateSCLFileToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
@@ -71,9 +79,13 @@ namespace OpenSCLConfigurator
 		private System.Windows.Forms.ToolBarButton Separator2;
 		private System.Windows.Forms.ToolBarButton Separator1;
 		
-		ImageList tb_il	= new ImageList();	
-		string xSDFiles = Application.StartupPath+"/XSD//SCL.xsd";
-		
+		private string File {
+			get { return file; }
+			set { 
+				file = value;
+				this.Text = this.Text + " - " + file;
+			}
+		}
 		
 		/// <summary>
 		/// This method initialize the components of the form. 
@@ -85,7 +97,24 @@ namespace OpenSCLConfigurator
 			validate = false;
 			
 			//System.Windows.Forms.MessageBox.Show ( os.Platform.ToString() );
-			InitializeComponent();				
+			InitializeComponent();
+			string[] args = Environment.GetCommandLineArgs();
+			if (args.Length > 1) {
+				string arg = args [1];
+				try {
+					System.Console.WriteLine ("arg = " + arg);
+//						if (Path.GetFileName (arg) != "") {
+//							var f = new System.IO.FileStream (arg, FileMode.Open);
+//							if (f.CanRead) {
+//								f.Close ();
+//								OpenSCLFile (arg, false);
+//							}
+//						}
+				}
+				catch (System.IO.FileNotFoundException) {
+					System.Console.WriteLine ("File: " + arg + " does not exist");
+				}
+			}
 		}
 		
 		/// <summary>
@@ -117,7 +146,6 @@ namespace OpenSCLConfigurator
 			
 			this.Panel2 = new System.Windows.Forms.Panel();
 			this.PropertyGridAttributes = new System.Windows.Forms.PropertyGrid();
-			
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			
 			this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
@@ -491,7 +519,7 @@ namespace OpenSCLConfigurator
 			this.Controls.Add(this.statusStrip1);
 			this.Name = "FormSCL";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "OpenSCLConfigurator";
+			this.Text = this.AppName;
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			//this.AutoScroll = true;
 			this.AutoSize = true;
@@ -551,14 +579,19 @@ namespace OpenSCLConfigurator
 			SaveFile(sender, e);			
 			this.treeViewFile.Nodes.Clear();			
 			Utils utils = new Utils();
-			IEC61850.SCL.SCL scl = new IEC61850.SCL.SCL();
+			var scln = new OpenSCL.Object ();
+			this.scl = scln;
+			scl.Configuration.Header.version = "1";
+			scl.Configuration.Header.revision = "1";
 			tHitem item = new tHitem();
-			item.version = scl.Header.version;
-			item.revision = scl.Header.revision;
+			item.version = "1";
+			item.revision = "1";
 			item.why = "New SCL";
-			scl.Header.AddHistoryItem(item);
-			this.treeViewFile.Nodes.Add(utils.treeViewSCL.GetTreeNodeSCL("SCL File", scl));
-			utils.CreateIED(scl, this.treeViewFile.Nodes[0]);
+			scl.Configuration.Header.AddHistoryItem(item);
+			string t = "New SCL - Ver. " + scl.Configuration.Header.version
+						+ " - Rev. " + scl.Configuration.Header.revision;
+			this.treeViewFile.Nodes.Add(utils.treeViewSCL.GetTreeNodeSCL(t, scl.Configuration));
+			utils.CreateIED (scl.Configuration, this.treeViewFile.Nodes[0]);
 		}
 		
 		/// <summary>
@@ -590,10 +623,125 @@ namespace OpenSCLConfigurator
 			List<ErrorsManagement> listError = null;
 			SaveFile(sender, e);
 			this.treeViewFile.Nodes.Clear();
-			openDialog o = new openDialog(false);
-			listError = o.OpenSCLFile(this.treeViewFile, xSDFiles, true);
-			EnablePanels(listError);
-		}		
+			openDialog dlg = new openDialog();
+			if(dlg.ShowDialog() == DialogResult.OK)
+			{			
+				listError = OpenSCLFile(dlg.FileName, validate);
+			}
+			if (listError.Capacity > 0 )
+				EnablePanels (listError);
+		}
+		
+		public List<ErrorsManagement> OpenSCLFile (string filename, bool validate)
+		{
+			List<ErrorsManagement> list = new List<ErrorsManagement> ();
+						
+			if (validate) {
+				//System.Windows.Forms.MessageBox.Show ("OpenDialog: Validating");
+				ValidatingSCL val = new ValidatingSCL ();
+				list = val.ValidateFile (filename, xSDFiles);
+			}
+			
+			if (list.Count == 0)
+			{										
+				var treeViewSCLOpen = new TreeViewSCL();
+				// Creating a SCL object
+				System.Console.WriteLine("Deserializating file to SCLObject:...");
+				System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+				sw.Start();
+				this.scl = new OpenSCL.Object ();
+				this.scl.Deserialize(filename);
+				sw.Stop();
+				System.Console.WriteLine("Enlapsed Time:"+sw.ElapsedMilliseconds+" ms");
+				// Creating TreeView
+				System.Console.WriteLine("Creating TreeView:...");
+				System.Diagnostics.Stopwatch swt = new System.Diagnostics.Stopwatch();
+				swt.Start();
+				this.File = Path.GetFileName(filename);
+				string t = "SCL Configuration";
+				if (this.scl.Configuration.Header != null)
+					t = this.file + " Ver. " + 
+						this.scl.Configuration.Header.version +
+						"Rev. " + this.scl.Configuration.Header.revision;
+				treeViewFile.Nodes.Add(treeViewSCLOpen.GetTreeNodeSCL(t, this.scl.Configuration));
+				swt.Stop();
+				System.Console.WriteLine("Enlapsed Time:"+swt.ElapsedMilliseconds+" ms");
+			}	
+			return list;
+		}
+		
+		
+		/// <summary>
+		/// This method shows a dialog box to allow select an IED file (*.icd, *.cid) and show it 
+		/// on a tree.
+		/// </summary>
+		/// <param name="treeViewOpen">
+		/// Graphical component "TreeView" where some nodes of IED file will be added.
+		/// </param>
+		/// <returns>
+		/// If the file that will be open has errors of XML sintax or an incorrect data according to the 
+		/// XSD files then a list of errors is returned, otherwise an empty list is returned.
+		/// </returns>
+		public List<ErrorsManagement> ImportIED (string filename, bool validate)
+		{	
+			var list = new List<ErrorsManagement> ();
+			
+			if (validate) {
+					var val = new ValidatingSCL ();
+					list = val.ValidateFile(filename, xSDFiles);
+			}
+			
+			if (list.Count == 0) {										
+				
+				var treeViewSCLOpen = new TreeViewSCL();
+				// Creating a SCL object
+				System.Console.WriteLine ("Deserializating file to SCLObject:...");
+				System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+				sw.Start();
+				var ied = new OpenSCL.Object ();
+				ied.Deserialize (filename);					
+				sw.Stop ();
+				System.Console.WriteLine ("Enlapsed Time:" + sw.ElapsedMilliseconds + " ms");
+				
+				System.Console.WriteLine ("Importing IED TreeView:...");
+				System.Diagnostics.Stopwatch swt = new System.Diagnostics.Stopwatch();
+				swt.Start ();
+				
+				// TODO: Add a dialog to show rejected IEDs
+				if (this.scl != null)
+					this.scl.Configuration.AddIED (ied.Configuration);
+				else
+					this.scl = ied;
+				
+				swt.Stop();
+				System.Console.WriteLine ("Enlapsed Time:"+swt.ElapsedMilliseconds+" ms");
+				
+				System.Console.WriteLine ("Cleaning TreeView:...");
+				System.Diagnostics.Stopwatch swc = new System.Diagnostics.Stopwatch ();
+				swc.Start ();
+				
+				treeViewFile.Nodes.Clear ();
+				
+				swc.Stop ();
+				System.Console.WriteLine ("Enlapsed Time:"+swc.ElapsedMilliseconds+" ms");
+				
+				System.Console.WriteLine ("Creating TreeView:...");
+				System.Diagnostics.Stopwatch swu = new System.Diagnostics.Stopwatch ();
+				swu.Start ();
+				
+				string t = "SCL Configuration";
+				if (this.scl.Configuration.Header != null)
+					t = this.file + " Ver. " + 
+						this.scl.Configuration.Header.version +
+						"Rev. " + this.scl.Configuration.Header.revision;
+				treeViewFile.Nodes.Clear ();
+				treeViewFile.Nodes.Add(treeViewSCLOpen.GetTreeNodeSCL (t, scl.Configuration));
+				
+				swu.Stop ();
+				System.Console.WriteLine ("Enlapsed Time:"+swu.ElapsedMilliseconds+" ms");
+			}
+			return list;
+		}
 		
 		/// <summary>
 		/// This method comes from the principal menu. It's the option to save a project.
@@ -635,9 +783,13 @@ namespace OpenSCLConfigurator
 					
 			SaveFile(sender, e);
 			this.treeViewFile.Nodes.Clear();				
-			openDialog o = new openDialog(true);					
-			listError = o.OpenSCLFile(this.treeViewFile, xSDFiles, false);												
-			EnablePanels(listError);		
+			openDialog dlg = new openDialog();
+			if (dlg.ShowDialog () == DialogResult.OK)
+			{
+				listError = OpenSCLFile (dlg.FileName, true);
+			}
+			if (listError.Capacity > 0)
+				EnablePanels(listError);
 		}
 
 		/// <summary>
@@ -651,18 +803,21 @@ namespace OpenSCLConfigurator
 		/// handler when an event is raised. If the event handler requires state information, the application must 
 		/// derive a class from this class to hold the data.
 		/// </param>
-		void ImportIEDClick(object sender, EventArgs e)
+		void ImportIEDClick (object sender, EventArgs e)
 		{
-			if(this.treeViewFile.Nodes!=null && this.treeViewFile.Nodes.Count>0)
+			if (this.treeViewFile.Nodes != null && this.treeViewFile.Nodes.Count > 0)
 			{			
-				List<ErrorsManagement> listError = null;			
-				openDialog o = new openDialog();
-				listError = o.OpenIEDFile(this.treeViewFile, xSDFiles);												
-				EnablePanels(listError);								
+				var listError = new List<ErrorsManagement> ();
+				openDialog dlg = new openDialog ();
+				dlg.ImportIED = true;
+				if (dlg.ShowDialog () == DialogResult.OK)
+					listError = ImportIED (dlg.FileName, validate);
+				if (listError.Capacity > 0)
+					EnablePanels (listError);
 			}			
 			else
 			{			
-				MessageBox.Show("Can't import file due to missing SCL file");								
+				MessageBox.Show ("Can't import IED over un empty SCL");								
 			}
 		}
 		

@@ -283,8 +283,14 @@ namespace OpenSCL.UI
 			lN.lnClass = tLNClassEnum.LPHD.ToString();
 			this.objectManagement.AddObjectToArrayObjectOfParentObject(lN, lDevice);			
 			this.treeViewSCL.GetNodesItemOfArray(sCL.IED, sCL.GetType(), nodeSCL.TreeView.Nodes["root"].Nodes["SCL"]);
-			this.CreatingDependenciesLN(sCL, sCL.IED[sCL.IED.Length-1].AccessPoint[0].Server.LDevice[0].LN0, nodeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tIED[]"].Nodes[sCL.IED.Length-1].Nodes["tAccessPoint[]"].Nodes[0].Nodes["tServer"].Nodes["tLDevice[]"].Nodes[0].Nodes["LN0"]);
-			this.CreatingDependenciesLN(sCL, sCL.IED[sCL.IED.Length-1].AccessPoint[0].Server.LDevice[0].LN[0], nodeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tIED[]"].Nodes[sCL.IED.Length-1].Nodes["tAccessPoint[]"].Nodes[0].Nodes["tServer"].Nodes["tLDevice[]"].Nodes[0].Nodes["tLN[]"].Nodes[0]);
+			this.CreatingDependenciesLN(sCL, sCL.IED[sCL.IED.Length-1].AccessPoint[0].Server
+			                            .LDevice[0].LN0, nodeSCL.TreeView.Nodes["root"].Nodes["SCL"]
+			                            .Nodes["tIED[]"].Nodes[sCL.IED.Length-1].Nodes["tAccessPoint[]"]
+			                            .Nodes[0].Nodes["tServer"].Nodes["tLDevice[]"].Nodes[0].Nodes["LN0"]);
+			this.CreatingDependenciesLN(sCL, sCL.IED[sCL.IED.Length-1].AccessPoint[0].Server
+			                            .LDevice[0].LN[0], nodeSCL.TreeView.Nodes["root"].Nodes["SCL"]
+			                            .Nodes["tIED[]"].Nodes[sCL.IED.Length-1].Nodes["tAccessPoint[]"]
+			                            .Nodes[0].Nodes["tServer"].Nodes["tLDevice[]"].Nodes[0].Nodes["tLN[]"].Nodes[0]);
 		}
 		
 		private void CreatingDependenciesLN(SCL sCL, tAnyLN anyLN, TreeNode nodeAnyLN)

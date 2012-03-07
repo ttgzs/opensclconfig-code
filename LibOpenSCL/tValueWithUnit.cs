@@ -66,7 +66,9 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]		
-		[Category("ValueWithUnit"), Description("It shall define the multiplier value"), DefaultValue(tUnitMultiplierEnum.Item)]
+		[Category("ValueWithUnit"), 
+		 Description("It shall define the multiplier value"), 
+		 DefaultValue(tUnitMultiplierEnum.Item)]
 		public tUnitMultiplierEnum multiplier 
 		{
 			get 

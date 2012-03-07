@@ -250,5 +250,13 @@ namespace IEC61850.SCL
 			return ignored;
 		}
 		
+		public void AddIED (string inst)
+		{
+			tIED iED = new tIED();	
+			iED.configVersion = "0";
+			iED.name = inst;
+			iED.AddAP ("AP1");
+			iED.AddLDevice (inst, "AP1", this.DataTypeTemplates);
+		}
 	}
 }

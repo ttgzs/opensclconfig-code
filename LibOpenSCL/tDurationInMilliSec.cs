@@ -41,43 +41,14 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]			
 	public partial class tDurationInMilliSec : tValueWithUnit 
 	{
-		private tSIUnitEnum unitField;		
-		private tUnitMultiplierEnum multiplierField;
-		
 		public tDurationInMilliSec()
 		{
-			this.unitField = tSIUnitEnum.s;
-			this.multiplierField = tUnitMultiplierEnum.m;
-		}
-
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("DurationInMilliSec"), Description("It shall define the SI unit")]
-		public tSIUnitEnum unit 
-		{
-			get 
-			{
-				return this.unitField;
-			}
-			set
-			{
-				this.unitField = value;
-			}
+			unit = tSIUnitEnum.s;
+			multiplier = tUnitMultiplierEnum.m;
 		}
 		
-				
-		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("DurationInMilliSec"), Description("It shall define the multiplier value")]
-		public tUnitMultiplierEnum multiplier 
-		{
-			get 
-			{
-				return this.multiplierField;
-			}
-			set
-			{
-				this.multiplierField = value;
-			}
+		public string ToString () {
+			return Value.ToString () + "; Unit=" + unit.ToString () + "; Multiplier=" + multiplier.ToString ();
 		}
 	}
 

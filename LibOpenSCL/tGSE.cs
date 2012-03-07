@@ -36,63 +36,9 @@ namespace IEC61850.SCL
 		private tDurationInMilliSec minTimeField;		
 		private tDurationInMilliSec maxTimeField;
 		
-		//victor, se agregan por el acceso a las propiedades heredades
-		[System.Xml.Serialization.XmlIgnoreAttribute()]
-		private string ldInstField;
-		[System.Xml.Serialization.XmlIgnoreAttribute()]
-		private tLDevice tLDevice;
-		[System.Xml.Serialization.XmlIgnoreAttribute()]
-		private string cbNameField;
-		[System.Xml.Serialization.XmlIgnoreAttribute()]
-		private tGSEControl tGSEControl;
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("ControlBlock"), Description("The name of the control block within the LLN0 of the LD ldInst."), ReadOnlyAttribute(true)]
-		public string cbName 
-		{
-			get 
-			{
-				if(this.tGSEControl != null)
-				{
-					return this.tGSEControl.name;
-				}
-				return this.cbNameField;
-			}
-			set
-			{
-				if(this.tGSEControl != null)
-				{
-					this.tGSEControl.name = this.cbNameField = value;
-				}
-					this.cbNameField = value;
-			}
-		}
-		
-		[Required]
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("ControlBlock"), Description("The instance identification of the LD within this IED, on which the control block is located."), ReadOnlyAttribute(true)]
-		public string ldInst 
-		{
-			get 
-			{
-				if(this.tLDevice != null)
-				{
-					return this.tLDevice.inst;
-				}
-				return this.ldInstField;
-			}
-			set 
-			{
-				if(this.tLDevice != null)
-				{
-					this.tLDevice.inst = this.ldInstField = value;
-				}
-				this.ldInstField=value;
-			}
-		}
-		
-		[Category("GSE"), Description("The maximal allowed sending delay on a data change in ms."), 
-		 Browsable(false)]
+		[Category("GSE"), 
+		 Description("The maximal allowed sending delay on a data change in ms."),  
+		 ReadOnlyAttribute(true)]
 		public tDurationInMilliSec MinTime
 		{
 			get 
@@ -105,8 +51,8 @@ namespace IEC61850.SCL
 			}
 		}
 				
-		[Category("GSE"), Description("The source supervision time in ms (supervision heartbeat cycle time)."), 
-		 Browsable(false)]
+		[Category("GSE"), Description("The source supervision time in ms (supervision heartbeat cycle time)."),  
+		 ReadOnlyAttribute(true)]
 		public tDurationInMilliSec MaxTime 
 		{
 			get 

@@ -130,6 +130,8 @@ namespace IEC61850.SCL
 			if (name == null) return -1;
 			tAccessPoint ap = new tAccessPoint();
 			ap.name = name;
+			ap.Server  = new tServer ();
+			ap.Server.Authentication = new tServerAuthentication ();
 			int index = -1;
 			if (this.accessPointField == null) {
 				this.accessPointField = new tAccessPoint[1];
@@ -169,6 +171,40 @@ namespace IEC61850.SCL
 				}
 			}
 			return -1;
+		}
+		
+		public int AddLDevice (string inst, string ap, tDataTypeTemplates tpl) 
+		{
+			if (name == null) return -1;
+			var ld = new tLDevice ();
+			ld.inst = inst;
+			ld.LN0 = new LN0 ();
+			ld.LN = new tLN[1];
+			var ln = new tLN ();
+			ln.inst = 1;
+			tLNodeType tln;
+			
+			if (tpl.LNodeType == null)
+				tpl.LNodeType = new tLNodeType [1];
+			
+			int lnt = tpl.GetLNType ("LPHD");
+			if (lnt != -1) {
+				tln = tpl.LNodeType [lnt];
+			}
+			else {
+				tln = new tLNodeType (name, "LPHD", name + ".LPHD");
+				var arrtln = new tLNodeType [1];
+				arrtln [1] = tln;
+				tpl.AddLNodeType (arrtln);
+			}
+			
+			ln.lnType = tln.id;
+			ln.lnClass = tln.lnClass;
+			int api = this.GetAP(ap);
+			if (api == -1) {
+				api = this.AddAP (ap);
+			}
+			return this.AccessPoint[api].Server.AddLDevice (ld);
 		}
 	}
 

@@ -113,6 +113,15 @@ namespace IEC61850.SCL
 				}
 			}
 		}
+		
+		public int AddLN (tLN ln)
+		{
+			System.Array.Resize<tLN>(ref this.lnField,
+			                         this.lnField.Length + 1);
+			int index = this.lnField.Length -1;
+			lnField[index + 1] = ln;
+			return index;
+		}
 	}
 
 }

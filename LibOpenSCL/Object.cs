@@ -245,6 +245,7 @@ namespace OpenSCL
 		{
 			this.ListErrors = new List<ErrorsManagement>();
 			this.objectManagement = new ObjectManagement();
+			this.configuration = new SCL ();
 		}
 		
 		public Object(string filepath)

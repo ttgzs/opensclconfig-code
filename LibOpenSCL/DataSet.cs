@@ -142,7 +142,7 @@ namespace OpenSCL
 						}
 						dataSet.AddFCDA(fCDA);
 						//this.objectManagement.AddObjectToArrayObjectOfParentObject(fCDA, dataSet);
-						for(; c < dataTypeTemplates.DOType.Length; c++)
+						for( c = 0; c < dataTypeTemplates.DOType.Length; c++)
 						{
 							if(dataTypeTemplates.LNodeType[a].DO[b].type.Equals(dataTypeTemplates.DOType[c].id))
 							{
@@ -170,10 +170,13 @@ namespace OpenSCL
 											}
 											dataSet.AddFCDA(fCDA);
 											//this.objectManagement.AddObjectToArrayObjectOfParentObject(fCDA, dataSet);
-											this.InsertDaNameParent(dataTypeTemplates, dataTypeTemplates.DOType[count2], dataTypeTemplates.LNodeType[a].DO[b].name, dataTypeTemplates.DOType[c].SDO[count].name);
-											count2++;
+											this.InsertDaNameParent(dataTypeTemplates, 
+											                        dataTypeTemplates.DOType[count2], 
+											                        dataTypeTemplates.LNodeType[a].DO[b].name, 
+											                        dataTypeTemplates.DOType[c].SDO[count].name);
 											break;
 										}
+										count2++;
 									}
 								}
 								c = count2;

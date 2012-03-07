@@ -103,6 +103,7 @@ namespace OpenSCLConfigurator
 				string arg = args [1];
 				try {
 					System.Console.WriteLine ("arg = " + arg);
+					OpenSCLFile (arg, false);
 //						if (Path.GetFileName (arg) != "") {
 //							var f = new System.IO.FileStream (arg, FileMode.Open);
 //							if (f.CanRead) {

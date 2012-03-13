@@ -217,6 +217,11 @@ namespace OpenSCL.UI
 			this.groupBox.ResumeLayout(false);
 			this.groupBox.PerformLayout();
 			this.ResumeLayout(false);
+			
+			this.AcceptButton = buttonOK;
+			this.AcceptButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.CancelButton = buttonCANCEL;
+			this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 		}
 		private System.Windows.Forms.TextBox textBoxlnInst;
 		private System.Windows.Forms.Label labeliedName;

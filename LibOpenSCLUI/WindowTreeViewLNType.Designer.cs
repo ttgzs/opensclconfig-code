@@ -200,6 +200,11 @@ namespace OpenSCL.UI
 			//this.groupBox1.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
+			
+			this.AcceptButton = this.buttonOk;
+			this.AcceptButton.DialogResult = DialogResult.OK;
+			this.CancelButton = this.buttonCancel;
+			this.CancelButton.DialogResult = DialogResult.Cancel;
 		}		
 		private System.Windows.Forms.TreeView treeLN;	
 		private System.Windows.Forms.Label label1;

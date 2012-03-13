@@ -324,7 +324,7 @@ namespace OpenSCL.UI
 			this.Controls.Add(this.groupBox1);
 			this.Name = "CommunicationDialog";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "ConnectedAP";
+			this.Text = "Connection to a SubNetwork";
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);

@@ -308,20 +308,15 @@ namespace OpenSCL
 			return true; // API Change required
 		}
 			
-		public void Deserialize(string nameFileXML)
+		public void Deserialize (string nameFileXML)
 		{
-			XmlSerializer XS = new XmlSerializer(typeof(SCL));
-    	   	XS.UnknownNode+= new XmlNodeEventHandler(UnknownNode);
-           	XS.UnknownAttribute+= new XmlAttributeEventHandler(UnknownAttribute);        
-           	FileStream fs = File.OpenRead(nameFileXML);         	
-            this.configuration =(SCL) XS.Deserialize(fs);
+			XmlSerializer XS = new XmlSerializer (typeof(SCL));
+    	   	FileStream fs = File.OpenRead (nameFileXML);
+            this.configuration = (SCL) XS.Deserialize (fs);
 			this.filename = nameFileXML;
-            fs.Dispose();           
+            fs.Dispose ();
 		}   		 		   		
-   		
-		
-		
-		
+
 		// IED Related functions
 		
 		// DEPRECATED not use on new code
@@ -1362,6 +1357,7 @@ namespace OpenSCL
 		private void UnknownNode(object sender, XmlNodeEventArgs e)
     	{	        
 			ListErrors.Add(new ErrorsManagement("Unknown node:"+ e.Name + "\t" + e.Text));
+			System.Console.WriteLine ("Unknown node: "+ e.Name + "='" + e.Text + "'");
 	    }
 		
 		/// <summary>
@@ -1380,6 +1376,7 @@ namespace OpenSCL
     	{
         	System.Xml.XmlAttribute attr = e.Attr;        	
         	ListErrors.Add(new ErrorsManagement("Unknown attribute:"+ attr.Name + "='" + attr.Value + "'"));
+			System.Console.WriteLine ("Unknown attribute:"+ attr.Name + "='" + attr.Value + "'");
     	}	  		
 	
 		/// <summary>

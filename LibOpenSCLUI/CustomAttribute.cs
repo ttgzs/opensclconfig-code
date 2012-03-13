@@ -23,9 +23,9 @@ namespace OpenSCL.UI
 {
 	public class CustomAttributeDialog : Form
 	{
-		private TreeNode treeSCL;
 		private SCL scl;
 		private tBaseElement element;
+		private System.Xml.XmlDocument xmldoc;
 		
 		private Button okButton;
 		private Button cancelButton;
@@ -44,6 +44,8 @@ namespace OpenSCL.UI
 		private TextBox attrValue;
 		
 		public CustomAttributeDialog(SCL scl, tBaseElement element) {
+			this.xmldoc = new System.Xml.XmlDocument (); // FIXME: May adding a representation of the 
+														 // xml file in memory could add new attributes
 			this.scl = scl;
 			this.element = element;
 			this.InitializeComponent();
@@ -92,11 +94,7 @@ namespace OpenSCL.UI
 			this.attrList.Size = new System.Drawing.Size(150, 300);
 			this.attrList.Top = this.attrListLabel.Bottom + bottom;
 			this.attrList.Left = this.attrListLabel.Left;
-			if(this.element.AnyAttr != null) {
-				for (int i = 0; i < this.element.AnyAttr.GetLength(0); i++) {
-					this.attrList.Items.Add(this.element.AnyAttr[i].Name);
-				}
-			}
+			FillAttr ();
 			
 			this.okButton = new Button();
 			this.okButton.Text = "&Accept";
@@ -160,27 +158,27 @@ namespace OpenSCL.UI
 				}
 			}
 			
-			this.addNameSpace = new Button();
-			this.addNameSpace.Text = "Add";
-			this.addNameSpace.Size = new System.Drawing.Size((this.nameSpaceList.Width - right * 2) / 3,
-			                                                 this.okButton.Height);
-			this.addNameSpace.Top = this.nameSpaceList.Bottom + bottom;
-			this.addNameSpace.Left = this.nameSpaceList.Left;
-			
-			this.removeNameSpace = new Button();
-			this.removeNameSpace.Text = "Remove";
-			this.removeNameSpace.Size = new System.Drawing.Size((this.nameSpaceList.Width - right * 2) / 3,
-			                                                 this.okButton.Height);
-			this.removeNameSpace.Top = this.addNameSpace.Top;
-			this.removeNameSpace.Left = this.addNameSpace.Right + right;
-			
-			this.editNameSpace = new Button();
-			this.editNameSpace.Text = "Edit";
-			this.editNameSpace.Size = new System.Drawing.Size((this.nameSpaceList.Width - right * 2) / 3,
-			                                                 this.okButton.Height);
-			this.editNameSpace.Top = this.removeNameSpace.Top;
-			this.editNameSpace.Left = this.removeNameSpace.Right + right;
-			
+//			this.addNameSpace = new Button();
+//			this.addNameSpace.Text = "Add";
+//			this.addNameSpace.Size = new System.Drawing.Size((this.nameSpaceList.Width - right * 2) / 3,
+//			                                                 this.okButton.Height);
+//			this.addNameSpace.Top = this.nameSpaceList.Bottom + bottom;
+//			this.addNameSpace.Left = this.nameSpaceList.Left;
+//			
+//			this.removeNameSpace = new Button();
+//			this.removeNameSpace.Text = "Remove";
+//			this.removeNameSpace.Size = new System.Drawing.Size((this.nameSpaceList.Width - right * 2) / 3,
+//			                                                 this.okButton.Height);
+//			this.removeNameSpace.Top = this.addNameSpace.Top;
+//			this.removeNameSpace.Left = this.addNameSpace.Right + right;
+//			
+//			this.editNameSpace = new Button();
+//			this.editNameSpace.Text = "Edit";
+//			this.editNameSpace.Size = new System.Drawing.Size((this.nameSpaceList.Width - right * 2) / 3,
+//			                                                 this.okButton.Height);
+//			this.editNameSpace.Top = this.removeNameSpace.Top;
+//			this.editNameSpace.Left = this.removeNameSpace.Right + right;
+//			
 			// final setup of Ok button
 			this.okButton.Top = this.addAttribute.Bottom + 20;
 			this.okButton.Left = this.nameSpaceList.Right - this.okButton.Width;
@@ -221,15 +219,25 @@ namespace OpenSCL.UI
 			//this.addAttribute.Click += HandleAddAttributehandleClick;
 			//this.addNameSpace.Click += HandleAddNameSpacehandleClick;
 			//this.attrName.KeyPress += HandleAttrNamehandleKeyPress;
-			//this.attrValue.KeyPess += HandleAttrValuehandleKeyPress;
+			//this.attrValue.KeyPress += HandleAttrValuehandleKeyPress;
 		}
 		
-		private void ChangeAttrName() {
-			if (this.element.AnyAttr != null) {
-				//this.element.AnyAttr[this.attrList.SelectedIndex].Name = this.attrName.Text;
-				//this.attrList.Items[this.attrList.SelectedIndex] = this.element.AnyAttr[this.attrList.SelectedIndex].Name;
+		void FillAttr ()
+		{
+			this.attrList.Items.Clear ();
+			if(this.element.AnyAttr != null) {
+				for (int i = 0; i < this.element.AnyAttr.Length; i++) {
+					this.attrList.Items.Add(this.element.AnyAttr[i].Name);
+				}
 			}
 		}
+		
+//		private void ChangeAttrName() {
+//			if (this.element.AnyAttr != null) {
+//				this.element.AnyAttr[this.attrList.SelectedIndex].Name = this.attrName.Text;
+//				this.attrList.Items[this.attrList.SelectedIndex] = this.element.AnyAttr[this.attrList.SelectedIndex].Name;
+//			}
+//		}
 		
 		private void ChangeAttrValue() {
 			if (this.element.AnyAttr != null) {
@@ -238,19 +246,19 @@ namespace OpenSCL.UI
 			}
 		}
 		
-		void HandleAttrNamehandleKeyPress (object sender, System.EventArgs e)
-		{
-			/*if (e.KeyCode == Keys.Enter) {
-				this.ChangeAttrName();
-			}*/
-		}
+//		void HandleAttrNamehandleKeyPress (object sender, System.EventArgs e)
+//		{
+//			if (e.KeyCode == Keys.Enter) {
+//				this.ChangeAttrName();
+//			}
+//		}
 		
-		void HandleAttrValuehandleKeyPress (object sender, System.EventArgs e)
-		{
-			/*if (e.KeyCode == Keys.Enter) {
-				this.ChangeAttrValue();
-			}*/
-		}
+//		void HandleAttrValuehandleKeyPress (object sender, System.EventArgs e)
+//		{
+//			if (e.KeyCode == Keys.Enter) {
+//				this.ChangeAttrValue();
+//			}
+//		}
 		
 		public static void AddNameSpace(SCL scl, ComboBox nameSpaceList) {
 			EditDialog dlg = new EditDialog(scl);
@@ -302,23 +310,34 @@ namespace OpenSCL.UI
 				}
 				
 				EditDialog dlg = new EditDialog(this.scl, ns);
-				DialogResult res = dlg.ShowDialog();
 				dlg.L1 = "Name:";
 				dlg.L2 = "Value:";
 				dlg.Text = "Add Custom Attribute";
+				DialogResult res = dlg.ShowDialog();
+				
 				if (res == DialogResult.OK) {
-					System.Console.WriteLine("NameSpace = "
-					                         + this.scl.xmlns.ToArray()[dlg.NameSpaceIndex]);
-					if(this.element.AnyAttr != null) {
-						System.Console.WriteLine("Attr Name = "
-						                         + this.element.AnyAttr[0].Name);
-						if(this.element.AnyAttr[0].OwnerDocument != null)
-							System.Console.WriteLine("Doc Name = "
-							                         + this.element.AnyAttr[0].OwnerDocument.Name);
-						else
-							System.Console.WriteLine("No Doc");
+					if (this.xmldoc != null) {
+						System.Console.WriteLine("NameSpace = "
+					                         	+ this.scl.xmlns.ToArray()[dlg.NameSpaceIndex]);
 						
-						//System.Xml.XmlAttribute a = new System.Xml.XmlAttribute(null, "TEST", null, null);
+						System.Console.WriteLine("Att name = " + dlg.T1);
+						System.Console.WriteLine("Att value = "
+						                         + dlg.T2);
+						
+					
+						System.Xml.XmlAttribute a = this.xmldoc.CreateAttribute (dlg.T1,
+						                                                         this.scl.xmlns.ToArray()[dlg.NameSpaceIndex]
+						                                                         .ToString ());
+						a.Value = dlg.T2;
+						
+						if(this.element.AnyAttr == null) {
+							this.element.AnyAttr = new System.Xml.XmlAttribute [1];
+							this.element.AnyAttr[1] = a;
+						}
+//						else
+//							this.element.AddXmlAttribute (a);
+						
+						FillAttr ();
 					}
 				}
 			}

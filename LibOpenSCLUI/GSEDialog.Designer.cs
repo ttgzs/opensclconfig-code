@@ -16,6 +16,8 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+using IEC61850.SCL;
+
 namespace OpenSCL.UI
 {
 	partial class GSEDialog
@@ -48,8 +50,8 @@ namespace OpenSCL.UI
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.gseProperty = new System.Windows.Forms.PropertyGrid();
+//			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			//this.gseProperty = new System.Windows.Forms.PropertyGrid();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.datSet = new System.Windows.Forms.ComboBox();
 			this.datSetLabel = new System.Windows.Forms.Label();
@@ -69,28 +71,28 @@ namespace OpenSCL.UI
 			this.label7 = new System.Windows.Forms.Label();
 			this.okButton = new System.Windows.Forms.Button();
 			this.CancelBtn = new System.Windows.Forms.Button();
-			this.groupBox1.SuspendLayout();
+//			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// groupBox1
 			// 
-			this.groupBox1.Controls.Add(this.gseProperty);
-			this.groupBox1.Location = new System.Drawing.Point(12, 12);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(295, 267);
-			this.groupBox1.TabIndex = 0;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "GOOSE Controls";
+			//this.groupBox1.Controls.Add(this.gseProperty);
+//			this.groupBox1.Location = new System.Drawing.Point(12, 12);
+//			this.groupBox1.Name = "groupBox1";
+//			this.groupBox1.Size = new System.Drawing.Size(295, 267);
+//			this.groupBox1.TabIndex = 0;
+//			this.groupBox1.TabStop = false;
+//			this.groupBox1.Text = "GOOSE Controls";
 			// 
 			// gseProperty
 			// 
-			this.gseProperty.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.gseProperty.Location = new System.Drawing.Point(3, 16);
-			this.gseProperty.Name = "gseProperty";
-			this.gseProperty.Size = new System.Drawing.Size(289, 248);
-			this.gseProperty.TabIndex = 5;
-			this.gseProperty.ToolbarVisible = false;
+//			this.gseProperty.Dock = System.Windows.Forms.DockStyle.Fill;
+//			this.gseProperty.Location = new System.Drawing.Point(3, 16);
+//			this.gseProperty.Name = "gseProperty";
+//			this.gseProperty.Size = new System.Drawing.Size(289, 248);
+//			this.gseProperty.TabIndex = 5;
+//			this.gseProperty.ToolbarVisible = false;
 			// 
 			// groupBox2
 			// 
@@ -125,6 +127,12 @@ namespace OpenSCL.UI
 			this.datSet.Name = "datSet";
 			this.datSet.Size = new System.Drawing.Size(121, 21);
 			this.datSet.TabIndex = 14;
+			var l = new System.Collections.ArrayList ();
+			if (ld.LN0.DataSet != null)
+				foreach (tDataSet dt in ld.LN0.DataSet) {
+					l.Add (dt.name);
+				}
+			this.datSet.DataSource = l;
 			// 
 			// datSetLabel
 			// 
@@ -140,6 +148,7 @@ namespace OpenSCL.UI
 			this.vLANI.Name = "vLANI";
 			this.vLANI.Size = new System.Drawing.Size(122, 20);
 			this.vLANI.TabIndex = 12;
+			this.vLANI.Text = "0";
 			// 
 			// appId
 			// 
@@ -147,6 +156,7 @@ namespace OpenSCL.UI
 			this.appId.Name = "appId";
 			this.appId.Size = new System.Drawing.Size(122, 20);
 			this.appId.TabIndex = 10;
+			this.appId.Text = "0x0000";
 			// 
 			// desc2
 			// 
@@ -161,6 +171,7 @@ namespace OpenSCL.UI
 			this.vLANP.Name = "vLANP";
 			this.vLANP.Size = new System.Drawing.Size(122, 20);
 			this.vLANP.TabIndex = 11;
+			this.vLANP.Text = "4";
 			// 
 			// mac
 			// 
@@ -168,6 +179,8 @@ namespace OpenSCL.UI
 			this.mac.Name = "mac";
 			this.mac.Size = new System.Drawing.Size(122, 20);
 			this.mac.TabIndex = 9;
+			this.mac.Mask = "AA-AA-AA-AA-AA-AA";
+			this.mac.Text = "01:0c:cd:01:00:00";
 			// 
 			// cbName
 			// 
@@ -272,21 +285,24 @@ namespace OpenSCL.UI
 			this.Controls.Add(this.CancelBtn);
 			this.Controls.Add(this.okButton);
 			this.Controls.Add(this.groupBox2);
-			this.Controls.Add(this.groupBox1);
+//			this.Controls.Add(this.groupBox1);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "GSEDialog";
 			this.Opacity = 0.9;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.groupBox1.ResumeLayout(false);
+//			this.groupBox1.ResumeLayout(false);
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			this.ResumeLayout(false);
+			this.AcceptButton = okButton;
+			this.AcceptButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.CancelButton = CancelBtn;
+			this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 		}
 		private System.Windows.Forms.Label datSetLabel;
 		private System.Windows.Forms.ComboBox datSet;
 		private System.Windows.Forms.Button CancelBtn;
-		private System.Windows.Forms.PropertyGrid gseProperty;
 		private System.Windows.Forms.TextBox cbName;
 		private System.Windows.Forms.TextBox IdInst;
 		private System.Windows.Forms.MaskedTextBox vLANI;
@@ -303,6 +319,6 @@ namespace OpenSCL.UI
 		private System.Windows.Forms.Label label12;
 		private System.Windows.Forms.Label label13;
 		private System.Windows.Forms.GroupBox groupBox2;
-		private System.Windows.Forms.GroupBox groupBox1;
+//		private System.Windows.Forms.GroupBox groupBox1;
 	}
 }

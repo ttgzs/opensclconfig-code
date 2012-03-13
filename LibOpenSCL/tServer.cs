@@ -98,6 +98,17 @@ namespace IEC61850.SCL
 			}
 		}
 		
+		public int GetLDevice (string inst)
+		{
+			if (this.LDevice == null)
+				return -1;
+			for (int i = 0; i < this.LDevice.Length; i++) {
+				if (this.LDevice[i].inst.Equals (inst))
+					return i;
+			}
+			return -1;
+		}
+		
 		public int AddLDevice (tLDevice ld)
 		{
 			System.Array.Resize<tLDevice>(ref this.lDeviceField,

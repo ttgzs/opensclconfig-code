@@ -258,5 +258,46 @@ namespace IEC61850.SCL
 			iED.AddAP ("AP1");
 			iED.AddLDevice (inst, "AP1", this.DataTypeTemplates);
 		}
+		
+		public System.Collections.Hashtable GetGSE (string iedname, string apname, string ldinst, string gsecname)
+		{
+			var h = new System.Collections.Hashtable();
+			h.Add ("gse", -1);
+			h.Add ("subnetwork", -1);
+			h.Add ("connectedap", -1);
+			if (this.Communication == null)
+				return h;
+			if (this.Communication.SubNetwork == null)
+				return h;
+			
+			for (int i = 0; i < this.Communication.SubNetwork.Length; i++)
+			{
+				tSubNetwork s = this.Communication.SubNetwork[i];
+				if (s.ConnectedAP == null)
+					return h;
+				for (int c = 0; c < s.ConnectedAP.Length; c++) {
+					tConnectedAP cap = s.ConnectedAP[c];
+					if (cap.iedName.Equals (iedname)
+					    && cap.apName.Equals (apname)) 
+					{
+						if (cap.GSE == null)
+							return h;
+						for (int g = 0; g < cap.GSE.Length; g++) 
+						{
+							tGSE gse = cap.GSE[g];
+							if (gse.cbName.Equals (gsecname) 
+							    && gse.ldInst.Equals (ldinst)) 
+							{
+								h.Add ("gse", gse);
+								h.Add ("subnetwork", s);
+								h.Add ("connectedap", cap);
+								return h;
+							}
+						}
+					}
+				}
+			}
+			return h;
+		}
 	}
 }

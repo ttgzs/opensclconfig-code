@@ -283,6 +283,10 @@ namespace OpenSCL.UI
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox3.ResumeLayout(false);
 			this.ResumeLayout(false);
+			this.AcceptButton = BtnOKSMV;
+			this.CancelButton = CancelBtn;
+			this.AcceptButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 		}
 		private System.Windows.Forms.Label datasetLabel;
 		private System.Windows.Forms.ComboBox datSet;

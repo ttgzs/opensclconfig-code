@@ -197,9 +197,7 @@ namespace IEC61850.SCL
 			{
 				this.privateField = value;
 			}
-		}
-		
-		
+		}		
 	}
 	
 }

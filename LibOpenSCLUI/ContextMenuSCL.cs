@@ -31,13 +31,19 @@ namespace OpenSCL.UI
 		private TreeNode treeSCL;		
 		private ContextMenuStrip contextMenuStrip;					
 		private TreeViewSCL treeViewSCL;
-		private ObjectManagement objectManagement;			
+		private ObjectManagement objectManagement;
+		private OpenSCL.Object scl;
+		
+		public delegate void ChangedEventHandler (System.Object sender, EventArgs args);
+		
+		public event ChangedEventHandler Changed;
 		
 		/// <summary>
 		/// Description of the ContextMenuSCL component.
 		/// </summary>
-		public ContextMenuSCL()
+		public ContextMenuSCL(OpenSCL.Object scl)
 		{
+			this.scl = scl;
 			this.contextMenuStrip = new ContextMenuStrip();
 			this.treeViewSCL = new TreeViewSCL();
 			this.objectManagement = new ObjectManagement();			
@@ -64,13 +70,13 @@ namespace OpenSCL.UI
 				if(sCLObject.GetType().Name == "tServer")
 				{					
 					insertOption.DropDownItems.AddRange(new ToolStripItem[] {
-				          this.GenerateSubMenuItemInsert("Communication", "Communication")});
+				          this.GenerateSubMenuItemInsert("Communication", "Connect to a SubNetwork")});
 				}
-				/*
+				
 				// Edit Custom XML Attributes
-				if(sCLObject is tBaseElement)
-					this.GenerateMenuItemCustomAttributes(this.contextMenuStrip);
-					*/
+//				if(sCLObject is tBaseElement)
+//					this.GenerateMenuItemCustomAttributes(this.contextMenuStrip);
+				
 				//An insert option is added to allow create another node of the same type.
 				if(sCLObject.GetType().IsArray)
 				{							
@@ -198,29 +204,42 @@ namespace OpenSCL.UI
 			sCL.Configuration = (SCL) this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Tag;		
 			string apName;
 			string iedName;	
-			TreeNode objectFound = null;				
+			TreeNode objectFound = null;
+			// FIXME:  Add modified
 			switch(ts.Name)
 			{
 				case "Communication":								
-					apName = this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Tag, "name").ToString();
-					iedName = this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Tag, "name").ToString();					
+					apName = this.objectManagement.FindVariable(this
+				                                            .treeSCL.TreeView.SelectedNode
+				                                            .Parent.Tag, "name").ToString();
+					iedName = this.objectManagement.FindVariable(this
+				                                             .treeSCL.TreeView.SelectedNode
+				                                             .Parent.Parent.Parent.Tag, "name").ToString();					
 					if(sCL.Configuration.Communication != null && sCL.Configuration.Communication.SubNetwork!= null)
 					{					
-						objectFound = this.treeViewSCL.SeekAssociation(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes, apName, iedName);						
+						objectFound = this.treeViewSCL.SeekAssociation(this.treeSCL.TreeView
+					                                               .Nodes["root"].Nodes["SCL"]
+					                                               .Nodes["tCommunication"]
+					                                               .Nodes["tSubNetwork[]"].Nodes, apName, iedName);						
 					}				
-					CommunicationDialog comm = new CommunicationDialog(this.treeSCL.TreeView.SelectedNode, sCL.Configuration, iedName, apName, objectFound);					
-					comm.ShowDialog();	
+					CommunicationDialog comm = new CommunicationDialog(this
+				                                                   .treeSCL.TreeView.SelectedNode, 
+				                                                   sCL.Configuration, iedName, 
+				                                                   apName, objectFound);					
+					if (comm.ShowDialog() == DialogResult.OK)
+						Changed (this, EventArgs.Empty);				
 					break;						
-				case  "tGSEControl":										
-					if(this.treeViewSCL.getDataset(this.treeSCL).Count==0)
-					{
-						MessageBox.Show("The SCL file should have at least one DataSet configured on this Device");
-						break;
-					}
-					GSEDialog gSEDlg = new GSEDialog(this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Parent.Tag, "inst").ToString(), 
-					                                 this.treeSCL.TreeView.SelectedNode.Parent, this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Tag, "name").ToString(), 
-					                                 this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Parent.Tag, "name").ToString());
-					gSEDlg.ShowDialog();
+				case  "tGSEControl": 
+				{
+					tLDevice ld = (tLDevice) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Tag;
+					tAccessPoint ap = (tAccessPoint) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Tag;
+					tIED ied = (tIED) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Parent.Parent.Tag;
+				
+					GSEDialog gSEDlg = new GSEDialog (this.treeSCL.TreeView.SelectedNode, 
+				                                  scl, ied, ap, ld);
+					if (gSEDlg.ShowDialog() == DialogResult.OK)
+						Changed (this, EventArgs.Empty);
+				}
 					break;					
 				case  "tGSEControl[]":
 					if(this.treeViewSCL.getDataset(this.treeSCL).Count==0)//victor
@@ -228,10 +247,14 @@ namespace OpenSCL.UI
 						MessageBox.Show("The SCL file should have at least one DataSet configured on this Device");
 						break;
 					}
-					gSEDlg = new GSEDialog(this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Tag, "inst").ToString(), 
-					                       this.treeSCL.TreeView.SelectedNode, this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Tag, "name").ToString(), 
-					                       this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Tag, "name").ToString());
-					gSEDlg.ShowDialog();									
+					tLDevice ld = (tLDevice) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Tag;
+					tAccessPoint ap = (tAccessPoint) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Tag;
+					tIED ied = (tIED) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Parent.Parent.Tag;
+					
+					GSEDialog gSEDlg = new GSEDialog(this.treeSCL.TreeView.SelectedNode,
+				                                 scl, ied, ap, ld);
+					if (gSEDlg.ShowDialog() == DialogResult.OK)
+						Changed (this, EventArgs.Empty);
 					break;					
 				case  "tSampledValueControl":					
 					if(this.treeViewSCL.getDataset(this.treeSCL).Count==0)//victor
@@ -243,45 +266,51 @@ namespace OpenSCL.UI
 					                                 this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Tag, "name").ToString(), 
 					                                 this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Parent.Tag, "name").ToString(), 
 					                                 this.treeSCL.TreeView.SelectedNode.Parent);
-					smvDlg.ShowDialog();
+					if (smvDlg.ShowDialog() == DialogResult.OK)
+						Changed (this, EventArgs.Empty);
 					break;
 				case  "tSampledValueControl[]":
 					if(this.treeViewSCL.getDataset(this.treeSCL).Count==0)
 					{
-						MessageBox.Show("The SCL file should have at least one DataSet configured on this Device");
+						MessageBox.Show ("The SCL file should have at least one DataSet configured on this Device");
 						break;
 					}
-					smvDlg = new SMVDialog(this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Tag, "inst").ToString(), 
+					smvDlg = new SMVDialog (this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Tag, "inst").ToString(), 
 					                                 this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Tag, "name").ToString(), 
 					                                 this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Tag, "name").ToString(), 
 					                                 this.treeSCL.TreeView.SelectedNode);
-					smvDlg.ShowDialog();
+					if (smvDlg.ShowDialog() == DialogResult.OK)
+						Changed (this, EventArgs.Empty);
 					break;	
 				case "tDOI[]":
-					windowTreeViewLNType = new WindowTreeViewLNType(this.treeSCL.TreeView.SelectedNode, 
+					windowTreeViewLNType = new WindowTreeViewLNType (this.treeSCL.TreeView.SelectedNode, 
 				                                                sCL.Configuration, 
 				                                                this.treeSCL.TreeView.SelectedNode.Tag, 
 				                                                "New");
-					windowTreeViewLNType.ShowDialog();
+					if (windowTreeViewLNType.ShowDialog () ==  DialogResult.OK)
+						Changed (this, EventArgs.Empty);
 					break;
 				case "tDataSet[]":
 				case "tDataSet":
-					DataSetDialog dataSetDlg = new DataSetDialog();
-					dataSetDlg.CreateDataSet(this.treeSCL.TreeView.SelectedNode, sCL.Configuration);
-					dataSetDlg.ShowDialog();
+					DataSetDialog dataSetDlg = new DataSetDialog ();
+					dataSetDlg.CreateDataSet (this.treeSCL.TreeView.SelectedNode, sCL.Configuration);
+					if (dataSetDlg.ShowDialog () == DialogResult.OK)
+						Changed (this, EventArgs.Empty);
 					break;				
 				case "tIED":
-					Utils utils = new Utils();
-					utils.CreateIED(sCL.Configuration, this.treeSCL);
+					Utils utils = new Utils ();
+					utils.CreateIED (sCL.Configuration, this.treeSCL);
+					Changed (this,EventArgs.Empty);
 					break;				
 				case"tLNode[]":
 				case"tLNode":
-					LNodeDialog LNodeDlg = new LNodeDialog();
-					LNodeDlg.CreatetLNode(this.treeSCL.TreeView.SelectedNode, sCL.Configuration);
-					LNodeDlg.ShowDialog();
+					LNodeDialog LNodeDlg = new LNodeDialog ();
+					LNodeDlg.CreatetLNode (this.treeSCL.TreeView.SelectedNode, sCL.Configuration);
+					if (LNodeDlg.ShowDialog () == DialogResult.OK)
+						Changed (this, EventArgs.Empty);
 					break;
 				default:
-					this.treeViewSCL.Insert(this.treeSCL.TreeView.SelectedNode, ts.Text, ts.Name);
+					this.treeViewSCL.Insert (this.treeSCL.TreeView.SelectedNode, ts.Text, ts.Name);
 				break;
 			}							
 		}				
@@ -493,34 +522,33 @@ namespace OpenSCL.UI
 			if(treeSCL.Tag is tPrivate)
 			{
 				PrivateDialog windowsPrivate = new PrivateDialog(treeSCL.Tag as tPrivate);
-				windowsPrivate.ShowDialog();
-				windowsPrivate.Dispose();
+				if (windowsPrivate.ShowDialog() == DialogResult.OK)
+					Changed (this, EventArgs.Empty);
 			}
 			else if(treeSCL.Tag is tAnyLN)
 			{
 				WindowTreeViewLNType windowTreeViewLNType = new WindowTreeViewLNType(this.treeSCL, sCL.Configuration, this.treeSCL.Tag, "Edit");
 				windowTreeViewLNType.ReloadLNType();
-				windowTreeViewLNType.ShowDialog();
+				if (windowTreeViewLNType.ShowDialog() == DialogResult.OK)
+					Changed (this, EventArgs.Empty);
 			}
 			else if(treeSCL.Tag is tDataSet)
 			{
 				DataSetDialog windowDataSet = new DataSetDialog();
 				windowDataSet.ReloadDataSet(treeSCL, sCL.Configuration);
-				windowDataSet.Show();				
+				if (windowDataSet.ShowDialog () == DialogResult.OK)
+					Changed (this,EventArgs.Empty);
 			}
 			else if(treeSCL.Tag is tGSEControl)
 			{					
-				if(this.treeViewSCL.getDataset(this.treeSCL).Count==0)//victor
-				{
-					MessageBox.Show("The SCL file should have at least one DataSet configured on this Device");
-					
-				}
-				else
-				{
-					GSEDialog gseDlg = new GSEDialog(this.treeSCL.TreeView.SelectedNode, this.treeSCL, this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Tag, "name").ToString(), 
-				                                 this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Parent.Parent.Tag, "name").ToString(), this.treeSCL.TreeView.SelectedNode.Tag);
-					gseDlg.ShowDialog();
-				}
+				tGSEControl cgse = (tGSEControl) this.treeSCL.TreeView.SelectedNode.Tag;
+				tLDevice ld = (tLDevice) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Tag;
+				tAccessPoint ap = (tAccessPoint) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Tag;
+				tIED ied = (tIED) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Parent.Parent.Tag;
+				GSEDialog gseDlg = new GSEDialog(this.treeSCL.TreeView.SelectedNode,
+				                                 scl, ied, ap,ld, cgse);
+				if (gseDlg.ShowDialog() == DialogResult.OK)
+					Changed (this, EventArgs.Empty);
 			}
 			else if(treeSCL.Tag is tSampledValueControl)
 			{
@@ -539,22 +567,21 @@ namespace OpenSCL.UI
 				                                 this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Parent.Parent.Tag, "name").ToString(), 
 				                                 this.treeSCL.TreeView.SelectedNode.Tag, opt,
 				                                 this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Tag, "inst").ToString()); //victor
-					smvDlg.ShowDialog();
+					if (smvDlg.ShowDialog() == DialogResult.OK)
+						Changed (this, EventArgs.Empty);
 				}
 			}
 		}
 		
 		private void CustomAttrOption_Click(object sender, EventArgs e)
 		{
-			OpenSCL.Object sCL = new OpenSCL.Object();
-			sCL.Configuration = (SCL) this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Tag;
 			if(treeSCL.Tag is tBaseElement) {
-				CustomAttributeDialog custAttrDlg = new CustomAttributeDialog(sCL.Configuration,
+				CustomAttributeDialog custAttrDlg = new CustomAttributeDialog(scl.Configuration,
 				                                                              treeSCL.Tag as  tBaseElement);
 				DialogResult res =  custAttrDlg.ShowDialog();
 				
 				if (res == DialogResult.OK) {
-					
+					Changed (this, EventArgs.Empty);
 				}
 			}
 		}

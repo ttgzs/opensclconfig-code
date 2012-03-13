@@ -59,7 +59,7 @@ namespace OpenSCLConfigurator
 		private System.Windows.Forms.ToolBar toolBar1;
 		private System.Windows.Forms.ToolBarButton New;
 		private System.Windows.Forms.ToolBarButton Open;
-		private System.Windows.Forms.ToolBarButton Salvar;
+		private System.Windows.Forms.ToolBarButton save;
 		private System.Windows.Forms.ToolBarButton Exit;			
 		public System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;		
 		private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
@@ -178,7 +178,7 @@ namespace OpenSCLConfigurator
 			
 			this.New = new System.Windows.Forms.ToolBarButton();
 			this.Open = new System.Windows.Forms.ToolBarButton();
-			this.Salvar = new System.Windows.Forms.ToolBarButton();
+			this.save = new System.Windows.Forms.ToolBarButton();
 			
 			this.Separator2 = new System.Windows.Forms.ToolBarButton();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -454,7 +454,7 @@ namespace OpenSCLConfigurator
 									this.Separator1,
 									this.New,
 									this.Open,
-									this.Salvar,
+									this.save,
 									this.Separator2,
 									this.Exit});
 			this.toolBar1.ButtonSize = new System.Drawing.Size(16, 16);
@@ -486,9 +486,9 @@ namespace OpenSCLConfigurator
 			// 
 			// Salvar
 			// 
-			this.Salvar.ImageIndex = 2;
-			this.Salvar.Name = "Salvar";
-			this.Salvar.ToolTipText = "Save configuration file";
+			this.save.ImageIndex = 2;
+			this.save.Name = "Salvar";
+			this.save.ToolTipText = "Save configuration file";
 			// 
 			// Separator2
 			// 
@@ -577,7 +577,8 @@ namespace OpenSCLConfigurator
 		/// </param>
 		void NewFile(object sender, EventArgs e)
 		{							
-			SaveFile(sender, e);			
+			SaveFile(sender, e);
+			this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
 			this.treeViewFile.Nodes.Clear();			
 			Utils utils = new Utils();
 			var scln = new OpenSCL.Object ();
@@ -593,6 +594,8 @@ namespace OpenSCLConfigurator
 						+ " - Rev. " + scl.Configuration.Header.revision;
 			this.treeViewFile.Nodes.Add(utils.treeViewSCL.GetTreeNodeSCL(t, scl.Configuration));
 			utils.CreateIED (scl.Configuration, this.treeViewFile.Nodes[0]);
+			modified = true;
+			this.Cursor = System.Windows.Forms.Cursors.Default;
 		}
 		
 		/// <summary>
@@ -622,15 +625,17 @@ namespace OpenSCLConfigurator
 		private void OpenFile(object sender, EventArgs e)
 		{	
 			List<ErrorsManagement> listError = null;
-			SaveFile(sender, e);
-			this.treeViewFile.Nodes.Clear();
-			openDialog dlg = new openDialog();
+			SaveFile (sender, e);
+			this.treeViewFile.Nodes.Clear ();
+			openDialog dlg = new openDialog ();
 			if(dlg.ShowDialog() == DialogResult.OK)
 			{			
-				listError = OpenSCLFile(dlg.FileName, validate);
+				this.Text = AppName;
+				this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+				listError = OpenSCLFile (dlg.FileName, validate);
+				this.Cursor = System.Windows.Forms.Cursors.Default;
 			}
-			if (listError.Capacity > 0 )
-				EnablePanels (listError);
+			EnablePanels (listError);
 		}
 		
 		public List<ErrorsManagement> OpenSCLFile (string filename, bool validate)
@@ -667,6 +672,7 @@ namespace OpenSCLConfigurator
 				treeViewFile.Nodes.Add(treeViewSCLOpen.GetTreeNodeSCL(t, this.scl.Configuration));
 				swt.Stop();
 				System.Console.WriteLine("Enlapsed Time:"+swt.ElapsedMilliseconds+" ms");
+				modified = false;
 			}	
 			return list;
 		}
@@ -740,6 +746,7 @@ namespace OpenSCLConfigurator
 				
 				swu.Stop ();
 				System.Console.WriteLine ("Enlapsed Time:"+swu.ElapsedMilliseconds+" ms");
+				modified = true;
 			}
 			return list;
 		}
@@ -757,12 +764,14 @@ namespace OpenSCLConfigurator
 		/// </param>
 		private void SaveFile(object sender, EventArgs e)
 		{
-			if (this.treeViewFile.Nodes.Count > 0)
+			if (this.treeViewFile.Nodes.Count > 0 && modified == true)
             {   				
-				if (MessageBox.Show("Do you want to save the changes on this file \n", "Save File", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
-				{
+				if (MessageBox.Show ("Do you whant to save your work before to open a new file?",
+				                 "Warnning",MessageBoxButtons.YesNo,MessageBoxIcon.Exclamation)
+				    == DialogResult.Yes) {
 					SaveDialog saveD = new SaveDialog();
 					saveD.SaveSCLFile(this.treeViewFile);
+					modified = false;
 				}
 			}			
 		}
@@ -789,8 +798,7 @@ namespace OpenSCLConfigurator
 			{
 				listError = OpenSCLFile (dlg.FileName, true);
 			}
-			if (listError.Capacity > 0)
-				EnablePanels(listError);
+			EnablePanels(listError);
 		}
 
 		/// <summary>
@@ -811,8 +819,11 @@ namespace OpenSCLConfigurator
 				var listError = new List<ErrorsManagement> ();
 				openDialog dlg = new openDialog ();
 				dlg.ImportIED = true;
-				if (dlg.ShowDialog () == DialogResult.OK)
+				if (dlg.ShowDialog () == DialogResult.OK) {
+					this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
 					listError = ImportIED (dlg.FileName, validate);
+					this.Cursor = System.Windows.Forms.Cursors.Default;
+				}
 				if (listError.Capacity > 0)
 					EnablePanels (listError);
 			}			
@@ -835,7 +846,7 @@ namespace OpenSCLConfigurator
 		/// </param>
 		private void exitApp(object sender, System.EventArgs e)
 		{
-			Application.Exit();			
+			Application.Exit();	
 		}
 		
 		/// <summary>
@@ -931,14 +942,21 @@ namespace OpenSCLConfigurator
 			{
             	if (e.Button == MouseButtons.Right && (treeViewFile.SelectedNode.IsSelected))
             	{
-	                ContextMenuSCL contextMenuSCL = new ContextMenuSCL();
+	                ContextMenuSCL contextMenuSCL = new ContextMenuSCL(scl);
+					contextMenuSCL.Changed += new OpenSCL.UI.ContextMenuSCL.ChangedEventHandler (OnContextChanged);
     	            System.Drawing.Point nodePosition = new System.Drawing.Point(e.X, e.Y);
         	        ContextMenuStrip menuStrip = contextMenuSCL.GetContextMenuSCL(this.treeViewFile.SelectedNode);
             	    menuStrip.Show(treeViewFile, nodePosition);
             	}	
 			}
 		}
-
+		
+		void OnContextChanged (System.Object o, EventArgs args)
+		{
+			System.Console.WriteLine ("Modified by Context Menu...");
+			modified = true;
+		}
+		
 		/// <summary>
 		/// This method allows to enable a listbox with the errors found during the validation process
 		/// or a propertygrid with the attributes for the selected node.
@@ -983,7 +1001,12 @@ namespace OpenSCLConfigurator
 		/// </param>
 		void FormSCLFormClosed(object sender, FormClosedEventArgs e)
 		{
-			SaveFile(sender, e);
+			if (modified == true) {
+				if (MessageBox.Show("Do you want to save the changes on this file \n", "Save File", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+				{
+					SaveFile (sender, e);
+				}
+			}
 		}		
    		
 		/// <summary>
@@ -993,6 +1016,7 @@ namespace OpenSCLConfigurator
 		/// <param name="e">El evento se produce cuando el usuario cambia el valor de una propiedad, que se especifica como GridItem, en PropertyGrid.</param>
 		void PropertyGridAttributesPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
 		{
+			modified = true;
 			WindowTreeViewLNType windowTreeViewLNType;
 			OpenSCL.Object sCL = new OpenSCL.Object();
 			ConversionObject conversionObject = new ConversionObject();

@@ -264,6 +264,11 @@ namespace OpenSCL.UI
 			this.DataSetGroupBox.PerformLayout();
 			this.FCDAGroupBox.ResumeLayout(false);
 			this.ResumeLayout(false);
+			
+			this.AcceptButton = OKButton;
+			this.AcceptButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.CancelButton = CancelBtn;
+			this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 		}
 		private System.Windows.Forms.Button CancelBtn;
 		private System.Windows.Forms.Label LNtypeLabel;

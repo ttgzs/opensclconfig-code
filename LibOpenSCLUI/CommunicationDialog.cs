@@ -48,7 +48,11 @@ namespace OpenSCL.UI
 			SCL sc = (SCL) this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Tag;
 			if(sc.Communication!= null && sc.Communication.SubNetwork!=null)
 			{
-				this.obj = this.treeViewSCL.SeekAssociation(this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[this.nameSubNetCB.SelectedIndex].Nodes,this.apName, this.iedName);
+				this.obj = this.treeViewSCL.SeekAssociation(this.treeSCL
+				                                            .TreeView.Nodes["root"].Nodes["SCL"]
+				                                            .Nodes["tCommunication"].Nodes["tSubNetwork[]"]
+				                                            .Nodes[this.nameSubNetCB.SelectedIndex].Nodes,
+				                                            this.apName, this.iedName);
 				loadValues(obj);
 				this.descSubNet.Text = sc.Communication.SubNetwork[this.nameSubNetCB.SelectedIndex].desc;
 			}
@@ -70,7 +74,7 @@ namespace OpenSCL.UI
 		/// <param name="objFound">
 		/// Contains a previous subnetwork's configuration of the IED selected.	
 		/// </param>		
-		public CommunicationDialog(TreeNode treeSCL, SCL sCL, string iedName, string apName, TreeNode objFound)
+		public CommunicationDialog (TreeNode treeSCL, SCL sCL, string iedName, string apName, TreeNode objFound)
 		{		
 			InitializeComponent();		
 			this.treeSCL = treeSCL;
@@ -110,7 +114,7 @@ namespace OpenSCL.UI
 		/// handler when an event is raised. If the event handler requires state information, the application must 
 		/// derive a class from this class to hold the data.
 	   	/// </param>
-		void NewSubNetCheckedChanged(object sender, System.EventArgs e)
+		void NewSubNetCheckedChanged (object sender, System.EventArgs e)
 		{
 			this.nameSubNetCB.Visible =! (this.newSubNet.Checked);
 			this.newSubNet.Visible =! (this.newSubNet.Checked);

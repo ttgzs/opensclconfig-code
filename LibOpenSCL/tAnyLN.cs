@@ -151,7 +151,7 @@ namespace IEC61850.SCL
 			if (dataSetField == null)
 				return -1;
 			for (int i = 0; i < dataSetField.Length; i++){
-				if (dataSetField[i].name == name)
+				if (dataSetField[i].name.Equals(name))
 					return i;
 			}
 			return -1;

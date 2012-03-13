@@ -262,9 +262,6 @@ namespace IEC61850.SCL
 		public System.Collections.Hashtable GetGSE (string iedname, string apname, string ldinst, string gsecname)
 		{
 			var h = new System.Collections.Hashtable();
-			h.Add ("gse", -1);
-			h.Add ("subnetwork", -1);
-			h.Add ("connectedap", -1);
 			if (this.Communication == null)
 				return h;
 			if (this.Communication.SubNetwork == null)

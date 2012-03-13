@@ -91,7 +91,7 @@ namespace OpenSCL.UI
 			this.node = node;
 			this.gsec = gc;
 			InitializeComponent();
-			this.datSet.SelectedIndex = ld.LN0.GetDataSet (gc.datSet);
+			this.datSet.SelectedItem = gc.datSet;
 			this.oldGSEName = gc.name;
 			this.IdInst.Text = this.ld.inst;
 			
@@ -103,13 +103,13 @@ namespace OpenSCL.UI
 				if (gse.Address != null && gse.Address.P != null) {
 					for (int i = 0; i < gse.Address.P.Length; i++) {
 						if (gse.Address.P[i].typeEnum == tPTypeEnum.MAC_Address)
-							this.mac.Text    = gse.Address.P[i].type;
+							this.mac.Text    = gse.Address.P[i].Value;
 						if (gse.Address.P[i].typeEnum == tPTypeEnum.APPID)
-							this.appId.Text    = gse.Address.P[i].type;
+							this.appId.Text    = gse.Address.P[i].Value;
 						if (gse.Address.P[i].typeEnum == tPTypeEnum.VLAN_PRIORITY)
-							this.vLANP.Text    = gse.Address.P[i].type;
+							this.vLANP.Text    = gse.Address.P[i].Value;
 						if (gse.Address.P[i].typeEnum == tPTypeEnum.VLAN_ID)
-							this.vLANI.Text    = gse.Address.P[i].type;
+							this.vLANI.Text    = gse.Address.P[i].Value;
 					}
 				}
 			}

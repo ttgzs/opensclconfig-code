@@ -871,7 +871,10 @@ namespace OpenSCL.UI
 			return a;
 		}
 
-        
+        public TreeNode GetCommunication ()
+		{
+			return null;
+		}
 	}
 }
 

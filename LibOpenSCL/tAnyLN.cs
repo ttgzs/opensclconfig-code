@@ -145,6 +145,18 @@ namespace IEC61850.SCL
 			this.dataSetField[index] = ds;
 			return index;
 		}
+		
+		public int GetDataSet (string name)
+		{
+			if (dataSetField == null)
+				return -1;
+			for (int i = 0; i < dataSetField.Length; i++){
+				if (dataSetField[i].name == name)
+					return i;
+			}
+			return -1;
+		}
+		
 	}
 
 }

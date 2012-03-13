@@ -80,16 +80,19 @@ namespace IEC61850.SCL
 		/// <returns>
 		/// A <see cref="System.Int32"/> with the index of the new subnetwork.
 		/// </returns>
-		public int AddSubNetwork(string name, string desc) {
+		public int AddSubNetwork (string name, string desc) {
 			if (name == null) return -1;
 			
 			tSubNetwork sn = new tSubNetwork();
 			sn.name = name;
 			sn.desc = desc;
-			// Search for existing subnetwork
-			for (int i = 0; i < this.subNetworkField.Length; i++) {
-				if (name.Equals(this.subNetworkField[i].name)) {
-					return -1;
+			if (this.subNetworkField != null)
+			{
+				// Search for existing subnetwork
+				for (int i = 0; i < this.subNetworkField.Length; i++) {
+					if (name.Equals(this.subNetworkField[i].name)) {
+						return i;
+					}
 				}
 			}
 			// Add to Array

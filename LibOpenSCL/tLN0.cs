@@ -150,6 +150,18 @@ namespace IEC61850.SCL
 				this.instField = value;
 			}
 		}
+		
+		public int GetGSEControl (string name)
+		{
+			if (gSEControlField == null)
+				return -1;
+			for (int i = 0; i < gSEControlField.Length; i++){
+				if (gSEControlField[i].name == name)
+					return i;
+			}
+			return -1;
+		}
+		
 	}
 }
 

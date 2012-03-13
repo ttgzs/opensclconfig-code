@@ -247,9 +247,9 @@ namespace OpenSCL.UI
 						MessageBox.Show("The SCL file should have at least one DataSet configured on this Device");
 						break;
 					}
-					tLDevice ld = (tLDevice) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Tag;
-					tAccessPoint ap = (tAccessPoint) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Tag;
-					tIED ied = (tIED) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Parent.Parent.Tag;
+					tLDevice ld = (tLDevice) this.treeSCL.TreeView.SelectedNode.Parent.Tag;
+					tAccessPoint ap = (tAccessPoint) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Tag;
+					tIED ied = (tIED) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Tag;
 					
 					GSEDialog gSEDlg = new GSEDialog(this.treeSCL.TreeView.SelectedNode,
 				                                 scl, ied, ap, ld);

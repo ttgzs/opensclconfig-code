@@ -330,6 +330,10 @@ namespace OpenSCL.UI
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			this.ResumeLayout(false);
+			this.AcceptButton = btnOK;
+			this.AcceptButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.CancelButton = btnCancel;
+			this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 		}
 		private System.Windows.Forms.CheckBox newSubNet;
 		private System.Windows.Forms.ComboBox nameSubNetCB;

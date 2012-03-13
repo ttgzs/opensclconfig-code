@@ -112,7 +112,7 @@ namespace OpenSCL.UI
 			this.groupBox2.Controls.Add(this.label9);
 			this.groupBox2.Controls.Add(this.label8);
 			this.groupBox2.Controls.Add(this.label7);
-			this.groupBox2.Location = new System.Drawing.Point(12, 285);
+			this.groupBox2.Location = new System.Drawing.Point(12, 12);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(295, 234);
 			this.groupBox2.TabIndex = 1;
@@ -258,7 +258,7 @@ namespace OpenSCL.UI
 			// 
 			// okButton
 			// 
-			this.okButton.Location = new System.Drawing.Point(48, 525);
+			this.okButton.Location = new System.Drawing.Point(48, 254);
 			this.okButton.Name = "okButton";
 			this.okButton.Size = new System.Drawing.Size(75, 25);
 			this.okButton.TabIndex = 2;
@@ -268,7 +268,7 @@ namespace OpenSCL.UI
 			// 
 			// CancelBtn
 			// 
-			this.CancelBtn.Location = new System.Drawing.Point(193, 525);
+			this.CancelBtn.Location = new System.Drawing.Point(193, 254);
 			this.CancelBtn.Name = "CancelBtn";
 			this.CancelBtn.Size = new System.Drawing.Size(75, 25);
 			this.CancelBtn.TabIndex = 4;
@@ -280,7 +280,7 @@ namespace OpenSCL.UI
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(319, 558);
+			this.ClientSize = new System.Drawing.Size(319, 284);
 			this.ControlBox = false;
 			this.Controls.Add(this.CancelBtn);
 			this.Controls.Add(this.okButton);
@@ -289,7 +289,6 @@ namespace OpenSCL.UI
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "GSEDialog";
-			this.Opacity = 0.9;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 //			this.groupBox1.ResumeLayout(false);
 			this.groupBox2.ResumeLayout(false);

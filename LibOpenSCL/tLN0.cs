@@ -162,6 +162,22 @@ namespace IEC61850.SCL
 			return -1;
 		}
 		
+		public int AddGSEControl (tGSEControl gsec) {
+			int index = -1;
+			if (this.gSEControlField != null) {
+				System.Array.Resize<tGSEControl>(ref this.gSEControlField,
+				                                 this.gSEControlField.Length + 1);
+				
+				index = this.gSEControlField.Length - 1;
+			}
+			else {
+				this.gSEControlField = new tGSEControl[1];
+				index = 0;
+			}
+			this.gSEControlField[index] = gsec;
+			return index;
+		}
+		
 	}
 }
 

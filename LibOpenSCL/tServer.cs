@@ -116,7 +116,7 @@ namespace IEC61850.SCL
 			int index = this.lDeviceField.Length - 1;
 			this.lDeviceField[index] = ld;
 			return index;
-		}
+		}		
 	}
 
 }

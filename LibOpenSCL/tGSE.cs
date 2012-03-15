@@ -64,6 +64,26 @@ namespace IEC61850.SCL
 				this.maxTimeField = value;
 			}
 		}
+		
+		public void InitAddess ()
+		{
+			if (Address == null)
+				this.Address = new tAddress ();
+			
+			this.Address.P = new tP[4];
+			var appid = new tP_APPID ();
+			appid.Value = "0x0000";
+			this.Address.P[0] = appid;
+			var mac = new tP_MACAddress ();
+			mac.Value = "01:0c:cd:01:00:00";
+			this.Address.P[1] = mac;
+			var vlanid = new tP_VLANID ();
+			vlanid.Value = "0";
+			this.Address.P[2] = vlanid;
+			var vlanp = new tP_VLANPRIORITY ();
+			vlanp.Value = "4";
+			this.Address.P[3] = vlanp;
+		}
 	}
 
 }

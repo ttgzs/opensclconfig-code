@@ -139,6 +139,22 @@ namespace IEC61850.SCL
 				this.apNameField = value;
 			}
 		}
+		
+		public int AddGSE (tGSE gse) {
+			int index = -1;
+			if (this.gSEField != null) {
+				System.Array.Resize<tGSE>(ref this.gSEField,
+				                                 this.gSEField.Length + 1);
+				
+				index = this.gSEField.Length - 1;
+			}
+			else {
+				this.gSEField = new tGSE[1];
+				index = 0;
+			}
+			this.gSEField[index] = gse;
+			return index;
+		}
 	}
 
 }

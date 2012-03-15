@@ -29,16 +29,20 @@ namespace OpenSCL.UI
 	/// </summary>
 	public class TreeViewSCL
 	{				
-		TreeNode node;
 		ObjectManagement objectManagement;
 		private TreeNode treeReferenced; 	
 		private Type typeNode;
-		private Type dataType;	 		
+		private Type dataType;
+		private TreeNode node;
 		
 		public TreeViewSCL()
 		{
 			this.objectManagement = new ObjectManagement();			
 		}
+		
+		public OpenSCL.Object scl { get; set; }
+		public TreeView tree { get; set; }
+		
 		
 		/// <summary>
 		/// This method creates a graphical component called "tree" 
@@ -59,23 +63,28 @@ namespace OpenSCL.UI
 		/// using the name of the sCLObject that will be added to the tree.
 		/// Este metodo llama a otros metodos y asi mismo para generar el árbol. 			
 		/// </remarks>
-		public TreeNode GetTreeNodeSCL(string nameTreeNode, object sCLObject)
+		public TreeNode GetTreeNodeSCL (string nameTreeNode, SCL scl)
 		{		
-			TreeNode treeSCL = new TreeNode();			
-			if(string.IsNullOrEmpty(nameTreeNode))
+			if (this.scl == null) {
+				var oscl = new OpenSCL.Object ();
+				oscl.Configuration = scl;
+				this.scl = oscl;
+			}
+			TreeNode treeSCL = new TreeNode ();			
+			if(string.IsNullOrEmpty (nameTreeNode))
 			{
 				return treeSCL;
 			}
 			else
 			{				
-				node = new TreeNode();				
+				node = new TreeNode ();				
 				treeSCL.Text = nameTreeNode;
 				treeSCL.Name = "root";										
-				node.Name = sCLObject.GetType().Name.ToString();
-	            node.Text = sCLObject.GetType().Name.ToString();
-                node.Tag = sCLObject;
+				node.Name = this.scl.Configuration.GetType ().Name.ToString ();
+	            node.Text = this.scl.Configuration.GetType ().Name.ToString ();
+                node.Tag = this.scl.Configuration;
         	    treeSCL.Nodes.Add(node);				
-        	    AddNodesToTreeSCL(sCLObject, treeSCL);
+        	    AddNodesToTreeSCL (this.scl.Configuration, treeSCL);
 			}
         	return treeSCL;
 		}
@@ -121,10 +130,17 @@ namespace OpenSCL.UI
         			// will be sent to a method that adds it in some node of the tree.    
         			if(attributeInformation.PropertyType.BaseType.Name.Equals("Array"))
         			{
-		       			Array valuesAttributeObject = sCLObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, sCLObject, null ) as  Array;        				
-		       			if(valuesAttributeObject!=null && (valuesAttributeObject as Array).GetValue(0) != null)
+		       			Array valuesAttributeObject = sCLObject.GetType()
+														.InvokeMember(attributeInformation.Name, 
+							              								BindingFlags.GetField 
+							              								| BindingFlags.GetProperty, 
+							              								null, sCLObject, 
+							              								null ) as  Array;        				
+		       			if(valuesAttributeObject != null 
+						   && (valuesAttributeObject as Array).GetValue(0) != null)
         				{
-        					this.GetNodesItemOfArray(attributeInformation, valuesAttributeObject,  treeSCL.Nodes[sCLObject.GetType().Name.ToString()]);
+        					this.GetNodesItemOfArray (attributeInformation, valuesAttributeObject,  
+							                         treeSCL.Nodes[sCLObject.GetType().Name.ToString()]);
         				}     				
         			}
         			// If the variable is an Object type then a method will be called to
@@ -156,7 +172,8 @@ namespace OpenSCL.UI
 		/// <param name="treeSCL">
 		/// TreeNode created using the SCL object.
 		/// </param>		
-		private void GetNodesItemOfArray(PropertyInfo attributeInformation, Array valuesAttributeObject, TreeNode treeSCL)
+		private void GetNodesItemOfArray(PropertyInfo attributeInformation, 
+		                                 Array valuesAttributeObject, TreeNode treeSCL)
 		{			
 			node = new TreeNode();
 			node.Name = attributeInformation.PropertyType.Name;
@@ -736,7 +753,7 @@ namespace OpenSCL.UI
 				treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes.Add(nodeComm);
 				
 			}
-			if(treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"]==null)	
+			if(treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNet[]"]==null)	
 			{					
 					TreeNode nodeSubNetwork = new TreeNode();
 					nodeSubNetwork.Name = "tSubNetwork[]";
@@ -870,10 +887,475 @@ namespace OpenSCL.UI
 			}
 			return a;
 		}
-
-        public TreeNode GetCommunication ()
+		
+		
+		// New API
+		
+		public bool AddGSEControlNode (string iedname, string apname, 
+		                               string ldinst, tGSEControl gsec)
 		{
+			if (scl == null || tree == null)
+				return false;
+			
+			var ln0n = GetLN0Node (iedname, apname, ldinst);
+			if (ln0n == null) {
+				return false;
+			}
+			else {
+				bool found = false;
+				TreeNode agsec = new TreeNode ();
+				agsec.Name = "tGSEControl[]";
+				agsec.Text = "GSE Control Blocks";
+				System.Console.WriteLine ("Searching GSE[]...");
+				foreach (TreeNode n in ln0n.Nodes) {
+					if (n.Name.Equals ("tGSEControl[]")) {
+						found = true;
+						agsec = n;
+						break;
+					}
+				}
+				if (!found) {
+					ln0n.Nodes.Add (agsec);
+				}
+				TreeNode nn = new TreeNode ();
+				nn.Name = "tGSEControl";
+				nn.Text = gsec.name;
+				nn.Tag = gsec;
+				agsec.Nodes.Add (nn);
+				return true;
+			}
+		}
+		
+        public bool AddGSENode (string iedname, string apname, string ldname,
+		                        tGSE gse)
+		{
+			if (scl == null || tree == null)
+				return false;
+			
+			var ncap = GetConnectedAPNode (iedname, apname);
+			if (ncap == null)
+				return false;
+			
+			TreeNode gsea = new TreeNode ();
+			gsea.Name = "tGSE[]";
+			gsea.Text = "Generic Station Events";
+			gsea.ToolTipText = "GOOSE Messages Published by this IED";
+			bool found = false;
+			foreach (TreeNode n in ncap.Nodes) {
+				System.Console.WriteLine ("Node in ncap = " + n.Name);
+				if (n.Name.Equals ("tGSE[]")) {
+					found = true;
+					gsea = n;
+				}
+				if (!found) {
+					ncap.Nodes.Add (gsea);
+				}
+			}
+			TreeNode ngse = new TreeNode ();
+			ngse.Name = "tGSEControl";
+			ngse.Text = gse.cbName;
+			ngse.Tag = gse;
+			gsea.Nodes.Add (ngse);
+			return true;
+		}
+		
+		public TreeNode GetLN0Node (string iedname, string apname, string ldname)
+		{
+			var ldn = GetLDeviceNode (iedname, apname, ldname);
+			if (ldn == null)
+				return null;
+			foreach (TreeNode n in ldn.Nodes) {
+				if (n.Name.Equals ("LN0")) {
+					return n;
+				}
+			}
 			return null;
+		}
+		
+		public TreeNode GetIEDNode ()
+		{
+			if (scl == null || tree == null)
+				return null;
+			var s = GetSCLNode ();
+			if (s == null)
+				return null;
+			foreach (TreeNode n in s.Nodes) {
+				if (n.Name.Equals ("tIED[]")) {
+					return n;
+				}
+			}
+			return null;
+		}
+		
+		public TreeNode GetAccessPointNode (string iedname, string apname)
+		{
+			if (scl == null || tree == null)
+				return null;
+			var iedn = GetIEDNode (iedname);
+			if (iedn == null)
+				return null;
+			foreach (TreeNode apsn in iedn.Nodes) {
+				if (apsn.Name.Equals ("tAccessPoint[]")) {
+					foreach (TreeNode apn in apsn.Nodes) {
+						tAccessPoint ap = (tAccessPoint) apn.Tag;
+						if (ap.name.Equals (apname)) {
+							return apn;
+						}
+					}
+				}
+			}
+			return null;
+		}
+		
+		public TreeNode GetServerNode (string iedname, string apname)
+		{
+			if (scl == null || tree == null)
+				return null;
+			var apn = GetAccessPointNode (iedname, apname);
+			if (apn == null)
+				return null;
+			foreach (TreeNode n in apn.Nodes) {
+				if (n.Name.Equals ("tServer")) {
+					return n;
+				}
+			}
+			return null;
+		}
+		
+		public TreeNode GetLDeviceNode (string iedname, string apname, string ldinst)
+		{
+			if (scl == null || tree == null)
+				return null;
+			var sn = GetServerNode (iedname, apname);
+			if (sn == null)
+				return null;
+			foreach (TreeNode n in sn.Nodes) {
+				if (n.Name.Equals ("tLDevice[]")) {
+					foreach (TreeNode ldn in n.Nodes) {
+						if (ldn.Name.Contains ("tLDevice")) {
+							tLDevice ld = (tLDevice) ldn.Tag;
+							if (ld.inst.Equals (ldinst)) {
+								return ldn;
+							}
+						}
+					}
+				}
+			}
+			return null;
+		}
+		
+		public TreeNode GetIEDNode (string iedname)
+		{
+			if (scl == null || tree == null)
+				return null;
+			var ieds = GetIEDNode ();
+			if (ieds == null)
+				return null;
+			foreach (TreeNode n in ieds.Nodes) {
+				tIED ied = (tIED) n.Tag;
+				if (ied.name.Equals (iedname)) {
+					return n;
+				}
+			}
+			return null;
+		}
+		
+		public TreeNode GetGSEControlNode (string iedname, string apname, string ldinst, string cgse)
+		{
+			if (scl == null || tree == null)
+				return null;
+			var ldn = GetLDeviceNode (iedname, apname, ldinst);
+			if (ldn == null)
+				return null;
+			foreach (TreeNode n in ldn.Nodes) {
+				if (n.Name.Equals ("tLN0")) {
+					foreach (TreeNode ln in n.Nodes) {
+						if (n.Name.Equals ("tGSEControl[]")) {
+							foreach (TreeNode ngse in n.Nodes) {
+								if (ngse.Name.Contains ("tGSEControl")) {
+									tGSE gse = (tGSE) ngse.Tag;
+									if (gse.cbName.Equals (cgse))
+										return ngse;
+								}
+							}
+						}
+					}
+				}
+			}
+			return null;
+		}
+		
+		public TreeNode GetGSENode (string iedname, string apname, string ldinst, string cgse)
+		{
+			if (scl == null || tree == null)
+				return null;
+			var ncap = GetConnectedAPNode (iedname, apname);
+			if (ncap == null)
+				return null;
+			foreach (TreeNode n in ncap.Nodes) {
+				if (n.Name.Equals ("tGSE[]")) {
+					foreach (TreeNode ngse in n.Nodes) {
+						if (ngse.Name.Contains ("tGSE")) {
+							tGSE gse = (tGSE) ngse.Tag;
+							if (gse.cbName.Equals (cgse))
+								return ngse;
+						}
+					}
+				}
+			}
+			return null;
+		}
+		
+		public TreeNode GetConnectedAPNode (string iedname, string apname)
+		{
+			if (scl == null || tree == null)
+				return null;
+			var snn = GetSubNetworkNode ();
+			if (snn == null)
+				return null;
+			foreach (TreeNode n in snn.Nodes) {
+				System.Console.WriteLine ("Nodes in SNs = " + n.Name + "/" + n.Text);
+				// Fixme: Must be used Name not Text attribute, is a Bug in CommunicationDialog
+				if (n.Name.Contains ("tSubNetwork")
+				    || n.Text.Contains ("tSubNetwork")) {
+					foreach (TreeNode sn in n.Nodes) {
+						System.Console.WriteLine ("Nodes in SubN = " + sn.Name + "/" + sn.Text);
+						if (sn.Name.Equals ("tConnectedAP[]")) {
+							foreach (TreeNode capn in sn.Nodes) {
+								System.Console.WriteLine ("Nodes in CAP = " + capn.Name);
+								if (capn.Name.Contains ("tConnectedAP")) {
+									tConnectedAP cap = (tConnectedAP) capn.Tag;
+									if (cap.iedName.Equals(iedname)
+									    && cap.apName.Equals (apname)) {
+										System.Console.WriteLine ("Found cap ied = " + cap.iedName 
+										                          + " - ap = " + cap.apName);
+										return capn;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			return null;
+		}
+		
+		public TreeNode GetSubnetworkNode (string name)
+		{
+			if (scl == null || tree == null)
+				return null;
+			var cn = GetCommunicationNode ();
+			if (cn == null)
+				return null;
+			foreach (TreeNode n in cn.Nodes) {
+				if (n.Name.Equals("tSubNetwork[]")) {
+					foreach (TreeNode sn in n.Nodes) {
+						if (sn.Name.Equals ("tSubNetwork")) {
+							tSubNetwork tsn = (tSubNetwork) sn.Tag;
+							if (tsn.name.Contains (name))
+								return sn;
+						}
+					}
+				}
+			}
+			return null;
+		}
+		
+		public TreeNode GetCommunicationNode ()
+		{
+			if (scl == null || tree == null)
+				return null;
+			
+			var s = GetSCLNode ();
+			if (s == null)
+				return null;
+			foreach (TreeNode n in s.Nodes) {
+				if (n.Name.Equals("tCommunication"))
+					return n;
+			}
+			return null;
+		}
+					
+		public TreeNode GetSCLNode ()
+		{
+			if (scl == null || tree == null)
+				return null;
+			
+			foreach (TreeNode r in tree.Nodes) {
+				if (r.Name.Equals ("root")) {
+					foreach (TreeNode n in r.Nodes) {
+						if (n.Name.Equals("SCL"))
+							return n;
+					}
+				}
+			}
+			return null;
+		}
+		
+		public TreeNode AddCommunicationNode () 
+		{
+			if (scl == null || tree == null)
+				return null;
+			if (scl.Configuration == null)
+				return null;
+			if (scl.Configuration.Communication == null)
+				return null;
+			var r = GetSCLNode ();
+			var node = new TreeNode ();
+			if (r == null)
+				return null;
+			node.Name = "tCommunication";
+			node.Text = "Communication";
+			node.Tag = scl.Configuration.Communication;
+			r.Nodes.Add (node);
+			return node;
+		}
+		
+		public TreeNode AddIEDsNode () 
+		{
+			if (scl == null || tree == null)
+				return null;
+			if (scl.Configuration == null)
+				return null;
+			if (scl.Configuration.IED == null)
+				return null;
+			var r = GetSCLNode ();
+			var node = new TreeNode ();
+			node.Name = "tIED[]";
+			node.Text = "IEDs";
+			node.Tag = scl.Configuration.IED;
+			r.Nodes.Add (node);
+			return node;
+		}
+		
+		public TreeNode AddSubstationNode () 
+		{
+			if (scl == null || tree == null)
+				return null;
+			if (scl.Configuration == null)
+				return null;
+			if (scl.Configuration.Substation == null)
+				return null;
+			var r = GetSCLNode ();
+			var node = new TreeNode ();
+			node.Name = "tSubstation";
+			node.Text = "Substation Model";
+			node.Tag = scl.Configuration.Substation;
+			r.Nodes.Add (node);
+			return node;
+		}
+		
+		public TreeNode GetSubNetworkNode ()
+		{
+			if (scl == null || tree == null)
+				return null;
+			if (scl.Configuration == null)
+				return null;
+			if (scl.Configuration.Communication == null)
+				return null;
+			if (scl.Configuration.Communication.SubNetwork == null)
+				return null;
+			var c = GetCommunicationNode ();
+			if (c == null)
+				return null;
+			foreach (TreeNode n in c.Nodes) {
+				System.Console.WriteLine ("Nodes in Communication = "  + n.Name);
+				if (n.Name.Equals ("tSubNetwork[]")) {
+					return n;
+				}
+			}
+			return null;
+		}
+		
+		public TreeNode GetSubNetworkNode (string subnet)
+		{
+			if (scl == null || tree == null)
+				return null;
+			if (scl.Configuration == null)
+				return null;
+			if (scl.Configuration.Communication == null)
+				return null;
+			if (scl.Configuration.Communication.SubNetwork == null)
+				return null;
+			var snn = GetSubNetworkNode ();
+			if (snn == null)
+				return null;
+			foreach (TreeNode n in snn.Nodes) {
+				// Fixme: tSubNetwork Node's Name must use the class' name not the object's name
+				if (n.Name.Equals (subnet)) {
+					var sn = (tSubNetwork) snn.Tag;
+					if (sn.name.Equals (subnet)) {
+						return n;
+					}
+				}
+			}
+			return null;
+		}
+		
+		public bool AddSubNetworkNode ()
+		{
+			if (scl == null || tree == null)
+				return false;
+			if (scl.Configuration == null)
+				return false;
+			if (scl.Configuration.Communication == null)
+				return false;
+			if (scl.Configuration.Communication.SubNetwork == null)
+				return false;
+			var fsn = GetSubNetworkNode ();
+			if (fsn == null) {
+				var c = GetCommunicationNode ();
+				if (c == null)
+					return false;
+				TreeNode nn = new TreeNode ();
+				nn.Name = "tSubNetwork[]";
+				nn.Text = "Station SubNetworks";
+				nn.Tag = scl.Configuration.Communication.SubNetwork;
+				c.Nodes.Add (nn);
+			}
+			return false;
+		}
+		
+		public bool AddSubNetworkNode (tSubNetwork sn)
+		{
+			if (scl == null || tree == null)
+				return false;
+			if (scl.Configuration == null)
+				return false;
+			if (scl.Configuration.Communication == null)
+				return false;
+			if (scl.Configuration.Communication.SubNetwork == null)
+				return false;
+			var snn = GetSubNetworkNode ();
+			if (snn == null)
+				return false;
+			TreeNode nn = new TreeNode ();
+			nn.Name = "tSubNetwork";
+			nn.Text = sn.name;
+			nn.Tag = sn;
+			snn.Nodes.Add (nn);
+			return true;
+		}
+		
+		public bool AddConnectedAP (string subnet, tConnectedAP cap)
+		{
+			if (scl == null || tree == null)
+				return false;
+			
+			var sn = GetSubNetworkNode (subnet);
+			if (sn == null)
+				return false;
+			foreach (TreeNode n in sn.Nodes) {
+				if (n.Name.Equals ("tConnectedAP[]")) {
+					TreeNode nn = new TreeNode ();
+					nn.Name = "tConnectedAP";
+					nn.Text = cap.iedName + "." + cap.apName;
+					nn.Tag = cap;
+					n.Nodes.Add (nn);
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 }

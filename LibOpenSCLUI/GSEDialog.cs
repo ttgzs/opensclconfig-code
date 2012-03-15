@@ -32,32 +32,42 @@ namespace OpenSCL.UI
 		private tAccessPoint ap;
 		private tLDevice ld;
 		private tGSEControl gsec;
+		private tGSE gse;
 		private string oldGSEName;
 		private bool editWindow = false;
 		private TreeNode node;
+		private TreeViewSCL tvscl;
 		
 		/// <summary>
-		/// This method shows a dialog box that allows to create a GOOSE or GSE configuration
+		/// Initializes a new instance of the <see cref="OpenSCL.UI.GSEDialog"/> class.
 		/// </summary>
-		/// <param name="ldInst">
-		/// LDevice instance
+		/// <param name='tvscl'>
+		/// Tvscl.
 		/// </param>
-		/// <param name="treeSCL">
-		/// TreeNode reference
+		/// <param name='node'>
+		/// Node.
 		/// </param>
-		/// <param name="apParentName">
-		/// Name of Access point where configuration will be added according to the LN0 selected.
+		/// <param name='scl'>
+		/// Scl.
 		/// </param>
-		/// <param name="iedParentName">
-		/// Name of IED where configuration will be added according to the LN0 selected.
+		/// <param name='ied'>
+		/// Ied.
 		/// </param>
-		public GSEDialog(TreeNode node, OpenSCL.Object scl, tIED ied, tAccessPoint ap, tLDevice ld)
+		/// <param name='ap'>
+		/// Ap.
+		/// </param>
+		/// <param name='ld'>
+		/// Ld.
+		/// </param>
+		public GSEDialog(TreeViewSCL tvscl, TreeNode node,
+		                 tIED ied, tAccessPoint ap, tLDevice ld)
 		{
-			this.scl = scl;
+			this.scl = tvscl.scl;
 			this.ied = ied;
 			this.ap = ap;
 			this.ld = ld;
 			this.node = node;
+			this.tvscl = tvscl;
 			
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			InitializeComponent();
@@ -80,11 +90,12 @@ namespace OpenSCL.UI
 		/// <param name="iedParentName">
 		/// Name of IED where configuration will be edited according to the LN0 selected.
 		/// </param>
-		public GSEDialog (TreeNode node, OpenSCL.Object scl, tIED ied, tAccessPoint ap,   
+		public GSEDialog (TreeViewSCL tvscl, TreeNode node, tIED ied, tAccessPoint ap,   
 		                 tLDevice ld, tGSEControl gc)
 		{
 			this.editWindow = true;
-			this.scl = scl;
+			this.tvscl = tvscl;
+			this.scl = tvscl.scl;
 			this.ld = ld;
 			this.ied = ied;
 			this.ap = ap;
@@ -97,9 +108,9 @@ namespace OpenSCL.UI
 			
 			var hgse = this.scl.Configuration.GetGSE (ied.name, ap.name, ld.inst, gc.name);
 			if (hgse["gse"] is tGSE) {
-				tGSE gse = (tGSE) hgse["gse"];
+				this.gse = (tGSE) hgse["gse"];
 				this.cbName.Text = gse.cbName;
-			    this.desc2.Text = gse.desc;
+			    this.desc.Text = gse.desc;
 				if (gse.Address != null && gse.Address.P != null) {
 					for (int i = 0; i < gse.Address.P.Length; i++) {
 						if (gse.Address.P[i].typeEnum == tPTypeEnum.MAC_Address)
@@ -136,15 +147,17 @@ namespace OpenSCL.UI
 			gsc[3] = this.appId.Text;
 			gsc[4] = this.vLANP.Text;
 			gsc[5] = this.vLANI.Text;
-			gsc[6] = this.desc2.Text;				
+			gsc[6] = this.desc.Text;				
 			if(this.editWindow == true)
 			{				
 				//GSEHandler(node, this.oldGSEName, gsc, this.gseProperty.SelectedObject);
+				this.UpdateGSE ();
 				this.editWindow = false;
 			}
 			else
 			{
 				//GSEHandler(node, gsc, gseProperty.SelectedObject);
+				this.AddGSE ();
 			}			
 			this.Close();
 		}	
@@ -177,79 +190,30 @@ namespace OpenSCL.UI
 		/// <param name="gsc">
 		/// Array of GSEControl values.
 		/// </param>
-		public  void GSEHandler(TreeNode treeSCL, string gseName, string[] gsc, object objectgse)		
+		public  void UpdateGSE ()		
 		{		
 			this.gsec.datSet = this.datSet.SelectedItem.ToString();
 			node.TreeView.SelectedNode.Tag = this.gsec;
-			node.TreeView.SelectedNode.Text = this.gsec.name;	
-//			
-//			String[] names = new String[4];
-//			names[0] = "MAC_Address";
-//			names[1] = "APPID";
-//			names[2] = "VLAN_PRIORITY";
-//			names[3] = "VLAN_ID";
-//			if(this.scl.Communication!=null)
-//			{
-//				TreeNode Conn = this.treeViewSCL.SeekAssociation(treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes, 
-//			                this.objectManagement.FindVariable(
-//				            this.treeViewSCL.SearchUPForTypeAndGetSCLTreeNode(treeSCL.TreeView.SelectedNode, typeof(tAccessPoint)).Tag, "name").ToString(),
-//			                this.objectManagement.FindVariable(
-//							this.treeViewSCL.SearchUPForTypeAndGetSCLTreeNode(treeSCL.TreeView.SelectedNode, typeof(tIED)).Tag, "name").ToString());
-//				if(this.scl.Communication.SubNetwork!=null && Conn != null)
-//				{
-//					for(int i=0; i<sCL.Communication.SubNetwork.Length; i++)
-//					{
-//						treeViewSCL = new TreeViewSCL();
-//						TreeNode gseN = treeViewSCL.SeekAssociation(treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[i].Nodes, gseName ,"cbName", "tGSE");				
-//						TreeNode newGSE = gseN;
-//						if(gseN!=null)
-//						{
-//							TreeNode parentGSE = gseN.Parent;
-//							tGSE tgse = (tGSE) gseN.Tag;
-//							tgse.ldInst = gsc[0];
-//							tgse.cbName = tgseC.name;
-//							tgse.desc = gsc[6];			
-//							if(this.objectManagement.ModifyObjectOfArrayObjectOfParentObject(tgse, gseN.Index, gseN.Parent.Parent.Tag))
-//							{
-//								if(gseN.FirstNode!=null)
-//								{
-//									object arrayOf = gseN.FirstNode.Tag;
-//									tP[] arr = (tP[]) this.objectManagement.FindVariable(arrayOf, "P");
-//									tAddress tad = new tAddress();
-//									tgse.Address = tad;
-//									if(arr!=null)
-//									{
-//										for(int x=0; x<arr.Length; x++)
-//										{
-//											for(int y=0; y<names.Length;y++)
-//											{
-//												if(arr[x].type.ToString() == names[y])
-//												{
-//													arr[x].Value = gsc[x+2].ToString();	
-//												}
-//											}
-//										}
-//										tgse.Address.P = (tP[]) arr;
-//										gseN.Tag = tgse;
-//										gseN.Text = tgse.cbName;	
-//										if(this.objectManagement.ModifyObjectOfArrayObjectOfParentObject((tP[]) arr, 0, tgse.Address.P))
-//										{									
-//										}
-//									}
-//								}
-//							}																													
-//						}
-//					}
-//				}
-//				else
-//				{
-//					GSEHandler(treeSCL, gsc, objectgse);
-//				}
-//			} 
-//			else
-//				{
-//					GSEHandler(treeSCL, gsc, objectgse);
-//				}
+			node.TreeView.SelectedNode.Text = this.gsec.name;
+			tGSE gse = (tGSE) tvscl.GetGSENode (ied.name, ap.name, ld.inst, gsec.name).Tag;
+			
+			gse.desc = this.desc.Text;
+			if (gse.Address == null)
+				gse.InitAddess ();
+			if (gse.Address != null && gse.Address.P != null) {
+				for (int i = 0; i < gse.Address.P.Length; i++) {
+					if (gse.Address.P[i].typeEnum == tPTypeEnum.MAC_Address)
+						gse.Address.P[i].Value = this.mac.Text;
+					if (gse.Address.P[i].typeEnum == tPTypeEnum.APPID)
+						gse.Address.P[i].Value = this.appId.Text;
+					if (gse.Address.P[i].typeEnum == tPTypeEnum.VLAN_PRIORITY)
+						gse.Address.P[i].Value = this.vLANP.Text ;
+					if (gse.Address.P[i].typeEnum == tPTypeEnum.VLAN_ID)
+						gse.Address.P[i].Value = this.vLANI.Text;
+				}
+			}
+			gse.cbName = this.cbName.Text;
+		    this.gsec.name = this.cbName.Text;
 		}				
 		
 		/// <summary>
@@ -261,110 +225,59 @@ namespace OpenSCL.UI
 		/// <param name="gsc">
 		/// Array of GSEControl values
 		/// </param>		
-		public void GSEHandler(TreeNode treeSCL, string[] gsc, object objectgse)
+		public void AddGSE ()
 		{
-//			tGSEControl gs = (tGSEControl) objectgse;
-//			gs.datSet = this.datSet.SelectedItem.ToString();
-//			SCL sCL = (SCL) treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Tag;
-//			TreeNode nodetGSECtrl = new TreeNode();
-//			nodetGSECtrl.Name = gs.name; 
-//			nodetGSECtrl.Text = gs.name;
-//			nodetGSECtrl.Tag = gs;
-//			tGSE tGse = new tGSE();
-//			tGse.cbName = gs.name;		
-//			if(this.objectManagement.AddObjectToArrayObjectOfParentObject(gs, treeSCL.Tag))
-//			{
-//				if(treeSCL.TreeView.SelectedNode.Tag is tLN0)
-//				{
-//					tLN0 ln0 = (tLN0) treeSCL.Tag;
-//					TreeNode parentGSE = new TreeNode();
-//					parentGSE.Name = "tGSEControl[]"; 
-//					parentGSE.Text = "GSEControl";
-//					parentGSE.Tag = ln0.GSEControl;
-//					treeSCL.Nodes.Add(parentGSE);
-//					treeSCL = parentGSE;
-//				}
-//				else
-//				{
-//					treeSCL = treeSCL.TreeView.SelectedNode;
-//				}				
-//				treeSCL.Nodes.Add(nodetGSECtrl);
-//			}			
-//			treeViewSCL.CreateCommNode(sCL, treeSCL);	
-//			TreeNode connAPRef = new TreeNode();			
-//			for(int i=0; i<sCL.Communication.SubNetwork.Length; i++)
-//			{
-//				this.treeViewSCL = new TreeViewSCL();
-//				connAPRef = treeViewSCL.SeekAssociation(treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[i].Nodes, apName, iedName, "apName", "iedName");			
-//				if(connAPRef == null && sCL.Communication.SubNetwork[i].ConnectedAP==null)
-//				{
-//					treeViewSCL.CreateConnectedNode(sCL, treeSCL, apName, iedName, i);											
-//					connAPRef = treeViewSCL.SeekAssociation(treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Nodes["tCommunication"].Nodes["tSubNetwork[]"].Nodes[i].Nodes, apName, iedName, "apName", "iedName");																
-//				}	
-//				if(connAPRef != null)
-//				{
-//					tGse.cbName = gs.name;
-//					tGse.ldInst = gsc[0];
-//					tGse.desc = gsc[6];								
-//					TreeNode nodeGSE = new TreeNode();	
-//					this.objectManagement.AddObjectToArrayObjectOfParentObject(tGse, connAPRef.Tag);					
-//					if(connAPRef.Nodes["tGSE[]"]==null)
-//					{								
-//						tConnectedAP tConnectAP = (tConnectedAP) connAPRef.Tag;
-//						nodeGSE.Text = "GSE";
-//						nodeGSE.Name = "tGSE[]";
-//						nodeGSE.Tag = tConnectAP.GSE;
-//						connAPRef.Nodes.Add(nodeGSE);
-//					}
-//					else
-//					{
-//						nodeGSE = connAPRef.Nodes["tGSE[]"];
-//					}		
-//					TreeNode nodetGSE = new TreeNode();
-//					nodetGSE.Text = gs.name;
-//					nodetGSE.Name = gsc[0]+"."+gs.name;
-//					nodetGSE.Tag  = tGse;
-//					nodeGSE.Nodes.Add(nodetGSE);					
-//					AttributeReferences aReferences = new AttributeReferences();
-//					aReferences.Insert(tGse, nodetGSECtrl);
-//					tAddress taddr = new tAddress();
-//					this.objectManagement.AddObjectToSCLObject(taddr, tGse);
-//					TreeNode nodeAddress = new TreeNode();
-//					nodeAddress.Text = "Address";
-//					nodeAddress.Name = "Address";
-//					nodeAddress.Tag  = taddr;
-//					nodetGSE.Nodes.Add(nodeAddress);										
-//					Utils utilsOM = new Utils();
-//					TreeNode nodeP = new TreeNode();
-//					nodeP.Name = "tP[]";
-//					nodeP.Text = "P";
-//					nodeAddress.Nodes.Add(nodeP);
-//										
-//					tP t_mac = new tP();
-//					tP_MACAddress t_mac_ = new tP_MACAddress();
-//					this.objectManagement.EmptySourcetoDestinyObject(t_mac_,t_mac);
-//					t_mac.Value = this.mac.Text;
-//					utilsOM.AddTPTreeNode(t_mac, "tP_mac", "tP", taddr, nodeP);
-//					
-//					tP t_app = new tP();
-//					tP_APPID  t_app_ = new tP_APPID();
-//					this.objectManagement.EmptySourcetoDestinyObject(t_app_, t_app);
-//					t_app.Value = this.appId.Text;
-//					utilsOM.AddTPTreeNode(t_app, "tP_app", "tP", taddr, nodeP);
-//		
-//					tP t_vlap = new tP();
-//					tP_VLANPRIORITY t_vlap_ = new tP_VLANPRIORITY();
-//					this.objectManagement.EmptySourcetoDestinyObject(t_vlap_,t_vlap);
-//					t_vlap.Value = this.vLANP.Text;
-//					utilsOM.AddTPTreeNode(t_vlap, "tP_vlanp", "tP", taddr, nodeP);
-//						
-//					tP t_vlani = new tP();
-//					tP_VLANID t_vlani_ = new tP_VLANID();
-//					this.objectManagement.EmptySourcetoDestinyObject(t_vlani_,t_vlani);
-//					t_vlani.Value = this.vLANI.Text;
-//					utilsOM.AddTPTreeNode(t_vlani, "tP_vlani", "tP", taddr, nodeP);
-//				}
-//			}
+			// Add a GSEControl to IED
+			tGSEControl cgse = new tGSEControl ();
+			cgse.name = this.cbName.Text;
+			cgse.appID = this.appId.Text;
+			cgse.desc = this.desc.Text;
+			cgse.type = tGSEControlTypeEnum.GOOSE;
+			cgse.datSet = this.datSet.SelectedItem.ToString ();
+			ld.LN0.AddGSEControl (cgse);
+			if (!this.tvscl.AddGSEControlNode (ied.name, ap.name, ld.inst, cgse))
+			{
+				MessageBox.Show("Can't update Tree for new GSEControl", 
+						                "Adding a New GOOSE",
+						                MessageBoxButtons.OK,
+						                MessageBoxIcon.Error);
+			}
+			// Add a GSE to Network
+			tGSE gse = new tGSE ();
+			gse.cbName = cgse.name;
+			gse.desc = cgse.desc;
+			gse.ldInst = ld.inst;
+			gse.InitAddess ();
+			if (gse.Address != null && gse.Address.P != null) {
+				for (int i = 0; i < gse.Address.P.Length; i++) {
+					if (gse.Address.P[i].typeEnum == tPTypeEnum.MAC_Address)
+						gse.Address.P[i].Value = this.mac.Text;
+					if (gse.Address.P[i].typeEnum == tPTypeEnum.APPID)
+						gse.Address.P[i].Value = this.appId.Text;
+					if (gse.Address.P[i].typeEnum == tPTypeEnum.VLAN_PRIORITY)
+						gse.Address.P[i].Value = this.vLANP.Text ;
+					if (gse.Address.P[i].typeEnum == tPTypeEnum.VLAN_ID)
+						gse.Address.P[i].Value = this.vLANI.Text;
+				}
+			}
+			int iedindex = this.scl.GetIED (ied.name);
+			var lcap = this.scl.GetIEDConnectedAP (iedindex);
+			for (int i = 0; i < lcap.Count; i++) {
+				IEDConnectedAP iap = (IEDConnectedAP) lcap[i];
+				tConnectedAP cap = this.scl.GetConnectedAP (iap.subnetwork, iap.connectedap);
+				if (cap.apName.Equals (ap.name)
+				    && cap.iedName.Equals (ied.name)) {
+					cap.AddGSE (gse);
+					System.Console.WriteLine ("Adding a new GSE Node...");
+					if (!this.tvscl.AddGSENode (ied.name, ap.name, ld.inst, gse))
+					{
+						MessageBox.Show("Can't update Tree new GSE", 
+								                "Adding a New GOOSE",
+								                MessageBoxButtons.OK,
+								                MessageBoxIcon.Error);
+					}
+				}
+			}
 		}		
 	}
 }

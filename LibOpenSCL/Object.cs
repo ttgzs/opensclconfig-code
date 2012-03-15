@@ -646,33 +646,32 @@ namespace OpenSCL
 		{
 			return this.GetConnectedAP(subnetIndex, connectedapIndex);			
 		}
-			
+		
 		public  System.Collections.ArrayList
 			GetIEDConnectedAP (string iedName)
 		{
 			if (iedName.Equals(null))
 				return null;
 			
-			return this.GetIEDConnectedAP (iedName);
+			return this.GetIEDConnectedAP (this.GetIED (iedName));
 		}
 		
 		public System.Collections.ArrayList 
 			GetIEDConnectedAP (int iedIndex)
 		{
+			System.Collections.ArrayList
+					res = new System.Collections.ArrayList ();
 			if (this.configuration.Communication == null)
-			    return null;
+			    return res;
 			if (this.configuration.Communication.SubNetwork == null)
-				return null;
+				return res;
 			
 			tIED ied = this.GetIED (iedIndex);
 			if (ied == null)
-				return null;
+				return res;
 			
 			if (ied.AccessPoint == null)
-				return null;
-			
-			System.Collections.ArrayList
-					res = new System.Collections.ArrayList ();
+				return res;
 			
 			for (int nap = 0; nap < ied.AccessPoint.GetLength(0); nap++) {
 				tAccessPoint ap = this.GetAP(iedIndex, nap);			                                      

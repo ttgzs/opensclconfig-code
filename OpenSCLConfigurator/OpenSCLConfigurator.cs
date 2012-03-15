@@ -41,6 +41,7 @@ namespace OpenSCLConfigurator
 		private string AppName = "OpenSCLConfigurator";
 		private string file = "";
 		private OpenSCL.Object scl;
+		private TreeViewSCL tvscl;
 		
 		// Form objects
 		private System.Windows.Forms.ToolStripMenuItem importIEDConfigToolStripMenuItem;
@@ -538,6 +539,9 @@ namespace OpenSCLConfigurator
 			this.statusStrip1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
+			this.tvscl = new TreeViewSCL();
+			this.tvscl.tree = this.treeViewFile;
+			this.tvscl.scl = this.scl;
 		}				
 				
 		/// <summary>
@@ -592,9 +596,10 @@ namespace OpenSCLConfigurator
 			scl.Configuration.Header.AddHistoryItem(item);
 			string t = "New SCL - Ver. " + scl.Configuration.Header.version
 						+ " - Rev. " + scl.Configuration.Header.revision;
-			this.treeViewFile.Nodes.Add(utils.treeViewSCL.GetTreeNodeSCL(t, scl.Configuration));
+			this.treeViewFile.Nodes.Add (utils.treeViewSCL.GetTreeNodeSCL (t, scl.Configuration));
 			utils.CreateIED (scl.Configuration, this.treeViewFile.Nodes[0]);
 			modified = true;
+			this.tvscl.scl = scl;
 			this.Cursor = System.Windows.Forms.Cursors.Default;
 		}
 		
@@ -633,6 +638,7 @@ namespace OpenSCLConfigurator
 				this.Text = AppName;
 				this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
 				listError = OpenSCLFile (dlg.FileName, validate);
+				this.tvscl.scl = this.scl;
 				this.Cursor = System.Windows.Forms.Cursors.Default;
 			}
 			EnablePanels (listError);
@@ -650,7 +656,6 @@ namespace OpenSCLConfigurator
 			
 			if (list.Count == 0)
 			{										
-				var treeViewSCLOpen = new TreeViewSCL();
 				// Creating a SCL object
 				System.Console.WriteLine("Deserializating file to SCLObject:...");
 				System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
@@ -669,7 +674,8 @@ namespace OpenSCLConfigurator
 					t = this.file + " Ver. " + 
 						this.scl.Configuration.Header.version +
 						"Rev. " + this.scl.Configuration.Header.revision;
-				treeViewFile.Nodes.Add(treeViewSCLOpen.GetTreeNodeSCL(t, this.scl.Configuration));
+				this.tvscl.scl = this.scl;
+				treeViewFile.Nodes.Add(this.tvscl.GetTreeNodeSCL(t, this.scl.Configuration));
 				swt.Stop();
 				System.Console.WriteLine("Enlapsed Time:"+swt.ElapsedMilliseconds+" ms");
 				modified = false;
@@ -942,7 +948,7 @@ namespace OpenSCLConfigurator
 			{
             	if (e.Button == MouseButtons.Right && (treeViewFile.SelectedNode.IsSelected))
             	{
-	                ContextMenuSCL contextMenuSCL = new ContextMenuSCL(scl);
+	                ContextMenuSCL contextMenuSCL = new ContextMenuSCL(this.tvscl);
 					contextMenuSCL.Changed += new OpenSCL.UI.ContextMenuSCL.ChangedEventHandler (OnContextChanged);
     	            System.Drawing.Point nodePosition = new System.Drawing.Point(e.X, e.Y);
         	        ContextMenuStrip menuStrip = contextMenuSCL.GetContextMenuSCL(this.treeViewFile.SelectedNode);

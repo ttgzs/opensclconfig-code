@@ -116,11 +116,18 @@ namespace IEC61850.SCL
 		
 		public int AddLN (tLN ln)
 		{
-			System.Array.Resize<tLN>(ref this.lnField,
-			                         this.lnField.Length + 1);
-			int index = this.lnField.Length -1;
-			lnField[index] = ln;
-			return index;
+			if (this.LN == null) {
+				this.LN = new tLN[1];
+				this.LN[0] = ln;
+				return 0;
+			}
+			else {
+				System.Array.Resize<tLN>(ref this.lnField,
+				                         this.lnField.Length + 1);
+				int index = this.lnField.Length -1;
+				lnField[index] = ln;
+				return index;
+			}
 		}
 	}
 

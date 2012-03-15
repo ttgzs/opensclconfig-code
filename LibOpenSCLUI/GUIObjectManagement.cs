@@ -84,7 +84,7 @@ namespace OpenSCL.UI
 			TreeNode sCLObject;
 			treeViewSCLProject = treeViewProject;
 			TreeNode treeViewToImport = new TreeNode();					
-			treeViewToImport = treeViewSCL.GetTreeNodeSCL("TreeNodeToImport",scl);			
+			treeViewToImport = treeViewSCL.GetTreeNodeSCL("TreeNodeToImport", scl);			
 			
 			if(scl.Substation != null)
 			{
@@ -281,8 +281,10 @@ namespace OpenSCL.UI
 			lN.lnType = "LPHD1";
 			lN.inst = 1;			
 			lN.lnClass = tLNClassEnum.LPHD.ToString();
-			this.objectManagement.AddObjectToArrayObjectOfParentObject(lN, lDevice);			
-			this.treeViewSCL.GetNodesItemOfArray(sCL.IED, sCL.GetType(), nodeSCL.TreeView.Nodes["root"].Nodes["SCL"]);
+			lDevice.AddLN (lN);
+			
+			this.treeViewSCL.GetNodesItemOfArray(sCL.IED, sCL.GetType(), 
+			                                     nodeSCL.TreeView.Nodes["root"].Nodes["SCL"]);
 			this.CreatingDependenciesLN(sCL, sCL.IED[sCL.IED.Length-1].AccessPoint[0].Server
 			                            .LDevice[0].LN0, nodeSCL.TreeView.Nodes["root"].Nodes["SCL"]
 			                            .Nodes["tIED[]"].Nodes[sCL.IED.Length-1].Nodes["tAccessPoint[]"]

@@ -46,7 +46,23 @@ namespace IEC61850.SCL
 			{
 				this.pField = value;
 			}
-		}		
+		}
+		
+		public int AddtP (tP tp) {
+			int index = -1;
+			if (this.pField != null) {
+				System.Array.Resize<tP>(ref this.pField,
+				                                 this.pField.Length + 1);
+				
+				index = this.pField.Length - 1;
+			}
+			else {
+				this.pField = new tP[1];
+				index = 0;
+			}
+			this.pField[index] = tp;
+			return index;
+		}
 	}
 	
 }

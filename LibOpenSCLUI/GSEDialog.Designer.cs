@@ -57,7 +57,7 @@ namespace OpenSCL.UI
 			this.datSetLabel = new System.Windows.Forms.Label();
 			this.vLANI = new System.Windows.Forms.MaskedTextBox();
 			this.appId = new System.Windows.Forms.MaskedTextBox();
-			this.desc2 = new System.Windows.Forms.TextBox();
+			this.desc = new System.Windows.Forms.TextBox();
 			this.vLANP = new System.Windows.Forms.MaskedTextBox();
 			this.mac = new System.Windows.Forms.MaskedTextBox();
 			this.cbName = new System.Windows.Forms.TextBox();
@@ -100,7 +100,7 @@ namespace OpenSCL.UI
 			this.groupBox2.Controls.Add(this.datSetLabel);
 			this.groupBox2.Controls.Add(this.vLANI);
 			this.groupBox2.Controls.Add(this.appId);
-			this.groupBox2.Controls.Add(this.desc2);
+			this.groupBox2.Controls.Add(this.desc);
 			this.groupBox2.Controls.Add(this.vLANP);
 			this.groupBox2.Controls.Add(this.mac);
 			this.groupBox2.Controls.Add(this.cbName);
@@ -160,10 +160,13 @@ namespace OpenSCL.UI
 			// 
 			// desc2
 			// 
-			this.desc2.Location = new System.Drawing.Point(136, 190);
-			this.desc2.Name = "desc2";
-			this.desc2.Size = new System.Drawing.Size(122, 20);
-			this.desc2.TabIndex = 13;
+			this.desc.Location = new System.Drawing.Point(136, 190);
+			this.desc.Name = "desc2";
+			this.desc.Size = new System.Drawing.Size(122, 20);
+			this.desc.TabIndex = 13;
+			this.desc.Text = "New GSE Control Reference for " 
+								+ ied.name + "." + ap.name + "."
+								+ ld.inst;
 			// 
 			// vLANP
 			// 
@@ -306,7 +309,7 @@ namespace OpenSCL.UI
 		private System.Windows.Forms.TextBox IdInst;
 		private System.Windows.Forms.MaskedTextBox vLANI;
 		private System.Windows.Forms.MaskedTextBox vLANP;
-		private System.Windows.Forms.TextBox desc2;
+		private System.Windows.Forms.TextBox desc;
 		private System.Windows.Forms.Button okButton;
 		private System.Windows.Forms.MaskedTextBox mac;
 		private System.Windows.Forms.MaskedTextBox appId;

@@ -54,6 +54,7 @@ namespace IEC61850.SCL
 			{
 				this.name = "AccessPoint" + ( ++ index ).ToString();
 			}
+			serverField = new tServer ();
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]

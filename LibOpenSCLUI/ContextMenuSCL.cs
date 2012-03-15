@@ -41,11 +41,11 @@ namespace OpenSCL.UI
 		/// <summary>
 		/// Description of the ContextMenuSCL component.
 		/// </summary>
-		public ContextMenuSCL(OpenSCL.Object scl)
+		public ContextMenuSCL(TreeViewSCL tvscl)
 		{
-			this.scl = scl;
+			this.scl = tvscl.scl;
 			this.contextMenuStrip = new ContextMenuStrip();
-			this.treeViewSCL = new TreeViewSCL();
+			this.treeViewSCL = tvscl;
 			this.objectManagement = new ObjectManagement();			
 		}
 		
@@ -235,8 +235,9 @@ namespace OpenSCL.UI
 					tAccessPoint ap = (tAccessPoint) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Tag;
 					tIED ied = (tIED) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Parent.Parent.Tag;
 				
-					GSEDialog gSEDlg = new GSEDialog (this.treeSCL.TreeView.SelectedNode, 
-				                                  scl, ied, ap, ld);
+					GSEDialog gSEDlg = new GSEDialog (this.treeViewSCL, 
+				                                  this.treeSCL.TreeView.SelectedNode, 
+				                                  ied, ap, ld);
 					if (gSEDlg.ShowDialog() == DialogResult.OK)
 						Changed (this, EventArgs.Empty);
 				}
@@ -244,15 +245,29 @@ namespace OpenSCL.UI
 				case  "tGSEControl[]":
 					if(this.treeViewSCL.getDataset(this.treeSCL).Count==0)//victor
 					{
-						MessageBox.Show("The SCL file should have at least one DataSet configured on this Device");
+						MessageBox.Show("The SCL file should have at least one DataSet configured on this Device",
+					                "Adding a New GOOSE",
+					                MessageBoxButtons.OK,
+						            MessageBoxIcon.Information);
 						break;
 					}
 					tLDevice ld = (tLDevice) this.treeSCL.TreeView.SelectedNode.Parent.Tag;
 					tAccessPoint ap = (tAccessPoint) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Tag;
 					tIED ied = (tIED) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Tag;
-					
-					GSEDialog gSEDlg = new GSEDialog(this.treeSCL.TreeView.SelectedNode,
-				                                 scl, ied, ap, ld);
+					int iedindex = this.scl.GetIED (ied.name);
+					var lcap = this.scl.GetIEDConnectedAP (iedindex);
+					if (lcap.Count == 0) {
+						MessageBox.Show("You mast have at least one connection to a subnetwork\n"
+						                + "Try to add one at tServer of this IED", 
+						                "Adding a New GOOSE",
+						                MessageBoxButtons.OK,
+						                MessageBoxIcon.Information);
+						break;
+					}	
+				
+					GSEDialog gSEDlg = new GSEDialog(this.treeViewSCL,
+				                                 this.treeSCL.TreeView.SelectedNode,
+				                                 ied, ap, ld);
 					if (gSEDlg.ShowDialog() == DialogResult.OK)
 						Changed (this, EventArgs.Empty);
 					break;					
@@ -545,8 +560,9 @@ namespace OpenSCL.UI
 				tLDevice ld = (tLDevice) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Tag;
 				tAccessPoint ap = (tAccessPoint) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Tag;
 				tIED ied = (tIED) this.treeSCL.TreeView.SelectedNode.Parent.Parent.Parent.Parent.Parent.Parent.Parent.Parent.Tag;
-				GSEDialog gseDlg = new GSEDialog(this.treeSCL.TreeView.SelectedNode,
-				                                 scl, ied, ap,ld, cgse);
+				GSEDialog gseDlg = new GSEDialog(this.treeViewSCL, 
+				                                 this.treeSCL.TreeView.SelectedNode,
+				                                 ied, ap,ld, cgse);
 				if (gseDlg.ShowDialog() == DialogResult.OK)
 					Changed (this, EventArgs.Empty);
 			}

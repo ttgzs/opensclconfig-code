@@ -60,7 +60,7 @@ namespace OpenSCL.UI
 		/// <returns>
 		/// A Context menu created.
 		/// </returns>
-		public ContextMenuStrip GetContextMenuSCL(TreeNode treeSCL)		
+		public ContextMenuStrip GetContextMenuSCL (TreeNode treeSCL)		
 		{		 	
 			this.treeSCL = treeSCL;
 			object sCLObject = treeSCL.Tag;			
@@ -69,8 +69,8 @@ namespace OpenSCL.UI
 			{			
 				if(sCLObject.GetType().Name == "tServer")
 				{					
-					insertOption.DropDownItems.AddRange(new ToolStripItem[] {
-				          this.GenerateSubMenuItemInsert("Communication", "Connect to a SubNetwork")});
+					insertOption.DropDownItems.AddRange (new ToolStripItem[] {
+				          this.GenerateSubMenuItemInsert ("Communication", "Connect to a SubNetwork")});
 				}
 				
 				// Edit Custom XML Attributes
@@ -200,8 +200,7 @@ namespace OpenSCL.UI
 		{			
 			ToolStripMenuItem ts = (ToolStripMenuItem) sender;			
 			WindowTreeViewLNType windowTreeViewLNType;		
-			OpenSCL.Object sCL = new OpenSCL.Object();
-			sCL.Configuration = (SCL) this.treeSCL.TreeView.Nodes["root"].Nodes["SCL"].Tag;		
+			OpenSCL.Object sCL = this.scl;
 			string apName;
 			string iedName;	
 			TreeNode objectFound = null;
@@ -274,7 +273,8 @@ namespace OpenSCL.UI
 				case  "tSampledValueControl":					
 					if(this.treeViewSCL.getDataset(this.treeSCL).Count==0)//victor
 					{
-						MessageBox.Show("The SCL file should have at least one DataSet configured on this Device");
+						MessageBox.Show("The SCL file should have at least one DataSet configured on this Device",
+					                	"Adding a new SampleValue stream",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 						break;
 					}
 					SMVDialog smvDlg = new SMVDialog(this.objectManagement.FindVariable(this.treeSCL.TreeView.SelectedNode.Parent.Parent.Tag, "inst").ToString(), 
@@ -325,7 +325,8 @@ namespace OpenSCL.UI
 						Changed (this, EventArgs.Empty);
 					break;
 				default:
-					this.treeViewSCL.Insert (this.treeSCL.TreeView.SelectedNode, ts.Text, ts.Name);
+					if (this.treeViewSCL.Insert (this.treeSCL.TreeView.SelectedNode, ts.Text, ts.Name))
+						Changed (this, EventArgs.Empty);
 				break;
 			}							
 		}				
@@ -575,7 +576,10 @@ namespace OpenSCL.UI
 				}
 				if(this.treeViewSCL.getDataset(this.treeSCL).Count==0)
 				{
-					MessageBox.Show("The SCL file should have at least one DataSet configured on this Device");					
+					MessageBox.Show("The SCL file should have at least one DataSet configured on this Device",
+					                "Warnning",
+					                MessageBoxButtons.OK,
+					                MessageBoxIcon.Exclamation);					
 				}
 				else
 				{

@@ -39,9 +39,14 @@ namespace OpenSCLConfigurator
 		private ImageList tb_il	= new ImageList();	
 		private string xSDFiles = Application.StartupPath+"/XSD//SCL.xsd";
 		private string AppName = "OpenSCLConfigurator";
-		private string file = "";
 		private OpenSCL.Object scl;
 		private TreeViewSCL tvscl;
+		private string filter = "SCL Files (*.icd,*.cid,*.ssd,*.scd)|*.icd;*.cid;*.ssd;*.scd|" +
+				"IED Capability Description Files (*.icd)|*.icd|" +
+				"Configured IED Description Files (*.cid)|*.cid|" +
+				"Substation Configuration Description Files (*.scd)|*.scd|" +
+				"System Specification Description Files (*.ssd)|*.ssd|" +
+				"All Files (*.*)|*.*";
 		
 		// Form objects
 		private System.Windows.Forms.ToolStripMenuItem importIEDConfigToolStripMenuItem;
@@ -50,10 +55,10 @@ namespace OpenSCLConfigurator
 				
 		public System.Windows.Forms.MainMenu mainMenu1;
 		private System.Windows.Forms.MenuItem fileMenu;
-		public System.Windows.Forms.MenuItem menuItem2;
+		public System.Windows.Forms.MenuItem exitItem;
 		private System.Windows.Forms.MenuItem openItem;	
 		private System.Windows.Forms.MenuItem helpMenu;
-		private System.Windows.Forms.MenuItem menuItem5;
+		private System.Windows.Forms.MenuItem aboutItem;
 		private System.Windows.Forms.MenuItem editMenu;
 		private System.Windows.Forms.MenuItem preferencesItem;
 		private System.ComponentModel.IContainer components;
@@ -75,16 +80,19 @@ namespace OpenSCLConfigurator
 		private	System.Windows.Forms.SplitContainer splitContainer1;
 		private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem saveasToolStripMenuItem;
 		private System.Windows.Forms.PropertyGrid PropertyGridAttributes;
 		private System.Windows.Forms.TreeView treeViewFile;
 		private System.Windows.Forms.ToolBarButton Separator2;
 		private System.Windows.Forms.ToolBarButton Separator1;
 		
 		private string File {
-			get { return file; }
-			set { 
-				file = value;
-				this.Text = this.Text + " - " + file;
+			get { 
+				string f = "No Name";
+				if (scl != null)
+					if (scl.FileName != null)
+						f = Path.GetFileName (scl.FileName);
+				return f;
 			}
 		}
 		
@@ -153,17 +161,18 @@ namespace OpenSCLConfigurator
 			this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
 			this.fileMenu = new System.Windows.Forms.MenuItem();
 			this.openItem = new System.Windows.Forms.MenuItem();
-			this.menuItem2 = new System.Windows.Forms.MenuItem();
+			this.exitItem = new System.Windows.Forms.MenuItem();
 			this.editMenu = new System.Windows.Forms.MenuItem();
 			this.preferencesItem = new System.Windows.Forms.MenuItem();
 			this.helpMenu = new System.Windows.Forms.MenuItem();
-			this.menuItem5 = new System.Windows.Forms.MenuItem();
+			this.aboutItem = new System.Windows.Forms.MenuItem();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.saveasToolStripMenuItem = new ToolStripMenuItem ();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -293,7 +302,7 @@ namespace OpenSCLConfigurator
 			this.fileMenu.Index = 0;
 			this.fileMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
 									this.openItem,
-									this.menuItem2});
+									this.exitItem});
 			this.fileMenu.OwnerDraw = true;
 			this.fileMenu.Text = "File";
 			// 
@@ -305,10 +314,10 @@ namespace OpenSCLConfigurator
 			// 
 			// Exit Application
 			// 
-			this.menuItem2.Index = 1;
-			this.menuItem2.OwnerDraw = true;
-			this.menuItem2.Text = "Exit";
-			this.menuItem2.Click += new System.EventHandler(this.exitApp);
+			this.exitItem.Index = 1;
+			this.exitItem.OwnerDraw = true;
+			this.exitItem.Text = "Exit";
+			this.exitItem.Click += new System.EventHandler(this.exitApp);
 			
 			// 
 			// Preferences
@@ -323,7 +332,7 @@ namespace OpenSCLConfigurator
 			// 
 			this.editMenu.Index = 1;
 			this.editMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-									this.menuItem5});
+									this.aboutItem});
 			this.helpMenu.OwnerDraw = true;
 			this.helpMenu.Text = "Help";
 			
@@ -332,15 +341,15 @@ namespace OpenSCLConfigurator
 			// 
 			this.helpMenu.Index = 1;
 			this.helpMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-									this.menuItem5});
+									this.aboutItem});
 			this.helpMenu.OwnerDraw = true;
 			this.helpMenu.Text = "Help";
 			// 
 			// About
 			// 
-			this.menuItem5.Index = 0;
-			this.menuItem5.OwnerDraw = true;
-			this.menuItem5.Text = "About";
+			this.aboutItem.Index = 0;
+			this.aboutItem.OwnerDraw = true;
+			this.aboutItem.Text = "About";
 			// 
 			// menuStrip1
 			// 
@@ -361,6 +370,7 @@ namespace OpenSCLConfigurator
 									this.newToolStripMenuItem,
 									this.openToolStripMenuItem,
 									this.saveToolStripMenuItem,
+									this.saveasToolStripMenuItem,
 									this.exitToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			//this.fileToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
@@ -390,6 +400,12 @@ namespace OpenSCLConfigurator
 			//this.saveToolStripMenuItem.AutoSize = true;
 			this.saveToolStripMenuItem.Text = "Save";
 			this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveFile);
+			// 
+			// saveasToolStripMenuItem
+			//
+			this.saveasToolStripMenuItem.Name = "saveasToolStripMenuItem";
+			this.saveasToolStripMenuItem.Text = "Save as...";
+			this.saveasToolStripMenuItem.Click += new System.EventHandler(this.SaveAsFile);
 			// 
 			// exitToolStripMenuItem
 			// 
@@ -579,27 +595,44 @@ namespace OpenSCLConfigurator
 		/// handler when an event is raised. If the event handler requires state information, the application must 
 		/// derive a class from this class to hold the data.
 		/// </param>
-		void NewFile(object sender, EventArgs e)
+		void NewFile (object sender, EventArgs e)
 		{							
-			SaveFile(sender, e);
+			if (modified && scl != null) {
+				var res = MessageBox.Show("Do you want to save your work?",
+					                	"Creating a new SCL...",
+				               			MessageBoxButtons.YesNoCancel,
+				                        MessageBoxIcon.Exclamation);
+				if (res == DialogResult.Yes) {
+					SaveSCLFile (true);
+				}
+				if (res == DialogResult.Cancel)
+					return;
+			}
 			this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-			this.treeViewFile.Nodes.Clear();			
-			Utils utils = new Utils();
+			this.treeViewFile.Nodes.Clear();
+			
 			var scln = new OpenSCL.Object ();
 			this.scl = scln;
+			this.tvscl.scl = scl;
+			
+			this.Text = this.AppName + " - " + this.File;
+			
 			scl.Configuration.Header.version = "1";
 			scl.Configuration.Header.revision = "1";
 			tHitem item = new tHitem();
 			item.version = "1";
 			item.revision = "1";
 			item.why = "New SCL";
-			scl.Configuration.Header.AddHistoryItem(item);
+			scl.Configuration.Header.AddHistoryItem (item);
 			string t = "New SCL - Ver. " + scl.Configuration.Header.version
 						+ " - Rev. " + scl.Configuration.Header.revision;
+			
+			Utils utils = new Utils();
 			this.treeViewFile.Nodes.Add (utils.treeViewSCL.GetTreeNodeSCL (t, scl.Configuration));
 			utils.CreateIED (scl.Configuration, this.treeViewFile.Nodes[0]);
+			
 			modified = true;
-			this.tvscl.scl = scl;
+			
 			this.Cursor = System.Windows.Forms.Cursors.Default;
 		}
 		
@@ -627,60 +660,83 @@ namespace OpenSCLConfigurator
 		/// handler when an event is raised. If the event handler requires state information, the application must 
 		/// derive a class from this class to hold the data.
 		/// </param>
-		private void OpenFile(object sender, EventArgs e)
+		private void OpenFile (object sender, EventArgs e)
 		{	
-			List<ErrorsManagement> listError = null;
-			SaveFile (sender, e);
-			this.treeViewFile.Nodes.Clear ();
-			openDialog dlg = new openDialog ();
-			if(dlg.ShowDialog() == DialogResult.OK)
-			{			
-				this.Text = AppName;
-				this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-				listError = OpenSCLFile (dlg.FileName, validate);
-				this.tvscl.scl = this.scl;
-				this.Cursor = System.Windows.Forms.Cursors.Default;
-			}
-			EnablePanels (listError);
+			OpenSCLFile (null, false);
 		}
 		
-		public List<ErrorsManagement> OpenSCLFile (string filename, bool validate)
+		public void OpenSCLFile (string filename, bool validate)
 		{
 			List<ErrorsManagement> list = new List<ErrorsManagement> ();
-						
+			
+			if (modified && scl != null)
+			{
+				var res = MessageBox.Show("Do you want to save your work?",
+					            "Openning a new SCL",
+				                MessageBoxButtons.YesNoCancel,
+				                MessageBoxIcon.Exclamation);
+				if (res == DialogResult.Yes) {
+					SaveSCLFile (true);
+				}
+				if (res == DialogResult.Cancel)
+					return;
+			}
+			
+			string f = "";
+			
+			if (filename == null) {
+				openDialog dlg = new openDialog ();
+				var res = dlg.ShowDialog ();
+				if(res == DialogResult.OK)
+					f = dlg.FileName;
+				else
+					return;
+			}
+			else
+				f = filename;
+			
 			if (validate) {
 				//System.Windows.Forms.MessageBox.Show ("OpenDialog: Validating");
 				ValidatingSCL val = new ValidatingSCL ();
-				list = val.ValidateFile (filename, xSDFiles);
+				list = val.ValidateFile (f, xSDFiles);
 			}
 			
+			this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+			this.treeViewFile.Nodes.Clear ();
+			this.scl = null;
+			this.tvscl.scl = null;
+			// Creating a SCL object
+			System.Console.WriteLine ("Deserializating file to SCLObject:...");
+			System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch ();
+			sw.Start ();
+			this.scl = new OpenSCL.Object ();
+			this.scl.Deserialize (f);
+			sw.Stop();
+			System.Console.WriteLine ("Enlapsed Time:" + sw.ElapsedMilliseconds + " ms");
+			// Creating TreeView
+			System.Console.WriteLine ("Creating TreeView:...");
+			System.Diagnostics.Stopwatch swt = new System.Diagnostics.Stopwatch();
+			swt.Start();
+			string t = "SCL Configuration";
+			if (this.scl.Configuration.Header == null) {
+				this.scl.Configuration.Header = new tHeader ();
+			}
+			t = this.File + " Ver. " + 
+				this.scl.Configuration.Header.version +
+				" Rev. " + this.scl.Configuration.Header.revision;
+			this.tvscl.scl = this.scl;
+			treeViewFile.Nodes.Add (this.tvscl.GetTreeNodeSCL (t, this.scl.Configuration));
+			swt.Stop();
+			System.Console.WriteLine ("Enlapsed Time:" + swt.ElapsedMilliseconds + " ms");
+			modified = false;
+			this.Text = this.AppName + " - " + this.File;
+			Console.WriteLine ("File: " + scl.FileName + "Openend Modif = " + modified.ToString ());
+			this.Cursor = System.Windows.Forms.Cursors.Default;
+			
 			if (list.Count == 0)
-			{										
-				// Creating a SCL object
-				System.Console.WriteLine("Deserializating file to SCLObject:...");
-				System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-				sw.Start();
-				this.scl = new OpenSCL.Object ();
-				this.scl.Deserialize(filename);
-				sw.Stop();
-				System.Console.WriteLine("Enlapsed Time:"+sw.ElapsedMilliseconds+" ms");
-				// Creating TreeView
-				System.Console.WriteLine("Creating TreeView:...");
-				System.Diagnostics.Stopwatch swt = new System.Diagnostics.Stopwatch();
-				swt.Start();
-				this.File = Path.GetFileName(filename);
-				string t = "SCL Configuration";
-				if (this.scl.Configuration.Header != null)
-					t = this.file + " Ver. " + 
-						this.scl.Configuration.Header.version +
-						"Rev. " + this.scl.Configuration.Header.revision;
-				this.tvscl.scl = this.scl;
-				treeViewFile.Nodes.Add(this.tvscl.GetTreeNodeSCL(t, this.scl.Configuration));
-				swt.Stop();
-				System.Console.WriteLine("Enlapsed Time:"+swt.ElapsedMilliseconds+" ms");
-				modified = false;
-			}	
-			return list;
+				EnablePanels (null);
+			else
+				EnablePanels (list);
 		}
 		
 		
@@ -744,7 +800,7 @@ namespace OpenSCLConfigurator
 				
 				string t = "SCL Configuration";
 				if (this.scl.Configuration.Header != null)
-					t = this.file + " Ver. " + 
+					t = this.File + " Ver. " + 
 						this.scl.Configuration.Header.version +
 						"Rev. " + this.scl.Configuration.Header.revision;
 				treeViewFile.Nodes.Clear ();
@@ -768,18 +824,53 @@ namespace OpenSCLConfigurator
 		/// handler when an event is raised. If the event handler requires state information, the application must 
 		/// derive a class from this class to hold the data.
 		/// </param>
-		private void SaveFile(object sender, EventArgs e)
+		private void SaveFile (object sender, EventArgs e)
 		{
-			if (this.treeViewFile.Nodes.Count > 0 && modified == true)
-            {   				
-				if (MessageBox.Show ("Do you whant to save your work before to open a new file?",
-				                 "Warnning",MessageBoxButtons.YesNo,MessageBoxIcon.Exclamation)
-				    == DialogResult.Yes) {
-					SaveDialog saveD = new SaveDialog();
-					saveD.SaveSCLFile(this.treeViewFile);
+			SaveSCLFile (true);
+		}
+		
+		private void SaveAsFile (object sender, EventArgs e)
+		{
+			SaveSCLFile (false);
+		}
+		
+		private void SaveSCLFile (bool save)
+		{
+			if (this.scl == null) {
+				MessageBox.Show ("You must create or open an SCL file",
+					            "Warnning",
+				                MessageBoxButtons.OK,
+				                MessageBoxIcon.Information);
+				return;
+			}
+			
+			if (save && scl.FileName != null) {
+				this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+				this.scl.Serialize ();
+				modified = false;
+				this.Cursor = System.Windows.Forms.Cursors.Default;
+				System.Console.WriteLine ("Saved...");
+				return;
+			}
+			else {
+				SaveFileDialog saveDlg = new SaveFileDialog ();
+				saveDlg.Title = "Save As ...";
+				saveDlg.Filter = filter;
+				saveDlg.CheckPathExists = true;
+				if (scl.FileName != null)
+					saveDlg.CheckFileExists = true;
+				saveDlg.DefaultExt = "scd";
+				saveDlg.OverwritePrompt = true;
+				saveDlg.ValidateNames = true;
+				if(saveDlg.ShowDialog () == DialogResult.OK)
+				{
+	                this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+					this.scl.Serialize (saveDlg.FileName);
+					this.Text = this.AppName + " - " + this.File;
 					modified = false;
-				}
-			}			
+					this.Cursor = System.Windows.Forms.Cursors.Default;
+	            }
+			}
 		}
 		
 		/// <summary>
@@ -793,18 +884,31 @@ namespace OpenSCLConfigurator
 		/// handler when an event is raised. If the event handler requires state information, the application must 
 		/// derive a class from this class to hold the data.
 		/// </param>
-		private void ValidateFileClick(object sender, EventArgs e)
+		private void ValidateFileClick (object sender, EventArgs e)
 		{
-			List<ErrorsManagement> listError = null;
-					
-			SaveFile(sender, e);
-			this.treeViewFile.Nodes.Clear();				
-			openDialog dlg = new openDialog();
-			if (dlg.ShowDialog () == DialogResult.OK)
-			{
-				listError = OpenSCLFile (dlg.FileName, true);
+			List<ErrorsManagement> list = new List<ErrorsManagement> ();
+			string f = "";
+			openDialog dlg = new openDialog ();
+			var res = dlg.ShowDialog ();
+			if(res == DialogResult.OK)
+				f = dlg.FileName;
+			else
+				return;
+			try {
+				ValidatingSCL val = new ValidatingSCL ();
+				list = val.ValidateFile (f, xSDFiles);
 			}
-			EnablePanels(listError);
+			catch {
+				MessageBox.Show ("Validation has thrown an Error",
+				                 "Validation Stoped",
+				                 MessageBoxButtons.OK,
+				                 MessageBoxIcon.Error);
+			}
+			
+			if (list.Count > 0)
+				EnablePanels (list);
+			else
+				EnablePanels (null);
 		}
 
 		/// <summary>
@@ -959,7 +1063,6 @@ namespace OpenSCLConfigurator
 		
 		void OnContextChanged (System.Object o, EventArgs args)
 		{
-			System.Console.WriteLine ("Modified by Context Menu...");
 			modified = true;
 		}
 		

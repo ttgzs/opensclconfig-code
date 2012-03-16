@@ -341,19 +341,22 @@ namespace OpenSCL.UI
 		/// <param name="typePropertyPossibleInsert">
 		/// Type of the property of the node that will be added to the tree.
 		/// </param>
-		public void Insert(TreeNode nodePossibleInsert, string namePropertyPossibleInsert, string typePropertyPossibleInsert)
+		public bool Insert (TreeNode nodePossibleInsert, string namePropertyPossibleInsert, 
+		                   string typePropertyPossibleInsert)
 		{			
+			bool ret = true;
 			object objectParent, objectToInsert;
-			TreeNode node = new TreeNode();
-			if(nodePossibleInsert.Tag.GetType().IsArray)
+			TreeNode node = new TreeNode ();
+			if(nodePossibleInsert.Tag.GetType ().IsArray)
 			{				
 				objectParent = nodePossibleInsert.Parent.Tag;
-				objectToInsert = this.objectManagement.CreateObject(typePropertyPossibleInsert);
+				objectToInsert = this.objectManagement.CreateObject (typePropertyPossibleInsert);
 				string attributeName = nodePossibleInsert.Text;		
 								
-				if(!objectManagement.AddItemToArray(objectToInsert, attributeName, objectParent))
+				if(!objectManagement.AddItemToArray (objectToInsert, attributeName, objectParent))
    				{
-					MessageBox.Show(objectToInsert.GetType().Name+" is not saved");
+					MessageBox.Show (objectToInsert.GetType ().Name + " is not saved");
+					ret = false;
    				}
 				else
 				{	
@@ -366,20 +369,23 @@ namespace OpenSCL.UI
 			else
 			{
 				objectParent = nodePossibleInsert.Tag;
-				objectToInsert = this.objectManagement.FindVariable(objectParent, namePropertyPossibleInsert);				
-				MemberInfo[] objectToInsertInfo = objectParent.GetType().FindMembers(
+				objectToInsert = this.objectManagement.FindVariable (objectParent, namePropertyPossibleInsert);				
+				MemberInfo[] objectToInsertInfo = objectParent.GetType ().FindMembers (
    							MemberTypes.Property, 
    							BindingFlags.Public | 
    							BindingFlags.Instance,
    							Type.FilterName, namePropertyPossibleInsert);					
-				if(objectToInsertInfo!=null&&objectToInsertInfo.Length>0&&(objectToInsertInfo[0] as PropertyInfo).PropertyType.IsArray)				
+				if(objectToInsertInfo != null
+				   && objectToInsertInfo.Length >0 
+				   && (objectToInsertInfo[0] as PropertyInfo).PropertyType.IsArray)				
 				{
 					string nameObjectToInsert = (objectToInsertInfo[0] as PropertyInfo).PropertyType.Name;						
 					nameObjectToInsert = nameObjectToInsert.Substring(0,typePropertyPossibleInsert.IndexOf('['));
 					objectToInsert = this.objectManagement.CreateObject(nameObjectToInsert);
 					if(!objectManagement.AddItemToArray(objectToInsert, namePropertyPossibleInsert, objectParent))
 					{
-						MessageBox.Show(objectParent.GetType().Name+" is not saved");   						
+						MessageBox.Show(objectParent.GetType().Name+" is not saved");
+						ret = false;
    					}
 					else
 					{						
@@ -399,10 +405,11 @@ namespace OpenSCL.UI
 				else
 				{
 					//Object that will be added and it is not an array type.
-					objectToInsert = this.objectManagement.CreateObject(typePropertyPossibleInsert);
-					if(!objectManagement.AddObjectToSCLObject(objectToInsert, namePropertyPossibleInsert, objectParent))
+					objectToInsert = this.objectManagement.CreateObject (typePropertyPossibleInsert);
+					if(!objectManagement.AddObjectToSCLObject (objectToInsert, namePropertyPossibleInsert, objectParent))
 					{
-						MessageBox.Show(objectParent.GetType().Name+" is not saved");   						
+						MessageBox.Show(objectParent.GetType ().Name+" is not saved");
+						ret = false;
 					} 
 					else
 					{
@@ -413,6 +420,7 @@ namespace OpenSCL.UI
 					}
 				}
 			}
+			return ret;
 		}
 		
 		/// <summary>

@@ -120,7 +120,8 @@ namespace OpenSCL.UI
 					node.Text = "Header";
 					node.Tag =  scl.Header;						
 					treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes.Add(node);					
-					this.CopyNodes(treeViewToImport.Nodes["SCL"].Nodes["tHeader"], treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tHeader"], sCLObject);
+					this.CopyNodes(treeViewToImport.Nodes["SCL"].Nodes["tHeader"], 
+					               treeViewSCLProject.Nodes["root"].Nodes["SCL"].Nodes["tHeader"], sCLObject);
 				}
 			}			
 			if(scl.IED!=null)
@@ -193,14 +194,14 @@ namespace OpenSCL.UI
 		/// <param name="objectSCLProject">
 		/// SCL object of the project file.
 		/// </param>		
-		public void CreateHistory(TreeView treeViewProject, SCL objectSCLProject)
+		public void CreateHistory (TreeView treeViewProject, SCL objectSCLProject)
 		{
 			TreeViewSCL treeViewSCL = new TreeViewSCL();
 			TreeNode sCLObject;
 			
 			if(objectSCLProject.Header == null)
 			{
-				objectSCLProject.Header = new tHeader();
+				objectSCLProject.Header = new tHeader ();
 			}			
 			HistoryDialog historyDlg = new HistoryDialog(objectSCLProject.Header);
 			historyDlg.ShowDialog();

@@ -87,7 +87,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AttributeReferences.cs" />
     <Compile Include="RegularExpressionTree.cs" />
-    <Compile Include="SaveDialog.cs" />
     <Compile Include="SMVDialog.cs" />
     <Compile Include="SMVDialog.Designer.cs">
       <DependentUpon>SMVDialog.cs</DependentUpon>

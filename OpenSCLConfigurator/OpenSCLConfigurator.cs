@@ -897,18 +897,25 @@ namespace OpenSCLConfigurator
 			try {
 				ValidatingSCL val = new ValidatingSCL ();
 				list = val.ValidateFile (f, xSDFiles);
+				if (list.Count > 0) {
+					string msg = "";
+					for (int i = 0; i < list.Count; i++) {
+						msg += list[i].ErrorMessage + "\n";
+					}
+					MessageBox.Show ("Validation has found issues in SCL file:\n\n"
+				                 + msg,
+				                 "Validation finished",
+				                 MessageBoxButtons.OK,
+				                 MessageBoxIcon.Warning);
+				}
 			}
-			catch {
-				MessageBox.Show ("Validation has thrown an Error",
+			catch (Exception ex) {
+				MessageBox.Show ("Validation has thrown an Error:\n\n"
+				                 + ex.Message,
 				                 "Validation Stoped",
 				                 MessageBoxButtons.OK,
 				                 MessageBoxIcon.Error);
 			}
-			
-			if (list.Count > 0)
-				EnablePanels (list);
-			else
-				EnablePanels (null);
 		}
 
 		/// <summary>

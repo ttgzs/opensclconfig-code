@@ -26,4 +26,4 @@ using System.Runtime.InteropServices;
 // Major for stable versions
 // Minor for milestone versions
 // Micro will be increased when this library is modified
-[assembly: AssemblyVersion("0.5.4")]
+[assembly: AssemblyVersion("0.5.5")]

@@ -1,5 +1,5 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="../OpenSCLTools-0.5.5-ReleaseNotes.txt">
+  <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCL/Enums.cs">
     <Files>
       <File FileName="OpenSCLConfigurator/OpenSCLConfigurator.cs" Line="909" Column="44" />
       <File FileName="LibOpenSCLUI/ContextMenuSCL.cs" Line="329" Column="24" />
@@ -9,28 +9,21 @@
       <File FileName="LibOpenSCLUI/openDialog.cs" Line="75" Column="32" />
       <File FileName="LibOpenSCL/ValidatingSCL.cs" Line="33" Column="15" />
       <File FileName="LibOpenSCLUI/Properties/AssemblyInfo.cs" Line="29" Column="34" />
-      <File FileName="../OpenSCLTools-0.5.5-ReleaseNotes.txt" Line="55" Column="1" />
+      <File FileName="LibOpenSCL/tEnumType.cs" Line="1" Column="1" />
+      <File FileName="LibOpenSCL/tEnumVal.cs" Line="2" Column="6" />
+      <File FileName="LibOpenSCL/tFCDA.cs" Line="50" Column="11" />
+      <File FileName="LibOpenSCL/Enums.cs" Line="64" Column="21" />
+      <File FileName="../../Documentos/Trabajo/Normalizacion/IEC61850/Norma IEC 61850/IEC_61850-6 Ed2.0_Extra_Files/SCL_Enums.xsd" Line="410" Column="29" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="LibOpenSCL" expanded="True">
-            <Node name="Properties" expanded="True" />
-          </Node>
-          <Node name="LibOpenSCLUI" expanded="True">
-            <Node name="Properties" expanded="True" />
-            <Node name="CommunicationDialog.cs" expanded="True" />
-            <Node name="DataSetDialog.cs" expanded="True" />
-            <Node name="GSEDialog.cs" expanded="True" />
-            <Node name="LNodeDialog.cs" expanded="True" />
-            <Node name="SMVDialog.cs" expanded="True" />
-            <Node name="WindowTreeViewLNType.cs" expanded="True" />
-          </Node>
-          <Node name="OpenSCLConfigurator" expanded="True" selected="True">
+          <Node name="OpenSCLConfigurator" expanded="True">
             <Node name="References" expanded="True" />
             <Node name="Properties" expanded="True" />
             <Node name="OpenSCLConfigurator.cs" expanded="True" />
           </Node>
+          <Node name="OpenSCLConfigurator_console" expanded="True" selected="True" />
           <Node name="Paquetes" expanded="True" />
         </State>
       </Pad>

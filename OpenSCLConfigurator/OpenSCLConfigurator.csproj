@@ -16,10 +16,9 @@
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <DocumentationFile>bin\Debug\OpenSCLConfigurator.xml</DocumentationFile>
-    <ReleaseVersion>0.3.3</ReleaseVersion>
+    <ReleaseVersion>0.3.4</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
     <ApplicationIcon>imgs\OpenSCL_logo.ico</ApplicationIcon>
-    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>

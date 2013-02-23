@@ -26,4 +26,4 @@ using System.Runtime.InteropServices;
 // Major for stable versions, will be the same Major version of OpenSCLUI
 // Minor for milestone versions, will be the same Minor version of OpenSCLUI
 // Micro will be increased when OpenSCLUI or OpenSCL micro version is incresed or when this application is modified
-[assembly: AssemblyVersion("0.3.3")]
+[assembly: AssemblyVersion("0.3.4")]

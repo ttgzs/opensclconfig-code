@@ -41,10 +41,12 @@ namespace OpenSCLConfigurator
 		private string AppName = "OpenSCLConfigurator";
 		private OpenSCL.Object scl;
 		private TreeViewSCL tvscl;
-		private string filter = "SCL Files (*.icd,*.cid,*.ssd,*.scd)|*.icd;*.cid;*.ssd;*.scd|" +
+		private string filter = "SCL Files (*.icd,*.iid,*.cid,*.ssd,*.scd,*.sed)|*.icd;*.cid;*.ssd;*.scd|" +
 				"IED Capability Description Files (*.icd)|*.icd|" +
+				"Instantiated IED Description Files (*.iid)|*.iid|" +
 				"Configured IED Description Files (*.cid)|*.cid|" +
 				"Substation Configuration Description Files (*.scd)|*.scd|" +
+				"System Exchange Description Files (*.sed)|*.sed|" +
 				"System Specification Description Files (*.ssd)|*.ssd|" +
 				"All Files (*.*)|*.*";
 		
@@ -857,8 +859,6 @@ namespace OpenSCLConfigurator
 				saveDlg.Title = "Save As ...";
 				saveDlg.Filter = filter;
 				saveDlg.CheckPathExists = true;
-				if (scl.FileName != null)
-					saveDlg.CheckFileExists = true;
 				saveDlg.DefaultExt = "scd";
 				saveDlg.OverwritePrompt = true;
 				saveDlg.ValidateNames = true;

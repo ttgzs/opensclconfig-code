@@ -131,6 +131,7 @@
       <DependentUpon>WindowTreeViewLNType.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="CustomAttribute.cs" />
+    <Compile Include="CommunicationNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="INSTALLATION.txt">

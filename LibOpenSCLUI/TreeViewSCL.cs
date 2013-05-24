@@ -30,10 +30,14 @@ namespace OpenSCL.UI
 	public class TreeViewSCL
 	{				
 		ObjectManagement objectManagement;
-		private TreeNode treeReferenced; 	
-		private Type typeNode;
+		private TreeNode treeReferenced;
 		private Type dataType;
+		private TreeNode root;
 		private TreeNode node;
+		private TreeNode commNode;
+		private TreeNode dttemplNode;
+		private TreeNode iedNode;
+		private TreeNode subNode;
 		
 		public TreeViewSCL()
 		{
@@ -42,7 +46,6 @@ namespace OpenSCL.UI
 		
 		public OpenSCL.Object scl { get; set; }
 		public TreeView tree { get; set; }
-		
 		
 		/// <summary>
 		/// This method creates a graphical component called "tree" 
@@ -71,24 +74,43 @@ namespace OpenSCL.UI
 				this.scl = oscl;
 			}
 			TreeNode treeSCL = new TreeNode ();			
-			if(string.IsNullOrEmpty (nameTreeNode))
-			{
-				return treeSCL;
-			}
-			else
+			if(!string.IsNullOrEmpty (nameTreeNode))
 			{				
-				node = new TreeNode ();				
+				root = new TreeNode ();
 				treeSCL.Text = nameTreeNode;
-				treeSCL.Name = "root";										
-				node.Name = this.scl.Configuration.GetType ().Name.ToString ();
-	            node.Text = this.scl.Configuration.GetType ().Name.ToString ();
-                node.Tag = this.scl.Configuration;
-        	    treeSCL.Nodes.Add(node);				
-        	    AddNodesToTreeSCL (this.scl.Configuration, treeSCL);
+				treeSCL.Name = "root";
+				root.Name = this.scl.Configuration.GetType ().Name.ToString ();
+	            root.Text = this.scl.Configuration.GetType ().Name.ToString ();
+                root.Tag = this.scl.Configuration; // FIXME: Not useful
+        	    treeSCL.Nodes.Add(root);
+				// Add system nodes
 			}
         	return treeSCL;
 		}
-		
+
+		public void AddCommunicationNode ()
+		{
+			if (this.scl.Configuration.Communication != null)
+				commNode = AddSclNode (this.scl.Configuration.Communication, node, -1);
+		}
+
+		public void AddNetworkNode ()
+		{
+			if (this.scl.Configuration.Communication.SubNetwork != null)
+					AddSclArrayNodes (this.scl.Configuration.Communication.SubNetwork, commNode, -1);
+		}
+
+		public void AddDataTypeTemplatesNode ()
+		{
+			if (this.scl.Configuration.DataTypeTemplates != null)
+				dttemplNode = AddSclNode (this.scl.Configuration.DataTypeTemplates, node, -1);
+		}
+
+		public void AddTopSclNodes (TreeNode node)
+		{
+			AddCommunicationNode ();
+		}
+
 		/// <summary>
 		/// This method creates the nodes that will added to a tree using an SCL object.		
 		/// </summary>
@@ -104,9 +126,10 @@ namespace OpenSCL.UI
             node.Name = sCLObject.GetType().Name.ToString();
             node.Text = GetName(sCLObject, sCLObject.GetType().Name.ToString());
             node.Tag = sCLObject;
-            treeSCL.Nodes.Add(node);       
-			AddNodesToTreeSCL(sCLObject, treeSCL);       	
+            treeSCL.Nodes.Add(node);
+			AddNodesToTreeSCL(sCLObject, treeSCL);
 		}
+
 		
 		/// <summary>
 		/// This method creates and adds nodes to a tree according to status of the TreeNode.		
@@ -121,7 +144,7 @@ namespace OpenSCL.UI
 		{
 			//object valueAttributeObject;
 			//Array valuesAttributeObject;
-			PropertyInfo[] attributesInformation = sCLObject.GetType().GetProperties();        	        	        	        										                 							
+			PropertyInfo[] attributesInformation = sCLObject.GetType().GetProperties();
         	foreach (PropertyInfo attributeInformation in attributesInformation) 
         	{        		
 	        	if(!this.ValidateObjectPrimitive(attributeInformation))
@@ -146,9 +169,14 @@ namespace OpenSCL.UI
         			// If the variable is an Object type then a method will be called to
         			// add it to a node of the tree.        			
 	        		else
-    	    		{        				
-        				object valueAttributeObject = sCLObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, sCLObject, null );				        			        						
-        				if(valueAttributeObject!=null)
+    	    		{
+						object valueAttributeObject;
+						if (attributeInformation.Name.Equals ("Chars"))
+							valueAttributeObject = sCLObject;
+						else 
+							valueAttributeObject = sCLObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, sCLObject, null );				        			        						
+        				
+						if(valueAttributeObject!=null)
         				{        					
         					this.GetNodes(valueAttributeObject, treeSCL.Nodes[sCLObject.GetType().Name.ToString()]);
         				}        					
@@ -174,18 +202,66 @@ namespace OpenSCL.UI
 		/// </param>		
 		private void GetNodesItemOfArray(PropertyInfo attributeInformation, 
 		                                 Array valuesAttributeObject, TreeNode treeSCL)
-		{			
-			node = new TreeNode();
-			node.Name = attributeInformation.PropertyType.Name;
-            node.Text = GetName(valuesAttributeObject, attributeInformation.Name );//attributeInformation.Name;            
-            node.Tag = valuesAttributeObject;
-			treeSCL.Nodes.Add(node);
-			for(int x = 0;  valuesAttributeObject!=null && x <valuesAttributeObject.GetLength(0); x++)
-        	{
-        		this.GetNodesArray(valuesAttributeObject.GetValue(x),  treeSCL.Nodes[attributeInformation.PropertyType.Name],x);
-        	}        				
+		{
+			AddSclArrayNodes ((object []) valuesAttributeObject, treeSCL, -1);
+//			node = new TreeNode();
+//			node.Name = attributeInformation.PropertyType.Name;
+//            node.Text = GetName(valuesAttributeObject, attributeInformation.Name );//attributeInformation.Name;            
+//            node.Tag = valuesAttributeObject;
+//			treeSCL.Nodes.Add(node);
+//			for(int x = 0;  valuesAttributeObject!=null && x <valuesAttributeObject.GetLength(0); x++)
+//        	{
+//        		this.GetNodesArray(valuesAttributeObject.GetValue(x),  treeSCL.Nodes[attributeInformation.PropertyType.Name],x);
+//        	}
 		}
-		
+
+		/// <summary>
+		/// Adds the node.
+		/// </summary>
+		/// <returns>
+		/// The node.
+		/// </returns>
+		/// <param name='obj'>
+		/// Object.
+		/// </param>
+		/// <param name='node'>
+		/// Node.
+		/// </param>
+		/// <param name='index'>
+		/// Index. Set to -1 if you whant to avoid to add an index to the node's name.
+		/// </param>
+		public TreeNode AddSclNode (object obj, TreeNode node, int index)
+		{
+			string sufix = "";
+			if (index >= 0)
+				sufix = index.ToString ();
+			TreeNode n = new TreeNode ();
+			if (!(obj is Array))
+				n.Tag = obj;
+			n.Name = obj.GetType ().Name + sufix;
+			n.Text = OpenSCL.Utility.GetSCLName (obj) + sufix;
+			node.Nodes.Add (node);
+			return n;
+		}
+
+		/// <summary>
+		/// Adds a node for an array and nodes for each elements in the array.
+		/// </summary>
+		/// <param name='objs'>
+		/// Objects.
+		/// </param>
+		/// <param name='node'>
+		/// Node.
+		/// </param>
+		public TreeNode AddSclArrayNodes (Array objs, TreeNode node, int index)
+		{
+			TreeNode n = AddSclNode (objs, node, index);
+			for (int i = 0; i < objs.Length; i++) {
+				AddSclNode (objs.GetValue (i), node, i);
+			}
+			return n;
+		}
+
 		/// <summary>
 		/// This method associate the items of an array with a node and add them to the tree.
 		/// </summary>
@@ -198,43 +274,60 @@ namespace OpenSCL.UI
 		/// <param name="index">
 		/// Item's position that will be added to the tree.
 		/// </param>
-		private void GetNodesArray(object itemSCLObject, TreeNode treeSCL, int index)
-		{		
-			node = new TreeNode();
-			object valueAttributeObject;
-			Array valuesAttributeObject;
-			PropertyInfo[] attributesInformation = itemSCLObject.GetType().GetProperties();        	        	        	        													
-			node.Name = itemSCLObject.GetType().Name.ToString()+index;
-			node.Text = GetName(itemSCLObject, itemSCLObject.GetType().Name.ToString());//itemSCLObject.GetType().Name.ToString();
-            node.Tag = itemSCLObject;
-            treeSCL.Nodes.Add(node);			
-			AttributeReferences references = new AttributeReferences();
-			references.Insert(itemSCLObject,node);
-        	foreach (PropertyInfo attributeInformation in attributesInformation) 
-        	{        		
-        		if(!this.ValidateObjectPrimitive(attributeInformation))
-        		{
-        			//If the variable is an Array type then it has to pool every item that belongs to the Array and it will be 
-        			//sent to a method where will be associated to a node of a tree.        		        			        			
-        			if(attributeInformation.PropertyType.BaseType.Name.Equals("Array"))
-        			{
-        				valuesAttributeObject = itemSCLObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, itemSCLObject, null ) as  Array;        				
-        				if(valuesAttributeObject!=null && (valuesAttributeObject as Array).GetValue(0) != null)
-        				{
-        					this.GetNodesItemOfArray(attributeInformation, valuesAttributeObject,  treeSCL.Nodes[itemSCLObject.GetType().Name.ToString()+index]);
-        				}  				
-        			}
-        			//If the variable is an object type, then it will use this method to associate it with a node of the tree.
-        			else
-        			{        				
-        				valueAttributeObject = itemSCLObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, itemSCLObject, null );				        			        						
-        				if(valueAttributeObject!=null)
-        				{        					
-        					this.GetNodes(valueAttributeObject, treeSCL.Nodes[itemSCLObject.GetType().Name.ToString()+index]);
-        				}
-        			}        			
-        		}
-        	}	        	
+		private void GetNodesArray (object itemSCLObject, TreeNode treeSCL, int index)
+		{
+			if (itemSCLObject is Array)
+				AddSclArrayNodes ((object[]) itemSCLObject,treeSCL, index);
+			else
+				AddSclNode (itemSCLObject, treeSCL, index);
+
+//			node = new TreeNode ();
+//			if (itemSCLObject is string) {
+//				this.GetNodes(itemSCLObject, treeSCL.Nodes[(string)itemSCLObject]);
+//			}
+//			object valueAttributeObject;
+//			Array valuesAttributeObject;
+//			PropertyInfo[] attributesInformation = itemSCLObject.GetType ().GetProperties ();        	        	        	        													
+//			node.Name = itemSCLObject.GetType ().Name.ToString () + index;
+//			node.Text = GetName (itemSCLObject, itemSCLObject.GetType ().Name.ToString ());//itemSCLObject.GetType().Name.ToString();
+//			node.Tag = itemSCLObject;
+//			treeSCL.Nodes.Add (node);
+//			AttributeReferences references = new AttributeReferences ();
+//			references.Insert (itemSCLObject, node);
+//
+//        	foreach (PropertyInfo attributeInformation in attributesInformation) 
+//        	{        		
+//        		if(!this.ValidateObjectPrimitive(attributeInformation))
+//        		{
+//        			//If the variable is an Array type then it has to pool every item that belongs to the Array and it will be 
+//        			//sent to a method where will be associated to a node of a tree.        		        			        			
+//        			if(attributeInformation.PropertyType.BaseType.Name.Equals("Array"))
+//        			{
+//        				valuesAttributeObject = itemSCLObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, itemSCLObject, null ) as  Array;        				
+//        				if(valuesAttributeObject!=null && (valuesAttributeObject as Array).GetValue(0) != null)
+//        				{
+//        					this.GetNodesItemOfArray(attributeInformation, valuesAttributeObject,  treeSCL.Nodes[itemSCLObject.GetType().Name.ToString()+index]);
+//        				}  				
+//        			}
+//        			//If the variable is an object type, then it will use this method to associate it with a node of the tree.
+//        			else
+//        			{  
+//						try {
+//        					valueAttributeObject = itemSCLObject.GetType().InvokeMember(attributeInformation.Name, BindingFlags.GetField | BindingFlags.GetProperty , null, itemSCLObject, null );
+//						}
+//						catch {
+//							valueAttributeObject = itemSCLObject;
+//							System.Console.Out.WriteLine ("Error to Add a node for object: " +
+//						                              itemSCLObject.GetType ().ToString ()
+//							                              + " with Attribute: " + attributeInformation.Name);
+//						}
+//        				if(valueAttributeObject!=null)
+//        				{        					
+//        					this.GetNodes(valueAttributeObject, treeSCL.Nodes[itemSCLObject.GetType().Name.ToString()+index]);
+//        				}
+//        			}        			
+//        		}
+//        	}	        	
 		}
 	
 		/// <summary>
@@ -575,7 +668,7 @@ namespace OpenSCL.UI
 					this.GetNodesArray(valuesArray.GetValue((valuesArray as Array).Length-1),  treeSCL.Parent.Nodes[attributeInformation.PropertyType.Name],(valuesArray as Array).Length-1);
 				}
 			}
-		}		
+		}
 
 		/// <summary>
 		/// This method gets the value of the node to set a name to it.
@@ -591,42 +684,7 @@ namespace OpenSCL.UI
 		/// </returns>
 		public string GetName(object sCLObject, string textPossible)
 		{
-			if((sCLObject is tNaming))
-			{
-
-                object foundVariable = this.objectManagement.FindVariable(sCLObject, "name");
-
-				if(foundVariable!=null && foundVariable.ToString()!="null")
-				{
-					textPossible = foundVariable.ToString();
-				}
-
-                foundVariable = this.objectManagement.FindVariable(sCLObject, "cbName");
-
-				if(foundVariable!=null && foundVariable.ToString()!="null")
-				{
-					textPossible = foundVariable.ToString();
-				}
-			}
-
-            object foundInst = this.objectManagement.FindVariable(sCLObject, "inst");
-            object foundLnClass = this.objectManagement.FindVariable(sCLObject, "lnClass");
-
-			if(sCLObject is tLN && foundLnClass!= null && foundInst.ToString()!= "null")
-			{
-                textPossible = this.objectManagement.FindVariable(sCLObject, "prefix").ToString() + foundLnClass.ToString() + foundInst.ToString();
-			}
-			if(sCLObject is tLDevice && foundInst!= null  && foundInst.ToString()!="null")
-            {
-				textPossible = ((tLDevice)sCLObject).inst;
-				if (textPossible == null)
-					textPossible = "NoInstanceLogicalDevice";
-			}
-			if(sCLObject is tIDNaming)
-			{	
-				textPossible = this.objectManagement.FindVariable(sCLObject, "id").ToString();
-			}
-			return textPossible;
+			return OpenSCL.Utility.GetSCLName (sCLObject);
 		}
         
 		/// <summary>

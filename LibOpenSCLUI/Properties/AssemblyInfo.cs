@@ -26,4 +26,4 @@ using System.Runtime.InteropServices;
 // Major for stable versions
 // Minor for milestone versions
 // Micro will be increased when OpenSCL micro version is incresed or when this library is modified
-[assembly: AssemblyVersion("0.3.7")]
+[assembly: AssemblyVersion("0.4.0")]

@@ -22,7 +22,7 @@ using System.Reflection;
 using IEC61850.SCL;
 
 namespace OpenSCL
-{	
+{
 	/// <summary>
 	/// 
 	/// </summary>
@@ -130,11 +130,7 @@ namespace OpenSCL
               		null, parentObject, new object[1] { array } );
    				return true;  			
    			}
-   			int arraySize = array.GetLength(0);
-   			Array tempArray = Array.CreateInstance(itemObject.GetType(), arraySize + 1);
-   			array.CopyTo(tempArray, 0);
-   			array = tempArray;
-   			array.SetValue(itemObject, arraySize);
+			OpenSCL.Utility.AddItemToArray (itemObject, array);
    			parentObject.GetType().InvokeMember(nameArrayObject,BindingFlags.Instance | 
    			 BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.SetField,
               null, parentObject, new object[1] { array } );

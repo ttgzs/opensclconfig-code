@@ -35,6 +35,7 @@ namespace OpenSCL.UI
 					var sn = new SubnetworkNode (c.SubNetwork [i]);
 					this.Nodes.Add (sn);
 				}
+				this.Expand ();
 			}
 		}
 

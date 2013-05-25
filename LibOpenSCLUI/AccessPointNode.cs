@@ -35,6 +35,7 @@ namespace OpenSCL.UI
 						var n = new LdNode (ap.Server.LDevice[i]);
 						Nodes.Add (n);
 					}
+					Expand ();
 				}
 			}
 		}

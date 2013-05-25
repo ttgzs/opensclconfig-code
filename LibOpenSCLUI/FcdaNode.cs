@@ -1,5 +1,5 @@
 //
-//  LdNode.cs
+//  FcdaNode.cs
 //
 //  Author:
 //       Daniel Espinosa <esodan@gmail.com>
@@ -23,16 +23,20 @@ using IEC61850.SCL;
 
 namespace OpenSCL.UI
 {
-	public class LdNode : GenericNode
+	public class FcdaNode : GenericNode
 	{
-		public LdNode (tLDevice ld)
+		public FcdaNode (tFCDA fcda)
 		{
-			Name = ld.inst;
-			Tag = ld;
-			if (ld.LN0 != null) {
-				var n = new Ln0Node (ld.LN0);
-				Nodes.Add (n);
-			}
+			string r = fcda.ldInst + "/" +
+					fcda.prefix +
+					fcda.lnClass +
+					fcda.lnInst;
+			if (fcda.doName != "")
+				r += "." + fcda.doName;
+			if (fcda.daName != "")
+				r += "." + fcda.daName;
+			Name = r;
+			Tag = fcda;
 		}
 	}
 }

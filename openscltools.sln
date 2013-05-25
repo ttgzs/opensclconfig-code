@@ -53,6 +53,6 @@ Global
 		$5.LineAlign = 0
 		$4.inheritsSet = Mono
 		description = Tools to Create and Edit IEC 61850-6 SCL files
-		version = 0.5.2
+		version = 0.5.3
 	EndGlobalSection
 EndGlobal

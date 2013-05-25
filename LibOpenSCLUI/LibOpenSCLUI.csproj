@@ -143,6 +143,10 @@
     <Compile Include="AccessPointNode.cs" />
     <Compile Include="LdNode.cs" />
     <Compile Include="TopIedNode.cs" />
+    <Compile Include="Ln0Node.cs" />
+    <Compile Include="DataSetNode.cs" />
+    <Compile Include="FcdaNode.cs" />
+    <Compile Include="TopDataSetNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="INSTALLATION.txt">

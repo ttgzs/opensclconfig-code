@@ -1,5 +1,5 @@
 //
-//  LdNode.cs
+//  Ln0Node.cs
 //
 //  Author:
 //       Daniel Espinosa <esodan@gmail.com>
@@ -23,14 +23,14 @@ using IEC61850.SCL;
 
 namespace OpenSCL.UI
 {
-	public class LdNode : GenericNode
+	public class Ln0Node : GenericNode
 	{
-		public LdNode (tLDevice ld)
+		public Ln0Node (tLN0 ln)
 		{
-			Name = ld.inst;
-			Tag = ld;
-			if (ld.LN0 != null) {
-				var n = new Ln0Node (ld.LN0);
+			Name = "LN0";
+			Tag = ln;
+			if (ln.DataSet != null) {
+				var n = new TopDataSetNode (ln.DataSet);
 				Nodes.Add (n);
 			}
 		}

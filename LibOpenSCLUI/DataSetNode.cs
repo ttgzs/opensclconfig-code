@@ -1,5 +1,5 @@
 //
-//  LdNode.cs
+//  DataSetNode.cs
 //
 //  Author:
 //       Daniel Espinosa <esodan@gmail.com>
@@ -23,15 +23,17 @@ using IEC61850.SCL;
 
 namespace OpenSCL.UI
 {
-	public class LdNode : GenericNode
+	public class DataSetNode : GenericNode
 	{
-		public LdNode (tLDevice ld)
+		public DataSetNode (tDataSet ds)
 		{
-			Name = ld.inst;
-			Tag = ld;
-			if (ld.LN0 != null) {
-				var n = new Ln0Node (ld.LN0);
-				Nodes.Add (n);
+			Name = ds.name;
+			Tag = ds;
+			if (ds.FCDA != null) {
+				for (int i = 0; i < ds.FCDA.Length; i++) {
+					var n = new FcdaNode (ds.FCDA[i]);
+					Nodes.Add (n);
+				}
 			}
 		}
 	}

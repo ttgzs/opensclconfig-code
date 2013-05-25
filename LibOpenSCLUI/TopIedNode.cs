@@ -33,6 +33,7 @@ namespace OpenSCL.UI
 				var n = new IedNode (ieds[i]);
 				Nodes.Add (n);
 			}
+			this.Expand ();
 		}
 	}
 }

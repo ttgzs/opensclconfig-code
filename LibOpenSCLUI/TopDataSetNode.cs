@@ -1,5 +1,5 @@
 //
-//  LdNode.cs
+//  TopDataSetNode.cs
 //
 //  Author:
 //       Daniel Espinosa <esodan@gmail.com>
@@ -23,14 +23,14 @@ using IEC61850.SCL;
 
 namespace OpenSCL.UI
 {
-	public class LdNode : GenericNode
+	public class TopDataSetNode : GenericNode
 	{
-		public LdNode (tLDevice ld)
+		public TopDataSetNode (tDataSet[] ds)
 		{
-			Name = ld.inst;
-			Tag = ld;
-			if (ld.LN0 != null) {
-				var n = new Ln0Node (ld.LN0);
+			Name = "DataSets";
+			Tag = ds;
+			for (int i = 0; i < ds.Length; i++) {
+				var n = new DataSetNode (ds[i]);
 				Nodes.Add (n);
 			}
 		}

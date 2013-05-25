@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <AssemblyName>OpenSCLConfigurator_console</AssemblyName>
     <RootNamespace>OpenSCL.Console</RootNamespace>
-    <ReleaseVersion>0.5.2</ReleaseVersion>
+    <ReleaseVersion>0.5.3</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

@@ -1,6 +1,7 @@
 ﻿// LibOpenSCLUI
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
+// Copyright (C) 2013 Daniel Espinosa <esodan@gmail.com>
 // 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -81,29 +82,35 @@ namespace OpenSCL.UI
 				treeSCL.Name = "root";
 				root.Name = this.scl.Configuration.GetType ().Name.ToString ();
 	            root.Text = this.scl.Configuration.GetType ().Name.ToString ();
-                root.Tag = this.scl.Configuration; // FIXME: Not useful
         	    treeSCL.Nodes.Add(root);
 				// Add system nodes
+				AddCommunicationNode ();
+				AddIEDNode ();
 			}
         	return treeSCL;
 		}
 
 		public void AddCommunicationNode ()
 		{
-			if (this.scl.Configuration.Communication != null)
-				commNode = AddSclNode (this.scl.Configuration.Communication, node, -1);
+			if (this.scl.Configuration.Communication != null) {
+				commNode = new CommunicationNode (this.scl.Configuration.Communication);
+				root.Nodes.Add (commNode);
+			}
 		}
 
-		public void AddNetworkNode ()
+		public void AddIEDNode ()
 		{
-			if (this.scl.Configuration.Communication.SubNetwork != null)
-					AddSclArrayNodes (this.scl.Configuration.Communication.SubNetwork, commNode, -1);
+			if (this.scl.Configuration.IED != null) {
+				iedNode = new TopIedNode (this.scl.Configuration.IED);
+				root.Nodes.Add (iedNode);
+			}
 		}
 
 		public void AddDataTypeTemplatesNode ()
 		{
-			if (this.scl.Configuration.DataTypeTemplates != null)
+			if (this.scl.Configuration.DataTypeTemplates != null) {
 				dttemplNode = AddSclNode (this.scl.Configuration.DataTypeTemplates, node, -1);
+			}
 		}
 
 		public void AddTopSclNodes (TreeNode node)
@@ -1257,26 +1264,7 @@ namespace OpenSCL.UI
 			}
 			return null;
 		}
-		
-		public TreeNode AddCommunicationNode () 
-		{
-			if (scl == null || tree == null)
-				return null;
-			if (scl.Configuration == null)
-				return null;
-			if (scl.Configuration.Communication == null)
-				return null;
-			var r = GetSCLNode ();
-			var node = new TreeNode ();
-			if (r == null)
-				return null;
-			node.Name = "tCommunication";
-			node.Text = "Communication";
-			node.Tag = scl.Configuration.Communication;
-			r.Nodes.Add (node);
-			return node;
-		}
-		
+
 		public TreeNode AddIEDsNode () 
 		{
 			if (scl == null || tree == null)

@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
-    <RootNamespace>LibOpenSCLUI</RootNamespace>
+    <RootNamespace>OpenSCL.UI</RootNamespace>
     <AssemblyName>LibOpenSCLUI</AssemblyName>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <ProductVersion>9.0.21022</ProductVersion>
@@ -14,7 +14,7 @@
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <NoStdLib>False</NoStdLib>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <ReleaseVersion>0.3.7</ReleaseVersion>
+    <ReleaseVersion>0.4.0</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -132,6 +132,17 @@
     </EmbeddedResource>
     <Compile Include="CustomAttribute.cs" />
     <Compile Include="CommunicationNode.cs" />
+    <Compile Include="SubnetworkNode.cs" />
+    <Compile Include="ConnectedApNode.cs" />
+    <Compile Include="GenericNode.cs" />
+    <Compile Include="AddressNode.cs" />
+    <Compile Include="GseNode.cs" />
+    <Compile Include="SmvNode.cs" />
+    <Compile Include="TpNode.cs" />
+    <Compile Include="IedNode.cs" />
+    <Compile Include="AccessPointNode.cs" />
+    <Compile Include="LdNode.cs" />
+    <Compile Include="TopIedNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="INSTALLATION.txt">

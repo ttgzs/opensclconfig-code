@@ -1,14 +1,21 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workbench ActiveDocument="LibOpenSCLUI/TreeViewSCL.cs">
     <Files>
-      <File FileName="LibOpenSCLUI/TreeViewSCL.cs" Line="86" Column="12" />
-      <File FileName="LibOpenSCLUI/CommunicationNode.cs" Line="34" Column="26" />
+      <File FileName="LibOpenSCLUI/TreeViewSCL.cs" Line="68" Column="17" />
+      <File FileName="LibOpenSCLUI/IedNode.cs" Line="36" Column="6" />
+      <File FileName="LibOpenSCLUI/AccessPointNode.cs" Line="36" Column="21" />
+      <File FileName="LibOpenSCLUI/LdNode.cs" Line="32" Column="4" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
+          <Node name="LibOpenSCL" expanded="True" />
           <Node name="LibOpenSCLUI" expanded="True">
+            <Node name="Properties" expanded="True" />
             <Node name="TreeViewSCL.cs" selected="True" />
+          </Node>
+          <Node name="OpenSCLConfigurator" expanded="True">
+            <Node name="Properties" expanded="True" />
           </Node>
         </State>
       </Pad>

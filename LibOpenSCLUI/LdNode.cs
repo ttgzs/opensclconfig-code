@@ -33,6 +33,8 @@ namespace OpenSCL.UI
 				var n = new Ln0Node (ld.LN0);
 				Nodes.Add (n);
 			}
+			if (ld.LN != null) {
+			}
 		}
 	}
 }

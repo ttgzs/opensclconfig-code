@@ -33,6 +33,14 @@ namespace OpenSCL.UI
 				var n = new TopDataSetNode (ln.DataSet);
 				Nodes.Add (n);
 			}
+			if (ln.GSEControl != null) {
+			}
+			if (ln.LogControl != null) {
+			}
+			if (ln.ReportControl != null) {
+			}
+			if (ln.SampledValueControl != null) {
+			}
 		}
 	}
 }

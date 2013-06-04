@@ -52,9 +52,6 @@ namespace OpenSCLConfigurator
 				"System Specification Description Files (*.ssd)|*.ssd|" +
 				"All Files (*.*)|*.*";
 
-		// Legacy tree viewer
-		private TreeViewSCL tvscl;
-
 		// Form objects
 		private System.Windows.Forms.ToolStripMenuItem importIEDConfigToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem validateSCLFileToolStripMenuItem;
@@ -693,11 +690,10 @@ namespace OpenSCLConfigurator
 				ValidatingSCL val = new ValidatingSCL ();
 				list = val.ValidateFile (f, xSDFiles);
 			}
-			
+			this.PropertyGridAttributes.SelectedObject = null;
 			this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
 			this.scl = null;
-			this.tvscl.scl = null;
-			// Creating a SCL object
+			// Creating an SCL object
 			System.Console.WriteLine ("Deserializating file to SCLObject:...");
 			System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch ();
 			sw.Start ();
@@ -1003,10 +999,17 @@ namespace OpenSCLConfigurator
 		/// handler when an event is raised. If the event handler requires state information, the application must 
 		/// derive a class from this class to hold the data.
 		/// </param>
-		void sclviewertreeAfterSelect(object sender, TreeViewEventArgs e)
+		void sclviewertreeAfterSelect (object sender, TreeViewEventArgs e)
 		{
-			Utils guiObjectManagement = new Utils();			
-			this.PropertyGridAttributes.SelectedObject = guiObjectManagement.UpdatePropertyGrid(e.Node.Tag);						
+			if (e.Node is GenericNode) {
+				GenericNode node = (GenericNode) e.Node;
+				if (node.Tag == null)
+					System.Console.WriteLine ("NO OBJECT");
+				else
+					System.Console.WriteLine ("Selected Object is: " + node.Tag.GetType ().ToString ());
+				if (!(node.Tag is Array))
+					this.PropertyGridAttributes.SelectedObject = node.Tag;
+			}
 		}
 
 		/// <summary>
@@ -1026,11 +1029,11 @@ namespace OpenSCLConfigurator
 			{
             	if (e.Button == MouseButtons.Right && (sclviewertree.SelectedNode.IsSelected))
             	{
-	                ContextMenuSCL contextMenuSCL = new ContextMenuSCL(this.tvscl);
-					contextMenuSCL.Changed += new OpenSCL.UI.ContextMenuSCL.ChangedEventHandler (OnContextChanged);
-    	            System.Drawing.Point nodePosition = new System.Drawing.Point(e.X, e.Y);
-        	        ContextMenuStrip menuStrip = contextMenuSCL.GetContextMenuSCL(this.sclviewertree.SelectedNode);
-            	    menuStrip.Show(sclviewertree, nodePosition);
+//	                ContextMenuSCL contextMenuSCL = new ContextMenuSCL(this.tvscl);
+//					contextMenuSCL.Changed += new OpenSCL.UI.ContextMenuSCL.ChangedEventHandler (OnContextChanged);
+//    	            System.Drawing.Point nodePosition = new System.Drawing.Point(e.X, e.Y);
+//        	        ContextMenuStrip menuStrip = contextMenuSCL.GetContextMenuSCL(this.sclviewertree.SelectedNode);
+//            	    menuStrip.Show(sclviewertree, nodePosition);
             	}	
 			}
 		}

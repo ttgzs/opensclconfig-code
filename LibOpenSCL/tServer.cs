@@ -111,10 +111,17 @@ namespace IEC61850.SCL
 		
 		public int AddLDevice (tLDevice ld)
 		{
-			System.Array.Resize<tLDevice>(ref this.lDeviceField,
-			                                  this.lDeviceField.Length + 1);
-			int index = this.lDeviceField.Length - 1;
-			this.lDeviceField[index] = ld;
+			int index = -1;
+			if (lDeviceField == null) {
+				lDeviceField = new tLDevice[1];
+				lDeviceField [0] = ld;
+				index = 0;
+			} else {
+				System.Array.Resize<tLDevice> (ref this.lDeviceField,
+				                                  this.lDeviceField.Length + 1);
+				index = this.lDeviceField.Length - 1;
+				this.lDeviceField [index] = ld;
+			}
 			return index;
 		}		
 	}

@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public LogicalDeviceNode (tLDevice ld)
 		{
+			if (ld == null) return;
+
 			Name = ld.inst;
 			Tag = ld;
 			if (ld.LN0 != null) {

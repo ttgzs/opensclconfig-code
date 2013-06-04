@@ -1,5 +1,5 @@
 //
-//  LogicalNodeNode.cs
+//  TopLogicalNodeTypeNode.cs
 //
 //  Author:
 //       Daniel Espinosa <esodan@gmail.com>
@@ -23,14 +23,18 @@ using IEC61850.SCL;
 
 namespace OpenSCL.UI
 {
-	public class LogicalNodeNode : GenericNode
+	public class TopLogicalNodeTypeNode : GenericNode
 	{
-		public LogicalNodeNode (tLN ln)
+		public TopLogicalNodeTypeNode (tLNodeType[] lnt)
 		{
-			if (ln == null) return;
-
-			Name = ln.prefix + ln.lnClass + ln.inst;
-			Tag = ln;
+			if (lnt == null)
+				return;
+			Name = "Logical Nodes Types";
+			Tag = lnt;
+			for (int i = 0; i < lnt.Length; i++) {
+				var n = new LogicalNodeTypeNode (lnt [i]);
+				Nodes.Add (n);
+			}
 		}
 	}
 }

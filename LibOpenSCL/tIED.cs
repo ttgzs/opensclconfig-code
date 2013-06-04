@@ -126,31 +126,33 @@ namespace IEC61850.SCL
 		/// <returns>
 		/// A <see cref="System.Int32"/> with the index of the new Access Point added.
 		/// </returns>
-		public int AddAP (string name) {
-			if (name == null) return -1;
-			tAccessPoint ap = new tAccessPoint();
+		public int AddAP (string name)
+		{
+			if (name == null)
+				return -1;
+			tAccessPoint ap = new tAccessPoint ();
 			ap.name = name;
-			ap.Server  = new tServer ();
+			ap.Server = new tServer ();
 			ap.Server.Authentication = new tServerAuthentication ();
 			int index = -1;
 			if (this.accessPointField == null) {
 				this.accessPointField = new tAccessPoint[1];
-				this.accessPointField[0] = ap;
+				this.accessPointField [0] = ap;
 				index = 0;
-			}
-			
-			// Search for AP name if duplicated return -1				
-			for (int i = 0; i < this.accessPointField.GetLength(0); i++) {
-				if (this.accessPointField[i].name.Equals(name)) {
-					System.Console.WriteLine("Found a Duplicated AP with name " + name);
-					return -1;
+			} else {
+				// Search for AP name if duplicated return -1				
+				for (int i = 0; i < this.accessPointField.GetLength(0); i++) {
+					if (this.accessPointField [i].name.Equals (name)) {
+						System.Console.WriteLine ("Found a Duplicated AP with name " + name);
+						return -1;
+					}
 				}
+				// No duplicated, add to the array
+				System.Array.Resize<tAccessPoint> (ref this.accessPointField,
+				                                  this.accessPointField.GetLength (0) + 1);
+				index = this.accessPointField.GetLength (0) - 1;
+				this.accessPointField [index] = ap;
 			}
-			// No duplicated, add to the array
-			System.Array.Resize<tAccessPoint>(ref this.accessPointField,
-			                                  this.accessPointField.GetLength(0) + 1);
-			index = this.accessPointField.GetLength(0) - 1;
-			this.accessPointField[index] = ap;
 			return index;
 		}
 		
@@ -176,17 +178,14 @@ namespace IEC61850.SCL
 		public int AddLDevice (string inst, string ap, tDataTypeTemplates tpl) 
 		{
 			if (name == null) return -1;
+			if (tpl == null) return -1;
+			if (accessPointField == null)
+				AddAP (ap);
+
 			var ld = new tLDevice ();
 			ld.inst = inst;
-			ld.LN0 = new LN0 ();
-			ld.LN = new tLN[1];
-			var ln = new tLN ();
-			ln.inst = 1;
+
 			tLNodeType tln;
-			
-			if (tpl.LNodeType == null)
-				tpl.LNodeType = new tLNodeType [1];
-			
 			int lnt = tpl.GetLNType ("LPHD");
 			if (lnt != -1) {
 				tln = tpl.LNodeType [lnt];
@@ -194,12 +193,16 @@ namespace IEC61850.SCL
 			else {
 				tln = new tLNodeType (name, "LPHD", name + ".LPHD");
 				var arrtln = new tLNodeType [1];
-				arrtln [1] = tln;
+				arrtln [0] = tln;
 				tpl.AddLNodeType (arrtln);
 			}
-			
+
+			var ln = new tLN ();
+			ln.inst = 1;
 			ln.lnType = tln.id;
 			ln.lnClass = tln.lnClass;
+			ld.AddLN (ln);
+
 			int api = this.GetAP(ap);
 			if (api == -1) {
 				api = this.AddAP (ap);

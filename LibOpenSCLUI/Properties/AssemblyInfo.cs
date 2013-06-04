@@ -12,9 +12,11 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("LibOpenSCLUI")]
 [assembly: AssemblyDescription("Library to Create and Edit IEC 61850-6 SCL files by using a GUI")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Comisión Federal de Electricidad")]
+[assembly: AssemblyCompany("Comisión Federal de Electricidad" +
+	"Daniel Espinosa <esodan@gmail.com>")]
 [assembly: AssemblyProduct("LibOpenSCLUI")]
-[assembly: AssemblyCopyright("Copyright 2009 - Comision Federal de Electricidad")]
+[assembly: AssemblyCopyright("Copyright 2009 - Comision Federal de Electricidad" +
+	"Copyright 2013 - Daniel Espinosa <esodan@gmail.com>")]
 [assembly: AssemblyTrademark("LibOpenSCLUI and OpenSCLUI are registered trademark of Comision Federal de Electricidad")]
 [assembly: AssemblyCulture("")]
 

@@ -249,16 +249,31 @@ namespace IEC61850.SCL
 			}
 			return ignored;
 		}
-		
-		public void AddIED (string inst)
+
+		public int AddIED (string name)
 		{
-			tIED iED = new tIED();	
-			iED.configVersion = "0";
-			iED.name = inst;
-			iED.AddAP ("AP1");
-			iED.AddLDevice (inst, "AP1", this.DataTypeTemplates);
+			int index = -1;
+			if (dataTypeTemplatesField == null)
+				dataTypeTemplatesField = new tDataTypeTemplates ();
+			tIED ied = new tIED ();	
+			ied.configVersion = "0";
+			ied.name = name;
+			ied.AddAP ("AP1");
+			ied.AddLDevice (name, "AP1", this.DataTypeTemplates);
+			
+			if (iEDField == null) {
+				iEDField = new tIED[1];
+				iEDField [0] = ied;
+				index = 0;
+			} else {
+				System.Array.Resize<tIED> (ref this.iEDField,
+				                                  this.iEDField.GetLength (0) + 1);
+				index = this.iEDField.GetLength (0) - 1;
+				this.iEDField [index] = ied;
+			}
+			return index;
 		}
-		
+
 		public System.Collections.Hashtable GetGSE (string iedname, string apname, string ldinst, string gsecname)
 		{
 			var h = new System.Collections.Hashtable();

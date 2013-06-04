@@ -166,6 +166,9 @@
     <Compile Include="TopDataObjectTypeNode.cs" />
     <Compile Include="TopDataAttributeTypeNode.cs" />
     <Compile Include="DataAttributeTypeNode.cs" />
+    <Compile Include="SclViewerTree.cs" />
+    <Compile Include="TopLogicalNodeTypeNode.cs" />
+    <Compile Include="LogicalNodeTypeNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="INSTALLATION.txt">

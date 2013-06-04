@@ -37,6 +37,10 @@ namespace OpenSCL.UI
 				var n = new TopDataAttributeTypeNode (dt.DAType);
 				Nodes.Add (n);
 			}
+			if (dt.LNodeType != null) {
+				var n = new TopLogicalNodeTypeNode (dt.LNodeType);
+				Nodes.Add (n);
+			}
 		}
 	}
 }

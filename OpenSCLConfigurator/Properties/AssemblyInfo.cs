@@ -12,9 +12,11 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("OpenSCLConfigurator")]
 [assembly: AssemblyDescription("Application to Create and Edit IEC 61850-6 SCL files")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Comisión Federal de Electricidad")]
+[assembly: AssemblyCompany("Comisión Federal de Electricidad" +
+	"Daniel Espinosa <esodan@gmail.com>")]
 [assembly: AssemblyProduct("OpenSCLConfigurator")]
-[assembly: AssemblyCopyright("Copyright 2009")]
+[assembly: AssemblyCopyright("Copyright 2009 - Comision Federal de Electricidad" +
+	"Copyright 2013 - Daniel Espinosa <esodan@gmail.com>")]
 [assembly: AssemblyTrademark("OpenSCLConfigurator are registered trademark of Comision Federal de Electricidad")]
 [assembly: AssemblyCulture("")]
 

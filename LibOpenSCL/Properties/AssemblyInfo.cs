@@ -12,9 +12,11 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("LibOpenSCL")]
 [assembly: AssemblyDescription("Library to Create and Edit IEC 61850-6 SCL files")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Comisión Federal de Electricidad")]
+[assembly: AssemblyCompany("Comisión Federal de Electricidad" +
+	"Daniel Espinosa <esodan@gmail.com>")]
 [assembly: AssemblyProduct("LibOpenSCL")]
-[assembly: AssemblyCopyright("Copyright 2009 - Comision Federal de Electricidad")]
+[assembly: AssemblyCopyright("Copyright 2009 - Comision Federal de Electricidad" +
+	"Copyright 2013 - Daniel Espinosa <esodan@gmail.com>")]
 [assembly: AssemblyTrademark("LibOpenSCL and OpenSCL are registered trademark of Comision Federal de Electricidad")]
 [assembly: AssemblyCulture("")]
 
@@ -26,4 +28,4 @@ using System.Runtime.InteropServices;
 // Major for stable versions
 // Minor for milestone versions
 // Micro will be increased when this library is modified
-[assembly: AssemblyVersion("0.5.6")]
+[assembly: AssemblyVersion("0.5.90")]

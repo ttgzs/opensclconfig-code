@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public TopLogicalNodeNode (tLN[] ln)
 		{
+			if (ln == null) return;
+
 			Name = "Logical Nodes";
 			Tag = ln;
 			for (int i = 0; i < ln.Length; i++) {

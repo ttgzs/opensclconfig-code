@@ -41,7 +41,8 @@ namespace OpenSCLConfigurator
 		private string xSDFiles = Application.StartupPath+"/XSD//SCL.xsd";
 		private string AppName = "OpenSCLConfigurator";
 		private OpenSCL.Object scl;
-		private TreeViewSCL tvscl;
+		private SclViewerTree sclviewertree;
+
 		private string filter = "SCL Files (*.icd,*.iid,*.cid,*.ssd,*.scd,*.sed)|*.icd;*.cid;*.ssd;*.scd|" +
 				"IED Capability Description Files (*.icd)|*.icd|" +
 				"Instantiated IED Description Files (*.iid)|*.iid|" +
@@ -50,7 +51,10 @@ namespace OpenSCLConfigurator
 				"System Exchange Description Files (*.sed)|*.sed|" +
 				"System Specification Description Files (*.ssd)|*.ssd|" +
 				"All Files (*.*)|*.*";
-		
+
+		// Legacy tree viewer
+		private TreeViewSCL tvscl;
+
 		// Form objects
 		private System.Windows.Forms.ToolStripMenuItem importIEDConfigToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem validateSCLFileToolStripMenuItem;
@@ -155,6 +159,8 @@ namespace OpenSCLConfigurator
 		{
 			this.components = new System.ComponentModel.Container();
 			this.Panel1 = new System.Windows.Forms.Panel();
+			this.sclviewertree = new SclViewerTree ();
+			// Legacy Tree initialization
 			this.treeViewFile = new System.Windows.Forms.TreeView();
 			
 			this.Panel2 = new System.Windows.Forms.Panel();
@@ -212,31 +218,42 @@ namespace OpenSCLConfigurator
 			// 
 			// Panel1
 			// 
-			this.Panel1.Controls.Add(this.treeViewFile);
+			this.Panel1.Controls.Add(this.sclviewertree);
 			this.Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.Panel1.Location = new System.Drawing.Point(0, 0);
 			this.Panel1.Name = "Panel1";
 			//this.Panel1.Size = new System.Drawing.Size(347, 670);
 			this.Panel1.TabIndex = 0;
 			this.Panel1.AutoSize = true;
-			// 
-			// treeViewFile
-			// 
-			this.treeViewFile.Anchor = ((System.Windows.Forms.AnchorStyles)
+			this.sclviewertree.Anchor = ((System.Windows.Forms.AnchorStyles)
 			                            ((((System.Windows.Forms.AnchorStyles.Top 
 			                                | System.Windows.Forms.AnchorStyles.Bottom) 
 									| System.Windows.Forms.AnchorStyles.Left) 
 									| System.Windows.Forms.AnchorStyles.Right)));
-			this.treeViewFile.Location = new System.Drawing.Point(0, 0);
-			this.treeViewFile.Name = "treeViewFile";
-			this.treeViewFile.Dock = DockStyle.Fill;
-			//this.treeViewFile.AutoSize = true;
-			//this.treeViewFile.Size = new System.Drawing.Size(347, 671);
-			//this.treeViewFile.MinimumSize = new System.Drawing.Size(200, 300);
-			this.treeViewFile.TabIndex = 0;
-			this.treeViewFile.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TreeViewFileMouseUp);
-			this.treeViewFile.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewFileAfterSelect);
+			this.sclviewertree.Location = new System.Drawing.Point(0, 0);
+			this.sclviewertree.Name = "SclTreeViewer";
+			this.sclviewertree.Dock = DockStyle.Fill;
+			this.sclviewertree.TabIndex = 0;
+			this.sclviewertree.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TreeViewFileMouseUp);
+			this.sclviewertree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewFileAfterSelect);
 			
+			// Legacy treeViewFile
+//			this.treeViewFile.Anchor = ((System.Windows.Forms.AnchorStyles)
+//			                            ((((System.Windows.Forms.AnchorStyles.Top 
+//			                                | System.Windows.Forms.AnchorStyles.Bottom) 
+//									| System.Windows.Forms.AnchorStyles.Left) 
+//									| System.Windows.Forms.AnchorStyles.Right)));
+//			this.treeViewFile.Location = new System.Drawing.Point(0, 0);
+//			this.treeViewFile.Name = "treeViewFile";
+//			this.treeViewFile.Dock = DockStyle.Fill;
+//
+//			//this.treeViewFile.AutoSize = true;
+//			//this.treeViewFile.Size = new System.Drawing.Size(347, 671);
+//			//this.treeViewFile.MinimumSize = new System.Drawing.Size(200, 300);
+//			this.treeViewFile.TabIndex = 0;
+//			this.treeViewFile.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TreeViewFileMouseUp);
+//			this.treeViewFile.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewFileAfterSelect);
+//			
 			// 
 			// Panel2
 			// 
@@ -612,15 +629,16 @@ namespace OpenSCLConfigurator
 					return;
 			}
 			this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-			this.treeViewFile.Nodes.Clear();
+//			this.treeViewFile.Nodes.Clear();
 			
 			var scln = new OpenSCL.Object ();
 			this.scl = scln;
-			this.tvscl.scl = scl;
 			
 			this.Text = this.AppName + " - " + this.File;
 			this.scl.Configuration.AddIED("TEMPLATE");
-			this.tvscl.GetTreeNodeSCL ("",this.scl);
+			this.sclviewertree.scl = this.scl.Configuration;
+			this.sclviewertree.title = GetSclTitle ();
+//			this.tvscl.GetTreeNodeSCL ("",this.scl);
 //			
 //			scl.Configuration.Header.version = "1";
 //			scl.Configuration.Header.revision = "1";
@@ -669,7 +687,19 @@ namespace OpenSCLConfigurator
 		{	
 			OpenSCLFile (null, false);
 		}
-		
+
+		private string GetSclTitle ()
+		{
+			string t = "SCL File: ";
+			if (this.scl.Configuration.Header == null) {
+				this.scl.Configuration.Header = new tHeader ();
+			}
+			t += this.File + " Ver. " + 
+				this.scl.Configuration.Header.version +
+				" Rev. " + this.scl.Configuration.Header.revision;
+			return t;
+		}
+
 		public void OpenSCLFile (string filename, bool validate)
 		{
 			List<ErrorsManagement> list = new List<ErrorsManagement> ();
@@ -707,7 +737,7 @@ namespace OpenSCLConfigurator
 			}
 			
 			this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-			this.treeViewFile.Nodes.Clear ();
+//			this.treeViewFile.Nodes.Clear ();
 			this.scl = null;
 			this.tvscl.scl = null;
 			// Creating a SCL object
@@ -722,15 +752,11 @@ namespace OpenSCLConfigurator
 			System.Console.WriteLine ("Creating TreeView:...");
 			System.Diagnostics.Stopwatch swt = new System.Diagnostics.Stopwatch();
 			swt.Start();
-			string t = "SCL Configuration";
-			if (this.scl.Configuration.Header == null) {
-				this.scl.Configuration.Header = new tHeader ();
-			}
-			t = this.File + " Ver. " + 
-				this.scl.Configuration.Header.version +
-				" Rev. " + this.scl.Configuration.Header.revision;
-			this.tvscl.scl = this.scl;
-			treeViewFile.Nodes.Add (this.tvscl.GetTreeNodeSCL (t, this.scl.Configuration));
+			string t = GetSclTitle ();
+			this.sclviewertree.scl = this.scl.Configuration;
+			this.sclviewertree.title = t;
+//			this.tvscl.scl = this.scl;
+//			treeViewFile.Nodes.Add (this.tvscl.GetTreeNodeSCL (t, this.scl.Configuration));
 			swt.Stop();
 			System.Console.WriteLine ("Enlapsed Time:" + swt.ElapsedMilliseconds + " ms");
 			modified = false;
@@ -803,11 +829,7 @@ namespace OpenSCLConfigurator
 				System.Diagnostics.Stopwatch swu = new System.Diagnostics.Stopwatch ();
 				swu.Start ();
 				
-				string t = "SCL Configuration";
-				if (this.scl.Configuration.Header != null)
-					t = this.File + " Ver. " + 
-						this.scl.Configuration.Header.version +
-						"Rev. " + this.scl.Configuration.Header.revision;
+				string t = GetSclTitle ();
 				treeViewFile.Nodes.Clear ();
 				treeViewFile.Nodes.Add(treeViewSCLOpen.GetTreeNodeSCL (t, scl.Configuration));
 				

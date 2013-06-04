@@ -37,7 +37,11 @@ namespace IEC61850.SCL
 		private tDOType[] dOTypeField;		
 		private tDAType[] dATypeField;		
 		private tEnumType[] enumTypeField;
-		
+
+		public tDataTypeTemplates ()
+		{
+		}
+
 		[System.Xml.Serialization.XmlElementAttribute("LNodeType")]
 		[Category("DataTypeTemplates"), Browsable(false)]
 		public tLNodeType[] LNodeType
@@ -118,11 +122,9 @@ namespace IEC61850.SCL
 			if(lnts==null)
 				return null;
 			
-			System.Collections.Generic.List<tLNodeType> ignored;
-			System.Collections.ArrayList toadd;
-			
-			ignored = new System.Collections.Generic.List<tLNodeType>();
-			toadd = new System.Collections.ArrayList();
+			var ignored = new System.Collections.Generic.List<tLNodeType>();
+			var toadd = new System.Collections.ArrayList();
+
 			if (this.lNodeTypeField != null) {
 				for (int i = 0; i < lnts.Length; i++) {
 					int j = this.GetLNType(lnts[i].id);
@@ -143,7 +145,8 @@ namespace IEC61850.SCL
 				}
 			}
 			else {
-				this.lNodeTypeField = (tLNodeType[]) toadd.ToArray();
+				this.lNodeTypeField = new tLNodeType[lnts.Length];
+				lnts.CopyTo (this.lNodeTypeField, 0);
 			}
 			return ignored;
 		}

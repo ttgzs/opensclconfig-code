@@ -1,5 +1,5 @@
 //
-//  LogicalNodeNode.cs
+//  LogicalNodeTypeNode.cs
 //
 //  Author:
 //       Daniel Espinosa <esodan@gmail.com>
@@ -23,14 +23,16 @@ using IEC61850.SCL;
 
 namespace OpenSCL.UI
 {
-	public class LogicalNodeNode : GenericNode
+	public class LogicalNodeTypeNode : GenericNode
 	{
-		public LogicalNodeNode (tLN ln)
+		public LogicalNodeTypeNode (tLNodeType lnt)
 		{
-			if (ln == null) return;
-
-			Name = ln.prefix + ln.lnClass + ln.inst;
-			Tag = ln;
+			if (lnt == null) return;
+			string s = "";
+			if (lnt.iedType != null || lnt.iedType != "")
+				s += lnt.iedType + " / ";
+			Name = s + lnt.id + " [" + lnt.lnClass + "]";
+			Tag = lnt;
 		}
 	}
 }

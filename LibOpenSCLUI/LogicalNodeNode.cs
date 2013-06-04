@@ -1,5 +1,5 @@
 //
-//  Ln0Node.cs
+//  LogicalNodeNode.cs
 //
 //  Author:
 //       Daniel Espinosa <esodan@gmail.com>
@@ -23,32 +23,12 @@ using IEC61850.SCL;
 
 namespace OpenSCL.UI
 {
-	public class Ln0Node : GenericNode
+	public class LogicalNodeNode : GenericNode
 	{
-		public Ln0Node (tLN0 ln)
+		public LogicalNodeNode (tLN ln)
 		{
-			Name = "LN0";
+			Name = ln.prefix + ln.lnClass + ln.inst;
 			Tag = ln;
-			if (ln.DataSet != null) {
-				var n = new TopDataSetNode (ln.DataSet);
-				Nodes.Add (n);
-			}
-			if (ln.GSEControl != null) {
-				var n = new TopGseControlNode (ln.GSEControl);
-				Nodes.Add (n);
-			}
-			if (ln.LogControl != null) {
-				var n = new TopLogControlNode (ln.LogControl);
-				Nodes.Add (n);
-			}
-			if (ln.ReportControl != null) {
-				var n = new TopReportControlNode (ln.ReportControl);
-				Nodes.Add (n);
-			}
-			if (ln.SampledValueControl != null) {
-				var n = new TopSampleValuesNode (ln.SampledValueControl);
-				Nodes.Add (n);
-			}
 		}
 	}
 }

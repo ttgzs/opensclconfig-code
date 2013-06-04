@@ -1,5 +1,5 @@
 //
-//  Ln0Node.cs
+//  TopSampleValuesNode.cs
 //
 //  Author:
 //       Daniel Espinosa <esodan@gmail.com>
@@ -23,30 +23,14 @@ using IEC61850.SCL;
 
 namespace OpenSCL.UI
 {
-	public class Ln0Node : GenericNode
+	public class TopSampleValuesNode : GenericNode
 	{
-		public Ln0Node (tLN0 ln)
+		public TopSampleValuesNode (tSampledValueControl[] sc)
 		{
-			Name = "LN0";
-			Tag = ln;
-			if (ln.DataSet != null) {
-				var n = new TopDataSetNode (ln.DataSet);
-				Nodes.Add (n);
-			}
-			if (ln.GSEControl != null) {
-				var n = new TopGseControlNode (ln.GSEControl);
-				Nodes.Add (n);
-			}
-			if (ln.LogControl != null) {
-				var n = new TopLogControlNode (ln.LogControl);
-				Nodes.Add (n);
-			}
-			if (ln.ReportControl != null) {
-				var n = new TopReportControlNode (ln.ReportControl);
-				Nodes.Add (n);
-			}
-			if (ln.SampledValueControl != null) {
-				var n = new TopSampleValuesNode (ln.SampledValueControl);
+			Name = "Sample Values Streams";
+			Tag = sc;
+			for (int i = 0; i < sc.Length; i++) {
+				var n = new SampleValuesNode (sc[i]);
 				Nodes.Add (n);
 			}
 		}

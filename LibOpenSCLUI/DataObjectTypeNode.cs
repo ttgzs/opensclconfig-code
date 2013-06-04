@@ -1,5 +1,5 @@
 //
-//  Ln0Node.cs
+//  DataObjectNode.cs
 //
 //  Author:
 //       Daniel Espinosa <esodan@gmail.com>
@@ -23,31 +23,26 @@ using IEC61850.SCL;
 
 namespace OpenSCL.UI
 {
-	public class Ln0Node : GenericNode
+	public class DataObjectTypeNode : GenericNode
 	{
-		public Ln0Node (tLN0 ln)
+		public DataObjectTypeNode (tDOType dot)
 		{
-			Name = "LN0";
-			Tag = ln;
-			if (ln.DataSet != null) {
-				var n = new TopDataSetNode (ln.DataSet);
-				Nodes.Add (n);
+			string s = "";
+			if (dot.iedType != null || dot.iedType != "")
+				s += dot.iedType + " / ";
+			Name = s + dot.id + " [" + dot.cdc + "]";
+			Tag = dot;
+			if (dot.DA != null) {
+				for (int i = 0; i < dot.DA.Length; i++) {
+					var n = new DataAttributeNode (dot.DA[i]);
+					Nodes.Add (n);
+				}
 			}
-			if (ln.GSEControl != null) {
-				var n = new TopGseControlNode (ln.GSEControl);
-				Nodes.Add (n);
-			}
-			if (ln.LogControl != null) {
-				var n = new TopLogControlNode (ln.LogControl);
-				Nodes.Add (n);
-			}
-			if (ln.ReportControl != null) {
-				var n = new TopReportControlNode (ln.ReportControl);
-				Nodes.Add (n);
-			}
-			if (ln.SampledValueControl != null) {
-				var n = new TopSampleValuesNode (ln.SampledValueControl);
-				Nodes.Add (n);
+			if (dot.SDO != null) {
+				for (int i = 0; i < dot.SDO.Length; i++) {
+					var n = new SourceDataObjectNode (dot.SDO[i]);
+					Nodes.Add (n);
+				}
 			}
 		}
 	}

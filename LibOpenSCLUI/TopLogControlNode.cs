@@ -1,5 +1,5 @@
 //
-//  Ln0Node.cs
+//  TopLogControl.cs
 //
 //  Author:
 //       Daniel Espinosa <esodan@gmail.com>
@@ -23,30 +23,14 @@ using IEC61850.SCL;
 
 namespace OpenSCL.UI
 {
-	public class Ln0Node : GenericNode
+	public class TopLogControlNode : GenericNode
 	{
-		public Ln0Node (tLN0 ln)
+		public TopLogControlNode (tLogControl[] lc)
 		{
-			Name = "LN0";
-			Tag = ln;
-			if (ln.DataSet != null) {
-				var n = new TopDataSetNode (ln.DataSet);
-				Nodes.Add (n);
-			}
-			if (ln.GSEControl != null) {
-				var n = new TopGseControlNode (ln.GSEControl);
-				Nodes.Add (n);
-			}
-			if (ln.LogControl != null) {
-				var n = new TopLogControlNode (ln.LogControl);
-				Nodes.Add (n);
-			}
-			if (ln.ReportControl != null) {
-				var n = new TopReportControlNode (ln.ReportControl);
-				Nodes.Add (n);
-			}
-			if (ln.SampledValueControl != null) {
-				var n = new TopSampleValuesNode (ln.SampledValueControl);
+			Name = "Logs";
+			Tag = lc;
+			for (int i = 0; i < lc.Length; i++) {
+				var n = new LogControlNode (lc[i]);
 				Nodes.Add (n);
 			}
 		}

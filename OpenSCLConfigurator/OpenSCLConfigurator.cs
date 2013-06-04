@@ -1,6 +1,7 @@
 // OpenSCLConfigurator 
 //
 // Copyright (C) 2009 Comisión Federal de Electricidad
+// Copyright (C) 2013 Daniel Espinosa <esodan@gmail.com>
 // 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -618,20 +619,22 @@ namespace OpenSCLConfigurator
 			this.tvscl.scl = scl;
 			
 			this.Text = this.AppName + " - " + this.File;
-			
-			scl.Configuration.Header.version = "1";
-			scl.Configuration.Header.revision = "1";
-			tHitem item = new tHitem();
-			item.version = "1";
-			item.revision = "1";
-			item.why = "New SCL";
-			scl.Configuration.Header.AddHistoryItem (item);
-			string t = "New SCL - Ver. " + scl.Configuration.Header.version
-						+ " - Rev. " + scl.Configuration.Header.revision;
-			
-			Utils utils = new Utils();
-			this.treeViewFile.Nodes.Add (utils.treeViewSCL.GetTreeNodeSCL (t, scl.Configuration));
-			utils.CreateIED (scl.Configuration, this.treeViewFile.Nodes[0]);
+			this.scl.Configuration.AddIED("TEMPLATE");
+			this.tvscl.GetTreeNodeSCL ("",this.scl);
+//			
+//			scl.Configuration.Header.version = "1";
+//			scl.Configuration.Header.revision = "1";
+//			tHitem item = new tHitem();
+//			item.version = "1";
+//			item.revision = "1";
+//			item.why = "New SCL";
+//			scl.Configuration.Header.AddHistoryItem (item);
+//			string t = "New SCL - Ver. " + scl.Configuration.Header.version
+//						+ " - Rev. " + scl.Configuration.Header.revision;
+//			
+//			Utils utils = new Utils();
+//			this.treeViewFile.Nodes.Add (utils.treeViewSCL.GetTreeNodeSCL (t, scl.Configuration));
+//			utils.CreateIED (scl.Configuration, this.treeViewFile.Nodes[0]);
 			
 			modified = true;
 			

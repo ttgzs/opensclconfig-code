@@ -1,5 +1,5 @@
 //
-//  Ln0Node.cs
+//  DataAttributeTypeNode.cs
 //
 //  Author:
 //       Daniel Espinosa <esodan@gmail.com>
@@ -23,32 +23,15 @@ using IEC61850.SCL;
 
 namespace OpenSCL.UI
 {
-	public class Ln0Node : GenericNode
+	public class DataAttributeTypeNode : GenericNode
 	{
-		public Ln0Node (tLN0 ln)
+		public DataAttributeTypeNode (tDAType dat)
 		{
-			Name = "LN0";
-			Tag = ln;
-			if (ln.DataSet != null) {
-				var n = new TopDataSetNode (ln.DataSet);
-				Nodes.Add (n);
-			}
-			if (ln.GSEControl != null) {
-				var n = new TopGseControlNode (ln.GSEControl);
-				Nodes.Add (n);
-			}
-			if (ln.LogControl != null) {
-				var n = new TopLogControlNode (ln.LogControl);
-				Nodes.Add (n);
-			}
-			if (ln.ReportControl != null) {
-				var n = new TopReportControlNode (ln.ReportControl);
-				Nodes.Add (n);
-			}
-			if (ln.SampledValueControl != null) {
-				var n = new TopSampleValuesNode (ln.SampledValueControl);
-				Nodes.Add (n);
-			}
+			string s = "";
+			if (dat.iedType != null || dat.iedType != "")
+				s += dat.iedType + " / ";
+			Name = s + dat.id;
+			Tag = dat;
 		}
 	}
 }

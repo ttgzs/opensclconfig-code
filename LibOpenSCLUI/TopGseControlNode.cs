@@ -1,5 +1,5 @@
 //
-//  LdNode.cs
+//  TopGseControlNode.cs
 //
 //  Author:
 //       Daniel Espinosa <esodan@gmail.com>
@@ -23,17 +23,15 @@ using IEC61850.SCL;
 
 namespace OpenSCL.UI
 {
-	public class LdNode : GenericNode
+	public class TopGseControlNode : GenericNode
 	{
-		public LdNode (tLDevice ld)
+		public TopGseControlNode (tGSEControl[] gsec)
 		{
-			Name = ld.inst;
-			Tag = ld;
-			if (ld.LN0 != null) {
-				var n = new Ln0Node (ld.LN0);
+			Name = "GOOSE Messages";
+			Tag = gsec;
+			for (int i = 0; i < gsec.Length; i++) {
+				var n = new GseControlNode (gsec[i]);
 				Nodes.Add (n);
-			}
-			if (ld.LN != null) {
 			}
 		}
 	}

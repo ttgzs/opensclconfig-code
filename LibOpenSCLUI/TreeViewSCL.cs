@@ -30,24 +30,65 @@ namespace OpenSCL.UI
 	/// </summary>
 	public class TreeViewSCL
 	{				
-		ObjectManagement objectManagement;
-		private TreeNode treeReferenced;
-		private Type dataType;
+		
 		private TreeNode root;
 		private TreeNode node;
 		private TreeNode commNode;
 		private TreeNode dttemplNode;
 		private TreeNode iedNode;
 		private TreeNode subNode;
-		
+		private OpenSCL.Object _scl;
+
 		public TreeViewSCL()
 		{
 			this.objectManagement = new ObjectManagement();			
 		}
 		
-		public OpenSCL.Object scl { get; set; }
+		public OpenSCL.Object scl { 
+			get { return _scl; }
+			set {
+				_scl = value;
+			}
+		}
 		public TreeView tree { get; set; }
-		
+
+		public void AddCommunicationNode ()
+		{
+			if (this.scl.Configuration.Communication != null) {
+				commNode = new CommunicationNode (this.scl.Configuration.Communication);
+				root.Nodes.Add (commNode);
+			}
+		}
+
+		public void AddIEDNode ()
+		{
+			if (this.scl.Configuration.IED != null) {
+				iedNode = new TopIedNode (this.scl.Configuration.IED);
+				root.Nodes.Add (iedNode);
+			}
+		}
+
+		public void AddDataTypeTemplatesNode ()
+		{
+			if (this.scl.Configuration.DataTypeTemplates != null) {
+				dttemplNode = new DataTypeTemplateNode (this.scl.Configuration.DataTypeTemplates);
+				root.Nodes.Add (dttemplNode);
+			}
+		}
+
+		public void AddSubstationNode ()
+		{
+			if (this.scl.Configuration.Substation != null) {
+				subNode = new TopSubstationNode (this.scl.Configuration.Substation);
+				root.Nodes.Add (subNode);
+			}
+		}
+
+		// Legacy Code
+
+		ObjectManagement objectManagement;
+		private TreeNode treeReferenced;
+		private Type dataType;
 		/// <summary>
 		/// This method creates a graphical component called "tree" 
 		/// using a SCL object where every class represent a node.		
@@ -84,34 +125,17 @@ namespace OpenSCL.UI
 	            root.Text = this.scl.Configuration.GetType ().Name.ToString ();
         	    treeSCL.Nodes.Add(root);
 				// Add system nodes
+				AddSubstationNode ();
 				AddCommunicationNode ();
 				AddIEDNode ();
+				AddDataTypeTemplatesNode ();
+				root.Expand ();
 			}
+			treeSCL.Expand ();
         	return treeSCL;
 		}
 
-		public void AddCommunicationNode ()
-		{
-			if (this.scl.Configuration.Communication != null) {
-				commNode = new CommunicationNode (this.scl.Configuration.Communication);
-				root.Nodes.Add (commNode);
-			}
-		}
 
-		public void AddIEDNode ()
-		{
-			if (this.scl.Configuration.IED != null) {
-				iedNode = new TopIedNode (this.scl.Configuration.IED);
-				root.Nodes.Add (iedNode);
-			}
-		}
-
-		public void AddDataTypeTemplatesNode ()
-		{
-			if (this.scl.Configuration.DataTypeTemplates != null) {
-				dttemplNode = AddSclNode (this.scl.Configuration.DataTypeTemplates, node, -1);
-			}
-		}
 
 		public void AddTopSclNodes (TreeNode node)
 		{
@@ -1282,7 +1306,7 @@ namespace OpenSCL.UI
 			return node;
 		}
 		
-		public TreeNode AddSubstationNode () 
+		public TreeNode AddSubstationsNode () 
 		{
 			if (scl == null || tree == null)
 				return null;

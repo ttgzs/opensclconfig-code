@@ -141,12 +141,31 @@
     <Compile Include="TpNode.cs" />
     <Compile Include="IedNode.cs" />
     <Compile Include="AccessPointNode.cs" />
-    <Compile Include="LdNode.cs" />
     <Compile Include="TopIedNode.cs" />
     <Compile Include="Ln0Node.cs" />
     <Compile Include="DataSetNode.cs" />
     <Compile Include="FcdaNode.cs" />
     <Compile Include="TopDataSetNode.cs" />
+    <Compile Include="GseControlNode.cs" />
+    <Compile Include="TopGseControlNode.cs" />
+    <Compile Include="LogControlNode.cs" />
+    <Compile Include="TopReportControlNode.cs" />
+    <Compile Include="TopLogControlNode.cs" />
+    <Compile Include="ReportControlNode.cs" />
+    <Compile Include="TopSampleValuesNode.cs" />
+    <Compile Include="SampleValuesNode.cs" />
+    <Compile Include="LogicalDeviceNode.cs" />
+    <Compile Include="TopLogicalNodeNode.cs" />
+    <Compile Include="LogicalNodeNode.cs" />
+    <Compile Include="DataTypeTemplateNode.cs" />
+    <Compile Include="DataAttributeNode.cs" />
+    <Compile Include="SourceDataObjectNode.cs" />
+    <Compile Include="TopSubstationNode.cs" />
+    <Compile Include="SubstationNode.cs" />
+    <Compile Include="DataObjectTypeNode.cs" />
+    <Compile Include="TopDataObjectTypeNode.cs" />
+    <Compile Include="TopDataAttributeTypeNode.cs" />
+    <Compile Include="DataAttributeTypeNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="INSTALLATION.txt">

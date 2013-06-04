@@ -32,7 +32,7 @@ namespace OpenSCL.UI
 			if (ap.Server != null) {
 				if (ap.Server.LDevice != null) {
 					for (int i = 0; i < ap.Server.LDevice.Length; i++) {
-						var n = new LdNode (ap.Server.LDevice[i]);
+						var n = new LogicalDeviceNode (ap.Server.LDevice[i]);
 						Nodes.Add (n);
 					}
 					Expand ();

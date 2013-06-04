@@ -25,16 +25,28 @@ namespace OpenSCL.UI
 {
 	public class TopDataObjectTypeNode : GenericNode
 	{
-		public TopDataObjectTypeNode (tDOType[] dot)
+		private tDataTypeTemplates templates;
+
+		public TopDataObjectTypeNode (tDOType[] dot, tDataTypeTemplates dt)
 		{
 			if (dot == null) return;
 
 			Name = "Data Objects Types";
 			Tag = dot;
+			templates = dt;
 			for (int i = 0; i < dot.Length; i++) {
 				var n = new DataObjectTypeNode (dot[i]);
 				Nodes.Add (n);
 			}
+			var cxm = new System.Windows.Forms.ContextMenuStrip ();
+			var add_dot = new System.Windows.Forms.ToolStripMenuItem ("Add Data Object Type", null, 
+			                                                        on_add_dot);
+			cxm.Items.Add (add_dot);
+		}
+
+		private void on_add_dot (object sender, EventArgs args)
+		{
+			templates.AddDOType (null);
 		}
 	}
 }

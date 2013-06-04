@@ -25,6 +25,7 @@ namespace OpenSCL.UI
 {
 	public class AccessPointNode : GenericNode
 	{
+		static int n = 1;
 		public AccessPointNode (tAccessPoint ap)
 		{
 			if (ap == null) return;
@@ -40,6 +41,20 @@ namespace OpenSCL.UI
 					Expand ();
 				}
 			}
+			var cxm = new System.Windows.Forms.ContextMenuStrip ();
+			var addld = new System.Windows.Forms.ToolStripMenuItem ("Add Logical Device", null, on_add_ld);
+			cxm.Items.Add (addld);
+			base.ContextMenuStrip = cxm;
+		}
+
+		public void on_add_ld (object sender, EventArgs args)
+		{
+			var ld = new tLDevice ();
+			ld.inst = "TEMPLATE" + AccessPointNode.n.ToString ();
+			((tAccessPoint) Tag).Server.AddLDevice (ld);
+			var n = new LogicalDeviceNode (ld);
+			Nodes.Add (n);
+			AccessPointNode.n++;
 		}
 	}
 }

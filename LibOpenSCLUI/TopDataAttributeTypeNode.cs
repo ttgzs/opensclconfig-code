@@ -25,12 +25,31 @@ namespace OpenSCL.UI
 {
 	public class TopDataAttributeTypeNode : GenericNode
 	{
-		public TopDataAttributeTypeNode (tDAType[] dat)
+		tDataTypeTemplates templates;
+
+		public TopDataAttributeTypeNode (tDAType[] dat, tDataTypeTemplates dt)
 		{
 			if (dat == null) return;
 
 			Name = "Data Attributes Type";
 			Tag = dat;
+			templates = dt;
+			update_nodes ();
+			var cxm = new System.Windows.Forms.ContextMenuStrip ();
+			var add_dta = new System.Windows.Forms.ToolStripMenuItem ("Add Data Type Attribute", 
+			                                                        null, on_add_dta);
+			cxm.Items.Add (add_dta);
+			base.ContextMenuStrip = cxm;
+		}
+		private void on_add_dta (object sender, EventArgs args)
+		{
+			templates.AddDAType (null);
+			update_nodes ();
+		}
+		private void update_nodes ()
+		{
+			Nodes.Clear ();
+			var dat = ((tDAType[]) Tag);
 			for (int i = 0; i < dat.Length; i++) {
 				var n = new DataAttributeTypeNode (dat[i]);
 				Nodes.Add (n);

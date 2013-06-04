@@ -53,7 +53,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("Identifier"), Description("Mandatory identifier attribute."), ReadOnly(true)]
+		[Category("Identifier"), Description("Mandatory identifier attribute.")]
 		public string id 
 		{
 			get 

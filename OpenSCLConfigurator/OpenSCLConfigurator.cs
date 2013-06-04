@@ -566,10 +566,10 @@ namespace OpenSCLConfigurator
 		/// </param>
 		private void Form1_Load(object sender, System.EventArgs e) 
 		{			
-			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//new_file.ico"));															
-			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//open_file.ico"));																		
-			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//save_file.ico"));						
-			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//exit.ico"));												
+			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//new_file.ico"));
+			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//open_file.ico"));
+			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//save_file.ico"));
+			tb_il.Images.Add(new Icon(Application.StartupPath+"/imgs//exit.ico"));
 			toolBar1.ImageList = tb_il;
 			
 			//Set app icon
@@ -1023,8 +1023,11 @@ namespace OpenSCLConfigurator
 		/// handler when an event is raised. If the event handler requires state information, the application must 
 		/// derive a class from this class to hold the data.
 		/// </param>		
-		void TreeViewFileMouseUp(object sender, MouseEventArgs e)
+		void TreeViewFileMouseUp (object sender, MouseEventArgs e)
 		{
+			if (sender is GenericNode) {
+				System.Console.WriteLine ("Object is type: " + ((GenericNode) sender).Tag.GetType ().ToString());
+			}
 			if (this.sclviewertree.Nodes.Count > 0)
 			{
             	if (e.Button == MouseButtons.Right && (sclviewertree.SelectedNode.IsSelected))

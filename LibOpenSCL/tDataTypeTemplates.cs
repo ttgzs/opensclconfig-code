@@ -37,6 +37,9 @@ namespace IEC61850.SCL
 		private tDOType[] dOTypeField;		
 		private tDAType[] dATypeField;		
 		private tEnumType[] enumTypeField;
+		private static int nlnt = 0;
+		private static int ndat = 0;
+		private static int ndot = 0;
 
 		public tDataTypeTemplates ()
 		{
@@ -118,14 +121,13 @@ namespace IEC61850.SCL
 		/// <returns>
 		/// A <see cref="System.Collections.Generic.List<tLNodeType>"/>, a list of ignored tLNTypes.
 		/// </returns>
-		public System.Collections.Generic.List<tLNodeType> AddLNodeType(tLNodeType[] lnts) {
-			if(lnts==null)
-				return null;
-			
+		public System.Collections.Generic.List<tLNodeType> 
+			AddLNodeType(tLNodeType[] lnts) 
+		{
 			var ignored = new System.Collections.Generic.List<tLNodeType>();
 			var toadd = new System.Collections.ArrayList();
 
-			if (this.lNodeTypeField != null) {
+			if (this.lNodeTypeField != null && lnts != null) {
 				for (int i = 0; i < lnts.Length; i++) {
 					int j = this.GetLNType(lnts[i].id);
 					if(j >= 0) {
@@ -145,8 +147,17 @@ namespace IEC61850.SCL
 				}
 			}
 			else {
-				this.lNodeTypeField = new tLNodeType[lnts.Length];
-				lnts.CopyTo (this.lNodeTypeField, 0);
+				if (lnts != null) {
+					this.lNodeTypeField = new tLNodeType[lnts.Length];
+					lnts.CopyTo (this.lNodeTypeField, 0);
+				} else {
+					this.lNodeTypeField = new tLNodeType[1];
+					var t = new tLNodeType ();
+					t.iedType = "TEMPLATE";
+					t.id = "TEMPLATE.DOType" + tDataTypeTemplates.nlnt++;
+					t.lnClass = "LPHD";
+					lNodeTypeField[0] = t;
+				}
 			}
 			return ignored;
 		}
@@ -162,14 +173,13 @@ namespace IEC61850.SCL
 			return -1;
 		}
 		
-		public System.Collections.Generic.List<tDOType> AddDOType(tDOType[] dot) {
-			if(dot==null)
-				return null;
-
+		public System.Collections.Generic.List<tDOType> 
+			AddDOType(tDOType[] dot)
+		{
 			var ignored = new System.Collections.Generic.List<tDOType>();
 			var toadd = new System.Collections.ArrayList();
 
-			if (this.dOTypeField != null) {
+			if (this.dOTypeField != null && dot != null) {
 				for (int i = 0; i < dot.Length; i++) {
 					int j = this.GetDOType(dot[i].id);
 					if(j >= 0) {
@@ -189,8 +199,17 @@ namespace IEC61850.SCL
 				}
 			}
 			else {
-				this.dOTypeField = new tDOType[dot.Length];
-				dot.CopyTo (dOTypeField,0);
+				if (dot != null) {
+					this.dOTypeField = new tDOType[dot.Length];
+					dot.CopyTo (dOTypeField,0);
+				} else {
+					this.dOTypeField = new tDOType[1];
+					var t = new tDOType ();
+					t.iedType = "TEMPLATE";
+					t.id = "TEMPLATE.DOType" + tDataTypeTemplates.ndot++;
+					t.cdc = "SPS";
+					dOTypeField[0] = t;
+				}
 			}
 			return ignored;
 		}
@@ -205,26 +224,22 @@ namespace IEC61850.SCL
 			}
 			return -1;
 		}
-		
-		public System.Collections.Generic.List<tDAType> AddDAType(tDAType[] dat) {
-			if(dat==null)
-				return null;
 
-			var ignored = new System.Collections.Generic.List<tDAType>();
-			var toadd = new System.Collections.ArrayList();
+		public System.Collections.Generic.List<tDAType> 
+			AddDAType (tDAType[] dat)
+		{
+			var ignored = new System.Collections.Generic.List<tDAType> ();
+			var toadd = new System.Collections.ArrayList ();
 
-			if (this.dATypeField != null) {
+			if (this.dATypeField != null && dat != null) {
 				for (int i = 0; i < dat.Length; i++) {
 					int j = this.GetDAType(dat[i].id);
 					if(j >= 0) {
 						ignored.Add(dat[i]);
 						continue;
-					}
-					else
+					} else
 						toadd.Add(dat[i]);
 				}
-				
-				
 				int index = this.dATypeField.Length;
 				System.Array.Resize<tDAType>(ref this.dATypeField,
 				                                 this.dATypeField.Length + toadd.Count);
@@ -233,8 +248,17 @@ namespace IEC61850.SCL
 				}
 			}
 			else {
-				this.dATypeField =  new tDAType[dat.Length];
-				dat.CopyTo (dATypeField,0);
+				if (dat != null) {
+					this.dATypeField =  new tDAType[dat.Length];
+					dat.CopyTo (dATypeField,0);
+				}
+				else {
+					this.dATypeField = new tDAType[1];
+					var ddat = new tDAType ();
+					ddat.iedType = "TEMPLATE";
+					ddat.id = "TEMPLATE.DAType" + tDataTypeTemplates.ndat++;
+					dATypeField[0] = ddat;
+				}
 			}
 			return ignored;
 		}		

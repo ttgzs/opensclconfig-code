@@ -25,23 +25,78 @@ namespace OpenSCL.UI
 {
 	public class DataTypeTemplateNode : GenericNode
 	{
+		System.Windows.Forms.ToolStripMenuItem add_lnt;
+		System.Windows.Forms.ToolStripMenuItem add_dot;
+		System.Windows.Forms.ToolStripMenuItem add_dta;
+
 		public DataTypeTemplateNode (tDataTypeTemplates dt)
 		{
 			if (dt == null) return;
 
 			Name = "Data Type Templates";
 			Tag = dt;
+
+			var cxm = new System.Windows.Forms.ContextMenuStrip ();
+			add_lnt = new System.Windows.Forms.ToolStripMenuItem ("Add Logical Node Type Container", null, 
+			                                                        on_add_lnt);
+			add_dot = new System.Windows.Forms.ToolStripMenuItem ("Add Data Object Type Container", null, 
+			                                                        on_add_dot);
+			add_dta = new System.Windows.Forms.ToolStripMenuItem ("Add Data Type Attribute Container", 
+			                                                        null, on_add_dta);
+			cxm.Items.Add (add_lnt);
+			cxm.Items.Add (add_dot);
+			cxm.Items.Add (add_dta);
+			base.ContextMenuStrip = cxm;
+
+			update_nodes ();
+		}
+
+		private void on_add_dta (object sender, EventArgs args)
+		{
+			var dt = ((tDataTypeTemplates)Tag);
+			if (dt.DAType == null) {
+				dt.AddDAType (null);
+				add_dta.Enabled = false;
+				update_nodes ();
+			}
+		}
+
+		private void on_add_dot (object sender, EventArgs args)
+		{
+			var dt = ((tDataTypeTemplates)Tag);
+			if (dt.DOType == null) {
+				dt.AddDOType (null);
+				update_nodes ();
+			}
+		}
+
+		private void on_add_lnt (object sender, EventArgs args)
+		{
+			var dt = ((tDataTypeTemplates)Tag);
+			if (dt.LNodeType == null) {
+				dt.AddLNodeType (null);
+				update_nodes ();
+			}
+		}
+
+		private void update_nodes ()
+		{
+			var dt = ((tDataTypeTemplates) Tag);
+			Nodes.Clear ();
 			if (dt.DOType != null) {
-				var n = new TopDataObjectTypeNode (dt.DOType);
+				var n = new TopDataObjectTypeNode (dt.DOType, dt);
 				Nodes.Add (n);
+				add_dot.Enabled = false;
 			}
 			if (dt.DAType != null) {
-				var n = new TopDataAttributeTypeNode (dt.DAType);
+				var n = new TopDataAttributeTypeNode (dt.DAType, dt);
 				Nodes.Add (n);
+				add_dta.Enabled = false;
 			}
 			if (dt.LNodeType != null) {
-				var n = new TopLogicalNodeTypeNode (dt.LNodeType);
+				var n = new TopLogicalNodeTypeNode (dt.LNodeType, dt);
 				Nodes.Add (n);
+				add_lnt.Enabled = false;
 			}
 		}
 	}

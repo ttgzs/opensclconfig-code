@@ -93,7 +93,7 @@ namespace IEC61850.SCL
 	    }
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("DOType"), Description("The type of the IED to which this DOType belongs."), ReadOnly(true)]
+		[Category("DOType"), Description("The type of the IED to which this DOType belongs.")]
 		public string iedType 
 		{
 			get 
@@ -108,7 +108,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("DOType"), Description("The basic Common Data Class."), ReadOnly(true)]
+		[Category("DOType"), Description("The basic Common Data Class.")]
 		public string cdc
 		{
 			get 

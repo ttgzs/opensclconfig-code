@@ -83,7 +83,6 @@ namespace OpenSCL.UI
 			name += sufix;
 			this.Text = name;
 		}
-
 	}
 }
 

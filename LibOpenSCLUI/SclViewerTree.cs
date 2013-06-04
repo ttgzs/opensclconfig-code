@@ -24,6 +24,10 @@ using IEC61850.SCL;
 
 namespace OpenSCL.UI
 {
+	/// <summary>
+	/// Scl viewer tree.
+	/// Since: 0.4.0
+	/// </summary>
 	public class SclViewerTree : TreeView
 	{
 		private SCL _scl;

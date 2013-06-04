@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public DataAttributeNode (tDA da)
 		{
+			if (da == null) return;
+
 			Name = da.name + " [" + da.bType + " | " + da.type + " | " + da.fc.ToString() + "]";
 			Tag = da;
 		}

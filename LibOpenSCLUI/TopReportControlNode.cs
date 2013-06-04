@@ -27,6 +27,7 @@ namespace OpenSCL.UI
 	{
 		public TopReportControlNode (tReportControl[] rc)
 		{
+			if (rc==null) return;
 			Name = "Reports";
 			Tag = rc;
 			for (int i = 0; i < rc.Length; i++) {

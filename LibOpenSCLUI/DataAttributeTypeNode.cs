@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public DataAttributeTypeNode (tDAType dat)
 		{
+			if (dat == null) return;
+
 			string s = "";
 			if (dat.iedType != null || dat.iedType != "")
 				s += dat.iedType + " / ";

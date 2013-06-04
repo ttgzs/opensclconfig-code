@@ -28,6 +28,8 @@ namespace OpenSCL.UI
 	{
 		public SubnetworkNode (tSubNetwork sn)
 		{
+			if (sn == null) return;
+
 			Name = sn.name;
 			Tag = sn;
 

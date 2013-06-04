@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public AccessPointNode (tAccessPoint ap)
 		{
+			if (ap == null) return;
+
 			Name = "AccessPoint: " + ap.name;
 			Tag = ap;
 			if (ap.Server != null) {

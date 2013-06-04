@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public DataSetNode (tDataSet ds)
 		{
+			if (ds == null) return;
+
 			Name = ds.name;
 			Tag = ds;
 			if (ds.FCDA != null) {

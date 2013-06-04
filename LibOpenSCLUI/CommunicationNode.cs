@@ -28,6 +28,8 @@ namespace OpenSCL.UI
 	{
 		public CommunicationNode (tCommunication c)
 		{
+			if (c == null) return;
+
 			Name = "Substation Networks";
 			Tag = c;
 			if (c.SubNetwork != null) {

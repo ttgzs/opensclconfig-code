@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public SampleValuesNode (tSampledValueControl sc)
 		{
+			if (sc == null) return;
+
 			Name = sc.name;
 			Tag = sc;
 		}

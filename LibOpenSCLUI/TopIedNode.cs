@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public TopIedNode (tIED [] ieds)
 		{
+			if (ieds == null) return;
+
 			Name = "Configured IEDs";
 			Tag = ieds;
 			for (int i = 0; i < ieds.Length; i++) {

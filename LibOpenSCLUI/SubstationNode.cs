@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public SubstationNode (tSubstation sub)
 		{
+			if (sub == null) return;
+
 			Name = sub.name;
 			Tag = sub;
 		}

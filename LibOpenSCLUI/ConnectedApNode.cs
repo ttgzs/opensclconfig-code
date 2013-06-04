@@ -28,6 +28,8 @@ namespace OpenSCL.UI
 	{
 		public ConnectedApNode (tConnectedAP apoint)
 		{
+			if (apoint == null) return;
+
 			Name = apoint.iedName + "." + apoint.apName;
 			Tag = apoint;
 			if (apoint.Address != null) {

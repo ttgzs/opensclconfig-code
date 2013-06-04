@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public ReportControlNode (tReportControl rc)
 		{
+			if (rc == null) return;
+
 			Name = rc.name;
 			Tag = rc;
 		}

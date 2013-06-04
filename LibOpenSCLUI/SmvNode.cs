@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public SmvNode (tSMV smv)
 		{
+			if (smv == null) return;
+
 			Name = smv.ldInst + "." + smv.cbName;
 			Tag = smv;
 			if (smv.Address != null) {

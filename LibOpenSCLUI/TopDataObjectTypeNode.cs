@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public TopDataObjectTypeNode (tDOType[] dot)
 		{
+			if (dot == null) return;
+
 			Name = "Data Objects Types";
 			Tag = dot;
 			for (int i = 0; i < dot.Length; i++) {

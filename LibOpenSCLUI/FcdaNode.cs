@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public FcdaNode (tFCDA fcda)
 		{
+			if (fcda == null) return;
+
 			string r = fcda.ldInst + "/" +
 					fcda.prefix +
 					fcda.lnClass +

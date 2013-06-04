@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public Ln0Node (tLN0 ln)
 		{
+			if (ln == null) return;
+
 			Name = "LN0";
 			Tag = ln;
 			if (ln.DataSet != null) {

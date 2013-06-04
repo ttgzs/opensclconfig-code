@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public AddressNode (tAddress ad)
 		{
+			if (ad == null) return;
+
 			Name = "Address";
 			Tag = ad;
 			if (ad.P != null) {

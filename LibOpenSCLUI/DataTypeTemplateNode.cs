@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public DataTypeTemplateNode (tDataTypeTemplates dt)
 		{
+			if (dt == null) return;
+
 			Name = "Data Type Templates";
 			Tag = dt;
 			if (dt.DOType != null) {

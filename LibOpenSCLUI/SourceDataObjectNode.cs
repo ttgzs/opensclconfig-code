@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public SourceDataObjectNode (tSDO sdo)
 		{
+			if (sdo == null) return;
+
 			Name = sdo.name + "[" + sdo.type + "]";
 			Tag = sdo;
 		}

@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public TopGseControlNode (tGSEControl[] gsec)
 		{
+			if (gsec == null) return;
+
 			Name = "GOOSE Messages";
 			Tag = gsec;
 			for (int i = 0; i < gsec.Length; i++) {

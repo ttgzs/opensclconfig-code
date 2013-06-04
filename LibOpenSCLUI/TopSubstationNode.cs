@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public TopSubstationNode (tSubstation[] subs)
 		{
+			if (subs == null) return;
+
 			Name = "Substation Descriptions";
 			Tag = subs;
 			for (int i = 0; i < subs.Length; i++) {

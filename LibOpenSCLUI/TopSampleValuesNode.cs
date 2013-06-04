@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public TopSampleValuesNode (tSampledValueControl[] sc)
 		{
+			if (sc == null) return;
+
 			Name = "Sample Values Streams";
 			Tag = sc;
 			for (int i = 0; i < sc.Length; i++) {

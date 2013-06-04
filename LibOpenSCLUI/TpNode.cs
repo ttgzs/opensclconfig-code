@@ -27,6 +27,7 @@ namespace OpenSCL.UI
 	{
 		public PNode (tP p)
 		{
+			if (p == null) return;
 			Name = p.type;
 			Tag = p;
 		}

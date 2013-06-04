@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public IedNode (tIED ied)
 		{
+			if (ied == null) return;
+
 			Name = ied.name;
 			Tag = ied;
 			if (ied.AccessPoint != null) {

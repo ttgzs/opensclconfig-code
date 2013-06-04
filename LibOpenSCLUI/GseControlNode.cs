@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public GseControlNode (tGSEControl gsec)
 		{
+			if (gsec == null) return;
+
 			Name = gsec.name + "[" + gsec.type.ToString () + "]";
 			Tag = gsec;
 		}

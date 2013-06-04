@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public GseNode (tGSE gse)
 		{
+			if (gse == null) return;
+
 			Name = gse.ldInst + "." + gse.cbName;
 			Tag = gse;
 			if (gse.Address != null) {

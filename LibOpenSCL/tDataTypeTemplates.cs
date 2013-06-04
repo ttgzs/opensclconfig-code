@@ -162,24 +162,22 @@ namespace IEC61850.SCL
 			return -1;
 		}
 		
-		public System.Collections.Generic.List<tDOType> AddDOType(tDOType[] array) {
-			if(array==null)
+		public System.Collections.Generic.List<tDOType> AddDOType(tDOType[] dot) {
+			if(dot==null)
 				return null;
-			
-			System.Collections.Generic.List<tDOType> ignored;
-			System.Collections.ArrayList toadd;
-			
-			ignored = new System.Collections.Generic.List<tDOType>();
-			toadd = new System.Collections.ArrayList();
+
+			var ignored = new System.Collections.Generic.List<tDOType>();
+			var toadd = new System.Collections.ArrayList();
+
 			if (this.dOTypeField != null) {
-				for (int i = 0; i < array.Length; i++) {
-					int j = this.GetDOType(array[i].id);
+				for (int i = 0; i < dot.Length; i++) {
+					int j = this.GetDOType(dot[i].id);
 					if(j >= 0) {
-						ignored.Add(array[i]);
+						ignored.Add(dot[i]);
 						continue;
 					}
 					else
-						toadd.Add(array[i]);
+						toadd.Add(dot[i]);
 				}
 				
 				
@@ -191,7 +189,8 @@ namespace IEC61850.SCL
 				}
 			}
 			else {
-				this.dOTypeField = (tDOType[]) toadd.ToArray();
+				this.dOTypeField = new tDOType[dot.Length];
+				dot.CopyTo (dOTypeField,0);
 			}
 			return ignored;
 		}
@@ -207,24 +206,22 @@ namespace IEC61850.SCL
 			return -1;
 		}
 		
-		public System.Collections.Generic.List<tDAType> AddDAType(tDAType[] array) {
-			if(array==null)
+		public System.Collections.Generic.List<tDAType> AddDAType(tDAType[] dat) {
+			if(dat==null)
 				return null;
-			
-			System.Collections.Generic.List<tDAType> ignored;
-			System.Collections.ArrayList toadd;
-			
-			ignored = new System.Collections.Generic.List<tDAType>();
-			toadd = new System.Collections.ArrayList();
+
+			var ignored = new System.Collections.Generic.List<tDAType>();
+			var toadd = new System.Collections.ArrayList();
+
 			if (this.dATypeField != null) {
-				for (int i = 0; i < array.Length; i++) {
-					int j = this.GetDAType(array[i].id);
+				for (int i = 0; i < dat.Length; i++) {
+					int j = this.GetDAType(dat[i].id);
 					if(j >= 0) {
-						ignored.Add(array[i]);
+						ignored.Add(dat[i]);
 						continue;
 					}
 					else
-						toadd.Add(array[i]);
+						toadd.Add(dat[i]);
 				}
 				
 				
@@ -236,7 +233,8 @@ namespace IEC61850.SCL
 				}
 			}
 			else {
-				this.dATypeField = (tDAType[]) toadd.ToArray();
+				this.dATypeField =  new tDAType[dat.Length];
+				dat.CopyTo (dATypeField,0);
 			}
 			return ignored;
 		}		
@@ -252,8 +250,8 @@ namespace IEC61850.SCL
 			return -1;
 		}
 		
-		public System.Collections.Generic.List<tEnumType> AddEnumType(tEnumType[] array) {
-			if(array==null)
+		public System.Collections.Generic.List<tEnumType> AddEnumType(tEnumType[] ent) {
+			if(ent==null)
 				return null;
 			
 			System.Collections.Generic.List<tEnumType> ignored;
@@ -262,14 +260,14 @@ namespace IEC61850.SCL
 			ignored = new System.Collections.Generic.List<tEnumType>();
 			toadd = new System.Collections.ArrayList();
 			if (this.enumTypeField != null) {
-				for (int i = 0; i < array.Length; i++) {
-					int j = this.GetEnumType(array[i].id);
+				for (int i = 0; i < ent.Length; i++) {
+					int j = this.GetEnumType(ent[i].id);
 					if(j >= 0) {
-						ignored.Add(array[i]);
+						ignored.Add(ent[i]);
 						continue;
 					}
 					else
-						toadd.Add(array[i]);
+						toadd.Add(ent[i]);
 				}
 				
 				
@@ -281,7 +279,8 @@ namespace IEC61850.SCL
 				}
 			}
 			else {
-				this.enumTypeField = (tEnumType[]) toadd.ToArray();
+				this.enumTypeField =  new tEnumType[ent.Length];
+				ent.CopyTo (enumTypeField, 0);
 			}
 			return ignored;
 		}

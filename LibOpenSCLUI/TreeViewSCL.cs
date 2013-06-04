@@ -27,6 +27,7 @@ namespace OpenSCL.UI
 {	
 	/// <summary>
 	/// This class creates a graphical component called "treeNode" using a SCL object.
+	/// Deprecated: 0.4.0
 	/// </summary>
 	public class TreeViewSCL
 	{				

@@ -27,6 +27,7 @@ namespace OpenSCL.UI
 	{
 		public TopLogicalNodeTypeNode (tLNodeType[] lnt)
 		{
+			if (lnt==null) return;
 			if (lnt == null)
 				return;
 			Name = "Logical Nodes Types";

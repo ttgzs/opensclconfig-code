@@ -89,7 +89,6 @@ namespace OpenSCLConfigurator
 		private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem saveasToolStripMenuItem;
 		private System.Windows.Forms.PropertyGrid PropertyGridAttributes;
-		private System.Windows.Forms.TreeView treeViewFile;
 		private System.Windows.Forms.ToolBarButton Separator2;
 		private System.Windows.Forms.ToolBarButton Separator1;
 		
@@ -161,8 +160,6 @@ namespace OpenSCLConfigurator
 			this.Panel1 = new System.Windows.Forms.Panel();
 			this.sclviewertree = new SclViewerTree ();
 			// Legacy Tree initialization
-			this.treeViewFile = new System.Windows.Forms.TreeView();
-			
 			this.Panel2 = new System.Windows.Forms.Panel();
 			this.PropertyGridAttributes = new System.Windows.Forms.PropertyGrid();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -235,25 +232,7 @@ namespace OpenSCLConfigurator
 			this.sclviewertree.Dock = DockStyle.Fill;
 			this.sclviewertree.TabIndex = 0;
 			this.sclviewertree.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TreeViewFileMouseUp);
-			this.sclviewertree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewFileAfterSelect);
-			
-			// Legacy treeViewFile
-//			this.treeViewFile.Anchor = ((System.Windows.Forms.AnchorStyles)
-//			                            ((((System.Windows.Forms.AnchorStyles.Top 
-//			                                | System.Windows.Forms.AnchorStyles.Bottom) 
-//									| System.Windows.Forms.AnchorStyles.Left) 
-//									| System.Windows.Forms.AnchorStyles.Right)));
-//			this.treeViewFile.Location = new System.Drawing.Point(0, 0);
-//			this.treeViewFile.Name = "treeViewFile";
-//			this.treeViewFile.Dock = DockStyle.Fill;
-//
-//			//this.treeViewFile.AutoSize = true;
-//			//this.treeViewFile.Size = new System.Drawing.Size(347, 671);
-//			//this.treeViewFile.MinimumSize = new System.Drawing.Size(200, 300);
-//			this.treeViewFile.TabIndex = 0;
-//			this.treeViewFile.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TreeViewFileMouseUp);
-//			this.treeViewFile.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewFileAfterSelect);
-//			
+			this.sclviewertree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.sclviewertreeAfterSelect);
 			// 
 			// Panel2
 			// 
@@ -575,9 +554,6 @@ namespace OpenSCLConfigurator
 			this.statusStrip1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
-			this.tvscl = new TreeViewSCL();
-			this.tvscl.tree = this.treeViewFile;
-			this.tvscl.scl = this.scl;
 		}				
 				
 		/// <summary>
@@ -629,7 +605,6 @@ namespace OpenSCLConfigurator
 					return;
 			}
 			this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-//			this.treeViewFile.Nodes.Clear();
 			
 			var scln = new OpenSCL.Object ();
 			this.scl = scln;
@@ -638,24 +613,7 @@ namespace OpenSCLConfigurator
 			this.scl.Configuration.AddIED("TEMPLATE");
 			this.sclviewertree.scl = this.scl.Configuration;
 			this.sclviewertree.title = GetSclTitle ();
-//			this.tvscl.GetTreeNodeSCL ("",this.scl);
-//			
-//			scl.Configuration.Header.version = "1";
-//			scl.Configuration.Header.revision = "1";
-//			tHitem item = new tHitem();
-//			item.version = "1";
-//			item.revision = "1";
-//			item.why = "New SCL";
-//			scl.Configuration.Header.AddHistoryItem (item);
-//			string t = "New SCL - Ver. " + scl.Configuration.Header.version
-//						+ " - Rev. " + scl.Configuration.Header.revision;
-//			
-//			Utils utils = new Utils();
-//			this.treeViewFile.Nodes.Add (utils.treeViewSCL.GetTreeNodeSCL (t, scl.Configuration));
-//			utils.CreateIED (scl.Configuration, this.treeViewFile.Nodes[0]);
-			
 			modified = true;
-			
 			this.Cursor = System.Windows.Forms.Cursors.Default;
 		}
 		
@@ -737,7 +695,6 @@ namespace OpenSCLConfigurator
 			}
 			
 			this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-//			this.treeViewFile.Nodes.Clear ();
 			this.scl = null;
 			this.tvscl.scl = null;
 			// Creating a SCL object
@@ -755,8 +712,6 @@ namespace OpenSCLConfigurator
 			string t = GetSclTitle ();
 			this.sclviewertree.scl = this.scl.Configuration;
 			this.sclviewertree.title = t;
-//			this.tvscl.scl = this.scl;
-//			treeViewFile.Nodes.Add (this.tvscl.GetTreeNodeSCL (t, this.scl.Configuration));
 			swt.Stop();
 			System.Console.WriteLine ("Enlapsed Time:" + swt.ElapsedMilliseconds + " ms");
 			modified = false;
@@ -783,58 +738,45 @@ namespace OpenSCLConfigurator
 		/// XSD files then a list of errors is returned, otherwise an empty list is returned.
 		/// </returns>
 		public List<ErrorsManagement> ImportIED (string filename, bool validate)
-		{	
+		{
 			var list = new List<ErrorsManagement> ();
-			
+
 			if (validate) {
 					var val = new ValidatingSCL ();
 					list = val.ValidateFile(filename, xSDFiles);
 			}
-			
-			if (list.Count == 0) {										
-				
-				var treeViewSCLOpen = new TreeViewSCL();
+
+			if (list.Count == 0) {
 				// Creating a SCL object
-				System.Console.WriteLine ("Deserializating file to SCLObject:...");
+				System.Console.WriteLine ("Deserializating file to Import...");
 				System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
 				sw.Start();
 				var ied = new OpenSCL.Object ();
-				ied.Deserialize (filename);					
+				ied.Deserialize (filename);
 				sw.Stop ();
 				System.Console.WriteLine ("Enlapsed Time:" + sw.ElapsedMilliseconds + " ms");
-				
-				System.Console.WriteLine ("Importing IED TreeView:...");
+
+				System.Console.WriteLine ("Importing IED:...");
 				System.Diagnostics.Stopwatch swt = new System.Diagnostics.Stopwatch();
 				swt.Start ();
-				
 				// TODO: Add a dialog to show rejected IEDs
 				if (this.scl != null)
 					this.scl.Configuration.AddIED (ied.Configuration);
 				else
 					this.scl = ied;
-				
+
 				swt.Stop();
 				System.Console.WriteLine ("Enlapsed Time:"+swt.ElapsedMilliseconds+" ms");
-				
-				System.Console.WriteLine ("Cleaning TreeView:...");
+
+				System.Console.WriteLine ("Creating TreeView:...");
 				System.Diagnostics.Stopwatch swc = new System.Diagnostics.Stopwatch ();
 				swc.Start ();
-				
-				treeViewFile.Nodes.Clear ();
-				
+
+				sclviewertree.scl = this.scl.Configuration;
+				sclviewertree.title = GetSclTitle ();
 				swc.Stop ();
 				System.Console.WriteLine ("Enlapsed Time:"+swc.ElapsedMilliseconds+" ms");
-				
-				System.Console.WriteLine ("Creating TreeView:...");
-				System.Diagnostics.Stopwatch swu = new System.Diagnostics.Stopwatch ();
-				swu.Start ();
-				
-				string t = GetSclTitle ();
-				treeViewFile.Nodes.Clear ();
-				treeViewFile.Nodes.Add(treeViewSCLOpen.GetTreeNodeSCL (t, scl.Configuration));
-				
-				swu.Stop ();
-				System.Console.WriteLine ("Enlapsed Time:"+swu.ElapsedMilliseconds+" ms");
+
 				modified = true;
 			}
 			return list;
@@ -956,7 +898,7 @@ namespace OpenSCLConfigurator
 		/// </param>
 		void ImportIEDClick (object sender, EventArgs e)
 		{
-			if (this.treeViewFile.Nodes != null && this.treeViewFile.Nodes.Count > 0)
+			if (this.sclviewertree.Nodes != null && this.sclviewertree.Nodes.Count > 0)
 			{			
 				var listError = new List<ErrorsManagement> ();
 				openDialog dlg = new openDialog ();
@@ -1061,7 +1003,7 @@ namespace OpenSCLConfigurator
 		/// handler when an event is raised. If the event handler requires state information, the application must 
 		/// derive a class from this class to hold the data.
 		/// </param>
-		void treeViewFileAfterSelect(object sender, TreeViewEventArgs e)
+		void sclviewertreeAfterSelect(object sender, TreeViewEventArgs e)
 		{
 			Utils guiObjectManagement = new Utils();			
 			this.PropertyGridAttributes.SelectedObject = guiObjectManagement.UpdatePropertyGrid(e.Node.Tag);						
@@ -1080,15 +1022,15 @@ namespace OpenSCLConfigurator
 		/// </param>		
 		void TreeViewFileMouseUp(object sender, MouseEventArgs e)
 		{
-			if (this.treeViewFile.Nodes.Count > 0)
+			if (this.sclviewertree.Nodes.Count > 0)
 			{
-            	if (e.Button == MouseButtons.Right && (treeViewFile.SelectedNode.IsSelected))
+            	if (e.Button == MouseButtons.Right && (sclviewertree.SelectedNode.IsSelected))
             	{
 	                ContextMenuSCL contextMenuSCL = new ContextMenuSCL(this.tvscl);
 					contextMenuSCL.Changed += new OpenSCL.UI.ContextMenuSCL.ChangedEventHandler (OnContextChanged);
     	            System.Drawing.Point nodePosition = new System.Drawing.Point(e.X, e.Y);
-        	        ContextMenuStrip menuStrip = contextMenuSCL.GetContextMenuSCL(this.treeViewFile.SelectedNode);
-            	    menuStrip.Show(treeViewFile, nodePosition);
+        	        ContextMenuStrip menuStrip = contextMenuSCL.GetContextMenuSCL(this.sclviewertree.SelectedNode);
+            	    menuStrip.Show(sclviewertree, nodePosition);
             	}	
 			}
 		}
@@ -1126,7 +1068,7 @@ namespace OpenSCLConfigurator
 					Panel2.AutoScroll = true;
 				}								
 			}
-			Panel1.Controls.Add(this.treeViewFile);
+			Panel1.Controls.Add(this.sclviewertree);
 		}
 
 		/// <summary>
@@ -1165,23 +1107,23 @@ namespace OpenSCLConfigurator
 			{
 				if( e.ChangedItem.Value.ToString() != "LPHD" )
 				{
-					sCL.Configuration = (SCL) treeViewFile.Nodes["root"].Nodes["SCL"].Tag;
-					string lnType = (treeViewFile.SelectedNode.Tag as tAnyLN).lnType;
-					(treeViewFile.SelectedNode.Tag as tAnyLN).lnType = (treeViewFile.SelectedNode.Tag as tLN).prefix.ToString()+conversionObject.SetEnumObjectToString((treeViewFile.SelectedNode.Tag as tLN).lnClass)+(treeViewFile.SelectedNode.Tag as tLN).inst.ToString();
-					windowTreeViewLNType = new WindowTreeViewLNType(treeViewFile.SelectedNode, sCL.Configuration, treeViewFile.SelectedNode.Tag, "New");
+					sCL.Configuration = (SCL) sclviewertree.Nodes["root"].Nodes["SCL"].Tag;
+					string lnType = (sclviewertree.SelectedNode.Tag as tAnyLN).lnType;
+					(sclviewertree.SelectedNode.Tag as tAnyLN).lnType = (sclviewertree.SelectedNode.Tag as tLN).prefix.ToString()+conversionObject.SetEnumObjectToString((sclviewertree.SelectedNode.Tag as tLN).lnClass)+(sclviewertree.SelectedNode.Tag as tLN).inst.ToString();
+					windowTreeViewLNType = new WindowTreeViewLNType(sclviewertree.SelectedNode, sCL.Configuration, sclviewertree.SelectedNode.Tag, "New");
 					windowTreeViewLNType.ShowDialog();					
 					if(windowTreeViewLNType.DialogResult == DialogResult.Cancel)
 					{
-						(treeViewFile.SelectedNode.Tag as tLN).lnClassEnum = (tLNClassEnum)conversionObject.SetStringToEnumObject((treeViewFile.SelectedNode.Tag as tLN).lnClassFieldTemp.ToString(), typeof( tLNClassEnum));
-						(treeViewFile.SelectedNode.Tag as tAnyLN).lnType = lnType;						
+						(sclviewertree.SelectedNode.Tag as tLN).lnClassEnum = (tLNClassEnum)conversionObject.SetStringToEnumObject((sclviewertree.SelectedNode.Tag as tLN).lnClassFieldTemp.ToString(), typeof( tLNClassEnum));
+						(sclviewertree.SelectedNode.Tag as tAnyLN).lnType = lnType;						
 					}
 					if(windowTreeViewLNType.DialogResult == DialogResult.OK)
 					{
-						(treeViewFile.SelectedNode.Tag as tAnyLN).lnType = (treeViewFile.SelectedNode.Tag as tLN).prefix.ToString()+conversionObject.SetEnumObjectToString((treeViewFile.SelectedNode.Tag as tLN).lnClass)+(treeViewFile.SelectedNode.Tag as tLN).inst.ToString();
-						(treeViewFile.SelectedNode.Tag as tAnyLN).DataSet = null;
-						treeViewFile.SelectedNode.Nodes.RemoveByKey("tDataSet[]");
+						(sclviewertree.SelectedNode.Tag as tAnyLN).lnType = (sclviewertree.SelectedNode.Tag as tLN).prefix.ToString()+conversionObject.SetEnumObjectToString((sclviewertree.SelectedNode.Tag as tLN).lnClass)+(sclviewertree.SelectedNode.Tag as tLN).inst.ToString();
+						(sclviewertree.SelectedNode.Tag as tAnyLN).DataSet = null;
+						sclviewertree.SelectedNode.Nodes.RemoveByKey("tDataSet[]");
 					}
-					treeViewFile.SelectedNode.Text = conversionObject.SetEnumObjectToString((treeViewFile.SelectedNode.Tag as tLN).lnClass)+(treeViewFile.SelectedNode.Tag as tLN).inst.ToString();																		
+					sclviewertree.SelectedNode.Text = conversionObject.SetEnumObjectToString((sclviewertree.SelectedNode.Tag as tLN).lnClass)+(sclviewertree.SelectedNode.Tag as tLN).inst.ToString();																		
 				}				
 			}			
 		}

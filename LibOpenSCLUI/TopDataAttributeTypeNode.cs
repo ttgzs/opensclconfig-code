@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public TopDataAttributeTypeNode (tDAType[] dat)
 		{
+			if (dat == null) return;
+
 			Name = "Data Attributes Type";
 			Tag = dat;
 			for (int i = 0; i < dat.Length; i++) {

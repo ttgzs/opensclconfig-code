@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public LogControlNode (tLogControl lc)
 		{
+			if (lc == null) return;
+
 			Name = lc.name + "[" + lc.logName + "]";
 			Tag = lc;
 		}

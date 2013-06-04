@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public TopLogControlNode (tLogControl[] lc)
 		{
+			if (lc==null) return;
+
 			Name = "Logs";
 			Tag = lc;
 			for (int i = 0; i < lc.Length; i++) {

@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public TopDataSetNode (tDataSet[] ds)
 		{
+			if (ds == null) return;
+
 			Name = "DataSets";
 			Tag = ds;
 			for (int i = 0; i < ds.Length; i++) {

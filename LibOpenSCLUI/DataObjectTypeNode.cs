@@ -27,6 +27,8 @@ namespace OpenSCL.UI
 	{
 		public DataObjectTypeNode (tDOType dot)
 		{
+			if (dot == null) return;
+
 			string s = "";
 			if (dot.iedType != null || dot.iedType != "")
 				s += dot.iedType + " / ";

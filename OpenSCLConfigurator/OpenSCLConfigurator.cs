@@ -228,7 +228,6 @@ namespace OpenSCLConfigurator
 			this.sclviewertree.Name = "SclTreeViewer";
 			this.sclviewertree.Dock = DockStyle.Fill;
 			this.sclviewertree.TabIndex = 0;
-			this.sclviewertree.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TreeViewFileMouseUp);
 			this.sclviewertree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.sclviewertreeAfterSelect);
 			// 
 			// Panel2
@@ -1011,35 +1010,6 @@ namespace OpenSCLConfigurator
 					this.PropertyGridAttributes.SelectedObject = node.Tag;
 			}
 		}
-
-		/// <summary>
-		/// This method displays a menu when a click on the rigt button of the mouse is given.
-		/// </summary>
-		/// <param name="sender">
-		/// Name of the object.
-		/// </param>
-		/// <param name="e">
-		/// This class contains no event data; it is used by events that do not pass state information to an event 
-		/// handler when an event is raised. If the event handler requires state information, the application must 
-		/// derive a class from this class to hold the data.
-		/// </param>		
-		void TreeViewFileMouseUp (object sender, MouseEventArgs e)
-		{
-			if (sender is GenericNode) {
-				System.Console.WriteLine ("Object is type: " + ((GenericNode) sender).Tag.GetType ().ToString());
-			}
-			if (this.sclviewertree.Nodes.Count > 0)
-			{
-            	if (e.Button == MouseButtons.Right && (sclviewertree.SelectedNode.IsSelected))
-            	{
-//	                ContextMenuSCL contextMenuSCL = new ContextMenuSCL(this.tvscl);
-//					contextMenuSCL.Changed += new OpenSCL.UI.ContextMenuSCL.ChangedEventHandler (OnContextChanged);
-//    	            System.Drawing.Point nodePosition = new System.Drawing.Point(e.X, e.Y);
-//        	        ContextMenuStrip menuStrip = contextMenuSCL.GetContextMenuSCL(this.sclviewertree.SelectedNode);
-//            	    menuStrip.Show(sclviewertree, nodePosition);
-            	}	
-			}
-		}
 		
 		void OnContextChanged (System.Object o, EventArgs args)
 		{
@@ -1096,43 +1066,11 @@ namespace OpenSCLConfigurator
 					SaveFile (sender, e);
 				}
 			}
-		}		
-   		
-		/// <summary>
-		/// Realiza la validación del lnclass
-		/// </summary>
-		/// <param name="s">Name of the object.</param>
-		/// <param name="e">El evento se produce cuando el usuario cambia el valor de una propiedad, que se especifica como GridItem, en PropertyGrid.</param>
+		}
+
 		void PropertyGridAttributesPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
 		{
 			modified = true;
-
-//			WindowTreeViewLNType windowTreeViewLNType;
-//			OpenSCL.Object sCL = new OpenSCL.Object();
-//			ConversionObject conversionObject = new ConversionObject();
-//			if(e.ChangedItem.Label.ToString() == "lnClass")
-//			{
-//				if( e.ChangedItem.Value.ToString() != "LPHD" )
-//				{
-//					sCL.Configuration = sclviewertree.scl;
-//					string lnType = (sclviewertree.SelectedNode.Tag as tAnyLN).lnType;
-//					(sclviewertree.SelectedNode.Tag as tAnyLN).lnType = (sclviewertree.SelectedNode.Tag as tLN).prefix.ToString()+conversionObject.SetEnumObjectToString((sclviewertree.SelectedNode.Tag as tLN).lnClass)+(sclviewertree.SelectedNode.Tag as tLN).inst.ToString();
-//					windowTreeViewLNType = new WindowTreeViewLNType(sclviewertree.SelectedNode, sCL.Configuration, sclviewertree.SelectedNode.Tag, "New");
-//					windowTreeViewLNType.ShowDialog();					
-//					if(windowTreeViewLNType.DialogResult == DialogResult.Cancel)
-//					{
-//						(sclviewertree.SelectedNode.Tag as tLN).lnClassEnum = (tLNClassEnum)conversionObject.SetStringToEnumObject((sclviewertree.SelectedNode.Tag as tLN).lnClassFieldTemp.ToString(), typeof( tLNClassEnum));
-//						(sclviewertree.SelectedNode.Tag as tAnyLN).lnType = lnType;						
-//					}
-//					if(windowTreeViewLNType.DialogResult == DialogResult.OK)
-//					{
-//						(sclviewertree.SelectedNode.Tag as tAnyLN).lnType = (sclviewertree.SelectedNode.Tag as tLN).prefix.ToString()+conversionObject.SetEnumObjectToString((sclviewertree.SelectedNode.Tag as tLN).lnClass)+(sclviewertree.SelectedNode.Tag as tLN).inst.ToString();
-//						(sclviewertree.SelectedNode.Tag as tAnyLN).DataSet = null;
-//						sclviewertree.SelectedNode.Nodes.RemoveByKey("tDataSet[]");
-//					}
-//					sclviewertree.SelectedNode.Text = conversionObject.SetEnumObjectToString((sclviewertree.SelectedNode.Tag as tLN).lnClass)+(sclviewertree.SelectedNode.Tag as tLN).inst.ToString();																		
-//				}
-//			}
 		}
 	} 	
 }

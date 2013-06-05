@@ -97,7 +97,10 @@ namespace IEC61850.SCL
 			}
 			set 
 			{
-				this.lnClassField = value;
+				string t = value;
+				if (t.Length != 4)
+					return;
+				this.lnClassField = t.ToUpper ();
 				OnPropertyChanged ("lnClass");
 			}
 		}

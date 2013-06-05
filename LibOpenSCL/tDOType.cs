@@ -118,7 +118,10 @@ namespace IEC61850.SCL
 			}
 			set
 			{
-				this.cdcField = value;
+				string t = value;
+				if (t.Length != 3)
+					return;
+				this.cdcField = t.ToUpper ();
 				OnPropertyChanged ("cdc");
 			}
 		}

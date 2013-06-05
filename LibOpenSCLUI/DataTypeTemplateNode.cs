@@ -84,17 +84,17 @@ namespace OpenSCL.UI
 			var dt = ((tDataTypeTemplates) Tag);
 			Nodes.Clear ();
 			if (dt.DOType != null) {
-				var n = new TopDataObjectTypeNode (dt.DOType, dt);
+				var n = new TopDataObjectTypeNode (dt);
 				Nodes.Add (n);
 				add_dot.Enabled = false;
 			}
 			if (dt.DAType != null) {
-				var n = new TopDataAttributeTypeNode (dt.DAType, dt);
+				var n = new TopDataAttributeTypeNode (dt);
 				Nodes.Add (n);
 				add_dta.Enabled = false;
 			}
 			if (dt.LNodeType != null) {
-				var n = new TopLogicalNodeTypeNode (dt.LNodeType, dt);
+				var n = new TopLogicalNodeTypeNode (dt);
 				Nodes.Add (n);
 				add_lnt.Enabled = false;
 			}

@@ -186,7 +186,7 @@ namespace IEC61850.SCL
 			ld.inst = inst;
 
 			tLNodeType tln;
-			int lnt = tpl.GetLNType ("LPHD");
+			int lnt = tpl.GetLNType ("TEMPLATE.LPHD");
 			if (lnt != -1) {
 				tln = tpl.LNodeType [lnt];
 			}

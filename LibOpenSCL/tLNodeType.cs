@@ -42,9 +42,10 @@ namespace IEC61850.SCL
 	*/		
 	public partial class tLNodeType : tIDNaming
 	{		
-		private tDO[] doField;		
-		private string iedTypeField;		
-		private string lnClassField;
+		private tDO[] doField;
+		private string iedTypeField;
+		private string lnClassString;
+		private tLNClassEnum lnClassField;
 		
 		public tLNodeType() 
 		{
@@ -72,7 +73,8 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("LNodeType"), Description("The manufacturer IED type of the IED to which this LN type belongs.")]
+		[Category("LNodeType"),
+		 Description("The manufacturer IED type of the IED to which this LN type belongs.")]
 		public string iedType
 		{
 			get
@@ -88,24 +90,47 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("LNodeType"), Description("The LN base class of this type.")]
+		[Category("LNodeType"), Description("The LN Class of this type.")]
 		public string lnClass 
+		{
+			get 
+			{
+				return this.lnClassString;
+			}
+			set
+			{				
+				this.lnClassString = value;
+				if(System.Enum.IsDefined(typeof(tLNClassEnum), lnClass))
+				{
+					this.lnClassEnum = (tLNClassEnum) System.Enum.Parse(typeof(tLNClassEnum), lnClass);
+				}
+				else
+				{
+					this.lnClassEnum = tLNClassEnum.Custom;
+				}
+				OnPropertyChanged ("lnClass");
+			}
+		}
+
+		[Required]
+		[Category("LNodeType"), Description("The LN Class from pre-defined types.")]
+		[System.Xml.Serialization.XmlIgnore()]
+		public tLNClassEnum lnClassEnum 
 		{
 			get 
 			{
 				return this.lnClassField;
 			}
-			set 
-			{
-				string t = value;
-				if (t.Length != 4)
-					return;
-				this.lnClassField = t.ToUpper ();
+			set
+			{	
+				this.lnClassField = value;
+				if(this.lnClassField!=tLNClassEnum.Custom)
+				{
+					this.lnClassString = this.lnClassField.ToString();
+				}
 				OnPropertyChanged ("lnClass");
 			}
 		}
 	}
-
-	
 }
 

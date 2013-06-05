@@ -122,44 +122,53 @@ namespace IEC61850.SCL
 		/// A <see cref="System.Collections.Generic.List<tLNodeType>"/>, a list of ignored tLNTypes.
 		/// </returns>
 		public System.Collections.Generic.List<tLNodeType> 
-			AddLNodeType(tLNodeType[] lnts) 
+			AddLNodeType(tLNodeType[] tmpl) 
 		{
 			AddDAType (null);
 			AddDOType (null);
-			var ignored = new System.Collections.Generic.List<tLNodeType>();
-			var toadd = new System.Collections.ArrayList();
+			var ignored = new System.Collections.Generic.List<tLNodeType> ();
+			var toadd = new System.Collections.ArrayList ();
 
-			if (this.lNodeTypeField != null && lnts != null) {
-				for (int i = 0; i < lnts.Length; i++) {
-					int j = this.GetLNType(lnts[i].id);
-					if(j >= 0) {
-						ignored.Add(lnts[i]);
+			tLNodeType dt = new tLNodeType ();;
+			if (tmpl == null) {
+				dt.iedType = "TEMPLATE";
+				dt.id = "TEMPLATE.LNTYPE" + tDataTypeTemplates.nlnt++;
+				dt.lnClass = "TMPL";
+			}
+
+			if (lNodeTypeField == null && tmpl != null) {
+				lNodeTypeField = new tLNodeType[tmpl.Length];
+				tmpl.CopyTo (lNodeTypeField, 0);
+				return ignored;
+			}
+
+			if (lNodeTypeField == null && tmpl == null) {
+				lNodeTypeField = new tLNodeType[1];
+				lNodeTypeField [0] = dt;
+				return ignored;
+			}
+
+			if (lNodeTypeField != null && tmpl != null) {
+				for (int i = 0; i < tmpl.Length; i++) {
+					int j = this.GetDOType (tmpl [i].id);
+					if (j >= 0) {
+						ignored.Add (tmpl [i]);
 						continue;
-					}
-					else
-						toadd.Add(lnts[i]);
-				}
-				
-				
-				int index = this.lNodeTypeField.Length;
-				System.Array.Resize<tLNodeType>(ref this.lNodeTypeField,
-				                                 this.lNodeTypeField.Length + toadd.Count);
-				for (int i = 0; i <  toadd.Count; i++) {
-					this.lNodeTypeField[i+index] = (tLNodeType) toadd[i];
+					} else
+						toadd.Add (tmpl [i]);
 				}
 			}
-			else {
-				if (lnts != null) {
-					this.lNodeTypeField = new tLNodeType[lnts.Length];
-					lnts.CopyTo (this.lNodeTypeField, 0);
-				} else {
-					this.lNodeTypeField = new tLNodeType[1];
-					var t = new tLNodeType ();
-					t.iedType = "TEMPLATE";
-					t.id = "TEMPLATE.DOType" + tDataTypeTemplates.nlnt++;
-					t.lnClass = "LPHD";
-					lNodeTypeField[0] = t;
-				}
+
+			if (lNodeTypeField != null && tmpl == null) {
+				toadd.Add (dt);
+			}
+
+			int index = this.lNodeTypeField.Length;
+			System.Array.Resize<tLNodeType>(ref this.lNodeTypeField,
+			                                 this.lNodeTypeField.Length + toadd.Count);
+
+			for (int i = 0; i <  toadd.Count; i++) {
+				this.lNodeTypeField[i+index] = (tLNodeType) toadd[i];
 			}
 			return ignored;
 		}
@@ -176,41 +185,51 @@ namespace IEC61850.SCL
 		}
 		
 		public System.Collections.Generic.List<tDOType> 
-			AddDOType(tDOType[] dot)
+			AddDOType (tDOType[] tmpl)
 		{
-			var ignored = new System.Collections.Generic.List<tDOType>();
-			var toadd = new System.Collections.ArrayList();
+			var ignored = new System.Collections.Generic.List<tDOType> ();
+			var toadd = new System.Collections.ArrayList ();
 
-			if (this.dOTypeField != null && dot != null) {
-				for (int i = 0; i < dot.Length; i++) {
-					int j = this.GetDOType(dot[i].id);
-					if(j >= 0) {
-						ignored.Add(dot[i]);
+			tDOType dt = new tDOType ();;
+			if (tmpl == null) {
+				dt.iedType = "TEMPLATE";
+				dt.id = "TEMPLATE.DOType" + tDataTypeTemplates.ndot++;
+				dt.cdc = "SPS";
+			}
+
+			if (dOTypeField == null && tmpl != null) {
+				dOTypeField = new tDOType[tmpl.Length];
+				tmpl.CopyTo (dOTypeField, 0);
+				return ignored;
+			}
+
+			if (dOTypeField == null && tmpl == null) {
+				dOTypeField = new tDOType[1];
+				dOTypeField [0] = dt;
+				return ignored;
+			}
+
+			if (this.dOTypeField != null && tmpl != null) {
+				for (int i = 0; i < tmpl.Length; i++) {
+					int j = this.GetDOType (tmpl [i].id);
+					if (j >= 0) {
+						ignored.Add (tmpl [i]);
 						continue;
-					}
-					else
-						toadd.Add(dot[i]);
-				}
-
-				int index = this.dOTypeField.Length;
-				System.Array.Resize<tDOType>(ref this.dOTypeField,
-				                                 this.dOTypeField.Length + toadd.Count);
-				for (int i = 0; i <  toadd.Count; i++) {
-					this.dOTypeField[i+index] = (tDOType) toadd[i];
+					} else
+						toadd.Add (tmpl [i]);
 				}
 			}
-			else {
-				if (dot != null) {
-					this.dOTypeField = new tDOType[dot.Length];
-					dot.CopyTo (dOTypeField,0);
-				} else {
-					this.dOTypeField = new tDOType[1];
-					var t = new tDOType ();
-					t.iedType = "TEMPLATE";
-					t.id = "TEMPLATE.DOType" + tDataTypeTemplates.ndot++;
-					t.cdc = "SPS";
-					dOTypeField[0] = t;
-				}
+
+			if (dOTypeField != null && tmpl == null) {
+				toadd.Add (dt);
+			}
+
+			int index = this.dOTypeField.Length;
+			System.Array.Resize<tDOType>(ref this.dOTypeField,
+			                                 this.dOTypeField.Length + toadd.Count);
+
+			for (int i = 0; i <  toadd.Count; i++) {
+				this.dOTypeField[i+index] = (tDOType) toadd[i];
 			}
 			return ignored;
 		}
@@ -227,39 +246,50 @@ namespace IEC61850.SCL
 		}
 
 		public System.Collections.Generic.List<tDAType> 
-			AddDAType (tDAType[] dat)
+			AddDAType (tDAType[] tmpl)
 		{
 			var ignored = new System.Collections.Generic.List<tDAType> ();
 			var toadd = new System.Collections.ArrayList ();
 
-			if (this.dATypeField != null && dat != null) {
-				for (int i = 0; i < dat.Length; i++) {
-					int j = this.GetDAType(dat[i].id);
-					if(j >= 0) {
-						ignored.Add(dat[i]);
+			tDAType dt = new tDAType ();;
+			if (tmpl == null) {
+				dt.iedType = "TEMPLATE";
+				dt.id = "TEMPLATE.DAType" + tDataTypeTemplates.ndat++;
+			}
+
+			if (dATypeField == null && tmpl != null) {
+				dATypeField = new tDAType[tmpl.Length];
+				tmpl.CopyTo (dATypeField, 0);
+				return ignored;
+			}
+
+			if (dATypeField == null && tmpl == null) {
+				dATypeField = new tDAType[1];
+				dATypeField [0] = dt;
+				return ignored;
+			}
+
+			if (dATypeField != null && tmpl != null) {
+				for (int i = 0; i < tmpl.Length; i++) {
+					int j = this.GetDOType (tmpl [i].id);
+					if (j >= 0) {
+						ignored.Add (tmpl [i]);
 						continue;
 					} else
-						toadd.Add(dat[i]);
-				}
-				int index = this.dATypeField.Length;
-				System.Array.Resize<tDAType>(ref this.dATypeField,
-				                                 this.dATypeField.Length + toadd.Count);
-				for (int i = 0; i <  toadd.Count; i++) {
-					this.dATypeField[i+index] = (tDAType) toadd[i];
+						toadd.Add (tmpl [i]);
 				}
 			}
-			else {
-				if (dat != null) {
-					this.dATypeField =  new tDAType[dat.Length];
-					dat.CopyTo (dATypeField,0);
-				}
-				else {
-					this.dATypeField = new tDAType[1];
-					var ddat = new tDAType ();
-					ddat.iedType = "TEMPLATE";
-					ddat.id = "TEMPLATE.DAType" + tDataTypeTemplates.ndat++;
-					dATypeField[0] = ddat;
-				}
+
+			if (dATypeField != null && tmpl == null) {
+				toadd.Add (dt);
+			}
+
+			int index = this.dATypeField.Length;
+			System.Array.Resize<tDAType>(ref this.dATypeField,
+			                                 this.dATypeField.Length + toadd.Count);
+
+			for (int i = 0; i <  toadd.Count; i++) {
+				this.dATypeField[i+index] = (tDAType) toadd[i];
 			}
 			return ignored;
 		}		

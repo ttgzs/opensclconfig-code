@@ -43,15 +43,12 @@ namespace IEC61850.SCL
 	public partial class tLN : tAnyLN 
 	{		
 		private static uint index = 0;
-		private tLNClassEnum lnClassField;		
 		private uint instField;		
 		private string prefixField;
 		private string lnClassString;
+		private tLNClassEnum lnClassField;
 		private tStatusEnum status;
-		
-		[System.Xml.Serialization.XmlIgnore()]
-		public tLNClassEnum lnClassFieldTemp;
-		
+
 		public tLN() 
 		{
 			this.prefix = "";
@@ -153,11 +150,7 @@ namespace IEC61850.SCL
 			}
 			set
 			{	
-				if(lnClassField != value)
-				{
-					this.lnClassFieldTemp = lnClassField;
-				}
-				this.lnClassField = value;				
+				this.lnClassField = value;
 				if(this.lnClassField!=tLNClassEnum.Custom)
 				{
 					this.lnClassString = this.lnClassField.ToString();

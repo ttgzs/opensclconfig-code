@@ -27,19 +27,20 @@ namespace OpenSCL.UI
 	{
 		tDataTypeTemplates templates;
 
-		public TopDataAttributeTypeNode (tDAType[] dat, tDataTypeTemplates dt)
+		public TopDataAttributeTypeNode (tDataTypeTemplates dt)
 		{
-			if (dat == null) return;
+			if (dt == null) return;
 
 			Name = "Data Attributes Type";
-			Tag = dat;
+			Tag = dt.DAType;
 			templates = dt;
-			update_nodes ();
 			var cxm = new System.Windows.Forms.ContextMenuStrip ();
 			var add_dta = new System.Windows.Forms.ToolStripMenuItem ("Add Data Type Attribute", 
 			                                                        null, on_add_dta);
 			cxm.Items.Add (add_dta);
 			base.ContextMenuStrip = cxm;
+			
+			update_nodes ();
 		}
 		private void on_add_dta (object sender, EventArgs args)
 		{
@@ -49,7 +50,7 @@ namespace OpenSCL.UI
 		private void update_nodes ()
 		{
 			Nodes.Clear ();
-			var dat = ((tDAType[]) Tag);
+			var dat = templates.DAType;
 			for (int i = 0; i < dat.Length; i++) {
 				var n = new DataAttributeTypeNode (dat[i]);
 				Nodes.Add (n);

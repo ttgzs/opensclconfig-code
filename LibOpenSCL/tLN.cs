@@ -120,7 +120,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("LN"), Browsable(false), Description("The LN class")]
+		[Category("LN"), Description("The LN class")]
 		public string lnClass 
 		{
 			get 
@@ -137,13 +137,14 @@ namespace IEC61850.SCL
 				else
 				{
 					this.lnClassEnum = tLNClassEnum.Custom;
-				}		
+				}
+				OnPropertyChanged ("lnClass");
 			}
 		}
 		
 		[Required]
 		[System.Xml.Serialization.XmlIgnore()]
-		[Category("LN"), DisplayName("lnClass"), Description("The LN class")]
+		[Category("LN"), DisplayName("lnClassEnum"), Description("Pre-defined LN class")]
 		public tLNClassEnum lnClassEnum 
 		{
 			get 
@@ -161,6 +162,7 @@ namespace IEC61850.SCL
 				{
 					this.lnClassString = this.lnClassField.ToString();
 				}
+				OnPropertyChanged ("lnClass");
 			}
 		}
 		
@@ -176,6 +178,7 @@ namespace IEC61850.SCL
 			set 
 			{
 				this.instField = value;
+				OnPropertyChanged ("inst");
 			}
 		}
 		
@@ -190,6 +193,7 @@ namespace IEC61850.SCL
 			set 
 			{
 				this.prefixField = value;
+				OnPropertyChanged ("prefix");
 			}
 		}
 	}

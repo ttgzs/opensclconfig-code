@@ -334,7 +334,7 @@ namespace OpenSCL
 		/// </returns>
 		public SCL ImportIED(SCL project, SCL import)
 		{
-			project.AddIED(import);
+			project.ImportIED (import);
 			// FIXME: Review why to return the import and not the new modified configuration
 			return project;
 		}

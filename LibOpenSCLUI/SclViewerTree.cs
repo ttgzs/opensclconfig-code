@@ -79,7 +79,7 @@ namespace OpenSCL.UI
 		public void AddIEDNode ()
 		{
 			if (this.scl.IED != null) {
-				iedNode = new TopIedNode (this.scl.IED);
+				iedNode = new TopIedNode (this.scl);
 				root.Nodes.Add (iedNode);
 			}
 		}

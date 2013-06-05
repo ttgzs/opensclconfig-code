@@ -25,17 +25,38 @@ namespace OpenSCL.UI
 {
 	public class TopIedNode : GenericNode
 	{
-		public TopIedNode (tIED [] ieds)
+		private SCL scl;
+		public TopIedNode (SCL s)
 		{
-			if (ieds == null) return;
+			if (s == null) return;
 
 			Name = "Configured IEDs";
-			Tag = ieds;
+			Tag = s.IED;
+			scl = s;
+			var cxm = new System.Windows.Forms.ContextMenuStrip ();
+			var add_dta = new System.Windows.Forms.ToolStripMenuItem ("Add IED", 
+			                                                        null, on_add_ied);
+			cxm.Items.Add (add_dta);
+			base.ContextMenuStrip = cxm;
+
+			update_nodes ();
+			this.Expand ();
+		}
+
+		private void on_add_ied (object sender, EventArgs args)
+		{
+			scl.AddIED (null);
+			update_nodes ();
+		}
+
+		void update_nodes ()
+		{
+			var ieds = scl.IED;
+			Nodes.Clear ();
 			for (int i = 0; i < ieds.Length; i++) {
 				var n = new IedNode (ieds[i]);
 				Nodes.Add (n);
 			}
-			this.Expand ();
 		}
 	}
 }

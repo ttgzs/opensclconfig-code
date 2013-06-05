@@ -34,6 +34,7 @@ namespace IEC61850.SCL
 	public partial class tIED : tNaming 
 	{		
 		private static int index = 0;
+		private static int nld = 0;
 		private tServices servicesField;		
 		private tAccessPoint[] accessPointField;		
 		private string typeField;		
@@ -177,13 +178,15 @@ namespace IEC61850.SCL
 		
 		public int AddLDevice (string inst, string ap, tDataTypeTemplates tpl) 
 		{
-			if (name == null) return -1;
 			if (tpl == null) return -1;
 			if (accessPointField == null)
 				AddAP (ap);
 
 			var ld = new tLDevice ();
-			ld.inst = inst;
+			if (inst == null)
+				ld.inst = "TEMPLATE_LD" + (++tIED.nld).ToString ();
+			else
+				ld.inst = inst;
 
 			tLNodeType tln;
 			int lnt = tpl.GetLNType ("TEMPLATE.LPHD");

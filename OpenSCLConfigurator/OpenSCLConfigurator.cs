@@ -756,7 +756,7 @@ namespace OpenSCLConfigurator
 				swt.Start ();
 				// TODO: Add a dialog to show rejected IEDs
 				if (this.scl != null)
-					this.scl.Configuration.AddIED (ied.Configuration);
+					this.scl.Configuration.ImportIED (ied.Configuration);
 				else
 					this.scl = ied;
 

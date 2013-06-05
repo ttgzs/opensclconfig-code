@@ -32,6 +32,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.iec.ch/61850/2003/SCL", IsNullable=false)]
 	public partial class SCL : tBaseElement 
 	{		
+		private static int nied = 0;
 		private tHeader headerField;		
 		private tSubstation[] substationField;		
 		private tCommunication communicationField;		
@@ -148,7 +149,9 @@ namespace IEC61850.SCL
 		/// <returns>
 		/// A <see cref="System.Collections.Generic.List<tIED>"/>, with all ignored IEDs.
 		/// </returns>
-		public System.Collections.Generic.List<tIED> AddIED (SCL conf) {
+		public System.Collections.Generic.List<tIED> 
+			ImportIED (SCL conf)
+		{
 			if(conf==null)
 				return null;
 			if(conf.IED == null)
@@ -255,9 +258,27 @@ namespace IEC61850.SCL
 			int index = -1;
 			if (dataTypeTemplatesField == null)
 				dataTypeTemplatesField = new tDataTypeTemplates ();
-			tIED ied = new tIED ();	
+			int i;
+
+			tIED ied = new tIED ();
+			if (name == null) {
+				i = GetIED ("TEMPLATE");
+				if (i >= 0)
+					SCL.nied++;
+				string n = "";
+				if (SCL.nied == 0)
+					SCL.nied++;
+				else
+					n += (SCL.nied++).ToString ();
+				ied.name = "TEMPLATE" + n;
+			} else {
+				i = GetIED (name);
+				if (i >= 0)
+					return -1;
+				ied.name = name;
+			}
+
 			ied.configVersion = "0";
-			ied.name = name;
 			ied.AddAP ("AP1");
 			ied.AddLDevice (name, "AP1", this.DataTypeTemplates);
 			

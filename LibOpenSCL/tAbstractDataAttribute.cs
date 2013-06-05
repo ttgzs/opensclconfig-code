@@ -72,7 +72,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("AbstractDataAttribute"), Description("The attribute name."), ReadOnly(true)]
+		[Category("AbstractDataAttribute"), Description("The attribute name.")]
 		public string name 
 		{
 			get
@@ -109,7 +109,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("AbstractDataAttribute"), Description("The basic type of the attribute."), ReadOnly(true)]
+		[Category("AbstractDataAttribute"), Description("The basic type of the attribute.")]
 		public string bType 
 		{
 			get 
@@ -123,7 +123,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]		
-		[Category("AbstractDataAttribute"), Description("Determines how the value shall be interpreted if any is given."), ReadOnly(true)]
+		[Category("AbstractDataAttribute"), Description("Determines how the value shall be interpreted if any is given.")]
 		public tValKindEnum valKind 
 		{
 			get 
@@ -137,7 +137,7 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
-		[Category("AbstractDataAttribute"), Description("It's used to refer to the appropriate enumeration type or DAType definition."), ReadOnly(true)]
+		[Category("AbstractDataAttribute"), Description("It's used to refer to the appropriate enumeration type or DAType definition.")]
 		public string type 
 		{
 			get
@@ -152,7 +152,7 @@ namespace IEC61850.SCL
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[Category("AbstractDataAttribute"), Description("Shall state the number of array elements in the case where the attribute is an "+
-			"array."), ReadOnly(true)]
+			"array.")]
 		public uint count 
 		{
 			get 

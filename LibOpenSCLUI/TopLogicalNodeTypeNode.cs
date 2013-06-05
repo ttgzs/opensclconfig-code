@@ -34,12 +34,15 @@ namespace OpenSCL.UI
 			Name = "Logical Nodes Types";
 			Tag = lnt;
 			templates = dt;
-			update_nodes ();
+
 			var cxm = new System.Windows.Forms.ContextMenuStrip ();
 			var add_lnt = new System.Windows.Forms.ToolStripMenuItem ("Add Logical Node Type", null, 
 			                                                        on_add_lnt);
 			cxm.Items.Add (add_lnt);
 			base.ContextMenuStrip = cxm;
+
+			update_nodes ();
+
 		}
 		private void on_add_lnt (object sender, EventArgs args)
 		{

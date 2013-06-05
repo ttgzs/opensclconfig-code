@@ -189,8 +189,7 @@ namespace IEC61850.SCL
 					else
 						toadd.Add(dot[i]);
 				}
-				
-				
+
 				int index = this.dOTypeField.Length;
 				System.Array.Resize<tDOType>(ref this.dOTypeField,
 				                                 this.dOTypeField.Length + toadd.Count);

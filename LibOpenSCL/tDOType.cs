@@ -120,6 +120,41 @@ namespace IEC61850.SCL
 				this.cdcField = value;
 			}
 		}
+
+		public int AddDA (tDA[] das)
+		{
+			int index = -1;
+			if (DA == null && das != null) {
+				for (int i = 0; i < das.Length; i++) {
+					for (int j = 0; j < DA.Length; j++) {
+						if (DA [j].name.Equals (das [i].name))
+							return -1;
+					}
+				}
+				index = this.dAField.Length;
+				System.Array.Resize<tDA> (ref this.dAField,
+				                                 this.dAField.Length + das.Length);
+				for (int k = 0; k <  das.Length; k++) {
+					this.dAField [k + index] = das [k];
+				}
+			} else {
+				if (das != null) {
+					dAField = new tDA[das.Length];
+					das.CopyTo (dAField, 0);
+				}
+				else {
+					var da = new tDA ();
+					da.bTypeEnum = tBasicTypeEnum.VisString255;
+					da.name = "TEMPLATE_ATTRIBUTE";
+					da.fc = tFCEnum.ST;
+					da.dchg = true;
+					dAField = new tDA[1];
+					dAField[0] = da;
+					index = 0;
+				}
+			}
+			return index;
+		}
 	}
 
 }

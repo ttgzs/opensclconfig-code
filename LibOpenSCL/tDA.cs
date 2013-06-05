@@ -93,7 +93,7 @@ namespace IEC61850.SCL
 		
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
-		[Category("DA"), Description("Functional constraint"), ReadOnly(true)]
+		[Category("DA"), Description("Functional constraint")]
 		public tFCEnum fc 
 		{
 			get

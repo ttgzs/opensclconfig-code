@@ -66,6 +66,7 @@ namespace IEC61850.SCL
 			set 
 			{
 				this.iedTypeField = value;
+				OnPropertyChanged ("iedType");
 			}
 		}
 	}

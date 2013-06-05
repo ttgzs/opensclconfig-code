@@ -103,6 +103,7 @@ namespace IEC61850.SCL
 			set 
 			{
 				this.iedTypeField = value;
+				OnPropertyChanged ("iedType");
 			}
 		}
 		
@@ -118,6 +119,7 @@ namespace IEC61850.SCL
 			set
 			{
 				this.cdcField = value;
+				OnPropertyChanged ("cdc");
 			}
 		}
 
@@ -150,6 +152,39 @@ namespace IEC61850.SCL
 					da.dchg = true;
 					dAField = new tDA[1];
 					dAField[0] = da;
+					index = 0;
+				}
+			}
+			return index;
+		}
+
+		public int AddSDO (tSDO[] sdo)
+		{
+			int index = -1;
+			if (DA == null && sdo != null) {
+				for (int i = 0; i < sdo.Length; i++) {
+					for (int j = 0; j < DA.Length; j++) {
+						if (SDO[j].name.Equals (sdo[i].name))
+							return -1;
+					}
+				}
+				index = this.sDOField.Length;
+				System.Array.Resize<tSDO> (ref this.sDOField,
+				                                 this.sDOField.Length + sdo.Length);
+				for (int k = 0; k <  sdo.Length; k++) {
+					this.sDOField [k + index] = sdo [k];
+				}
+			} else {
+				if (sdo != null) {
+					sDOField = new tSDO[sdo.Length];
+					sdo.CopyTo (dAField, 0);
+				}
+				else {
+					var sd = new tSDO ();
+					sd.type = "TEMPLATE.DOType";
+					sd.name = "TEMPLATE_ATTRIBUTE_OBJECT";
+					sDOField = new tSDO[1];
+					sDOField[0] = sd;
 					index = 0;
 				}
 			}

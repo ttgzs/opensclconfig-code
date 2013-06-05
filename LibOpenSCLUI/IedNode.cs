@@ -31,12 +31,19 @@ namespace OpenSCL.UI
 
 			Name = ied.name;
 			Tag = ied;
+			ied.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler (on_changed);
 			if (ied.AccessPoint != null) {
 				for (int i = 0; i < ied.AccessPoint.Length; i++) {
 					var n = new AccessPointNode (ied.AccessPoint[i]);
 					Nodes.Add (n);
 				}
 			}
+		}
+
+		private void on_changed (object sender,
+		                         System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			Name = ((tIED) Tag).name;
 		}
 	}
 }

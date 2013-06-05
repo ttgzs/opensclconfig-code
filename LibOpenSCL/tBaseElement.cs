@@ -90,7 +90,7 @@ namespace IEC61850.SCL
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
-	public partial class tBaseElement 
+	public partial class tBaseElement : INotifyPropertyChanged
 	{		
 		private System.Xml.XmlElement[] anyField;		
 		private tText textField;		
@@ -197,7 +197,16 @@ namespace IEC61850.SCL
 			{
 				this.privateField = value;
 			}
-		}		
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		public void OnPropertyChanged (string name)
+		{
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null)
+				handler(this, new PropertyChangedEventArgs(name));
+		}
 	}
 	
 }

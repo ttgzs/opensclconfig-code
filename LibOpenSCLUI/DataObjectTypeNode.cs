@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.ComponentModel;
 using IEC61850.SCL;
 
 namespace OpenSCL.UI
@@ -28,23 +29,40 @@ namespace OpenSCL.UI
 		public DataObjectTypeNode (tDOType dot)
 		{
 			if (dot == null) return;
+			Tag = dot;
+			update_name ();
+			dot.PropertyChanged += new PropertyChangedEventHandler (on_changed);
+			var cxm = new System.Windows.Forms.ContextMenuStrip ();
+			var add_da = new System.Windows.Forms.ToolStripMenuItem ("Add Attribute", null, 
+			                                                        on_add_da);
+			var add_sdo = new System.Windows.Forms.ToolStripMenuItem ("Add Object Attribute", null, 
+			                                                        on_add_sdo);
+			cxm.Items.Add (add_da);
+			cxm.Items.Add (add_sdo);
+			base.ContextMenuStrip = cxm;
+			update_nodes ();
+		}
+
+		private void update_name ()
+		{
+			var dot = ((tDOType) Tag);
 			string s = "";
 			if (dot.iedType != null || dot.iedType != "")
 				s += dot.iedType + " / ";
 			Name = s + dot.id + " [" + dot.cdc + "]";
-			Tag = dot;
-			var cxm = new System.Windows.Forms.ContextMenuStrip ();
-			var add_da = new System.Windows.Forms.ToolStripMenuItem ("Add Attribute", null, 
-			                                                        on_add_da);
-			cxm.Items.Add (add_da);
-			base.ContextMenuStrip = cxm;
-			update_nodes ();
 		}
 
 		private void on_add_da (object sender, EventArgs args)
 		{
 			var dot = ((tDOType) Tag);
 			dot.AddDA (null);
+			update_nodes ();
+		}
+
+		private void on_add_sdo (object sender, EventArgs args)
+		{
+			var dot = ((tDOType) Tag);
+			dot.AddSDO (null);
 			update_nodes ();
 		}
 
@@ -64,6 +82,11 @@ namespace OpenSCL.UI
 					Nodes.Add (n);
 				}
 			}
+		}
+
+		private void on_changed (object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			update_name ();
 		}
 	}
 }

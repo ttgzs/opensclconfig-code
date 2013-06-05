@@ -30,21 +30,19 @@ namespace OpenSCL.UI
 		{
 			if (ap == null) return;
 
-			Name = "AccessPoint: " + ap.name;
 			Tag = ap;
-			if (ap.Server != null) {
-				if (ap.Server.LDevice != null) {
-					for (int i = 0; i < ap.Server.LDevice.Length; i++) {
-						var n = new LogicalDeviceNode (ap.Server.LDevice[i]);
-						Nodes.Add (n);
-					}
-					Expand ();
-				}
-			}
+			ap.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler (on_changed);
+			update_name ();
+			update_nodes ();
 			var cxm = new System.Windows.Forms.ContextMenuStrip ();
 			var addld = new System.Windows.Forms.ToolStripMenuItem ("Add Logical Device", null, on_add_ld);
 			cxm.Items.Add (addld);
 			base.ContextMenuStrip = cxm;
+		}
+
+		public void update_name ()
+		{
+			Name = "AccessPoint: " + ((tAccessPoint) Tag).name;
 		}
 
 		public void on_add_ld (object sender, EventArgs args)
@@ -55,6 +53,27 @@ namespace OpenSCL.UI
 			var n = new LogicalDeviceNode (ld);
 			Nodes.Add (n);
 			AccessPointNode.n++;
+			update_nodes ();
+		}
+
+		private void update_nodes ()
+		{
+			var ap = ((tAccessPoint) Tag);
+			Nodes.Clear ();
+			if (ap.Server != null) {
+				if (ap.Server.LDevice != null) {
+					for (int i = 0; i < ap.Server.LDevice.Length; i++) {
+						var n = new LogicalDeviceNode (ap.Server.LDevice [i]);
+						Nodes.Add (n);
+					}
+					Expand ();
+				}
+			}
+		}
+
+		private void on_changed (object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			update_name ();
 		}
 	}
 }

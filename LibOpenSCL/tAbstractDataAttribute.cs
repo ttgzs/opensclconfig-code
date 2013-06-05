@@ -34,7 +34,6 @@ namespace IEC61850.SCL
 	*/		
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tBDA))]
 	[System.Xml.Serialization.XmlIncludeAttribute(typeof(tDA))]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
 	[System.Diagnostics.DebuggerStepThroughAttribute()]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]

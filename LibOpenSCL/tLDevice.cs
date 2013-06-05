@@ -111,6 +111,7 @@ namespace IEC61850.SCL
 				else
 				{
 					this.inst = this.instField;
+					OnPropertyChanged ("inst");
 				}
 			}
 		}

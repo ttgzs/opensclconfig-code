@@ -88,6 +88,7 @@ namespace IEC61850.SCL
 				{
 					this.name = nameField;
 				}
+				OnPropertyChanged ("name");
 			}
 		}
 		

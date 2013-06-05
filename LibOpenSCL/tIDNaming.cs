@@ -63,6 +63,7 @@ namespace IEC61850.SCL
 			set 
 			{
 				this.idField = value;
+				OnPropertyChanged ("id");
 			}
 		}
 				

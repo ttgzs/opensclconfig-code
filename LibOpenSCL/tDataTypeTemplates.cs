@@ -124,6 +124,8 @@ namespace IEC61850.SCL
 		public System.Collections.Generic.List<tLNodeType> 
 			AddLNodeType(tLNodeType[] lnts) 
 		{
+			AddDAType (null);
+			AddDOType (null);
 			var ignored = new System.Collections.Generic.List<tLNodeType>();
 			var toadd = new System.Collections.ArrayList();
 

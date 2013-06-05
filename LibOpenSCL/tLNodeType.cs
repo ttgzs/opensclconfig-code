@@ -82,6 +82,7 @@ namespace IEC61850.SCL
 			set
 			{
 				this.iedTypeField = value;
+				OnPropertyChanged ("iedType");
 			}
 		}
 		
@@ -97,6 +98,7 @@ namespace IEC61850.SCL
 			set 
 			{
 				this.lnClassField = value;
+				OnPropertyChanged ("lnClass");
 			}
 		}
 	}

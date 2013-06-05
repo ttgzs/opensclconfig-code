@@ -1106,32 +1106,33 @@ namespace OpenSCLConfigurator
 		void PropertyGridAttributesPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
 		{
 			modified = true;
-			WindowTreeViewLNType windowTreeViewLNType;
-			OpenSCL.Object sCL = new OpenSCL.Object();
-			ConversionObject conversionObject = new ConversionObject();
-			if(e.ChangedItem.Label.ToString() == "lnClass")
-			{
-				if( e.ChangedItem.Value.ToString() != "LPHD" )
-				{
-					sCL.Configuration = (SCL) sclviewertree.Nodes["root"].Nodes["SCL"].Tag;
-					string lnType = (sclviewertree.SelectedNode.Tag as tAnyLN).lnType;
-					(sclviewertree.SelectedNode.Tag as tAnyLN).lnType = (sclviewertree.SelectedNode.Tag as tLN).prefix.ToString()+conversionObject.SetEnumObjectToString((sclviewertree.SelectedNode.Tag as tLN).lnClass)+(sclviewertree.SelectedNode.Tag as tLN).inst.ToString();
-					windowTreeViewLNType = new WindowTreeViewLNType(sclviewertree.SelectedNode, sCL.Configuration, sclviewertree.SelectedNode.Tag, "New");
-					windowTreeViewLNType.ShowDialog();					
-					if(windowTreeViewLNType.DialogResult == DialogResult.Cancel)
-					{
-						(sclviewertree.SelectedNode.Tag as tLN).lnClassEnum = (tLNClassEnum)conversionObject.SetStringToEnumObject((sclviewertree.SelectedNode.Tag as tLN).lnClassFieldTemp.ToString(), typeof( tLNClassEnum));
-						(sclviewertree.SelectedNode.Tag as tAnyLN).lnType = lnType;						
-					}
-					if(windowTreeViewLNType.DialogResult == DialogResult.OK)
-					{
-						(sclviewertree.SelectedNode.Tag as tAnyLN).lnType = (sclviewertree.SelectedNode.Tag as tLN).prefix.ToString()+conversionObject.SetEnumObjectToString((sclviewertree.SelectedNode.Tag as tLN).lnClass)+(sclviewertree.SelectedNode.Tag as tLN).inst.ToString();
-						(sclviewertree.SelectedNode.Tag as tAnyLN).DataSet = null;
-						sclviewertree.SelectedNode.Nodes.RemoveByKey("tDataSet[]");
-					}
-					sclviewertree.SelectedNode.Text = conversionObject.SetEnumObjectToString((sclviewertree.SelectedNode.Tag as tLN).lnClass)+(sclviewertree.SelectedNode.Tag as tLN).inst.ToString();																		
-				}				
-			}			
+
+//			WindowTreeViewLNType windowTreeViewLNType;
+//			OpenSCL.Object sCL = new OpenSCL.Object();
+//			ConversionObject conversionObject = new ConversionObject();
+//			if(e.ChangedItem.Label.ToString() == "lnClass")
+//			{
+//				if( e.ChangedItem.Value.ToString() != "LPHD" )
+//				{
+//					sCL.Configuration = sclviewertree.scl;
+//					string lnType = (sclviewertree.SelectedNode.Tag as tAnyLN).lnType;
+//					(sclviewertree.SelectedNode.Tag as tAnyLN).lnType = (sclviewertree.SelectedNode.Tag as tLN).prefix.ToString()+conversionObject.SetEnumObjectToString((sclviewertree.SelectedNode.Tag as tLN).lnClass)+(sclviewertree.SelectedNode.Tag as tLN).inst.ToString();
+//					windowTreeViewLNType = new WindowTreeViewLNType(sclviewertree.SelectedNode, sCL.Configuration, sclviewertree.SelectedNode.Tag, "New");
+//					windowTreeViewLNType.ShowDialog();					
+//					if(windowTreeViewLNType.DialogResult == DialogResult.Cancel)
+//					{
+//						(sclviewertree.SelectedNode.Tag as tLN).lnClassEnum = (tLNClassEnum)conversionObject.SetStringToEnumObject((sclviewertree.SelectedNode.Tag as tLN).lnClassFieldTemp.ToString(), typeof( tLNClassEnum));
+//						(sclviewertree.SelectedNode.Tag as tAnyLN).lnType = lnType;						
+//					}
+//					if(windowTreeViewLNType.DialogResult == DialogResult.OK)
+//					{
+//						(sclviewertree.SelectedNode.Tag as tAnyLN).lnType = (sclviewertree.SelectedNode.Tag as tLN).prefix.ToString()+conversionObject.SetEnumObjectToString((sclviewertree.SelectedNode.Tag as tLN).lnClass)+(sclviewertree.SelectedNode.Tag as tLN).inst.ToString();
+//						(sclviewertree.SelectedNode.Tag as tAnyLN).DataSet = null;
+//						sclviewertree.SelectedNode.Nodes.RemoveByKey("tDataSet[]");
+//					}
+//					sclviewertree.SelectedNode.Text = conversionObject.SetEnumObjectToString((sclviewertree.SelectedNode.Tag as tLN).lnClass)+(sclviewertree.SelectedNode.Tag as tLN).inst.ToString();																		
+//				}
+//			}
 		}
 	} 	
 }

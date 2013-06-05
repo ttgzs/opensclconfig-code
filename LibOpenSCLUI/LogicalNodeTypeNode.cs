@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using IEC61850.SCL;
+using System.ComponentModel;
 
 namespace OpenSCL.UI
 {
@@ -28,11 +29,23 @@ namespace OpenSCL.UI
 		public LogicalNodeTypeNode (tLNodeType lnt)
 		{
 			if (lnt == null) return;
+			Tag = lnt;
+			update_name ();
+			lnt.PropertyChanged += new PropertyChangedEventHandler (on_changed);
+		}
+
+		private void update_name ()
+		{
+			var lnt = ((tLNodeType) Tag);
 			string s = "";
 			if (lnt.iedType != null || lnt.iedType != "")
 				s += lnt.iedType + " / ";
 			Name = s + lnt.id + " [" + lnt.lnClass + "]";
-			Tag = lnt;
+		}
+
+		private void on_changed (object sender, PropertyChangedEventArgs e)
+		{
+			update_name ();
 		}
 	}
 }

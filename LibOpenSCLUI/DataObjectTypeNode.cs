@@ -84,7 +84,7 @@ namespace OpenSCL.UI
 			}
 		}
 
-		private void on_changed (object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		private void on_changed (object sender, PropertyChangedEventArgs e)
 		{
 			update_name ();
 		}

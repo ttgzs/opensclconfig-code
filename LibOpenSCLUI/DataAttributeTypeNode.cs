@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using IEC61850.SCL;
+using System.ComponentModel;
 
 namespace OpenSCL.UI
 {
@@ -29,11 +30,23 @@ namespace OpenSCL.UI
 		{
 			if (dat == null) return;
 
+			Tag = dat;
+			dat.PropertyChanged +=  new PropertyChangedEventHandler (on_changed);
+			update_name ();
+		}
+
+		public void update_name ()
+		{
+			var dat = ((tDAType) Tag);
 			string s = "";
 			if (dat.iedType != null || dat.iedType != "")
 				s += dat.iedType + " / ";
 			Name = s + dat.id;
-			Tag = dat;
+		}
+
+		private void on_changed (object sender, PropertyChangedEventArgs e)
+		{
+			update_name ();
 		}
 	}
 }

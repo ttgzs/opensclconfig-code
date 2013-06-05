@@ -122,10 +122,13 @@ namespace IEC61850.SCL
 		/// A <see cref="System.Collections.Generic.List<tLNodeType>"/>, a list of ignored tLNTypes.
 		/// </returns>
 		public System.Collections.Generic.List<tLNodeType> 
-			AddLNodeType(tLNodeType[] tmpl) 
+			AddLNodeType (tLNodeType[] tmpl)
 		{
-			AddDAType (null);
-			AddDOType (null);
+			if (dATypeField == null)
+				AddDAType (null);
+			if (dOTypeField == null)
+				AddDOType (null);
+
 			var ignored = new System.Collections.Generic.List<tLNodeType> ();
 			var toadd = new System.Collections.ArrayList ();
 

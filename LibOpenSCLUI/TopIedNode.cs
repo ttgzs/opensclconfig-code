@@ -55,6 +55,7 @@ namespace OpenSCL.UI
 			Nodes.Clear ();
 			for (int i = 0; i < ieds.Length; i++) {
 				var n = new IedNode (ieds[i], scl.DataTypeTemplates);
+				n.Updated += (sender, what) => { OnUpdated (what); };
 				Nodes.Add (n);
 			}
 		}

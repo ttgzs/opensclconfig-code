@@ -48,7 +48,7 @@ namespace OpenSCL.UI
 			cxm.Items.Add (add_dta);
 			base.ContextMenuStrip = cxm;
 
-			update_nodes ();
+			update_nodes (UpdateContext.All);
 		}
 
 		private void on_add_dta (object sender, EventArgs args)
@@ -57,7 +57,7 @@ namespace OpenSCL.UI
 			if (dt.DAType == null) {
 				dt.AddDAType (null);
 				add_dta.Enabled = false;
-				update_nodes ();
+				update_nodes (UpdateContext.DataAttributes);
 			}
 		}
 
@@ -66,7 +66,7 @@ namespace OpenSCL.UI
 			var dt = ((tDataTypeTemplates)Tag);
 			if (dt.DOType == null) {
 				dt.AddDOType (null);
-				update_nodes ();
+				update_nodes (UpdateContext.DataObjects);
 			}
 		}
 
@@ -75,29 +75,45 @@ namespace OpenSCL.UI
 			var dt = ((tDataTypeTemplates)Tag);
 			if (dt.LNodeType == null) {
 				dt.AddLNodeType (null);
-				update_nodes ();
+				update_nodes (UpdateContext.LoticalNodes);
 			}
 		}
 
-		private void update_nodes ()
+		public void update_nodes (UpdateContext what)
 		{
 			var dt = ((tDataTypeTemplates) Tag);
 			Nodes.Clear ();
-			if (dt.DOType != null) {
+			if (dt.DOType != null &&
+			    (what == UpdateContext.All ||
+			 	 what == UpdateContext.DataObjects))
+			{
 				var n = new TopDataObjectTypeNode (dt);
 				Nodes.Add (n);
 				add_dot.Enabled = false;
 			}
-			if (dt.DAType != null) {
+			if (dt.DAType != null&&
+			    (what == UpdateContext.All ||
+			 	 what == UpdateContext.DataAttributes)) 
+			{
 				var n = new TopDataAttributeTypeNode (dt);
 				Nodes.Add (n);
 				add_dta.Enabled = false;
 			}
-			if (dt.LNodeType != null) {
+			if (dt.LNodeType != null&&
+			    (what == UpdateContext.All ||
+			 	 what == UpdateContext.LoticalNodes))
+			{
 				var n = new TopLogicalNodeTypeNode (dt);
 				Nodes.Add (n);
 				add_lnt.Enabled = false;
 			}
+		}
+
+		public enum UpdateContext {
+			DataAttributes,
+			DataObjects,
+			LoticalNodes,
+			All
 		}
 	}
 }

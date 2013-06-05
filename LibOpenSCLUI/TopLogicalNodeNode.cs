@@ -25,16 +25,38 @@ namespace OpenSCL.UI
 {
 	public class TopLogicalNodeNode : GenericNode
 	{
-		public TopLogicalNodeNode (tLN[] ln)
+		tLDevice ld;
+
+		public TopLogicalNodeNode (tLDevice ld)
 		{
-			if (ln == null) return;
+			if (ld == null) return;
 
 			Name = "Logical Nodes";
-			Tag = ln;
+			this.ld = ld;
+			Tag = ld.LN;
+			var cxm = new System.Windows.Forms.ContextMenuStrip ();
+			var add_dta = new System.Windows.Forms.ToolStripMenuItem ("Add Logical Node", 
+			                                                        null, on_add_ln);
+			cxm.Items.Add (add_dta);
+			base.ContextMenuStrip = cxm;
+			update_nodes ();
+		}
+
+		public void update_nodes ()
+		{
+			Nodes.Clear ();
+			var ln = ld.LN;
 			for (int i = 0; i < ln.Length; i++) {
 				var n = new LogicalNodeNode (ln[i]);
 				Nodes.Add (n);
 			}
+			OnUpdated ("AddedLogicalNode");
+		}
+
+		private void on_add_ln (object sender, EventArgs args)
+		{
+			ld.AddLN (null);
+			update_nodes ();
 		}
 	}
 }

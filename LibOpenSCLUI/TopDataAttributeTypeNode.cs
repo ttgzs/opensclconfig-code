@@ -47,7 +47,7 @@ namespace OpenSCL.UI
 			templates.AddDAType (null);
 			update_nodes ();
 		}
-		private void update_nodes ()
+		public void update_nodes ()
 		{
 			Nodes.Clear ();
 			var dat = templates.DAType;

@@ -67,7 +67,10 @@ namespace OpenSCL.UI
 			if (ap.Server != null) {
 				if (ap.Server.LDevice != null) {
 					for (int i = 0; i < ap.Server.LDevice.Length; i++) {
+						if (ap.Server.LDevice[i].templates == null)
+							ap.Server.LDevice[i].templates = templates;
 						var n = new LogicalDeviceNode (ap.Server.LDevice [i]);
+						n.Updated += (sender, what) => { OnUpdated (what); };
 						Nodes.Add (n);
 					}
 					Expand ();

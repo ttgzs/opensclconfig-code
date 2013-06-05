@@ -83,6 +83,15 @@ namespace OpenSCL.UI
 			name += sufix;
 			this.Text = name;
 		}
+
+		public delegate void UpdatedHander (object sender, string what);
+		public event UpdatedHander Updated;
+
+		public void OnUpdated (string what)
+		{
+			if (Updated != null)
+				Updated (this, what);
+		}
 	}
 }
 

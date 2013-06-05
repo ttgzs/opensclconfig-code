@@ -37,6 +37,7 @@ namespace OpenSCL.UI
 			if (ied.AccessPoint != null) {
 				for (int i = 0; i < ied.AccessPoint.Length; i++) {
 					var n = new AccessPointNode (i, ied, templates);
+					n.Updated += (sender, what) => { OnUpdated (what); };
 					Nodes.Add (n);
 				}
 			}

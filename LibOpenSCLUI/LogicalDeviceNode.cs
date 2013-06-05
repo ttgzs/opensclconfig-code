@@ -51,9 +51,14 @@ namespace OpenSCL.UI
 				Nodes.Add (n);
 			}
 			if (ld.LN != null) {
-				var n = new TopLogicalNodeNode (ld.LN);
+				var n = new TopLogicalNodeNode (ld);
+				n.Updated += (sender, what) => { OnUpdated (what); };
 				Nodes.Add (n);
 			}
+		}
+
+		private void on_ln_changed (object sender, PropertyChangedEventArgs e)
+		{
 		}
 
 		private void on_changed (object sender, PropertyChangedEventArgs e)

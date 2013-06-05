@@ -39,6 +39,7 @@ namespace IEC61850.SCL
 	public partial class tLDevice : tUnNaming
 	{		
 		private static int index = 0;
+		private static int nln = 0;
 		private LN0 lN0Field;		
 		private tLN[] lnField;		
 		private tAccessControl accessControlField;		
@@ -52,6 +53,9 @@ namespace IEC61850.SCL
 				this.lN0Field = new LN0 ();
 			}
 		}
+
+		[System.Xml.Serialization.XmlIgnore()]
+		public tDataTypeTemplates templates { get; set; }
 		
 		[Category("LDevice"), Description("The LN class is always LLN0"), Browsable(false)]
 		public LN0 LN0 
@@ -116,8 +120,38 @@ namespace IEC61850.SCL
 			}
 		}
 		
-		public int AddLN (tLN ln)
+		public int AddLN (tLN lnode)
 		{
+			var ln = new tLN ();
+			if (lnode == null) {
+				ln.inst = (uint) (++tLDevice.nln);
+				if (templates != null) {
+					int i = templates.GetLNType ("TEMPLATE.LNTYPE0");
+					System.Console.WriteLine ("Index of lntmpl = " + i);
+					if (i>=0) {
+						ln.lnClass = templates.LNodeType[i].lnClass;
+						ln.lnType = templates.LNodeType[i].id;
+					} else {
+						tLNodeType lnt = new tLNodeType ();
+						lnt.iedType = this.inst;
+						lnt.lnClass = "TMPL";
+						lnt.id = "TEMPLATE.LNTYPE0";
+						var arr = new tLNodeType[1];
+						arr[0] = lnt;
+						var ig = templates.AddLNodeType (arr);
+						if (ig.Count >= 1)
+							return -1;
+						ln.lnClass = lnt.lnClass;
+						ln.lnType = lnt.id;
+					}
+				} else {
+					ln.lnClass = "TMPL";
+					ln.lnType = "TEMPLATE.LNTYPE0";
+				}
+			} else {
+				ln = lnode;
+			}
+
 			int index = -1;
 			if (this.LN == null) {
 				this.LN = new tLN[1];

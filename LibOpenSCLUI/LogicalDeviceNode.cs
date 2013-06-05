@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using IEC61850.SCL;
+using System.ComponentModel;
 
 namespace OpenSCL.UI
 {
@@ -29,8 +30,22 @@ namespace OpenSCL.UI
 		{
 			if (ld == null) return;
 
-			Name = ld.inst;
 			Tag = ld;
+			update_name ();
+			update_nodes ();
+			ld.PropertyChanged  += new PropertyChangedEventHandler (on_changed);
+
+		}
+
+		void update_name ()
+		{
+			var ld = ((tLDevice) Tag);
+			Name = ld.inst;
+		}
+
+		void update_nodes ()
+		{
+			var ld = ((tLDevice) Tag);
 			if (ld.LN0 != null) {
 				var n = new Ln0Node (ld.LN0);
 				Nodes.Add (n);
@@ -39,6 +54,11 @@ namespace OpenSCL.UI
 				var n = new TopLogicalNodeNode (ld.LN);
 				Nodes.Add (n);
 			}
+		}
+
+		private void on_changed (object sender, PropertyChangedEventArgs e)
+		{
+			update_name ();
 		}
 	}
 }

@@ -25,13 +25,20 @@ namespace OpenSCL.UI
 {
 	public class AccessPointNode : GenericNode
 	{
-		static int n = 1;
-		public AccessPointNode (tAccessPoint ap)
-		{
-			if (ap == null) return;
+		tIED ied;
+		int iap;
+		tDataTypeTemplates templates;
 
-			Tag = ap;
-			ap.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler (on_changed);
+		public AccessPointNode (int iap, tIED ied, tDataTypeTemplates dt)
+		{
+			if (ied == null || dt == null || ied == null) return;
+
+			Tag = ied.AccessPoint[iap];
+			this.ied = ied;
+			this.iap = iap;
+			this.templates = dt;
+
+			ied.AccessPoint[iap].PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler (on_changed);
 			update_name ();
 			update_nodes ();
 			var cxm = new System.Windows.Forms.ContextMenuStrip ();
@@ -42,17 +49,14 @@ namespace OpenSCL.UI
 
 		public void update_name ()
 		{
-			Name = "AccessPoint: " + ((tAccessPoint) Tag).name;
+			Name = "AccessPoint: " + ied.AccessPoint[iap].name;
 		}
 
 		public void on_add_ld (object sender, EventArgs args)
 		{
-			var ld = new tLDevice ();
-			ld.inst = "TEMPLATE" + AccessPointNode.n.ToString ();
-			((tAccessPoint) Tag).Server.AddLDevice (ld);
-			var n = new LogicalDeviceNode (ld);
+			int i = ied.AddLDevice (null, ied.AccessPoint[iap].name, templates);
+			var n = new LogicalDeviceNode (ied.AccessPoint[iap].Server.LDevice[i]);
 			Nodes.Add (n);
-			AccessPointNode.n++;
 			update_nodes ();
 		}
 

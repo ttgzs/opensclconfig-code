@@ -280,7 +280,7 @@ namespace IEC61850.SCL
 
 			ied.configVersion = "0";
 			ied.AddAP ("AP1");
-			ied.AddLDevice (name, "AP1", this.DataTypeTemplates);
+			ied.AddLDevice (null, "AP1", this.DataTypeTemplates);
 			
 			if (iEDField == null) {
 				iEDField = new tIED[1];

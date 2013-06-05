@@ -25,16 +25,18 @@ namespace OpenSCL.UI
 {
 	public class IedNode : GenericNode
 	{
-		public IedNode (tIED ied)
+		tDataTypeTemplates templates;
+		public IedNode (tIED ied, tDataTypeTemplates dt)
 		{
 			if (ied == null) return;
 
 			Name = ied.name;
+			templates = dt;
 			Tag = ied;
 			ied.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler (on_changed);
 			if (ied.AccessPoint != null) {
 				for (int i = 0; i < ied.AccessPoint.Length; i++) {
-					var n = new AccessPointNode (ied.AccessPoint[i]);
+					var n = new AccessPointNode (i, ied, templates);
 					Nodes.Add (n);
 				}
 			}

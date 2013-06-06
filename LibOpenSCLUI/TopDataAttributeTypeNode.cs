@@ -36,10 +36,9 @@ namespace OpenSCL.UI
 			templates = dt;
 			var cxm = new System.Windows.Forms.ContextMenuStrip ();
 			var add_dta = new System.Windows.Forms.ToolStripMenuItem ("Add Data Type Attribute", 
-			                                                        null, on_add_dta);
+			                                                          null, on_add_dta);
 			cxm.Items.Add (add_dta);
 			base.ContextMenuStrip = cxm;
-			
 			update_nodes ();
 		}
 		private void on_add_dta (object sender, EventArgs args)

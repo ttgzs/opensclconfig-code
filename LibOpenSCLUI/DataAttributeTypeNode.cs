@@ -26,27 +26,52 @@ namespace OpenSCL.UI
 {
 	public class DataAttributeTypeNode : GenericNode
 	{
+		private tDAType dat;
 		public DataAttributeTypeNode (tDAType dat)
 		{
-			if (dat == null) return;
+			if (dat == null)
+				return;
 
 			Tag = dat;
-			dat.PropertyChanged +=  new PropertyChangedEventHandler (on_changed);
+			this.dat = dat;
+			dat.PropertyChanged += (sender, e) => {
+				update_name (); };
+			var cxm = new System.Windows.Forms.ContextMenuStrip ();
+			var add_dta = new System.Windows.Forms.ToolStripMenuItem ("Add Attribute", 
+			                                                        null, on_add_attr);
+			add_dta.ToolTipText = "Sets this attribute to be a Struct type\n" +
+				"Update 'id' if an Enum Type is required";
+			cxm.Items.Add (add_dta);
+			base.ContextMenuStrip = cxm;
+
 			update_name ();
+			update_nodes ();
+			Expand ();
 		}
 
-		public void update_name ()
+		public void update_nodes ()
 		{
-			var dat = ((tDAType) Tag);
+			Nodes.Clear ();
+			if (dat.BDA != null) {
+				for (int i = 0; i < dat.BDA.Length; i++) {
+					var n = new BasicAttributeNode (dat.BDA[i]);
+					Nodes.Add (n);
+				}
+			}
+		}
+
+		private void update_name ()
+		{
 			string s = "";
 			if (dat.iedType != null || dat.iedType != "")
 				s += dat.iedType + " / ";
 			Name = s + dat.id;
 		}
 
-		private void on_changed (object sender, PropertyChangedEventArgs e)
+		private void on_add_attr (object sender, EventArgs args)
 		{
-			update_name ();
+			dat.AddBasicAttribute (null);
+			update_nodes ();
 		}
 	}
 }

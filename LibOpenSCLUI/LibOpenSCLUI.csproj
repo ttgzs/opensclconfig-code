@@ -169,6 +169,7 @@
     <Compile Include="SclViewerTree.cs" />
     <Compile Include="TopLogicalNodeTypeNode.cs" />
     <Compile Include="LogicalNodeTypeNode.cs" />
+    <Compile Include="BasicAttributeNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="INSTALLATION.txt">

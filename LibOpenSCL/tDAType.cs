@@ -32,7 +32,8 @@ namespace IEC61850.SCL
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public partial class tDAType : tIDNaming 
-	{		
+	{
+		private static int nattr = 0;
 		private tBDA[] bDAField;		
 		private string iedTypeField;
 		
@@ -68,6 +69,58 @@ namespace IEC61850.SCL
 				this.iedTypeField = value;
 				OnPropertyChanged ("iedType");
 			}
+		}
+
+		public int AddBasicAttribute (tBDA ba)
+		{
+			tBDA bda = new tBDA ();
+			if (ba == null) {
+				bda.name = "TEMPLATE_ATTRIBUTE" + tDAType.nattr++;
+				bda.bTypeEnum = tBasicTypeEnum.VisString255;
+			} else
+				bda = ba;
+
+			if (bDAField == null) {
+				bDAField = new tBDA[1];
+				bDAField [0] = bda;
+				return 0;
+			} else {
+				int index = this.bDAField.Length;
+				System.Array.Resize<tBDA> (ref this.bDAField,
+					                                 this.bDAField.Length + 1);
+				this.bDAField [index] = bda;
+				return index;
+			}
+		}
+
+		// All attributes with a name already used by other attribute in DBA will be ignored.
+		public int AddBasicAttributeArray (tBDA[] ba)
+		{
+			if (bDAField == null) {
+				bDAField = new tBDA[ba.Length];
+				ba.CopyTo (bDAField, 0);
+				return 0;
+			} else {
+				int index = -1;
+				for (int i = 0; i < ba.Length; i++) {
+					int p = GetAttribute (ba[i].name);
+					if (p < 0) {
+						index = AddBasicAttribute (ba[i]);
+					}
+				}
+				return index;
+			}
+		}
+
+		public int GetAttribute (string name)
+		{
+			if (name == null) return -1;
+
+			for (int j=0; j < bDAField.Length; j++) {
+				if (bDAField[j].name.Equals (name))
+					return j;
+			}
+			return -1;
 		}
 	}
 

@@ -26,17 +26,18 @@ namespace OpenSCL.UI
 {
 	public class LogicalNodeTypeNode : GenericNode
 	{
+		tLNodeType lnt;
 		public LogicalNodeTypeNode (tLNodeType lnt)
 		{
 			if (lnt == null) return;
 			Tag = lnt;
+			this.lnt = lnt;
 			update_name ();
 			lnt.PropertyChanged += new PropertyChangedEventHandler (on_changed);
 		}
 
 		private void update_name ()
 		{
-			var lnt = ((tLNodeType) Tag);
 			string s = "";
 			if (lnt.iedType != null || lnt.iedType != "")
 				s += lnt.iedType + " / ";

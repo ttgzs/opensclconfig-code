@@ -26,14 +26,28 @@ namespace OpenSCL.UI
 	public class IedNode : GenericNode
 	{
 		tDataTypeTemplates templates;
+		tIED ied;
 		public IedNode (tIED ied, tDataTypeTemplates dt)
 		{
 			if (ied == null) return;
 
 			Name = ied.name;
 			templates = dt;
+			this.ied = ied;
 			Tag = ied;
 			ied.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler (on_changed);
+
+			var cxm = new System.Windows.Forms.ContextMenuStrip ();
+			var addld = new System.Windows.Forms.ToolStripMenuItem ("Add Access Point", null, on_add_ap);
+			cxm.Items.Add (addld);
+			base.ContextMenuStrip = cxm;
+
+			update_nodes ();
+		}
+
+		public void update_nodes ()
+		{
+			Nodes.Clear ();
 			if (ied.AccessPoint != null) {
 				for (int i = 0; i < ied.AccessPoint.Length; i++) {
 					var n = new AccessPointNode (i, ied, templates);
@@ -41,6 +55,13 @@ namespace OpenSCL.UI
 					Nodes.Add (n);
 				}
 			}
+		}
+
+		public void on_add_ap (object sender, EventArgs args)
+		{
+			int i = ied.AddAP (null);
+			var n = new AccessPointNode (i, ied, templates);
+			Nodes.Add (n);
 		}
 
 		private void on_changed (object sender,

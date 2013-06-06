@@ -279,8 +279,8 @@ namespace IEC61850.SCL
 			}
 
 			ied.configVersion = "0";
-			ied.AddAP ("AP1");
-			ied.AddLDevice (null, "AP1", this.DataTypeTemplates);
+			int iap = ied.AddAP (null);
+			ied.AddLDevice (null, ied.AccessPoint[iap].name, this.DataTypeTemplates);
 			
 			if (iEDField == null) {
 				iEDField = new tIED[1];

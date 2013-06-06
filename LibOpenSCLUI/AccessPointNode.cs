@@ -31,7 +31,7 @@ namespace OpenSCL.UI
 
 		public AccessPointNode (int iap, tIED ied, tDataTypeTemplates dt)
 		{
-			if (ied == null || dt == null || ied == null) return;
+			if (iap < 0 || ied == null || dt == null || ied == null) return;
 
 			Tag = ied.AccessPoint[iap];
 			this.ied = ied;

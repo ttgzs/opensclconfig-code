@@ -35,6 +35,7 @@ namespace IEC61850.SCL
 	{		
 		private static int index = 0;
 		private static int nld = 0;
+		private static int nap = 0;
 		private tServices servicesField;		
 		private tAccessPoint[] accessPointField;		
 		private string typeField;		
@@ -129,10 +130,12 @@ namespace IEC61850.SCL
 		/// </returns>
 		public int AddAP (string name)
 		{
-			if (name == null)
-				return -1;
 			tAccessPoint ap = new tAccessPoint ();
-			ap.name = name;
+			if (name == null)
+				ap.name = "AP" + nap++;
+			else
+				ap.name = name;
+
 			ap.Server = new tServer ();
 			ap.Server.Authentication = new tServerAuthentication ();
 			int index = -1;

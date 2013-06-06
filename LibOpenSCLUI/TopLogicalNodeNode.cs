@@ -47,16 +47,17 @@ namespace OpenSCL.UI
 			Nodes.Clear ();
 			var ln = ld.LN;
 			for (int i = 0; i < ln.Length; i++) {
-				var n = new LogicalNodeNode (ln[i]);
+				var n = new LogicalNodeNode (i,ld);
+				n.Updated += (sender, what) => { OnUpdated (what); };
 				Nodes.Add (n);
 			}
-			OnUpdated ("AddedLogicalNode");
 		}
 
 		private void on_add_ln (object sender, EventArgs args)
 		{
 			ld.AddLN (null);
 			update_nodes ();
+			OnUpdated (SclViewerTree.WhatUpdated.LogicalNodeAdded);
 		}
 	}
 }

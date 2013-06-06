@@ -40,6 +40,7 @@ namespace IEC61850.SCL
 		private static int nlnt = 0;
 		private static int ndat = 0;
 		private static int ndot = 0;
+		private System.Collections.Hashtable _logical_nodes_types;
 
 		public tDataTypeTemplates ()
 		{
@@ -111,7 +112,42 @@ namespace IEC61850.SCL
 			}
 			return -1;
 		}
-		
+
+		public int AddLNodeType (tLNodeType tmpl)
+		{
+			if (dATypeField == null)
+				AddDAType (null);
+			if (dOTypeField == null)
+				AddDOType (null);
+
+			tLNodeType dt = tmpl;
+			var h = logical_nodes_types;
+
+			if (tmpl == null) {
+				dt = new tLNodeType ();
+				dt.iedType = "TEMPLATE";
+				dt.lnClass = "TMPL";
+				dt.id = dt.id = "TEMPLATE.LNTYPE" + tDataTypeTemplates.nlnt++;
+				while (h.ContainsKey (dt.id))
+					dt.id = "TEMPLATE.LNTYPE" + tDataTypeTemplates.nlnt++;
+			}
+
+			if (lNodeTypeField == null) {
+				lNodeTypeField = new tLNodeType[1];
+				lNodeTypeField [0] = dt;
+				return 0;
+			}
+
+			if (!h.ContainsKey (dt.id)) {
+				int l = lNodeTypeField.Length;
+				System.Array.Resize<tLNodeType> (ref this.lNodeTypeField,
+				                                this.lNodeTypeField.Length + 1);
+				lNodeTypeField[l] = dt;
+				return l;
+			}
+			return -1;
+		}
+
 		/// <summary>
 		/// Add an array of tLNodeTypes, if one of them already exists is not added.
 		/// </summary>
@@ -122,7 +158,7 @@ namespace IEC61850.SCL
 		/// A <see cref="System.Collections.Generic.List<tLNodeType>"/>, a list of ignored tLNTypes.
 		/// </returns>
 		public System.Collections.Generic.List<tLNodeType> 
-			AddLNodeType (tLNodeType[] tmpl)
+			AddLNodeTypeArray (tLNodeType[] tmpl)
 		{
 			if (dATypeField == null)
 				AddDAType (null);
@@ -342,8 +378,24 @@ namespace IEC61850.SCL
 			}
 			return ignored;
 		}
-		
-		
+
+		public System.Collections.Hashtable  logical_nodes_types {
+			get {
+				if (lNodeTypeField != null) {
+
+					if (_logical_nodes_types == null)
+						_logical_nodes_types = new System.Collections.Hashtable ();
+
+					if (_logical_nodes_types.Count != lNodeTypeField.Length) {
+						_logical_nodes_types.Clear ();
+						for (int i = 0; i < lNodeTypeField.Length; i++) {
+							_logical_nodes_types.Add (lNodeTypeField[i].id, i);
+						}
+					}
+				}
+				return _logical_nodes_types;
+			}
+		}
 	}
 }
 

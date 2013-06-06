@@ -37,6 +37,11 @@ namespace OpenSCL.UI
 		private GenericNode iedNode;
 		private GenericNode subNode;
 
+		public enum WhatUpdated {
+			LogicalNodeAdded,
+			LogicalNodeTypeAdded
+		}
+
 		public SclViewerTree ()
 		{
 		}
@@ -92,10 +97,12 @@ namespace OpenSCL.UI
 			}
 		}
 
-		void on_iednode_update (object sender, string what)
+		void on_iednode_update (object sender, WhatUpdated what)
 		{
-			if (what == "AddedLogicalNode")
+			if (what == WhatUpdated.LogicalNodeAdded)
 				((DataTypeTemplateNode)dttemplNode).update_nodes (DataTypeTemplateNode.UpdateContext.All);
+			if (what == WhatUpdated.LogicalNodeTypeAdded)
+				((DataTypeTemplateNode)dttemplNode).update_nodes (DataTypeTemplateNode.UpdateContext.LogicalNodes);
 		}
 
 		void AddSubstationNode ()

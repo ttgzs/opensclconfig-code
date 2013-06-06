@@ -84,10 +84,10 @@ namespace OpenSCL.UI
 			this.Text = name;
 		}
 
-		public delegate void UpdatedHander (object sender, string what);
+		public delegate void UpdatedHander (object sender, SclViewerTree.WhatUpdated what);
 		public event UpdatedHander Updated;
 
-		public void OnUpdated (string what)
+		public void OnUpdated (SclViewerTree.WhatUpdated what)
 		{
 			if (Updated != null)
 				Updated (this, what);

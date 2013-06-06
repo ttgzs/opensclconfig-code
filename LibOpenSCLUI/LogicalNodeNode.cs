@@ -21,29 +21,68 @@
 using System;
 using IEC61850.SCL;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace OpenSCL.UI
 {
 	public class LogicalNodeNode : GenericNode
 	{
-		public LogicalNodeNode (tLN ln)
+		tLDevice ld;
+		int index;
+		public LogicalNodeNode (int index, tLDevice d)
 		{
-			if (ln == null) return;
-
-			Tag = ln;
+			if (d == null) return;
+			ld = d;
+			this.index = index;
+			Tag = d.LN[index];
 			update_name ();
-			ln.PropertyChanged += new PropertyChangedEventHandler (on_changed);
+			d.LN[index].PropertyChanged += new PropertyChangedEventHandler (on_changed);
 		}
 
 		void update_name ()
 		{
-			var ln = ((tLN) Tag);
+			var ln = ld.LN[index];
 			Name = ln.prefix + ln.lnClass + ln.inst;
 		}
 
 		private void on_changed (object sender, PropertyChangedEventArgs e)
 		{
-			update_name ();
+			if (e.PropertyName == "lnClass" ||
+				e.PropertyName == "prefix" ||
+				e.PropertyName == "inst") {
+				update_name ();
+				var h = ld.find_duplicated_ln ();
+				if (h.Count > 0) {
+					string t = "";
+					foreach (object item in h.Keys) {
+						t += "  " + (string)item + "\n";
+					}
+					MessageBox.Show ("This Logical Nodes is Duplated\n\n" + t,
+					                "Duplicated Logical Node",
+				                    MessageBoxButtons.OK,
+					                MessageBoxIcon.Exclamation);
+				}
+			}
+
+			if (e.PropertyName == "lnType") {
+				var h = ld.find_invalid_lntypes ();
+				if (h.Count > 0) {
+					if (MessageBox.Show ("This Logical Node Type: " 
+					                 + ld.LN[index].lnType
+					                 + " is invalid.\n\n"
+					                 + "Do you want to create a new Template LN?",
+					                "Invalid Logical Node Type",
+				                    MessageBoxButtons.YesNo,
+					                MessageBoxIcon.Exclamation) == DialogResult.Yes)
+					{
+						int i = ld.templates.AddLNodeType (null);
+						if (i != -1) {
+							ld.templates.LNodeType[i].id = ld.LN[index].lnType;
+						}
+						OnUpdated (SclViewerTree.WhatUpdated.LogicalNodeTypeAdded);
+					}
+				}
+			}
 		}
 	}
 }

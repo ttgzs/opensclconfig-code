@@ -127,6 +127,7 @@ namespace IEC61850.SCL
 			set 
 			{
 				this.lnTypeField = value;
+				OnPropertyChanged ("lnType");
 			}
 		}
 		

@@ -195,9 +195,7 @@ namespace IEC61850.SCL
 			}
 			else {
 				tln = new tLNodeType (name, "LPHD", name + ".LPHD");
-				var arrtln = new tLNodeType [1];
-				arrtln [0] = tln;
-				tpl.AddLNodeType (arrtln);
+				tpl.AddLNodeType (tln);
 			}
 
 			var ln = new tLN ();

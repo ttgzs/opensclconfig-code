@@ -40,10 +40,11 @@ namespace IEC61850.SCL
 	{		
 		private static int index = 0;
 		private static int nln = 0;
-		private LN0 lN0Field;		
-		private tLN[] lnField;		
-		private tAccessControl accessControlField;		
-		private string instField;		
+		private LN0 lN0Field;
+		private tLN[] lnField;
+		private tAccessControl accessControlField;
+		private string instField;
+		private System.Collections.Hashtable _lnhash = new System.Collections.Hashtable ();
 		
 		public tLDevice()
 		{
@@ -69,7 +70,11 @@ namespace IEC61850.SCL
 				this.lN0Field = value;
 			}
 		}
-		
+
+		[System.Xml.Serialization.XmlIgnore]
+		public System.Collections.Hashtable LNHash
+		{ get; set; }
+
 		[System.Xml.Serialization.XmlElementAttribute("LN")]
 		[Category("LDevice"), Browsable(false)]
 		public tLN[] LN 
@@ -136,10 +141,8 @@ namespace IEC61850.SCL
 						lnt.iedType = this.inst;
 						lnt.lnClass = "TMPL";
 						lnt.id = "TEMPLATE.LNTYPE0";
-						var arr = new tLNodeType[1];
-						arr[0] = lnt;
-						var ig = templates.AddLNodeType (arr);
-						if (ig.Count >= 1)
+						var ig = templates.AddLNodeType (lnt);
+						if (ig == -1)
 							return -1;
 						ln.lnClass = lnt.lnClass;
 						ln.lnType = lnt.id;
@@ -166,7 +169,53 @@ namespace IEC61850.SCL
 			}
 			return index;
 		}
+
+		public int GetLN (string prefix, string lnclass, uint inst)
+		{
+			if (LN != null) {
+				for (int i = 0; i < LN.Length; i++) {
+					if (LN[i].prefix.Equals (prefix) &&
+					    LN[i].lnClass.Equals (lnclass) &&
+					    LN[i].inst == inst)
+						return i;
+				}
+			}
+			return -1;
+		}
+
+		public System.Collections.Hashtable find_duplicated_ln ()
+		{
+			System.Collections.Hashtable hln = new System.Collections.Hashtable ();
+			System.Collections.Hashtable dln = new System.Collections.Hashtable ();
+			if (LN != null) {
+				for (int i = 0; i < LN.Length; i++) {
+					string k = LN[i].prefix +
+						LN[i].lnClass +
+							LN[i].inst;
+					if (!hln.ContainsKey (k))
+						hln.Add (k,i);
+					else
+						dln.Add (k,i);
+				}
+			}
+			return dln;
+		}
+
+		public System.Collections.Hashtable find_invalid_lntypes ()
+		{
+			System.Collections.Hashtable tln = templates.logical_nodes_types;;
+			System.Collections.Hashtable ilnt = new System.Collections.Hashtable ();
+			if (LN != null) {
+				for (int i = 0; i < LN.Length; i++) {
+					if (!tln.ContainsKey (LN[i].lnType)) {
+						string k = LN[i].prefix +
+						LN[i].lnClass +
+							LN[i].inst;
+						ilnt.Add (k,i);
+					}
+				}
+			}
+			return ilnt;
+		}
 	}
-
 }
-

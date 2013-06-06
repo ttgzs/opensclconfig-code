@@ -160,10 +160,10 @@ namespace IEC61850.SCL
 			
 			// Add Types, if one template already exist it is ignored
 			if (conf.DataTypeTemplates != null) {
-				this.DataTypeTemplates.AddLNodeType(conf.DataTypeTemplates.LNodeType);
-				this.DataTypeTemplates.AddDOType(conf.DataTypeTemplates.DOType);
-				this.DataTypeTemplates.AddDAType(conf.DataTypeTemplates.DAType);
-				this.DataTypeTemplates.AddEnumType(conf.DataTypeTemplates.EnumType);
+				this.DataTypeTemplates.AddLNodeTypeArray (conf.DataTypeTemplates.LNodeType);
+				this.DataTypeTemplates.AddDOType (conf.DataTypeTemplates.DOType);
+				this.DataTypeTemplates.AddDAType (conf.DataTypeTemplates.DAType);
+				this.DataTypeTemplates.AddEnumType (conf.DataTypeTemplates.EnumType);
 			}
 			
 			// Subnetworks

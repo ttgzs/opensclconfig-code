@@ -75,7 +75,7 @@ namespace OpenSCL.UI
 			var dt = ((tDataTypeTemplates)Tag);
 			if (dt.LNodeType == null) {
 				dt.AddLNodeType (null);
-				update_nodes (UpdateContext.LoticalNodes);
+				update_nodes (UpdateContext.LogicalNodes);
 			}
 		}
 
@@ -101,7 +101,7 @@ namespace OpenSCL.UI
 			}
 			if (dt.LNodeType != null&&
 			    (what == UpdateContext.All ||
-			 	 what == UpdateContext.LoticalNodes))
+			 	 what == UpdateContext.LogicalNodes))
 			{
 				var n = new TopLogicalNodeTypeNode (dt);
 				Nodes.Add (n);
@@ -112,7 +112,7 @@ namespace OpenSCL.UI
 		public enum UpdateContext {
 			DataAttributes,
 			DataObjects,
-			LoticalNodes,
+			LogicalNodes,
 			All
 		}
 	}

@@ -1039,7 +1039,9 @@ namespace OpenSCLConfigurator
 		void CheckSaved ()
 		{
 			if (modified == true) {
-				if (MessageBox.Show("Do you want to save the changes on this file \n", "Save File", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+				if (MessageBox.Show("Do you want to save the changes on this file \n", "Save File",
+				                    MessageBoxButtons.YesNo,
+				                    MessageBoxIcon.Exclamation) == DialogResult.Yes)
 				{
 					SaveFile (null, null);
 				}

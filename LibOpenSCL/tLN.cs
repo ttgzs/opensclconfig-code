@@ -114,7 +114,7 @@ namespace IEC61850.SCL
 		public tStatusEnum Status {
 			get { return this.status; }
 		}
-		
+
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[Category("LN"), Description("The LN class")]
@@ -125,7 +125,7 @@ namespace IEC61850.SCL
 				return this.lnClassString;
 			}
 			set
-			{				
+			{
 				this.lnClassString = value;
 				if(System.Enum.IsDefined(typeof(tLNClassEnum), lnClass))
 				{

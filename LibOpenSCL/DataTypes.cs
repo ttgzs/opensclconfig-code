@@ -600,7 +600,7 @@ namespace IEC61850.SCL
 		{
 			this.name = "PulseConfig";
 			this.bTypeEnum = tBasicTypeEnum.Struct;
-			this.fc = fCEnum;
+			this.fcEnum = fCEnum;
 			this.id = this.type = lnType+"PulseConfig";
 			this.iedType = iedType;			
 			this.cmdQualField = new cmdQual();
@@ -1134,7 +1134,7 @@ namespace IEC61850.SCL
 		{
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.BOOLEAN;
-			this.fc = fCEnum;
+			this.fcEnum = fCEnum;
 		}
 		
 		public BOOLEAN(string name)
@@ -1153,7 +1153,7 @@ namespace IEC61850.SCL
 		{
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.INT8;	
-			this.fc = fCEnum;
+			this.fcEnum = fCEnum;
 		}
 		
 		public INT8(string name)
@@ -1172,7 +1172,7 @@ namespace IEC61850.SCL
 		{
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.INT16;
-			this.fc = fCEnum;			
+			this.fcEnum = fCEnum;			
 		}
 		
 		public INT16(string name)
@@ -1191,7 +1191,7 @@ namespace IEC61850.SCL
 		{
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.INT24;
-			this.fc = fCEnum;			
+			this.fcEnum = fCEnum;			
 		}
 		
 		public INT24(string name)
@@ -1210,7 +1210,7 @@ namespace IEC61850.SCL
 		{
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.INT32;
-			this.fc = fCEnum;			
+			this.fcEnum = fCEnum;			
 		}
 		
 		public INT32(string name)
@@ -1229,7 +1229,7 @@ namespace IEC61850.SCL
 		{
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.INT128;
-			this.fc = fCEnum;		
+			this.fcEnum = fCEnum;		
 		}
 		
 		public INT128(string name)
@@ -1248,7 +1248,7 @@ namespace IEC61850.SCL
 		{
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.INT8U;
-			this.fc = fCEnum;
+			this.fcEnum = fCEnum;
 		}
 		
 		public INT8U(string name)
@@ -1267,7 +1267,7 @@ namespace IEC61850.SCL
 		{
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.INT16U;
-			this.fc = fCEnum;		
+			this.fcEnum = fCEnum;		
 		}
 		
 		public INT16U(string name)
@@ -1286,7 +1286,7 @@ namespace IEC61850.SCL
 		{
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.INT24U;
-			this.fc = fCEnum;
+			this.fcEnum = fCEnum;
 		}
 		
 		public INT24U (string name)
@@ -1305,7 +1305,7 @@ namespace IEC61850.SCL
 		{
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.INT32U;
-			this.fc = fCEnum;			
+			this.fcEnum = fCEnum;			
 		}
 		
 		public INT32U(string name)
@@ -1324,7 +1324,7 @@ namespace IEC61850.SCL
 		{
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.FLOAT32;
-			this.fc = fCEnum;
+			this.fcEnum = fCEnum;
 		}
 		
 		public FLOAT32 (string name)
@@ -1343,7 +1343,7 @@ namespace IEC61850.SCL
 		{
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.FLOAT64;
-			this.fc = fCEnum;
+			this.fcEnum = fCEnum;
 		}
 		
 		public FLOAT64(string name)
@@ -1363,7 +1363,7 @@ namespace IEC61850.SCL
 		{
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.VisString255;			
-			this.fc = fCEnum;
+			this.fcEnum = fCEnum;
 		}
 		
 		public VisString255(string name)
@@ -1382,7 +1382,7 @@ namespace IEC61850.SCL
 		{
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.Octet64;
-			this.fc = fCEnum;
+			this.fcEnum = fCEnum;
 		}
 		
 		public Octet64(string name)
@@ -1401,7 +1401,7 @@ namespace IEC61850.SCL
 		{
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.VisString32;
-			this.fc = fCEnum;
+			this.fcEnum = fCEnum;
 		}
 		
 		public VisString32(string name)
@@ -1420,7 +1420,7 @@ namespace IEC61850.SCL
 		{
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.Timestamp;
-			this.fc = fCEnum;
+			this.fcEnum = fCEnum;
 		}
 		
 		public Timestamp(string name)
@@ -1439,7 +1439,7 @@ namespace IEC61850.SCL
 		{						
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.Unicode255;	
-			this.fc = fCEnum;
+			this.fcEnum = fCEnum;
 		}
 		
 		public Unicode255(string name)
@@ -1459,7 +1459,7 @@ namespace IEC61850.SCL
 		{						
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.Quality;	
-			this.fc = fCEnum;
+			this.fcEnum = fCEnum;
 		}
 		
 		public Quality(string name)
@@ -1478,7 +1478,7 @@ namespace IEC61850.SCL
 		{						
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.VisString64;
-			this.fc = fCEnum;
+			this.fcEnum = fCEnum;
 		}
 		
 		public VisString64(string name)
@@ -1497,7 +1497,7 @@ namespace IEC61850.SCL
 		{						
 			this.name = name;
 			this.bTypeEnum = tBasicTypeEnum.VisString65;					
-			this.fc = fCEnum;
+			this.fcEnum = fCEnum;
 		}
 	}	
 	
@@ -1519,7 +1519,7 @@ namespace IEC61850.SCL
 			this.Visible = false;
 			this.name = "SBOw";
 			this.bTypeEnum = tBasicTypeEnum.Struct;
-			this.fc = fCEnum;
+			this.fcEnum = fCEnum;
 			this.id = this.type = lnType+"SBOw";
 			this.iedType = iedType;	
 			this.operTmField = new Timestamp("operTm");
@@ -1631,7 +1631,7 @@ namespace IEC61850.SCL
 			this.Visible = false;
 			this.name = "Oper";
 			this.bTypeEnum = tBasicTypeEnum.Struct;
-			this.fc = fCEnum;
+			this.fcEnum = fCEnum;
 			this.id = this.type = lnType+"Oper";
 			this.iedType = iedType;	
 			this.operTmField = new Timestamp("operTm");			
@@ -1742,7 +1742,7 @@ namespace IEC61850.SCL
 			this.Visible = false;
 			this.name = "Cancel";
 			this.bTypeEnum = tBasicTypeEnum.Struct;
-			this.fc = fCEnum;
+			this.fcEnum = fCEnum;
 			this.id = this.type = lnType+"Cancel";
 			this.iedType = iedType;	
 			this.operTmField = new Timestamp("operTm");

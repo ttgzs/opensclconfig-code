@@ -40,19 +40,19 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]	
 	public partial class tAbstractDataAttribute : tUnNaming
 	{		
-		private tVal[] valField;		
-		private string nameField;		
-		private string sAddrField;		
-		private tBasicType bTypeField;		
-		private tValKindEnum valKindField;		
-		private string typeField;		
+		private tVal[] valField;
+		private string nameField;
+		private string sAddrField;
+		private tBasicType _btypeenum;
+		private tValKindEnum valKindField;
+		private string typeField;
 		private uint countField;
 		
 		public tAbstractDataAttribute() 
 		{
 			//this.valKindField = tValKindEnum.Set;
 			//this.countField = ((uint)(0));
-			this.bTypeField = new tBasicType();
+			this._btypeenum = new tBasicType();
 		}
 		
 		[System.Xml.Serialization.XmlElementAttribute("Val")]
@@ -81,6 +81,7 @@ namespace IEC61850.SCL
 			set 
 			{
 				this.nameField = value;
+				OnPropertyChanged ("name");
 			}
 		}
 		
@@ -99,10 +100,14 @@ namespace IEC61850.SCL
 		}
 		
 		[System.Xml.Serialization.XmlIgnore]
+		[Category("AbstractDataAttribute"), Description("The basic type of the attribute.")]
 		public tBasicTypeEnum bTypeEnum 
 		{
-			get { return this.bTypeField.bTypeEnum; }
-			set { this.bTypeField.bTypeEnum = value; }
+			get { return this._btypeenum.bTypeEnum; }
+			set {
+				this._btypeenum.bTypeEnum = value;
+				OnPropertyChanged ("bType");
+			}
 		}
 		
 		
@@ -113,11 +118,12 @@ namespace IEC61850.SCL
 		{
 			get 
 			{
-				return this.bTypeField.bType;
+				return this._btypeenum.bType;
 			}
 			set 
 			{
-				this.bTypeField.bType = value;
+				this._btypeenum.bType = value;
+				OnPropertyChanged ("bType");
 			}
 		}
 		
@@ -146,6 +152,7 @@ namespace IEC61850.SCL
 			set 
 			{
 				this.typeField = value;
+				OnPropertyChanged ("type");
 			}
 		}
 		

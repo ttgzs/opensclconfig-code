@@ -61,7 +61,7 @@ namespace IEC61850.SCL
 		EX,
 		SR, // Edition 2.0
 		BL, // Edition 2.0
-		OR  // Edition 2.0
+		OR,  // Edition 2.0
 	}
 
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]

@@ -57,7 +57,6 @@ namespace OpenSCL.UI
 
 		void add_nodes ()
 		{
-			
 			root = new TreeNode ();
 			root.Name = "SCL";
 			root.Expand ();

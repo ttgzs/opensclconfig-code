@@ -37,10 +37,11 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public partial class tDA : tAbstractDataAttribute
 	{		
-		private bool dchgField;		
-		private bool qchgField;		
-		private bool dupdField;		
-		private tFCEnum fcField;
+		private bool dchgField;
+		private bool qchgField;
+		private bool dupdField;
+		private tFCEnum _fcenum;
+		private string  _fc;
 		
 		public tDA() 
 		{
@@ -94,15 +95,36 @@ namespace IEC61850.SCL
 		[Required]
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[Category("DA"), Description("Functional constraint")]
-		public tFCEnum fc 
+		public string fc 
 		{
 			get
 			{
-				return this.fcField;
+				return this._fc;
 			}
 			set
 			{
-				this.fcField = value;
+				this._fc = value;
+				if (System.Enum.IsDefined(typeof(tFCEnum), fc))
+					this.fcEnum = (tFCEnum) System.Enum.Parse(typeof(tFCEnum), fc);
+				else
+					fcEnum = tFCEnum.EX;
+				OnPropertyChanged ("fc");
+			}
+		}
+
+		[Required]
+		[System.Xml.Serialization.XmlIgnore]
+		[Category("DA"), Description("Functional constraint")]
+		public tFCEnum fcEnum 
+		{
+			get { return this._fcenum;  }
+			set {
+				this._fcenum = value;
+				if(this._fcenum != tFCEnum.EX)
+				{
+					this._fc = this._fcenum.ToString();
+				}
+				OnPropertyChanged ("fc");
 			}
 		}
 	}

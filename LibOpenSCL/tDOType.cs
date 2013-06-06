@@ -151,7 +151,7 @@ namespace IEC61850.SCL
 					var da = new tDA ();
 					da.bTypeEnum = tBasicTypeEnum.VisString255;
 					da.name = "TEMPLATE_ATTRIBUTE";
-					da.fc = tFCEnum.ST;
+					da.fcEnum = tFCEnum.ST;
 					da.dchg = true;
 					dAField = new tDA[1];
 					dAField[0] = da;

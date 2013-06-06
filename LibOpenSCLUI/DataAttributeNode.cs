@@ -28,9 +28,15 @@ namespace OpenSCL.UI
 		public DataAttributeNode (tDA da)
 		{
 			if (da == null) return;
-
-			Name = da.name + " [" + da.bType + " | " + da.type + " | " + da.fc.ToString() + "]";
 			Tag = da;
+			da.PropertyChanged += (sender, e) => { update_name ();};
+			update_name ();
+		}
+
+		void update_name ()
+		{
+			var da = (tDA) Tag;
+			Name = da.name + " [" + da.bType + " | " + da.type + " | " + da.fc.ToString() + "]";
 		}
 	}
 }

@@ -452,12 +452,7 @@ namespace OpenSCLConfigurator
 			//this.importIEDConfigToolStripMenuItem.AutoSize = true;
 			this.importIEDConfigToolStripMenuItem.Text = "Import IED file";
 			this.importIEDConfigToolStripMenuItem.Click += new System.EventHandler(this.ImportIEDClick);
-			// 
-			// Exit
-			// 
-			this.Exit.ImageIndex = 3;
-			this.Exit.Name = "Exit";
-			this.Exit.ToolTipText = "Exit Application";
+
 			// 
 			// toolBar1
 			// 
@@ -467,8 +462,7 @@ namespace OpenSCLConfigurator
 									this.New,
 									this.Open,
 									this.save,
-									this.Separator2,
-									this.Exit});
+									this.Separator2});
 			this.toolBar1.ButtonSize = new System.Drawing.Size(16, 16);
 			
 			this.toolBar1.DropDownArrows = true;
@@ -925,7 +919,8 @@ namespace OpenSCLConfigurator
 		/// </param>
 		private void exitApp(object sender, System.EventArgs e)
 		{
-			Application.Exit();	
+			CheckSaved ();
+			Application.Exit();
 		}
 		
 		/// <summary>
@@ -969,19 +964,13 @@ namespace OpenSCLConfigurator
 				//Open configuration file
 				case 2:
 				{
-					OpenFile(sender, e);						
+					OpenFile(sender, e);
 					break;
 				}
 				//Save configuration file
 				case 3: 
 				{
 					SaveFile(sender, e);
-					break;
-				}				
-				//Exit application
-				case 5: 
-				{
-					Application.Exit();
 					break;
 				}
 			}
@@ -1047,6 +1036,16 @@ namespace OpenSCLConfigurator
 			Panel1.Controls.Add(this.sclviewertree);
 		}
 
+		void CheckSaved ()
+		{
+			if (modified == true) {
+				if (MessageBox.Show("Do you want to save the changes on this file \n", "Save File", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+				{
+					SaveFile (null, null);
+				}
+			}
+		}
+
 		/// <summary>
 		/// This event shows a message to ask for saving the file.
 		/// </summary>
@@ -1060,12 +1059,7 @@ namespace OpenSCLConfigurator
 		/// </param>
 		void FormSCLFormClosed(object sender, FormClosedEventArgs e)
 		{
-			if (modified == true) {
-				if (MessageBox.Show("Do you want to save the changes on this file \n", "Save File", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
-				{
-					SaveFile (sender, e);
-				}
-			}
+			CheckSaved ();
 		}
 
 		void PropertyGridAttributesPropertyValueChanged(object s, PropertyValueChangedEventArgs e)

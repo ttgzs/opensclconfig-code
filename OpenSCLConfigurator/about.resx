@@ -352,7 +352,9 @@
     <value>5</value>
   </data>
   <data name="appcopyright.Text" xml:space="preserve">
-    <value>Copyright © 2009 Comisión Federal de Electricidad</value>
+    <value>
+    	Copyright © 2009 Comisión Federal de Electricidad / Copyright © 2013 Daniel Espinosa -- esodan@gmail.com --
+    </value>
   </data>
   <data name="appcopyright.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>

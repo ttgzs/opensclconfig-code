@@ -126,7 +126,8 @@ namespace OpenSCLConfigurator
 			this.appcopyright.Name = "label4";
 			this.appcopyright.Size = new System.Drawing.Size(528, 23);
 			this.appcopyright.TabIndex = 5;
-			this.appcopyright.Text = "Copyright © 2009 Comisión Federal de Electricidad";
+			this.appcopyright.Text = "Copyright © 2009 Comisión Federal de Electricidad\n"+
+									 "Copyright © 2013 Daniel Espinosa <esodan@gmail.com>";
 			this.appcopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// tabControl1
@@ -236,11 +237,12 @@ namespace OpenSCLConfigurator
 			this.richTextBox3.ReadOnly = true;
 			this.richTextBox3.Size = new System.Drawing.Size(577, 186);
 			this.richTextBox3.TabIndex = 1;
-			this.richTextBox3.Text = "Autors:\n";
+			this.richTextBox3.Text = "Mainteners:\n";
+			this.richTextBox3.Text += "\tDaniel Espinosa <esodan@gmail.com>\n";
+			this.richTextBox3.Text += "\n\nEjecutive Autors:\n";
 			this.richTextBox3.Text += "\tIng. Federico G. Ibarra Romo <federico.ibarra@cfe.gob.mx>\n";
 			this.richTextBox3.Text += "\tIng. Sandra Hernández Silva <sandra.hernandez@cfe.gob.mx>\n";
 			this.richTextBox3.Text += "\tIng. Ciro A. Norzagaray Gutierrez <ciro.norzagaray@cfe.gob.mx>\n";
-			this.richTextBox3.Text += "\tIng. Daniel Espinosa Ortiz <daniel.espinosa@cfe.gob.mx>";
 			this.richTextBox3.Text += "\n\nContributors:\n";
 			this.richTextBox3.Text += "\tLic. Giselle Juárez Durán <gjuarez@iie.org.mx>\n";
 			this.richTextBox3.Text += "\tIng. Víctor Juan Badillo Godínez\n";

@@ -31,16 +31,7 @@ namespace OpenSCL.UI
 	public class SclViewerTree : TreeView
 	{
 		private SCL _scl;
-		private TreeNode root;
-		private GenericNode commNode;
-		private GenericNode dttemplNode;
-		private GenericNode iedNode;
-		private GenericNode subNode;
-
-		public enum WhatUpdated {
-			LogicalNodeAdded,
-			LogicalNodeTypeAdded
-		}
+		private TopSclNode root;
 
 		public SclViewerTree ()
 		{
@@ -62,55 +53,9 @@ namespace OpenSCL.UI
 
 		void add_nodes ()
 		{
-			root = new TreeNode ();
-			root.Name = "SCL";
-			root.Expand ();
+			root = new TopSclNode ();
+			root.scl = scl;
 			this.Nodes.Add (root);
-			AddSubstationNode ();
-			AddCommunicationNode ();
-			AddIEDNode ();
-			AddDataTypeTemplatesNode ();
-			iedNode.Updated += new GenericNode.UpdatedHander (on_iednode_update);
-		}
-
-		void AddCommunicationNode ()
-		{
-			if (this.scl.Communication != null) {
-				commNode = new CommunicationNode (this.scl.Communication);
-				root.Nodes.Add (commNode);
-			}
-		}
-
-		void AddIEDNode ()
-		{
-			if (this.scl.IED != null) {
-				iedNode = new TopIedNode (this.scl);
-				root.Nodes.Add (iedNode);
-			}
-		}
-
-		void AddDataTypeTemplatesNode ()
-		{
-			if (this.scl.DataTypeTemplates != null) {
-				dttemplNode = new DataTypeTemplateNode (this.scl.DataTypeTemplates);
-				root.Nodes.Add (dttemplNode);
-			}
-		}
-
-		void on_iednode_update (object sender, WhatUpdated what)
-		{
-			if (what == WhatUpdated.LogicalNodeAdded)
-				((DataTypeTemplateNode)dttemplNode).update_nodes (DataTypeTemplateNode.UpdateContext.All);
-			if (what == WhatUpdated.LogicalNodeTypeAdded)
-				((DataTypeTemplateNode)dttemplNode).update_nodes (DataTypeTemplateNode.UpdateContext.LogicalNodes);
-		}
-
-		void AddSubstationNode ()
-		{
-			if (this.scl.Substation != null) {
-				subNode = new TopSubstationNode (this.scl.Substation);
-				root.Nodes.Add (subNode);
-			}
 		}
 	}
 }

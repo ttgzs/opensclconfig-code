@@ -62,7 +62,7 @@ namespace IEC61850.SCL
 				this.servicesField = value;
 			}
 		}
-		
+
 		[System.Xml.Serialization.XmlElementAttribute("AccessPoint")]
 		[Category("IED"), Browsable(false)]
 		public tAccessPoint[] AccessPoint 
@@ -191,6 +191,16 @@ namespace IEC61850.SCL
 			else
 				ld.inst = inst;
 
+			tLNodeType tln0;
+			int lnt0 = tpl.GetLNType ("TEMPLATE.LLN0");
+			if (lnt0 != -1) {
+				tln0 = tpl.LNodeType [lnt0];
+			}
+			else {
+				tln0 = new tLNodeType (name, "LLN0", name + ".LLN0");
+				tpl.AddLNodeType (tln0);
+			}
+
 			tLNodeType tln;
 			int lnt = tpl.GetLNType ("TEMPLATE.LPHD");
 			if (lnt != -1) {
@@ -200,6 +210,10 @@ namespace IEC61850.SCL
 				tln = new tLNodeType (name, "LPHD", name + ".LPHD");
 				tpl.AddLNodeType (tln);
 			}
+
+			var ln0 = new LN0 ();
+			ln0.lnType = tln0.id;
+			ld.LN0 = ln0;
 
 			var ln = new tLN ();
 			ln.inst = 1;
@@ -212,6 +226,29 @@ namespace IEC61850.SCL
 				api = this.AddAP (ap);
 			}
 			return this.AccessPoint[api].Server.AddLDevice (ld);
+		}
+
+		public int ConnectAP (string subnetwork, string ap, tCommunication comm)
+		{
+			int iap = GetAP (ap);
+			if (iap < 0) return -1;
+			if (comm == null) return -1;
+			int isn = comm.GetSubNetwork (subnetwork);
+			if (isn < 0) return -1;
+
+			var cap = new tConnectedAP ();
+			cap.apName = ap;
+			cap.iedName = name;
+			cap.Address = new tAddress ();
+			var ip = new tP_IP ();
+			ip.Value = comm.SubNetwork[isn].NetworkIP ();
+			cap.Address.AddtP (ip);
+			var gw = new tP_IPGATEWAY ();
+			gw.Value = comm.SubNetwork[isn].LastIP ();
+			cap.Address.AddtP (gw);
+			var ipnm = new tP_IPSUBNET ();
+			cap.Address.AddtP (ipnm);
+			return comm.SubNetwork[isn].AddConnectedAP (cap);
 		}
 	}
 

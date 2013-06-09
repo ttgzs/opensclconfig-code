@@ -38,7 +38,7 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	public partial class tAnyContentFromOtherNamespace 
 	{		
-		private System.Xml.XmlNode[] anyField;		
+		private System.Xml.XmlNode[] anyField;
 		private System.Xml.XmlAttribute[] anyAttrField;
 		
 		[System.Xml.Serialization.XmlTextAttribute()]

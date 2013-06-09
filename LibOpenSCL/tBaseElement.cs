@@ -199,6 +199,27 @@ namespace IEC61850.SCL
 			}
 		}
 
+		public int AddPrivate (tPrivate pr)
+		{
+			tPrivate p = pr;
+			if (pr == null) {
+				p = new tPrivate ();
+				p.type = "OpenSCL";
+				p.source = "OpenSCL/";
+			}
+			if (Private == null) {
+				Private = new tPrivate[1];
+				Private [0] = p;
+				return 0;
+			}
+			int i = privateField.Length;
+			System.Array.Resize<tPrivate> (ref this.privateField,
+			                           this.privateField.Length + 1);
+			privateField[i] = p;
+			return i;
+		}
+
+
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		public void OnPropertyChanged (string name)

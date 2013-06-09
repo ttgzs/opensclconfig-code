@@ -79,7 +79,7 @@ namespace OpenSCL.UI
 						if (i != -1) {
 							ld.templates.LNodeType[i].id = ld.LN[index].lnType;
 						}
-						OnUpdated (SclViewerTree.WhatUpdated.LogicalNodeTypeAdded);
+						OnUpdated (TopSclNode.WhatUpdated.LogicalNodeTypeAdded);
 					}
 				}
 			}

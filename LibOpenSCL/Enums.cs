@@ -689,7 +689,8 @@ namespace IEC61850.SCL
 		SAR,
 		TCF,
 		TCR,
-		IFL		
+		IFL,
+		EXT // For extensions
 		 
 		// FIXME : tExtensionEquipmentEnum is missing
 	}

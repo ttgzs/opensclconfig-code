@@ -37,7 +37,8 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]		
 	public partial class tConductingEquipment : tAbstractConductingEquipment 
 	{		
-		private string typeField;
+		private string _type;
+		private tCommonConductingEquipmentEnum _type_enum;
 		
 		[System.Xml.Serialization.XmlAttributeAttribute()]
 		[Required]
@@ -46,12 +47,36 @@ namespace IEC61850.SCL
 		{
 			get
 			{
-				return this.typeField;
+				return this._type;
 			}
 			set 
 			{
-				this.typeField = value;
+				this._type = value;
+				if(System.Enum.IsDefined(typeof(tCommonConductingEquipmentEnum), _type))
+				{
+					this.typeEnum = (tCommonConductingEquipmentEnum) 
+								System.Enum.Parse(typeof(tCommonConductingEquipmentEnum), _type);
+				}
+				else
+				{
+					this.typeEnum = tCommonConductingEquipmentEnum.EXT;
+				}
 			}
+		}
+
+		[System.Xml.Serialization.XmlIgnore]
+		public tCommonConductingEquipmentEnum typeEnum {
+			get {
+				return _type_enum;
+			}
+			set {
+				_type_enum = value;
+				if(this._type_enum!=tCommonConductingEquipmentEnum.EXT)
+				{
+					this._type = this._type_enum.ToString();
+				}
+			}
+
 		}
 	}
 }

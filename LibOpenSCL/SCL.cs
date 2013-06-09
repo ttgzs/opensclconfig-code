@@ -33,6 +33,7 @@ namespace IEC61850.SCL
 	public partial class SCL : tBaseElement 
 	{		
 		private static int nied = 0;
+		private static int nsub = 0;
 		private tHeader headerField;		
 		private tSubstation[] substationField;		
 		private tCommunication communicationField;		
@@ -171,7 +172,7 @@ namespace IEC61850.SCL
 			if(this.Communication != null) {
 				if(this.Communication.SubNetwork != null) {
 					if(conf.Communication != null)
-						this.Communication.AddSubNetwork(conf.Communication.SubNetwork);
+						this.Communication.AddSubNetworkArray (conf.Communication.SubNetwork);
 				}
 				else
 					this.Communication.SubNetwork = conf.Communication.SubNetwork;
@@ -331,6 +332,57 @@ namespace IEC61850.SCL
 				}
 			}
 			return h;
+		}
+
+		public int AddSubnetwork (string name)
+		{
+			if (Communication == null) {
+				Communication = new tCommunication ();
+			}
+			return Communication.AddSubNetwork (null);
+		}
+
+		public int AddSubstation (string name)
+		{
+			tSubstation s = new tSubstation ();
+
+			if (name == null) {
+				s.name = "TEMPLATE_SUBSTATION" + nsub++;
+			} else
+				s.name = name;
+			// Voltage 23 kV
+			s.VoltageLevel = new tVoltageLevel[1];
+			s.VoltageLevel[0].name = "TEMPLATE_VOLTAGE_LEVEL";
+			s.VoltageLevel[0].Voltage = new tVoltage ();
+			s.VoltageLevel[0].Voltage.unit = tSIUnitEnum.V;
+			s.VoltageLevel[0].Voltage.multiplier = tUnitMultiplierEnum.k;
+			s.VoltageLevel[0].Voltage.Value = 23;
+			var lowbays = s.VoltageLevel[0].Bay = new tBay[1];
+			lowbays[0].name = "4000";
+			var cb = s.VoltageLevel[0].Bay[0].ConductingEquipment = new tConductingEquipment[1];
+			var cn = s.VoltageLevel[0].Bay[0].ConnectivityNode = new tConnectivityNode [2];
+			cb[0].typeEnum = tCommonConductingEquipmentEnum.CBR;
+			cb[0].Terminal = new tTerminal[2];
+			// Defined 2 terminals with no connection
+			cb[0].Terminal[0].substationName = s.name;
+			cb[0].Terminal[0].voltageLevelName = s.VoltageLevel[0].name;
+			cb[0].Terminal[0].bayName = lowbays[0].name;
+			cb[0].Terminal[0].name = "C1";
+			cb[0].Terminal[1].substationName = s.name;
+			cb[0].Terminal[1].voltageLevelName = s.VoltageLevel[0].name;
+			cb[0].Terminal[1].bayName = lowbays[0].name;
+			cb[0].Terminal[1].name = "C2";
+
+			if (Substation == null) {
+				Substation = new tSubstation[1];
+				Substation [0] = s;
+				return 0;
+			}
+			int i = substationField.Length;
+			System.Array.Resize<tSubstation>(ref this.substationField,
+				                                 this.substationField.Length + 1);
+			substationField[i] = s;
+			return i;
 		}
 	}
 }

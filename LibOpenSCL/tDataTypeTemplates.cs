@@ -379,6 +379,7 @@ namespace IEC61850.SCL
 			return ignored;
 		}
 
+		[System.Xml.Serialization.XmlIgnore]
 		public System.Collections.Hashtable  logical_nodes_types {
 			get {
 				if (lNodeTypeField != null) {

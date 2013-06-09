@@ -170,6 +170,7 @@
     <Compile Include="TopLogicalNodeTypeNode.cs" />
     <Compile Include="LogicalNodeTypeNode.cs" />
     <Compile Include="BasicAttributeNode.cs" />
+    <Compile Include="TopSclNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="INSTALLATION.txt">

@@ -57,7 +57,7 @@ namespace OpenSCL.UI
 		{
 			ld.AddLN (null);
 			update_nodes ();
-			OnUpdated (SclViewerTree.WhatUpdated.LogicalNodeAdded);
+			OnUpdated (TopSclNode.WhatUpdated.LogicalNodeAdded);
 		}
 	}
 }

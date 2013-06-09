@@ -48,11 +48,6 @@ namespace IEC61850.SCL
 		
 		public tLDevice()
 		{
-			if(this.inst == null)
-			{
-				this.inst = "LDevice" + ( ++index ).ToString();
-				this.lN0Field = new LN0 ();
-			}
 		}
 
 		[System.Xml.Serialization.XmlIgnore()]

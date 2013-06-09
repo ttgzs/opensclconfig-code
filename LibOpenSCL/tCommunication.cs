@@ -32,7 +32,9 @@ namespace IEC61850.SCL
 	[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.iec.ch/61850/2003/SCL")]
 	[System.Xml.Serialization.XmlRootAttribute("Communication", Namespace="http://www.iec.ch/61850/2003/SCL", IsNullable=false)]
 	public partial class tCommunication : tUnNaming
-	{		
+	{
+		private static int nsn = 0;
+
 		private tSubNetwork[] subNetworkField;
 		
 		private int isn;
@@ -99,7 +101,18 @@ namespace IEC61850.SCL
 			return AddSubNetwork(sn);
 		}
 		
-		public int AddSubNetwork (tSubNetwork sn) {
+		public int AddSubNetwork (tSubNetwork sn)
+		{
+			tSubNetwork tsn = sn;
+			if (sn == null) {
+				tsn = new tSubNetwork ();
+				tsn.name = "Subnetwork" + nsn++;
+				tsn.BitRate =  new tBitRateInMbPerSec ();
+				tsn.BitRate.unit = tSIUnitEnum.bs;
+				tsn.BitRate.multiplier = tUnitMultiplierEnum.M;
+				tsn.BitRate.Value = 100;
+				tsn.type = "IP";
+			}
 			int index = -1;
 			if (this.subNetworkField != null) {
 				System.Array.Resize<tSubNetwork>(ref this.subNetworkField,
@@ -111,11 +124,11 @@ namespace IEC61850.SCL
 				this.subNetworkField = new tSubNetwork[1];
 				index = 0;
 			}
-			this.subNetworkField[index] = sn;
+			this.subNetworkField[index] = tsn;
 			return index;
 		}
 		
-		public bool AddSubNetwork(tSubNetwork[] sns) {
+		public bool AddSubNetworkArray (tSubNetwork[] sns) {
 			if (sns == null)
 				return false;
 			
